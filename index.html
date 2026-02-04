@@ -1,235 +1,220 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vibe Code Launchpad</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #0f172a;
-        --card: #0b1220;
-        --accent: #38bdf8;
-        --accent-2: #fbbf24;
-        --text: #e2e8f0;
-        --muted: #94a3b8;
-        --pill: rgba(56, 189, 248, 0.15);
-      }
-      * {
-        box-sizing: border-box;
-      }
-      body {
-        margin: 0;
-        font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-        min-height: 100vh;
-        background: radial-gradient(circle at top, #1e293b 0%, var(--bg) 60%);
-        color: var(--text);
-      }
-      .wrap {
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 32px 20px 60px;
-      }
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      .logo {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-      }
-      .logo span {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 36px;
-        height: 36px;
-        border-radius: 12px;
-        background: var(--pill);
-        color: var(--accent);
-        font-size: 18px;
-      }
-      .badge {
-        font-size: 12px;
-        padding: 6px 12px;
-        border-radius: 999px;
-        background: rgba(248, 250, 252, 0.1);
-        color: var(--muted);
-        border: 1px solid rgba(148, 163, 184, 0.3);
-      }
-      .hero {
-        margin-top: 48px;
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-        align-items: center;
-      }
-      h1 {
-        font-size: clamp(2rem, 3vw, 3rem);
-        margin: 0 0 12px;
-      }
-      p {
-        margin: 0 0 16px;
-        color: var(--muted);
-        line-height: 1.6;
-      }
-      .cta {
-        display: flex;
-        gap: 12px;
-        flex-wrap: wrap;
-      }
-      button {
-        border: 0;
-        border-radius: 12px;
-        padding: 12px 18px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        background: var(--accent);
-        color: #0f172a;
-      }
-      button.secondary {
-        background: transparent;
-        border: 1px solid rgba(148, 163, 184, 0.5);
-        color: var(--text);
-      }
-      .card {
-        background: var(--card);
-        border: 1px solid rgba(148, 163, 184, 0.2);
-        border-radius: 20px;
-        padding: 22px;
-        box-shadow: 0 20px 60px rgba(15, 23, 42, 0.45);
-      }
-      .grid {
-        margin-top: 36px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 16px;
-      }
-      .grid h3 {
-        margin: 0 0 8px;
-      }
-      .pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 12px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        background: var(--pill);
-        color: var(--accent);
-        margin-bottom: 10px;
-      }
-      .launch-plan {
-        margin-top: 18px;
-        padding: 14px 16px;
-        border-radius: 14px;
-        background: rgba(15, 23, 42, 0.7);
-        border: 1px solid rgba(148, 163, 184, 0.2);
-      }
-      .launch-plan li {
-        margin: 8px 0;
-      }
-      .hidden {
-        display: none;
-      }
-      .footer {
-        margin-top: 40px;
-        color: var(--muted);
-        font-size: 13px;
-        text-align: center;
-      }
-      .highlight {
-        color: var(--accent-2);
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <header>
-        <div class="logo">
-          <span>⚡</span>
-          Vibe Code Launchpad
-        </div>
-        <span class="badge">Ready for GitHub Launch</span>
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vibe Code Launchpad</title>
 
-      <section class="hero">
-        <div>
-          <div class="pill">Momentum Mode</div>
-          <h1>Build a <span class="highlight">rock-solid</span> launch in one focused sprint.</h1>
-          <p>
-            This is a lightweight launch kit for turning your next GitHub repo into something people can
-            actually try, star, and share. Pick a vibe, ship the MVP, and keep the energy high.
-          </p>
-          <div class="cta">
-            <button id="generate">Generate Launch Plan</button>
-            <button class="secondary" id="reset">Reset</button>
-          </div>
-        </div>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: min(900px, 95vw);
+      padding: 32px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    p {
+      margin: 0 0 20px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: #020617;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .card p {
+      font-size: 14px;
+    }
+
+    button {
+      margin-top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: none;
+      font-size: 14px;
+      cursor: pointer;
+      background: #38bdf8;
+      color: #020617;
+      font-weight: 600;
+    }
+
+    button.secondary {
+      background: transparent;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      color: #e5e7eb;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    /* Shared panel style */
+    .panel {
+      background: #020617;
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 14px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <!-- HOME / LAUNCHPAD -->
+    <section id="home" class="panel">
+      <h1>Vibe Code Launchpad</h1>
+      <p>
+        This is a test environment. Features may exist, may be fake,
+        or may aggressively talk about sourdough.
+      </p>
+
+      <div class="grid">
         <div class="card">
-          <h2>What we launch today</h2>
-          <p>
-            A single-page app that looks clean, tells a story fast, and points visitors to the next action.
-            Perfect for product teasers, waitlists, and community drops.
-          </p>
-          <ul>
-            <li>Clear one-line pitch</li>
-            <li>Three feature highlights</li>
-            <li>Call-to-action and roadmap snippet</li>
-          </ul>
+          <h3>🥖 Sourdough Experience</h3>
+          <p>A fully tested, highly necessary interactive bread journey.</p>
+          <button onclick="goSourdough()">Enter</button>
         </div>
-      </section>
 
-      <section class="grid">
         <div class="card">
-          <h3>1. Pick the vibe</h3>
-          <p>Choose a theme, set a color, and write a one-sentence promise. Keep it bold and specific.</p>
+          <h3>📊 Feature Alpha</h3>
+          <p>Data, charts, or something impressive later.</p>
+          <button class="secondary" onclick="goTest()">Open</button>
         </div>
+
         <div class="card">
-          <h3>2. Ship the MVP</h3>
-          <p>Deliver a working demo in under two hours. It does one thing, but it does it cleanly.</p>
+          <h3>🧠 Feature Beta</h3>
+          <p>Possibly smart. Possibly fake.</p>
+          <button class="secondary" onclick="goTest()">Open</button>
         </div>
+
         <div class="card">
-          <h3>3. Capture momentum</h3>
-          <p>Link to GitHub, collect feedback, and iterate. The goal is stars + users, not perfection.</p>
+          <h3>⚙️ Settings</h3>
+          <p>Controls, toggles, and buttons that don’t do anything yet.</p>
+          <button class="secondary" onclick="goTest()">Open</button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="plan" class="launch-plan hidden">
-        <h3>Your Vibe Code Launch Plan</h3>
-        <ol>
-          <li>Title the repo with a clear outcome ("Calm Inbox", "Focus Sprint", "Daily Spark").</li>
-          <li>Write a 3-sentence README: problem, solution, action.</li>
-          <li>Include a screenshot or short GIF on day one.</li>
-          <li>Post a 3-line launch note on X/LinkedIn/Discord with the link.</li>
-          <li>Ask for one specific type of feedback.</li>
-        </ol>
-      </section>
+    <!-- TEST IN PROGRESS PAGE -->
+    <section id="test" class="panel hidden">
+      <h1>🚧 Test in Progress</h1>
+      <p>
+        This feature exists in spirit.
+        Functionality pending motivation, coffee, and vibes.
+      </p>
+      <button onclick="goHome()">Back to Launchpad</button>
+    </section>
 
-      <p class="footer">You bring the vision. This page brings the launch energy.</p>
-    </div>
+    <!-- SOURDOUGH APP -->
+    <section id="sourdough" class="panel hidden">
+      <h1>Important Question</h1>
+      <p>
+        Are you interested in learning about Dan’s love of sourdough bread?
+      </p>
 
-    <script>
-      const plan = document.getElementById("plan");
-      const generate = document.getElementById("generate");
-      const reset = document.getElementById("reset");
+      <div id="sd-page1">
+        <button onclick="sdYes()">Yes</button>
+        <button class="secondary" onclick="sdNo()">No</button>
+      </div>
 
-      generate.addEventListener("click", () => {
-        plan.classList.remove("hidden");
-        plan.scrollIntoView({ behavior: "smooth" });
-      });
+      <div id="sd-page2" class="hidden">
+        <p>
+          Let’s revisit this.
+          This includes starter care, hydration ratios, and unsolicited bread facts.
+        </p>
+        <button onclick="sdYes()">Yes</button>
+      </div>
 
-      reset.addEventListener("click", () => {
-        plan.classList.add("hidden");
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    </script>
-  </body>
+      <div id="sd-page3" class="hidden">
+        <h2>Welcome to the Crumb Zone</h2>
+        <p>Sourdough is a responsibility.</p>
+        <img src="sourdough_hero_loaf.jpg" alt="Heroic sourdough loaf" />
+        <button onclick="goHome()">Back to Launchpad</button>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const home = document.getElementById("home");
+    const test = document.getElementById("test");
+    const sourdough = document.getElementById("sourdough");
+
+    function hideAll() {
+      home.classList.add("hidden");
+      test.classList.add("hidden");
+      sourdough.classList.add("hidden");
+    }
+
+    function goHome() {
+      hideAll();
+      home.classList.remove("hidden");
+      resetSourdough();
+    }
+
+    function goTest() {
+      hideAll();
+      test.classList.remove("hidden");
+    }
+
+    function goSourdough() {
+      hideAll();
+      sourdough.classList.remove("hidden");
+    }
+
+    // Sourdough logic
+    function sdNo() {
+      document.getElementById("sd-page1").classList.add("hidden");
+      document.getElementById("sd-page2").classList.remove("hidden");
+    }
+
+    function sdYes() {
+      document.getElementById("sd-page1").classList.add("hidden");
+      document.getElementById("sd-page2").classList.add("hidden");
+      document.getElementById("sd-page3").classList.remove("hidden");
+    }
+
+    function resetSourdough() {
+      document.getElementById("sd-page1").classList.remove("hidden");
+      document.getElementById("sd-page2").classList.add("hidden");
+      document.getElementById("sd-page3").classList.add("hidden");
+    }
+  </script>
+</body>
 </html>
