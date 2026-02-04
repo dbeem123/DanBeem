@@ -3,151 +3,936 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dan’s Sourdough App</title>
+    <title>Dan’s Vibe Launchpad</title>
     <style>
+      :root {
+        color-scheme: dark;
+        --bg: #05060a;
+        --card: rgba(17, 19, 30, 0.72);
+        --glow: rgba(125, 211, 252, 0.4);
+        --accent: #8b5cf6;
+        --accent-2: #22d3ee;
+        --accent-3: #f472b6;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --border: rgba(148, 163, 184, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
         margin: 0;
-        padding: 24px;
+        font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, sans-serif;
+        background: radial-gradient(circle at top, rgba(148, 163, 184, 0.15), transparent 45%),
+          radial-gradient(circle at 10% 20%, rgba(125, 211, 252, 0.2), transparent 40%),
+          radial-gradient(circle at 85% 10%, rgba(139, 92, 246, 0.18), transparent 35%),
+          var(--bg);
+        color: var(--text);
         min-height: 100vh;
+      }
+
+      .aurora {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        background: linear-gradient(120deg, rgba(34, 211, 238, 0.08), rgba(139, 92, 246, 0.12), rgba(244, 114, 182, 0.08));
+        mix-blend-mode: screen;
+        animation: drift 12s ease-in-out infinite alternate;
+      }
+
+      @keyframes drift {
+        0% {
+          transform: translateY(-2%) scale(1);
+          opacity: 0.6;
+        }
+        100% {
+          transform: translateY(2%) scale(1.05);
+          opacity: 0.9;
+        }
+      }
+
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 32px 24px 60px;
+        position: relative;
+        z-index: 1;
+      }
+
+      header {
         display: flex;
         align-items: center;
-        justify-content: center;
-        background: #f6f7fb;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 36px;
       }
-      .card {
-        width: min(640px, 94vw);
-        background: white;
-        border-radius: 16px;
-        padding: 22px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        text-align: center;
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 16px;
       }
-      h1 { margin: 0 0 10px; font-size: 22px; }
-      p { margin: 0 0 16px; color: #444; line-height: 1.4; }
-      .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-      button {
+
+      .avatar {
+        width: 64px;
+        height: 64px;
+        border-radius: 20px;
+        border: 2px solid rgba(125, 211, 252, 0.6);
+        box-shadow: 0 0 30px rgba(125, 211, 252, 0.4);
+        object-fit: cover;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 12px 0 8px;
+        font-size: clamp(32px, 4vw, 48px);
+        line-height: 1.1;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 17px;
+        max-width: 520px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .hero-actions button,
+      .hero-actions .ghost {
+        min-width: 210px;
+      }
+
+      button,
+      .ghost {
         border: 0;
-        padding: 12px 16px;
-        border-radius: 12px;
-        font-size: 16px;
-        cursor: pointer;
-        background: #111827;
-        color: white;
-      }
-      button.secondary { background: #4b5563; }
-      .hidden { display: none; }
-      img {
-        max-width: 100%;
         border-radius: 14px;
-        margin-top: 14px;
+        padding: 12px 18px;
+        font-size: 15px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
-      .facts {
-        text-align: left;
-        margin: 14px auto 0;
-        width: min(520px, 92vw);
-        background: #f9fafb;
-        border: 1px solid #e5e7eb;
+
+      button {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #0f172a;
+        box-shadow: 0 12px 20px rgba(34, 211, 238, 0.2);
+      }
+
+      button:hover {
+        transform: translateY(-2px);
+      }
+
+      .ghost {
+        background: transparent;
+        color: var(--text);
+        border: 1px solid var(--border);
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 18px;
+        margin-top: 32px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        padding: 18px;
+        min-height: 160px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.4);
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(circle at top right, rgba(125, 211, 252, 0.18), transparent 55%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .card:hover::after {
+        opacity: 1;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+      }
+
+      .card p {
+        margin: 0 0 18px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.5;
+      }
+
+      .tag-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .tag {
+        font-size: 11px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(30, 41, 59, 0.7);
+        border: 1px solid var(--border);
+        color: var(--muted);
+      }
+
+      .panel {
+        margin-top: 36px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+      }
+
+      .panel .card {
+        min-height: 190px;
+      }
+
+      .app-panel {
+        margin-top: 32px;
+      }
+
+      .app-panel.hidden {
+        display: none;
+      }
+
+      .app-panel .panel-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .app-panel .panel-head h2 {
+        margin: 0 0 6px;
+        font-size: 22px;
+      }
+
+      .app-panel .panel-head p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .app-panel .panel-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .form-row label {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .form-row input {
+        background: rgba(15, 23, 42, 0.8);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 10px 12px;
+        color: var(--text);
+        font-size: 14px;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+
+      .tab-button {
+        border: 1px solid var(--border);
+        background: rgba(30, 41, 59, 0.7);
+        color: var(--text);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      .tab-button.active {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: #0f172a;
+        border-color: transparent;
+      }
+
+      .tab-panel.hidden {
+        display: none;
+      }
+
+      .results {
+        display: grid;
+        gap: 14px;
+      }
+
+      .result-block {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid var(--border);
         border-radius: 14px;
         padding: 14px 16px;
       }
-      .facts li { margin: 8px 0; }
-      .tag {
-        display: inline-block;
-        font-size: 12px;
+
+      .result-block h4 {
+        margin: 0 0 8px;
+        font-size: 16px;
+      }
+
+      .result-block p,
+      .result-block li {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .result-block ul {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         padding: 6px 10px;
         border-radius: 999px;
-        background: #fff7ed;
-        border: 1px solid #fed7aa;
-        color: #9a3412;
-        margin-bottom: 10px;
+        border: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .sourdough {
+        margin-top: 36px;
+        display: grid;
+        gap: 18px;
+      }
+
+      .sourdough .card {
+        min-height: auto;
+      }
+
+      .sourdough .facts {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .sourdough .facts li {
+        margin-bottom: 8px;
+      }
+
+      .sourdough .tag {
+        background: rgba(14, 116, 144, 0.25);
+        color: #67e8f9;
+        border-color: rgba(34, 211, 238, 0.4);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 18px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .status strong {
+        color: var(--text);
+      }
+
+      footer {
+        margin-top: 44px;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      @media (max-width: 720px) {
+        header {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .hero-actions button,
+        .hero-actions .ghost {
+          width: 100%;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="card">
-      <!-- Page 1 -->
-      <section id="page1">
-        <span class="tag">Important Question</span>
-        <h1>Do you want to hear about Dan’s love of sourdough bread?</h1>
-        <p>This decision is not optional. It is inevitable.</p>
-        <div class="btns">
-          <button id="yes1">Yes</button>
-          <button class="secondary" id="no1">No</button>
+    <div class="aurora"></div>
+    <div class="wrap">
+      <header>
+        <div class="brand">
+          <img class="avatar" src="me.jpg" alt="Dan smiling" />
+          <div>
+            <span class="pill">Vibe Coding Launchpad</span>
+            <h1>Welcome, Dan. Time to build the impossible.</h1>
+            <p class="lead">
+              This is your vibe home base — a playful command center for experiments, prototypes,
+              and ridiculously fun side quests.
+            </p>
+          </div>
         </div>
-      </section>
-
-      <!-- Page 2 (UPDATED) -->
-      <section id="page2" class="hidden">
-        <span class="tag">Let’s Try This Again...</span>
-        <h1>Are you interested in learning about Dan’s sourdough bread journey?</h1>
-        <p>
-          This includes starter maintenance, hydration ratios, cold retard strategy,
-          crumb structure, crust appreciation, and unsolicited bread facts. This is why you're here isn't it?
-        </p>
-        <p>
-          Please confirm your interest below.
-        </p>
-        <div class="btns">
-          <button id="yes2">Yes</button>
+        <div class="hero-actions">
+          <button type="button">Start a New Experiment</button>
+          <button type="button" class="ghost">Summon the Idea Vault</button>
+          <button type="button" class="ghost" id="sourdoughJump">Ask about sourdough</button>
         </div>
-      </section>
+      </header>
 
-      <!-- Page 3 -->
-      <section id="page3" class="hidden">
-        <span class="tag">Welcome to the Crumb Zone</span>
-        <h1>Dan Loves Sourdough</h1>
-        <p>
-          Sourdough is a lifestyle. A hobby. A science experiment. A delicious emotional support system.
-        </p>
-
-        <img src="me.jpg" alt="Photo of Dan holding something awesome" />
-
-        <div class="facts">
-          <p style="margin: 0 0 10px; font-weight: 700;">Sourdough facts you now have to live with:</p>
-          <ul style="margin: 0; padding-left: 18px;">
+      <section class="sourdough" aria-label="Sourdough corner">
+        <article class="card" id="sourdoughIntro">
+          <span class="tag">Important Question</span>
+          <h3>Do you want to hear about Dan’s love of sourdough bread?</h3>
+          <p>This decision is not optional. It is inevitable.</p>
+          <div class="tag-row">
+            <button type="button" id="yes1">Yes</button>
+            <button type="button" class="ghost" id="no1">No</button>
+          </div>
+        </article>
+        <article class="card hidden" id="sourdoughConfirm">
+          <span class="tag">Let’s Try This Again...</span>
+          <h3>Are you interested in learning about Dan’s sourdough bread journey?</h3>
+          <p>
+            This includes starter maintenance, hydration ratios, cold retard strategy,
+            crumb structure, crust appreciation, and unsolicited bread facts. This is why you're here isn't it?
+          </p>
+          <div class="tag-row">
+            <button type="button" id="yes2">Yes</button>
+          </div>
+        </article>
+        <article class="card hidden" id="sourdoughReveal">
+          <span class="tag">Welcome to the Crumb Zone</span>
+          <h3>Dan Loves Sourdough</h3>
+          <p>
+            Sourdough is a lifestyle. A hobby. A science experiment. A delicious emotional support system.
+          </p>
+          <img class="avatar" src="me.jpg" alt="Dan holding something awesome" />
+          <p style="margin: 16px 0 8px; font-weight: 600;">Sourdough facts you now have to live with:</p>
+          <ul class="facts">
             <li>I respect the starter. It is alive and it has opinions.</li>
             <li>I will absolutely talk about hydration percentages like it’s sports stats.</li>
             <li>Cold retard method because schedules are real, and so is bread.</li>
             <li>Crust = joy. Crumb = personality. Oven spring = victory.</li>
             <li>If you ever need bread, I will show up like a carb based superhero.</li>
           </ul>
-        </div>
+          <div class="status">
+            <span>Next loaf</span>
+            <strong>Always loading...</strong>
+          </div>
+        </article>
+      </section>
 
-        <div class="btns" style="margin-top: 14px;">
-          <button class="secondary" id="restart">Restart</button>
+      <section class="grid" aria-label="Launch projects">
+        <article class="card">
+          <h3>⚡ Project: Neon Notebook</h3>
+          <p>Spin up a notes playground with glowing UI and rapid-fire prompts.</p>
+          <div class="tag-row">
+            <span class="tag">Prototype</span>
+            <span class="tag">UI Jam</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>🎧 Project: Soundscape Lab</h3>
+          <p>Design calming sound loops and ambient backgrounds for focus sessions.</p>
+          <div class="tag-row">
+            <span class="tag">Audio</span>
+            <span class="tag">Mood</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>🪐 Project: Cosmic Calendar</h3>
+          <p>Build a playful timeline of big ideas and nightly build missions.</p>
+          <div class="tag-row">
+            <span class="tag">Planning</span>
+            <span class="tag">Design</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>🧪 Project: Pixel Potion</h3>
+          <p>Mix color palettes and motion for your next wow-factor UI drop.</p>
+          <div class="tag-row">
+            <span class="tag">Visual FX</span>
+            <span class="tag">Motion</span>
+          </div>
+        </article>
+        <article class="card">
+          <h3>🧩 Mini App: Chain Snapshot</h3>
+          <p>Pull CMS data fast: provider profile, chain staffing, F-tags, and PBJ math.</p>
+          <div class="tag-row">
+            <span class="tag">Nursing Homes</span>
+            <span class="tag">CMS Data</span>
+          </div>
+          <div class="status" style="margin-top: 16px;">
+            <span>Ready to launch</span>
+            <button type="button" id="openChainSnapshot">Open app</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="card app-panel hidden" id="chainSnapshotPanel" aria-label="Chain Snapshot app">
+        <div class="panel-head">
+          <div>
+            <h2>Chain Snapshot</h2>
+            <p>Look up a facility by CCN and pull key CMS chain and staffing indicators.</p>
+          </div>
+          <div class="panel-actions">
+            <button type="button" id="runChainSnapshot">Run</button>
+            <button type="button" class="ghost" id="closeChainSnapshot">Close</button>
+          </div>
+        </div>
+        <div class="form-row">
+          <label for="ccnInput">CCN</label>
+          <input id="ccnInput" type="text" placeholder="e.g. 123456" />
+          <span class="badge" id="chainStatus">Awaiting query</span>
+        </div>
+        <div class="tabs" role="tablist">
+          <button type="button" class="tab-button active" data-tab="summaryTab">Summary</button>
+          <button type="button" class="tab-button" data-tab="rightsTab">Resident Rights F tags</button>
+          <button type="button" class="tab-button" data-tab="pbjTab">PBJ advanced</button>
+        </div>
+        <div class="results">
+          <div class="tab-panel" id="summaryTab">
+            <div class="result-block" id="facilitySummary">
+              <h4>Facility Summary</h4>
+              <p>Run a CCN to populate details.</p>
+            </div>
+            <div class="result-block" id="chainSummary">
+              <h4>Chain Summary</h4>
+              <p>Chain details will appear here when available.</p>
+            </div>
+          </div>
+          <div class="tab-panel hidden" id="rightsTab">
+            <div class="result-block">
+              <h4>Resident Rights F-tags (newest 25)</h4>
+              <ul id="rightsList">
+                <li>Run a CCN to populate results.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="tab-panel hidden" id="pbjTab">
+            <div class="result-block">
+              <h4>PBJ Daily Nurse Staffing</h4>
+              <div class="form-row">
+                <label for="pbjStart">Start</label>
+                <input id="pbjStart" type="date" />
+                <label for="pbjEnd">End</label>
+                <input id="pbjEnd" type="date" />
+              </div>
+              <div id="pbjResults">
+                <p>Choose a date range and run to see PBJ totals.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+
+      <section class="panel" aria-label="Mission control">
+        <article class="card">
+          <h3>Mission Control</h3>
+          <p>Pick a vibe, set a timer, and ship one tiny magical thing today.</p>
+          <div class="status">
+            <span>Current vibe</span>
+            <strong>Electric Curiosity</strong>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Quest Log</h3>
+          <p>Log your wins. Make it loud. Celebrate every small build.</p>
+          <div class="status">
+            <span>Latest win</span>
+            <strong>"Built a launchpad!"</strong>
+          </div>
+        </article>
+        <article class="card">
+          <h3>Power-Ups</h3>
+          <p>Drop in inspirations, playlists, or daily rituals that keep you creating.</p>
+          <div class="status">
+            <span>Next boost</span>
+            <strong>Night mode playlist</strong>
+          </div>
+        </article>
+      </section>
+
+      <footer>
+        Built for playful momentum ✨ — keep vibing, keep shipping.
+      </footer>
     </div>
 
     <script>
-      const page1 = document.getElementById("page1");
-      const page2 = document.getElementById("page2");
-      const page3 = document.getElementById("page3");
+      const datasetCache = new Map();
+      const datasetUrlCache = new Map();
+
+      const sourdoughIntro = document.getElementById("sourdoughIntro");
+      const sourdoughConfirm = document.getElementById("sourdoughConfirm");
+      const sourdoughReveal = document.getElementById("sourdoughReveal");
 
       const show = (el) => el.classList.remove("hidden");
       const hide = (el) => el.classList.add("hidden");
 
-      const goPage3 = () => {
-        hide(page1);
-        hide(page2);
-        show(page3);
+      const goReveal = () => {
+        hide(sourdoughIntro);
+        hide(sourdoughConfirm);
+        show(sourdoughReveal);
       };
 
-      document.getElementById("yes1").addEventListener("click", goPage3);
+      document.getElementById("yes1").addEventListener("click", goReveal);
+      document.getElementById("yes2").addEventListener("click", goReveal);
 
       document.getElementById("no1").addEventListener("click", () => {
-        hide(page1);
-        show(page2);
+        hide(sourdoughIntro);
+        show(sourdoughConfirm);
       });
 
-      document.getElementById("yes2").addEventListener("click", goPage3);
-
-      document.getElementById("restart").addEventListener("click", () => {
-        hide(page2);
-        hide(page3);
-        show(page1);
+      document.getElementById("sourdoughJump").addEventListener("click", () => {
+        sourdoughIntro.scrollIntoView({ behavior: "smooth", block: "center" });
       });
+
+      const chainSnapshotPanel = document.getElementById("chainSnapshotPanel");
+      const openChainSnapshot = document.getElementById("openChainSnapshot");
+      const closeChainSnapshot = document.getElementById("closeChainSnapshot");
+      const runChainSnapshot = document.getElementById("runChainSnapshot");
+      const ccnInput = document.getElementById("ccnInput");
+      const chainStatus = document.getElementById("chainStatus");
+      const facilitySummary = document.getElementById("facilitySummary");
+      const chainSummary = document.getElementById("chainSummary");
+      const rightsList = document.getElementById("rightsList");
+      const pbjResults = document.getElementById("pbjResults");
+      const pbjStart = document.getElementById("pbjStart");
+      const pbjEnd = document.getElementById("pbjEnd");
+
+      const tabButtons = document.querySelectorAll(".tab-button");
+      const tabPanels = document.querySelectorAll(".tab-panel");
+
+      const showPanel = (panel) => panel.classList.remove("hidden");
+      const hidePanel = (panel) => panel.classList.add("hidden");
+
+      const setStatus = (text) => {
+        chainStatus.textContent = text;
+      };
+
+      const setActiveTab = (targetId) => {
+        tabButtons.forEach((button) => {
+          button.classList.toggle("active", button.dataset.tab === targetId);
+        });
+        tabPanels.forEach((panel) => {
+          panel.classList.toggle("hidden", panel.id !== targetId);
+        });
+      };
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActiveTab(button.dataset.tab);
+        });
+      });
+
+      openChainSnapshot.addEventListener("click", () => {
+        showPanel(chainSnapshotPanel);
+        chainSnapshotPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      closeChainSnapshot.addEventListener("click", () => {
+        hidePanel(chainSnapshotPanel);
+      });
+
+      const getFirstValue = (row, fields) => {
+        for (const field of fields) {
+          if (row && row[field] !== undefined && row[field] !== null && row[field] !== "") {
+            return row[field];
+          }
+        }
+        return null;
+      };
+
+      const normalizeCcn = (value) => String(value || "").trim();
+
+      const fetchDatasetCatalog = async () => {
+        if (datasetCache.has("catalog")) {
+          return datasetCache.get("catalog");
+        }
+        const response = await fetch("https://data.cms.gov/data.json");
+        if (!response.ok) {
+          throw new Error("Failed to load CMS catalog.");
+        }
+        const data = await response.json();
+        datasetCache.set("catalog", data);
+        return data;
+      };
+
+      const findDatasetUrl = async (title) => {
+        if (datasetUrlCache.has(title)) {
+          return datasetUrlCache.get(title);
+        }
+        const catalog = await fetchDatasetCatalog();
+        const dataset = (catalog.dataset || []).find((entry) => entry.title === title);
+        if (!dataset) {
+          return null;
+        }
+        const distribution = dataset.distribution || [];
+        const access =
+          distribution.find((item) => item.accessURL)?.accessURL ||
+          distribution.find((item) => item.downloadURL)?.downloadURL ||
+          distribution[0]?.accessURL ||
+          distribution[0]?.downloadURL ||
+          null;
+        if (access) {
+          datasetUrlCache.set(title, access);
+        }
+        return access;
+      };
+
+      const fetchJson = async (url) => {
+        if (!url) {
+          return [];
+        }
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error(`Request failed for ${url}`);
+        }
+        return response.json();
+      };
+
+      const buildSocrataUrl = (baseUrl, params) => {
+        if (!baseUrl) {
+          return null;
+        }
+        const url = new URL(baseUrl);
+        Object.entries(params).forEach(([key, value]) => {
+          if (value !== null && value !== undefined && value !== "") {
+            url.searchParams.set(key, value);
+          }
+        });
+        return url.toString();
+      };
+
+      const formatStars = (value) => {
+        if (value === null || value === undefined || value === "") {
+          return "Not reported";
+        }
+        return `${value} ★`;
+      };
+
+      const formatAddress = (row) => {
+        const street = getFirstValue(row, ["address", "street_address", "provider_address", "provider_address_1"]);
+        const city = getFirstValue(row, ["city", "provider_city"]);
+        const state = getFirstValue(row, ["state", "provider_state"]);
+        const zip = getFirstValue(row, ["zip", "zip_code", "provider_zip_code", "provider_zip"]);
+        return [street, city, state, zip].filter(Boolean).join(", ");
+      };
+
+      const renderFacilitySummary = (row) => {
+        if (!row) {
+          facilitySummary.innerHTML = "<h4>Facility Summary</h4><p>No facility found for that CCN.</p>";
+          return;
+        }
+        const name = getFirstValue(row, ["provider_name", "facility_name", "name"]);
+        const overall = formatStars(getFirstValue(row, ["overall_rating", "overall_star_rating", "overall_rating_value"]));
+        const staffing = formatStars(getFirstValue(row, ["staffing_rating", "staffing_star_rating"]));
+        const health = formatStars(getFirstValue(row, ["health_inspection_rating", "health_inspection_star_rating"]));
+        const quality = formatStars(getFirstValue(row, ["quality_measure_rating", "quality_star_rating", "quality_measure_star_rating"]));
+        const rnHprd = getFirstValue(row, ["rn_hours_per_resident_day", "rn_hprd"]);
+        const totalHprd = getFirstValue(row, ["total_nurse_hours_per_resident_day", "total_nurse_hprd"]);
+
+        facilitySummary.innerHTML = `
+          <h4>Facility Summary</h4>
+          <p><strong>${name || "Unknown facility"}</strong></p>
+          <p>${formatAddress(row) || "Address not available"}</p>
+          <p>Overall rating: ${overall}</p>
+          <p>Staffing rating: ${staffing}</p>
+          <p>Health inspection rating: ${health}</p>
+          <p>Quality measure rating: ${quality}</p>
+          <p>RN hours / resident day: ${rnHprd ?? "Not reported"}</p>
+          <p>Total nurse hours / resident day: ${totalHprd ?? "Not reported"}</p>
+        `;
+      };
+
+      const renderChainSummary = (row) => {
+        if (!row) {
+          chainSummary.innerHTML = "<h4>Chain Summary</h4><p>No chain data available.</p>";
+          return;
+        }
+        const chainName = getFirstValue(row, ["chain_name", "affiliated_entity_name", "organization_name"]);
+        const chainStaffing = getFirstValue(row, ["average_staffing_rating", "chain_avg_staffing_rating", "average_staffing_star_rating"]);
+        chainSummary.innerHTML = `
+          <h4>Chain Summary</h4>
+          <p><strong>${chainName || "Unknown chain"}</strong></p>
+          <p>Chain average staffing: ${chainStaffing ?? "Not reported"}</p>
+        `;
+      };
+
+      const renderRights = (items) => {
+        if (!items || items.length === 0) {
+          rightsList.innerHTML = "<li>No Resident Rights tags found.</li>";
+          return;
+        }
+        rightsList.innerHTML = items
+          .map((item) => {
+            const tag = getFirstValue(item, ["f_tag", "tag_code", "deficiency_tag"]);
+            const date = getFirstValue(item, ["survey_date", "deficiency_date", "inspection_date", "date"]);
+            const scope = getFirstValue(item, ["scope_severity", "scope_severity_code"]);
+            const description = getFirstValue(item, ["deficiency_description", "description"]);
+            return `<li><strong>${tag || "Tag"}:</strong> ${date || "Unknown date"} — ${scope || "Scope n/a"}<br />${description || "Description unavailable."}</li>`;
+          })
+          .join("");
+      };
+
+      const renderPbjResults = (payload) => {
+        pbjResults.innerHTML = `
+          <p>Days included: ${payload.days}</p>
+          <p>Total census: ${payload.totalCensus}</p>
+          <p>RN hours: ${payload.totalRn}</p>
+          <p>LPN hours: ${payload.totalLpn}</p>
+          <p>CNA hours: ${payload.totalCna}</p>
+          <p><strong>Total nursing HPRD:</strong> ${payload.hprd}</p>
+        `;
+      };
+
+      const runSnapshot = async () => {
+        const ccn = normalizeCcn(ccnInput.value);
+        if (!ccn) {
+          setStatus("Enter a CCN first.");
+          return;
+        }
+
+        setStatus("Loading CMS datasets...");
+        facilitySummary.innerHTML = "<h4>Facility Summary</h4><p>Loading...</p>";
+        chainSummary.innerHTML = "<h4>Chain Summary</h4><p>Loading...</p>";
+        rightsList.innerHTML = "<li>Loading...</li>";
+        pbjResults.innerHTML = "<p>Loading...</p>";
+
+        try {
+          const providerUrl = await findDatasetUrl("Provider Information");
+          const deficienciesUrl = await findDatasetUrl("Health Deficiencies");
+          const chainUrl = await findDatasetUrl("Nursing Home Chain Performance Measures");
+          const pbjUrl = await findDatasetUrl("Payroll Based Journal Daily Nurse Staffing");
+
+          const providerQuery = buildSocrataUrl(providerUrl, {
+            $limit: 5,
+            $where: `provider_ccn='${ccn}' OR federal_provider_number='${ccn}' OR ccn='${ccn}'`,
+          });
+          const providerRows = await fetchJson(providerQuery);
+          const providerRow = providerRows?.[0];
+          renderFacilitySummary(providerRow);
+
+          const chainId = getFirstValue(providerRow || {}, ["chain_id", "affiliated_entity_id", "ownership_id", "corporate_chain_id"]);
+          if (chainId && chainUrl) {
+            const chainQuery = buildSocrataUrl(chainUrl, {
+              $limit: 5,
+              $where: `chain_id='${chainId}' OR affiliated_entity_id='${chainId}'`,
+            });
+            const chainRows = await fetchJson(chainQuery);
+            renderChainSummary(chainRows?.[0]);
+          } else {
+            renderChainSummary(null);
+          }
+
+          if (deficienciesUrl) {
+            const deficiencyQuery = buildSocrataUrl(deficienciesUrl, {
+              $limit: 200,
+              $where: `provider_ccn='${ccn}' OR federal_provider_number='${ccn}'`,
+              $order: "survey_date DESC",
+            });
+            const deficiencyRows = await fetchJson(deficiencyQuery);
+            const rights = (deficiencyRows || []).filter((row) => {
+              const tag = (getFirstValue(row, ["f_tag", "tag_code", "deficiency_tag"]) || "").toUpperCase();
+              return tag.startsWith("F");
+            });
+            renderRights(rights.slice(0, 25));
+          } else {
+            renderRights([]);
+          }
+
+          if (pbjUrl && pbjStart.value && pbjEnd.value) {
+            const pbjQuery = buildSocrataUrl(pbjUrl, {
+              $limit: 50000,
+              $where: `provider_ccn='${ccn}' AND work_date between '${pbjStart.value}' and '${pbjEnd.value}'`,
+            });
+            const pbjRows = await fetchJson(pbjQuery);
+            const totals = pbjRows.reduce(
+              (acc, row) => {
+                const census = Number(getFirstValue(row, ["census", "resident_count", "total_census"])) || 0;
+                const rn = Number(getFirstValue(row, ["rn_hours", "registered_nurse_hours"])) || 0;
+                const lpn = Number(getFirstValue(row, ["lpn_hours", "licensed_practical_nurse_hours"])) || 0;
+                const cna = Number(getFirstValue(row, ["cna_hours", "certified_nurse_aide_hours"])) || 0;
+                acc.totalCensus += census;
+                acc.totalRn += rn;
+                acc.totalLpn += lpn;
+                acc.totalCna += cna;
+                if (census > 0) {
+                  acc.days += 1;
+                }
+                return acc;
+              },
+              { days: 0, totalCensus: 0, totalRn: 0, totalLpn: 0, totalCna: 0 }
+            );
+            const totalHours = totals.totalRn + totals.totalLpn + totals.totalCna;
+            const hprd = totals.totalCensus > 0 ? (totalHours / totals.totalCensus).toFixed(2) : "0.00";
+            renderPbjResults({ ...totals, hprd });
+          } else {
+            pbjResults.innerHTML = "<p>Provide a date range to compute PBJ totals.</p>";
+          }
+
+          setStatus("Snapshot ready");
+        } catch (error) {
+          console.error(error);
+          setStatus("Error loading data");
+          facilitySummary.innerHTML = "<h4>Facility Summary</h4><p>Unable to load data.</p>";
+          chainSummary.innerHTML = "<h4>Chain Summary</h4><p>Unable to load data.</p>";
+          rightsList.innerHTML = "<li>Unable to load data.</li>";
+          pbjResults.innerHTML = "<p>Unable to load data.</p>";
+        }
+      };
+
+      runChainSnapshot.addEventListener("click", runSnapshot);
     </script>
   </body>
 </html>
