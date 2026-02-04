@@ -8,16 +8,13 @@
   <style>
     :root {
       --bg: #0b1020;
-      --bg2: #0a122a;
-      --card: rgba(255, 255, 255, 0.06);
-      --card-border: rgba(148, 163, 184, 0.18);
+      --panel: rgba(255, 255, 255, 0.06);
+      --border: rgba(148, 163, 184, 0.22);
       --text: #e5e7eb;
       --muted: rgba(229, 231, 235, 0.72);
       --accent: #38bdf8;
       --accent2: #a78bfa;
-      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
     }
-
     * { box-sizing: border-box; }
 
     body {
@@ -28,15 +25,14 @@
       background:
         radial-gradient(900px 500px at 20% -10%, rgba(56, 189, 248, 0.25), transparent 60%),
         radial-gradient(700px 400px at 95% 10%, rgba(167, 139, 250, 0.18), transparent 55%),
-        radial-gradient(900px 500px at 50% 120%, rgba(34, 197, 94, 0.12), transparent 60%),
-        linear-gradient(180deg, var(--bg2), var(--bg));
+        linear-gradient(180deg, #0a122a, var(--bg));
       display: flex;
       justify-content: center;
     }
 
     .wrap {
       width: min(980px, 94vw);
-      padding: 28px 18px 60px;
+      padding: 22px 16px 60px;
     }
 
     .topbar {
@@ -45,14 +41,14 @@
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 26px;
+      margin-bottom: 16px;
     }
 
     .brand {
       display: inline-flex;
       align-items: center;
-      gap: 12px;
-      font-weight: 750;
+      gap: 10px;
+      font-weight: 800;
       letter-spacing: 0.02em;
     }
 
@@ -64,7 +60,6 @@
       place-items: center;
       background: rgba(56, 189, 248, 0.16);
       border: 1px solid rgba(56, 189, 248, 0.28);
-      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.08);
       font-size: 18px;
     }
 
@@ -78,35 +73,24 @@
     }
 
     .panel {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      border-radius: 22px;
-      padding: 22px;
-      box-shadow: var(--shadow);
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 18px;
       backdrop-filter: blur(10px);
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 16px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 860px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
     }
 
     h1 {
       margin: 0 0 10px;
-      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-size: 24px;
       line-height: 1.15;
     }
-
+    h2 {
+      margin: 0 0 10px;
+      font-size: 18px;
+    }
     p {
-      margin: 0 0 16px;
+      margin: 0 0 12px;
       color: var(--muted);
       line-height: 1.6;
     }
@@ -121,104 +105,90 @@
       color: rgba(56, 189, 248, 0.95);
       background: rgba(56, 189, 248, 0.10);
       border: 1px solid rgba(56, 189, 248, 0.22);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
-    .ctaRow {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
+    .grid {
       margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      background: rgba(0, 0, 0, 0.18);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      border-radius: 18px;
+      padding: 14px;
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .card p {
+      margin: 0 0 10px;
+      font-size: 13px;
+    }
+
+    .row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
     }
 
     button {
       border: 0;
       cursor: pointer;
       border-radius: 14px;
-      padding: 12px 16px;
+      padding: 11px 14px;
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 750;
       color: #07111f;
       background: linear-gradient(135deg, rgba(56,189,248,1), rgba(167,139,250,0.95));
-      box-shadow: 0 14px 40px rgba(56, 189, 248, 0.18);
-      transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
-    }
-
-    button:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-      box-shadow: 0 18px 50px rgba(56, 189, 248, 0.22);
     }
 
     button.secondary {
       color: var(--text);
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(148, 163, 184, 0.22);
-      box-shadow: none;
     }
 
-    button.secondary:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.03);
-    }
-
-    .grid {
-      margin-top: 16px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--card-border);
-      border-radius: 18px;
-      padding: 16px;
-      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
-      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: rgba(56, 189, 248, 0.28);
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 16px;
-      letter-spacing: 0.01em;
-    }
-
-    .card p {
-      margin: 0 0 10px;
-      font-size: 13px;
-      color: rgba(229, 231, 235, 0.70);
+    input, select {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      background: rgba(0,0,0,0.25);
+      color: var(--text);
+      padding: 10px 12px;
+      font-size: 14px;
+      outline: none;
     }
 
     .hidden { display: none; }
 
-    .footer {
-      margin-top: 18px;
-      text-align: center;
+    .bigNumber {
+      font-size: 44px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
+      margin: 8px 0 6px;
+    }
+
+    .subtle {
       font-size: 12px;
       color: rgba(229, 231, 235, 0.55);
     }
 
-    /* Sourdough mini app styling */
-    .miniTitle {
-      margin: 0 0 10px;
-      font-size: 20px;
-    }
-
-    .miniBtns {
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 12px;
+    .quoteBox {
+      margin-top: 10px;
+      border-radius: 16px;
+      padding: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      background: rgba(0,0,0,0.18);
+      text-align: left;
     }
 
     img {
@@ -226,111 +196,78 @@
       border-radius: 16px;
       margin-top: 14px;
       border: 1px solid rgba(148, 163, 184, 0.18);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
-    }
-
-    ul {
-      margin: 12px 0 0;
-      padding-left: 18px;
-      color: rgba(229, 231, 235, 0.72);
-      line-height: 1.7;
-      font-size: 13px;
     }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-
     <div class="topbar">
       <div class="brand">
         <div class="logo">⚡</div>
         <div>Vibe Code Launchpad</div>
       </div>
-      <div class="badge">Local tests and chaotic bread energy</div>
+      <div class="badge">Mini apps inside. No CLI required.</div>
     </div>
 
     <!-- HOME -->
     <section id="home" class="panel">
-      <div class="hero">
-        <div class="panel" style="box-shadow:none;">
-          <div class="pill">Momentum Mode</div>
-          <h1>Build small things fast, learn real skills, ship when ready.</h1>
-          <p>
-            This is your personal test page. Most buttons lead to “Test in Progress”.
-            One feature is real and it will absolutely talk to your friends about sourdough.
-          </p>
-
-          <div class="ctaRow">
-            <button onclick="goSourdough()">Open the Sourdough App</button>
-            <button class="secondary" onclick="goTest()">Go to Test in Progress</button>
-          </div>
-        </div>
-
-        <div class="panel" style="box-shadow:none;">
-          <h2 class="miniTitle">Today’s build</h2>
-          <p>
-            Navigation, layout, buttons, and a working mini app.
-            Tomorrow you can add one real feature at a time.
-          </p>
-          <ul>
-            <li>Single page navigation (no frameworks)</li>
-            <li>Clean component style cards</li>
-            <li>Working sourdough flow with image</li>
-          </ul>
-        </div>
-      </div>
+      <div class="pill">Pick a mini app</div>
+      <h1>Tonight we ship tiny things</h1>
+      <p>
+        This is your test playground. Each card opens a mini app.
+        Everything is simple on purpose.
+      </p>
 
       <div class="grid">
         <div class="card">
-          <h3>🥖 Sourdough Experience</h3>
-          <p>A working mini app. Your friends cannot escape bread facts.</p>
-          <button onclick="goSourdough()">Enter</button>
+          <h3>🥖 Sourdough App</h3>
+          <p>Friends must accept bread facts.</p>
+          <button onclick="go('sourdough')">Open</button>
         </div>
 
         <div class="card">
-          <h3>📊 Feature Alpha</h3>
-          <p>Placeholder feature. Purpose pending.</p>
-          <button class="secondary" onclick="goTest()">Open</button>
+          <h3>😄 Dad Joke Generator</h3>
+          <p>Press button. Receive dad joke. Regret nothing.</p>
+          <button onclick="go('dadjokes')">Open</button>
         </div>
 
         <div class="card">
-          <h3>🧠 Feature Beta</h3>
-          <p>Placeholder feature. Will become real later.</p>
-          <button class="secondary" onclick="goTest()">Open</button>
+          <h3>⏲️ Bread Timer</h3>
+          <p>Set a timer for proofing, preheat, or bake.</p>
+          <button onclick="go('breadtimer')">Open</button>
         </div>
 
         <div class="card">
-          <h3>⚙️ Settings</h3>
-          <p>Placeholder feature. Buttons do not do things yet.</p>
-          <button class="secondary" onclick="goTest()">Open</button>
+          <h3>🚧 Test in Progress</h3>
+          <p>Placeholder section for future experiments.</p>
+          <button class="secondary" onclick="go('test')">Open</button>
         </div>
       </div>
 
-      <div class="footer">Tip: keep everything tiny and working. Add one new thing at a time.</div>
+      <p class="subtle" style="text-align:center; margin-top: 14px;">
+        Tip: you learn faster when each mini app is small and complete.
+      </p>
     </section>
 
-    <!-- TEST PAGE -->
+    <!-- TEST IN PROGRESS -->
     <section id="test" class="panel hidden">
       <div class="pill">🚧 Placeholder</div>
       <h1>Test in Progress</h1>
-      <p>
-        This feature exists in spirit. Functionality is pending caffeine and vibes.
-      </p>
-      <div class="ctaRow">
-        <button onclick="goHome()">Back to Launchpad</button>
-        <button class="secondary" onclick="goSourdough()">Go to Sourdough</button>
+      <p>This feature exists in spirit. Functionality pending vibes.</p>
+      <div class="row">
+        <button onclick="go('home')">Back</button>
       </div>
     </section>
 
-    <!-- SOURDOUGH APP -->
+    <!-- SOURDOUGH MINI APP -->
     <section id="sourdough" class="panel hidden">
-      <div class="pill">Bread Module</div>
+      <div class="pill">🥖 Bread Module</div>
       <h1>Important Question</h1>
       <p>Are you interested in learning about Dan’s love of sourdough bread?</p>
 
       <div id="sd1">
-        <div class="miniBtns">
+        <div class="row">
           <button onclick="sdYes()">Yes</button>
           <button class="secondary" onclick="sdNo()">No</button>
         </div>
@@ -341,70 +278,264 @@
           Let’s revisit this. This includes starter care, hydration ratios,
           cold retard timing, and unsolicited bread facts.
         </p>
-        <div class="miniBtns">
+        <div class="row">
           <button onclick="sdYes()">Yes</button>
         </div>
       </div>
 
       <div id="sd3" class="hidden">
-        <h2 class="miniTitle">Welcome to the Crumb Zone</h2>
+        <h2>Welcome to the Crumb Zone</h2>
         <p>Sourdough is not a hobby. It is a responsibility.</p>
-        <img src="sme.jpg" alt="Heroic sourdough loaf" />
-        <div class="ctaRow" style="justify-content:center;">
-          <button onclick="goHome()">Back to Launchpad</button>
-          <button class="secondary" onclick="resetSourdough()">Restart Sourdough</button>
+        <img src="me.jpg" alt="Heroic sourdough loaf" />
+        <div class="row">
+          <button onclick="go('home')">Back</button>
+          <button class="secondary" onclick="resetSourdough()">Restart</button>
         </div>
       </div>
+    </section>
+
+    <!-- DAD JOKES MINI APP -->
+    <section id="dadjokes" class="panel hidden">
+      <div class="pill">😄 Comedy Module</div>
+      <h1>Dad Joke Generator</h1>
+      <p>Press the button. Receive a joke. Your fate is sealed.</p>
+
+      <div class="row">
+        <button onclick="newJoke()">Generate Joke</button>
+        <button class="secondary" onclick="copyJoke()">Copy</button>
+        <button class="secondary" onclick="go('home')">Back</button>
+      </div>
+
+      <div class="quoteBox">
+        <div class="subtle">Joke</div>
+        <div id="jokeText" style="font-size: 18px; font-weight: 800; margin-top: 6px;">
+          Click “Generate Joke” to begin.
+        </div>
+        <div id="copyMsg" class="subtle hidden" style="margin-top: 8px;">Copied.</div>
+      </div>
+    </section>
+
+    <!-- BREAD TIMER MINI APP -->
+    <section id="breadtimer" class="panel hidden">
+      <div class="pill">⏲️ Kitchen Module</div>
+      <h1>Bread Timer</h1>
+      <p>Use presets or set your own minutes and seconds. Works offline.</p>
+
+      <div class="row" style="justify-content:flex-start;">
+        <label class="subtle" for="preset">Preset</label>
+        <select id="preset" onchange="applyPreset()">
+          <option value="">Choose one</option>
+          <option value="20:00">Preheat (20:00)</option>
+          <option value="30:00">Proof Check (30:00)</option>
+          <option value="45:00">Bake Covered (45:00)</option>
+          <option value="15:00">Bake Uncovered (15:00)</option>
+        </select>
+      </div>
+
+      <div class="row" style="justify-content:flex-start;">
+        <label class="subtle">Set time</label>
+        <input id="mins" type="number" inputmode="numeric" min="0" placeholder="min" style="width:100px;" />
+        <input id="secs" type="number" inputmode="numeric" min="0" max="59" placeholder="sec" style="width:100px;" />
+        <button class="secondary" onclick="setFromInputs()">Set</button>
+      </div>
+
+      <div class="bigNumber" id="timerDisplay">00:00</div>
+      <div class="subtle" id="timerStatus">Not running</div>
+
+      <div class="row">
+        <button onclick="startTimer()">Start</button>
+        <button class="secondary" onclick="pauseTimer()">Pause</button>
+        <button class="secondary" onclick="resetTimer()">Reset</button>
+        <button class="secondary" onclick="go('home')">Back</button>
+      </div>
+
+      <p class="subtle" style="margin-top: 12px;">
+        Note: For iPhone sound, the page may require you to press Start at least once for audio to play.
+      </p>
     </section>
 
   </div>
 
   <script>
-    const home = document.getElementById("home");
-    const test = document.getElementById("test");
-    const sourdough = document.getElementById("sourdough");
-
-    function hideAll() {
-      home.classList.add("hidden");
-      test.classList.add("hidden");
-      sourdough.classList.add("hidden");
-    }
-
-    function goHome() {
-      hideAll();
-      home.classList.remove("hidden");
-      resetSourdough();
+    // Simple navigation (single page, swap sections)
+    const sections = ["home", "test", "sourdough", "dadjokes", "breadtimer"];
+    function go(id) {
+      for (const s of sections) {
+        document.getElementById(s).classList.add("hidden");
+      }
+      document.getElementById(id).classList.remove("hidden");
       window.scrollTo({ top: 0, behavior: "smooth" });
+
+      if (id !== "sourdough") resetSourdough();
+      if (id !== "breadtimer") stopIntervalOnly();
+      if (id !== "dadjokes") hideCopyMsg();
     }
 
-    function goTest() {
-      hideAll();
-      test.classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
-    function goSourdough() {
-      hideAll();
-      sourdough.classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-
+    // SOURDOUGH
     function sdNo() {
       document.getElementById("sd1").classList.add("hidden");
       document.getElementById("sd2").classList.remove("hidden");
     }
-
     function sdYes() {
       document.getElementById("sd1").classList.add("hidden");
       document.getElementById("sd2").classList.add("hidden");
       document.getElementById("sd3").classList.remove("hidden");
     }
-
     function resetSourdough() {
-      document.getElementById("sd1").classList.remove("hidden");
-      document.getElementById("sd2").classList.add("hidden");
-      document.getElementById("sd3").classList.add("hidden");
+      const sd1 = document.getElementById("sd1");
+      const sd2 = document.getElementById("sd2");
+      const sd3 = document.getElementById("sd3");
+      if (!sd1 || !sd2 || !sd3) return;
+      sd1.classList.remove("hidden");
+      sd2.classList.add("hidden");
+      sd3.classList.add("hidden");
     }
+
+    // DAD JOKES (offline list so you don't need API/CORS)
+    const dadJokes = [
+      "I used to hate facial hair, but then it grew on me.",
+      "I’m reading a book about anti-gravity. It’s impossible to put down.",
+      "I asked my dog what’s two minus two. He said nothing.",
+      "Why don’t eggs tell jokes? They’d crack each other up.",
+      "I don’t trust stairs. They’re always up to something.",
+      "I used to play piano by ear. Now I use my hands.",
+      "What do you call fake spaghetti? An impasta.",
+      "I only know 25 letters of the alphabet. I don’t know y.",
+      "How do you organize a space party? You planet.",
+      "I’m on a seafood diet. I see food and I eat it."
+    ];
+
+    function newJoke() {
+      hideCopyMsg();
+      const i = Math.floor(Math.random() * dadJokes.length);
+      document.getElementById("jokeText").textContent = dadJokes[i];
+    }
+
+    function hideCopyMsg() {
+      const m = document.getElementById("copyMsg");
+      if (m) m.classList.add("hidden");
+    }
+
+    async function copyJoke() {
+      const text = document.getElementById("jokeText").textContent || "";
+      if (!text.trim()) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        document.getElementById("copyMsg").classList.remove("hidden");
+      } catch {
+        alert("Copy failed on this device. You can press and hold to copy manually.");
+      }
+    }
+
+    // BREAD TIMER
+    let timerTotalSeconds = 0;
+    let timerRemainingSeconds = 0;
+    let timerInterval = null;
+
+    function formatTime(s) {
+      const mm = String(Math.floor(s / 60)).padStart(2, "0");
+      const ss = String(s % 60).padStart(2, "0");
+      return `${mm}:${ss}`;
+    }
+
+    function setDisplay() {
+      document.getElementById("timerDisplay").textContent = formatTime(timerRemainingSeconds);
+      document.title = timerInterval ? `⏲️ ${formatTime(timerRemainingSeconds)} Bread Timer` : "Vibe Code Launchpad";
+    }
+
+    function setStatus(text) {
+      document.getElementById("timerStatus").textContent = text;
+    }
+
+    function applyPreset() {
+      const val = document.getElementById("preset").value;
+      if (!val) return;
+      const parts = val.split(":");
+      const mm = Number(parts[0] || 0);
+      const ss = Number(parts[1] || 0);
+      timerTotalSeconds = (mm * 60) + ss;
+      timerRemainingSeconds = timerTotalSeconds;
+      setDisplay();
+      setStatus("Ready");
+    }
+
+    function setFromInputs() {
+      const mm = Number(document.getElementById("mins").value || 0);
+      const ss = Number(document.getElementById("secs").value || 0);
+      const safeSeconds = Math.min(Math.max(ss, 0), 59);
+      timerTotalSeconds = (Math.max(mm, 0) * 60) + safeSeconds;
+      timerRemainingSeconds = timerTotalSeconds;
+      setDisplay();
+      setStatus("Ready");
+    }
+
+    function startTimer() {
+      if (timerRemainingSeconds <= 0) {
+        setStatus("Set a time first");
+        return;
+      }
+      if (timerInterval) return;
+
+      setStatus("Running");
+      timerInterval = setInterval(() => {
+        timerRemainingSeconds -= 1;
+        setDisplay();
+
+        if (timerRemainingSeconds <= 0) {
+          timerRemainingSeconds = 0;
+          setDisplay();
+          stopIntervalOnly();
+          setStatus("Done");
+          beep();
+          alert("Timer done!");
+        }
+      }, 1000);
+    }
+
+    function pauseTimer() {
+      if (!timerInterval) return;
+      stopIntervalOnly();
+      setStatus("Paused");
+    }
+
+    function resetTimer() {
+      stopIntervalOnly();
+      timerRemainingSeconds = timerTotalSeconds;
+      setDisplay();
+      setStatus("Ready");
+    }
+
+    function stopIntervalOnly() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+        document.title = "Vibe Code Launchpad";
+      }
+    }
+
+    // Simple beep using Web Audio (works offline)
+    function beep() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.value = 880;
+        gain.gain.value = 0.05;
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        setTimeout(() => {
+          osc.stop();
+          ctx.close();
+        }, 220);
+      } catch {
+        // If audio fails, alert already covers it.
+      }
+    }
+
+    // Initialize timer display
+    setDisplay();
   </script>
 </body>
 </html>
