@@ -6,166 +6,354 @@
   <title>Vibe Code Launchpad</title>
 
   <style>
+    :root {
+      --bg: #0b1020;
+      --bg2: #0a122a;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-border: rgba(148, 163, 184, 0.18);
+      --text: #e5e7eb;
+      --muted: rgba(229, 231, 235, 0.72);
+      --accent: #38bdf8;
+      --accent2: #a78bfa;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(900px 500px at 20% -10%, rgba(56, 189, 248, 0.25), transparent 60%),
+        radial-gradient(700px 400px at 95% 10%, rgba(167, 139, 250, 0.18), transparent 55%),
+        radial-gradient(900px 500px at 50% 120%, rgba(34, 197, 94, 0.12), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
       display: flex;
-      align-items: center;
       justify-content: center;
     }
 
-    .container {
-      width: min(900px, 95vw);
-      padding: 32px;
+    .wrap {
+      width: min(980px, 94vw);
+      padding: 28px 18px 60px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 26px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      background: rgba(56, 189, 248, 0.16);
+      border: 1px solid rgba(56, 189, 248, 0.28);
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.08);
+      font-size: 18px;
+    }
+
+    .badge {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .panel {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(148, 163, 184, 0.16);
+      border-radius: 22px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 860px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
     }
 
     h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
+      margin: 0 0 10px;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      line-height: 1.15;
     }
 
     p {
-      margin: 0 0 20px;
-      color: #94a3b8;
+      margin: 0 0 16px;
+      color: var(--muted);
       line-height: 1.6;
     }
 
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: rgba(56, 189, 248, 0.95);
+      background: rgba(56, 189, 248, 0.10);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      margin-bottom: 12px;
+    }
+
+    .ctaRow {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #07111f;
+      background: linear-gradient(135deg, rgba(56,189,248,1), rgba(167,139,250,0.95));
+      box-shadow: 0 14px 40px rgba(56, 189, 248, 0.18);
+      transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      box-shadow: 0 18px 50px rgba(56, 189, 248, 0.22);
+    }
+
+    button.secondary {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.22);
+      box-shadow: none;
+    }
+
+    button.secondary:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+    }
+
     .grid {
+      margin-top: 16px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      gap: 14px;
     }
 
     .card {
-      background: #020617;
-      border: 1px solid rgba(148, 163, 184, 0.2);
-      border-radius: 16px;
-      padding: 18px;
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 16px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22);
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.28);
+      background: rgba(255, 255, 255, 0.07);
     }
 
     .card h3 {
       margin: 0 0 8px;
-      font-size: 18px;
+      font-size: 16px;
+      letter-spacing: 0.01em;
     }
 
     .card p {
-      font-size: 14px;
+      margin: 0 0 10px;
+      font-size: 13px;
+      color: rgba(229, 231, 235, 0.70);
     }
 
-    button {
+    .hidden { display: none; }
+
+    .footer {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 12px;
+      color: rgba(229, 231, 235, 0.55);
+    }
+
+    /* Sourdough mini app styling */
+    .miniTitle {
+      margin: 0 0 10px;
+      font-size: 20px;
+    }
+
+    .miniBtns {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
       margin-top: 12px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: none;
-      font-size: 14px;
-      cursor: pointer;
-      background: #38bdf8;
-      color: #020617;
-      font-weight: 600;
-    }
-
-    button.secondary {
-      background: transparent;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      color: #e5e7eb;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    /* Shared panel style */
-    .panel {
-      background: #020617;
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid rgba(148, 163, 184, 0.2);
     }
 
     img {
       max-width: 100%;
-      border-radius: 14px;
-      margin-top: 16px;
+      border-radius: 16px;
+      margin-top: 14px;
+      border: 1px solid rgba(148, 163, 184, 0.18);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: rgba(229, 231, 235, 0.72);
+      line-height: 1.7;
+      font-size: 13px;
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
+  <div class="wrap">
 
-    <!-- HOME / LAUNCHPAD -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">⚡</div>
+        <div>Vibe Code Launchpad</div>
+      </div>
+      <div class="badge">Local tests and chaotic bread energy</div>
+    </div>
+
+    <!-- HOME -->
     <section id="home" class="panel">
-      <h1>Vibe Code Launchpad</h1>
-      <p>
-        This is a test environment. Features may exist, may be fake,
-        or may aggressively talk about sourdough.
-      </p>
+      <div class="hero">
+        <div class="panel" style="box-shadow:none;">
+          <div class="pill">Momentum Mode</div>
+          <h1>Build small things fast, learn real skills, ship when ready.</h1>
+          <p>
+            This is your personal test page. Most buttons lead to “Test in Progress”.
+            One feature is real and it will absolutely talk to your friends about sourdough.
+          </p>
+
+          <div class="ctaRow">
+            <button onclick="goSourdough()">Open the Sourdough App</button>
+            <button class="secondary" onclick="goTest()">Go to Test in Progress</button>
+          </div>
+        </div>
+
+        <div class="panel" style="box-shadow:none;">
+          <h2 class="miniTitle">Today’s build</h2>
+          <p>
+            Navigation, layout, buttons, and a working mini app.
+            Tomorrow you can add one real feature at a time.
+          </p>
+          <ul>
+            <li>Single page navigation (no frameworks)</li>
+            <li>Clean component style cards</li>
+            <li>Working sourdough flow with image</li>
+          </ul>
+        </div>
+      </div>
 
       <div class="grid">
         <div class="card">
           <h3>🥖 Sourdough Experience</h3>
-          <p>A fully tested, highly necessary interactive bread journey.</p>
+          <p>A working mini app. Your friends cannot escape bread facts.</p>
           <button onclick="goSourdough()">Enter</button>
         </div>
 
         <div class="card">
           <h3>📊 Feature Alpha</h3>
-          <p>Data, charts, or something impressive later.</p>
+          <p>Placeholder feature. Purpose pending.</p>
           <button class="secondary" onclick="goTest()">Open</button>
         </div>
 
         <div class="card">
           <h3>🧠 Feature Beta</h3>
-          <p>Possibly smart. Possibly fake.</p>
+          <p>Placeholder feature. Will become real later.</p>
           <button class="secondary" onclick="goTest()">Open</button>
         </div>
 
         <div class="card">
           <h3>⚙️ Settings</h3>
-          <p>Controls, toggles, and buttons that don’t do anything yet.</p>
+          <p>Placeholder feature. Buttons do not do things yet.</p>
           <button class="secondary" onclick="goTest()">Open</button>
         </div>
       </div>
+
+      <div class="footer">Tip: keep everything tiny and working. Add one new thing at a time.</div>
     </section>
 
-    <!-- TEST IN PROGRESS PAGE -->
+    <!-- TEST PAGE -->
     <section id="test" class="panel hidden">
-      <h1>🚧 Test in Progress</h1>
+      <div class="pill">🚧 Placeholder</div>
+      <h1>Test in Progress</h1>
       <p>
-        This feature exists in spirit.
-        Functionality pending motivation, coffee, and vibes.
+        This feature exists in spirit. Functionality is pending caffeine and vibes.
       </p>
-      <button onclick="goHome()">Back to Launchpad</button>
+      <div class="ctaRow">
+        <button onclick="goHome()">Back to Launchpad</button>
+        <button class="secondary" onclick="goSourdough()">Go to Sourdough</button>
+      </div>
     </section>
 
     <!-- SOURDOUGH APP -->
     <section id="sourdough" class="panel hidden">
+      <div class="pill">Bread Module</div>
       <h1>Important Question</h1>
-      <p>
-        Are you interested in learning about Dan’s love of sourdough bread?
-      </p>
+      <p>Are you interested in learning about Dan’s love of sourdough bread?</p>
 
-      <div id="sd-page1">
-        <button onclick="sdYes()">Yes</button>
-        <button class="secondary" onclick="sdNo()">No</button>
+      <div id="sd1">
+        <div class="miniBtns">
+          <button onclick="sdYes()">Yes</button>
+          <button class="secondary" onclick="sdNo()">No</button>
+        </div>
       </div>
 
-      <div id="sd-page2" class="hidden">
+      <div id="sd2" class="hidden">
         <p>
-          Let’s revisit this.
-          This includes starter care, hydration ratios, and unsolicited bread facts.
+          Let’s revisit this. This includes starter care, hydration ratios,
+          cold retard timing, and unsolicited bread facts.
         </p>
-        <button onclick="sdYes()">Yes</button>
+        <div class="miniBtns">
+          <button onclick="sdYes()">Yes</button>
+        </div>
       </div>
 
-      <div id="sd-page3" class="hidden">
-        <h2>Welcome to the Crumb Zone</h2>
-        <p>Sourdough is a responsibility.</p>
-        <img src="me.jpg" alt="Heroic sourdough loaf" />
-        <button onclick="goHome()">Back to Launchpad</button>
+      <div id="sd3" class="hidden">
+        <h2 class="miniTitle">Welcome to the Crumb Zone</h2>
+        <p>Sourdough is not a hobby. It is a responsibility.</p>
+        <img src="sme.jpg" alt="Heroic sourdough loaf" />
+        <div class="ctaRow" style="justify-content:center;">
+          <button onclick="goHome()">Back to Launchpad</button>
+          <button class="secondary" onclick="resetSourdough()">Restart Sourdough</button>
+        </div>
       </div>
     </section>
 
@@ -186,34 +374,36 @@
       hideAll();
       home.classList.remove("hidden");
       resetSourdough();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function goTest() {
       hideAll();
       test.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function goSourdough() {
       hideAll();
       sourdough.classList.remove("hidden");
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    // Sourdough logic
     function sdNo() {
-      document.getElementById("sd-page1").classList.add("hidden");
-      document.getElementById("sd-page2").classList.remove("hidden");
+      document.getElementById("sd1").classList.add("hidden");
+      document.getElementById("sd2").classList.remove("hidden");
     }
 
     function sdYes() {
-      document.getElementById("sd-page1").classList.add("hidden");
-      document.getElementById("sd-page2").classList.add("hidden");
-      document.getElementById("sd-page3").classList.remove("hidden");
+      document.getElementById("sd1").classList.add("hidden");
+      document.getElementById("sd2").classList.add("hidden");
+      document.getElementById("sd3").classList.remove("hidden");
     }
 
     function resetSourdough() {
-      document.getElementById("sd-page1").classList.remove("hidden");
-      document.getElementById("sd-page2").classList.add("hidden");
-      document.getElementById("sd-page3").classList.add("hidden");
+      document.getElementById("sd1").classList.remove("hidden");
+      document.getElementById("sd2").classList.add("hidden");
+      document.getElementById("sd3").classList.add("hidden");
     }
   </script>
 </body>
