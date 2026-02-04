@@ -77,11 +77,17 @@
         </div>
       </section>
 
-      <!-- Page 2 -->
+      <!-- Page 2 (UPDATED) -->
       <section id="page2" class="hidden">
-        <span class="tag">Wrong Answer Detected</span>
-        <h1>Interesting choice.</h1>
-        <p>There is only one correct answer. Please proceed accordingly.</p>
+        <span class="tag">Let’s Try This Again</span>
+        <h1>Are you interested in learning about Dan’s sourdough bread journey?</h1>
+        <p>
+          This includes starter maintenance, hydration ratios, cold retard strategy,
+          crumb structure, crust appreciation, and unsolicited bread facts.
+        </p>
+        <p>
+          Please confirm your interest below.
+        </p>
         <div class="btns">
           <button id="yes2">Yes</button>
         </div>
@@ -109,13 +115,8 @@
         </div>
 
         <div class="btns" style="margin-top: 14px;">
-          <button id="share">Copy link text to send friends</button>
           <button class="secondary" id="restart">Restart</button>
         </div>
-
-        <p id="copied" class="hidden" style="margin-top: 12px; color: #16a34a; font-weight: 600;">
-          Copied. Go spread the gospel of sourdough.
-        </p>
       </section>
     </div>
 
@@ -146,17 +147,6 @@
         hide(page2);
         hide(page3);
         show(page1);
-        document.getElementById("copied").classList.add("hidden");
-      });
-
-      document.getElementById("share").addEventListener("click", async () => {
-        const text = "You have been summoned to learn about Dan’s sourdough obsession. Click the link and accept your fate:";
-        try {
-          await navigator.clipboard.writeText(text);
-          document.getElementById("copied").classList.remove("hidden");
-        } catch (e) {
-          alert("Copy failed. On iPhone, try selecting text manually.");
-        }
       });
     </script>
   </body>
