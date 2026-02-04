@@ -1,49 +1,163 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Dan Beem</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background: #0b0f14;
-      color: #e6edf3;
-    }
-    .card {
-      background: #121926;
-      border-radius: 16px;
-      padding: 24px 28px;
-      max-width: 480px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    h1 { margin: 0 0 8px 0; }
-    p { margin: 0 0 16px 0; color: #a7b3c2; }
-    .btn {
-      display: inline-block;
-      padding: 10px 16px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.08);
-      background: rgba(255,255,255,0.06);
-      color: #e6edf3;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-    }
-    .btn:hover { background: rgba(255,255,255,0.10); }
-  </style>
-</head>
-<body>
-  <div class="card">
-    <h1>Hi, I’m Dan.</h1>
-    <p>This is my very first GitHub Pages site. I’ll be building more here soon.</p>
-    <a class="btn" href="https://github.com/dbeem123">View my GitHub</a>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dan’s Sourdough App</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        margin: 0;
+        padding: 24px;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f6f7fb;
+      }
+      .card {
+        width: min(640px, 94vw);
+        background: white;
+        border-radius: 16px;
+        padding: 22px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        text-align: center;
+      }
+      h1 { margin: 0 0 10px; font-size: 22px; }
+      p { margin: 0 0 16px; color: #444; line-height: 1.4; }
+      .btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+      button {
+        border: 0;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 16px;
+        cursor: pointer;
+        background: #111827;
+        color: white;
+      }
+      button.secondary { background: #4b5563; }
+      .hidden { display: none; }
+      img {
+        max-width: 100%;
+        border-radius: 14px;
+        margin-top: 14px;
+      }
+      .facts {
+        text-align: left;
+        margin: 14px auto 0;
+        width: min(520px, 92vw);
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 14px 16px;
+      }
+      .facts li { margin: 8px 0; }
+      .tag {
+        display: inline-block;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        color: #9a3412;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <!-- Page 1 -->
+      <section id="page1">
+        <span class="tag">Important Question</span>
+        <h1>Do you want to hear about Dan’s love of sourdough bread?</h1>
+        <p>This decision is not optional. It is inevitable.</p>
+        <div class="btns">
+          <button id="yes1">Yes</button>
+          <button class="secondary" id="no1">No</button>
+        </div>
+      </section>
+
+      <!-- Page 2 -->
+      <section id="page2" class="hidden">
+        <span class="tag">Wrong Answer Detected</span>
+        <h1>Interesting choice.</h1>
+        <p>There is only one correct answer. Please proceed accordingly.</p>
+        <div class="btns">
+          <button id="yes2">Yes</button>
+        </div>
+      </section>
+
+      <!-- Page 3 -->
+      <section id="page3" class="hidden">
+        <span class="tag">Welcome to the Crumb Zone</span>
+        <h1>Dan Loves Sourdough</h1>
+        <p>
+          Sourdough is a lifestyle. A hobby. A science experiment. A delicious emotional support system.
+        </p>
+
+        <img src="me.jpg" alt="Photo of Dan holding something awesome" />
+
+        <div class="facts">
+          <p style="margin: 0 0 10px; font-weight: 700;">Sourdough facts you now have to live with:</p>
+          <ul style="margin: 0; padding-left: 18px;">
+            <li>I respect the starter. It is alive and it has opinions.</li>
+            <li>I will absolutely talk about hydration percentages like it’s sports stats.</li>
+            <li>Cold retard method because schedules are real, and so is bread.</li>
+            <li>Crust = joy. Crumb = personality. Oven spring = victory.</li>
+            <li>If you ever need bread, I will show up like a carb based superhero.</li>
+          </ul>
+        </div>
+
+        <div class="btns" style="margin-top: 14px;">
+          <button id="share">Copy link text to send friends</button>
+          <button class="secondary" id="restart">Restart</button>
+        </div>
+
+        <p id="copied" class="hidden" style="margin-top: 12px; color: #16a34a; font-weight: 600;">
+          Copied. Go spread the gospel of sourdough.
+        </p>
+      </section>
+    </div>
+
+    <script>
+      const page1 = document.getElementById("page1");
+      const page2 = document.getElementById("page2");
+      const page3 = document.getElementById("page3");
+
+      const show = (el) => el.classList.remove("hidden");
+      const hide = (el) => el.classList.add("hidden");
+
+      const goPage3 = () => {
+        hide(page1);
+        hide(page2);
+        show(page3);
+      };
+
+      document.getElementById("yes1").addEventListener("click", goPage3);
+
+      document.getElementById("no1").addEventListener("click", () => {
+        hide(page1);
+        show(page2);
+      });
+
+      document.getElementById("yes2").addEventListener("click", goPage3);
+
+      document.getElementById("restart").addEventListener("click", () => {
+        hide(page2);
+        hide(page3);
+        show(page1);
+        document.getElementById("copied").classList.add("hidden");
+      });
+
+      document.getElementById("share").addEventListener("click", async () => {
+        const text = "You have been summoned to learn about Dan’s sourdough obsession. Click the link and accept your fate:";
+        try {
+          await navigator.clipboard.writeText(text);
+          document.getElementById("copied").classList.remove("hidden");
+        } catch (e) {
+          alert("Copy failed. On iPhone, try selecting text manually.");
+        }
+      });
+    </script>
+  </body>
 </html>
