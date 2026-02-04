@@ -3,519 +3,835 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vibe Code Launchpad</title>
+  <title>DanBeem Vibe Site</title>
 
   <style>
-    :root {
-      --bg: #0b1020;
-      --panel: rgba(255, 255, 255, 0.06);
-      --border: rgba(148, 163, 184, 0.22);
-      --text: #e5e7eb;
-      --muted: rgba(229, 231, 235, 0.72);
-      --accent: #38bdf8;
-      --accent2: #a78bfa;
+    :root{
+      --bg:#070a16;
+      --panel:rgba(255,255,255,0.06);
+      --border:rgba(148,163,184,0.20);
+      --text:#e5e7eb;
+      --muted:rgba(229,231,235,0.72);
+      --a:#38bdf8;
+      --b:#a78bfa;
+      --c:#22c55e;
+      --shadow: 0 20px 70px rgba(0,0,0,0.55);
     }
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      color: var(--text);
+      color:var(--text);
       background:
-        radial-gradient(900px 500px at 20% -10%, rgba(56, 189, 248, 0.25), transparent 60%),
-        radial-gradient(700px 400px at 95% 10%, rgba(167, 139, 250, 0.18), transparent 55%),
-        linear-gradient(180deg, #0a122a, var(--bg));
-      display: flex;
-      justify-content: center;
+        radial-gradient(900px 600px at 18% 0%, rgba(56,189,248,0.30), transparent 60%),
+        radial-gradient(800px 500px at 90% 10%, rgba(167,139,250,0.22), transparent 55%),
+        radial-gradient(900px 600px at 50% 120%, rgba(34,197,94,0.16), transparent 60%),
+        linear-gradient(180deg, #070a16, #050615);
+      overflow-x:hidden;
     }
 
-    .wrap {
-      width: min(980px, 94vw);
-      padding: 22px 16px 60px;
+    /* top nav */
+    .nav{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(5,6,21,0.55);
+      border-bottom: 1px solid rgba(148,163,184,0.14);
     }
-
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
+    .navInner{
+      width:min(1100px, 94vw);
+      margin:0 auto;
+      padding: 10px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      letter-spacing:0.02em;
     }
-
-    .logo {
-      width: 40px;
-      height: 40px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: rgba(56, 189, 248, 0.16);
-      border: 1px solid rgba(56, 189, 248, 0.28);
-      font-size: 18px;
+    .logo{
+      width:38px;height:38px;border-radius:14px;
+      display:grid;place-items:center;
+      background: rgba(56,189,248,0.16);
+      border:1px solid rgba(56,189,248,0.26);
+      box-shadow: 0 12px 36px rgba(56,189,248,0.12);
     }
-
-    .badge {
-      padding: 8px 12px;
+    .navBtns{
+      display:flex; gap:8px; flex-wrap:wrap;
+    }
+    .linkBtn{
+      border:1px solid rgba(148,163,184,0.20);
+      background: rgba(255,255,255,0.05);
+      color:var(--text);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      color: var(--muted);
+      padding: 8px 11px;
       font-size: 12px;
+      font-weight: 800;
+      cursor:pointer;
+    }
+    .linkBtn:hover{
+      border-color: rgba(56,189,248,0.35);
+      background: rgba(255,255,255,0.07);
     }
 
-    .panel {
+    .wrap{
+      width:min(1100px, 94vw);
+      margin:0 auto;
+      padding: 18px 0 70px;
+    }
+
+    .panel{
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 20px;
+      border-radius: 24px;
       padding: 18px;
-      backdrop-filter: blur(10px);
+      box-shadow: var(--shadow);
     }
+    .pill{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:7px 12px;border-radius:999px;
+      font-size:12px;font-weight:800;
+      color: rgba(56,189,248,0.95);
+      background: rgba(56,189,248,0.10);
+      border:1px solid rgba(56,189,248,0.22);
+      margin-bottom:10px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(44px, 7vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+    }
+    h2{ margin: 0 0 10px; font-size: 22px; }
+    p{ margin:0 0 12px; color:var(--muted); line-height:1.65; }
 
-    h1 {
-      margin: 0 0 10px;
-      font-size: 24px;
-      line-height: 1.15;
+    /* Scroll hero */
+    .hero{
+      height: 92vh;
+      display:grid;
+      place-items:center;
+      border-radius: 28px;
+      border:1px solid rgba(148,163,184,0.16);
+      background:
+        radial-gradient(900px 600px at 18% 20%, rgba(56,189,248,0.18), transparent 60%),
+        radial-gradient(900px 600px at 80% 30%, rgba(167,139,250,0.14), transparent 60%),
+        rgba(255,255,255,0.04);
+      overflow:hidden;
+      position:relative;
     }
-    h2 {
-      margin: 0 0 10px;
-      font-size: 18px;
+    .heroInner{
+      text-align:center;
+      padding: 26px 18px;
+      position:relative;
+      z-index:2;
     }
-    p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      line-height: 1.6;
+    .heroSmall{
+      font-size: 14px;
+      letter-spacing:0.14em;
+      text-transform:uppercase;
+      color: rgba(229,231,235,0.7);
+      margin-bottom: 12px;
     }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      color: rgba(56, 189, 248, 0.95);
-      background: rgba(56, 189, 248, 0.10);
-      border: 1px solid rgba(56, 189, 248, 0.22);
-      margin-bottom: 10px;
+    #heroBig{
+      font-weight: 950;
+      transform-origin:center;
     }
-
-    .grid {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 12px;
-    }
-
-    .card {
-      background: rgba(0, 0, 0, 0.18);
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      border-radius: 18px;
-      padding: 14px;
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
+    #heroSub{
+      max-width: 760px;
+      margin: 14px auto 0;
       font-size: 16px;
     }
-
-    .card p {
-      margin: 0 0 10px;
-      font-size: 13px;
+    .glowOrb{
+      position:absolute;
+      width: 520px; height: 520px;
+      border-radius: 999px;
+      filter: blur(42px);
+      opacity: 0.45;
+      z-index:1;
+      background: radial-gradient(circle, rgba(56,189,248,0.55), transparent 60%);
+      left: -120px; top: -140px;
+      transform: translate3d(0,0,0);
+    }
+    .glowOrb.two{
+      background: radial-gradient(circle, rgba(167,139,250,0.55), transparent 60%);
+      left: auto; right: -160px; top: 40px;
+      width: 560px; height: 560px;
+      opacity:0.35;
     }
 
-    .row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
+    /* Section reveal */
+    .reveal{
+      opacity:0;
+      transform: translateY(18px);
+      transition: opacity 520ms ease, transform 520ms ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform: translateY(0);
+    }
+
+    /* Carousel */
+    .carouselWrap{
+      margin-top: 18px;
+      position:relative;
+    }
+    .carousel{
+      display:flex;
+      gap: 14px;
+      overflow-x:auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 2px 10px;
+      scrollbar-width: none;
+    }
+    .carousel::-webkit-scrollbar{ display:none; }
+    .slide{
+      flex: 0 0 86%;
+      max-width: 86%;
+      height: 340px;
+      border-radius: 22px;
+      overflow:hidden;
+      scroll-snap-align: center;
+      border:1px solid rgba(148,163,184,0.16);
+      background: rgba(0,0,0,0.18);
+      position:relative;
+    }
+    .slide img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      display:block;
+      transform: scale(1.02);
+    }
+    .slideCap{
+      position:absolute;
+      left:14px; bottom:14px;
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(0,0,0,0.45);
+      border:1px solid rgba(148,163,184,0.18);
+      font-weight: 800;
+      font-size: 12px;
+    }
+    .carBtns{
+      position:absolute;
+      inset: 0;
+      pointer-events:none;
+    }
+    .carBtn{
+      pointer-events:auto;
+      position:absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px; height: 44px;
+      border-radius: 999px;
+      border:1px solid rgba(148,163,184,0.22);
+      background: rgba(0,0,0,0.35);
+      color: var(--text);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      backdrop-filter: blur(10px);
+    }
+    .carBtn:hover{ border-color: rgba(56,189,248,0.35); }
+    .carBtn.left{ left: 8px; }
+    .carBtn.right{ right: 8px; }
+
+    .dots{
+      display:flex;
+      gap:8px;
+      justify-content:center;
       margin-top: 10px;
     }
+    .dot{
+      width: 8px; height: 8px;
+      border-radius: 999px;
+      background: rgba(229,231,235,0.22);
+      border:1px solid rgba(148,163,184,0.18);
+      cursor:pointer;
+    }
+    .dot.active{
+      background: rgba(56,189,248,0.85);
+      border-color: rgba(56,189,248,0.30);
+    }
 
-    button {
-      border: 0;
-      cursor: pointer;
+    /* Sticky pinned section (Apple-ish) */
+    .pin{
+      margin-top: 18px;
+      border-radius: 24px;
+      border:1px solid rgba(148,163,184,0.16);
+      background: rgba(255,255,255,0.04);
+      overflow:hidden;
+    }
+    .pinInner{
+      height: 180vh; /* makes room for scrolling */
+      position:relative;
+    }
+    .pinSticky{
+      position: sticky;
+      top: 74px; /* below nav */
+      padding: 18px;
+    }
+    .pinCard{
+      display:grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      align-items: center;
+      background: rgba(0,0,0,0.20);
+      border: 1px solid rgba(148,163,184,0.16);
+      border-radius: 22px;
+      padding: 16px;
+    }
+    @media (max-width: 860px){
+      .pinCard{ grid-template-columns: 1fr; }
+      .slide{ height: 280px; }
+    }
+    .pinTitle{
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height:1.1;
+      letter-spacing:-0.01em;
+    }
+    .pinText{
+      margin:0;
+      color: var(--muted);
+    }
+    .pinVisual{
+      height: 260px;
+      border-radius: 18px;
+      border: 1px solid rgba(148,163,184,0.16);
+      background:
+        radial-gradient(500px 300px at 20% 20%, rgba(56,189,248,0.22), transparent 60%),
+        radial-gradient(500px 300px at 80% 30%, rgba(167,139,250,0.18), transparent 60%),
+        rgba(255,255,255,0.03);
+      display:grid;
+      place-items:center;
+      font-weight: 900;
+      font-size: 16px;
+      text-align:center;
+      padding: 10px;
+    }
+
+    /* Buttons */
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top: 12px; }
+    button{
+      border:0;
+      cursor:pointer;
       border-radius: 14px;
-      padding: 11px 14px;
+      padding: 12px 16px;
+      font-weight: 900;
       font-size: 14px;
-      font-weight: 750;
-      color: #07111f;
+      color:#07111f;
       background: linear-gradient(135deg, rgba(56,189,248,1), rgba(167,139,250,0.95));
+      box-shadow: 0 18px 55px rgba(56,189,248,0.18);
+    }
+    button.secondary{
+      color:var(--text);
+      background: rgba(255,255,255,0.06);
+      border:1px solid rgba(148,163,184,0.22);
+      box-shadow:none;
     }
 
-    button.secondary {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.22);
-    }
+    /* App sections */
+    .app{ margin-top: 18px; }
+    .hidden{ display:none; }
 
-    input, select {
+    .bigNumber{
+      font-size: 54px;
+      font-weight: 950;
+      letter-spacing: 0.02em;
+      margin: 10px 0 6px;
+      text-align:center;
+    }
+    .subtle{ font-size: 12px; color: rgba(229,231,235,0.55); text-align:center; }
+    .box{
+      border-radius: 18px;
+      padding: 14px;
+      border:1px solid rgba(148,163,184,0.16);
+      background: rgba(0,0,0,0.18);
+      margin-top: 12px;
+    }
+    input, select{
       border-radius: 12px;
-      border: 1px solid rgba(148, 163, 184, 0.24);
+      border: 1px solid rgba(148,163,184,0.22);
       background: rgba(0,0,0,0.25);
       color: var(--text);
       padding: 10px 12px;
       font-size: 14px;
       outline: none;
     }
-
-    .hidden { display: none; }
-
-    .bigNumber {
-      font-size: 44px;
-      font-weight: 900;
-      letter-spacing: 0.03em;
-      margin: 8px 0 6px;
-    }
-
-    .subtle {
-      font-size: 12px;
-      color: rgba(229, 231, 235, 0.55);
-    }
-
-    .quoteBox {
-      margin-top: 10px;
-      border-radius: 16px;
-      padding: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.18);
-      background: rgba(0,0,0,0.18);
-      text-align: left;
-    }
-
-    img {
-      max-width: 100%;
-      border-radius: 16px;
-      margin-top: 14px;
-      border: 1px solid rgba(148, 163, 184, 0.18);
+    img.inline{
+      width:100%;
+      border-radius: 18px;
+      border:1px solid rgba(148,163,184,0.16);
+      display:block;
+      margin-top: 12px;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="topbar">
+  <div class="nav">
+    <div class="navInner">
       <div class="brand">
         <div class="logo">⚡</div>
-        <div>Vibe Code Launchpad</div>
+        <div>DanBeem</div>
       </div>
-      <div class="badge">Mini apps inside. No CLI required.</div>
+      <div class="navBtns">
+        <button class="linkBtn" onclick="scrollToId('top')">Top</button>
+        <button class="linkBtn" onclick="scrollToId('carousel')">Bread</button>
+        <button class="linkBtn" onclick="scrollToId('pin')">Scroll Magic</button>
+        <button class="linkBtn" onclick="showApp('apps')">Apps</button>
+      </div>
     </div>
+  </div>
 
-    <!-- HOME -->
-    <section id="home" class="panel">
-      <div class="pill">Pick a mini app</div>
-      <h1>Tonight we ship tiny things</h1>
-      <p>
-        This is your test playground. Each card opens a mini app.
-        Everything is simple on purpose.
-      </p>
+  <div class="wrap" id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="glowOrb" id="orb1"></div>
+      <div class="glowOrb two" id="orb2"></div>
 
-      <div class="grid">
-        <div class="card">
-          <h3>🥖 Sourdough App</h3>
-          <p>Friends must accept bread facts.</p>
-          <button onclick="go('sourdough')">Open</button>
+      <div class="heroInner">
+        <div class="heroSmall">Vibe Code live on GitHub Pages</div>
+        <h1 id="heroBig">BREAD ENERGY</h1>
+        <p id="heroSub">Scroll down. Watch the text move. Swipe the carousel. Trigger the sticky section. Then open the mini apps.</p>
+        <div class="btnRow">
+          <button onclick="showApp('apps')">Open mini apps</button>
+          <button class="secondary" onclick="scrollToId('carousel')">Show me bread</button>
         </div>
-
-        <div class="card">
-          <h3>😄 Dad Joke Generator</h3>
-          <p>Press button. Receive dad joke. Regret nothing.</p>
-          <button onclick="go('dadjokes')">Open</button>
-        </div>
-
-        <div class="card">
-          <h3>⏲️ Bread Timer</h3>
-          <p>Set a timer for proofing, preheat, or bake.</p>
-          <button onclick="go('breadtimer')">Open</button>
-        </div>
-
-        <div class="card">
-          <h3>🚧 Test in Progress</h3>
-          <p>Placeholder section for future experiments.</p>
-          <button class="secondary" onclick="go('test')">Open</button>
-        </div>
-      </div>
-
-      <p class="subtle" style="text-align:center; margin-top: 14px;">
-        Tip: you learn faster when each mini app is small and complete.
-      </p>
-    </section>
-
-    <!-- TEST IN PROGRESS -->
-    <section id="test" class="panel hidden">
-      <div class="pill">🚧 Placeholder</div>
-      <h1>Test in Progress</h1>
-      <p>This feature exists in spirit. Functionality pending vibes.</p>
-      <div class="row">
-        <button onclick="go('home')">Back</button>
       </div>
     </section>
 
-    <!-- SOURDOUGH MINI APP -->
-    <section id="sourdough" class="panel hidden">
-      <div class="pill">🥖 Bread Module</div>
-      <h1>Important Question</h1>
-      <p>Are you interested in learning about Dan’s love of sourdough bread?</p>
+    <!-- CAROUSEL -->
+    <section id="carousel" class="panel reveal" style="margin-top:18px;">
+      <div class="pill">Bread carousel</div>
+      <h2>Swipeable loaf gallery</h2>
+      <p>Scroll snapping on mobile plus arrows and dots. No libraries.</p>
 
-      <div id="sd1">
-        <div class="row">
+      <div class="carouselWrap">
+        <div class="carousel" id="car">
+          <div class="slide"><img src="bread1.jpg" alt="Bread 1"><div class="slideCap">bread1.jpg</div></div>
+          <div class="slide"><img src="bread2.jpg" alt="Bread 2"><div class="slideCap">bread2.jpg</div></div>
+          <div class="slide"><img src="bread3.jpg" alt="Bread 3"><div class="slideCap">bread3.jpg</div></div>
+          <div class="slide"><img src="bread4.jpg" alt="Bread 4"><div class="slideCap">bread4.jpg</div></div>
+          <div class="slide"><img src="bread5.jpg" alt="Bread 5"><div class="slideCap">bread5.jpg</div></div>
+          <div class="slide"><img src="bread6.jpg" alt="Bread 6"><div class="slideCap">bread6.jpg</div></div>
+        </div>
+
+        <div class="carBtns">
+          <div class="carBtn left" onclick="carStep(-1)" aria-label="Previous">‹</div>
+          <div class="carBtn right" onclick="carStep(1)" aria-label="Next">›</div>
+        </div>
+      </div>
+
+      <div class="dots" id="dots" aria-label="Carousel dots"></div>
+    </section>
+
+    <!-- PINNED SCROLL MAGIC -->
+    <section id="pin" class="pin reveal" style="margin-top:18px;">
+      <div class="pinInner" id="pinInner">
+        <div class="pinSticky">
+          <div class="panel" style="box-shadow:none;">
+            <div class="pill">Scroll magic</div>
+            <h2>Sticky section with changing text</h2>
+            <p>This is the Apple-ish effect. As you scroll, the text swaps. It feels fancy but it’s just math.</p>
+
+            <div class="pinCard">
+              <div>
+                <div class="pinTitle" id="pinTitle">Starter</div>
+                <p class="pinText" id="pinText">Feed it. Name it. Respect it. It is alive.</p>
+                <div class="btnRow" style="justify-content:flex-start;">
+                  <button class="secondary" onclick="scrollToId('apps')">Jump to apps</button>
+                </div>
+              </div>
+              <div class="pinVisual" id="pinVisual">Scroll down<br>to change steps</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MINI APPS -->
+    <section id="apps" class="panel reveal app" style="margin-top:18px;">
+      <div class="pill">Mini apps</div>
+      <h2>Tools and toys</h2>
+      <p>These are intentionally simple so you can learn by expanding them.</p>
+
+      <div class="btnRow">
+        <button onclick="showApp('sourdough')">Sourdough</button>
+        <button onclick="showApp('dad')">Dad Jokes</button>
+        <button onclick="showApp('timer')">Bread Timer</button>
+        <button class="secondary" onclick="showApp('apps')">Close apps</button>
+      </div>
+
+      <!-- App container -->
+      <div id="appHome" class="box">
+        Pick an app above. You can keep adding more modules here later.
+      </div>
+
+      <!-- SOURDOUGH -->
+      <div id="appSourdough" class="box hidden">
+        <h2>Important Question</h2>
+        <p>Are you interested in learning about Dan’s love of sourdough bread?</p>
+
+        <div id="sd1" class="btnRow">
           <button onclick="sdYes()">Yes</button>
           <button class="secondary" onclick="sdNo()">No</button>
         </div>
-      </div>
 
-      <div id="sd2" class="hidden">
-        <p>
-          Let’s revisit this. This includes starter care, hydration ratios,
-          cold retard timing, and unsolicited bread facts.
-        </p>
-        <div class="row">
-          <button onclick="sdYes()">Yes</button>
+        <div id="sd2" class="hidden">
+          <p>Let’s revisit this. Starter care, hydration ratios, cold retard timing, unsolicited bread facts.</p>
+          <div class="btnRow"><button onclick="sdYes()">Yes</button></div>
+        </div>
+
+        <div id="sd3" class="hidden">
+          <h2>Welcome to the Crumb Zone</h2>
+          <p>Sourdough is a responsibility.</p>
+          <img class="inline" src="sourdough_hero_loaf.jpg" alt="Hero loaf">
+          <div class="btnRow">
+            <button class="secondary" onclick="resetSourdough()">Restart</button>
+          </div>
         </div>
       </div>
 
-      <div id="sd3" class="hidden">
-        <h2>Welcome to the Crumb Zone</h2>
-        <p>Sourdough is not a hobby. It is a responsibility.</p>
-        <img src="me.jpg" alt="Heroic sourdough loaf" />
-        <div class="row">
-          <button onclick="go('home')">Back</button>
-          <button class="secondary" onclick="resetSourdough()">Restart</button>
+      <!-- DAD JOKES -->
+      <div id="appDad" class="box hidden">
+        <h2>Dad Joke Generator</h2>
+        <p>Press button. Receive dad joke.</p>
+        <div class="btnRow">
+          <button onclick="newJoke()">Generate</button>
+          <button class="secondary" onclick="copyJoke()">Copy</button>
+        </div>
+        <div class="box" style="margin-top:10px;">
+          <div class="subtle" style="text-align:left;">Joke</div>
+          <div id="jokeText" style="font-size:18px;font-weight:900;margin-top:6px;">Click Generate.</div>
+          <div id="copyMsg" class="subtle hidden" style="margin-top:8px;text-align:left;">Copied.</div>
+        </div>
+      </div>
+
+      <!-- TIMER -->
+      <div id="appTimer" class="box hidden">
+        <h2>Bread Timer</h2>
+        <p>Presets or custom. Offline. Beeps when done.</p>
+
+        <div class="btnRow" style="justify-content:flex-start;">
+          <label style="color:var(--muted); font-size:12px;">Preset</label>
+          <select id="preset" onchange="applyPreset()">
+            <option value="">Choose one</option>
+            <option value="20:00">Preheat (20:00)</option>
+            <option value="45:00">Bake covered (45:00)</option>
+            <option value="15:00">Bake uncovered (15:00)</option>
+            <option value="30:00">Proof check (30:00)</option>
+          </select>
+        </div>
+
+        <div class="btnRow" style="justify-content:flex-start;">
+          <label style="color:var(--muted); font-size:12px;">Set time</label>
+          <input id="mins" type="number" min="0" placeholder="min" style="width:100px;">
+          <input id="secs" type="number" min="0" max="59" placeholder="sec" style="width:100px;">
+          <button class="secondary" onclick="setFromInputs()">Set</button>
+        </div>
+
+        <div class="bigNumber" id="timerDisplay">00:00</div>
+        <div class="subtle" id="timerStatus">Not running</div>
+
+        <div class="btnRow">
+          <button onclick="startTimer()">Start</button>
+          <button class="secondary" onclick="pauseTimer()">Pause</button>
+          <button class="secondary" onclick="resetTimer()">Reset</button>
         </div>
       </div>
     </section>
-
-    <!-- DAD JOKES MINI APP -->
-    <section id="dadjokes" class="panel hidden">
-      <div class="pill">😄 Comedy Module</div>
-      <h1>Dad Joke Generator</h1>
-      <p>Press the button. Receive a joke. Your fate is sealed.</p>
-
-      <div class="row">
-        <button onclick="newJoke()">Generate Joke</button>
-        <button class="secondary" onclick="copyJoke()">Copy</button>
-        <button class="secondary" onclick="go('home')">Back</button>
-      </div>
-
-      <div class="quoteBox">
-        <div class="subtle">Joke</div>
-        <div id="jokeText" style="font-size: 18px; font-weight: 800; margin-top: 6px;">
-          Click “Generate Joke” to begin.
-        </div>
-        <div id="copyMsg" class="subtle hidden" style="margin-top: 8px;">Copied.</div>
-      </div>
-    </section>
-
-    <!-- BREAD TIMER MINI APP -->
-    <section id="breadtimer" class="panel hidden">
-      <div class="pill">⏲️ Kitchen Module</div>
-      <h1>Bread Timer</h1>
-      <p>Use presets or set your own minutes and seconds. Works offline.</p>
-
-      <div class="row" style="justify-content:flex-start;">
-        <label class="subtle" for="preset">Preset</label>
-        <select id="preset" onchange="applyPreset()">
-          <option value="">Choose one</option>
-          <option value="20:00">Preheat (20:00)</option>
-          <option value="30:00">Proof Check (30:00)</option>
-          <option value="45:00">Bake Covered (45:00)</option>
-          <option value="15:00">Bake Uncovered (15:00)</option>
-        </select>
-      </div>
-
-      <div class="row" style="justify-content:flex-start;">
-        <label class="subtle">Set time</label>
-        <input id="mins" type="number" inputmode="numeric" min="0" placeholder="min" style="width:100px;" />
-        <input id="secs" type="number" inputmode="numeric" min="0" max="59" placeholder="sec" style="width:100px;" />
-        <button class="secondary" onclick="setFromInputs()">Set</button>
-      </div>
-
-      <div class="bigNumber" id="timerDisplay">00:00</div>
-      <div class="subtle" id="timerStatus">Not running</div>
-
-      <div class="row">
-        <button onclick="startTimer()">Start</button>
-        <button class="secondary" onclick="pauseTimer()">Pause</button>
-        <button class="secondary" onclick="resetTimer()">Reset</button>
-        <button class="secondary" onclick="go('home')">Back</button>
-      </div>
-
-      <p class="subtle" style="margin-top: 12px;">
-        Note: For iPhone sound, the page may require you to press Start at least once for audio to play.
-      </p>
-    </section>
-
   </div>
 
   <script>
-    // Simple navigation (single page, swap sections)
-    const sections = ["home", "test", "sourdough", "dadjokes", "breadtimer"];
-    function go(id) {
-      for (const s of sections) {
-        document.getElementById(s).classList.add("hidden");
-      }
-      document.getElementById(id).classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-
-      if (id !== "sourdough") resetSourdough();
-      if (id !== "breadtimer") stopIntervalOnly();
-      if (id !== "dadjokes") hideCopyMsg();
+    // helpers
+    function clamp(n,min,max){ return Math.max(min, Math.min(max, n)); }
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:"smooth", block:"start"});
     }
 
-    // SOURDOUGH
-    function sdNo() {
+    // HERO scroll effect + parallax orbs
+    const heroBig = document.getElementById("heroBig");
+    const heroSub = document.getElementById("heroSub");
+    const orb1 = document.getElementById("orb1");
+    const orb2 = document.getElementById("orb2");
+
+    function heroScroll(){
+      const sc = window.scrollY || 0;
+      const p = clamp(sc / window.innerHeight, 0, 1.2);
+      const scale = 1 + p * 0.55;
+      const blur = p * 6;
+      const op = 1 - p * 0.35;
+
+      heroBig.style.transform = `scale(${scale})`;
+      heroBig.style.filter = `blur(${blur}px)`;
+      heroBig.style.opacity = `${op}`;
+
+      heroSub.style.transform = `translateY(${p*16}px)`;
+      heroSub.style.opacity = `${1 - p*0.55}`;
+
+      orb1.style.transform = `translate(${sc*0.06}px, ${sc*0.04}px)`;
+      orb2.style.transform = `translate(${sc*-0.04}px, ${sc*0.05}px)`;
+    }
+    window.addEventListener("scroll", heroScroll, {passive:true});
+    window.addEventListener("resize", heroScroll);
+    heroScroll();
+
+    // Reveal on scroll
+    const reveals = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver((entries)=>{
+      for(const e of entries){
+        if(e.isIntersecting) e.target.classList.add("show");
+      }
+    }, { threshold: 0.14 });
+    reveals.forEach(r => io.observe(r));
+
+    // Carousel: dots and arrow stepping
+    const car = document.getElementById("car");
+    const dotsWrap = document.getElementById("dots");
+    const slides = Array.from(car.querySelectorAll(".slide"));
+
+    slides.forEach((_, i)=>{
+      const d = document.createElement("button");
+      d.className = "dot" + (i===0 ? " active" : "");
+      d.setAttribute("aria-label", `Go to slide ${i+1}`);
+      d.addEventListener("click", ()=> goToSlide(i));
+      dotsWrap.appendChild(d);
+    });
+
+    function getActiveIndex(){
+      const left = car.scrollLeft;
+      let best = 0;
+      let bestDist = Infinity;
+      slides.forEach((s, i)=>{
+        const dist = Math.abs(s.offsetLeft - left);
+        if(dist < bestDist){ bestDist = dist; best = i; }
+      });
+      return best;
+    }
+
+    function setDot(i){
+      const dots = Array.from(dotsWrap.children);
+      dots.forEach((d, idx)=> d.classList.toggle("active", idx===i));
+    }
+
+    function goToSlide(i){
+      slides[i].scrollIntoView({behavior:"smooth", inline:"center", block:"nearest"});
+      setDot(i);
+    }
+
+    function carStep(dir){
+      const i = getActiveIndex();
+      const next = clamp(i + dir, 0, slides.length - 1);
+      goToSlide(next);
+    }
+
+    car.addEventListener("scroll", ()=>{
+      window.clearTimeout(car._t);
+      car._t = window.setTimeout(()=> setDot(getActiveIndex()), 80);
+    }, {passive:true});
+
+    // Sticky text swap (Apple-ish)
+    const pinInner = document.getElementById("pinInner");
+    const pinTitle = document.getElementById("pinTitle");
+    const pinText = document.getElementById("pinText");
+    const pinVisual = document.getElementById("pinVisual");
+
+    const steps = [
+      { t:"Starter", d:"Feed it. Name it. Respect it. It is alive.", v:"Step 1<br>Starter" },
+      { t:"Mix", d:"Flour, water, salt. Stir until chaos becomes dough.", v:"Step 2<br>Mix" },
+      { t:"Fold", d:"Gentle folds. Every 30 minutes. Like bread yoga.", v:"Step 3<br>Folds" },
+      { t:"Cold Retard", d:"The schedule saver. The flavor multiplier. The legend.", v:"Step 4<br>Cold retard" },
+      { t:"Bake", d:"Steam, heat, and the moment of truth.", v:"Step 5<br>Bake" },
+    ];
+
+    function pinScroll(){
+      const r = pinInner.getBoundingClientRect();
+      const total = r.height - window.innerHeight;
+      const progressed = clamp((window.innerHeight - r.top) / total, 0, 1);
+      const idx = clamp(Math.floor(progressed * steps.length), 0, steps.length - 1);
+      pinTitle.innerHTML = steps[idx].t;
+      pinText.innerHTML = steps[idx].d;
+      pinVisual.innerHTML = steps[idx].v;
+    }
+    window.addEventListener("scroll", pinScroll, {passive:true});
+    window.addEventListener("resize", pinScroll);
+    pinScroll();
+
+    // Mini apps show/hide
+    const appHome = document.getElementById("appHome");
+    const appSourdough = document.getElementById("appSourdough");
+    const appDad = document.getElementById("appDad");
+    const appTimer = document.getElementById("appTimer");
+
+    function showApp(which){
+      appHome.classList.add("hidden");
+      appSourdough.classList.add("hidden");
+      appDad.classList.add("hidden");
+      appTimer.classList.add("hidden");
+
+      if(which === "apps"){
+        appHome.classList.remove("hidden");
+        resetSourdough();
+        stopIntervalOnly();
+        hideCopyMsg();
+        scrollToId("apps");
+      }
+      if(which === "sourdough"){
+        appSourdough.classList.remove("hidden");
+        stopIntervalOnly();
+        hideCopyMsg();
+        resetSourdough();
+        scrollToId("apps");
+      }
+      if(which === "dad"){
+        appDad.classList.remove("hidden");
+        stopIntervalOnly();
+        resetSourdough();
+        scrollToId("apps");
+      }
+      if(which === "timer"){
+        appTimer.classList.remove("hidden");
+        hideCopyMsg();
+        resetSourdough();
+        scrollToId("apps");
+      }
+    }
+
+    // Sourdough app
+    function sdNo(){
       document.getElementById("sd1").classList.add("hidden");
       document.getElementById("sd2").classList.remove("hidden");
     }
-    function sdYes() {
+    function sdYes(){
       document.getElementById("sd1").classList.add("hidden");
       document.getElementById("sd2").classList.add("hidden");
       document.getElementById("sd3").classList.remove("hidden");
     }
-    function resetSourdough() {
-      const sd1 = document.getElementById("sd1");
-      const sd2 = document.getElementById("sd2");
-      const sd3 = document.getElementById("sd3");
-      if (!sd1 || !sd2 || !sd3) return;
-      sd1.classList.remove("hidden");
-      sd2.classList.add("hidden");
-      sd3.classList.add("hidden");
+    function resetSourdough(){
+      const a = document.getElementById("sd1");
+      const b = document.getElementById("sd2");
+      const c = document.getElementById("sd3");
+      if(!a || !b || !c) return;
+      a.classList.remove("hidden");
+      b.classList.add("hidden");
+      c.classList.add("hidden");
     }
 
-    // DAD JOKES (offline list so you don't need API/CORS)
+    // Dad jokes
     const dadJokes = [
       "I used to hate facial hair, but then it grew on me.",
       "I’m reading a book about anti-gravity. It’s impossible to put down.",
-      "I asked my dog what’s two minus two. He said nothing.",
-      "Why don’t eggs tell jokes? They’d crack each other up.",
       "I don’t trust stairs. They’re always up to something.",
-      "I used to play piano by ear. Now I use my hands.",
       "What do you call fake spaghetti? An impasta.",
       "I only know 25 letters of the alphabet. I don’t know y.",
       "How do you organize a space party? You planet.",
-      "I’m on a seafood diet. I see food and I eat it."
+      "Why don’t eggs tell jokes? They’d crack each other up.",
+      "I used to play piano by ear. Now I use my hands."
     ];
-
-    function newJoke() {
+    function newJoke(){
       hideCopyMsg();
-      const i = Math.floor(Math.random() * dadJokes.length);
+      const i = Math.floor(Math.random()*dadJokes.length);
       document.getElementById("jokeText").textContent = dadJokes[i];
     }
-
-    function hideCopyMsg() {
+    function hideCopyMsg(){
       const m = document.getElementById("copyMsg");
-      if (m) m.classList.add("hidden");
+      if(m) m.classList.add("hidden");
     }
-
-    async function copyJoke() {
-      const text = document.getElementById("jokeText").textContent || "";
-      if (!text.trim()) return;
-      try {
-        await navigator.clipboard.writeText(text);
+    async function copyJoke(){
+      const t = document.getElementById("jokeText").textContent || "";
+      if(!t.trim()) return;
+      try{
+        await navigator.clipboard.writeText(t);
         document.getElementById("copyMsg").classList.remove("hidden");
-      } catch {
+      }catch{
         alert("Copy failed on this device. You can press and hold to copy manually.");
       }
     }
 
-    // BREAD TIMER
+    // Timer
     let timerTotalSeconds = 0;
     let timerRemainingSeconds = 0;
     let timerInterval = null;
 
-    function formatTime(s) {
-      const mm = String(Math.floor(s / 60)).padStart(2, "0");
-      const ss = String(s % 60).padStart(2, "0");
+    function formatTime(s){
+      const mm = String(Math.floor(s/60)).padStart(2,"0");
+      const ss = String(s%60).padStart(2,"0");
       return `${mm}:${ss}`;
     }
-
-    function setDisplay() {
+    function setDisplay(){
       document.getElementById("timerDisplay").textContent = formatTime(timerRemainingSeconds);
-      document.title = timerInterval ? `⏲️ ${formatTime(timerRemainingSeconds)} Bread Timer` : "Vibe Code Launchpad";
+      document.title = timerInterval ? `⏲️ ${formatTime(timerRemainingSeconds)} DanBeem` : "DanBeem Vibe Site";
     }
-
-    function setStatus(text) {
-      document.getElementById("timerStatus").textContent = text;
+    function setStatus(t){
+      document.getElementById("timerStatus").textContent = t;
     }
-
-    function applyPreset() {
+    function applyPreset(){
       const val = document.getElementById("preset").value;
-      if (!val) return;
-      const parts = val.split(":");
-      const mm = Number(parts[0] || 0);
-      const ss = Number(parts[1] || 0);
-      timerTotalSeconds = (mm * 60) + ss;
+      if(!val) return;
+      const [m,s] = val.split(":");
+      timerTotalSeconds = (Number(m||0)*60) + Number(s||0);
       timerRemainingSeconds = timerTotalSeconds;
       setDisplay();
       setStatus("Ready");
     }
-
-    function setFromInputs() {
-      const mm = Number(document.getElementById("mins").value || 0);
-      const ss = Number(document.getElementById("secs").value || 0);
-      const safeSeconds = Math.min(Math.max(ss, 0), 59);
-      timerTotalSeconds = (Math.max(mm, 0) * 60) + safeSeconds;
+    function setFromInputs(){
+      const mm = Number(document.getElementById("mins").value||0);
+      const ss = clamp(Number(document.getElementById("secs").value||0), 0, 59);
+      timerTotalSeconds = (Math.max(mm,0)*60) + ss;
       timerRemainingSeconds = timerTotalSeconds;
       setDisplay();
       setStatus("Ready");
     }
-
-    function startTimer() {
-      if (timerRemainingSeconds <= 0) {
-        setStatus("Set a time first");
-        return;
-      }
-      if (timerInterval) return;
-
+    function startTimer(){
+      if(timerRemainingSeconds <= 0){ setStatus("Set a time first"); return; }
+      if(timerInterval) return;
       setStatus("Running");
-      timerInterval = setInterval(() => {
+      timerInterval = setInterval(()=>{
         timerRemainingSeconds -= 1;
-        setDisplay();
-
-        if (timerRemainingSeconds <= 0) {
+        if(timerRemainingSeconds <= 0){
           timerRemainingSeconds = 0;
           setDisplay();
           stopIntervalOnly();
           setStatus("Done");
           beep();
           alert("Timer done!");
+          return;
         }
+        setDisplay();
       }, 1000);
     }
-
-    function pauseTimer() {
-      if (!timerInterval) return;
+    function pauseTimer(){
+      if(!timerInterval) return;
       stopIntervalOnly();
       setStatus("Paused");
     }
-
-    function resetTimer() {
+    function resetTimer(){
       stopIntervalOnly();
       timerRemainingSeconds = timerTotalSeconds;
       setDisplay();
       setStatus("Ready");
     }
-
-    function stopIntervalOnly() {
-      if (timerInterval) {
+    function stopIntervalOnly(){
+      if(timerInterval){
         clearInterval(timerInterval);
         timerInterval = null;
-        document.title = "Vibe Code Launchpad";
+        document.title = "DanBeem Vibe Site";
       }
     }
-
-    // Simple beep using Web Audio (works offline)
-    function beep() {
-      try {
+    function beep(){
+      try{
         const ctx = new (window.AudioContext || window.webkitAudioContext)();
         const osc = ctx.createOscillator();
         const gain = ctx.createGain();
@@ -525,16 +841,9 @@
         osc.connect(gain);
         gain.connect(ctx.destination);
         osc.start();
-        setTimeout(() => {
-          osc.stop();
-          ctx.close();
-        }, 220);
-      } catch {
-        // If audio fails, alert already covers it.
-      }
+        setTimeout(()=>{ osc.stop(); ctx.close(); }, 220);
+      }catch{}
     }
-
-    // Initialize timer display
     setDisplay();
   </script>
 </body>
