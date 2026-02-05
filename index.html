@@ -809,6 +809,18 @@
         `;
       };
 
+      const isResidentRightsTag = (tagValue = "") => {
+        const normalized = String(tagValue).toUpperCase();
+        if (!normalized.startsWith("F")) {
+          return false;
+        }
+        const numeric = Number(normalized.replace(/\D/g, ""));
+        if (Number.isNaN(numeric)) {
+          return false;
+        }
+        return numeric >= 550 && numeric <= 580;
+      };
+
       const renderRights = (items) => {
         if (!items || items.length === 0) {
           rightsList.innerHTML = "<li>No Resident Rights tags found.</li>";
@@ -881,20 +893,20 @@
               $where: `provider_ccn='${ccn}' OR federal_provider_number='${ccn}'`,
               $order: "survey_date DESC",
             });
-            const deficiencyRows = await fetchJson(deficiencyQuery);
-            const rights = (deficiencyRows || []).filter((row) => {
-              const tag = (getFirstValue(row, ["f_tag", "tag_code", "deficiency_tag"]) || "").toUpperCase();
-              return tag.startsWith("F");
-            });
-            renderRights(rights.slice(0, 25));
-          } else {
-            renderRights([]);
-          }
+          const deficiencyRows = await fetchJson(deficiencyQuery);
+          const rights = (deficiencyRows || []).filter((row) => {
+            const tag = getFirstValue(row, ["f_tag", "tag_code", "deficiency_tag"]);
+            return isResidentRightsTag(tag);
+          });
+          renderRights(rights.slice(0, 25));
+        } else {
+          renderRights([]);
+        }
 
           if (pbjUrl && pbjStart.value && pbjEnd.value) {
             const pbjQuery = buildSocrataUrl(pbjUrl, {
               $limit: 50000,
-              $where: `provider_ccn='${ccn}' AND work_date between '${pbjStart.value}' and '${pbjEnd.value}'`,
+              $where: `provider_ccn='${ccn}' AND (work_date between '${pbjStart.value}' and '${pbjEnd.value}' OR date between '${pbjStart.value}' and '${pbjEnd.value}')`,
             });
             const pbjRows = await fetchJson(pbjQuery);
             const totals = pbjRows.reduce(
