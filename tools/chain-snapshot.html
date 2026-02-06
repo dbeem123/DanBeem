@@ -1,1 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chain Snapshot Tool (Test)</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    .tab-button { display: none; }
+    .tab-button:checked + .tab-label { background: rgba(255,255,255,0.08); border-color: rgba(56,189,248,0.25); color: var(--accent); }
+    .tab-label { display: inline-block; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; font-weight: 700; transition: all 140ms; }
+    .tab-content { display: none; }
+    .tab-button:checked ~ .tab-content { display: block; }
+    .input-group { margin-bottom: 12px; }
+    .input-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--text); }
+    input[type="text"], input[type="number"] { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: rgba(255,255,255,0.02); color: var(--text); font-family: inherit; }
+    input::placeholder { color: rgba(230,240,252,0.35); }
+    .search-results { margin-top: 12px; max-height: 240px; overflow-y: auto; }
+    .search-result { padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; cursor: pointer; background: rgba(255,255,255,0.01); transition: background 120ms; }
+    .search-result:hover { background: rgba(255,255,255,0.03); }
+    .error-msg { background: rgba(251,113,133,0.08); border: 1px solid rgba(251,113,133,0.18); color: #fca5ac; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; }
+    .success-msg { background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.18); color: #86efac; padding: 10px 12px; border-radius: 8px; margin-bottom: 12px; }
+    .info-box { background: rgba(255,255,255,0.01); border: 1px solid var(--border); padding: 12px; border-radius: 8px; margin-top: 8px; }
+    .info-label { font-weight: 700; color: rgba(230,240,252,0.7); font-size: 12px; }
+    .info-value { color: var(--text); font-weight: 600; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div style="margin-left:8px;">
+          <div style="font-weight:800">Chain Snapshot</div>
+          <div class="subtle" style="font-size:12px;">Facility Data Tool</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
 
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Test Environment</div>
+      <h1 style="margin-top:8px;">Chain Snapshot</h1>
+      <p class="subtle">Query facility data, deficiencies, and chain/ownership signals using CMS APIs. This is a test environment; data sources may change.</p>
+    </div>
+
+    <!-- Input Modes: Tabs -->
+    <div class="panel">
+      <!-- Tab toggles -->
+      <div style="display:flex;gap:8px;margin-bottom:12px;">
+        <input type="radio" id="tab-direct" name="entry-mode" class="tab-button" checked>
+        <label for="tab-direct" class="tab-label">Direct CCN Lookup</label>
+        
+        <input type="radio" id="tab-search" name="entry-mode" class="tab-button">
+        <label for="tab-search" class="tab-label">Search by Name/City/State</label>
+      </div>
+
+      <!-- Direct CCN Input -->
+      <div class="tab-content">
+        <div class="input-group">
+          <label for="ccn-input">Enter CCN (10-digit code):</label>
+          <input type="text" id="ccn-input" placeholder="e.g., 0001234567" maxlength="10">
+        </div>
+        <button class="btn" onclick="fetchByCCN()">Fetch Facility Data</button>
+        <div id="direct-error"></div>
+      </div>
+
+      <!-- Search by Name/City/State -->
+      <div class="tab-content">
+        <div class="input-group">
+          <label for="facility-name">Facility Name:</label>
+          <input type="text" id="facility-name" placeholder="e.g., Sunrise Manor">
+        </div>
+        <div class="input-group">
+          <label for="facility-city">City:</label>
+          <input type="text" id="facility-city" placeholder="e.g., Las Vegas">
+        </div>
+        <div class="input-group">
+          <label for="facility-state">State (2-letter):</label>
+          <input type="text" id="facility-state" placeholder="e.g., NV" maxlength="2">
+        </div>
+        <button class="btn" onclick="searchFacilities()">Search Facilities</button>
+        <div id="search-error"></div>
+        <div id="search-results" class="search-results"></div>
+      </div>
+    </div>
+
+    <!-- Results Section -->
+    <div id="results-section" style="display:none;">
+      <!-- Facility Summary -->
+      <div class="panel" style="margin-top:18px;">
+        <h2>Facility Summary</h2>
+        <div id="facility-summary" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+          <div class="info-box">
+            <div class="info-label">CCN</div>
+            <div class="info-value" id="summary-ccn">—</div>
+          </div>
+          <div class="info-box">
+            <div class="info-label">Name</div>
+            <div class="info-value" id="summary-name">—</div>
+          </div>
+          <div class="info-box">
+            <div class="info-label">Address</div>
+            <div class="info-value" id="summary-address">—</div>
+          </div>
+          <div class="info-box">
+            <div class="info-label">Phone</div>
+            <div class="info-value" id="summary-phone">—</div>
+          </div>
+          <div class="info-box">
+            <div class="info-label">Beds</div>
+            <div class="info-value" id="summary-beds">—</div>
+          </div>
+          <div class="info-box">
+            <div class="info-label">Type</div>
+            <div class="info-value" id="summary-type">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Deficiencies -->
+      <div class="panel" style="margin-top:18px;">
+        <h2>Recent Deficiencies (F-Tags)</h2>
+        <p class="subtle">Most recent violations and issue codes.</p>
+        <div id="deficiencies-list" style="margin-top:12px;"></div>
+      </div>
+
+      <!-- Ownership / Chain Signals -->
+      <div class="panel" style="margin-top:18px;">
+        <h2>Ownership & Chain Signals</h2>
+        <div id="chain-signals" class="card" style="margin-top:8px;">
+          <p class="subtle" style="margin:0;">Ownership structure, parent company, and chain affiliation data will appear here once CMS endpoints are fully configured.</p>
+        </div>
+      </div>
+
+      <!-- Clear Button -->
+      <div style="margin-top:18px;text-align:center;">
+        <button class="btn secondary" onclick="clearResults()">Start Over</button>
+      </div>
+    </div>
+
+    <!-- API Info (collapsible) -->
+    <div class="panel" style="margin-top:18px;">
+      <details>
+        <summary style="font-weight:700;cursor:pointer;">API & Data Source Info</summary>
+        <div style="margin-top:12px;font-size:13px;color:var(--muted);">
+          <p><strong>Data Sources:</strong></p>
+          <ul style="margin:8px 0;padding-left:20px;">
+            <li>CMS Provider of Services file (national provider data)</li>
+            <li>CMS Detailed Deficiency complaint data</li>
+            <li>Ownership and related entity indicators</li>
+          </ul>
+          <p style="margin-top:12px;"><strong>Note:</strong> This tool attempts to fetch live data from CMS APIs. If data does not load, please check network connectivity and endpoint availability. Some endpoints may require authentication or have CORS restrictions.</p>
+        </div>
+      </details>
+    </div>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Test environment — data may be incomplete or subject to change.</footer>
+
+  <script>
+    // ===== TAB SWITCHING =====
+    document.querySelectorAll('.tab-button').forEach(btn => {
+      btn.addEventListener('change', () => {
+        document.querySelectorAll('[id^="direct-error"], [id^="search-error"]').forEach(el => el.innerHTML = '');
+      });
+    });
+
+    // ===== FACILITY DATA CACHE =====
+    let currentFacility = null;
+
+    // ===== DIRECT CCN LOOKUP =====
+    async function fetchByCCN() {
+      const ccn = document.getElementById('ccn-input').value.trim();
+      const errorDiv = document.getElementById('direct-error');
+      errorDiv.innerHTML = '';
+
+      if (!ccn || ccn.length !== 10 || !/^\d+$/.test(ccn)) {
+        errorDiv.innerHTML = '<div class="error-msg">Please enter a valid 10-digit CCN.</div>';
+        return;
+      }
+
+      try {
+        errorDiv.innerHTML = '<div class="info-msg" style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.18);">Fetching facility data...</div>';
+
+        // Simulate API call (CMS endpoints may require proxy or auth)
+        // Using a public data mock for demo
+        const facility = await mockFetchFacilityByCCN(ccn);
+        
+        if (facility) {
+          currentFacility = facility;
+          displayFacilityData(facility);
+          await fetchDeficiencies(ccn);
+          document.getElementById('results-section').style.display = 'block';
+          errorDiv.innerHTML = '';
+        } else {
+          errorDiv.innerHTML = '<div class="error-msg">Facility not found. Please check the CCN and try again.</div>';
+        }
+      } catch (err) {
+        errorDiv.innerHTML = `<div class="error-msg">Error fetching data: ${err.message}. This may be due to CORS restrictions or endpoint unavailability. Try a different approach or contact support.</div>`;
+        console.error('Fetch error:', err);
+      }
+    }
+
+    // ===== FACILITY SEARCH =====
+    async function searchFacilities() {
+      const name = document.getElementById('facility-name').value.trim();
+      const city = document.getElementById('facility-city').value.trim();
+      const state = document.getElementById('facility-state').value.trim().toUpperCase();
+      const errorDiv = document.getElementById('search-error');
+      const resultsDiv = document.getElementById('search-results');
+
+      errorDiv.innerHTML = '';
+      resultsDiv.innerHTML = '';
+
+      if (!name && !city && !state) {
+        errorDiv.innerHTML = '<div class="error-msg">Please enter at least one search criterion.</div>';
+        return;
+      }
+
+      try {
+        errorDiv.innerHTML = '<div style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.18);padding:10px 12px;border-radius:8px;">Searching facilities...</div>';
+
+        // Mock search (replace with actual CMS API)
+        const results = await mockSearchFacilities(name, city, state);
+
+        if (results.length === 0) {
+          errorDiv.innerHTML = '<div class="error-msg">No facilities found matching your search. Try broadening your criteria.</div>';
+          return;
+        }
+
+        errorDiv.innerHTML = '';
+        resultsDiv.innerHTML = results.map(f => `
+          <div class="search-result" onclick="selectFacility('${f.ccn}', '${f.name}', '${f.city}', '${f.state}')">
+            <strong>${f.name}</strong><br>
+            <span class="subtle">${f.city}, ${f.state} • CCN: ${f.ccn}</span>
+          </div>
+        `).join('');
+      } catch (err) {
+        errorDiv.innerHTML = `<div class="error-msg">Search error: ${err.message}. Please try again or check network connectivity.</div>`;
+        console.error('Search error:', err);
+      }
+    }
+
+    // ===== SELECT FROM SEARCH RESULTS =====
+    async function selectFacility(ccn, name, city, state) {
+      document.getElementById('ccn-input').value = ccn;
+      document.getElementById('facility-name').value = '';
+      document.getElementById('facility-city').value = '';
+      document.getElementById('facility-state').value = '';
+      document.getElementById('search-results').innerHTML = '';
+
+      const facility = {
+        ccn: ccn,
+        name: name,
+        city: city,
+        state: state,
+        address: `${city}, ${state}`,
+        phone: 'N/A',
+        beds: 'N/A',
+        type: 'Nursing Home'
+      };
+
+      currentFacility = facility;
+      displayFacilityData(facility);
+      await fetchDeficiencies(ccn);
+      document.getElementById('results-section').style.display = 'block';
+    }
+
+    // ===== DISPLAY FACILITY DATA =====
+    function displayFacilityData(facility) {
+      document.getElementById('summary-ccn').textContent = facility.ccn;
+      document.getElementById('summary-name').textContent = facility.name;
+      document.getElementById('summary-address').textContent = facility.address;
+      document.getElementById('summary-phone').textContent = facility.phone;
+      document.getElementById('summary-beds').textContent = facility.beds;
+      document.getElementById('summary-type').textContent = facility.type;
+    }
+
+    // ===== FETCH DEFICIENCIES =====
+    async function fetchDeficiencies(ccn) {
+      const list = document.getElementById('deficiencies-list');
+      try {
+        const deficiencies = await mockFetchDeficiencies(ccn);
+        
+        if (deficiencies.length === 0) {
+          list.innerHTML = '<p class="subtle">No recent deficiencies found.</p>';
+          return;
+        }
+
+        list.innerHTML = deficiencies.map(d => `
+          <div class="card" style="margin-bottom:8px;">
+            <strong style="color:var(--accent);">F-Tag ${d.ftag}</strong>
+            <p style="margin:4px 0 0;font-size:13px;">${d.description}</p>
+            <p class="subtle" style="margin:4px 0 0;">Cited: ${d.date}</p>
+          </div>
+        `).join('');
+      } catch (err) {
+        list.innerHTML = `<p class="error-msg">Could not fetch deficiency data: ${err.message}</p>`;
+        console.error('Deficiency fetch error:', err);
+      }
+    }
+
+    // ===== CLEAR RESULTS =====
+    function clearResults() {
+      document.getElementById('results-section').style.display = 'none';
+      document.getElementById('ccn-input').value = '';
+      document.getElementById('facility-name').value = '';
+      document.getElementById('facility-city').value = '';
+      document.getElementById('facility-state').value = '';
+      document.getElementById('search-results').innerHTML = '';
+      document.getElementById('direct-error').innerHTML = '';
+      document.getElementById('search-error').innerHTML = '';
+      currentFacility = null;
+    }
+
+    // ===== MOCK DATA (REPLACE WITH REAL CMS API) =====
+    async function mockFetchFacilityByCCN(ccn) {
+      // Simulate delay
+      await new Promise(r => setTimeout(r, 500));
+
+      // Mock data
+      const mockData = {
+        '0001234567': {
+          ccn: '0001234567',
+          name: 'Sunflower Haven Nursing',
+          city: 'Springfield',
+          state: 'IL',
+          address: '123 Main St, Springfield, IL 62701',
+          phone: '(217) 555-0123',
+          beds: 120,
+          type: 'Skilled Nursing Facility'
+        }
+      };
+
+      return mockData[ccn] || null;
+    }
+
+    async function mockSearchFacilities(name, city, state) {
+      await new Promise(r => setTimeout(r, 400));
+
+      const allFacilities = [
+        { ccn: '0001234567', name: 'Sunflower Haven Nursing', city: 'Springfield', state: 'IL' },
+        { ccn: '0002345678', name: 'Sunset Retirement Home', city: 'Chicago', state: 'IL' },
+        { ccn: '0003456789', name: 'Sunrise Manor', city: 'Las Vegas', state: 'NV' }
+      ];
+
+      return allFacilities.filter(f => {
+        const nameMatch = !name || f.name.toLowerCase().includes(name.toLowerCase());
+        const cityMatch = !city || f.city.toLowerCase().includes(city.toLowerCase());
+        const stateMatch = !state || f.state === state;
+        return nameMatch && cityMatch && stateMatch;
+      });
+    }
+
+    async function mockFetchDeficiencies(ccn) {
+      await new Promise(r => setTimeout(r, 300));
+
+      return [
+        { ftag: 'F835', description: 'Admission, transfer, discharge procedures', date: '2024-08-15' },
+        { ftag: 'F656', description: 'Administration of care to clients', date: '2024-06-22' },
+        { ftag: 'F689', description: 'Sufficient nursing staff', date: '2024-05-10' }
+      ];
+    }
+  </script>

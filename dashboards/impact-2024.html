@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Impact Dashboard — FFY 2023 vs 2024</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgen-js/3.12.0/pptxgen.bundle.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div style="margin-left:8px;">
+          <div style="font-weight:800">Impact Dashboard</div>
+          <div class="subtle" style="font-size:12px;">FFY 2023 vs 2024</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../tools/chain-snapshot.html">Chain Snapshot</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Test Environment</div>
+      <h1 style="margin-top:8px;">Impact Dashboard</h1>
+      <p class="subtle">Comparative analysis for Fiscal Fiscal Year 2023 and 2024.</p>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="grid">
+      <div class="card">
+        <h3 style="margin:0 0 4px;font-size:14px;">Total Cases</h3>
+        <div style="font-size:32px;font-weight:900;margin:8px 0;">2628</div>
+        <div class="subtle" style="display:inline-flex;align-items:center;gap:4px;">
+          <span style="color:#22c55e;font-weight:800;">↑ +12.6%</span>
+          <span>vs FFY 2023</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 4px;font-size:14px;">Facilities</h3>
+        <div style="font-size:32px;font-weight:900;margin:8px 0;">410</div>
+        <div class="subtle">Served / Monitored</div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 4px;font-size:14px;">Staffing</h3>
+        <div style="font-size:32px;font-weight:900;margin:8px 0;">15 FTE</div>
+        <div class="subtle">+18 volunteers <span style="color:#fbbf24;font-weight:800;">↑</span></div>
+      </div>
+
+      <div class="card">
+        <h3 style="margin:0 0 4px;font-size:14px;">Resolution Rate</h3>
+        <div style="font-size:32px;font-weight:900;margin:8px 0;color:#38bdf8;">83%</div>
+        <div class="subtle">3,647 of 4,415 cases</div>
+      </div>
+    </div>
+
+    <!-- Chart Section -->
+    <div class="panel" style="margin-top:18px;">
+      <h2>Case Volume Comparison</h2>
+      <p class="subtle">Total cases reported: FFY 2023 vs FFY 2024</p>
+      <canvas id="caseChart" style="max-height:300px;margin-top:12px;"></canvas>
+    </div>
+
+    <!-- Export Section -->
+    <div class="panel" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <button class="btn" onclick="downloadDashboardPPTX()">Download Dashboard (PPTX)</button>
+      <p class="subtle" style="margin:0;">Generates a presentation summary of this dashboard.</p>
+    </div>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Test environment — data and features may change.</footer>
+
+  <script>
+    // Initialize bar chart
+    const ctx = document.getElementById('caseChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['FFY 2023', 'FFY 2024'],
+        datasets: [{
+          label: 'Total Cases',
+          data: [2333, 2628],
+          backgroundColor: ['rgba(56,189,248,0.4)', 'rgba(56,189,248,0.9)'],
+          borderColor: ['rgba(56,189,248,0.8)', 'rgba(56,189,248,1)'],
+          borderWidth: 1,
+          borderRadius: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', titleColor: '#e6f0fb', bodyColor: '#e6f0fb', padding: 10, borderRadius: 8, displayColors: false }
+        },
+        scales: {
+          y: { beginAtZero: true, ticks: { color: 'rgba(230,240,252,0.55)', font: { weight: 700 } }, grid: { color: 'rgba(255,255,255,0.04)' } },
+          x: { ticks: { color: 'rgba(230,240,252,0.55)', font: { weight: 700 } }, grid: { display: false } }
+        }
+      }
+    });
+
+    // PPTX download function
+    function downloadDashboardPPTX() {
+      try {
+        // Access PptxGenJS from global scope
+        const prsn = new PptxGenJS();
+        prsn.defineLayout({ name: 'LAYOUT1', master: true });
+        prsn.theme = { colors: ['#07101a', '#e6f0fb', '#38bdf8', '#a78bfa', '#22c55e', '#fbbf24'] };
+
+        // Slide 1: Title
+        const slide1 = prsn.addSlide();
+        slide1.background = { color: '#07101a' };
+        slide1.addText('Impact Dashboard', { x: 0.5, y: 2, w: 9, h: 1, fontSize: 54, bold: true, color: '#e6f0fb' });
+        slide1.addText('FFY 2023 vs FFY 2024 Analysis', { x: 0.5, y: 3.1, w: 9, h: 0.5, fontSize: 24, color: '#a78bfa' });
+        slide1.addText('DanBeem Ombudsman Tools and Resource Lab', { x: 0.5, y: 5, w: 9, h: 0.4, fontSize: 14, color: 'rgba(230,240,252,0.55)' });
+
+        // Slide 2: KPIs
+        const slide2 = prsn.addSlide();
+        slide2.background = { color: '#07101a' };
+        slide2.addText('Key Performance Indicators', { x: 0.5, y: 0.5, w: 9, h: 0.5, fontSize: 36, bold: true, color: '#e6f0fb' });
+
+        const kpis = [
+          { label: 'Total Cases', value: '2628', change: '+12.6%', x: 0.5 },
+          { label: 'Facilities', value: '410', change: '', x: 2.8 },
+          { label: 'Staffing', value: '15 FTE', change: '+18 vol.', x: 5.1 },
+          { label: 'Resolution', value: '83%', change: '3,647/4,415', x: 7.4 }
+        ];
+
+        kpis.forEach(kpi => {
+          slide2.addShape(prsn.ShapeType.rect, { x: kpi.x, y: 1.2, w: 2, h: 3.5, fill: { color: '#0a141f', transparency: 30 }, line: { color: '#38bdf8', width: 1 } });
+          slide2.addText(kpi.label, { x: kpi.x + 0.1, y: 1.4, w: 1.8, h: 0.4, fontSize: 12, color: 'rgba(230,240,252,0.55)' });
+          slide2.addText(kpi.value, { x: kpi.x + 0.1, y: 1.9, w: 1.8, h: 0.8, fontSize: 28, bold: true, color: '#38bdf8' });
+          if (kpi.change) {
+            slide2.addText(kpi.change, { x: kpi.x + 0.1, y: 2.8, w: 1.8, h: 0.5, fontSize: 11, color: '#22c55e' });
+          }
+        });
+
+        // Slide 3: Chart data
+        const slide3 = prsn.addSlide();
+        slide3.background = { color: '#07101a' };
+        slide3.addText('Case Volume Comparison', { x: 0.5, y: 0.5, w: 9, h: 0.5, fontSize: 36, bold: true, color: '#e6f0fb' });
+        
+        const chartData = [
+          { name: 'FFY 2023', labels: ['Cases'], values: [[2333]] },
+          { name: 'FFY 2024', labels: ['Cases'], values: [[2628]] }
+        ];
+
+        slide3.addChart(prsn.ChartTypeEnum.bar, chartData, {
+          x: 0.5, y: 1.2, w: 9, h: 4,
+          barDir: 'bar',
+          chartColors: ['#38bdf8', '#a78bfa'],
+          showTitle: false,
+          showLegend: true,
+          legendPos: 'b'
+        });
+
+        // Save file
+        prsn.save({ fileName: 'DanBeem_Impact_Dashboard_FFY2024.pptx' });
+      } catch (err) {
+        console.error('PPTX generation error:', err);
+        alert('Error generating PPTX. Check console for details.');
+      }
+    }
+  </script>
