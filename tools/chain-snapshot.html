@@ -328,16 +328,21 @@
     }
 
     // ===== CMS API INTEGRATION =====
-    // Uses Medicare.gov Care Compare API (public, CORS-enabled)
+    // Uses Medicare.gov Care Compare API (public, CORS-enabled via proxy)
+    // CORS proxy: https://api.allorigins.win
 
     async function fetchFacilityFromCMS(ccn) {
       // Care Compare API endpoint for nursing home details
-      const url = `https://data.cms.gov/api/views/homes/rows.json?filter=Provider%20ID%20=${ccn}&limit=1`;
+      const cmsUrl = `https://data.cms.gov/api/views/homes/rows.json?filter=Provider%20ID%20=${ccn}&limit=1`;
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(cmsUrl)}`;
       
-      const response = await fetch(url);
+      const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       
-      const data = await response.json();
+      const proxyData = await response.json();
+      if (!proxyData.contents) throw new Error('No data returned from proxy');
+      
+      const data = JSON.parse(proxyData.contents);
       if (!data || data.length === 0) return null;
 
       const row = data[0];
@@ -360,12 +365,16 @@
       if (city) filter += (filter ? '%20AND%20' : '') + `City%20contains%20'${encodeURIComponent(city)}'`;
       if (state) filter += (filter ? '%20AND%20' : '') + `State%20=${encodeURIComponent(state)}`;
 
-      const url = `https://data.cms.gov/api/views/homes/rows.json?filter=${filter}&limit=50`;
+      const cmsUrl = `https://data.cms.gov/api/views/homes/rows.json?filter=${filter}&limit=50`;
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(cmsUrl)}`;
       
-      const response = await fetch(url);
+      const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       
-      const data = await response.json();
+      const proxyData = await response.json();
+      if (!proxyData.contents) throw new Error('No data returned from proxy');
+      
+      const data = JSON.parse(proxyData.contents);
       if (!data || data.length === 0) return [];
 
       return data.slice(0, 20).map(row => ({
@@ -379,12 +388,16 @@
     async function fetchDeficienciesFromCMS(ccn) {
       // CMS Enforcement & Inspections API
       // Returns inspection & accusation data
-      const url = `https://data.cms.gov/api/views/wvyx-sxba/rows.json?filter=Provider%20ID%20=${ccn}&limit=20`;
+      const cmsUrl = `https://data.cms.gov/api/views/wvyx-sxba/rows.json?filter=Provider%20ID%20=${ccn}&limit=20`;
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(cmsUrl)}`;
       
-      const response = await fetch(url);
+      const response = await fetch(proxyUrl);
       if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       
-      const data = await response.json();
+      const proxyData = await response.json();
+      if (!proxyData.contents) throw new Error('No data returned from proxy');
+      
+      const data = JSON.parse(proxyData.contents);
       if (!data || data.length === 0) return [];
 
       return data.map(row => ({
