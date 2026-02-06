@@ -56,8 +56,8 @@
       <label for="tab-direct" class="tab-label">Direct CCN Lookup</label>
       <div class="tab-content">
         <div class="input-group">
-          <label for="ccn-input">Enter CCN (10-digit code):</label>
-          <input type="text" id="ccn-input" placeholder="e.g., 0001234567" maxlength="10">
+          <label for="ccn-input">Enter CCN (6-digit facility code):</label>
+          <input type="text" id="ccn-input" placeholder="e.g., 325001" maxlength="6">
         </div>
         <button class="btn" onclick="fetchByCCN()">Fetch Facility Data</button>
         <div id="direct-error"></div>
@@ -242,8 +242,8 @@
       const errorDiv = document.getElementById('direct-error');
       errorDiv.innerHTML = '';
 
-      if (!ccn || ccn.length !== 10 || !/^[A-Z0-9]{10}$/.test(ccn)) {
-        errorDiv.innerHTML = '<div class="error-msg">Please enter a valid 10-digit CCN (alphanumeric).</div>';
+      if (!ccn || ccn.length !== 6 || !/^[A-Z0-9]{6}$/.test(ccn)) {
+        errorDiv.innerHTML = '<div class="error-msg">Please enter a valid 6-digit CCN (e.g., 325001).</div>';
         return;
       }
 
