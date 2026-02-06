@@ -18,18 +18,58 @@ app.get('/api/search-facility', async (req, res) => {
   try {
     const { name, city, state } = req.query;
     
+    // Build filter with provided criteria
     let filter = '';
     if (name) filter += `Facility%20Name%20contains%20'${encodeURIComponent(name)}'`;
     if (city) filter += (filter ? '%20AND%20' : '') + `City%20contains%20'${encodeURIComponent(city)}'`;
     if (state) filter += (filter ? '%20AND%20' : '') + `State%20=${encodeURIComponent(state)}`;
 
-    const url = `https://data.cms.gov/api/views/homes/rows.json?filter=${filter}&limit=50`;
-    
+    // If no criteria, reject the search
+    if (!filter) {
+      return res.json([]);
+    }
+
+    const url = `https://data.cms.gov/api/views/homes/rows.json?filter=${filter}&limit=100`;
+
     const response = await fetch(url);
     if (!response.ok) throw new Error(`CMS API returned ${response.status}`);
-    
-    const data = await response.json();
-    
+
+    let data = await response.json();
+
+    // If no results found, try a retry strategy
+    if (!data || data.length === 0) {
+      console.log('No results with filter, attempting broader search...');
+      
+      // Retry 1: If state-only search, try with wildcard name in state
+      if (state && !name && !city) {
+        console.log('Retrying state-only search with wildcard...');
+        const wildcardUrl = `https://data.cms.gov/api/views/homes/rows.json?filter=State%20%3D%20'${encodeURIComponent(state)}'&limit=200`;
+        const wildcardResp = await fetch(wildcardUrl);
+        if (wildcardResp.ok) {
+          const wildcardData = await wildcardResp.json();
+          if (wildcardData && wildcardData.length > 0) {
+            data = wildcardData;
+          }
+        }
+      }
+      
+      // Retry 2: If still no results and had constraints, retry without state
+      if ((! data || data.length === 0) && state && (name || city)) {
+        console.log('Retrying search without state filter...');
+        let relaxedFilter = '';
+        if (name) relaxedFilter += `Facility%20Name%20contains%20'${encodeURIComponent(name)}'`;
+        if (city) relaxedFilter += (relaxedFilter ? '%20AND%20' : '') + `City%20contains%20'${encodeURIComponent(city)}'`;
+        const retryUrl = `https://data.cms.gov/api/views/homes/rows.json?filter=${relaxedFilter}&limit=100`;
+        const retryResp = await fetch(retryUrl);
+        if (retryResp.ok) {
+          const retryData = await retryResp.json();
+          if (retryData && retryData.length > 0) {
+            data = retryData;
+          }
+        }
+      }
+    }
+
     if (!data || data.length === 0) {
       return res.json([]);
     }
