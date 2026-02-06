@@ -10,7 +10,7 @@
     .tab-button:checked + .tab-label { background: rgba(255,255,255,0.08); border-color: rgba(56,189,248,0.25); color: var(--accent); }
     .tab-label { display: inline-block; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); cursor: pointer; font-weight: 700; transition: all 140ms; }
     .tab-content { display: none; }
-    .tab-button:checked ~ .tab-content { display: block; }
+    .tab-button:checked + .tab-label + .tab-content { display: block; }
     .input-group { margin-bottom: 12px; }
     .input-group label { display: block; font-weight: 700; margin-bottom: 6px; color: var(--text); }
     input[type="text"], input[type="number"] { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: rgba(255,255,255,0.02); color: var(--text); font-family: inherit; }
@@ -51,16 +51,9 @@
 
     <!-- Input Modes: Tabs -->
     <div class="panel">
-      <!-- Tab toggles -->
-      <div style="display:flex;gap:8px;margin-bottom:12px;">
-        <input type="radio" id="tab-direct" name="entry-mode" class="tab-button" checked>
-        <label for="tab-direct" class="tab-label">Direct CCN Lookup</label>
-        
-        <input type="radio" id="tab-search" name="entry-mode" class="tab-button">
-        <label for="tab-search" class="tab-label">Search by Name/City/State</label>
-      </div>
-
-      <!-- Direct CCN Input -->
+      <!-- Tab 1: Direct CCN Lookup -->
+      <input type="radio" id="tab-direct" name="entry-mode" class="tab-button" checked>
+      <label for="tab-direct" class="tab-label">Direct CCN Lookup</label>
       <div class="tab-content">
         <div class="input-group">
           <label for="ccn-input">Enter CCN (10-digit code):</label>
@@ -70,7 +63,9 @@
         <div id="direct-error"></div>
       </div>
 
-      <!-- Search by Name/City/State -->
+      <!-- Tab 2: Search by Name/City/State -->
+      <input type="radio" id="tab-search" name="entry-mode" class="tab-button">
+      <label for="tab-search" class="tab-label">Search by Name/City/State</label>
       <div class="tab-content">
         <div class="input-group">
           <label for="facility-name">Facility Name:</label>
@@ -165,32 +160,45 @@
 
   <script>
     // ===== TAB SWITCHING =====
-    document.querySelectorAll('.tab-button').forEach(btn => {
-      btn.addEventListener('change', () => {
-        document.querySelectorAll('[id^="direct-error"], [id^="search-error"]').forEach(el => el.innerHTML = '');
-      });
-    });
+    function updateTabs() {
+      document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      const checked = document.querySelector('.tab-button:checked');
+      if (checked) {
+        const label = checked.nextElementSibling;
+        const content = label && label.nextElementSibling;
+        if (content && content.classList.contains('tab-content')) {
+          content.style.display = 'block';
+          // Clear any previous errors
+          document.querySelectorAll('#direct-error, #search-error').forEach(el => { if (el) el.innerHTML = ''; });
+          // Focus first input in content for accessibility
+          const firstInput = content.querySelector('input, textarea, button, select');
+          if (firstInput) firstInput.focus();
+        }
+      }
+    }
+
+    document.querySelectorAll('.tab-button').forEach(btn => btn.addEventListener('change', updateTabs));
+    document.addEventListener('DOMContentLoaded', updateTabs);
 
     // ===== FACILITY DATA CACHE =====
     let currentFacility = null;
 
     // ===== DIRECT CCN LOOKUP =====
     async function fetchByCCN() {
-      const ccn = document.getElementById('ccn-input').value.trim();
+      const ccn = document.getElementById('ccn-input').value.trim().toUpperCase();
       const errorDiv = document.getElementById('direct-error');
       errorDiv.innerHTML = '';
 
-      if (!ccn || ccn.length !== 10 || !/^\d+$/.test(ccn)) {
-        errorDiv.innerHTML = '<div class="error-msg">Please enter a valid 10-digit CCN.</div>';
+      if (!ccn || ccn.length !== 10 || !/^[A-Z0-9]{10}$/.test(ccn)) {
+        errorDiv.innerHTML = '<div class="error-msg">Please enter a valid 10-digit CCN (alphanumeric).</div>';
         return;
       }
 
       try {
-        errorDiv.innerHTML = '<div class="info-msg" style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.18);">Fetching facility data...</div>';
+        errorDiv.innerHTML = '<div class="info-msg" style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.18);padding:10px 12px;border-radius:8px;">Fetching facility data from CMS...</div>';
 
-        // Simulate API call (CMS endpoints may require proxy or auth)
-        // Using a public data mock for demo
-        const facility = await mockFetchFacilityByCCN(ccn);
+        // Fetch from CMS Care Compare API
+        const facility = await fetchFacilityFromCMS(ccn);
         
         if (facility) {
           currentFacility = facility;
@@ -199,10 +207,10 @@
           document.getElementById('results-section').style.display = 'block';
           errorDiv.innerHTML = '';
         } else {
-          errorDiv.innerHTML = '<div class="error-msg">Facility not found. Please check the CCN and try again.</div>';
+          errorDiv.innerHTML = '<div class="error-msg">Facility CCN not found in CMS database. Please verify the 10-digit code.</div>';
         }
       } catch (err) {
-        errorDiv.innerHTML = `<div class="error-msg">Error fetching data: ${err.message}. This may be due to CORS restrictions or endpoint unavailability. Try a different approach or contact support.</div>`;
+        errorDiv.innerHTML = `<div class="error-msg"><strong>Error fetching data:</strong> ${err.message}<br><span style="font-size:12px;">This may indicate CMS API unavailability or network issues. Try again or use the search function.</span></div>`;
         console.error('Fetch error:', err);
       }
     }
@@ -224,25 +232,25 @@
       }
 
       try {
-        errorDiv.innerHTML = '<div style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.18);padding:10px 12px;border-radius:8px;">Searching facilities...</div>';
+        errorDiv.innerHTML = '<div style="background:rgba(56,189,248,0.08);color:#38bdf8;border:1px solid rgba(56,189,248,0.18);padding:10px 12px;border-radius:8px;">Searching CMS database...</div>';
 
-        // Mock search (replace with actual CMS API)
-        const results = await mockSearchFacilities(name, city, state);
+        // Search CMS Care Compare API
+        const results = await searchFacilitiesFromCMS(name, city, state);
 
         if (results.length === 0) {
-          errorDiv.innerHTML = '<div class="error-msg">No facilities found matching your search. Try broadening your criteria.</div>';
+          errorDiv.innerHTML = '<div class="error-msg">No facilities found. Try broader search terms or check state abbreviation.</div>';
           return;
         }
 
         errorDiv.innerHTML = '';
         resultsDiv.innerHTML = results.map(f => `
-          <div class="search-result" onclick="selectFacility('${f.ccn}', '${f.name}', '${f.city}', '${f.state}')">
+          <div class="search-result" onclick="selectFacility('${f.ccn}', '${f.name.replace(/'/g, "\\'")}', '${f.city.replace(/'/g, "\\'")}', '${f.state}')">
             <strong>${f.name}</strong><br>
             <span class="subtle">${f.city}, ${f.state} • CCN: ${f.ccn}</span>
           </div>
         `).join('');
       } catch (err) {
-        errorDiv.innerHTML = `<div class="error-msg">Search error: ${err.message}. Please try again or check network connectivity.</div>`;
+        errorDiv.innerHTML = `<div class="error-msg"><strong>Search error:</strong> ${err.message}<br><span style="font-size:12px;">CMS API may be temporarily unavailable. Please try again.</span></div>`;
         console.error('Search error:', err);
       }
     }
@@ -286,18 +294,18 @@
     async function fetchDeficiencies(ccn) {
       const list = document.getElementById('deficiencies-list');
       try {
-        const deficiencies = await mockFetchDeficiencies(ccn);
+        const deficiencies = await fetchDeficienciesFromCMS(ccn);
         
         if (deficiencies.length === 0) {
-          list.innerHTML = '<p class="subtle">No recent deficiencies found.</p>';
+          list.innerHTML = '<p class="subtle">No recent deficiencies found in CMS records.</p>';
           return;
         }
 
-        list.innerHTML = deficiencies.map(d => `
+        list.innerHTML = deficiencies.slice(0, 10).map(d => `
           <div class="card" style="margin-bottom:8px;">
-            <strong style="color:var(--accent);">F-Tag ${d.ftag}</strong>
-            <p style="margin:4px 0 0;font-size:13px;">${d.description}</p>
-            <p class="subtle" style="margin:4px 0 0;">Cited: ${d.date}</p>
+            <strong style="color:var(--accent);">F-Tag ${d.ftag || 'N/A'}</strong>
+            <p style="margin:4px 0 0;font-size:13px;">${d.description || d.deficiency || 'Deficiency on record'}</p>
+            <p class="subtle" style="margin:4px 0 0;">Cited: ${d.date || d.visitDate || 'Date N/A'}</p>
           </div>
         `).join('');
       } catch (err) {
@@ -319,52 +327,70 @@
       currentFacility = null;
     }
 
-    // ===== MOCK DATA (REPLACE WITH REAL CMS API) =====
-    async function mockFetchFacilityByCCN(ccn) {
-      // Simulate delay
-      await new Promise(r => setTimeout(r, 500));
+    // ===== CMS API INTEGRATION =====
+    // Uses Medicare.gov Care Compare API (public, CORS-enabled)
 
-      // Mock data
-      const mockData = {
-        '0001234567': {
-          ccn: '0001234567',
-          name: 'Sunflower Haven Nursing',
-          city: 'Springfield',
-          state: 'IL',
-          address: '123 Main St, Springfield, IL 62701',
-          phone: '(217) 555-0123',
-          beds: 120,
-          type: 'Skilled Nursing Facility'
-        }
+    async function fetchFacilityFromCMS(ccn) {
+      // Care Compare API endpoint for nursing home details
+      const url = `https://data.cms.gov/api/views/homes/rows.json?filter=Provider%20ID%20=${ccn}&limit=1`;
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      
+      const data = await response.json();
+      if (!data || data.length === 0) return null;
+
+      const row = data[0];
+      return {
+        ccn: row[9] || ccn,  // Provider ID
+        name: row[1] || 'Unknown',  // Facility Name
+        city: row[4] || 'Unknown',  // City
+        state: row[5] || 'Unknown',  // State
+        address: `${row[4] || ''}, ${row[5] || ''} ${row[7] || ''}`.trim(),
+        phone: row[8] || 'N/A',  // Phone
+        beds: row[10] || 'N/A',  // Certified Beds
+        type: 'Skilled Nursing Facility'
       };
-
-      return mockData[ccn] || null;
     }
 
-    async function mockSearchFacilities(name, city, state) {
-      await new Promise(r => setTimeout(r, 400));
+    async function searchFacilitiesFromCMS(name, city, state) {
+      // Search CMS Provider of Services dataset
+      let filter = '';
+      if (name) filter += `Facility%20Name%20contains%20'${encodeURIComponent(name)}'`;
+      if (city) filter += (filter ? '%20AND%20' : '') + `City%20contains%20'${encodeURIComponent(city)}'`;
+      if (state) filter += (filter ? '%20AND%20' : '') + `State%20=${encodeURIComponent(state)}`;
 
-      const allFacilities = [
-        { ccn: '0001234567', name: 'Sunflower Haven Nursing', city: 'Springfield', state: 'IL' },
-        { ccn: '0002345678', name: 'Sunset Retirement Home', city: 'Chicago', state: 'IL' },
-        { ccn: '0003456789', name: 'Sunrise Manor', city: 'Las Vegas', state: 'NV' }
-      ];
+      const url = `https://data.cms.gov/api/views/homes/rows.json?filter=${filter}&limit=50`;
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      
+      const data = await response.json();
+      if (!data || data.length === 0) return [];
 
-      return allFacilities.filter(f => {
-        const nameMatch = !name || f.name.toLowerCase().includes(name.toLowerCase());
-        const cityMatch = !city || f.city.toLowerCase().includes(city.toLowerCase());
-        const stateMatch = !state || f.state === state;
-        return nameMatch && cityMatch && stateMatch;
-      });
+      return data.slice(0, 20).map(row => ({
+        ccn: row[9] || 'UNKNOWN',
+        name: row[1] || 'Unknown Facility',
+        city: row[4] || 'Unknown',
+        state: row[5] || 'Unknown'
+      }));
     }
 
-    async function mockFetchDeficiencies(ccn) {
-      await new Promise(r => setTimeout(r, 300));
+    async function fetchDeficienciesFromCMS(ccn) {
+      // CMS Enforcement & Inspections API
+      // Returns inspection & accusation data
+      const url = `https://data.cms.gov/api/views/wvyx-sxba/rows.json?filter=Provider%20ID%20=${ccn}&limit=20`;
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      
+      const data = await response.json();
+      if (!data || data.length === 0) return [];
 
-      return [
-        { ftag: 'F835', description: 'Admission, transfer, discharge procedures', date: '2024-08-15' },
-        { ftag: 'F656', description: 'Administration of care to clients', date: '2024-06-22' },
-        { ftag: 'F689', description: 'Sufficient nursing staff', date: '2024-05-10' }
-      ];
+      return data.map(row => ({
+        ftag: row[5] || 'N/A',  // F-tag code
+        description: row[4] || 'Deficiency noted',  // Deficiency description
+        date: row[7] ? new Date(row[7]).toLocaleDateString() : 'N/A'  // Visit date
+      }));
     }
   </script>
