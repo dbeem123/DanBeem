@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Text to Speech Tool</title>
+  <meta name="description" content="Type a message and have your device speak it aloud using built-in text-to-speech." />
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    .tool-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+    .tool-row{display:flex;gap:12px;flex-wrap:wrap}
+    .input-panel textarea{
+      width:100%;
+      min-height:180px;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.03);
+      color:var(--text);
+      font-size:16px;
+      resize:vertical;
+    }
+    .input-panel textarea:focus{outline:2px solid rgba(56,189,248,0.25);outline-offset:2px}
+    .status-badge{display:inline-flex;align-items:center;gap:8px}
+    .status-dot{width:10px;height:10px;border-radius:999px;background:rgba(56,189,248,0.9)}
+    .status-dot.off{background:rgba(230,240,252,0.3)}
+    .helper-text{color:var(--muted);font-size:13px}
+    .btn.secondary{cursor:pointer}
+    select{
+      background:rgba(255,255,255,0.03);
+      color:var(--text);
+      border-radius:10px;
+      border:1px solid var(--border);
+      padding:8px 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar nav" role="banner">
+    <div class="wrap navInner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DB</div>
+        <div>
+          <div style="font-weight:900">DanBeem</div>
+          <div class="subtle">Ombudsman Tools & Resource Lab</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <ul class="navBtns" style="list-style:none;display:flex;gap:10px;margin:0;padding:0;">
+          <li><a class="navLink linkBtn" href="../index.html">Home</a></li>
+          <li><a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a></li>
+          <li><a class="navLink linkBtn" href="../tools/chain-snapshot.html">Chain Snapshot</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <section class="panel tool-grid" aria-labelledby="tts-title">
+      <div>
+        <div class="pill">Accessibility Tool</div>
+        <h1 id="tts-title">Text to Speech</h1>
+        <p class="subtle">Type a message, pick a voice, and have your device speak it out loud.</p>
+      </div>
+
+      <div class="panel input-panel">
+        <label for="tts-input" style="font-weight:700">Message</label>
+        <textarea id="tts-input" placeholder="Type something for your device to speak..." aria-describedby="tts-help"></textarea>
+        <div id="tts-help" class="helper-text">Tip: The Web Speech API needs an internet connection only for some voices. Most devices include at least one offline voice.</div>
+      </div>
+
+      <div class="panel">
+        <div class="tool-row" style="justify-content:space-between;align-items:center;">
+          <div>
+            <label for="voice-select" style="font-weight:700">Voice</label>
+            <div>
+              <select id="voice-select" aria-label="Choose a voice"></select>
+            </div>
+          </div>
+          <div class="status-badge" aria-live="polite">
+            <span id="status-dot" class="status-dot off" aria-hidden="true"></span>
+            <span id="status-text" class="helper-text">Idle</span>
+          </div>
+        </div>
+
+        <div class="tool-row" style="margin-top:14px;">
+          <button class="btn" id="speak-btn" type="button">Speak Message</button>
+          <button class="btn secondary" id="stop-btn" type="button">Stop</button>
+        </div>
+        <p class="helper-text" style="margin-top:10px;">If you do not hear audio, check that your device is not muted and that your browser allows audio playback.</p>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const speakButton = document.getElementById("speak-btn");
+    const stopButton = document.getElementById("stop-btn");
+    const input = document.getElementById("tts-input");
+    const voiceSelect = document.getElementById("voice-select");
+    const statusText = document.getElementById("status-text");
+    const statusDot = document.getElementById("status-dot");
+    const synth = window.speechSynthesis;
+
+    const setStatus = (state, isActive) => {
+      statusText.textContent = state;
+      statusDot.classList.toggle("off", !isActive);
+    };
+
+    const populateVoices = () => {
+      const voices = synth.getVoices();
+      voiceSelect.innerHTML = "";
+      voices.forEach((voice, index) => {
+        const option = document.createElement("option");
+        option.value = index;
+        option.textContent = `${voice.name} (${voice.lang})`;
+        voiceSelect.appendChild(option);
+      });
+      if (!voices.length) {
+        const option = document.createElement("option");
+        option.textContent = "No voices available";
+        voiceSelect.appendChild(option);
+      }
+    };
+
+    populateVoices();
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+      speechSynthesis.onvoiceschanged = populateVoices;
+    }
+
+    speakButton.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (!text) {
+        setStatus("Please type a message first.", false);
+        return;
+      }
+      if (!synth) {
+        setStatus("Text-to-speech is not supported in this browser.", false);
+        return;
+      }
+      synth.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      const voices = synth.getVoices();
+      const selectedIndex = voiceSelect.value;
+      if (voices[selectedIndex]) {
+        utterance.voice = voices[selectedIndex];
+      }
+      utterance.onstart = () => setStatus("Speaking...", true);
+      utterance.onend = () => setStatus("Finished", false);
+      utterance.onerror = () => setStatus("Speech cancelled", false);
+      synth.speak(utterance);
+    });
+
+    stopButton.addEventListener("click", () => {
+      synth.cancel();
+      setStatus("Stopped", false);
+    });
+  </script>
+</body>
+</html>
