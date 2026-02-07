@@ -22,7 +22,7 @@ app.get('/api/search-facility', async (req, res) => {
     let filter = '';
     if (name) filter += `Facility%20Name%20contains%20'${encodeURIComponent(name)}'`;
     if (city) filter += (filter ? '%20AND%20' : '') + `City%20contains%20'${encodeURIComponent(city)}'`;
-    if (state) filter += (filter ? '%20AND%20' : '') + `State%20=${encodeURIComponent(state)}`;
+    if (state) filter += (filter ? '%20AND%20' : '') + `State%20%3D%20'${encodeURIComponent(state)}'`;
 
     // If no criteria, reject the search
     if (!filter) {
