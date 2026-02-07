@@ -22,6 +22,7 @@ body{
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale;
 }
+main{padding-bottom:24px}
 
 /* Layout utilities */
 .wrap{width:min(1120px,94vw);margin:0 auto;padding:20px}
@@ -48,6 +49,11 @@ body{
 .navLink:focus{outline:2px solid rgba(56,189,248,0.18);outline-offset:3px}
 .linkBtn{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-strong);padding:8px 12px}
 .linkBtn:hover{transform:translateY(-2px);background: rgba(255,255,255,0.03)}
+.skipLink{
+	position:absolute;left:-999px;top:12px;
+	background:#0d1c2a;color:var(--text);padding:10px 14px;border-radius:10px;border:1px solid var(--border);
+}
+.skipLink:focus{left:12px;z-index:200}
 
 /* Panels / hero / cards */
 .panel{
@@ -57,6 +63,12 @@ body{
 }
 .hero{min-height:56vh;display:grid;place-items:center;border-radius:14px;padding:30px}
 .card{background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:14px;border:1px solid var(--border)}
+.heroInner{display:grid;gap:18px}
+.heroQuick{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.quickCard{
+	background:rgba(255,255,255,0.02);border-radius:12px;padding:14px;border:1px solid var(--glass-strong);
+}
+.quickTitle{font-weight:800;margin-bottom:6px}
 
 .pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;font-weight:800;color:var(--accent);background:rgba(56,189,248,0.06);border:1px solid rgba(56,189,248,0.08)}
 
@@ -71,9 +83,34 @@ body{
 
 .subtle{color:var(--muted);font-size:13px}
 .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,0.02);font-weight:700}
+.eyebrow{text-transform:uppercase;letter-spacing:0.2em;font-size:11px;color:var(--muted);margin-bottom:6px;font-weight:700}
+.sectionHeader{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start;justify-content:space-between}
+.sectionMeta{display:flex;gap:8px;flex-wrap:wrap}
+.toolCard{display:grid;gap:10px}
+.toolHeader{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.toolMeta{display:flex;gap:8px;flex-wrap:wrap}
+.tag{padding:4px 10px;border-radius:999px;font-size:12px;background:rgba(255,255,255,0.04);border:1px solid var(--glass-strong)}
+.statusDot{width:10px;height:10px;border-radius:999px;background:rgba(34,197,94,0.9);box-shadow:0 0 10px rgba(34,197,94,0.6)}
+.chipRow{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:rgba(56,189,248,0.08);color:var(--text);border:1px solid rgba(56,189,248,0.2);padding:6px 10px;border-radius:999px;text-decoration:none;font-weight:700;font-size:12px}
 
 /* Footer */
 footer{margin-top:18px;color:var(--muted);font-size:13px}
+
+/* Bread section */
+.breadSection .breadPanel{
+	background: radial-gradient(600px 300px at 0% 0%, rgba(255,182,72,0.08), transparent 45%),
+							radial-gradient(500px 260px at 90% 10%, rgba(244,114,182,0.08), transparent 45%),
+							linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+	border:1px solid rgba(255,255,255,0.08);
+}
+.breadIntro{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:16px}
+.breadFeature{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,0.02);padding:14px;border-radius:12px;border:1px solid var(--glass-strong)}
+.iconBadge{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,0.06);font-size:20px}
+.breadCard{border:1px solid rgba(255,255,255,0.1)}
+.breadTools{margin-top:16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.breadToolkit{background:rgba(255,255,255,0.02);padding:16px;border-radius:12px;border:1px solid var(--glass-strong)}
+.breadToolkit ul{margin:10px 0 0 18px;color:var(--muted)}
 
 /* Accessibility & responsiveness */
 @media (max-width:720px){
@@ -81,6 +118,7 @@ footer{margin-top:18px;color:var(--muted);font-size:13px}
 	.logo{width:36px;height:36px}
 	.hero{padding:20px;min-height:48vh}
 	.nav{gap:6px}
+	.sectionHeader{flex-direction:column}
 }
 
 @media (max-width:420px){
@@ -90,5 +128,4 @@ footer{margin-top:18px;color:var(--muted);font-size:13px}
 
 /* Utility focus state */
 .focusable:focus{outline:2px solid rgba(167,139,250,0.18);outline-offset:4px}
-
 
