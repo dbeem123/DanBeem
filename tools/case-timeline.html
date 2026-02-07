@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Case Timeline Builder</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    .timeline-item { padding:10px 12px; border-radius:10px; border:1px solid var(--border); margin-bottom:8px; background:rgba(255,255,255,0.01); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Case Timeline Builder</div>
+          <div class="subtle" style="font-size:12px;">Track touchpoints fast</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Case Timeline Builder</h1>
+      <p class="subtle">Add events to a running case timeline and keep summaries consistent.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="event-date">Event Date</label>
+          <input id="event-date" type="date" />
+        </div>
+        <div>
+          <label for="event-type">Event Type</label>
+          <select id="event-type">
+            <option>Intake</option>
+            <option>Resident Visit</option>
+            <option>Family Call</option>
+            <option>Facility Follow-up</option>
+            <option>Resolution</option>
+          </select>
+        </div>
+        <div>
+          <label for="event-summary">Summary</label>
+          <input id="event-summary" type="text" placeholder="Short outcome or note" />
+        </div>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="addEvent()">Add Event</button>
+      <div id="timeline" style="margin-top:12px;"></div>
+    </div>
+  </main>
+
+  <script>
+    const timeline = document.getElementById('timeline');
+
+    function addEvent() {
+      const date = document.getElementById('event-date').value || 'TBD';
+      const type = document.getElementById('event-type').value;
+      const summary = document.getElementById('event-summary').value || 'No summary provided.';
+
+      const item = document.createElement('div');
+      item.className = 'timeline-item';
+      item.innerHTML = `<strong>${date}</strong> · ${type}<br><span class="subtle">${summary}</span>`;
+      timeline.prepend(item);
+
+      document.getElementById('event-summary').value = '';
+    }
+  </script>
+</body>
+</html>

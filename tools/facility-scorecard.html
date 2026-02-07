@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Facility Scorecard</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input[type="range"] { width:100%; }
+    .score { margin-top:12px; padding:12px; border-radius:10px; border:1px solid var(--border); background:rgba(56,189,248,0.08); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Facility Scorecard</div>
+          <div class="subtle" style="font-size:12px;">Quick rating summary</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Facility Scorecard</h1>
+      <p class="subtle">Rate core categories and generate a quick overall score.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="care">Care Quality (1-5)</label>
+          <input id="care" type="range" min="1" max="5" value="4" />
+        </div>
+        <div>
+          <label for="staffing">Staffing (1-5)</label>
+          <input id="staffing" type="range" min="1" max="5" value="3" />
+        </div>
+        <div>
+          <label for="environment">Environment (1-5)</label>
+          <input id="environment" type="range" min="1" max="5" value="4" />
+        </div>
+        <div>
+          <label for="responsiveness">Responsiveness (1-5)</label>
+          <input id="responsiveness" type="range" min="1" max="5" value="3" />
+        </div>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="calculateScore()">Calculate Score</button>
+      <div id="score-output" class="score" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function calculateScore() {
+      const values = ['care', 'staffing', 'environment', 'responsiveness'].map(id => Number(document.getElementById(id).value));
+      const average = values.reduce((sum, value) => sum + value, 0) / values.length;
+      let label = 'Needs Attention';
+      if (average >= 4) {
+        label = 'Strong';
+      } else if (average >= 3) {
+        label = 'Stable';
+      }
+
+      const output = document.getElementById('score-output');
+      output.style.display = 'block';
+      output.innerHTML = `<strong>Overall Score:</strong> ${average.toFixed(1)} / 5<br><strong>Status:</strong> ${label}`;
+    }
+  </script>
+</body>
+</html>

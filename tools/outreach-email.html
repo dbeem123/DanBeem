@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Outreach Email Builder</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    textarea { min-height:140px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Outreach Email Builder</div>
+          <div class="subtle" style="font-size:12px;">Instant email drafts</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Outreach Email Builder</h1>
+      <p class="subtle">Generate a professional outreach email in seconds.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="contact-name">Contact Name</label>
+          <input id="contact-name" type="text" placeholder="Ms. Rivera" />
+        </div>
+        <div>
+          <label for="facility-name">Facility</label>
+          <input id="facility-name" type="text" placeholder="Evergreen Care Center" />
+        </div>
+        <div>
+          <label for="topic">Topic</label>
+          <input id="topic" type="text" placeholder="Resident council visit" />
+        </div>
+        <div>
+          <label for="follow-up">Requested Date</label>
+          <input id="follow-up" type="date" />
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn" type="button" onclick="generateEmail()">Generate Email</button>
+        <button class="btn secondary" type="button" onclick="copyEmail()">Copy Email</button>
+      </div>
+      <textarea id="email-output" style="margin-top:12px;" placeholder="Your email draft will appear here..."></textarea>
+    </div>
+  </main>
+
+  <script>
+    function generateEmail() {
+      const name = document.getElementById('contact-name').value || 'there';
+      const facility = document.getElementById('facility-name').value || 'your facility';
+      const topic = document.getElementById('topic').value || 'our upcoming visit';
+      const followUp = document.getElementById('follow-up').value || 'a convenient time';
+
+      const output = document.getElementById('email-output');
+      output.value = `Hello ${name},\n\nI hope you're doing well. I\'m reaching out from the Ombudsman team to coordinate ${topic} at ${facility}. We would like to schedule time on ${followUp} to connect with residents and staff.\n\nPlease let me know if that date works or if you prefer another time. Thank you for supporting resident voice and quality of care.\n\nBest regards,\nDanBeem Ombudsman Team`;
+    }
+
+    function copyEmail() {
+      const output = document.getElementById('email-output');
+      if (!output.value) return;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(output.value);
+        alert('Email copied to clipboard.');
+      } else {
+        alert('Clipboard not available in this browser.');
+      }
+    }
+  </script>
+</body>
+</html>

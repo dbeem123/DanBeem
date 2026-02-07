@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Visit Planner</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    textarea { min-height:90px; }
+    .checklist { display:grid; gap:8px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Visit Planner</div>
+          <div class="subtle" style="font-size:12px;">Prepare a facility visit</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Facility Visit Planner</h1>
+      <p class="subtle">Draft a visit plan, build your checklist, and share a quick summary.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="facility">Facility Name</label>
+          <input id="facility" type="text" placeholder="Evergreen Care Center" />
+        </div>
+        <div>
+          <label for="visit-date">Visit Date</label>
+          <input id="visit-date" type="date" />
+        </div>
+        <div>
+          <label for="visit-goal">Primary Goal</label>
+          <select id="visit-goal">
+            <option>Routine monitoring</option>
+            <option>Complaint follow-up</option>
+            <option>Resident outreach</option>
+            <option>Family meeting</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label for="team">Team Members</label>
+        <textarea id="team" placeholder="List visitors, roles, and contact info..."></textarea>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Checklist</label>
+        <div class="checklist">
+          <label><input type="checkbox" class="check-item" value="Confirm administrator availability"> Confirm administrator availability</label>
+          <label><input type="checkbox" class="check-item" value="Bring printed resident list"> Bring printed resident list</label>
+          <label><input type="checkbox" class="check-item" value="Review open cases"> Review open cases</label>
+          <label><input type="checkbox" class="check-item" value="Prepare outreach materials"> Prepare outreach materials</label>
+        </div>
+      </div>
+
+      <button class="btn" style="margin-top:12px;" type="button" onclick="buildPlan()">Generate Visit Summary</button>
+      <div id="plan-output" class="card" style="margin-top:12px;display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function buildPlan() {
+      const facility = document.getElementById('facility').value || 'Facility';
+      const date = document.getElementById('visit-date').value || 'TBD';
+      const goal = document.getElementById('visit-goal').value;
+      const team = document.getElementById('team').value || 'Team to be assigned.';
+      const checks = Array.from(document.querySelectorAll('.check-item:checked')).map(item => `• ${item.value}`);
+
+      const output = document.getElementById('plan-output');
+      output.style.display = 'block';
+      output.innerHTML = `
+        <h3 style="margin-top:0;">${facility} Visit Summary</h3>
+        <p><strong>Date:</strong> ${date}</p>
+        <p><strong>Goal:</strong> ${goal}</p>
+        <p><strong>Team:</strong><br>${team.replace(/\n/g, '<br>')}</p>
+        <p><strong>Checklist:</strong><br>${checks.length ? checks.join('<br>') : 'No checklist items selected.'}</p>
+      `;
+    }
+  </script>
+</body>
+</html>

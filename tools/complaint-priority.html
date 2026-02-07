@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Complaint Priority Matrix</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    .score { margin-top:12px; padding:12px; border-radius:10px; border:1px solid var(--border); background:rgba(167,139,250,0.12); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Complaint Priority Matrix</div>
+          <div class="subtle" style="font-size:12px;">Fast escalation guidance</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Complaint Priority Matrix</h1>
+      <p class="subtle">Score new complaints across impact, risk, and scope.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="complaint-category">Category</label>
+          <select id="complaint-category">
+            <option>Care Quality</option>
+            <option>Resident Rights</option>
+            <option>Safety / Abuse</option>
+            <option>Nutrition</option>
+            <option>Billing</option>
+          </select>
+        </div>
+        <div>
+          <label for="impact-level">Resident Impact (1-5)</label>
+          <input id="impact-level" type="number" min="1" max="5" value="3" />
+        </div>
+        <div>
+          <label for="risk-level">Safety Risk (1-5)</label>
+          <input id="risk-level" type="number" min="1" max="5" value="3" />
+        </div>
+        <div>
+          <label for="resident-count">Residents Affected</label>
+          <input id="resident-count" type="number" min="1" value="1" />
+        </div>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="calculatePriority()">Calculate Priority</button>
+      <div id="priority-output" class="score" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function calculatePriority() {
+      const impact = Number(document.getElementById('impact-level').value);
+      const risk = Number(document.getElementById('risk-level').value);
+      const residents = Number(document.getElementById('resident-count').value);
+      const score = impact + risk + Math.min(residents, 5);
+
+      let tier = 'Routine';
+      let action = 'Assign within standard workflow.';
+      if (score >= 12) {
+        tier = 'Critical';
+        action = 'Escalate immediately and document safety plan.';
+      } else if (score >= 9) {
+        tier = 'Priority';
+        action = 'Assign same day and schedule follow-up.';
+      }
+
+      const category = document.getElementById('complaint-category').value;
+      const output = document.getElementById('priority-output');
+      output.style.display = 'block';
+      output.innerHTML = `<strong>${tier} Priority</strong><br>Category: ${category}<br>Score: ${score}/15<br>Next Action: ${action}`;
+    }
+  </script>
+</body>
+</html>

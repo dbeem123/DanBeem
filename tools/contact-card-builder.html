@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact Card Builder</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    .contact-card { margin-top:12px; padding:16px; border-radius:12px; border:1px solid var(--border); background:rgba(255,255,255,0.02); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Contact Card Builder</div>
+          <div class="subtle" style="font-size:12px;">Create quick facility cards</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Contact Card Builder</h1>
+      <p class="subtle">Generate a clean contact card to drop into emails or reports.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="contact-name">Contact Name</label>
+          <input id="contact-name" type="text" placeholder="Jordan Lane" />
+        </div>
+        <div>
+          <label for="contact-role">Role</label>
+          <input id="contact-role" type="text" placeholder="Administrator" />
+        </div>
+        <div>
+          <label for="contact-facility">Facility</label>
+          <input id="contact-facility" type="text" placeholder="Evergreen Care Center" />
+        </div>
+        <div>
+          <label for="contact-phone">Phone</label>
+          <input id="contact-phone" type="text" placeholder="(555) 123-4567" />
+        </div>
+        <div>
+          <label for="contact-email">Email</label>
+          <input id="contact-email" type="email" placeholder="name@email.com" />
+        </div>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="buildCard()">Generate Card</button>
+      <div id="card-output" class="contact-card" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function buildCard() {
+      const name = document.getElementById('contact-name').value || 'Contact Name';
+      const role = document.getElementById('contact-role').value || 'Role';
+      const facility = document.getElementById('contact-facility').value || 'Facility';
+      const phone = document.getElementById('contact-phone').value || 'Phone';
+      const email = document.getElementById('contact-email').value || 'Email';
+
+      const output = document.getElementById('card-output');
+      output.style.display = 'block';
+      output.innerHTML = `
+        <h3 style="margin-top:0;">${name}</h3>
+        <p class="subtle" style="margin:0;">${role} · ${facility}</p>
+        <p style="margin:8px 0 0;"><strong>Phone:</strong> ${phone}</p>
+        <p style="margin:4px 0 0;"><strong>Email:</strong> ${email}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
