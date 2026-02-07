@@ -9,6 +9,7 @@
   <script defer src="Assets/shared.js"></script>
 </head>
 <body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
   <div class="topbar nav" role="banner">
     <div class="wrap navInner">
       <div class="brand">
@@ -22,6 +23,7 @@
         <ul class="navBtns" style="list-style:none;display:flex;gap:10px;margin:0;padding:0;">
           <li><a class="navLink linkBtn" href="dashboards/impact-2024.html">Impact Dashboard</a></li>
           <li><a class="navLink linkBtn" href="#tools">Tool Library</a></li>
+          <li><a class="navLink linkBtn" href="#bread-life">Bread Is Life</a></li>
           <li><a class="navLink linkBtn" href="tools/chain-snapshot.html">Chain Snapshot</a></li>
           <li><a class="navLink linkBtn" href="tools/text-to-speech.html">Text to Speech</a></li>
           <li><a class="navLink linkBtn" href="#about">About</a></li>
@@ -30,7 +32,7 @@
     </div>
   </div>
 
-  <main>
+  <main id="main-content">
     <section class="hero wrap" aria-labelledby="hero-title">
       <div class="heroInner panel">
         <div class="pill">Test Environment</div>
@@ -42,6 +44,28 @@
           <a class="btn secondary" href="#tools">Explore Tool Library</a>
           <a class="btn secondary" href="tools/chain-snapshot.html">Open Chain Snapshot</a>
           <a class="btn secondary" href="tools/text-to-speech.html">Open Text to Speech</a>
+        </div>
+
+        <div class="heroQuick">
+          <div class="quickCard">
+            <div class="eyebrow">Today’s Focus</div>
+            <div class="quickTitle">Rapid Intake + Bread Lab</div>
+            <p class="subtle">Jump between core Ombudsman workflows and the playful Bread Is Life toolkit.</p>
+          </div>
+          <div class="quickCard">
+            <div class="eyebrow">Status</div>
+            <div class="quickTitle">All Tools Online</div>
+            <p class="subtle">Latest refresh 08:40 AM · Demo data active.</p>
+          </div>
+          <div class="quickCard">
+            <div class="eyebrow">Shortcut Hub</div>
+            <div class="quickTitle">Pinned Actions</div>
+            <div class="chipRow">
+              <a class="chip" href="tools/quick-intake.html">Quick Intake</a>
+              <a class="chip" href="tools/visit-planner.html">Visit Planner</a>
+              <a class="chip" href="#bread-life">Bread Tools</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -81,70 +105,309 @@
 
     <section id="tools" class="wrap" aria-labelledby="tools-title">
       <div class="panel">
-        <h2 id="tools-title">Tool Library</h2>
-        <p class="subtle">A growing collection of fast, demo-ready tools for intake, reporting, outreach, and planning.</p>
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Core Toolkit</div>
+            <h2 id="tools-title">Tool Library</h2>
+            <p class="subtle">A growing collection of fast, demo-ready tools for intake, reporting, outreach, and planning.</p>
+          </div>
+          <div class="sectionMeta">
+            <div class="badge">12 Active Tools</div>
+            <div class="badge">2 Dashboards</div>
+          </div>
+        </div>
 
         <div class="grid">
-          <article class="card">
-            <h3>Chain Snapshot</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Chain Snapshot</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Query facility data, deficiencies, and chain signals.</p>
+            <div class="toolMeta">
+              <span class="tag">Diagnostics</span>
+              <span class="tag">Audit</span>
+            </div>
             <p><a class="navLink btn" href="tools/chain-snapshot.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Text to Speech</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Text to Speech</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Convert quick notes into audio using your device voice.</p>
+            <div class="toolMeta">
+              <span class="tag">Accessibility</span>
+              <span class="tag">Audio</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/text-to-speech.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Quick Intake Triage</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Quick Intake Triage</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Score incoming cases by severity, urgency, and risk in seconds.</p>
+            <div class="toolMeta">
+              <span class="tag">Intake</span>
+              <span class="tag">Scoring</span>
+            </div>
             <p><a class="navLink btn" href="tools/quick-intake.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Visit Planner</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Visit Planner</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Build a visit plan with checklist items and team notes.</p>
+            <div class="toolMeta">
+              <span class="tag">Planning</span>
+              <span class="tag">On-Site</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/visit-planner.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Case Timeline Builder</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Case Timeline Builder</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Capture and reorder case touchpoints with fast add events.</p>
+            <div class="toolMeta">
+              <span class="tag">Timeline</span>
+              <span class="tag">Casework</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/case-timeline.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Contact Card Builder</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Contact Card Builder</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Create clean contact cards for facility and partner outreach.</p>
+            <div class="toolMeta">
+              <span class="tag">Outreach</span>
+              <span class="tag">CRM</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/contact-card-builder.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Complaint Priority Matrix</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Complaint Priority Matrix</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Score complaint urgency and clarify next steps.</p>
+            <div class="toolMeta">
+              <span class="tag">Response</span>
+              <span class="tag">Matrix</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/complaint-priority.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Meeting Minutes Generator</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Meeting Minutes Generator</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Drop in meeting details and copy a clean summary.</p>
+            <div class="toolMeta">
+              <span class="tag">Meetings</span>
+              <span class="tag">Notes</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/meeting-minutes.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Outreach Email Builder</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Outreach Email Builder</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Draft professional outreach emails for facilities.</p>
+            <div class="toolMeta">
+              <span class="tag">Communication</span>
+              <span class="tag">Templates</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/outreach-email.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Volunteer Shift Coverage</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Volunteer Shift Coverage</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Estimate coverage hours and identify scheduling gaps.</p>
+            <div class="toolMeta">
+              <span class="tag">Scheduling</span>
+              <span class="tag">Volunteers</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/volunteer-shift.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Facility Scorecard</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Facility Scorecard</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Rate key performance areas and surface overall status.</p>
+            <div class="toolMeta">
+              <span class="tag">Scorecard</span>
+              <span class="tag">Benchmark</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/facility-scorecard.html">Open Tool</a></p>
           </article>
-          <article class="card">
-            <h3>Resident Check-In</h3>
+          <article class="card toolCard">
+            <div class="toolHeader">
+              <h3>Resident Check-In</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
             <p>Log resident mood, concerns, and follow-ups quickly.</p>
+            <div class="toolMeta">
+              <span class="tag">Wellbeing</span>
+              <span class="tag">Tracking</span>
+            </div>
             <p><a class="navLink btn secondary" href="tools/resident-checkin.html">Open Tool</a></p>
           </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bread-life" class="wrap breadSection" aria-labelledby="bread-title">
+      <div class="panel breadPanel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Bread Is Life</div>
+            <h2 id="bread-title">Bread Lab & Celebration Studio</h2>
+            <p class="subtle">A joyful, robust playground of bread-centric tools designed to inspire, teach, and show off fun workflows.</p>
+          </div>
+          <div class="sectionMeta">
+            <div class="badge">7 Creative Tools</div>
+            <div class="badge">Live Flavor Boards</div>
+          </div>
+        </div>
+
+        <div class="breadIntro">
+          <div class="breadFeature">
+            <div class="iconBadge" aria-hidden="true">🍞</div>
+            <div>
+              <h3>Recipe Forge</h3>
+              <p>Generate custom bread recipes by hydration, flour blend, and desired crumb structure.</p>
+            </div>
+          </div>
+          <div class="breadFeature">
+            <div class="iconBadge" aria-hidden="true">⏱️</div>
+            <div>
+              <h3>Fermentation Navigator</h3>
+              <p>Dial in bulk rise, cold proof, and bake windows with visual checkpoints.</p>
+            </div>
+          </div>
+          <div class="breadFeature">
+            <div class="iconBadge" aria-hidden="true">🎨</div>
+            <div>
+              <h3>Crust + Crumb Studio</h3>
+              <p>Compare scoring patterns, crust color ranges, and crumb textures side-by-side.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Hydration Calculator</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Drag sliders to balance flour, water, starter, and salt for any loaf size.</p>
+            <div class="toolMeta">
+              <span class="tag">Math</span>
+              <span class="tag">Formulas</span>
+            </div>
+            <p><a class="navLink btn" href="#">Launch Tool</a></p>
+          </article>
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Crust Color Tuner</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Preview bake temperatures and steam settings with a live color palette.</p>
+            <div class="toolMeta">
+              <span class="tag">Visual</span>
+              <span class="tag">Bake</span>
+            </div>
+            <p><a class="navLink btn secondary" href="#">Launch Tool</a></p>
+          </article>
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Score & Slice Planner</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Map scoring patterns and slicing angles for the perfect open crumb.</p>
+            <div class="toolMeta">
+              <span class="tag">Design</span>
+              <span class="tag">Craft</span>
+            </div>
+            <p><a class="navLink btn secondary" href="#">Launch Tool</a></p>
+          </article>
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Fermentation Timeline</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Visualize every rest, fold, and proof with automatic reminders.</p>
+            <div class="toolMeta">
+              <span class="tag">Schedule</span>
+              <span class="tag">Timing</span>
+            </div>
+            <p><a class="navLink btn secondary" href="#">Launch Tool</a></p>
+          </article>
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Flavor Pairing Wheel</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Spin through toppings, infusions, and spreads to build a flavor lineup.</p>
+            <div class="toolMeta">
+              <span class="tag">Tasting</span>
+              <span class="tag">Pairings</span>
+            </div>
+            <p><a class="navLink btn secondary" href="#">Launch Tool</a></p>
+          </article>
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Loaf Storyboard</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Capture process photos, notes, and score marks in a shareable board.</p>
+            <div class="toolMeta">
+              <span class="tag">Story</span>
+              <span class="tag">Gallery</span>
+            </div>
+            <p><a class="navLink btn secondary" href="#">Launch Tool</a></p>
+          </article>
+          <article class="card toolCard breadCard">
+            <div class="toolHeader">
+              <h3>Toastness Challenge</h3>
+              <span class="statusDot" aria-label="Available"></span>
+            </div>
+            <p>Playful toast timer with golden ratios, crunch tests, and shareable wins.</p>
+            <div class="toolMeta">
+              <span class="tag">Fun</span>
+              <span class="tag">Game</span>
+            </div>
+            <p><a class="navLink btn secondary" href="#">Launch Tool</a></p>
+          </article>
+        </div>
+
+        <div class="breadTools">
+          <div class="breadToolkit">
+            <h3>Lab Toolkit</h3>
+            <ul>
+              <li>Starter health tracker with feeding cadence alerts.</li>
+              <li>Ingredient swapper for gluten-free and whole grain variations.</li>
+              <li>Instant bake log exporter for sharing and printing.</li>
+            </ul>
+          </div>
+          <div class="breadToolkit">
+            <h3>Show-Off Mode</h3>
+            <ul>
+              <li>Hero loaf gallery with highlight reels.</li>
+              <li>Soundboard with crust crackle and oven timer cues.</li>
+              <li>Community scoreboard for favorite loaves.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </section>
