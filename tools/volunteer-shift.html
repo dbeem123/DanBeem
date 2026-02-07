@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Volunteer Shift Coverage</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    .summary { margin-top:12px; padding:12px; border-radius:10px; border:1px solid var(--border); background:rgba(34,197,94,0.08); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Volunteer Shift Coverage</div>
+          <div class="subtle" style="font-size:12px;">Plan coverage hours</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Volunteer Shift Coverage</h1>
+      <p class="subtle">Estimate weekly coverage hours and identify remaining gaps.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="total-shifts">Total Shifts Needed</label>
+          <input id="total-shifts" type="number" min="1" value="20" />
+        </div>
+        <div>
+          <label for="shift-length">Hours per Shift</label>
+          <input id="shift-length" type="number" min="1" value="3" />
+        </div>
+        <div>
+          <label for="volunteers">Volunteers Available</label>
+          <input id="volunteers" type="number" min="1" value="12" />
+        </div>
+        <div>
+          <label for="volunteer-capacity">Avg Shifts per Volunteer</label>
+          <input id="volunteer-capacity" type="number" min="1" value="1" />
+        </div>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="calculateCoverage()">Calculate Coverage</button>
+      <div id="coverage-output" class="summary" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function calculateCoverage() {
+      const totalShifts = Number(document.getElementById('total-shifts').value);
+      const shiftLength = Number(document.getElementById('shift-length').value);
+      const volunteers = Number(document.getElementById('volunteers').value);
+      const capacity = Number(document.getElementById('volunteer-capacity').value);
+
+      const totalHoursNeeded = totalShifts * shiftLength;
+      const hoursCovered = Math.min(totalHoursNeeded, volunteers * capacity * shiftLength);
+      const remainingHours = Math.max(0, totalHoursNeeded - hoursCovered);
+
+      const output = document.getElementById('coverage-output');
+      output.style.display = 'block';
+      output.innerHTML = `
+        <strong>Coverage Summary</strong><br>
+        Hours Needed: ${totalHoursNeeded}<br>
+        Hours Covered: ${hoursCovered}<br>
+        Remaining Gap: ${remainingHours}
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resident Check-In</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    textarea { min-height:100px; }
+    .summary { margin-top:12px; padding:12px; border-radius:10px; border:1px solid var(--border); background:rgba(56,189,248,0.08); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Resident Check-In</div>
+          <div class="subtle" style="font-size:12px;">Capture resident voice</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Resident Check-In</h1>
+      <p class="subtle">Log a quick check-in and capture follow-up needs.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="resident">Resident Name</label>
+          <input id="resident" type="text" placeholder="Resident name" />
+        </div>
+        <div>
+          <label for="mood">Mood</label>
+          <select id="mood">
+            <option>Positive</option>
+            <option>Neutral</option>
+            <option>Concerned</option>
+            <option>Upset</option>
+          </select>
+        </div>
+        <div>
+          <label for="follow-up">Follow-up Date</label>
+          <input id="follow-up" type="date" />
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <label for="concerns">Key Concerns / Notes</label>
+        <textarea id="concerns" placeholder="Resident feedback, requests, or issues..."></textarea>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="summarizeCheckIn()">Create Summary</button>
+      <div id="checkin-output" class="summary" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function summarizeCheckIn() {
+      const resident = document.getElementById('resident').value || 'Resident';
+      const mood = document.getElementById('mood').value;
+      const followUp = document.getElementById('follow-up').value || 'TBD';
+      const concerns = document.getElementById('concerns').value || 'No notes recorded.';
+
+      const output = document.getElementById('checkin-output');
+      output.style.display = 'block';
+      output.innerHTML = `<strong>${resident}</strong> is feeling <strong>${mood.toLowerCase()}</strong>.<br>Follow-up date: ${followUp}.<br>Notes: ${concerns}`;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Meeting Minutes Generator</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    textarea { min-height:110px; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Meeting Minutes Generator</div>
+          <div class="subtle" style="font-size:12px;">Copy-ready summaries</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Meeting Minutes Generator</h1>
+      <p class="subtle">Capture decisions and action items with a clean summary.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="meeting-title">Meeting Title</label>
+          <input id="meeting-title" type="text" placeholder="Monthly Outreach Sync" />
+        </div>
+        <div>
+          <label for="meeting-date">Date</label>
+          <input id="meeting-date" type="date" />
+        </div>
+        <div>
+          <label for="meeting-attendees">Attendees</label>
+          <input id="meeting-attendees" type="text" placeholder="Names or teams" />
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <label for="meeting-decisions">Key Decisions</label>
+        <textarea id="meeting-decisions" placeholder="Bullets or summary..."></textarea>
+      </div>
+      <div style="margin-top:12px;">
+        <label for="meeting-actions">Action Items</label>
+        <textarea id="meeting-actions" placeholder="Owner, task, due date..."></textarea>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn" type="button" onclick="generateMinutes()">Generate Minutes</button>
+        <button class="btn secondary" type="button" onclick="copyMinutes()">Copy to Clipboard</button>
+      </div>
+      <div id="minutes-output" class="card" style="margin-top:12px;display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function generateMinutes() {
+      const title = document.getElementById('meeting-title').value || 'Meeting Summary';
+      const date = document.getElementById('meeting-date').value || 'TBD';
+      const attendees = document.getElementById('meeting-attendees').value || 'Attendees to be confirmed.';
+      const decisions = document.getElementById('meeting-decisions').value || 'No decisions recorded.';
+      const actions = document.getElementById('meeting-actions').value || 'No action items recorded.';
+
+      const output = document.getElementById('minutes-output');
+      output.style.display = 'block';
+      output.textContent = `${title}\nDate: ${date}\nAttendees: ${attendees}\n\nDecisions:\n${decisions}\n\nAction Items:\n${actions}`;
+    }
+
+    function copyMinutes() {
+      const output = document.getElementById('minutes-output');
+      if (!output.textContent) return;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(output.textContent);
+        alert('Minutes copied to clipboard.');
+      } else {
+        alert('Clipboard not available in this browser.');
+      }
+    }
+  </script>
+</body>
+</html>

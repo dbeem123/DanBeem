@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Quick Intake Triage</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select, textarea { width:100%; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    textarea { min-height:100px; }
+    .result { margin-top:14px; padding:12px; border-radius:10px; border:1px solid var(--border); background:rgba(56,189,248,0.08); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Quick Intake Triage</div>
+          <div class="subtle" style="font-size:12px;">Fast case prioritization</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Easy Tool</div>
+      <h1 style="margin-top:8px;">Quick Intake Triage</h1>
+      <p class="subtle">Capture core details and auto-score the urgency of a new intake in seconds.</p>
+    </div>
+
+    <div class="panel">
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="resident-name">Resident Name</label>
+          <input id="resident-name" type="text" placeholder="Resident or caller" />
+        </div>
+        <div>
+          <label for="issue-type">Issue Type</label>
+          <select id="issue-type">
+            <option value="Care">Care / Treatment</option>
+            <option value="Safety">Safety / Abuse</option>
+            <option value="Rights">Resident Rights</option>
+            <option value="Billing">Billing / Benefits</option>
+            <option value="Quality">Quality of Life</option>
+          </select>
+        </div>
+        <div>
+          <label for="severity">Severity</label>
+          <select id="severity">
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
+        </div>
+        <div>
+          <label for="urgency">Urgency</label>
+          <select id="urgency">
+            <option value="1">Routine (5+ days)</option>
+            <option value="2">Soon (2-4 days)</option>
+            <option value="3">Immediate (24-48 hours)</option>
+          </select>
+        </div>
+        <div>
+          <label for="risk">Safety Risk</label>
+          <select id="risk">
+            <option value="1">No immediate risk</option>
+            <option value="2">Possible risk</option>
+            <option value="3">Confirmed risk</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <label for="notes">Quick Notes</label>
+        <textarea id="notes" placeholder="Key facts, caller info, or immediate actions..."></textarea>
+      </div>
+      <button class="btn" style="margin-top:12px;" type="button" onclick="calculatePriority()">Generate Priority</button>
+      <div id="priority-result" class="result" style="display:none;"></div>
+    </div>
+  </main>
+
+  <script>
+    function calculatePriority() {
+      const severity = Number(document.getElementById('severity').value);
+      const urgency = Number(document.getElementById('urgency').value);
+      const risk = Number(document.getElementById('risk').value);
+      const score = severity + urgency + risk;
+
+      let label = 'Low';
+      let action = 'Schedule follow-up within 5 business days.';
+      if (score >= 7) {
+        label = 'High';
+        action = 'Escalate today and confirm safety plan.';
+      } else if (score >= 5) {
+        label = 'Medium';
+        action = 'Assign within 48 hours and monitor.';
+      }
+
+      const issueType = document.getElementById('issue-type').value;
+      const residentName = document.getElementById('resident-name').value || 'Resident';
+      const notes = document.getElementById('notes').value || 'No notes added.';
+      const result = document.getElementById('priority-result');
+      result.style.display = 'block';
+      result.innerHTML = `
+        <strong>Priority:</strong> ${label} (score ${score}/9)<br>
+        <strong>Issue:</strong> ${issueType}<br>
+        <strong>Resident:</strong> ${residentName}<br>
+        <strong>Next Step:</strong> ${action}<br>
+        <strong>Notes:</strong> ${notes}
+      `;
+    }
+  </script>
+</body>
+</html>
