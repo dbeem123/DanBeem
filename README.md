@@ -138,3 +138,19 @@ DanBeem/
 ## Contact & Support
 
 For issues or questions, refer to the repository issues or contact the DanBeem team.
+
+
+## Connecticut LTCOP Drafting and Reference Assistant
+
+This repo now includes an initial **app shell milestone** for an internal draft-only assistant focused on de-identified case scenarios.
+
+- Entry point: `tools/ct-ltcop-draft-assistant.html`
+- Milestone status: **1 of 8 (App Shell)**
+- Runtime guardrails shown in UI:
+  - Draft-only labeling
+  - No PHI/identifying details
+  - No legal advice/advocacy recommendations
+  - Deterministic workflow targets
+
+### Next planned milestone
+Build a de-identified input form with deterministic validation and explicit block rules for identifying data.

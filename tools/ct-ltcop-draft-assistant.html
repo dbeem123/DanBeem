@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CT LTCOP Drafting and Reference Assistant (Draft-Only)</title>
+  <meta name="description" content="Internal draft-only assistant shell for de-identified LTCOP case scenarios." />
+  <link rel="stylesheet" href="../Assets/shared.css" />
+  <script defer src="../Assets/shared.js"></script>
+  <style>
+    .stageGrid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .stageCard { border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 16px; background: rgba(255,255,255,.02); }
+    .stageCard h3 { margin-top: 0; }
+    .pillWarn { display: inline-block; margin-bottom: 12px; background: rgba(255, 194, 48, .2); color: #ffd978; border: 1px solid rgba(255,217,120,.45); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .constraintList li { margin: 6px 0; }
+    .nextStep { border-left: 4px solid #6ad3ff; padding-left: 12px; }
+  </style>
+</head>
+<body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
+
+  <div class="topbar nav" role="banner">
+    <div class="wrap navInner">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">CT</div>
+        <div>
+          <div style="font-weight:900">Connecticut LTCOP</div>
+          <div class="subtle">Drafting and Reference Assistant</div>
+        </div>
+      </div>
+      <nav aria-label="Primary navigation">
+        <ul class="navBtns" style="list-style:none;display:flex;gap:10px;margin:0;padding:0;">
+          <li><a class="navLink linkBtn" href="../index.html">Main Lab</a></li>
+          <li><a class="navLink linkBtn" href="#build-order">Build Order</a></li>
+          <li><a class="navLink linkBtn" href="#constraints">Constraints</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content" class="wrap" style="padding-top:24px;padding-bottom:40px;">
+    <section class="panel" aria-labelledby="shell-title">
+      <div class="pillWarn">Draft-Only Output Required</div>
+      <h1 id="shell-title">App Shell Milestone (1 of 8)</h1>
+      <p>This shell defines the structure for a deterministic internal drafting assistant that only accepts de-identified scenarios and only produces draft content for staff review.</p>
+      <p class="subtle">No external AI calls are available in runtime behavior for this interface.</p>
+    </section>
+
+    <section id="constraints" class="panel" style="margin-top:16px;" aria-labelledby="constraints-title">
+      <h2 id="constraints-title">Hard Constraints</h2>
+      <ul class="constraintList">
+        <li>Do not process PHI or identifying details.</li>
+        <li>Do not generate legal advice or advocacy recommendations.</li>
+        <li>Do not automate final NORS coding decisions.</li>
+        <li>Label all generated content as <strong>draft-only</strong>.</li>
+        <li>Prefer deterministic logic and templates whenever possible.</li>
+      </ul>
+    </section>
+
+    <section id="build-order" class="panel" style="margin-top:16px;" aria-labelledby="build-title">
+      <h2 id="build-title">Module Build Plan</h2>
+      <div class="stageGrid">
+        <article class="stageCard"><h3>1) App Shell</h3><p>Current milestone: navigation, guardrails, and module placeholders.</p></article>
+        <article class="stageCard"><h3>2) De-identified Input Form</h3><p>Controlled intake with required de-identification checks.</p></article>
+        <article class="stageCard"><h3>3) Case Note Draft Engine</h3><p>Template-based drafting from JSON rules in <code>/data</code>.</p></article>
+        <article class="stageCard"><h3>4) Checklist Validation</h3><p>Deterministic checks for required note elements.</p></article>
+        <article class="stageCard"><h3>5) Email Draft/Summary</h3><p>Local, rule-based email draft and summarization workflows.</p></article>
+        <article class="stageCard"><h3>6) Local Reference Lookup</h3><p>Search and surface relevant text from local source files.</p></article>
+        <article class="stageCard"><h3>7) Sample Data + Tests</h3><p>Fixture scenarios plus repeatable functional checks.</p></article>
+        <article class="stageCard"><h3>8) UI Polish</h3><p>Accessibility, visual consistency, and workflow refinement.</p></article>
+      </div>
+    </section>
+
+    <section class="panel nextStep" style="margin-top:16px;" aria-labelledby="next-steps-title">
+      <h2 id="next-steps-title">Proposed Next Step</h2>
+      <p>Build milestone 2 by adding a de-identified case intake form with deterministic validation rules and explicit blocking when identifying data is detected.</p>
+    </section>
+  </main>
+</body>
+</html>
