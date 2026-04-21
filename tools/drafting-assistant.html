@@ -208,6 +208,24 @@
       </div>
     </section>
 
+    <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
+      <div class="pill">Informational Only</div>
+      <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
+      <p class="subtle">Temporary test for NORS code to topic to authority mapping. This does not determine violations or make legal conclusions.</p>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="crosswalk-nors-code">Select NORS Code</label>
+          <select id="crosswalk-nors-code">
+            <option value="">Loading NORS codes...</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn secondary" type="button" onclick="runCrosswalk()">Run Crosswalk</button>
+      </div>
+      <div id="crosswalk-output" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
+    </section>
+
     <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Draft outputs">
       <div class="panel">
         <div class="pill">Draft Only</div>
@@ -256,12 +274,12 @@
     let assistantData = null;
 
     const dataFiles = {
-      templates: '../narrative_templates.json',
-      validationRules: '../narrative_validation_rules.json',
-      keywordMap: '../keyword_map.json',
+      templates: ['../narrative_templates.json', '../data/case_note_templates.json'],
+      validationRules: ['../narrative_validation_rules.json', '../data/case_note_validation_rules.json'],
+      keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
       norsToTopic: '../nors_to_topic.json',
       topicToAuthority: '../topic_to_authority.json',
-      authorityIndex: '../authority_index.json',
+      authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
       retrievalRules: '../retrieval_rules.json'
     };
 
@@ -284,23 +302,40 @@
       status_or_outcome: 'status-or-outcome'
     };
 
+    async function loadJsonFile(paths) {
+      const candidates = Array.isArray(paths) ? paths : [paths];
+      const errors = [];
+
+      for (const path of candidates) {
+        try {
+          const response = await fetch(path);
+          if (!response.ok) {
+            errors.push(`${path} returned HTTP ${response.status}`);
+            continue;
+          }
+          return response.json();
+        } catch (err) {
+          errors.push(`${path}: ${err.message}`);
+        }
+      }
+
+      throw new Error(errors.join('; '));
+    }
+
     async function loadData() {
       const status = document.getElementById('load-status');
       const generateButton = document.getElementById('generate-button');
 
       try {
         const entries = await Promise.all(Object.entries(dataFiles).map(async ([key, path]) => {
-          const response = await fetch(path);
-          if (!response.ok) {
-            throw new Error(`${path} returned HTTP ${response.status}`);
-          }
-          return [key, await response.json()];
+          return [key, await loadJsonFile(path)];
         }));
 
         assistantData = Object.fromEntries(entries);
         status.className = 'notice';
         status.textContent = 'Assistant data loaded. Ready to generate Draft Only narrative and informational references.';
         generateButton.disabled = false;
+        populateCrosswalkOptions();
       } catch (err) {
         assistantData = null;
         status.className = 'notice error';
@@ -317,6 +352,118 @@
       formData.nors_code = document.getElementById('nors-code').value.trim();
       formData.case_closed = formData.case_status.toLowerCase() === 'closed';
       return formData;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function populateCrosswalkOptions() {
+      const select = document.getElementById('crosswalk-nors-code');
+      if (!select) return;
+
+      const codes = Object.keys(assistantData?.norsToTopic || {});
+      const fallbackCodes = ['F03', 'A01', 'C01'];
+      const options = codes.length ? codes : fallbackCodes;
+
+      select.innerHTML = '<option value="">Select NORS code</option>' + options.map(code => {
+        return `<option value="${escapeHtml(code)}">${escapeHtml(code)}</option>`;
+      }).join('');
+    }
+
+    function runCrosswalk() {
+      const output = document.getElementById('crosswalk-output');
+      const code = document.getElementById('crosswalk-nors-code').value;
+
+      if (!assistantData) {
+        output.innerHTML = '<div class="notice error">Assistant data is not loaded yet, so the crosswalk cannot run.</div>';
+        return;
+      }
+
+      if (!code) {
+        output.innerHTML = '<div class="notice warning">Select a NORS code before running the crosswalk.</div>';
+        return;
+      }
+
+      const topics = assistantData.norsToTopic?.[code] || [];
+      const topicMap = assistantData.topicToAuthority?.topics || {};
+      const authorityIndex = assistantData.authorityIndex?.authorities || {};
+      const trace = [];
+      const authorityRows = [];
+      const authorityIds = [];
+
+      if (!topics.length) {
+        output.innerHTML = `
+          <div class="notice">Informational Only: no mapped topics were found for NORS code ${escapeHtml(code)}.</div>
+          <ul class="result-list"><li>${escapeHtml(code)} - no mapped topic in nors_to_topic.json</li></ul>
+        `;
+        return;
+      }
+
+      topics.forEach(topic => {
+        trace.push(`${code} -> ${topic}`);
+        const mappings = topicMap[topic] || [];
+
+        if (!mappings.length) {
+          trace.push(`${topic} -> no authority IDs found in topic_to_authority.json`);
+          return;
+        }
+
+        const ids = mappings.map(item => item.authority_id);
+        trace.push(`${topic} -> ${ids.join(', ')}`);
+
+        mappings.forEach(item => {
+          authorityIds.push(item.authority_id);
+          const authority = authorityIndex[item.authority_id];
+
+          if (!authority) {
+            trace.push(`${item.authority_id} -> missing from authority_index.json`);
+            authorityRows.push({
+              id: item.authority_id,
+              citation: 'Missing authority metadata',
+              title: '',
+              category: 'Missing',
+              reason: item.reason || ''
+            });
+            return;
+          }
+
+          trace.push(`${item.authority_id} -> ${authority.citation}`);
+          authorityRows.push({
+            id: item.authority_id,
+            citation: authority.citation || 'Citation not provided',
+            title: authority.title || '',
+            category: getAuthorityLabel(authority),
+            reason: item.reason || ''
+          });
+        });
+      });
+
+      output.innerHTML = `
+        <div class="notice">Informational Only: this crosswalk surfaces possible references only. It does not determine violations or make legal conclusions.</div>
+        <p><strong>Selected NORS Code:</strong> ${escapeHtml(code)}</p>
+        <p><strong>Mapped Topic(s):</strong> ${topics.map(escapeHtml).join(', ')}</p>
+        <p><strong>Matched Authority ID(s):</strong> ${authorityIds.length ? authorityIds.map(escapeHtml).join(', ') : 'None found'}</p>
+        <p><strong>Matched Citations / Authorities:</strong></p>
+        <ul class="result-list">
+          ${authorityRows.length ? authorityRows.map(row => `
+            <li>
+              <strong>${escapeHtml(row.id)}</strong> - ${escapeHtml(row.citation)}
+              ${row.title ? ` - ${escapeHtml(row.title)}` : ''}
+              <br><span class="subtle">Category: ${escapeHtml(row.category)}${row.reason ? `; Reason: ${escapeHtml(row.reason)}` : ''}</span>
+            </li>
+          `).join('') : '<li>No authorities found for mapped topic(s).</li>'}
+        </ul>
+        <p><strong>Trace:</strong></p>
+        <ul class="result-list">
+          ${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+        </ul>
+      `;
     }
 
     function normalizeScenarioText(text) {
