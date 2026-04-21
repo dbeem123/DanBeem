@@ -1,13 +1,13 @@
 (function () {
   const DEFAULT_PATHS = {
     keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
-    norsToTopic: ['../nors_to_topic.json'],
-    topicToAuthority: ['../topic_to_authority.json'],
+    norsToTopic: ['../nors_to_topic.json', '../data/nors_to_topic.json'],
+    topicToAuthority: ['../topic_to_authority.json', '../data/topic_to_authority.json'],
     authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
-    retrievalRules: ['../retrieval_rules.json']
+    retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json']
   };
 
-  async function loadJsonFile(paths) {
+  async function loadJsonFile(paths, keyName) {
     const candidates = Array.isArray(paths) ? paths : [paths];
     const errors = [];
 
@@ -15,22 +15,27 @@
       try {
         const response = await fetch(path);
         if (!response.ok) {
+          console.warn(`[crosswalk] Failed to load ${keyName || 'data'} from ${path} (HTTP ${response.status})`);
           errors.push(`${path} returned HTTP ${response.status}`);
           continue;
         }
-        return response.json();
+        const payload = await response.json();
+        console.info(`[crosswalk] Loaded ${keyName || 'data'} from ${path}`);
+        return payload;
       } catch (err) {
+        console.warn(`[crosswalk] Failed to load ${keyName || 'data'} from ${path}: ${err.message}`);
         errors.push(`${path}: ${err.message}`);
       }
     }
 
+    console.error(`[crosswalk] Could not load ${keyName || 'data'} from any path`, candidates);
     throw new Error(errors.join('; '));
   }
 
   async function loadCrosswalkData(paths = {}) {
     const mergedPaths = { ...DEFAULT_PATHS, ...paths };
     const entries = await Promise.all(Object.entries(mergedPaths).map(async ([key, path]) => {
-      return [key, await loadJsonFile(path)];
+      return [key, await loadJsonFile(path, key)];
     }));
 
     return Object.fromEntries(entries);

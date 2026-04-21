@@ -282,10 +282,10 @@
 
     const crosswalkPaths = {
       keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
-      norsToTopic: '../nors_to_topic.json',
-      topicToAuthority: '../topic_to_authority.json',
+      norsToTopic: ['../nors_to_topic.json', '../data/nors_to_topic.json'],
+      topicToAuthority: ['../topic_to_authority.json', '../data/topic_to_authority.json'],
       authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
-      retrievalRules: '../retrieval_rules.json'
+      retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json']
     };
 
     const fieldIds = {
@@ -307,7 +307,7 @@
       status_or_outcome: 'status-or-outcome'
     };
 
-    async function loadJsonFile(paths) {
+    async function loadJsonFile(paths, keyName) {
       const candidates = Array.isArray(paths) ? paths : [paths];
       const errors = [];
 
@@ -315,39 +315,47 @@
         try {
           const response = await fetch(path);
           if (!response.ok) {
+            console.warn(`[drafting-assistant] Failed to load ${keyName || 'data'} from ${path} (HTTP ${response.status})`);
             errors.push(`${path} returned HTTP ${response.status}`);
             continue;
           }
-          return response.json();
+          const payload = await response.json();
+          console.info(`[drafting-assistant] Loaded ${keyName || 'data'} from ${path}`);
+          return payload;
         } catch (err) {
+          console.warn(`[drafting-assistant] Failed to load ${keyName || 'data'} from ${path}: ${err.message}`);
           errors.push(`${path}: ${err.message}`);
         }
       }
 
+      console.error(`[drafting-assistant] Could not load ${keyName || 'data'} from any path`, candidates);
       throw new Error(errors.join('; '));
     }
 
     async function loadData() {
       const status = document.getElementById('load-status');
       const generateButton = document.getElementById('generate-button');
+      status.style.display = 'block';
+      status.className = 'notice';
+      status.textContent = 'Loading assistant data...';
 
       try {
         if (!window.Crosswalk) throw new Error('Shared crosswalk logic did not load.');
         const [entries, crosswalkData] = await Promise.all([
           Promise.all(Object.entries(dataFiles).map(async ([key, path]) => {
-            return [key, await loadJsonFile(path)];
+            return [key, await loadJsonFile(path, key)];
           })),
           Crosswalk.loadCrosswalkData(crosswalkPaths)
         ]);
 
         assistantData = { ...Object.fromEntries(entries), ...crosswalkData };
-        status.className = 'notice';
-        status.textContent = 'Assistant data loaded. Ready to generate Draft Only narrative and informational references.';
+        status.style.display = 'none';
         generateButton.disabled = false;
         populateCrosswalkOptions();
         bindCrosswalkHandler();
       } catch (err) {
         assistantData = null;
+        status.style.display = 'block';
         status.className = 'notice error';
         status.textContent = `Assistant data could not be loaded. Please run this page from a local web server and confirm the JSON files are present. Details: ${err.message}`;
         generateButton.disabled = true;
