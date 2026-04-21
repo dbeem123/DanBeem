@@ -1,0 +1,401 @@
+﻿{
+    "version":  "1.0",
+    "major_codes":  [
+                        {
+                            "code":  "A",
+                            "label":  "Abuse, Gross Neglect, Exploitation",
+                            "description":  "Serious complaints of willful mistreatment of residents by facility staff, resident representative/family/friend, other residents or an outside individual. Perpetrator codes: 01=Facility staff; 02=Another resident; 03=Family/representative/friend; 99=Other.",
+                            "category_group":  "Residents Rights",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "A01",
+                                                    "label":  "Abuse: physical",
+                                                    "description":  "The intentional use of physical force that results in acute or chronic illness, bodily injury, physical pain, functional impairment, distress, or death. Includes hitting, slapping, pinching, kicking, and/or controlling behavior through corporal punishment."
+                                                },
+                                                {
+                                                    "code":  "A02",
+                                                    "label":  "Abuse: sexual",
+                                                    "description":  "Forced and/or unwanted sexual interaction (touching and non-touching acts) of any kind. Includes unwanted/inappropriate touching, sexual coercion, sexually explicit photographing, and sexual harassment."
+                                                },
+                                                {
+                                                    "code":  "A03",
+                                                    "label":  "Abuse: psychological",
+                                                    "description":  "The infliction of anguish, pain, or distress through verbal or nonverbal acts. Includes verbal assaults, insults, threats, intimidation, humiliation, harassment, involuntary seclusion, and demeaning social media use involving residents."
+                                                },
+                                                {
+                                                    "code":  "A04",
+                                                    "label":  "Financial exploitation",
+                                                    "description":  "The illegal or improper use of an individual\u0027s funds, property, or assets for another person\u0027s profit or advantage. Includes depriving a resident of rightful access to personal benefits, resources, personal needs allowance, belongings, or assets."
+                                                },
+                                                {
+                                                    "code":  "A05",
+                                                    "label":  "Gross neglect",
+                                                    "description":  "Failure to protect a resident from harm or failure to meet needs for essential medical care, nutrition, hydration, hygiene, clothing, basic ADLs or shelter, resulting in serious risk to health and/or safety. Use F or J codes when gross neglect is not clearly indicated."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "B",
+                            "label":  "Access to Information",
+                            "description":  "Complaints against the facility regarding access to information made by or on behalf of the resident; includes willful interference with ombudsman duties.",
+                            "category_group":  "Residents Rights",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "B01",
+                                                    "label":  "Access to information and records",
+                                                    "description":  "Access to information or access to resident records (medical, financial, and similar documents; public benefits; advance directives; administrative records; policies) is denied or delayed."
+                                                },
+                                                {
+                                                    "code":  "B02",
+                                                    "label":  "Language and communication barriers",
+                                                    "description":  "Information (written, verbal, or other format) is not provided in a language or format the resident can understand; facility does not provide an interpreter or auxiliary aids and services."
+                                                },
+                                                {
+                                                    "code":  "B03",
+                                                    "label":  "Willful interference",
+                                                    "description":  "Actions or inactions taken by an individual or entity intentionally preventing, interfering with, or impeding a resident or complainant from accessing the Ombudsman program; includes interference with ombudsman facility access, records access, or private meeting with resident."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "C",
+                            "label":  "Admission, Transfer, Discharge, Eviction",
+                            "description":  "Complaints against the facility involving issues regarding Admission, Transfer, Discharge and/or Eviction.",
+                            "category_group":  "Residents Rights",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "C01",
+                                                    "label":  "Admission",
+                                                    "description":  "Resident is admitted to a facility or section against his or her wishes. The admission agreement or contract is missing or contains illegal provisions, including waivers of rights as a condition of admission, or discrimination in admission based on pay source, sexual orientation, or gender identity."
+                                                },
+                                                {
+                                                    "code":  "C02",
+                                                    "label":  "Appeal process",
+                                                    "description":  "Resident did not receive information on appeal rights, or assistance from facility staff to file an appeal. Facility failed to follow appeal ruling. Use when facility fails to inform resident of appeal rights under Medicaid, Medicare, managed care, or other."
+                                                },
+                                                {
+                                                    "code":  "C03",
+                                                    "label":  "Discharge or eviction",
+                                                    "description":  "Resident received a discharge notice and does not want to leave; resident was transferred or discharged without notice or due process; transferred to hospital without bed hold policy notice; not readmitted post hospitalization; or notice is incomplete, incorrect, or for inappropriate reasons."
+                                                },
+                                                {
+                                                    "code":  "C04",
+                                                    "label":  "Room issues",
+                                                    "description":  "Resident requests a room change and the request is denied, or resident objects to planned room change; no notice or inadequate notice. Includes room assignments, forced room changes, intra-facility transfers, and roommate choice complaints."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "D",
+                            "label":  "Autonomy, Choice, Rights",
+                            "description":  "Complaints involving facility staff failure to honor and promote a resident\u0027s right or preferences.",
+                            "category_group":  "Residents Rights",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "D01",
+                                                    "label":  "Choice in health care",
+                                                    "description":  "Resident is denied the right to choose own physician, pharmacy, hospice, or other health care provider. Use when resident\u0027s preferred care or treatment schedule is not accommodated."
+                                                },
+                                                {
+                                                    "code":  "D02",
+                                                    "label":  "Live in less restrictive setting",
+                                                    "description":  "Resident is not offered transition planning services to return to a less restrictive setting; request to return to community is denied, ignored, or inadequately addressed; facility staff prevents the resident from moving. Includes MDS Section Q complaints."
+                                                },
+                                                {
+                                                    "code":  "D03",
+                                                    "label":  "Dignity and respect",
+                                                    "description":  "Resident is treated with rudeness, indifference, or insensitivity. Includes failure to knock before entering room, posting care signs without consent, non-age-appropriate or non-person-centered interactions."
+                                                },
+                                                {
+                                                    "code":  "D04",
+                                                    "label":  "Privacy",
+                                                    "description":  "Failure to ensure privacy during provision of care or treatment, or in other aspects of life. Includes disclosure of confidential information, opening resident mail, monitoring phone calls or emails, failure to close doors/privacy curtains."
+                                                },
+                                                {
+                                                    "code":  "D05",
+                                                    "label":  "Response to complaints",
+                                                    "description":  "Facility staff ignores or trivializes a resident complaint; no facility grievance process; grievance procedure not followed or made known to residents."
+                                                },
+                                                {
+                                                    "code":  "D06",
+                                                    "label":  "Retaliation",
+                                                    "description":  "Acts of retaliation/revenge by facility staff in response to a complaint to the facility, Ombudsman program, or state survey agency. Includes threat of discharge, lack of care, call lights unanswered, rough handling, and monitoring without permission."
+                                                },
+                                                {
+                                                    "code":  "D07",
+                                                    "label":  "Visitors",
+                                                    "description":  "Restrictions on a resident\u0027s ability to choose who to associate with and when to visit, either in the facility or in the community."
+                                                },
+                                                {
+                                                    "code":  "D08",
+                                                    "label":  "Resident or family council",
+                                                    "description":  "Interference with or prevention of the formation of a resident or family council. Staff does not assist in council promotion, exerts too much control, or does not respond to council requests."
+                                                },
+                                                {
+                                                    "code":  "D09",
+                                                    "label":  "Other rights and preferences",
+                                                    "description":  "Deprivation of any right not defined in D01-D08, such as personal liberty, freedom of choice, right of assembly, speech, religious freedom, right to vote, cohabitation, smoking/non-smoking, right to refuse care or treatment."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "E",
+                            "label":  "Financial, Property",
+                            "description":  "Complaints involving facility staff mismanagement of residents\u0027 funds and property, or billing problems. Excludes exploitation (use A04) and non-facility actors.",
+                            "category_group":  "Residents Rights",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "E01",
+                                                    "label":  "Billing and charges",
+                                                    "description":  "Incorrect or improper billing: overcharging, raising rates without notice, deposits not refunded, billing for services/supplies not provided, billing for items covered by Medicaid or Medicare."
+                                                },
+                                                {
+                                                    "code":  "E02",
+                                                    "label":  "Personal property",
+                                                    "description":  "Loss or mismanagement by the facility of resident property including money or trust fund. Includes lost personal items (laundry, dentures, hearing aids, glasses), withholding/damaging property, failure to reimburse for lost/damaged items."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "F",
+                            "label":  "Care",
+                            "description":  "Any complaint involving facility staff failure to provide care including poor quality care, care planning, and care delivery.",
+                            "category_group":  "Resident Care",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "F01",
+                                                    "label":  "Accidents and falls",
+                                                    "description":  "Any unexpected or unintended incident or injury of unknown origin that may result in injury or illness to a resident. Use A05 if this is a repeated problem facility staff fail to address."
+                                                },
+                                                {
+                                                    "code":  "F02",
+                                                    "label":  "Response to requests for assistance",
+                                                    "description":  "Failure to promptly respond to call light or call bell; requests for assistance go unanswered. Includes requests for returning to room, transfers to chair or bed. Use D06 if slow response is retaliatory."
+                                                },
+                                                {
+                                                    "code":  "F03",
+                                                    "label":  "Care planning",
+                                                    "description":  "Facility does not create or follow a person-centered care plan. Care planning does not include the resident or resident representative; staff disregards or is not informed of the plan. Includes PASRR Specialized Services issues and care plan meeting access."
+                                                },
+                                                {
+                                                    "code":  "F04",
+                                                    "label":  "Medications",
+                                                    "description":  "Medication given in error, not given on time or at all; not documented or incorrectly documented; not secured; incorrect/expired medications; not filled timely; incorrectly labeled."
+                                                },
+                                                {
+                                                    "code":  "F05",
+                                                    "label":  "Personal hygiene",
+                                                    "description":  "Failure to provide hygiene services: not bathed timely or at all; allowed to remain in soiled clothing or incontinent briefs; hands/face not washed; teeth or dentures not cleaned; lack of nail care and grooming."
+                                                },
+                                                {
+                                                    "code":  "F06",
+                                                    "label":  "Access to health-related services",
+                                                    "description":  "Failure to obtain or maintain healthcare services based upon change in resident\u0027s condition, at resident\u0027s request, or not obtained timely. Services include podiatry, dental, vision, hearing, mental health, hospice."
+                                                },
+                                                {
+                                                    "code":  "F07",
+                                                    "label":  "Symptoms unattended",
+                                                    "description":  "Failure to accommodate, identify, or provide services related to a change in resident\u0027s condition. Includes unaddressed pain, skin integrity, pressure sores, fever, infection, mental health/cognitive changes, failure to notify physician or resident representative."
+                                                },
+                                                {
+                                                    "code":  "F08",
+                                                    "label":  "Incontinence care",
+                                                    "description":  "Failure to provide incontinence care or catheter care timely, as requested, or per care plan. Not providing bowel and bladder training. Use of briefs/catheters rather than bathroom assistance for staff convenience."
+                                                },
+                                                {
+                                                    "code":  "F09",
+                                                    "label":  "Assistive devices or equipment",
+                                                    "description":  "Failure to provide access to assistive devices/equipment/supports; failure to maintain adaptive equipment. Includes service animal access barriers. Devices include Hoyer lifts, handrails, grab bars, wheelchairs, hearing/visual aids, communication devices."
+                                                },
+                                                {
+                                                    "code":  "F10",
+                                                    "label":  "Rehabilitation services",
+                                                    "description":  "Failure to provide or arrange for rehabilitation therapies or services; resident not assisted or encouraged to improve/maintain function or to ambulate. Services include PT, OT, speech therapy, range of motion and exercise programs."
+                                                },
+                                                {
+                                                    "code":  "F11",
+                                                    "label":  "Physical restraint",
+                                                    "description":  "Use of any device, material, or equipment attached to or near the resident\u0027s body that cannot be controlled or easily removed by the resident, deliberately preventing free body movement. Includes leg/arm restraints, hand mitts, soft ties/vests, lap cushions, improper bed rail use."
+                                                },
+                                                {
+                                                    "code":  "F12",
+                                                    "label":  "Chemical restraint",
+                                                    "description":  "Use of any medication for discipline or convenience that is not required to treat medical symptoms. Includes inappropriate use of antipsychotics, anti-anxiety, or hypnotic medication."
+                                                },
+                                                {
+                                                    "code":  "F13",
+                                                    "label":  "Infection control",
+                                                    "description":  "Insufficient measures to prevent or control infection. Includes failure to follow infection control procedures, staff not wearing/properly wearing PPE, facility not providing PPE, spread of infection, infection unreported or not treated appropriately."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "G",
+                            "label":  "Activities, Community Integration and Social Services",
+                            "description":  "Any complaint involving activities, community integration, or social services.",
+                            "category_group":  "Resident Care",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "G01",
+                                                    "label":  "Activities",
+                                                    "description":  "Lack of choice and appropriate activities for each resident; facility fails to consider individualized preferences; variety limited or not offered; posted activities not conducted."
+                                                },
+                                                {
+                                                    "code":  "G02",
+                                                    "label":  "Transportation",
+                                                    "description":  "Failure to assist resident in obtaining transportation to participate in community activities or attend health care appointments."
+                                                },
+                                                {
+                                                    "code":  "G03",
+                                                    "label":  "Conflict resolution",
+                                                    "description":  "Disagreement between residents where Ombudsman assistance is requested by residents or facility staff to achieve resolution. Includes roommate disagreements. Use L01 for resident conflict with resident representative/family."
+                                                },
+                                                {
+                                                    "code":  "G04",
+                                                    "label":  "Social services",
+                                                    "description":  "Social services not available or appropriate; facility staff fail to provide social services to help resident achieve goals or access supports. Includes medical appointments, escorts, family support, grief counseling."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "H",
+                            "label":  "Dietary",
+                            "description":  "Complaints regarding food service and assistance.",
+                            "category_group":  "Resident Care",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "H01",
+                                                    "label":  "Food service",
+                                                    "description":  "Food quantity, quality, variation, choice, temperature, and timing of meals and snacks are substandard or do not meet resident expectations. Includes menu not served, alternate selections not offered, poor quality, insufficient nutrition, utensils not provided."
+                                                },
+                                                {
+                                                    "code":  "H02",
+                                                    "label":  "Dining and hydration",
+                                                    "description":  "Facility staff fails to assist with dining or ensuring adequate hydration. Includes failure to provide adaptive equipment, meal set-up assistance, direct feeding assistance, and fluid/hydration reminders."
+                                                },
+                                                {
+                                                    "code":  "H03",
+                                                    "label":  "Therapeutic or special diet",
+                                                    "description":  "Therapeutic diet not served as indicated in care plan; special request diet or food preferences (vegetarian, religious, allergies) not accommodated."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "I",
+                            "label":  "Environment",
+                            "description":  "Complaints involving the physical environment of the facility, including the resident\u0027s space.",
+                            "category_group":  "Facility Environment, Administration",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "I01",
+                                                    "label":  "Environment",
+                                                    "description":  "Building environment including safety hazards, room or water temperature (too hot/cold), ventilation inadequate. Includes cigarette smoke, odors, noise, improperly stored cleaning supplies."
+                                                },
+                                                {
+                                                    "code":  "I02",
+                                                    "label":  "Building structure",
+                                                    "description":  "Building interior or exterior not maintained; building hazards such as poor lighting, building not secure. Includes elevator problems, malfunctioning automatic doors, fire safety concerns (extinguishers, alarms, smoke detectors)."
+                                                },
+                                                {
+                                                    "code":  "I03",
+                                                    "label":  "Supplies, storage and furnishings",
+                                                    "description":  "Furnishings in resident rooms or common areas lacking or in disrepair; inadequate/inaccessible locked storage for valuables; shortage of supplies (bed linens, towels, toilet paper, dining supplies)."
+                                                },
+                                                {
+                                                    "code":  "I04",
+                                                    "label":  "Accessibility",
+                                                    "description":  "Complaints regarding building and grounds accessibility. Includes inappropriate door handles, no electronic door openers, inaccessible sinks/toilets, no grab bars, inaccessible entrances/exits or hallways."
+                                                },
+                                                {
+                                                    "code":  "I05",
+                                                    "label":  "Housekeeping, laundry and pest abatement",
+                                                    "description":  "Housekeeping services inadequate or absent; rooms not clean; linens not changed; laundry not washed; residents lack clean clothes; pest control problems (bedbugs, cockroaches, rodents)."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "J",
+                            "label":  "Facility Policies, Procedures and Practices",
+                            "description":  "Acts of commission or omission by facility leadership/owners including administrators, resident managers, etc.",
+                            "category_group":  "Facility Environment, Administration",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "J01",
+                                                    "label":  "Administrative oversight",
+                                                    "description":  "Mismanagement including absent/unresponsive/inadequately trained administrator; incomplete/missing/falsified recordkeeping; background screening not performed; illegal policies/practices; failure to report/investigate suspected abuse/neglect/exploitation; disaster preparedness issues."
+                                                },
+                                                {
+                                                    "code":  "J02",
+                                                    "label":  "Fiscal management",
+                                                    "description":  "Facility lacks fiscal resources resulting in: staff shortages, unpaid staff, lack of food/supplies, utilities cut off. Includes bankruptcy issues, general insufficient funds to operate, health care fraud, waste, and abuse."
+                                                },
+                                                {
+                                                    "code":  "J03",
+                                                    "label":  "Staffing",
+                                                    "description":  "Problems with shortage of staff, turnover, overuse of temporary agencies; complaints about skills or training of staff. Includes all staff types: direct care, nursing, housekeeping."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "K",
+                            "label":  "Complaints about an Outside Agency (non-facility)",
+                            "description":  "Complaints involving decisions, policies, actions or inactions by programs and agencies (non-facility); including private and public benefits.",
+                            "category_group":  "Non-Facility",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "K01",
+                                                    "label":  "Regulatory system",
+                                                    "description":  "Complaints specific to actions or inactions of the licensing and certification agency or similar regulatory agency. Includes access to survey information, response to complaints, survey process, failure to enforce/sanction facility, closure process."
+                                                },
+                                                {
+                                                    "code":  "K02",
+                                                    "label":  "Medicaid",
+                                                    "description":  "Complaints regarding Medicaid eligibility, coverage, or other issues. Includes PASRR requirements for individuals with mental illness or intellectual/developmental disabilities. Use for denials of Medicaid services."
+                                                },
+                                                {
+                                                    "code":  "K03",
+                                                    "label":  "Managed care",
+                                                    "description":  "Complaints regarding covered services, denial of services, or other issues related to a managed care plan. Includes coverage areas, enrollment/dis-enrollment, grievance and appeals process."
+                                                },
+                                                {
+                                                    "code":  "K04",
+                                                    "label":  "Medicare",
+                                                    "description":  "Complaints regarding Medicare eligibility, coverage, or other issues. Includes complaints about observation status."
+                                                },
+                                                {
+                                                    "code":  "K05",
+                                                    "label":  "Veterans Affairs",
+                                                    "description":  "Complaints about eligibility, coverage, or other issues related to the Department of Veterans Affairs (DVA)."
+                                                },
+                                                {
+                                                    "code":  "K06",
+                                                    "label":  "Private insurance",
+                                                    "description":  "Complaints regarding any private insurance company, covered services, or denial of payment. Includes Long-Term Care insurance, disability insurance, Medicare supplemental, and similar types."
+                                                }
+                                            ]
+                        },
+                        {
+                            "code":  "L",
+                            "label":  "System: Others (non-facility)",
+                            "description":  "Complaints involving non-facility system actors including resident representatives, family, and outside service providers.",
+                            "category_group":  "Non-Facility",
+                            "minor_codes":  [
+                                                {
+                                                    "code":  "L01",
+                                                    "label":  "Resident representative or family conflict",
+                                                    "description":  "Resident representative or family member interferes with resident\u0027s decision-making and preferences related to health, welfare, safety, or rights, not rising to the level of abuse/exploitation. Includes guardianship, conservatorship, POA/DPOA, wills complaints."
+                                                },
+                                                {
+                                                    "code":  "L02",
+                                                    "label":  "Services from an outside provider",
+                                                    "description":  "Problems with services provided to a resident from an individual or entity not associated with or arranged by the facility. Includes companion services, hospice, therapies, transportation arranged by resident or family."
+                                                },
+                                                {
+                                                    "code":  "L03",
+                                                    "label":  "Request to transition to community setting",
+                                                    "description":  "Barriers to transition to community not related to facility action; inadequate assistance with accessing housing, services, and supports. Includes unresponsive local contact agency, lack of housing, lack of personal care services. Use D02 if facility is not providing assistance."
+                                                }
+                                            ]
+                        }
+                    ]
+}

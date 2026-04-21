@@ -4,6 +4,7 @@
     norsToTopic: ['../nors_to_topic.json', '../data/nors_to_topic.json'],
     topicToAuthority: ['../topic_to_authority.json', '../data/topic_to_authority.json'],
     authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
+    crosswalkCatalog: ['../crosswalk_catalog.json', '../data/crosswalk_catalog.json'],
     retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json']
   };
 
@@ -77,12 +78,42 @@
     return sortTopicMatches(merged);
   }
 
+  function getCatalogRecords(data) {
+    return Array.isArray(data.crosswalkCatalog?.records) ? data.crosswalkCatalog.records : [];
+  }
+
+  function getAuthorityIndex(data) {
+    const authorities = data.authorityIndex?.authorities || {};
+    if (Array.isArray(authorities)) {
+      return authorities.reduce((index, authority) => {
+        index[authority.authority_id] = authority;
+        return index;
+      }, {});
+    }
+    return authorities;
+  }
+
+  function getKeywordEntries(data) {
+    const keywords = data.keywordMap?.keywords || {};
+    if (Array.isArray(keywords)) return keywords;
+    return Object.entries(keywords).map(([phrase, topics]) => ({
+      phrase,
+      topics: Array.isArray(topics) ? topics : []
+    }));
+  }
+
   function getTopicsFromNorsCode(norsCode, data) {
     const topicMatches = {};
     const code = (norsCode || '').trim();
     if (!code) return [];
 
-    (data.norsToTopic?.[code] || []).forEach(topic => {
+    const catalogTopics = getCatalogRecords(data)
+      .filter(record => record.nors_minor_code === code)
+      .map(record => record.topic_slug)
+      .filter(Boolean);
+    const mappedTopics = catalogTopics.length ? catalogTopics : data.norsToTopic?.[code] || [];
+
+    mappedTopics.forEach(topic => {
       addTopic(topicMatches, topic, 'nors', code);
     });
 
@@ -94,10 +125,11 @@
     const searchableText = (text || '').toLowerCase();
     if (!searchableText) return [];
 
-    Object.entries(data.keywordMap?.keywords || {}).forEach(([keyword, mappedTopics]) => {
-      if (searchableText.includes(keyword.toLowerCase())) {
-        mappedTopics.forEach(topic => {
-          addTopic(topicMatches, topic, 'keyword', keyword);
+    getKeywordEntries(data).forEach(entry => {
+      const phrase = entry.phrase || '';
+      if (phrase && searchableText.includes(phrase.toLowerCase())) {
+        (entry.topics || []).forEach(topic => {
+          addTopic(topicMatches, topic, 'keyword', phrase);
         });
       }
     });
@@ -127,6 +159,7 @@
   }
 
   function getAuthorityLabel(authority = {}) {
+    if (authority.category) return authority.category;
     const type = authority.type || '';
     const layer = authority.layer || '';
     const title = (authority.title || '').toLowerCase();
@@ -169,29 +202,51 @@
 
   function getAuthoritiesForTopics(topicMatches, data) {
     const topicMap = data.topicToAuthority?.topics || {};
-    const authorityIndex = data.authorityIndex?.authorities || {};
+    const authorityIndex = getAuthorityIndex(data);
     const ranking = data.retrievalRules?.ranking || {};
     const output = data.retrievalRules?.output || {};
-    const maxResults = output.max_results || 8;
-    const dedupe = data.retrievalRules?.matching?.deduplicate_authorities !== false;
+    const maxResults = data.retrievalRules?.max_results || output.max_results || 8;
+    const dedupe = data.retrievalRules?.dedupe !== false && data.retrievalRules?.matching?.deduplicate_authorities !== false;
+    const catalogRecords = getCatalogRecords(data);
     const groups = [];
     const seen = new Set();
     let resultCount = 0;
 
     topicMatches.forEach(match => {
       const authorities = [];
-      const mappings = topicMap[match.topic] || [];
+      const catalogMappings = catalogRecords
+        .filter(record => record.topic_slug === match.topic || (match.norsCodes || []).includes(record.nors_minor_code))
+        .flatMap(record => [
+          ...(record.federal_regulations || []),
+          ...(record.appendix_pp_tags || []),
+          ...(record.connecticut_overlay || [])
+        ])
+        .map(item => ({
+          authority_id: item.authority_id,
+          reason: item.mapping_type ? `${item.mapping_type.replace(/_/g, ' ')} mapping` : '',
+          citation: item.citation,
+          title: item.title,
+          category: item.category,
+          url: item.url
+        }));
+      const mappings = catalogMappings.length ? catalogMappings : topicMap[match.topic] || [];
 
       mappings.forEach(item => {
         if (resultCount >= maxResults) return;
         if (dedupe && seen.has(item.authority_id)) return;
 
-        const authority = authorityIndex[item.authority_id];
+        const authority = authorityIndex[item.authority_id] || {
+          authority_id: item.authority_id,
+          citation: item.citation,
+          title: item.title,
+          category: item.category,
+          url: item.url
+        };
         seen.add(item.authority_id);
         resultCount += 1;
 
         const normalized = normalizeAuthority(item.authority_id, authority, item.reason, match);
-        normalized.rank = authority ? ranking[authority.type] || 0 : -1;
+        normalized.rank = authority ? ranking[authority.type] || ranking[authority.category] || 0 : -1;
         authorities.push(normalized);
       });
 

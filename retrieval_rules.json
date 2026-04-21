@@ -1,30 +1,99 @@
-{
-  "matching": {
-    "use_nors_code_first": true,
-    "use_keyword_fallback": true,
-    "allow_multiple_topics": true,
-    "deduplicate_authorities": true
-  },
-  "ranking": {
-    "federal_regulation": 100,
-    "appendix_pp": 90,
-    "state_regulation": 80,
-    "state_statute": 75,
-    "ombudsman_regulation": 70,
-    "training": 50
-  },
-  "output": {
-    "max_results": 8,
-    "include_reason": true,
-    "include_source_type": true,
-    "include_citation": true,
-    "include_title": true,
-    "include_layer": true
-  },
-  "guardrails": {
-    "no_legal_conclusions": true,
-    "no_violation_determinations": true,
-    "no_recommend_actions": true,
-    "references_only": true
-  }
+﻿{
+    "version":  "1.0",
+    "source_priority":  [
+                            "direct_nors_to_authority",
+                            "direct_authority_to_nors",
+                            "topic_based_crosswalk",
+                            "keyword_based_crosswalk"
+                        ],
+    "mapping_type_rank":  {
+                              "direct":  1,
+                              "topic_based":  2,
+                              "related":  3,
+                              "state_overlay":  4,
+                              "uncertain":  5
+                          },
+    "dedupe":  true,
+    "dedupe_key":  "authority_id",
+    "max_results":  8,
+    "display_order":  [
+                          "Federal Regulation",
+                          "Appendix PP",
+                          "Ombudsman Program Authority",
+                          "State Statute",
+                          "State Regulation",
+                          "Training"
+                      ],
+    "within_category_sort":  "mapping_type_rank_ascending",
+    "keyword_match_rules":  {
+                                "method":  "substring_or_exact",
+                                "case_sensitive":  false,
+                                "return_all_matching_records":  true,
+                                "max_keyword_results":  8
+                            },
+    "nors_lookup_rules":  {
+                              "input":  "nors_minor_code",
+                              "return_fields":  [
+                                                    "nors_major_code",
+                                                    "nors_major_label",
+                                                    "nors_minor_code",
+                                                    "nors_minor_label",
+                                                    "topic_slug",
+                                                    "topic_label",
+                                                    "resident_right_concept",
+                                                    "federal_regulations",
+                                                    "appendix_pp_tags",
+                                                    "connecticut_overlay",
+                                                    "keywords",
+                                                    "notes"
+                                                ]
+                          },
+    "authority_reverse_lookup_rules":  {
+                                           "input":  "authority_id",
+                                           "return_fields":  [
+                                                                 "authority_id",
+                                                                 "citation",
+                                                                 "title",
+                                                                 "category",
+                                                                 "url",
+                                                                 "short_reason",
+                                                                 "related_topics",
+                                                                 "related_nors_codes"
+                                                             ]
+                                       },
+    "uncertain_handling":  {
+                               "include_uncertain":  true,
+                               "flag_uncertain":  true,
+                               "uncertain_display_label":  "Possible match — verify",
+                               "uncertain_display_order":  "last"
+                           },
+    "connecticut_overlay_rules":  {
+                                      "show_by_default":  true,
+                                      "label":  "Connecticut Overlay",
+                                      "note":  "Connecticut-specific statutes and regulations supplement federal requirements. State law may provide additional or stricter protections."
+                                  },
+    "non_facility_code_rules":  {
+                                    "codes":  [
+                                                  "K01",
+                                                  "K02",
+                                                  "K03",
+                                                  "K04",
+                                                  "K05",
+                                                  "K06",
+                                                  "L01",
+                                                  "L02",
+                                                  "L03"
+                                              ],
+                                    "note":  "These codes involve complaints against non-facility entities. Federal 42 CFR Part 483 F-tags generally do not apply. Display ombudsman program authority (45 CFR Part 1324) and state authorities where relevant."
+                                },
+    "f_tag_consolidation_note":  "As of the November 2024 Appendix PP revision (Rev. 232), F622/F623/F624/F625 were reorganized into F627 and F628. Applications should map legacy F-tag references to F627 or F628 for §483.15(c) transfer/discharge complaints.",
+    "source_urls":  {
+                        "nors_table_2":  "https://ltcombudsman.org/uploads/files/support/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+                        "nors_updated_codes":  "https://ltcombudsman.org/uploads/files/support/nors-updated-complaint-codes-list.pdf",
+                        "42_cfr_483_subpart_b":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B",
+                        "45_cfr_1324_subpart_a":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A",
+                        "appendix_pp":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+                        "ct_ltcop_regulations":  "https://portal.ct.gov/ltcop/regulations",
+                        "ct_resident_rights":  "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility"
+                    }
 }

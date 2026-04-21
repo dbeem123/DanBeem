@@ -1,0 +1,2596 @@
+﻿{
+    "version":  "1.0",
+    "mapping_type_legend":  {
+                                "direct":  "NORS code clearly and specifically maps to this authority citation.",
+                                "topic_based":  "NORS code and authority share the same topic area; not a single-section exact match.",
+                                "related":  "Authority is relevant context but is not the primary citation for this complaint type.",
+                                "uncertain":  "Mapping is plausible but not confirmed by official crosswalk materials; treat as a suggestion.",
+                                "state_overlay":  "Connecticut-specific statute or regulation that supplements federal authority."
+                            },
+    "records":  [
+                    {
+                        "nors_major_code":  "A",
+                        "nors_major_label":  "Abuse, Gross Neglect, Exploitation",
+                        "nors_minor_code":  "A01",
+                        "nors_minor_label":  "Abuse: physical",
+                        "topic_slug":  "abuse_neglect_exploitation",
+                        "topic_label":  "Abuse / Neglect / Exploitation",
+                        "resident_right_concept":  "Freedom from physical abuse",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_12",
+                                                        "citation":  "42 CFR §483.12",
+                                                        "title":  "Freedom from abuse, neglect, and exploitation",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+                                                    },
+                                                    {
+                                                        "authority_id":  "45cfr_1324_19",
+                                                        "citation":  "45 CFR §1324.19",
+                                                        "title":  "Duties of the representatives of the Office",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.19"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f600",
+                                                     "citation":  "F600",
+                                                     "title":  "Free from Abuse and Neglect",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f607",
+                                                     "citation":  "F607",
+                                                     "title":  "Develop/Implement Abuse/Neglect Policies",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f609",
+                                                     "citation":  "F609",
+                                                     "title":  "Reporting of Alleged Violations",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_regs",
+                                                    "citation":  "Conn. Agencies Regs. §19-13-D8t",
+                                                    "title":  "Connecticut DPH Nursing Home State Regulations",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://portal.ct.gov/ltcop/regulations"
+                                                },
+                        "keywords":  [
+                                         "hit resident",
+                                         "slapped",
+                                         "pinched",
+                                         "kicked",
+                                         "staff hit",
+                                         "physical abuse",
+                                         "grabbed",
+                                         "shoved",
+                                         "corporal punishment",
+                                         "staff hurt resident",
+                                         "injured by staff"
+                                     ],
+                        "notes":  "Use A01 when the physical force is intentional. Use A05 (Gross neglect) for repeated care failures resulting in injury. Perpetrator codes apply (01=staff, 02=resident, 03=family/rep, 99=other)."
+                    },
+                    {
+                        "nors_major_code":  "A",
+                        "nors_major_label":  "Abuse, Gross Neglect, Exploitation",
+                        "nors_minor_code":  "A02",
+                        "nors_minor_label":  "Abuse: sexual",
+                        "topic_slug":  "abuse_neglect_exploitation",
+                        "topic_label":  "Abuse / Neglect / Exploitation",
+                        "resident_right_concept":  "Freedom from sexual abuse",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_12",
+                                                        "citation":  "42 CFR §483.12",
+                                                        "title":  "Freedom from abuse, neglect, and exploitation",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+                                                    },
+                                                    {
+                                                        "authority_id":  "45cfr_1324_19",
+                                                        "citation":  "45 CFR §1324.19",
+                                                        "title":  "Duties of the representatives of the Office",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.19"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f600",
+                                                 "citation":  "F600",
+                                                 "title":  "Free from Abuse and Neglect",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_regs",
+                                                    "citation":  "Conn. Agencies Regs. §19-13-D8t",
+                                                    "title":  "Connecticut DPH Nursing Home State Regulations",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://portal.ct.gov/ltcop/regulations"
+                                                },
+                        "keywords":  [
+                                         "sexual abuse",
+                                         "unwanted touching",
+                                         "sexual harassment",
+                                         "inappropriate touching",
+                                         "sexual coercion",
+                                         "photographed without consent",
+                                         "sexually explicit"
+                                     ],
+                        "notes":  "Use D03 for non-sexual disrespect. A02 covers both contact and non-contact sexual acts."
+                    },
+                    {
+                        "nors_major_code":  "A",
+                        "nors_major_label":  "Abuse, Gross Neglect, Exploitation",
+                        "nors_minor_code":  "A03",
+                        "nors_minor_label":  "Abuse: psychological",
+                        "topic_slug":  "abuse_neglect_exploitation",
+                        "topic_label":  "Abuse / Neglect / Exploitation",
+                        "resident_right_concept":  "Freedom from psychological abuse",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_12",
+                                                    "citation":  "42 CFR §483.12",
+                                                    "title":  "Freedom from abuse, neglect, and exploitation",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f600",
+                                                     "citation":  "F600",
+                                                     "title":  "Free from Abuse and Neglect",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f603",
+                                                     "citation":  "F603",
+                                                     "title":  "Free from Involuntary Seclusion",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "yelling at resident",
+                                         "humiliating",
+                                         "threatening",
+                                         "intimidating",
+                                         "bullying",
+                                         "verbal abuse",
+                                         "isolating resident",
+                                         "involuntary seclusion",
+                                         "demeaning",
+                                         "posted on social media",
+                                         "insults",
+                                         "screaming at"
+                                     ],
+                        "notes":  "Use D03 for less severe staff rudeness or insensitivity. A03 is for willful psychological mistreatment."
+                    },
+                    {
+                        "nors_major_code":  "A",
+                        "nors_major_label":  "Abuse, Gross Neglect, Exploitation",
+                        "nors_minor_code":  "A04",
+                        "nors_minor_label":  "Financial exploitation",
+                        "topic_slug":  "financial_exploitation",
+                        "topic_label":  "Financial Exploitation",
+                        "resident_right_concept":  "Protection from financial exploitation",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_12",
+                                                    "citation":  "42 CFR §483.12",
+                                                    "title":  "Freedom from abuse, neglect, and exploitation",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f602",
+                                                 "citation":  "F602",
+                                                 "title":  "Free from Misappropriation/Exploitation",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "stole from resident",
+                                         "money missing",
+                                         "financial exploitation",
+                                         "misused funds",
+                                         "took resident money",
+                                         "unauthorized withdrawal",
+                                         "personal needs allowance missing",
+                                         "staff stole",
+                                         "coerced to sign"
+                                     ],
+                        "notes":  "Use E02 for facility mismanagement of property/trust funds. A04 is for intentional exploitation for another\u0027s benefit."
+                    },
+                    {
+                        "nors_major_code":  "A",
+                        "nors_major_label":  "Abuse, Gross Neglect, Exploitation",
+                        "nors_minor_code":  "A05",
+                        "nors_minor_label":  "Gross neglect",
+                        "topic_slug":  "gross_neglect",
+                        "topic_label":  "Gross Neglect",
+                        "resident_right_concept":  "Freedom from gross neglect; essential care",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_12",
+                                                        "citation":  "42 CFR §483.12",
+                                                        "title":  "Freedom from abuse, neglect, and exploitation",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_25",
+                                                        "citation":  "42 CFR §483.25",
+                                                        "title":  "Quality of care",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f600",
+                                                     "citation":  "F600",
+                                                     "title":  "Free from Abuse and Neglect",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f686",
+                                                     "citation":  "F686",
+                                                     "title":  "Treatment/Services to Prevent/Heal Pressure Ulcers",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f684",
+                                                     "citation":  "F684",
+                                                     "title":  "Quality of Care",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "left in soiled brief",
+                                         "never changed",
+                                         "dehydrated",
+                                         "starving",
+                                         "severe pressure sore",
+                                         "serious neglect",
+                                         "life threatening neglect",
+                                         "no food given",
+                                         "no medical care"
+                                     ],
+                        "notes":  "Use F or J codes when gross neglect is not clearly indicated. A05 requires a serious risk to health/safety."
+                    },
+                    {
+                        "nors_major_code":  "B",
+                        "nors_major_label":  "Access to Information",
+                        "nors_minor_code":  "B01",
+                        "nors_minor_label":  "Access to information and records",
+                        "topic_slug":  "access_information",
+                        "topic_label":  "Access to Information / Records",
+                        "resident_right_concept":  "Right to access medical, financial, and administrative records",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f573",
+                                                     "citation":  "F573",
+                                                     "title":  "Right to Access/Purchase Copies of Records",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f572",
+                                                     "citation":  "F572",
+                                                     "title":  "Notice of Rights and Rules",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f574",
+                                                     "citation":  "F574",
+                                                     "title":  "Required Notices and Contact Information",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_statutes",
+                                                    "citation":  "CGS Chapter 368v",
+                                                    "title":  "Connecticut General Assembly Nursing Home Statutes",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+                                                },
+                        "keywords":  [
+                                         "denied medical records",
+                                         "can\u0027t see records",
+                                         "records not provided",
+                                         "won\u0027t give records",
+                                         "delayed records",
+                                         "refused access to file",
+                                         "medical record request denied",
+                                         "advance directive not shared",
+                                         "not informed of rights"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "B",
+                        "nors_major_label":  "Access to Information",
+                        "nors_minor_code":  "B02",
+                        "nors_minor_label":  "Language and communication barriers",
+                        "topic_slug":  "access_information",
+                        "topic_label":  "Access to Information / Records",
+                        "resident_right_concept":  "Right to information in understandable language/format",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f576",
+                                                 "citation":  "F576",
+                                                 "title":  "Right to Forms of Communication with Privacy",
+                                                 "mapping_type":  "related",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no interpreter",
+                                         "doesn\u0027t understand English",
+                                         "language barrier",
+                                         "no translation",
+                                         "forms not in Spanish",
+                                         "not provided in accessible format",
+                                         "auxiliary aids denied",
+                                         "staff can\u0027t communicate",
+                                         "Braille not provided"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "B",
+                        "nors_major_label":  "Access to Information",
+                        "nors_minor_code":  "B03",
+                        "nors_minor_label":  "Willful interference",
+                        "topic_slug":  "willful_interference",
+                        "topic_label":  "Willful Interference with Ombudsman",
+                        "resident_right_concept":  "Right to access Ombudsman program without interference",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "45cfr_1324_11",
+                                                        "citation":  "45 CFR §1324.11",
+                                                        "title":  "Establishment of the Office of the State Long-Term Care Ombudsman",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.11"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_10",
+                                                        "citation":  "42 CFR §483.10",
+                                                        "title":  "Resident rights",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f562",
+                                                 "citation":  "F562",
+                                                 "title":  "Immediate Access to Resident",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_17a_870",
+                                                    "citation":  "CGS §§17a-870 through 17a-886",
+                                                    "title":  "Connecticut Statutes — Office of the Long Term Care Ombudsman",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+                                                },
+                        "keywords":  [
+                                         "blocked ombudsman",
+                                         "facility won\u0027t let ombudsman in",
+                                         "interfering with ombudsman visit",
+                                         "prevented from contacting ombudsman",
+                                         "staff blocked access",
+                                         "retaliation for contacting ombudsman",
+                                         "ombudsman access denied",
+                                         "willful interference"
+                                     ],
+                        "notes":  "Use B01 when resident is having difficulty accessing records (not ombudsman access specifically)."
+                    },
+                    {
+                        "nors_major_code":  "C",
+                        "nors_major_label":  "Admission, Transfer, Discharge, Eviction",
+                        "nors_minor_code":  "C01",
+                        "nors_minor_label":  "Admission",
+                        "topic_slug":  "admission",
+                        "topic_label":  "Admission",
+                        "resident_right_concept":  "Voluntary admission; non-discriminatory admissions practices",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_15",
+                                                    "citation":  "42 CFR §483.15",
+                                                    "title":  "Admission, transfer, and discharge rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f620",
+                                                     "citation":  "F620",
+                                                     "title":  "Admissions Policy",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f621",
+                                                     "citation":  "F621",
+                                                     "title":  "Equal Practices Regardless of Payment Source",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_statutes",
+                                                    "citation":  "CGS Chapter 368v",
+                                                    "title":  "Connecticut General Assembly Nursing Home Statutes",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+                                                },
+                        "keywords":  [
+                                         "forced admission",
+                                         "admitted against will",
+                                         "admission agreement illegal",
+                                         "waived rights to get in",
+                                         "discriminated based on Medicaid",
+                                         "refused admission Medicaid patient",
+                                         "admission contract missing",
+                                         "illegal admission agreement",
+                                         "required to waive rights"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "C",
+                        "nors_major_label":  "Admission, Transfer, Discharge, Eviction",
+                        "nors_minor_code":  "C02",
+                        "nors_minor_label":  "Appeal process",
+                        "topic_slug":  "transfer_discharge",
+                        "topic_label":  "Transfer / Discharge",
+                        "resident_right_concept":  "Right to appeal transfer/discharge and insurance decisions",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_15",
+                                                    "citation":  "42 CFR §483.15",
+                                                    "title":  "Admission, transfer, and discharge rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f627",
+                                                 "citation":  "F627",
+                                                 "title":  "Transfer and Discharge Requirements",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no appeal rights given",
+                                         "didn\u0027t know I could appeal",
+                                         "facility won\u0027t help appeal",
+                                         "appeal not honored",
+                                         "no information about appeal",
+                                         "Medicaid appeal not explained",
+                                         "Medicare appeal rights not provided",
+                                         "managed care appeal denied"
+                                     ],
+                        "notes":  "Use K02, K03, or K04 if the appeal issue is with Medicaid, managed care, or Medicare (not the facility)."
+                    },
+                    {
+                        "nors_major_code":  "C",
+                        "nors_major_label":  "Admission, Transfer, Discharge, Eviction",
+                        "nors_minor_code":  "C03",
+                        "nors_minor_label":  "Discharge or eviction",
+                        "topic_slug":  "transfer_discharge",
+                        "topic_label":  "Transfer / Discharge",
+                        "resident_right_concept":  "Right to remain; discharge/transfer notice and due process",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_15",
+                                                    "citation":  "42 CFR §483.15",
+                                                    "title":  "Admission, transfer, and discharge rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f627",
+                                                     "citation":  "F627",
+                                                     "title":  "Transfer and Discharge Requirements",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f628",
+                                                     "citation":  "F628",
+                                                     "title":  "Transfer and Discharge — Additional Requirements",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f660",
+                                                     "citation":  "F660",
+                                                     "title":  "Discharge Planning Process",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_statutes",
+                                                    "citation":  "CGS Chapter 368v",
+                                                    "title":  "Connecticut General Assembly Nursing Home Statutes",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+                                                },
+                        "keywords":  [
+                                         "eviction",
+                                         "discharge notice",
+                                         "does not want to leave",
+                                         "told to leave",
+                                         "forced out",
+                                         "no discharge notice",
+                                         "30 day notice",
+                                         "improper discharge",
+                                         "discharged without notice",
+                                         "transferred without notice",
+                                         "bed hold",
+                                         "not readmitted after hospital",
+                                         "inappropriate discharge"
+                                     ],
+                        "notes":  "30-day notice required under 42 CFR §483.15(c)(4). F622-F625 were reorganized into F627/F628 in November 2024 Appendix PP revision."
+                    },
+                    {
+                        "nors_major_code":  "C",
+                        "nors_major_label":  "Admission, Transfer, Discharge, Eviction",
+                        "nors_minor_code":  "C04",
+                        "nors_minor_label":  "Room issues",
+                        "topic_slug":  "transfer_discharge",
+                        "topic_label":  "Transfer / Discharge",
+                        "resident_right_concept":  "Right to be notified of room or roommate changes",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f559",
+                                                     "citation":  "F559",
+                                                     "title":  "Choose/Be Notified of Room/Roommate Change",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f560",
+                                                     "citation":  "F560",
+                                                     "title":  "Right to Refuse Certain Transfers",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "moved rooms without notice",
+                                         "forced room change",
+                                         "room change denied",
+                                         "roommate problem",
+                                         "intra-facility transfer",
+                                         "no notice of room change",
+                                         "roommate reassignment"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D01",
+                        "nors_minor_label":  "Choice in health care",
+                        "topic_slug":  "autonomy_choice",
+                        "topic_label":  "Autonomy / Choice / Rights",
+                        "resident_right_concept":  "Right to choose own physician, pharmacy, hospice, and care provider",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_10",
+                                                        "citation":  "42 CFR §483.10",
+                                                        "title":  "Resident rights",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_30",
+                                                        "citation":  "42 CFR §483.30",
+                                                        "title":  "Physician services",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.30"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f555",
+                                                     "citation":  "F555",
+                                                     "title":  "Right to Choose/Be Informed of Attending Physician",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f561",
+                                                     "citation":  "F561",
+                                                     "title":  "Self Determination",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "can\u0027t choose doctor",
+                                         "denied right to choose physician",
+                                         "facility won\u0027t allow my doctor",
+                                         "can\u0027t use my pharmacy",
+                                         "hospice denied",
+                                         "choose own provider",
+                                         "treatment schedule not accommodated"
+                                     ],
+                        "notes":  "Use L02 if resident is permitted to choose but the chosen provider is unavailable."
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D02",
+                        "nors_minor_label":  "Live in less restrictive setting",
+                        "topic_slug":  "autonomy_choice",
+                        "topic_label":  "Autonomy / Choice / Rights",
+                        "resident_right_concept":  "Right to transition planning and return to community",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f561",
+                                                     "citation":  "F561",
+                                                     "title":  "Self Determination",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f660",
+                                                     "citation":  "F660",
+                                                     "title":  "Discharge Planning Process",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f745",
+                                                     "citation":  "F745",
+                                                     "title":  "Provision of Medically Related Social Services",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "wants to go home",
+                                         "return to community",
+                                         "transition planning",
+                                         "MDS Section Q",
+                                         "facility won\u0027t discharge",
+                                         "discharge planning not done",
+                                         "not referred to local contact agency",
+                                         "HCBS waiver",
+                                         "nursing home to home"
+                                     ],
+                        "notes":  "Use L03 when barriers are not related to facility action."
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D03",
+                        "nors_minor_label":  "Dignity and respect",
+                        "topic_slug":  "dignity_respect",
+                        "topic_label":  "Dignity and Respect",
+                        "resident_right_concept":  "Right to be treated with respect and dignity",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_10",
+                                                        "citation":  "42 CFR §483.10",
+                                                        "title":  "Resident rights",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_24",
+                                                        "citation":  "42 CFR §483.24",
+                                                        "title":  "Quality of life",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f557",
+                                                     "citation":  "F557",
+                                                     "title":  "Respect, Dignity/Right to have Personal Property",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f675",
+                                                     "citation":  "F675",
+                                                     "title":  "Quality of Life",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_statutes",
+                                                    "citation":  "CGS Chapter 368v",
+                                                    "title":  "Connecticut General Assembly Nursing Home Statutes",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+                                                },
+                        "keywords":  [
+                                         "treated rudely",
+                                         "staff rude",
+                                         "disrespectful",
+                                         "didn\u0027t knock",
+                                         "talked down to",
+                                         "not treated with dignity",
+                                         "condescending staff",
+                                         "not person-centered",
+                                         "insensitive"
+                                     ],
+                        "notes":  "Use A03 for psychological abuse. D03 is for less severe rudeness/insensitivity."
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D04",
+                        "nors_minor_label":  "Privacy",
+                        "topic_slug":  "privacy",
+                        "topic_label":  "Privacy",
+                        "resident_right_concept":  "Right to privacy in care and personal affairs",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f583",
+                                                     "citation":  "F583",
+                                                     "title":  "Personal Privacy/Confidentiality of Records",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f576",
+                                                     "citation":  "F576",
+                                                     "title":  "Right to Forms of Communication with Privacy",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "privacy curtain not closed",
+                                         "door left open during care",
+                                         "medical information shared",
+                                         "mail opened",
+                                         "phone monitored",
+                                         "disclosed confidential information",
+                                         "no privacy",
+                                         "newsletter without consent",
+                                         "email monitored"
+                                     ],
+                        "notes":  "Use B03 if lack of privacy is related to Ombudsman visits."
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D05",
+                        "nors_minor_label":  "Response to complaints",
+                        "topic_slug":  "complaint_response",
+                        "topic_label":  "Response to Complaints / Grievances",
+                        "resident_right_concept":  "Right to file and have grievances addressed",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f585",
+                                                 "citation":  "F585",
+                                                 "title":  "Grievances",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_statutes",
+                                                    "citation":  "CGS Chapter 368v",
+                                                    "title":  "Connecticut General Assembly Nursing Home Statutes",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+                                                },
+                        "keywords":  [
+                                         "complaint ignored",
+                                         "grievance not addressed",
+                                         "no grievance process",
+                                         "staff dismisses concerns",
+                                         "won\u0027t file my complaint",
+                                         "trivializes concerns",
+                                         "no response to grievance"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D06",
+                        "nors_minor_label":  "Retaliation",
+                        "topic_slug":  "retaliation",
+                        "topic_label":  "Retaliation",
+                        "resident_right_concept":  "Right to be free from retaliation for exercising rights",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f550",
+                                                 "citation":  "F550",
+                                                 "title":  "Resident Rights/Exercise of Rights",
+                                                 "mapping_type":  "related",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_17a_870",
+                                                    "citation":  "CGS §§17a-870 through 17a-886",
+                                                    "title":  "Connecticut Statutes — Office of the Long Term Care Ombudsman",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+                                                },
+                        "keywords":  [
+                                         "threatened discharge after complaint",
+                                         "care got worse after complaint",
+                                         "call light not answered after complaining",
+                                         "retaliation",
+                                         "punished for complaining",
+                                         "staff rough after grievance",
+                                         "monitoring phone after complaint",
+                                         "neglected for filing complaint"
+                                     ],
+                        "notes":  "Use F02 if the call light issue is not retaliatory. May add additional codes if resident is abused or neglected as a result."
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D07",
+                        "nors_minor_label":  "Visitors",
+                        "topic_slug":  "visitors",
+                        "topic_label":  "Visitation Rights",
+                        "resident_right_concept":  "Right to choose visitors and when to visit",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f563",
+                                                     "citation":  "F563",
+                                                     "title":  "Right to Receive/Deny Visitors",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f564",
+                                                     "citation":  "F564",
+                                                     "title":  "Resident Right to Visitors",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "can\u0027t have visitors",
+                                         "visitation restricted",
+                                         "family not allowed",
+                                         "visitor hours too limited",
+                                         "denied access to family",
+                                         "can\u0027t see spouse",
+                                         "visitor policy too restrictive"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D08",
+                        "nors_minor_label":  "Resident or family council",
+                        "topic_slug":  "councils",
+                        "topic_label":  "Resident / Family Council",
+                        "resident_right_concept":  "Right to form and participate in resident and family councils",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f565",
+                                                 "citation":  "F565",
+                                                 "title":  "Resident/Family Group and Response",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "resident council blocked",
+                                         "family council prevented",
+                                         "administrator controls council",
+                                         "no response to council requests",
+                                         "can\u0027t form council",
+                                         "staff interfering with council"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "D",
+                        "nors_major_label":  "Autonomy, Choice, Rights",
+                        "nors_minor_code":  "D09",
+                        "nors_minor_label":  "Other rights and preferences",
+                        "topic_slug":  "autonomy_choice",
+                        "topic_label":  "Autonomy / Choice / Rights",
+                        "resident_right_concept":  "Other civil rights and personal liberty",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f550",
+                                                     "citation":  "F550",
+                                                     "title":  "Resident Rights/Exercise of Rights",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f558",
+                                                     "citation":  "F558",
+                                                     "title":  "Reasonable Accommodations of Needs/Preferences",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f578",
+                                                     "citation":  "F578",
+                                                     "title":  "Request/Refuse/Discontinue Treatment; Formulate Advance Directive",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "refused right to vote",
+                                         "right to smoke denied",
+                                         "religious rights",
+                                         "cohabitation refused",
+                                         "right to refuse care",
+                                         "advance directive not followed",
+                                         "personal liberty restricted"
+                                     ],
+                        "notes":  "Catch-all for rights not covered by D01-D08. Use D04 for privacy-specific complaints."
+                    },
+                    {
+                        "nors_major_code":  "E",
+                        "nors_major_label":  "Financial, Property",
+                        "nors_minor_code":  "E01",
+                        "nors_minor_label":  "Billing and charges",
+                        "topic_slug":  "financial_property",
+                        "topic_label":  "Financial / Property",
+                        "resident_right_concept":  "Right to accurate billing and no improper charges",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f572",
+                                                 "citation":  "F572",
+                                                 "title":  "Notice of Rights and Rules",
+                                                 "mapping_type":  "related",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "overcharged",
+                                         "wrong bill",
+                                         "charged for Medicaid covered service",
+                                         "rate increased without notice",
+                                         "deposit not refunded",
+                                         "billed for service not received",
+                                         "improper billing"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "E",
+                        "nors_major_label":  "Financial, Property",
+                        "nors_minor_code":  "E02",
+                        "nors_minor_label":  "Personal property",
+                        "topic_slug":  "financial_property",
+                        "topic_label":  "Financial / Property",
+                        "resident_right_concept":  "Right to retain and have facility protect personal property",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f557",
+                                                 "citation":  "F557",
+                                                 "title":  "Respect, Dignity/Right to have Personal Property",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "lost dentures",
+                                         "missing glasses",
+                                         "lost hearing aid",
+                                         "lost laundry",
+                                         "stolen property",
+                                         "personal items missing",
+                                         "lost wheelchair",
+                                         "trust fund mismanaged",
+                                         "money in account missing",
+                                         "damaged property not reimbursed"
+                                     ],
+                        "notes":  "Use A04 if facility is misusing resident funds for benefit of others."
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F01",
+                        "nors_minor_label":  "Accidents and falls",
+                        "topic_slug":  "accidents_falls",
+                        "topic_label":  "Accidents / Falls",
+                        "resident_right_concept":  "Freedom from accident hazards; adequate supervision",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_25",
+                                                    "citation":  "42 CFR §483.25",
+                                                    "title":  "Quality of care",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f689",
+                                                     "citation":  "F689",
+                                                     "title":  "Free of Accident Hazards/Supervision/Devices",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f700",
+                                                     "citation":  "F700",
+                                                     "title":  "Bedrails",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "fell out of bed",
+                                         "fall injury",
+                                         "accident",
+                                         "resident fell",
+                                         "unsafe environment",
+                                         "fall not reported",
+                                         "no fall prevention",
+                                         "fall risk not addressed",
+                                         "injury of unknown origin"
+                                     ],
+                        "notes":  "Use A05 if this is a repeated problem that facility staff fail to address."
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F02",
+                        "nors_minor_label":  "Response to requests for assistance",
+                        "topic_slug":  "care_quality",
+                        "topic_label":  "Care Quality",
+                        "resident_right_concept":  "Timely response to requests for assistance",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_25",
+                                                        "citation":  "42 CFR §483.25",
+                                                        "title":  "Quality of care",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_35",
+                                                        "citation":  "42 CFR §483.35",
+                                                        "title":  "Nursing services",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f684",
+                                                 "citation":  "F684",
+                                                 "title":  "Quality of Care",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "call light not answered",
+                                         "call bell ignored",
+                                         "waiting hours for help",
+                                         "no response to call",
+                                         "can\u0027t get assistance",
+                                         "left waiting in bed",
+                                         "no one responded"
+                                     ],
+                        "notes":  "Use D06 if slow response is in reaction to a resident complaint or advocacy action."
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F03",
+                        "nors_minor_label":  "Care planning",
+                        "topic_slug":  "care_planning",
+                        "topic_label":  "Care Planning",
+                        "resident_right_concept":  "Person-centered care plan with resident participation",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_21",
+                                                        "citation":  "42 CFR §483.21",
+                                                        "title":  "Comprehensive person-centered care planning",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.21"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_20",
+                                                        "citation":  "42 CFR §483.20",
+                                                        "title":  "Resident assessment",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.20"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f655",
+                                                     "citation":  "F655",
+                                                     "title":  "Baseline Care Plan",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f656",
+                                                     "citation":  "F656",
+                                                     "title":  "Develop/Implement Comprehensive Care Plan",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f553",
+                                                     "citation":  "F553",
+                                                     "title":  "Right to Participate in Planning Care",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no care plan",
+                                         "care plan not followed",
+                                         "not included in care plan meeting",
+                                         "care plan meeting canceled",
+                                         "staff don\u0027t know care plan",
+                                         "PASRR services not in care plan",
+                                         "care plan not person-centered",
+                                         "not given copy of care plan"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F04",
+                        "nors_minor_label":  "Medications",
+                        "topic_slug":  "medications",
+                        "topic_label":  "Medications",
+                        "resident_right_concept":  "Safe and accurate medication administration",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_45",
+                                                    "citation":  "42 CFR §483.45",
+                                                    "title":  "Pharmacy services",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f755",
+                                                 "citation":  "F755",
+                                                 "title":  "Pharmacy Services/Procedures/Pharmacist/Records",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "wrong medication",
+                                         "medication error",
+                                         "missed medication",
+                                         "medication not given",
+                                         "expired medication",
+                                         "medication not documented",
+                                         "not given on time",
+                                         "medications not secured",
+                                         "incorrect medication",
+                                         "medication mix-up"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F05",
+                        "nors_minor_label":  "Personal hygiene",
+                        "topic_slug":  "care_quality",
+                        "topic_label":  "Care Quality",
+                        "resident_right_concept":  "Right to hygiene and personal care services",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_25",
+                                                    "citation":  "42 CFR §483.25",
+                                                    "title":  "Quality of care",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f684",
+                                                 "citation":  "F684",
+                                                 "title":  "Quality of Care",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "not bathed",
+                                         "dirty",
+                                         "soiled clothes",
+                                         "soiled brief",
+                                         "fingernails not cut",
+                                         "teeth not brushed",
+                                         "dentures not cleaned",
+                                         "poor hygiene",
+                                         "grooming not done"
+                                     ],
+                        "notes":  "Use A05 if there is failure to meet essential care needs."
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F06",
+                        "nors_minor_label":  "Access to health-related services",
+                        "topic_slug":  "access_health_services",
+                        "topic_label":  "Access to Health Services",
+                        "resident_right_concept":  "Right to timely healthcare services",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_25",
+                                                        "citation":  "42 CFR §483.25",
+                                                        "title":  "Quality of care",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_55",
+                                                        "citation":  "42 CFR §483.55",
+                                                        "title":  "Dental services",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.55"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f684",
+                                                 "citation":  "F684",
+                                                 "title":  "Quality of Care",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "can\u0027t see dentist",
+                                         "dental not provided",
+                                         "vision care denied",
+                                         "hearing not addressed",
+                                         "mental health services not available",
+                                         "podiatry not scheduled",
+                                         "hospice not arranged",
+                                         "doctor visit delayed"
+                                     ],
+                        "notes":  "Use D01 if denied choice of medical provider."
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F07",
+                        "nors_minor_label":  "Symptoms unattended",
+                        "topic_slug":  "care_quality",
+                        "topic_label":  "Care Quality",
+                        "resident_right_concept":  "Right to identification and treatment of symptoms",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_25",
+                                                        "citation":  "42 CFR §483.25",
+                                                        "title":  "Quality of care",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_21",
+                                                        "citation":  "42 CFR §483.21",
+                                                        "title":  "Comprehensive person-centered care planning",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.21"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f684",
+                                                     "citation":  "F684",
+                                                     "title":  "Quality of Care",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f686",
+                                                     "citation":  "F686",
+                                                     "title":  "Treatment/Services to Prevent/Heal Pressure Ulcers",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f580",
+                                                     "citation":  "F580",
+                                                     "title":  "Notify of Changes",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "pain not treated",
+                                         "pressure sore",
+                                         "wound not healing",
+                                         "infection not treated",
+                                         "fever ignored",
+                                         "change in condition not reported",
+                                         "doctor not called",
+                                         "family not notified",
+                                         "decline not addressed",
+                                         "mental health decline ignored"
+                                     ],
+                        "notes":  "Use A05 if failure to treat threatens health/safety/welfare. Use F580 when notification of changes is the issue."
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F08",
+                        "nors_minor_label":  "Incontinence care",
+                        "topic_slug":  "care_quality",
+                        "topic_label":  "Care Quality",
+                        "resident_right_concept":  "Right to incontinence and catheter care",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_25",
+                                                    "citation":  "42 CFR §483.25",
+                                                    "title":  "Quality of care",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f684",
+                                                 "citation":  "F684",
+                                                 "title":  "Quality of Care",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "left in wet brief",
+                                         "incontinence care not provided",
+                                         "catheter care delayed",
+                                         "bowel training not provided",
+                                         "bladder training not done",
+                                         "bathroom assistance denied",
+                                         "catheter problem",
+                                         "diaper not changed"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F09",
+                        "nors_minor_label":  "Assistive devices or equipment",
+                        "topic_slug":  "care_quality",
+                        "topic_label":  "Care Quality",
+                        "resident_right_concept":  "Right to assistive devices and adaptive equipment",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_25",
+                                                    "citation":  "42 CFR §483.25",
+                                                    "title":  "Quality of care",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f684",
+                                                 "citation":  "F684",
+                                                 "title":  "Quality of Care",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "wheelchair broken",
+                                         "walker missing",
+                                         "grab bar not installed",
+                                         "hoyer lift unavailable",
+                                         "hearing aid not maintained",
+                                         "service animal blocked",
+                                         "communication device not provided",
+                                         "raised toilet seat missing",
+                                         "adaptive equipment broken"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F10",
+                        "nors_minor_label":  "Rehabilitation services",
+                        "topic_slug":  "rehabilitation",
+                        "topic_label":  "Rehabilitation Services",
+                        "resident_right_concept":  "Right to specialized rehabilitative services",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_65",
+                                                    "citation":  "42 CFR §483.65",
+                                                    "title":  "Specialized rehabilitative services",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.65"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f825",
+                                                 "citation":  "F825",
+                                                 "title":  "Provide/Obtain Specialized Rehab Services",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no physical therapy",
+                                         "PT denied",
+                                         "OT not provided",
+                                         "speech therapy not available",
+                                         "rehabilitation stopped",
+                                         "not encouraged to walk",
+                                         "range of motion not done",
+                                         "exercise program not offered",
+                                         "therapy cut"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F11",
+                        "nors_minor_label":  "Physical restraint",
+                        "topic_slug":  "restraints",
+                        "topic_label":  "Restraints",
+                        "resident_right_concept":  "Right to be free from physical restraints",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_25",
+                                                        "citation":  "42 CFR §483.25",
+                                                        "title":  "Quality of care",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_10",
+                                                        "citation":  "42 CFR §483.10",
+                                                        "title":  "Resident rights",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f604",
+                                                     "citation":  "F604",
+                                                     "title":  "Right to be Free from Physical Restraints",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f700",
+                                                     "citation":  "F700",
+                                                     "title":  "Bedrails",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "tied down",
+                                         "vest restraint",
+                                         "wrist restraint",
+                                         "hand mitts",
+                                         "lap cushion restraint",
+                                         "bed rails used as restraint",
+                                         "physically restrained",
+                                         "recliner chair locked"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F12",
+                        "nors_minor_label":  "Chemical restraint",
+                        "topic_slug":  "chemical_restraint",
+                        "topic_label":  "Chemical Restraints",
+                        "resident_right_concept":  "Right to be free from chemical restraints",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_45",
+                                                        "citation":  "42 CFR §483.45",
+                                                        "title":  "Pharmacy services",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_10",
+                                                        "citation":  "42 CFR §483.10",
+                                                        "title":  "Resident rights",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f605",
+                                                     "citation":  "F605",
+                                                     "title":  "Right to be Free from Chemical Restraints",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f758",
+                                                     "citation":  "F758",
+                                                     "title":  "Free from Unnecessary Psychotropic Meds/PRN Use",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "antipsychotics for convenience",
+                                         "sedated",
+                                         "chemical restraint",
+                                         "over-medicated",
+                                         "antipsychotic without diagnosis",
+                                         "inappropriate psychotropic",
+                                         "drugged to control behavior",
+                                         "anti-anxiety for convenience",
+                                         "sleeping pill used as restraint"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "F",
+                        "nors_major_label":  "Care",
+                        "nors_minor_code":  "F13",
+                        "nors_minor_label":  "Infection control",
+                        "topic_slug":  "infection_control",
+                        "topic_label":  "Infection Control",
+                        "resident_right_concept":  "Protection from preventable infection",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_80",
+                                                    "citation":  "42 CFR §483.80",
+                                                    "title":  "Infection control",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.80"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f880",
+                                                 "citation":  "F880",
+                                                 "title":  "Infection Prevention and Control",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "infection spreading",
+                                         "no PPE",
+                                         "staff not wearing mask",
+                                         "COVID outbreak",
+                                         "infection not reported",
+                                         "no hand washing",
+                                         "sanitation problem",
+                                         "MRSA spread",
+                                         "infection control failure",
+                                         "PPE not provided to staff"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "G",
+                        "nors_major_label":  "Activities, Community Integration and Social Services",
+                        "nors_minor_code":  "G01",
+                        "nors_minor_label":  "Activities",
+                        "topic_slug":  "activities",
+                        "topic_label":  "Activities",
+                        "resident_right_concept":  "Right to meaningful, individualized activities",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_24",
+                                                    "citation":  "42 CFR §483.24",
+                                                    "title":  "Quality of life",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f679",
+                                                     "citation":  "F679",
+                                                     "title":  "Activities Meet Interest/Needs of Each Resident",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f675",
+                                                     "citation":  "F675",
+                                                     "title":  "Quality of Life",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no activities",
+                                         "activities not posted",
+                                         "activities canceled",
+                                         "bored",
+                                         "nothing to do",
+                                         "activities not individualized",
+                                         "activities not appropriate",
+                                         "activities schedule not followed"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "G",
+                        "nors_major_label":  "Activities, Community Integration and Social Services",
+                        "nors_minor_code":  "G02",
+                        "nors_minor_label":  "Transportation",
+                        "topic_slug":  "activities",
+                        "topic_label":  "Activities",
+                        "resident_right_concept":  "Right to transportation assistance",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_10",
+                                                    "citation":  "42 CFR §483.10",
+                                                    "title":  "Resident rights",
+                                                    "mapping_type":  "topic_based",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no transportation",
+                                         "can\u0027t get to appointment",
+                                         "facility won\u0027t arrange ride",
+                                         "transportation to doctor denied",
+                                         "community activities not accessible"
+                                     ],
+                        "notes":  "No direct F-tag maps to this NORS code. Topic-based link to 42 CFR §483.10 self-determination provisions. Use L02 if transportation is from an outside provider not arranged by facility."
+                    },
+                    {
+                        "nors_major_code":  "G",
+                        "nors_major_label":  "Activities, Community Integration and Social Services",
+                        "nors_minor_code":  "G03",
+                        "nors_minor_label":  "Conflict resolution",
+                        "topic_slug":  "social_services",
+                        "topic_label":  "Social Services",
+                        "resident_right_concept":  "Ombudsman assistance with resident-to-resident conflicts",
+                        "federal_regulations":  {
+                                                    "authority_id":  "45cfr_1324_19",
+                                                    "citation":  "45 CFR §1324.19",
+                                                    "title":  "Duties of the representatives of the Office",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.19"
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "roommate conflict",
+                                         "resident disagreement",
+                                         "dispute between residents",
+                                         "conflict with roommate",
+                                         "TV volume dispute",
+                                         "resident-to-resident conflict"
+                                     ],
+                        "notes":  "G03 is unique in being complaint-type that specifically centers Ombudsman mediation. Use L01 for resident conflict with representative/family."
+                    },
+                    {
+                        "nors_major_code":  "G",
+                        "nors_major_label":  "Activities, Community Integration and Social Services",
+                        "nors_minor_code":  "G04",
+                        "nors_minor_label":  "Social services",
+                        "topic_slug":  "social_services",
+                        "topic_label":  "Social Services",
+                        "resident_right_concept":  "Right to medically related social services",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_40",
+                                                    "citation":  "42 CFR §483.40",
+                                                    "title":  "Behavioral health services",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.40"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f745",
+                                                 "citation":  "F745",
+                                                 "title":  "Provision of Medically Related Social Services",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no social worker",
+                                         "social services unavailable",
+                                         "social worker not helping",
+                                         "grief counseling not available",
+                                         "family support not provided",
+                                         "appointment not arranged"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "H",
+                        "nors_major_label":  "Dietary",
+                        "nors_minor_code":  "H01",
+                        "nors_minor_label":  "Food service",
+                        "topic_slug":  "dietary",
+                        "topic_label":  "Dietary",
+                        "resident_right_concept":  "Right to nutritious, quality meals with choice",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_60",
+                                                    "citation":  "42 CFR §483.60",
+                                                    "title":  "Food and nutrition services",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f800",
+                                                 "citation":  "F800",
+                                                 "title":  "Provided Diet Meets Needs of Each Resident",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "food cold",
+                                         "food quality poor",
+                                         "not enough food",
+                                         "no food choices",
+                                         "food tasteless",
+                                         "menu not served",
+                                         "portion too small",
+                                         "no snacks",
+                                         "food not nutritious"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "H",
+                        "nors_major_label":  "Dietary",
+                        "nors_minor_code":  "H02",
+                        "nors_minor_label":  "Dining and hydration",
+                        "topic_slug":  "dietary",
+                        "topic_label":  "Dietary",
+                        "resident_right_concept":  "Right to dining assistance and adequate hydration",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_60",
+                                                        "citation":  "42 CFR §483.60",
+                                                        "title":  "Food and nutrition services",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_25",
+                                                        "citation":  "42 CFR §483.25",
+                                                        "title":  "Quality of care",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f692",
+                                                     "citation":  "F692",
+                                                     "title":  "Nutrition/Hydration Status Maintenance",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f800",
+                                                     "citation":  "F800",
+                                                     "title":  "Provided Diet Meets Needs of Each Resident",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "not fed",
+                                         "no dining assistance",
+                                         "tray out of reach",
+                                         "can\u0027t open food",
+                                         "dehydrated",
+                                         "no water provided",
+                                         "not helped to eat",
+                                         "adaptive equipment not provided for meals"
+                                     ],
+                        "notes":  "Use A01 or A05 for willful food deprivation."
+                    },
+                    {
+                        "nors_major_code":  "H",
+                        "nors_major_label":  "Dietary",
+                        "nors_minor_code":  "H03",
+                        "nors_minor_label":  "Therapeutic or special diet",
+                        "topic_slug":  "dietary",
+                        "topic_label":  "Dietary",
+                        "resident_right_concept":  "Right to therapeutic and culturally/religiously appropriate diet",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_60",
+                                                    "citation":  "42 CFR §483.60",
+                                                    "title":  "Food and nutrition services",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f800",
+                                                 "citation":  "F800",
+                                                 "title":  "Provided Diet Meets Needs of Each Resident",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "wrong diet",
+                                         "diabetic diet not followed",
+                                         "pureed diet not served",
+                                         "religious diet not accommodated",
+                                         "vegetarian not honored",
+                                         "food allergy ignored",
+                                         "texture modified diet wrong"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "I",
+                        "nors_major_label":  "Environment",
+                        "nors_minor_code":  "I01",
+                        "nors_minor_label":  "Environment",
+                        "topic_slug":  "environment",
+                        "topic_label":  "Environment",
+                        "resident_right_concept":  "Right to safe, comfortable physical environment",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_90",
+                                                    "citation":  "42 CFR §483.90",
+                                                    "title":  "Physical environment",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f921",
+                                                 "citation":  "F921",
+                                                 "title":  "Safe/Functional/Sanitary/Comfortable Environment",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "room too cold",
+                                         "room too hot",
+                                         "bad ventilation",
+                                         "strong odors",
+                                         "noise complaint",
+                                         "cigarette smoke",
+                                         "hazardous chemicals accessible",
+                                         "safety hazard"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "I",
+                        "nors_major_label":  "Environment",
+                        "nors_minor_code":  "I02",
+                        "nors_minor_label":  "Building structure",
+                        "topic_slug":  "environment",
+                        "topic_label":  "Environment",
+                        "resident_right_concept":  "Right to safe, maintained building",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_90",
+                                                    "citation":  "42 CFR §483.90",
+                                                    "title":  "Physical environment",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f921",
+                                                 "citation":  "F921",
+                                                 "title":  "Safe/Functional/Sanitary/Comfortable Environment",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "elevator broken",
+                                         "poor lighting",
+                                         "building not secure",
+                                         "fire alarm broken",
+                                         "smoke detector not working",
+                                         "automatic door broken",
+                                         "building deteriorating",
+                                         "fire extinguisher expired",
+                                         "emergency exit blocked"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "I",
+                        "nors_major_label":  "Environment",
+                        "nors_minor_code":  "I03",
+                        "nors_minor_label":  "Supplies, storage and furnishings",
+                        "topic_slug":  "environment",
+                        "topic_label":  "Environment",
+                        "resident_right_concept":  "Right to adequate supplies and furnishings",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_90",
+                                                    "citation":  "42 CFR §483.90",
+                                                    "title":  "Physical environment",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f921",
+                                                 "citation":  "F921",
+                                                 "title":  "Safe/Functional/Sanitary/Comfortable Environment",
+                                                 "mapping_type":  "related",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no toilet paper",
+                                         "no towels",
+                                         "no bed linens",
+                                         "mattress worn out",
+                                         "furniture broken",
+                                         "no locked storage",
+                                         "supplies unavailable",
+                                         "linens in poor condition"
+                                     ],
+                        "notes":  "Use H01 if shortage is of food. Use E02 for lost personal property."
+                    },
+                    {
+                        "nors_major_code":  "I",
+                        "nors_major_label":  "Environment",
+                        "nors_minor_code":  "I04",
+                        "nors_minor_label":  "Accessibility",
+                        "topic_slug":  "environment",
+                        "topic_label":  "Environment",
+                        "resident_right_concept":  "Right to accessible building and grounds",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_90",
+                                                    "citation":  "42 CFR §483.90",
+                                                    "title":  "Physical environment",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f921",
+                                                 "citation":  "F921",
+                                                 "title":  "Safe/Functional/Sanitary/Comfortable Environment",
+                                                 "mapping_type":  "related",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "no grab bars",
+                                         "toilet not accessible",
+                                         "sink wrong height",
+                                         "no automatic door opener",
+                                         "hallway blocked",
+                                         "entrance not accessible",
+                                         "ADA accessibility issue"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "I",
+                        "nors_major_label":  "Environment",
+                        "nors_minor_code":  "I05",
+                        "nors_minor_label":  "Housekeeping, laundry and pest abatement",
+                        "topic_slug":  "environment",
+                        "topic_label":  "Environment",
+                        "resident_right_concept":  "Right to clean environment and pest-free facility",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_90",
+                                                    "citation":  "42 CFR §483.90",
+                                                    "title":  "Physical environment",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f921",
+                                                 "citation":  "F921",
+                                                 "title":  "Safe/Functional/Sanitary/Comfortable Environment",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "room not cleaned",
+                                         "dirty room",
+                                         "bedbugs",
+                                         "cockroaches",
+                                         "rodents",
+                                         "laundry not done",
+                                         "dirty linens",
+                                         "pest infestation",
+                                         "housekeeping inadequate"
+                                     ],
+                        "notes":  "Use E02 for lost laundry."
+                    },
+                    {
+                        "nors_major_code":  "J",
+                        "nors_major_label":  "Facility Policies, Procedures and Practices",
+                        "nors_minor_code":  "J01",
+                        "nors_minor_label":  "Administrative oversight",
+                        "topic_slug":  "administrative_oversight",
+                        "topic_label":  "Administrative Oversight",
+                        "resident_right_concept":  "Facility management accountability and compliance",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_70",
+                                                    "citation":  "42 CFR §483.70",
+                                                    "title":  "Administration",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70"
+                                                },
+                        "appendix_pp_tags":  [
+                                                 {
+                                                     "authority_id":  "f835",
+                                                     "citation":  "F835",
+                                                     "title":  "Administration",
+                                                     "mapping_type":  "direct",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f607",
+                                                     "citation":  "F607",
+                                                     "title":  "Develop/Implement Abuse/Neglect Policies",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 },
+                                                 {
+                                                     "authority_id":  "f609",
+                                                     "citation":  "F609",
+                                                     "title":  "Reporting of Alleged Violations",
+                                                     "mapping_type":  "related",
+                                                     "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                                 }
+                                             ],
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_nursing_home_regs",
+                                                    "citation":  "Conn. Agencies Regs. §19-13-D8t",
+                                                    "title":  "Connecticut DPH Nursing Home State Regulations",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://portal.ct.gov/ltcop/regulations"
+                                                },
+                        "keywords":  [
+                                         "administrator absent",
+                                         "administrator unresponsive",
+                                         "falsified records",
+                                         "no background check",
+                                         "illegal facility policy",
+                                         "abuse not reported",
+                                         "neglect not investigated",
+                                         "disaster preparedness failure",
+                                         "missing records"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "J",
+                        "nors_major_label":  "Facility Policies, Procedures and Practices",
+                        "nors_minor_code":  "J02",
+                        "nors_minor_label":  "Fiscal management",
+                        "topic_slug":  "administrative_oversight",
+                        "topic_label":  "Administrative Oversight",
+                        "resident_right_concept":  "Facility financial stability; adequate resources for resident care",
+                        "federal_regulations":  {
+                                                    "authority_id":  "42cfr_483_70",
+                                                    "citation":  "42 CFR §483.70",
+                                                    "title":  "Administration",
+                                                    "mapping_type":  "direct",
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70"
+                                                },
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f835",
+                                                 "citation":  "F835",
+                                                 "title":  "Administration",
+                                                 "mapping_type":  "related",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "facility bankrupt",
+                                         "staff not paid",
+                                         "utilities cut off",
+                                         "no supplies due to money",
+                                         "facility closing",
+                                         "financial crisis",
+                                         "healthcare fraud",
+                                         "insufficient funds"
+                                     ],
+                        "notes":  "Use I03 if shortage of supplies is not related to fiscal management."
+                    },
+                    {
+                        "nors_major_code":  "J",
+                        "nors_major_label":  "Facility Policies, Procedures and Practices",
+                        "nors_minor_code":  "J03",
+                        "nors_minor_label":  "Staffing",
+                        "topic_slug":  "staffing",
+                        "topic_label":  "Staffing",
+                        "resident_right_concept":  "Right to adequate and competent staff",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_35",
+                                                        "citation":  "42 CFR §483.35",
+                                                        "title":  "Nursing services",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35"
+                                                    },
+                                                    {
+                                                        "authority_id":  "42cfr_483_70",
+                                                        "citation":  "42 CFR §483.70",
+                                                        "title":  "Administration",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  {
+                                                 "authority_id":  "f725",
+                                                 "citation":  "F725",
+                                                 "title":  "Sufficient Nursing Staff",
+                                                 "mapping_type":  "direct",
+                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+                                             },
+                        "connecticut_overlay":  {
+                                                    "authority_id":  "ct_pa_19_89",
+                                                    "citation":  "Connecticut Public Act 19-89",
+                                                    "title":  "AN ACT CONCERNING NURSING HOME STAFFING LEVELS",
+                                                    "mapping_type":  "state_overlay",
+                                                    "url":  "https://portal.ct.gov/ltcop/regulations"
+                                                },
+                        "keywords":  [
+                                         "not enough staff",
+                                         "understaffed",
+                                         "high turnover",
+                                         "agency staff",
+                                         "untrained staff",
+                                         "staff shortage",
+                                         "no aide available",
+                                         "nurse not on unit"
+                                     ],
+                        "notes":  "Use J01 if the administrator is absent or on site infrequently. CT PA 19-89 adds state posting requirement."
+                    },
+                    {
+                        "nors_major_code":  "K",
+                        "nors_major_label":  "Complaints about an Outside Agency (non-facility)",
+                        "nors_minor_code":  "K01",
+                        "nors_minor_label":  "Regulatory system",
+                        "topic_slug":  "regulatory_system",
+                        "topic_label":  "Regulatory System",
+                        "resident_right_concept":  "Access to effective regulatory oversight",
+                        "federal_regulations":  {
+                                                    "authority_id":  "45cfr_1324_13",
+                                                    "citation":  "45 CFR §1324.13",
+                                                    "title":  "Functions and responsibilities of the State Long-Term Care Ombudsman",
+                                                    "mapping_type":  "topic_based",
+                                                    "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.13"
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "survey not done",
+                                         "state didn\u0027t investigate",
+                                         "complaint to state ignored",
+                                         "DPH did not respond",
+                                         "survey agency unresponsive",
+                                         "facility not cited",
+                                         "no enforcement"
+                                     ],
+                        "notes":  "Complaint is against the regulatory agency, not the facility. No direct F-tag; 45 CFR §1324.13(a)(7) grants ombudsman systems advocacy authority on this."
+                    },
+                    {
+                        "nors_major_code":  "K",
+                        "nors_major_label":  "Complaints about an Outside Agency (non-facility)",
+                        "nors_minor_code":  "K02",
+                        "nors_minor_label":  "Medicaid",
+                        "topic_slug":  "insurance_benefits",
+                        "topic_label":  "Insurance / Benefits",
+                        "resident_right_concept":  "Medicaid eligibility and coverage rights",
+                        "federal_regulations":  {
+
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "Medicaid denied",
+                                         "Medicaid eligibility problem",
+                                         "PASRR issue",
+                                         "Medicaid service denied",
+                                         "Medicaid application problem",
+                                         "Medicaid coverage dispute"
+                                     ],
+                        "notes":  "Complaint is against Medicaid/DSS, not the facility. No CFR 483 F-tag applies. Ombudsman may assist per 45 CFR §1324.13."
+                    },
+                    {
+                        "nors_major_code":  "K",
+                        "nors_major_label":  "Complaints about an Outside Agency (non-facility)",
+                        "nors_minor_code":  "K03",
+                        "nors_minor_label":  "Managed care",
+                        "topic_slug":  "insurance_benefits",
+                        "topic_label":  "Insurance / Benefits",
+                        "resident_right_concept":  "Managed care coverage and appeals rights",
+                        "federal_regulations":  {
+
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "managed care denial",
+                                         "insurance won\u0027t cover",
+                                         "managed care appeal",
+                                         "HMO dispute",
+                                         "coverage area problem",
+                                         "dis-enrollment issue"
+                                     ],
+                        "notes":  "Complaint is against managed care plan. No CFR 483 F-tag applies."
+                    },
+                    {
+                        "nors_major_code":  "K",
+                        "nors_major_label":  "Complaints about an Outside Agency (non-facility)",
+                        "nors_minor_code":  "K04",
+                        "nors_minor_label":  "Medicare",
+                        "topic_slug":  "insurance_benefits",
+                        "topic_label":  "Insurance / Benefits",
+                        "resident_right_concept":  "Medicare eligibility and coverage rights",
+                        "federal_regulations":  {
+
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "Medicare denied",
+                                         "Medicare appeal",
+                                         "observation status",
+                                         "Medicare coverage dispute",
+                                         "SNF Medicare benefit",
+                                         "Medicare not paying"
+                                     ],
+                        "notes":  "Complaint is against Medicare/CMS, not facility. Observation status is a significant issue."
+                    },
+                    {
+                        "nors_major_code":  "K",
+                        "nors_major_label":  "Complaints about an Outside Agency (non-facility)",
+                        "nors_minor_code":  "K05",
+                        "nors_minor_label":  "Veterans Affairs",
+                        "topic_slug":  "insurance_benefits",
+                        "topic_label":  "Insurance / Benefits",
+                        "resident_right_concept":  "VA eligibility and coverage rights",
+                        "federal_regulations":  {
+
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "VA benefits denied",
+                                         "Veterans Affairs dispute",
+                                         "DVA coverage issue",
+                                         "veteran benefits problem"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "K",
+                        "nors_major_label":  "Complaints about an Outside Agency (non-facility)",
+                        "nors_minor_code":  "K06",
+                        "nors_minor_label":  "Private insurance",
+                        "topic_slug":  "insurance_benefits",
+                        "topic_label":  "Insurance / Benefits",
+                        "resident_right_concept":  "Private insurance coverage rights",
+                        "federal_regulations":  {
+
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "long term care insurance denied",
+                                         "LTC insurance dispute",
+                                         "disability insurance problem",
+                                         "Medigap dispute",
+                                         "private insurance not paying"
+                                     ],
+                        "notes":  null
+                    },
+                    {
+                        "nors_major_code":  "L",
+                        "nors_major_label":  "System: Others (non-facility)",
+                        "nors_minor_code":  "L01",
+                        "nors_minor_label":  "Resident representative or family conflict",
+                        "topic_slug":  "representative_conflict",
+                        "topic_label":  "Representative / Family Conflict",
+                        "resident_right_concept":  "Resident self-determination against family/representative interference",
+                        "federal_regulations":  [
+                                                    {
+                                                        "authority_id":  "42cfr_483_10",
+                                                        "citation":  "42 CFR §483.10",
+                                                        "title":  "Resident rights",
+                                                        "mapping_type":  "related",
+                                                        "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+                                                    },
+                                                    {
+                                                        "authority_id":  "45cfr_1324_19",
+                                                        "citation":  "45 CFR §1324.19",
+                                                        "title":  "Duties of the representatives of the Office",
+                                                        "mapping_type":  "direct",
+                                                        "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.19"
+                                                    }
+                                                ],
+                        "appendix_pp_tags":  [
+
+                                             ],
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "family overriding wishes",
+                                         "guardian making bad decisions",
+                                         "POA not acting in interest",
+                                         "family conflict",
+                                         "conservator problem",
+                                         "family controlling resident",
+                                         "decision-making dispute",
+                                         "DPOA concern",
+                                         "guardian conflict"
+                                     ],
+                        "notes":  "Use A01-A05 (with perpetrator code 03) if family/representative rises to the level of abuse, neglect, or exploitation. No Appendix PP/F-tag mapping is assigned because L01 is a non-facility representative/family conflict code unless facility action is also involved."
+                    },
+                    {
+                        "nors_major_code":  "L",
+                        "nors_major_label":  "System: Others (non-facility)",
+                        "nors_minor_code":  "L02",
+                        "nors_minor_label":  "Services from an outside provider",
+                        "topic_slug":  "outside_services",
+                        "topic_label":  "Outside Service Providers",
+                        "resident_right_concept":  "Access to independently arranged outside services",
+                        "federal_regulations":  {
+
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "outside aide not allowed",
+                                         "companion service problem",
+                                         "hospice provider issue",
+                                         "independent therapist blocked",
+                                         "outside transportation problem"
+                                     ],
+                        "notes":  "Use F06 if the facility failed to arrange services it was responsible for. L02 is for services independently arranged by resident/family."
+                    },
+                    {
+                        "nors_major_code":  "L",
+                        "nors_major_label":  "System: Others (non-facility)",
+                        "nors_minor_code":  "L03",
+                        "nors_minor_label":  "Request to transition to community setting",
+                        "topic_slug":  "community_transition",
+                        "topic_label":  "Community Transition",
+                        "resident_right_concept":  "Right to transition assistance from non-facility sources",
+                        "federal_regulations":  {
+                                                    "authority_id":  "45cfr_1324_13",
+                                                    "citation":  "45 CFR §1324.13",
+                                                    "title":  "Functions and responsibilities of the State Long-Term Care Ombudsman",
+                                                    "mapping_type":  "related",
+                                                    "url":  "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-1324.13"
+                                                },
+                        "appendix_pp_tags":  {
+
+                                             },
+                        "connecticut_overlay":  {
+
+                                                },
+                        "keywords":  [
+                                         "can\u0027t find housing",
+                                         "local contact agency unresponsive",
+                                         "no personal care services",
+                                         "barriers to going home",
+                                         "transition to community blocked",
+                                         "housing not available",
+                                         "waiver services unavailable"
+                                     ],
+                        "notes":  "Use D02 when the facility itself is the barrier to transition. L03 is for non-facility system barriers."
+                    }
+                ]
+}

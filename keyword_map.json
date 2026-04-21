@@ -1,0 +1,1187 @@
+﻿{
+    "version":  "1.0",
+    "keywords":  [
+                     {
+                         "phrase":  "abuse not reported",
+                         "topics":  [
+                                        "administrative_oversight",
+                                        "abuse_neglect_exploitation"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "J01",
+                                                   "A01"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_70",
+                                               "f607",
+                                               "f609"
+                                           ]
+                     },
+                     {
+                         "phrase":  "activities canceled",
+                         "topics":  "activities",
+                         "likely_nors_codes":  "G01",
+                         "authority_ids":  [
+                                               "42cfr_483_24",
+                                               "f679"
+                                           ]
+                     },
+                     {
+                         "phrase":  "adaptive equipment not provided",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F09",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "administrator absent",
+                         "topics":  "administrative_oversight",
+                         "likely_nors_codes":  "J01",
+                         "authority_ids":  [
+                                               "42cfr_483_70",
+                                               "f835"
+                                           ]
+                     },
+                     {
+                         "phrase":  "admitted against will",
+                         "topics":  "admission",
+                         "likely_nors_codes":  "C01",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f620"
+                                           ]
+                     },
+                     {
+                         "phrase":  "antipsychotics for convenience",
+                         "topics":  "chemical_restraint",
+                         "likely_nors_codes":  "F12",
+                         "authority_ids":  [
+                                               "42cfr_483_45",
+                                               "f605",
+                                               "f758"
+                                           ]
+                     },
+                     {
+                         "phrase":  "bad ventilation",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I01",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "bed hold",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f628"
+                                           ]
+                     },
+                     {
+                         "phrase":  "bedbugs",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I05",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "billed for Medicaid covered service",
+                         "topics":  "financial_property",
+                         "likely_nors_codes":  "E01",
+                         "authority_ids":  "42cfr_483_10"
+                     },
+                     {
+                         "phrase":  "blocked ombudsman",
+                         "topics":  "willful_interference",
+                         "likely_nors_codes":  "B03",
+                         "authority_ids":  [
+                                               "45cfr_1324_11",
+                                               "f562"
+                                           ]
+                     },
+                     {
+                         "phrase":  "call bell ignored",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F02",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "call light not answered",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F02",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "42cfr_483_35",
+                                               "f684"
+                                           ],
+                         "notes":  "If this is retaliatory, also consider D06."
+                     },
+                     {
+                         "phrase":  "can\u0027t choose doctor",
+                         "topics":  "autonomy_choice",
+                         "likely_nors_codes":  "D01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f555"
+                                           ]
+                     },
+                     {
+                         "phrase":  "can\u0027t find housing to transition",
+                         "topics":  "community_transition",
+                         "likely_nors_codes":  "L03",
+                         "authority_ids":  "45cfr_1324_13"
+                     },
+                     {
+                         "phrase":  "care plan not followed",
+                         "topics":  "care_planning",
+                         "likely_nors_codes":  "F03",
+                         "authority_ids":  [
+                                               "42cfr_483_21",
+                                               "f656"
+                                           ]
+                     },
+                     {
+                         "phrase":  "catheter care not provided",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F08",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "chemical restraint",
+                         "topics":  "chemical_restraint",
+                         "likely_nors_codes":  "F12",
+                         "authority_ids":  [
+                                               "42cfr_483_45",
+                                               "f605",
+                                               "f758"
+                                           ]
+                     },
+                     {
+                         "phrase":  "complaint ignored",
+                         "topics":  "complaint_response",
+                         "likely_nors_codes":  "D05",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f585"
+                                           ]
+                     },
+                     {
+                         "phrase":  "confidential information disclosed",
+                         "topics":  "privacy",
+                         "likely_nors_codes":  "D04",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f583"
+                                           ]
+                     },
+                     {
+                         "phrase":  "dehydrated",
+                         "topics":  [
+                                        "dietary",
+                                        "care_quality"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "H02",
+                                                   "F07"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_60",
+                                               "42cfr_483_25",
+                                               "f692"
+                                           ]
+                     },
+                     {
+                         "phrase":  "denied access to records",
+                         "topics":  "access_information",
+                         "likely_nors_codes":  "B01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f573"
+                                           ]
+                     },
+                     {
+                         "phrase":  "denied right to choose physician",
+                         "topics":  "autonomy_choice",
+                         "likely_nors_codes":  "D01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f555"
+                                           ]
+                     },
+                     {
+                         "phrase":  "didn\u0027t knock before entering",
+                         "topics":  [
+                                        "dignity_respect",
+                                        "privacy"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "D03",
+                                                   "D04"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f557",
+                                               "f583"
+                                           ]
+                     },
+                     {
+                         "phrase":  "discharge notice",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f627"
+                                           ]
+                     },
+                     {
+                         "phrase":  "doctor not called",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F07",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684",
+                                               "f580"
+                                           ]
+                     },
+                     {
+                         "phrase":  "does not want discharge",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f627"
+                                           ]
+                     },
+                     {
+                         "phrase":  "elevator broken",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I02",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "eviction notice",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f627",
+                                               "f628"
+                                           ]
+                     },
+                     {
+                         "phrase":  "facility closing",
+                         "topics":  "administrative_oversight",
+                         "likely_nors_codes":  "J02",
+                         "authority_ids":  "42cfr_483_70"
+                     },
+                     {
+                         "phrase":  "fall injury",
+                         "topics":  "accidents_falls",
+                         "likely_nors_codes":  "F01",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f689"
+                                           ]
+                     },
+                     {
+                         "phrase":  "falsified records",
+                         "topics":  "administrative_oversight",
+                         "likely_nors_codes":  "J01",
+                         "authority_ids":  [
+                                               "42cfr_483_70",
+                                               "f835"
+                                           ]
+                     },
+                     {
+                         "phrase":  "family council prevented",
+                         "topics":  "councils",
+                         "likely_nors_codes":  "D08",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f565"
+                                           ]
+                     },
+                     {
+                         "phrase":  "family not allowed",
+                         "topics":  "visitors",
+                         "likely_nors_codes":  "D07",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f563"
+                                           ]
+                     },
+                     {
+                         "phrase":  "family not notified of change in condition",
+                         "topics":  [
+                                        "care_quality",
+                                        "access_information"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "F07",
+                                                   "B01"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "42cfr_483_10",
+                                               "f580"
+                                           ]
+                     },
+                     {
+                         "phrase":  "family overriding wishes",
+                         "topics":  "representative_conflict",
+                         "likely_nors_codes":  "L01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "45cfr_1324_19"
+                                           ]
+                     },
+                     {
+                         "phrase":  "financial exploitation",
+                         "topics":  "financial_exploitation",
+                         "likely_nors_codes":  "A04",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f602"
+                                           ]
+                     },
+                     {
+                         "phrase":  "fire alarm not working",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I02",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "food allergy ignored",
+                         "topics":  "dietary",
+                         "likely_nors_codes":  "H03",
+                         "authority_ids":  [
+                                               "42cfr_483_60",
+                                               "f800"
+                                           ]
+                     },
+                     {
+                         "phrase":  "food cold",
+                         "topics":  "dietary",
+                         "likely_nors_codes":  "H01",
+                         "authority_ids":  [
+                                               "42cfr_483_60",
+                                               "f800"
+                                           ]
+                     },
+                     {
+                         "phrase":  "forced room change",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C04",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f559"
+                                           ]
+                     },
+                     {
+                         "phrase":  "guardian making bad decisions",
+                         "topics":  "representative_conflict",
+                         "likely_nors_codes":  "L01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "45cfr_1324_19"
+                                           ]
+                     },
+                     {
+                         "phrase":  "humiliating resident",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A03",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600",
+                                               "f557"
+                                           ]
+                     },
+                     {
+                         "phrase":  "incontinence care not done",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F08",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "infection not treated",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F07",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "infection spreading",
+                         "topics":  "infection_control",
+                         "likely_nors_codes":  "F13",
+                         "authority_ids":  [
+                                               "42cfr_483_80",
+                                               "f880"
+                                           ]
+                     },
+                     {
+                         "phrase":  "involuntary seclusion",
+                         "topics":  [
+                                        "abuse_neglect_exploitation",
+                                        "restraints"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "A03",
+                                                   "F11"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f603",
+                                               "f600"
+                                           ]
+                     },
+                     {
+                         "phrase":  "language barrier",
+                         "topics":  "access_information",
+                         "likely_nors_codes":  "B02",
+                         "authority_ids":  "42cfr_483_10"
+                     },
+                     {
+                         "phrase":  "left in soiled brief",
+                         "topics":  [
+                                        "care_quality",
+                                        "gross_neglect"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "F05",
+                                                   "F08",
+                                                   "A05"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ],
+                         "notes":  "Use A05 if repeated and severe."
+                     },
+                     {
+                         "phrase":  "local contact agency unresponsive",
+                         "topics":  "community_transition",
+                         "likely_nors_codes":  "L03",
+                         "authority_ids":  "45cfr_1324_13"
+                     },
+                     {
+                         "phrase":  "lost dentures",
+                         "topics":  "financial_property",
+                         "likely_nors_codes":  "E02",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f557"
+                                           ]
+                     },
+                     {
+                         "phrase":  "lost hearing aid",
+                         "topics":  "financial_property",
+                         "likely_nors_codes":  "E02",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f557"
+                                           ]
+                     },
+                     {
+                         "phrase":  "mail opened",
+                         "topics":  "privacy",
+                         "likely_nors_codes":  "D04",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f576",
+                                               "f583"
+                                           ]
+                     },
+                     {
+                         "phrase":  "MDS Section Q",
+                         "topics":  "autonomy_choice",
+                         "likely_nors_codes":  "D02",
+                         "authority_ids":  "42cfr_483_10"
+                     },
+                     {
+                         "phrase":  "Medicaid denied",
+                         "topics":  "insurance_benefits",
+                         "likely_nors_codes":  "K02",
+                         "authority_ids":  {
+
+                                           }
+                     },
+                     {
+                         "phrase":  "medical records not provided",
+                         "topics":  "access_information",
+                         "likely_nors_codes":  "B01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f573"
+                                           ]
+                     },
+                     {
+                         "phrase":  "Medicare appeal",
+                         "topics":  "insurance_benefits",
+                         "likely_nors_codes":  "K04",
+                         "authority_ids":  {
+
+                                           }
+                     },
+                     {
+                         "phrase":  "medication error",
+                         "topics":  "medications",
+                         "likely_nors_codes":  "F04",
+                         "authority_ids":  [
+                                               "42cfr_483_45",
+                                               "f755"
+                                           ]
+                     },
+                     {
+                         "phrase":  "medication not given",
+                         "topics":  "medications",
+                         "likely_nors_codes":  "F04",
+                         "authority_ids":  [
+                                               "42cfr_483_45",
+                                               "f755"
+                                           ]
+                     },
+                     {
+                         "phrase":  "missing glasses",
+                         "topics":  "financial_property",
+                         "likely_nors_codes":  "E02",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f557"
+                                           ]
+                     },
+                     {
+                         "phrase":  "money missing",
+                         "topics":  [
+                                        "financial_exploitation",
+                                        "financial_property"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "A04",
+                                                   "E02"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f602"
+                                           ],
+                         "notes":  "A04 if staff/others benefiting; E02 if mismanagement by facility."
+                     },
+                     {
+                         "phrase":  "no activities",
+                         "topics":  "activities",
+                         "likely_nors_codes":  "G01",
+                         "authority_ids":  [
+                                               "42cfr_483_24",
+                                               "f679"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no appeal rights",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C02",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f627"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no care plan",
+                         "topics":  "care_planning",
+                         "likely_nors_codes":  "F03",
+                         "authority_ids":  [
+                                               "42cfr_483_21",
+                                               "f656"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no grab bars",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I04",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no grievance process",
+                         "topics":  "complaint_response",
+                         "likely_nors_codes":  "D05",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f585"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no interpreter",
+                         "topics":  "access_information",
+                         "likely_nors_codes":  "B02",
+                         "authority_ids":  "42cfr_483_10"
+                     },
+                     {
+                         "phrase":  "no physical therapy",
+                         "topics":  "rehabilitation",
+                         "likely_nors_codes":  "F10",
+                         "authority_ids":  [
+                                               "42cfr_483_65",
+                                               "f825"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no social worker",
+                         "topics":  "social_services",
+                         "likely_nors_codes":  "G04",
+                         "authority_ids":  [
+                                               "42cfr_483_40",
+                                               "f745"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no toilet paper",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I03",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "no transportation",
+                         "topics":  "activities",
+                         "likely_nors_codes":  "G02",
+                         "authority_ids":  "42cfr_483_10"
+                     },
+                     {
+                         "phrase":  "not bathed",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F05",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "not enough food",
+                         "topics":  "dietary",
+                         "likely_nors_codes":  "H01",
+                         "authority_ids":  [
+                                               "42cfr_483_60",
+                                               "f800"
+                                           ]
+                     },
+                     {
+                         "phrase":  "not enough staff",
+                         "topics":  "staffing",
+                         "likely_nors_codes":  "J03",
+                         "authority_ids":  [
+                                               "42cfr_483_35",
+                                               "f725"
+                                           ]
+                     },
+                     {
+                         "phrase":  "not helped to eat",
+                         "topics":  "dietary",
+                         "likely_nors_codes":  "H02",
+                         "authority_ids":  [
+                                               "42cfr_483_60",
+                                               "f692",
+                                               "f800"
+                                           ]
+                     },
+                     {
+                         "phrase":  "not included in care plan meeting",
+                         "topics":  "care_planning",
+                         "likely_nors_codes":  "F03",
+                         "authority_ids":  [
+                                               "42cfr_483_21",
+                                               "f553",
+                                               "f656"
+                                           ]
+                     },
+                     {
+                         "phrase":  "not readmitted after hospital",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f628"
+                                           ]
+                     },
+                     {
+                         "phrase":  "observation status",
+                         "topics":  "insurance_benefits",
+                         "likely_nors_codes":  "K04",
+                         "authority_ids":  {
+
+                                           }
+                     },
+                     {
+                         "phrase":  "ombudsman access denied",
+                         "topics":  "willful_interference",
+                         "likely_nors_codes":  "B03",
+                         "authority_ids":  [
+                                               "45cfr_1324_11",
+                                               "f562"
+                                           ]
+                     },
+                     {
+                         "phrase":  "overcharged",
+                         "topics":  "financial_property",
+                         "likely_nors_codes":  "E01",
+                         "authority_ids":  "42cfr_483_10"
+                     },
+                     {
+                         "phrase":  "over-medicated",
+                         "topics":  [
+                                        "chemical_restraint",
+                                        "medications"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "F12",
+                                                   "F04"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_45",
+                                               "f758"
+                                           ]
+                     },
+                     {
+                         "phrase":  "pain not treated",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F07",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "personal needs allowance missing",
+                         "topics":  [
+                                        "financial_exploitation",
+                                        "financial_property"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "A04",
+                                                   "E02"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f602",
+                                               "42cfr_483_10"
+                                           ]
+                     },
+                     {
+                         "phrase":  "physical abuse",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A01",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ]
+                     },
+                     {
+                         "phrase":  "physical restraint",
+                         "topics":  "restraints",
+                         "likely_nors_codes":  "F11",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f604"
+                                           ]
+                     },
+                     {
+                         "phrase":  "POA not acting in interest",
+                         "topics":  "representative_conflict",
+                         "likely_nors_codes":  "L01",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "45cfr_1324_19"
+                                           ]
+                     },
+                     {
+                         "phrase":  "pressure sore",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  [
+                                                   "F07",
+                                                   "A05"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684",
+                                               "f686"
+                                           ]
+                     },
+                     {
+                         "phrase":  "privacy curtain not closed",
+                         "topics":  "privacy",
+                         "likely_nors_codes":  "D04",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f583"
+                                           ]
+                     },
+                     {
+                         "phrase":  "punished for complaining",
+                         "topics":  "retaliation",
+                         "likely_nors_codes":  "D06",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f550"
+                                           ]
+                     },
+                     {
+                         "phrase":  "refused admission Medicaid patient",
+                         "topics":  "admission",
+                         "likely_nors_codes":  "C01",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f621"
+                                           ]
+                     },
+                     {
+                         "phrase":  "required to waive rights to get in",
+                         "topics":  "admission",
+                         "likely_nors_codes":  "C01",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f620"
+                                           ]
+                     },
+                     {
+                         "phrase":  "resident council blocked",
+                         "topics":  "councils",
+                         "likely_nors_codes":  "D08",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f565"
+                                           ]
+                     },
+                     {
+                         "phrase":  "resident fell",
+                         "topics":  "accidents_falls",
+                         "likely_nors_codes":  "F01",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f689"
+                                           ]
+                     },
+                     {
+                         "phrase":  "resident hit by staff",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A01",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ]
+                     },
+                     {
+                         "phrase":  "retaliation",
+                         "topics":  "retaliation",
+                         "likely_nors_codes":  "D06",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f550"
+                                           ]
+                     },
+                     {
+                         "phrase":  "return to community",
+                         "topics":  [
+                                        "autonomy_choice",
+                                        "community_transition"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "D02",
+                                                   "L03"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f561",
+                                               "f660",
+                                               "45cfr_1324_13"
+                                           ]
+                     },
+                     {
+                         "phrase":  "room change without notice",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C04",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f559"
+                                           ]
+                     },
+                     {
+                         "phrase":  "room not cleaned",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I05",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "room too cold",
+                         "topics":  "environment",
+                         "likely_nors_codes":  "I01",
+                         "authority_ids":  [
+                                               "42cfr_483_90",
+                                               "f921"
+                                           ]
+                     },
+                     {
+                         "phrase":  "roommate conflict",
+                         "topics":  "social_services",
+                         "likely_nors_codes":  "G03",
+                         "authority_ids":  "45cfr_1324_19"
+                     },
+                     {
+                         "phrase":  "sexual abuse",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A02",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ]
+                     },
+                     {
+                         "phrase":  "soiled clothing",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  [
+                                                   "F05",
+                                                   "F08"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "staff disrespectful",
+                         "topics":  "dignity_respect",
+                         "likely_nors_codes":  "D03",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f557"
+                                           ]
+                     },
+                     {
+                         "phrase":  "staff hit resident",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A01",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ],
+                         "notes":  "Add perpetrator code."
+                     },
+                     {
+                         "phrase":  "staff not wearing PPE",
+                         "topics":  "infection_control",
+                         "likely_nors_codes":  "F13",
+                         "authority_ids":  [
+                                               "42cfr_483_80",
+                                               "f880"
+                                           ]
+                     },
+                     {
+                         "phrase":  "survey agency unresponsive",
+                         "topics":  "regulatory_system",
+                         "likely_nors_codes":  "K01",
+                         "authority_ids":  "45cfr_1324_13"
+                     },
+                     {
+                         "phrase":  "therapeutic diet not followed",
+                         "topics":  "dietary",
+                         "likely_nors_codes":  "H03",
+                         "authority_ids":  [
+                                               "42cfr_483_60",
+                                               "f800"
+                                           ]
+                     },
+                     {
+                         "phrase":  "therapy stopped",
+                         "topics":  "rehabilitation",
+                         "likely_nors_codes":  "F10",
+                         "authority_ids":  [
+                                               "42cfr_483_65",
+                                               "f825"
+                                           ]
+                     },
+                     {
+                         "phrase":  "threatened with discharge after complaint",
+                         "topics":  [
+                                        "retaliation",
+                                        "transfer_discharge"
+                                    ],
+                         "likely_nors_codes":  [
+                                                   "D06",
+                                                   "C03"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f550"
+                                           ]
+                     },
+                     {
+                         "phrase":  "tied to chair",
+                         "topics":  "restraints",
+                         "likely_nors_codes":  "F11",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f604"
+                                           ]
+                     },
+                     {
+                         "phrase":  "told to leave",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f627"
+                                           ]
+                     },
+                     {
+                         "phrase":  "transferred without notice",
+                         "topics":  "transfer_discharge",
+                         "likely_nors_codes":  "C03",
+                         "authority_ids":  [
+                                               "42cfr_483_15",
+                                               "f627"
+                                           ]
+                     },
+                     {
+                         "phrase":  "treated rudely",
+                         "topics":  "dignity_respect",
+                         "likely_nors_codes":  "D03",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "42cfr_483_24",
+                                               "f557",
+                                               "f675"
+                                           ]
+                     },
+                     {
+                         "phrase":  "understaffed",
+                         "topics":  "staffing",
+                         "likely_nors_codes":  "J03",
+                         "authority_ids":  [
+                                               "42cfr_483_35",
+                                               "f725"
+                                           ]
+                     },
+                     {
+                         "phrase":  "untrained staff",
+                         "topics":  "staffing",
+                         "likely_nors_codes":  "J03",
+                         "authority_ids":  [
+                                               "42cfr_483_35",
+                                               "42cfr_483_70",
+                                               "f725"
+                                           ]
+                     },
+                     {
+                         "phrase":  "unwanted touching",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A02",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ]
+                     },
+                     {
+                         "phrase":  "verbal abuse",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A03",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ]
+                     },
+                     {
+                         "phrase":  "vest restraint",
+                         "topics":  "restraints",
+                         "likely_nors_codes":  "F11",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f604"
+                                           ]
+                     },
+                     {
+                         "phrase":  "visitors restricted",
+                         "topics":  "visitors",
+                         "likely_nors_codes":  "D07",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f563",
+                                               "f564"
+                                           ]
+                     },
+                     {
+                         "phrase":  "wants to go home",
+                         "topics":  "autonomy_choice",
+                         "likely_nors_codes":  "D02",
+                         "authority_ids":  [
+                                               "42cfr_483_10",
+                                               "f561",
+                                               "f660"
+                                           ]
+                     },
+                     {
+                         "phrase":  "wheelchair broken",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F09",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684"
+                                           ]
+                     },
+                     {
+                         "phrase":  "wound not healing",
+                         "topics":  "care_quality",
+                         "likely_nors_codes":  "F07",
+                         "authority_ids":  [
+                                               "42cfr_483_25",
+                                               "f684",
+                                               "f686"
+                                           ]
+                     },
+                     {
+                         "phrase":  "wrong medication",
+                         "topics":  "medications",
+                         "likely_nors_codes":  "F04",
+                         "authority_ids":  [
+                                               "42cfr_483_45",
+                                               "f755"
+                                           ]
+                     },
+                     {
+                         "phrase":  "yelling at resident",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  "A03",
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ],
+                         "notes":  "If less severe (rudeness, not willful), consider D03 instead."
+                     }
+                 ]
+}
