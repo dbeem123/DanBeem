@@ -7,12 +7,13 @@
   <link rel="stylesheet" href="../Assets/shared.css">
   <style>
     label { display:block; font-weight:700; margin-bottom:6px; }
-    textarea { width:100%; min-height:180px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    textarea { width:100%; min-height:120px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
     pre { white-space:pre-wrap; margin:0; font-family:inherit; }
     .draft-only { font-weight:700; color:#ffd166; }
     .gap-list { margin:0; padding-left:20px; }
     .gap-warning { color:#ffcf99; }
     .gap-error { color:#ff9b9b; }
+    .field-help { margin-top:6px; font-size:12px; color:var(--muted); }
   </style>
 </head>
 <body>
@@ -43,8 +44,32 @@
       <label for="scenario-input">Enter de-identified case scenario</label>
       <textarea id="scenario-input" placeholder="Example: Resident reports call light delays and cold meals. Ombudsman interviewed resident and spoke with nurse manager."></textarea>
       <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button id="generate-btn" class="btn" type="button">Generate Draft</button>
+        <button id="extract-btn" class="btn" type="button">Extract Fields</button>
       </div>
+      <p id="extract-status" class="field-help">Step 1: Extract fields from scenario text.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px;">
+      <h2>Extracted Fields <span class="draft-only">(Draft Only)</span></h2>
+      <p class="subtle">Step 2: Review/edit extracted values before generating the draft.</p>
+      <div style="margin-top:12px; display:grid; gap:12px;">
+        <div>
+          <label for="field-problem">problem_description</label>
+          <textarea id="field-problem" placeholder="Extracted problem description appears here."></textarea>
+        </div>
+        <div>
+          <label for="field-resident">resident_perspective</label>
+          <textarea id="field-resident" placeholder="Extracted resident perspective appears here."></textarea>
+        </div>
+        <div>
+          <label for="field-actions">actions_taken</label>
+          <textarea id="field-actions" placeholder="Extracted actions taken appears here."></textarea>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="generate-btn" class="btn secondary" type="button">Generate Draft</button>
+      </div>
+      <p class="field-help">Step 3: Generate draft and checklist review from edited fields.</p>
     </div>
 
     <div class="panel" style="margin-bottom:18px;">
@@ -62,16 +87,30 @@
 
   <script src="../Assets/shared.js"></script>
   <script type="module">
-    import { buildCaseNote } from '../src/lib/buildCaseNote.js';
+    import { extractFieldsFromScenario, renderCaseNoteFromTemplates } from '../src/lib/buildCaseNote.js';
     import { validateCaseNote } from '../src/lib/validateCaseNote.js';
 
     const scenarioInput = document.getElementById('scenario-input');
-    const draftOutput = document.getElementById('draft-output');
-    const gapOutput = document.getElementById('gap-output');
+    const extractStatus = document.getElementById('extract-status');
+    const extractBtn = document.getElementById('extract-btn');
     const generateBtn = document.getElementById('generate-btn');
 
+    const problemField = document.getElementById('field-problem');
+    const residentField = document.getElementById('field-resident');
+    const actionsField = document.getElementById('field-actions');
+
+    const draftOutput = document.getElementById('draft-output');
+    const gapOutput = document.getElementById('gap-output');
+
+    let templatesJson = null;
+    let validationRulesJson = null;
+
     async function loadDraftingData() {
-      const [templatesJson, validationRulesJson] = await Promise.all([
+      if (templatesJson && validationRulesJson) {
+        return { templatesJson, validationRulesJson };
+      }
+
+      [templatesJson, validationRulesJson] = await Promise.all([
         window.DanBeemData.loadJson('../data/case_note_templates.json'),
         window.DanBeemData.loadJson('../data/case_note_validation_rules.json')
       ]);
@@ -97,18 +136,48 @@
       });
     }
 
-    generateBtn.addEventListener('click', async () => {
+    function getReviewedFields() {
+      return {
+        problem_description: problemField.value.trim(),
+        resident_perspective: residentField.value.trim(),
+        actions_taken: actionsField.value.trim()
+      };
+    }
+
+    extractBtn.addEventListener('click', () => {
       const scenarioText = scenarioInput.value.trim();
 
       if (!scenarioText) {
-        draftOutput.textContent = 'Please enter a de-identified case scenario before generating a draft.';
-        gapOutput.innerHTML = '<li class="gap-error">[ERROR] Missing problem description. (problem_description)</li>';
+        extractStatus.textContent = 'Please enter a de-identified scenario before extraction.';
+        extractStatus.className = 'field-help gap-error';
         return;
       }
 
+      const extracted = extractFieldsFromScenario(scenarioText);
+      problemField.value = extracted.problem_description || '';
+      residentField.value = extracted.resident_perspective || '';
+      actionsField.value = extracted.actions_taken || '';
+
+      extractStatus.textContent = 'Fields extracted. Review/edit values, then click Generate Draft.';
+      extractStatus.className = 'field-help';
+    });
+
+    generateBtn.addEventListener('click', async () => {
       try {
-        const { templatesJson, validationRulesJson } = await loadDraftingData();
-        const built = buildCaseNote(templatesJson, scenarioText);
+        await loadDraftingData();
+
+        const reviewed = getReviewedFields();
+        const hasAnyReviewedContent = Object.values(reviewed).some(Boolean);
+
+        if (!hasAnyReviewedContent) {
+          const fallbackExtracted = extractFieldsFromScenario(scenarioInput.value.trim());
+          problemField.value = fallbackExtracted.problem_description || '';
+          residentField.value = fallbackExtracted.resident_perspective || '';
+          actionsField.value = fallbackExtracted.actions_taken || '';
+        }
+
+        const finalFields = getReviewedFields();
+        const built = renderCaseNoteFromTemplates(templatesJson, finalFields);
         const gaps = validateCaseNote(built.fields, validationRulesJson);
 
         draftOutput.textContent = built.draftText;
