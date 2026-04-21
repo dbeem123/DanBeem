@@ -208,6 +208,25 @@
       </div>
     </section>
 
+    <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
+      <div class="pill">Informational Only</div>
+      <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
+      <p class="notice">Informational Only – does not determine violations</p>
+      <p class="subtle">Temporary test for NORS code to topic to authority mapping.</p>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="norsCodeSelect">Select NORS Code</label>
+          <select id="norsCodeSelect">
+            <option value="">Loading NORS codes...</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="runCrosswalkBtn" class="btn secondary" type="button">Run Crosswalk</button>
+      </div>
+      <div id="crosswalkResult" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
+    </section>
+
     <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Draft outputs">
       <div class="panel">
         <div class="pill">Draft Only</div>
@@ -247,25 +266,6 @@
         <p class="subtle">Grouped by likely topic. Citations are informational only. No legal conclusions or violation determinations.</p>
         <div id="references-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
-    </section>
-
-    <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
-      <div class="pill">Informational Only</div>
-      <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
-      <p class="notice">Informational Only – does not determine violations</p>
-      <p class="subtle">Temporary test for NORS code to topic to authority mapping.</p>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
-        <div>
-          <label for="norsCodeSelect">Select NORS Code</label>
-          <select id="norsCodeSelect">
-            <option value="">Loading NORS codes...</option>
-          </select>
-        </div>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button id="runCrosswalkBtn" class="btn secondary" type="button">Run Crosswalk</button>
-      </div>
-      <div id="crosswalkResult" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
     </section>
   </main>
 
