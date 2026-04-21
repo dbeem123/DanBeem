@@ -127,6 +127,10 @@
           <label for="complainant-actions-taken">Prior Steps Taken</label>
           <textarea id="complainant-actions-taken" placeholder="What did the complainant or resident already try?"></textarea>
         </div>
+        <div style="margin-top:12px;">
+          <label for="authorization-note">Authorization Note</label>
+          <textarea id="authorization-note" placeholder="Document permission, authorization, or requested Ombudsman role."></textarea>
+        </div>
       </div>
 
       <div class="form-section">
@@ -232,6 +236,7 @@
       identity_permission: 'identity-permission',
       problem_description: 'problem-description',
       complainant_actions_taken: 'complainant-actions-taken',
+      authorization_note: 'authorization-note',
       resident_perspective: 'resident-perspective',
       resident_desired_outcome: 'resident-desired-outcome',
       initial_plan_of_action: 'initial-plan-of-action',
@@ -277,39 +282,89 @@
       return formData;
     }
 
-    function firstMatchingSentence(sentences, keywords) {
-      return sentences.find(sentence => {
-        const lower = sentence.toLowerCase();
-        return keywords.some(keyword => lower.includes(keyword));
-      }) || '';
-    }
-
     function normalizeScenarioText(text) {
       return text
         .replace(/\r/g, '\n')
-        .split(/\n+|(?<=[.!?])\s+/)
+        .split(/\n+|(?<=[.!?])\s+|;|\s+-\s+|\s+\|\s+/)
         .map(sentence => sentence.trim())
         .filter(Boolean);
     }
 
+    function scoreSentence(sentence, rules) {
+      return rules.reduce((score, rule) => {
+        return rule.pattern.test(sentence) ? score + rule.weight : score;
+      }, 0);
+    }
+
+    function appendUnique(target, sentence) {
+      if (!sentence) return;
+      if (!target.includes(sentence)) target.push(sentence);
+    }
+
     function extractFieldsFromScenario(text) {
       const sentences = normalizeScenarioText(text);
-      const joined = sentences.join(' ');
+      const extracted = {
+        problem_description: [],
+        resident_perspective: [],
+        complainant_actions_taken: [],
+        actions_taken: [],
+        follow_up: [],
+        authorization_note: []
+      };
+
+      const classifiers = {
+        authorization_note: [
+          { pattern: /\b(authori[sz]es?|authorization|gave permission|permission to|consent(?:ed)?|wants the ombudsman to|asked the ombudsman to|okay to share|may disclose)\b/i, weight: 5 }
+        ],
+        follow_up: [
+          { pattern: /\b(follow\s?up|followed up|will contact|will call|next step|next steps|plan to|scheduled|check back|revisit|monitor)\b/i, weight: 4 },
+          { pattern: /\b(tomorrow|next week|within \d+|in \d+ days|by friday|by monday)\b/i, weight: 2 }
+        ],
+        complainant_actions_taken: [
+          { pattern: /\b(has not raised|have not raised|not raised|already told|previously told|spoke with staff|spoke to staff|reported to admin|reported to administrator|told the nurse|called the facility|filed a grievance|asked staff)\b/i, weight: 5 },
+          { pattern: /\b(before calling|prior to|earlier|already|previously)\b/i, weight: 2 }
+        ],
+        resident_perspective: [
+          { pattern: /\b(resident reports|resident states|resident stated|resident said|resident says|resident feels|resident described|according to the resident|according to resident)\b/i, weight: 5 },
+          { pattern: /\b(typically|usually|prefers|wants|does not want|is worried|is afraid|feels)\b/i, weight: 2 }
+        ],
+        actions_taken: [
+          { pattern: /\b(ombudsman interviewed|ombudsman observed|ombudsman reviewed|ombudsman contacted|ombudsman called|ombudsman visited|interviewed resident|observed|reviewed records|contacted staff|documented)\b/i, weight: 5 }
+        ],
+        problem_description: [
+          { pattern: /\b(problem|concern|complaint|issue|reported|reports|alleges|didn't|did not|was not provided|were not provided|not provided|missed|delayed|late|unanswered|ignored|refused)\b/i, weight: 3 },
+          { pattern: /\b(abuse|neglect|discharge|transfer|rights|call light|medication|food|meal|staffing|pain|toileting|hygiene|fall|injury)\b/i, weight: 2 }
+        ]
+      };
+
+      const fieldPriority = [
+        'authorization_note',
+        'follow_up',
+        'complainant_actions_taken',
+        'resident_perspective',
+        'actions_taken',
+        'problem_description'
+      ];
+
+      sentences.forEach(sentence => {
+        const scores = fieldPriority.map(field => ({
+          field,
+          score: scoreSentence(sentence, classifiers[field])
+        }));
+        const best = scores.sort((a, b) => b.score - a.score)[0];
+
+        if (best && best.score >= 2) {
+          appendUnique(extracted[best.field], sentence);
+        }
+      });
 
       return {
-        problem_description: firstMatchingSentence(sentences, [
-          'problem', 'concern', 'complaint', 'issue', 'reported', 'alleges',
-          'abuse', 'neglect', 'discharge', 'transfer', 'rights', 'call light',
-          'medication', 'food', 'staffing', 'pain', 'toileting'
-        ]) || joined,
-        resident_perspective: firstMatchingSentence(sentences, [
-          'resident said', 'resident stated', 'resident reports', 'resident reported',
-          'resident feels', 'resident wants', 'resident described', 'according to resident'
-        ]),
-        actions_taken: firstMatchingSentence(sentences, [
-          'ombudsman', 'interviewed', 'observed', 'reviewed', 'called',
-          'spoke with', 'followed up', 'contacted', 'documented', 'visited'
-        ])
+        problem_description: extracted.problem_description.join('\n'),
+        resident_perspective: extracted.resident_perspective.join('\n'),
+        complainant_actions_taken: extracted.complainant_actions_taken.join('\n'),
+        actions_taken: extracted.actions_taken.join('\n'),
+        follow_up: extracted.follow_up.join('\n'),
+        authorization_note: extracted.authorization_note.join('\n')
       };
     }
 
@@ -336,7 +391,10 @@
       const changed = [
         setFieldIfEmpty('problem_description', extracted.problem_description),
         setFieldIfEmpty('resident_perspective', extracted.resident_perspective),
-        setFieldIfEmpty('actions_taken', extracted.actions_taken)
+        setFieldIfEmpty('complainant_actions_taken', extracted.complainant_actions_taken),
+        setFieldIfEmpty('actions_taken', extracted.actions_taken),
+        setFieldIfEmpty('follow_up', extracted.follow_up),
+        setFieldIfEmpty('authorization_note', extracted.authorization_note)
       ].some(Boolean);
 
       notice.style.display = 'block';
