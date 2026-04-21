@@ -158,7 +158,14 @@
 
       output.innerHTML = topicMatches.map(match => `
         <div style="margin-bottom:12px;">
-          <strong>${escapeHtml(match.topic.replace(/_/g, ' '))}</strong>
+          <strong>${escapeHtml(match.topic.replace(/_/g, ' '))}${match.keywordMatchCount ? ` (${match.keywordMatchCount} matches)` : ''}</strong>
+          <div class="subtle">
+            ${match.norsCodes.length && match.keywords.length
+              ? 'From NORS code and keywords'
+              : match.norsCodes.length
+                ? 'From NORS code'
+                : 'From keywords'}
+          </div>
           <ul class="result-list">
             ${match.norsCodes.map(code => `<li>NORS code ${escapeHtml(code)}</li>`).join('')}
             ${match.keywords.map(keyword => `<li>keyword "${escapeHtml(keyword)}"</li>`).join('')}

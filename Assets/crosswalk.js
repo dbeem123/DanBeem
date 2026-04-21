@@ -44,22 +44,37 @@
   function addTopic(topicMatches, topic, sourceType, value) {
     if (!topic) return;
     if (!topicMatches[topic]) {
-      topicMatches[topic] = { topic, norsCodes: [], keywords: [] };
+      topicMatches[topic] = { topic, norsCodes: [], keywords: [], keywordMatchCount: 0 };
     }
     if (sourceType === 'nors' && value && !topicMatches[topic].norsCodes.includes(value)) {
       topicMatches[topic].norsCodes.push(value);
     }
-    if (sourceType === 'keyword' && value && !topicMatches[topic].keywords.includes(value)) {
-      topicMatches[topic].keywords.push(value);
+    if (sourceType === 'keyword' && value) {
+      if (!topicMatches[topic].keywords.includes(value)) {
+        topicMatches[topic].keywords.push(value);
+      }
+      topicMatches[topic].keywordMatchCount = topicMatches[topic].keywords.length;
     }
   }
 
   function sortTopicMatches(topicMatches) {
-    return Object.values(topicMatches).sort((a, b) => {
+    return Object.values(topicMatches).map(match => ({
+      ...match,
+      keywordMatchCount: match.keywordMatchCount || match.keywords.length || 0
+    })).sort((a, b) => {
       const aPriority = a.norsCodes.length ? 0 : 1;
       const bPriority = b.norsCodes.length ? 0 : 1;
-      return aPriority - bPriority || a.topic.localeCompare(b.topic);
+      return aPriority - bPriority || (b.keywordMatchCount || 0) - (a.keywordMatchCount || 0) || a.topic.localeCompare(b.topic);
     });
+  }
+
+  function mergeTopicMatches(...topicMatchArrays) {
+    const merged = {};
+    topicMatchArrays.flat().forEach(match => {
+      (match.norsCodes || []).forEach(code => addTopic(merged, match.topic, 'nors', code));
+      (match.keywords || []).forEach(keyword => addTopic(merged, match.topic, 'keyword', keyword));
+    });
+    return sortTopicMatches(merged);
   }
 
   function getTopicsFromNorsCode(norsCode, data) {
@@ -236,9 +251,13 @@
   }
 
   function runCrosswalk({ norsCode, keywordText } = {}, data) {
-    const topicMatches = getTopicsFromInputs({ norsCode, keywordText }, data);
+    const code = (norsCode || '').trim();
+    const text = (keywordText || '').trim();
+    const norsMatches = code ? getTopicsFromNorsCode(code, data) : [];
+    const keywordMatches = text ? getTopicsFromKeywords(text, data) : [];
+    const topicMatches = mergeTopicMatches(norsMatches, keywordMatches);
     const authorityGroups = getAuthoritiesForTopics(topicMatches, data);
-    const trace = buildCrosswalkTrace({ norsCode, keywordText, topicMatches, authorityGroups });
+    const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups });
     const warnings = [];
 
     if (!topicMatches.length) {
