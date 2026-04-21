@@ -1,0 +1,10 @@
+{
+  "templates": [
+    {
+      "id": "ombudsman_outreach_default",
+      "name": "General Outreach",
+      "subject": "Ombudsman Outreach: {topic}",
+      "body": "Hello {contact_name},\n\nI hope you're doing well. I'm reaching out from the Ombudsman team to coordinate {topic} at {facility_name}. We would like to schedule time on {requested_date} to connect with residents and staff.\n\nPlease let me know if that date works or if you prefer another time. Thank you for supporting resident voice and quality of care.\n\nBest regards,\nDanBeem Ombudsman Team"
+    }
+  ]
+}
