@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Drafting &amp; Reference Assistant</title>
   <link rel="stylesheet" href="../Assets/shared.css">
+  <script defer src="../Assets/crosswalk.js"></script>
   <style>
     label { display:block; font-weight:700; margin-bottom:6px; }
     input, select, textarea {
@@ -276,7 +277,10 @@
 
     const dataFiles = {
       templates: ['../narrative_templates.json', '../data/case_note_templates.json'],
-      validationRules: ['../narrative_validation_rules.json', '../data/case_note_validation_rules.json'],
+      validationRules: ['../narrative_validation_rules.json', '../data/case_note_validation_rules.json']
+    };
+
+    const crosswalkPaths = {
       keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
       norsToTopic: '../nors_to_topic.json',
       topicToAuthority: '../topic_to_authority.json',
@@ -328,11 +332,15 @@
       const generateButton = document.getElementById('generate-button');
 
       try {
-        const entries = await Promise.all(Object.entries(dataFiles).map(async ([key, path]) => {
-          return [key, await loadJsonFile(path)];
-        }));
+        if (!window.Crosswalk) throw new Error('Shared crosswalk logic did not load.');
+        const [entries, crosswalkData] = await Promise.all([
+          Promise.all(Object.entries(dataFiles).map(async ([key, path]) => {
+            return [key, await loadJsonFile(path)];
+          })),
+          Crosswalk.loadCrosswalkData(crosswalkPaths)
+        ]);
 
-        assistantData = Object.fromEntries(entries);
+        assistantData = { ...Object.fromEntries(entries), ...crosswalkData };
         status.className = 'notice';
         status.textContent = 'Assistant data loaded. Ready to generate Draft Only narrative and informational references.';
         generateButton.disabled = false;
@@ -399,68 +407,19 @@
         return;
       }
 
-      const topics = assistantData.norsToTopic?.[code] || [];
-      const topicMap = assistantData.topicToAuthority?.topics || {};
-      const authorityIndex = assistantData.authorityIndex?.authorities || {};
-      const trace = [];
-      const authorityRows = [];
-      const authorityIds = [];
-
-      function normalizeAuthorityRow(authorityId, authority, reason) {
-        if (!authority) {
-          return {
-            id: authorityId,
-            citation: 'Citation not available',
-            title: 'Authority metadata not found',
-            category: 'Missing metadata',
-            reason: reason || 'Selected by topic mapping, but details are missing from authority index.'
-          };
-        }
-
-        return {
-          id: authorityId,
-          citation: authority.citation || 'Citation not available',
-          title: authority.title || 'Title not available',
-          category: getAuthorityLabel(authority),
-          reason: reason || 'Selected by topic mapping.'
-        };
-      }
+      const result = Crosswalk.runCrosswalk({ norsCode: code, keywordText: '' }, assistantData);
+      const topics = result.topicMatches.map(match => match.topic);
+      const authorityRows = result.authorityGroups.flatMap(group => group.authorities);
+      const authorityIds = authorityRows.map(authority => authority.id);
 
       if (!topics.length) {
         output.innerHTML = `
           <div class="notice">Informational Only: no mapped topics were found for NORS code ${escapeHtml(code)}.</div>
           <p><strong>Crosswalk Trace:</strong></p>
-          <ul class="result-list"><li>NORS code ${escapeHtml(code)} did not map to a topic in nors_to_topic.json.</li></ul>
+          <ul class="result-list">${result.trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
         `;
         return;
       }
-
-      topics.forEach(topic => {
-        trace.push(`NORS code ${code} maps to topic "${topic}".`);
-        const mappings = topicMap[topic] || [];
-
-        if (!mappings.length) {
-          trace.push(`Topic "${topic}" has no authority IDs in topic_to_authority.json.`);
-          return;
-        }
-
-        const ids = mappings.map(item => item.authority_id);
-        trace.push(`Topic "${topic}" maps to authority ID(s): ${ids.join(', ')}.`);
-
-        mappings.forEach(item => {
-          authorityIds.push(item.authority_id);
-          const authority = authorityIndex[item.authority_id];
-
-          if (!authority) {
-            trace.push(`Authority ID "${item.authority_id}" is missing from authority_index.json.`);
-            authorityRows.push(normalizeAuthorityRow(item.authority_id, null, item.reason));
-            return;
-          }
-
-          trace.push(`Authority ID "${item.authority_id}" resolves to ${authority.citation || 'a citation not available in metadata'}.`);
-          authorityRows.push(normalizeAuthorityRow(item.authority_id, authority, item.reason));
-        });
-      });
 
       output.innerHTML = `
         <div class="notice">Informational Only: this crosswalk surfaces possible references only. It does not determine violations or make legal conclusions.</div>
@@ -475,14 +434,14 @@
               <strong>${escapeHtml(row.citation)}</strong>
               <br><span>${escapeHtml(row.title)}</span>
               <br><span class="subtle">Authority ID: ${escapeHtml(row.id)}</span>
-              <br><span class="subtle">Category / Type: ${escapeHtml(row.category)}</span>
+              <br><span class="subtle">Category / Type: ${escapeHtml(row.category || row.label)}</span>
               <br><span class="subtle">Why selected: ${escapeHtml(row.reason)}</span>
             </li>
           `).join('') : '<li>No authorities found for mapped topic(s).</li>'}
         </ul>
         <p><strong>Crosswalk Trace:</strong></p>
         <ul class="result-list">
-          ${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+          ${result.trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>
       `;
     }
@@ -651,56 +610,24 @@
     }
 
     function extractTopics(formData) {
-      const topicMatches = {};
-      const rules = assistantData.retrievalRules.matching || {};
+      const keywordText = [
+        formData.problem_description,
+        formData.complainant_actions_taken,
+        formData.resident_perspective,
+        formData.resident_desired_outcome,
+        formData.actions_taken,
+        formData.facility_response,
+        formData.follow_up,
+        formData.authorization_note,
+        formData.concern_area,
+        formData.resident_right,
+        formData.status_or_outcome
+      ].join(' ');
 
-      function addTopic(topic, sourceType, value) {
-        if (!topicMatches[topic]) {
-          topicMatches[topic] = { topic, norsCodes: [], keywords: [] };
-        }
-        if (sourceType === 'nors' && !topicMatches[topic].norsCodes.includes(value)) {
-          topicMatches[topic].norsCodes.push(value);
-        }
-        if (sourceType === 'keyword' && !topicMatches[topic].keywords.includes(value)) {
-          topicMatches[topic].keywords.push(value);
-        }
-      }
-
-      if (rules.use_nors_code_first && formData.nors_code) {
-        (assistantData.norsToTopic[formData.nors_code] || []).forEach(topic => {
-          addTopic(topic, 'nors', formData.nors_code);
-        });
-      }
-
-      if (rules.use_keyword_fallback) {
-        const searchableText = [
-          formData.problem_description,
-          formData.complainant_actions_taken,
-          formData.resident_perspective,
-          formData.resident_desired_outcome,
-          formData.actions_taken,
-          formData.facility_response,
-          formData.follow_up,
-          formData.authorization_note,
-          formData.concern_area,
-          formData.resident_right,
-          formData.status_or_outcome
-        ].join(' ').toLowerCase();
-
-        Object.entries(assistantData.keywordMap.keywords || {}).forEach(([keyword, mappedTopics]) => {
-          if (searchableText.includes(keyword.toLowerCase())) {
-            mappedTopics.forEach(topic => {
-              addTopic(topic, 'keyword', keyword);
-            });
-          }
-        });
-      }
-
-      return Object.values(topicMatches).sort((a, b) => {
-        const aPriority = a.norsCodes.length ? 0 : 1;
-        const bPriority = b.norsCodes.length ? 0 : 1;
-        return aPriority - bPriority || a.topic.localeCompare(b.topic);
-      });
+      return Crosswalk.getTopicsFromInputs({
+        norsCode: formData.nors_code,
+        keywordText
+      }, assistantData);
     }
 
     function fillTemplate(template, formData) {
@@ -741,23 +668,7 @@
     }
 
     function getAuthorityLabel(authority) {
-      const type = authority.type || '';
-      const layer = authority.layer || '';
-      const title = (authority.title || '').toLowerCase();
-
-      if (type === 'federal_regulation' && title.includes('resident rights')) {
-        return 'Federal Resident Rights';
-      }
-      if (type === 'federal_regulation' || layer === 'federal') {
-        return 'Federal Regulation';
-      }
-      if (type === 'appendix_pp' || layer === 'appendix_pp') {
-        return 'Appendix PP';
-      }
-      if (type === 'training' || layer === 'training') {
-        return 'Training / Guidance';
-      }
-      return type || layer ? `${layer || type}`.replace(/_/g, ' ') : 'Reference';
+      return Crosswalk.getAuthorityLabel(authority);
     }
 
     function getMatchSummary(match) {
@@ -768,50 +679,7 @@
     }
 
     function retrieveReferences(topicMatches) {
-      const topicMap = assistantData.topicToAuthority.topics || {};
-      const authorityIndex = assistantData.authorityIndex.authorities || {};
-      const ranking = assistantData.retrievalRules.ranking || {};
-      const output = assistantData.retrievalRules.output || {};
-      const maxResults = output.max_results || 8;
-      const dedupe = assistantData.retrievalRules.matching?.deduplicate_authorities !== false;
-      const grouped = [];
-      const seen = new Set();
-      let resultCount = 0;
-
-      topicMatches.forEach(match => {
-        const topicReferences = [];
-
-        (topicMap[match.topic] || []).forEach(item => {
-          const authority = authorityIndex[item.authority_id];
-          if (!authority) return;
-          if (resultCount >= maxResults) return;
-          if (dedupe && seen.has(item.authority_id)) return;
-
-          seen.add(item.authority_id);
-          resultCount += 1;
-          topicReferences.push({
-            id: item.authority_id,
-            citation: authority.citation,
-            title: authority.title || '',
-            label: getAuthorityLabel(authority),
-            reason: item.reason || '',
-            matchSummary: getMatchSummary(match),
-            rank: ranking[authority.type] || 0
-          });
-        });
-
-        topicReferences.sort((a, b) => b.rank - a.rank || a.citation.localeCompare(b.citation));
-        if (topicReferences.length) {
-          grouped.push({
-            topic: match.topic,
-            norsCodes: match.norsCodes,
-            keywords: match.keywords,
-            references: topicReferences
-          });
-        }
-      });
-
-      return grouped;
+      return Crosswalk.getAuthoritiesForTopics(topicMatches, assistantData);
     }
 
     function renderValidation(flags) {

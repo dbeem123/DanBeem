@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>NORS Crosswalk Tool</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <script defer src="../Assets/crosswalk.js"></script>
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select, textarea {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-family:inherit;
+    }
+    select option { color:#06121b; }
+    textarea { min-height:110px; resize:vertical; }
+    .output-box {
+      white-space:pre-wrap;
+      min-height:80px;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+    }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+    .warning {
+      border-color:rgba(251,191,36,0.3);
+      background:rgba(251,191,36,0.08);
+    }
+    .error {
+      border-color:rgba(251,113,133,0.3);
+      background:rgba(251,113,133,0.08);
+    }
+    .result-list { margin:0; padding-left:20px; }
+    .result-list li { margin:6px 0; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">NORS Crosswalk Tool</div>
+          <div class="subtle" style="font-size:12px;">Informational References Only</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="drafting-assistant.html">Drafting Assistant</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel" aria-labelledby="crosswalk-title">
+      <div class="pill">Informational Only</div>
+      <h1 id="crosswalk-title" style="margin-top:8px;">NORS Crosswalk Tool</h1>
+      <p class="subtle">Select a NORS code or enter keyword/concern text to surface possible topics and references. This tool does not determine violations, make legal conclusions, or recommend enforcement actions.</p>
+      <div id="load-status" class="notice" role="status">Loading crosswalk data...</div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="input-title">
+      <h2 id="input-title">Crosswalk Inputs</h2>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+        <div>
+          <label for="nors-code">NORS Code</label>
+          <select id="nors-code">
+            <option value="">Loading NORS codes...</option>
+          </select>
+        </div>
+        <div>
+          <label for="keyword-text">Keyword / Concern</label>
+          <textarea id="keyword-text" placeholder="Example: call light, discharge notice, privacy, dignity, abuse, medication, staffing..."></textarea>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="run-crosswalk" class="btn" type="button" disabled>Run Crosswalk</button>
+      </div>
+      <p class="notice">Informational Only - surfaced references are for review support and do not determine violations.</p>
+    </section>
+
+    <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Crosswalk outputs">
+      <div class="panel">
+        <div class="pill">Likely</div>
+        <h2>Likely Topics</h2>
+        <div id="topics-output" class="output-box">Likely topics will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Reference</div>
+        <h2>Authority Groups</h2>
+        <div id="authorities-output" class="output-box">Authority mappings will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Trace</div>
+        <h2>Crosswalk Trace</h2>
+        <div id="trace-output" class="output-box">Trace will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Review</div>
+        <h2>Warnings</h2>
+        <div id="warnings-output" class="output-box">Warnings will appear here.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Informational only - no legal conclusions or violation determinations.</footer>
+
+  <script>
+    let crosswalkData = null;
+
+    const crosswalkPaths = {
+      keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
+      norsToTopic: '../nors_to_topic.json',
+      topicToAuthority: '../topic_to_authority.json',
+      authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
+      retrievalRules: '../retrieval_rules.json'
+    };
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function populateNorsCodes() {
+      const select = document.getElementById('nors-code');
+      const codes = Object.keys(crosswalkData?.norsToTopic || {});
+      const fallbackCodes = ['F03', 'A01', 'C01'];
+      const options = codes.length ? codes : fallbackCodes;
+
+      select.innerHTML = '<option value="">No NORS code selected</option>' + options.map(code => {
+        return `<option value="${escapeHtml(code)}">${escapeHtml(code)}</option>`;
+      }).join('');
+    }
+
+    function renderTopics(topicMatches) {
+      const output = document.getElementById('topics-output');
+      if (!topicMatches.length) {
+        output.textContent = 'No likely topics matched.';
+        return;
+      }
+
+      output.innerHTML = topicMatches.map(match => `
+        <div style="margin-bottom:12px;">
+          <strong>${escapeHtml(match.topic.replace(/_/g, ' '))}</strong>
+          <ul class="result-list">
+            ${match.norsCodes.map(code => `<li>NORS code ${escapeHtml(code)}</li>`).join('')}
+            ${match.keywords.map(keyword => `<li>keyword "${escapeHtml(keyword)}"</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    function renderAuthorities(authorityGroups) {
+      const output = document.getElementById('authorities-output');
+      if (!authorityGroups.length) {
+        output.textContent = 'No authority mappings found for matched topics.';
+        return;
+      }
+
+      output.innerHTML = authorityGroups.map(group => `
+        <div style="margin-bottom:14px;">
+          <strong>${escapeHtml(group.topic.replace(/_/g, ' '))}</strong>
+          <ul class="result-list">
+            ${group.authorities.map(authority => `
+              <li>
+                <strong>${escapeHtml(authority.citation)}</strong>
+                <br><span>${escapeHtml(authority.title)}</span>
+                <br><span class="subtle">Authority ID: ${escapeHtml(authority.id)}</span>
+                <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
+                <br><span class="subtle">Why selected: ${escapeHtml(authority.reason)}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `).join('')}
+      <div class="notice">Informational guardrail: references are shown for review support only. This tool does not make legal conclusions or determine violations.</div>`;
+    }
+
+    function renderTrace(trace) {
+      const output = document.getElementById('trace-output');
+      if (!trace.length) {
+        output.textContent = 'No trace generated.';
+        return;
+      }
+      output.innerHTML = `<ul class="result-list">${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+    }
+
+    function renderWarnings(warnings) {
+      const output = document.getElementById('warnings-output');
+      if (!warnings.length) {
+        output.textContent = 'No warnings.';
+        return;
+      }
+      output.innerHTML = `<ul class="result-list">${warnings.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+    }
+
+    function runStandaloneCrosswalk() {
+      const norsCode = document.getElementById('nors-code').value;
+      const keywordText = document.getElementById('keyword-text').value;
+      const result = Crosswalk.runCrosswalk({ norsCode, keywordText }, crosswalkData);
+
+      renderTopics(result.topicMatches);
+      renderAuthorities(result.authorityGroups);
+      renderTrace(result.trace);
+      renderWarnings(result.warnings);
+    }
+
+    async function loadPage() {
+      const status = document.getElementById('load-status');
+      const button = document.getElementById('run-crosswalk');
+
+      try {
+        if (!window.Crosswalk) throw new Error('Shared crosswalk logic did not load.');
+        crosswalkData = await Crosswalk.loadCrosswalkData(crosswalkPaths);
+        populateNorsCodes();
+        button.disabled = false;
+        button.addEventListener('click', runStandaloneCrosswalk);
+        status.className = 'notice';
+        status.textContent = 'Crosswalk data loaded.';
+      } catch (err) {
+        status.className = 'notice error';
+        status.textContent = `Crosswalk data could not be loaded. Details: ${err.message}`;
+        button.disabled = true;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPage);
+  </script>
+</body>
+</html>
