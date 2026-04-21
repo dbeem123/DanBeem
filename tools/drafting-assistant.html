@@ -46,6 +46,25 @@
     }
     .result-list { margin:0; padding-left:20px; }
     .result-list li { margin:6px 0; }
+    .topic-summary,
+    .reference-summary {
+      margin-bottom:12px;
+      padding-bottom:10px;
+      border-bottom:1px solid var(--border);
+    }
+    .topic-summary:last-child,
+    .reference-summary:last-child { border-bottom:0; padding-bottom:0; }
+    .summary-line { margin-top:4px; }
+    .match-count {
+      display:inline-block;
+      margin-top:6px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:12px;
+    }
+    .reference-meta { margin-top:4px; }
   </style>
 </head>
 <body>
@@ -674,10 +693,10 @@
         topicsOutput.textContent = 'No likely topics identified yet. Add note details or a NORS code and run Extract Fields.';
       } else {
         topicsOutput.innerHTML = topicMatches.map(match => `
-          <div style="margin-bottom:12px;">
+          <div class="topic-summary">
             <strong>${escapeHtml(formatTopicName(match.topic))}</strong>
-            <div class="subtle">${escapeHtml(getTopicSourceText(match))}</div>
-            <div class="subtle">${escapeHtml(getKeywordMatchText(match))}</div>
+            <div class="subtle summary-line">${escapeHtml(getTopicSourceText(match))}</div>
+            <span class="match-count">${escapeHtml(getKeywordMatchText(match))}</span>
           </div>
         `).join('');
       }
@@ -688,15 +707,15 @@
           : 'No references to display yet.';
       } else {
         referencesOutput.innerHTML = authorityGroups.map(group => `
-          <div style="margin-bottom:12px;">
+          <div class="reference-summary">
             <strong>${escapeHtml(formatTopicName(group.topic))}</strong>
             <ul class="result-list">
-              ${group.authorities.map(authority => `
+              ${getReferenceList(group).map(authority => `
                 <li>
                   <strong>${escapeHtml(authority.citation)}</strong>
-                  <br><span>${escapeHtml(authority.title)}</span>
-                  <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
-                  <br><span class="subtle">Why shown: ${escapeHtml(authority.reason)}</span>
+                  ${authority.title ? `<br><span>${escapeHtml(authority.title)}</span>` : ''}
+                  <br><span class="subtle reference-meta">${escapeHtml(getReferenceCategory(authority))}</span>
+                  <br><span class="subtle">Why shown: ${escapeHtml(getReferenceReason(authority, group))}</span>
                 </li>
               `).join('')}
             </ul>
@@ -752,8 +771,8 @@
 
     function getMatchSummary(match) {
       const parts = [];
-      if (match.norsCodes.length) parts.push(`NORS: ${match.norsCodes.join(', ')}`);
-      if (match.keywords.length) parts.push(`keywords: ${match.keywords.map(keyword => `"${keyword}"`).join(', ')}`);
+      if (match.norsCodes?.length) parts.push(`NORS: ${match.norsCodes.join(', ')}`);
+      if (match.keywords?.length) parts.push(`keywords: ${match.keywords.map(keyword => `"${keyword}"`).join(', ')}`);
       return parts.join('; ');
     }
 
@@ -764,16 +783,39 @@
     function getTopicSourceText(match) {
       const hasNors = match.norsCodes?.length;
       const hasKeywords = match.keywords?.length;
-      if (hasNors && hasKeywords) return 'Matched from selected NORS code and note keywords';
-      if (hasNors) return 'Matched from selected NORS code';
-      if (hasKeywords) return 'Matched from note keywords';
+      if (hasNors && hasKeywords) return 'Source: selected NORS code and note text';
+      if (hasNors) return 'Source: selected NORS code';
+      if (hasKeywords) return 'Source: note text keywords';
       return 'Matched from local topic rules';
     }
 
     function getKeywordMatchText(match) {
       const count = match.keywordMatchCount || match.keywords?.length || 0;
-      if (!count) return 'No keyword matches';
-      return `${count} keyword match${count === 1 ? '' : 'es'}`;
+      if (!count) return 'Keyword matches: none';
+      return `Keyword matches: ${count}`;
+    }
+
+    function getTopicSourceDetail(match) {
+      const details = [];
+      if (match.norsCodes?.length) {
+        details.push(`NORS code: ${match.norsCodes.join(', ')}`);
+      }
+      if (match.keywords?.length) {
+        details.push(`Keywords: ${match.keywords.map(keyword => `"${keyword}"`).join(', ')}`);
+      }
+      return details;
+    }
+
+    function getReferenceList(group) {
+      return group.authorities || group.references || [];
+    }
+
+    function getReferenceCategory(reference) {
+      return `Category: ${reference.category || reference.label || 'Reference'}`;
+    }
+
+    function getReferenceReason(reference, group) {
+      return reference.reason || getMatchSummary(group) || 'Matched through the topic crosswalk.';
     }
 
     function retrieveReferences(crosswalkResult) {
@@ -868,10 +910,10 @@
       }
 
       output.innerHTML = topicMatches.map(match => `
-        <div style="margin-bottom:12px;">
+        <div class="topic-summary">
           <strong>${escapeHtml(formatTopicName(match.topic))}</strong>
-          <div class="subtle">${escapeHtml(getTopicSourceText(match))}</div>
-          <div class="subtle">${escapeHtml(getKeywordMatchText(match))}</div>
+          <div class="subtle summary-line">${escapeHtml(getTopicSourceText(match))}</div>
+          <span class="match-count">${escapeHtml(getKeywordMatchText(match))}</span>
         </div>
       `).join('');
     }
@@ -885,12 +927,11 @@
       }
 
       output.innerHTML = topicMatches.map(match => `
-        <div style="margin-bottom:12px;">
+        <div class="topic-summary">
           <strong>${escapeHtml(formatTopicName(match.topic))}</strong>
           <ul class="result-list">
-            ${match.norsCodes.length ? `<li>Selected NORS code: ${match.norsCodes.map(escapeHtml).join(', ')}</li>` : ''}
-            ${match.keywords.length ? `<li>Matched note keywords: ${match.keywords.map(keyword => `"${escapeHtml(keyword)}"`).join(', ')}</li>` : ''}
-            <li>Source: ${escapeHtml(getTopicSourceText(match))}</li>
+            ${getTopicSourceDetail(match).map(detail => `<li>${escapeHtml(detail)}</li>`).join('') || '<li>Matched through local topic rules.</li>'}
+            <li>${escapeHtml(getKeywordMatchText(match))}</li>
           </ul>
         </div>
       `).join('') + `
@@ -908,16 +949,16 @@
       }
 
       output.innerHTML = referenceGroups.map(group => `
-        <div style="margin-bottom:14px;">
+        <div class="reference-summary">
           <strong>${escapeHtml(formatTopicName(group.topic))}</strong>
-          <div class="subtle">${escapeHtml(getTopicSourceText(group))}</div>
+          <div class="subtle summary-line">${escapeHtml(getTopicSourceText(group))}</div>
           <ul class="result-list">
-            ${group.references.map(reference => `
+            ${getReferenceList(group).map(reference => `
               <li>
                 <strong>${escapeHtml(reference.citation)}</strong>
                 ${reference.title ? `<br><span>${escapeHtml(reference.title)}</span>` : ''}
-                <br><span class="subtle">Category: ${escapeHtml(reference.label || reference.category || 'Reference')}</span>
-                <br><span class="subtle">Why shown: ${escapeHtml(reference.reason || getMatchSummary(group) || 'Matched local topic rules')}</span>
+                <br><span class="subtle reference-meta">${escapeHtml(getReferenceCategory(reference))}</span>
+                <br><span class="subtle">Why shown: ${escapeHtml(getReferenceReason(reference, group))}</span>
               </li>
             `).join('')}
           </ul>
