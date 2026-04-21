@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drafting &amp; Reference Assistant</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    textarea { width:100%; min-height:120px; padding:10px 12px; border-radius:8px; border:1px solid var(--border); background:rgba(255,255,255,0.02); color:var(--text); font-family:inherit; }
+    pre { white-space:pre-wrap; margin:0; font-family:inherit; }
+    .draft-only { font-weight:700; color:#ffd166; }
+    .gap-list { margin:0; padding-left:20px; }
+    .gap-warning { color:#ffcf99; }
+    .gap-error { color:#ff9b9b; }
+    .field-help { margin-top:6px; font-size:12px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Drafting &amp; Reference Assistant</div>
+          <div class="subtle" style="font-size:12px;">Case Note Drafting Flow</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="../dashboards/impact-2024.html">Impact Dashboard</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="panel" style="margin-bottom:18px;">
+      <div class="pill">Draft Only</div>
+      <h1 style="margin-top:8px;">Draft Case Notes from Scenario</h1>
+      <p class="subtle">All generated content is marked as <span class="draft-only">Draft Only</span> and should be reviewed before use.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px;">
+      <label for="scenario-input">Enter de-identified case scenario</label>
+      <textarea id="scenario-input" placeholder="Example: Resident reports call light delays and cold meals. Ombudsman interviewed resident and spoke with nurse manager."></textarea>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="extract-btn" class="btn" type="button">Extract Fields</button>
+      </div>
+      <p id="extract-status" class="field-help">Step 1: Extract fields from scenario text.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px;">
+      <h2>Extracted Fields <span class="draft-only">(Draft Only)</span></h2>
+      <p class="subtle">Step 2: Review/edit extracted values before generating the draft.</p>
+      <div style="margin-top:12px; display:grid; gap:12px;">
+        <div>
+          <label for="field-problem">problem_description</label>
+          <textarea id="field-problem" placeholder="Extracted problem description appears here."></textarea>
+        </div>
+        <div>
+          <label for="field-resident">resident_perspective</label>
+          <textarea id="field-resident" placeholder="Extracted resident perspective appears here."></textarea>
+        </div>
+        <div>
+          <label for="field-actions">actions_taken</label>
+          <textarea id="field-actions" placeholder="Extracted actions taken appears here."></textarea>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="generate-btn" class="btn secondary" type="button">Generate Draft</button>
+      </div>
+      <p class="field-help">Step 3: Generate draft and checklist review from edited fields.</p>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px;">
+      <h2>Draft Case Notes <span class="draft-only">(Draft Only)</span></h2>
+      <pre id="draft-output">No draft generated yet.</pre>
+    </div>
+
+    <div class="panel">
+      <h2>Checklist Gap Review <span class="draft-only">(Draft Only)</span></h2>
+      <ul id="gap-output" class="gap-list">
+        <li>No validation run yet.</li>
+      </ul>
+    </div>
+  </main>
+
+  <script src="../Assets/shared.js"></script>
+  <script type="module">
+    import { extractFieldsFromScenario, renderCaseNoteFromTemplates } from '../src/lib/buildCaseNote.js';
+    import { validateCaseNote } from '../src/lib/validateCaseNote.js';
+
+    const scenarioInput = document.getElementById('scenario-input');
+    const extractStatus = document.getElementById('extract-status');
+    const extractBtn = document.getElementById('extract-btn');
+    const generateBtn = document.getElementById('generate-btn');
+
+    const problemField = document.getElementById('field-problem');
+    const residentField = document.getElementById('field-resident');
+    const actionsField = document.getElementById('field-actions');
+
+    const draftOutput = document.getElementById('draft-output');
+    const gapOutput = document.getElementById('gap-output');
+
+    let templatesJson = null;
+    let validationRulesJson = null;
+
+    async function loadDraftingData() {
+      if (templatesJson && validationRulesJson) {
+        return { templatesJson, validationRulesJson };
+      }
+
+      [templatesJson, validationRulesJson] = await Promise.all([
+        window.DanBeemData.loadJson('../data/case_note_templates.json'),
+        window.DanBeemData.loadJson('../data/case_note_validation_rules.json')
+      ]);
+
+      return { templatesJson, validationRulesJson };
+    }
+
+    function renderGaps(gaps) {
+      gapOutput.innerHTML = '';
+
+      if (!gaps.length) {
+        const li = document.createElement('li');
+        li.textContent = 'No required gaps found in this draft.';
+        gapOutput.appendChild(li);
+        return;
+      }
+
+      gaps.forEach((gap) => {
+        const li = document.createElement('li');
+        li.className = gap.severity === 'error' ? 'gap-error' : 'gap-warning';
+        li.textContent = `[${gap.severity.toUpperCase()}] ${gap.message} (${gap.field})`;
+        gapOutput.appendChild(li);
+      });
+    }
+
+    function getReviewedFields() {
+      return {
+        problem_description: problemField.value.trim(),
+        resident_perspective: residentField.value.trim(),
+        actions_taken: actionsField.value.trim()
+      };
+    }
+
+    extractBtn.addEventListener('click', () => {
+      const scenarioText = scenarioInput.value.trim();
+
+      if (!scenarioText) {
+        extractStatus.textContent = 'Please enter a de-identified scenario before extraction.';
+        extractStatus.className = 'field-help gap-error';
+        return;
+      }
+
+      const extracted = extractFieldsFromScenario(scenarioText);
+      problemField.value = extracted.problem_description || '';
+      residentField.value = extracted.resident_perspective || '';
+      actionsField.value = extracted.actions_taken || '';
+
+      extractStatus.textContent = 'Fields extracted. Review/edit values, then click Generate Draft.';
+      extractStatus.className = 'field-help';
+    });
+
+    generateBtn.addEventListener('click', async () => {
+      try {
+        await loadDraftingData();
+
+        const reviewed = getReviewedFields();
+        const hasAnyReviewedContent = Object.values(reviewed).some(Boolean);
+
+        if (!hasAnyReviewedContent) {
+          const fallbackExtracted = extractFieldsFromScenario(scenarioInput.value.trim());
+          problemField.value = fallbackExtracted.problem_description || '';
+          residentField.value = fallbackExtracted.resident_perspective || '';
+          actionsField.value = fallbackExtracted.actions_taken || '';
+        }
+
+        const finalFields = getReviewedFields();
+        const built = renderCaseNoteFromTemplates(templatesJson, finalFields);
+        const gaps = validateCaseNote(built.fields, validationRulesJson);
+
+        draftOutput.textContent = built.draftText;
+        renderGaps(gaps);
+      } catch (error) {
+        draftOutput.textContent = `Failed to generate draft: ${error.message}`;
+        gapOutput.innerHTML = '<li class="gap-error">[ERROR] Could not load local drafting configuration files.</li>';
+      }
+    });
+  </script>
+</body>
+</html>
