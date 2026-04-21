@@ -308,6 +308,15 @@
       }, 0);
     }
 
+    function choosePrimaryField(sentence, classifiers, fieldPriority) {
+      const scores = fieldPriority.map(field => ({
+        field,
+        score: scoreSentence(sentence, classifiers[field])
+      }));
+      const best = scores.sort((a, b) => b.score - a.score)[0];
+      return best && best.score >= 3 ? best.field : '';
+    }
+
     function appendUnique(target, sentence) {
       if (!sentence) return;
       if (!target.includes(sentence)) target.push(sentence);
@@ -318,6 +327,7 @@
       const extracted = {
         problem_description: [],
         resident_perspective: [],
+        resident_desired_outcome: [],
         complainant_actions_taken: [],
         actions_taken: [],
         follow_up: [],
@@ -325,31 +335,40 @@
       };
 
       const classifiers = {
+        resident_desired_outcome: [
+          { pattern: /\b(resident|she|he|they|caller|complainant)\b.*\b(would like|wants|prefers|does not want|doesn't want|would prefer|is requesting|requested|goal is|desired outcome)\b/i, weight: 7 },
+          { pattern: /\b(would like|wants|prefers|does not want|doesn't want|would prefer|is requesting|requested|goal is|desired outcome)\b/i, weight: 5 }
+        ],
         authorization_note: [
-          { pattern: /\b(authori[sz]es?|authorization|gave permission|permission to|consent(?:ed)?|wants the ombudsman to|asked the ombudsman to|okay to share|may disclose)\b/i, weight: 5 }
+          { pattern: /\b(authori[sz]ed|authori[sz]es|authorization|gave permission|permission to|consent(?:ed)?|okay to share|may disclose|may discuss)\b/i, weight: 8 },
+          { pattern: /\b(asked|wants|requested)\s+(the\s+)?ombudsman\s+to\b/i, weight: 7 }
         ],
         follow_up: [
-          { pattern: /\b(follow\s?up|followed up|will contact|will call|next step|next steps|plan to|scheduled|check back|revisit|monitor)\b/i, weight: 4 },
+          { pattern: /\b(ombudsman|program|staff|worker)\b.*\b(plans to follow up|will follow up|will contact|will call|next step|next steps|check back|revisit|monitor)\b/i, weight: 8 },
+          { pattern: /\b(plans to follow up|will follow up|will contact|will call|next step|next steps|check back|revisit|monitor)\b/i, weight: 6 },
           { pattern: /\b(tomorrow|next week|within \d+|in \d+ days|by friday|by monday)\b/i, weight: 2 }
         ],
         complainant_actions_taken: [
-          { pattern: /\b(has not raised|have not raised|not raised|already told|previously told|spoke with staff|spoke to staff|reported to admin|reported to administrator|told the nurse|called the facility|filed a grievance|asked staff)\b/i, weight: 5 },
+          { pattern: /\b(resident|complainant|family|daughter|son|caller|she|he|they)\b.*\b(has not yet raised|has not raised|have not raised|not yet raised|already told|previously told|spoke with|spoke to|reported to|told the nurse|called the facility|filed a grievance|asked staff)\b/i, weight: 8 },
+          { pattern: /\b(has not yet raised|has not raised|have not raised|not yet raised|already told|previously told|spoke with|spoke to|reported to|told the nurse|called the facility|filed a grievance|asked staff)\b/i, weight: 7 },
           { pattern: /\b(before calling|prior to|earlier|already|previously)\b/i, weight: 2 }
         ],
         resident_perspective: [
-          { pattern: /\b(resident reports|resident states|resident stated|resident said|resident says|resident feels|resident described|according to the resident|according to resident)\b/i, weight: 5 },
-          { pattern: /\b(typically|usually|prefers|wants|does not want|is worried|is afraid|feels)\b/i, weight: 2 }
+          { pattern: /\b(resident reports|resident states|resident stated|resident said|resident says|resident feels|resident described|according to the resident|according to resident)\b/i, weight: 6 },
+          { pattern: /\b(feels|felt|embarrassed|uncomfortable|worried|afraid|upset|frustrated|concerned|typically|usually)\b/i, weight: 5 }
         ],
         actions_taken: [
           { pattern: /\b(ombudsman interviewed|ombudsman observed|ombudsman reviewed|ombudsman contacted|ombudsman called|ombudsman visited|interviewed resident|observed|reviewed records|contacted staff|documented)\b/i, weight: 5 }
         ],
         problem_description: [
-          { pattern: /\b(problem|concern|complaint|issue|reported|reports|alleges|didn't|did not|was not provided|were not provided|not provided|missed|delayed|late|unanswered|ignored|refused)\b/i, weight: 3 },
-          { pattern: /\b(abuse|neglect|discharge|transfer|rights|call light|medication|food|meal|staffing|pain|toileting|hygiene|fall|injury)\b/i, weight: 2 }
+          { pattern: /\b(did not assist|didn't assist|not answered|was not answered|were not answered|not provided|was not provided|were not provided|missed|delayed|late|ignored|refused|unanswered)\b/i, weight: 7 },
+          { pattern: /\b(call light|medication|food|meal|staffing|pain|toileting|hygiene|fall|injury|discharge notice|transfer notice)\b/i, weight: 3 },
+          { pattern: /\b(problem|concern|complaint|issue|alleges)\b/i, weight: 2 }
         ]
       };
 
       const fieldPriority = [
+        'resident_desired_outcome',
         'authorization_note',
         'follow_up',
         'complainant_actions_taken',
@@ -359,20 +378,16 @@
       ];
 
       sentences.forEach(sentence => {
-        const scores = fieldPriority.map(field => ({
-          field,
-          score: scoreSentence(sentence, classifiers[field])
-        }));
-        const best = scores.sort((a, b) => b.score - a.score)[0];
-
-        if (best && best.score >= 2) {
-          appendUnique(extracted[best.field], sentence);
+        const field = choosePrimaryField(sentence, classifiers, fieldPriority);
+        if (field) {
+          appendUnique(extracted[field], sentence);
         }
       });
 
       return {
         problem_description: extracted.problem_description.join('\n'),
         resident_perspective: extracted.resident_perspective.join('\n'),
+        resident_desired_outcome: extracted.resident_desired_outcome.join('\n'),
         complainant_actions_taken: extracted.complainant_actions_taken.join('\n'),
         actions_taken: extracted.actions_taken.join('\n'),
         follow_up: extracted.follow_up.join('\n'),
@@ -403,6 +418,7 @@
       const changed = [
         setFieldIfEmpty('problem_description', extracted.problem_description),
         setFieldIfEmpty('resident_perspective', extracted.resident_perspective),
+        setFieldIfEmpty('resident_desired_outcome', extracted.resident_desired_outcome),
         setFieldIfEmpty('complainant_actions_taken', extracted.complainant_actions_taken),
         setFieldIfEmpty('actions_taken', extracted.actions_taken),
         setFieldIfEmpty('follow_up', extracted.follow_up),
