@@ -1,0 +1,78 @@
+{
+  "sections": [
+    "intake",
+    "resident_perspective",
+    "ombudsman_actions",
+    "outcome"
+  ],
+  "templates": {
+    "intake": {
+      "header": "Intake:",
+      "sentences": [
+        {
+          "key": "who_reported",
+          "template": "The complaint was reported by {complainant_type}."
+        },
+        {
+          "key": "identity_permission",
+          "template": "Permission to reveal complainant identity was {identity_permission}."
+        },
+        {
+          "key": "problem_description",
+          "template": "Problem described: {problem_description}."
+        },
+        {
+          "key": "prior_steps_taken",
+          "template": "Before Ombudsman involvement, the complainant reported the following steps: {complainant_actions_taken}."
+        }
+      ]
+    },
+    "resident_perspective": {
+      "header": "Resident Perspective:",
+      "sentences": [
+        {
+          "key": "resident_perspective",
+          "template": "The resident described the issue as follows: {resident_perspective}."
+        },
+        {
+          "key": "desired_outcome",
+          "template": "The resident's desired outcome is: {resident_desired_outcome}."
+        }
+      ]
+    },
+    "ombudsman_actions": {
+      "header": "Investigation and Actions:",
+      "sentences": [
+        {
+          "key": "initial_plan",
+          "template": "Initial plan of action: {initial_plan_of_action}."
+        },
+        {
+          "key": "actions_taken",
+          "template": "The Ombudsman took the following actions: {actions_taken}."
+        },
+        {
+          "key": "facility_response",
+          "template": "Facility response: {facility_response}."
+        },
+        {
+          "key": "follow_up",
+          "template": "Follow-up: {follow_up}."
+        }
+      ]
+    },
+    "outcome": {
+      "header": "Outcome:",
+      "sentences": [
+        {
+          "key": "case_status",
+          "template": "The complaint is currently {case_status}."
+        },
+        {
+          "key": "resident_satisfaction",
+          "template": "Resident satisfaction with the outcome is {resident_satisfaction}."
+        }
+      ]
+    }
+  }
+}

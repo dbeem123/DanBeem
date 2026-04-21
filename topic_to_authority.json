@@ -1,0 +1,32 @@
+{
+  "topics": {
+    "abuse_neglect": [
+      {
+        "authority_id": "42cfr_483_12",
+        "reason": "Covers abuse, neglect, and exploitation protections"
+      },
+      {
+        "authority_id": "f684",
+        "reason": "Quality of care may indicate neglect conditions"
+      }
+    ],
+    "transfer_discharge": [
+      {
+        "authority_id": "42cfr_483_15",
+        "reason": "Regulates transfer and discharge requirements"
+      }
+    ],
+    "resident_rights": [
+      {
+        "authority_id": "42cfr_483_10",
+        "reason": "Defines resident rights protections"
+      }
+    ],
+    "care_quality": [
+      {
+        "authority_id": "f684",
+        "reason": "Covers quality of care expectations"
+      }
+    ]
+  }
+}

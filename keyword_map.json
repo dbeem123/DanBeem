@@ -1,0 +1,40 @@
+{
+  "keywords": {
+    "abuse": ["abuse_neglect"],
+    "neglect": ["abuse_neglect"],
+    "exploitation": ["abuse_neglect"],
+    "rough handling": ["abuse_neglect"],
+    "hit": ["abuse_neglect"],
+    "yelled at": ["abuse_neglect"],
+    "threatened": ["abuse_neglect"],
+
+    "discharge": ["transfer_discharge"],
+    "transfer": ["transfer_discharge"],
+    "eviction": ["transfer_discharge"],
+    "kicked out": ["transfer_discharge"],
+    "sent out": ["transfer_discharge"],
+    "discharge notice": ["transfer_discharge"],
+
+    "rights": ["resident_rights"],
+    "privacy": ["resident_rights"],
+    "confidentiality": ["resident_rights"],
+    "choice": ["resident_rights"],
+    "visitation": ["resident_rights"],
+    "roommate": ["resident_rights"],
+    "dignity": ["resident_rights"],
+
+    "call light": ["care_quality"],
+    "response time": ["care_quality"],
+    "ignored": ["care_quality"],
+    "care": ["care_quality"],
+    "treatment": ["care_quality"],
+    "cold food": ["care_quality"],
+    "cold meals": ["care_quality"],
+    "food": ["care_quality"],
+    "hydration": ["care_quality"],
+    "toileting": ["care_quality"],
+    "medication": ["care_quality"],
+    "pain": ["care_quality"],
+    "staffing": ["care_quality"]
+  }
+}

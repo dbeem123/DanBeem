@@ -1,0 +1,30 @@
+{
+  "matching": {
+    "use_nors_code_first": true,
+    "use_keyword_fallback": true,
+    "allow_multiple_topics": true,
+    "deduplicate_authorities": true
+  },
+  "ranking": {
+    "federal_regulation": 100,
+    "appendix_pp": 90,
+    "state_regulation": 80,
+    "state_statute": 75,
+    "ombudsman_regulation": 70,
+    "training": 50
+  },
+  "output": {
+    "max_results": 8,
+    "include_reason": true,
+    "include_source_type": true,
+    "include_citation": true,
+    "include_title": true,
+    "include_layer": true
+  },
+  "guardrails": {
+    "no_legal_conclusions": true,
+    "no_violation_determinations": true,
+    "no_recommend_actions": true,
+    "references_only": true
+  }
+}

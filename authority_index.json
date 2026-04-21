@@ -1,0 +1,46 @@
+{
+  "authorities": {
+    "42cfr_483_10": {
+      "type": "federal_regulation",
+      "citation": "42 CFR §483.10",
+      "title": "Resident Rights",
+      "layer": "federal",
+      "priority": 1
+    },
+    "42cfr_483_12": {
+      "type": "federal_regulation",
+      "citation": "42 CFR §483.12",
+      "title": "Freedom from Abuse, Neglect, Exploitation",
+      "layer": "federal",
+      "priority": 1
+    },
+    "42cfr_483_15": {
+      "type": "federal_regulation",
+      "citation": "42 CFR §483.15",
+      "title": "Transfer and Discharge",
+      "layer": "federal",
+      "priority": 1
+    },
+    "f684": {
+      "type": "appendix_pp",
+      "citation": "F684",
+      "title": "Quality of Care",
+      "layer": "appendix_pp",
+      "priority": 2
+    },
+    "ct_19_13_d8t": {
+      "type": "state_regulation",
+      "citation": "CT 19-13-D8t",
+      "title": "Nursing Home Regulations",
+      "layer": "state",
+      "priority": 3
+    },
+    "ombudsman_module_7": {
+      "type": "training",
+      "citation": "Module 7",
+      "title": "Complaint Intake and Investigation",
+      "layer": "training",
+      "priority": 4
+    }
+  }
+}

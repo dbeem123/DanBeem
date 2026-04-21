@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "assembled_text": "Intake:\nThe complaint was reported by Resident.\nPermission to reveal complainant identity was granted.\nProblem described: Resident reports delayed response to call light and cold meals.\nBefore Ombudsman involvement, the complainant reported the following steps: Resident spoke to evening staff twice this week.\n\nResident Perspective:\nThe resident described the issue as follows: Staff do not respond promptly and meals arrive cold.\nThe resident's desired outcome is: Faster response and hot meals.\n\nInvestigation and Actions:\nInitial plan of action: Interview resident, observe meal delivery, and discuss issue with staff.\nThe Ombudsman took the following actions: Interviewed resident, observed meal delivery, and interviewed staff.\nFacility response: Staff cited short staffing and delays in tray delivery.\nFollow-up: Ombudsman will follow up with resident in three days.\n\nOutcome:\nThe complaint is currently partially resolved.\nResident satisfaction with the outcome is partial.",
+  "validation_flags": [],
+  "source_trace": [
+    {
+      "sentence_key": "problem_description",
+      "source_field": "Q3"
+    },
+    {
+      "sentence_key": "resident_perspective",
+      "source_field": "Q6"
+    },
+    {
+      "sentence_key": "actions_taken",
+      "source_field": "Q12"
+    }
+  ]
+}

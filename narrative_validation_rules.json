@@ -1,0 +1,65 @@
+{
+  "rules": [
+    {
+      "id": "NV1",
+      "field": "problem_description",
+      "severity": "error",
+      "message": "Missing problem description."
+    },
+    {
+      "id": "NV2",
+      "field": "complainant_actions_taken",
+      "severity": "warning",
+      "message": "Missing prior steps taken by complainant."
+    },
+    {
+      "id": "NV3",
+      "field": "identity_permission",
+      "severity": "error",
+      "message": "Missing confidentiality or identity permission documentation."
+    },
+    {
+      "id": "NV4",
+      "field": "resident_perspective",
+      "severity": "error",
+      "message": "Missing resident perspective."
+    },
+    {
+      "id": "NV5",
+      "field": "resident_desired_outcome",
+      "severity": "error",
+      "message": "Missing resident desired outcome."
+    },
+    {
+      "id": "NV6",
+      "field": "initial_plan_of_action",
+      "severity": "error",
+      "message": "Missing initial plan of action."
+    },
+    {
+      "id": "NV7",
+      "field": "actions_taken",
+      "severity": "error",
+      "message": "Missing Ombudsman actions."
+    },
+    {
+      "id": "NV8",
+      "field": "facility_response",
+      "severity": "warning",
+      "message": "Missing facility response."
+    },
+    {
+      "id": "NV9",
+      "field": "follow_up",
+      "severity": "warning",
+      "message": "Missing follow-up documentation."
+    },
+    {
+      "id": "NV10",
+      "field": "resident_satisfaction",
+      "condition": "case_closed == true",
+      "severity": "error",
+      "message": "Missing resident satisfaction for closed case."
+    }
+  ]
+}
