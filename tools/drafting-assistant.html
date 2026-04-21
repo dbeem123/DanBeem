@@ -608,17 +608,17 @@
 
       if (assistantData) {
         const formData = getFormData();
-        const topicMatches = extractTopics(formData);
+        const crosswalkResult = runDraftCrosswalk(formData);
         renderOrganizedSections(formData);
         renderChecklistReview(formData);
-        renderTopics(topicMatches);
-        renderTopicReasons(topicMatches);
-        renderReferences(retrieveReferences(topicMatches), topicMatches);
+        renderTopics(crosswalkResult.topicMatches);
+        renderTopicReasons(crosswalkResult.topicMatches);
+        renderReferences(retrieveReferences(crosswalkResult), crosswalkResult.topicMatches);
       }
     }
 
-    function extractTopics(formData) {
-      const keywordText = [
+    function buildCrosswalkKeywordText(formData) {
+      return [
         formData.problem_description,
         formData.complainant_actions_taken,
         formData.resident_perspective,
@@ -631,10 +631,12 @@
         formData.resident_right,
         formData.status_or_outcome
       ].join(' ');
+    }
 
-      return Crosswalk.getTopicsFromInputs({
+    function runDraftCrosswalk(formData) {
+      return Crosswalk.runCrosswalk({
         norsCode: formData.nors_code,
-        keywordText
+        keywordText: buildCrosswalkKeywordText(formData)
       }, assistantData);
     }
 
@@ -686,8 +688,8 @@
       return parts.join('; ');
     }
 
-    function retrieveReferences(topicMatches) {
-      return Crosswalk.getAuthoritiesForTopics(topicMatches, assistantData);
+    function retrieveReferences(crosswalkResult) {
+      return crosswalkResult.authorityGroups || [];
     }
 
     function renderValidation(flags) {
@@ -779,8 +781,14 @@
 
       output.innerHTML = topicMatches.map(match => `
         <div style="margin-bottom:12px;">
-          <strong>${match.topic.replace(/_/g, ' ')}</strong>
-          <div class="subtle">${match.norsCodes.length ? 'NORS topic match' : 'Keyword topic match'}</div>
+          <strong>${match.topic.replace(/_/g, ' ')}${match.keywordMatchCount ? ` (${match.keywordMatchCount} matches)` : ''}</strong>
+          <div class="subtle">
+            ${match.norsCodes.length && match.keywords.length
+              ? 'From NORS code and keywords'
+              : match.norsCodes.length
+                ? 'From NORS code'
+                : 'From keywords'}
+          </div>
         </div>
       `).join('');
     }
@@ -801,7 +809,8 @@
             ${match.keywords.map(keyword => `<li>keyword "${keyword}"</li>`).join('')}
           </ul>
         </div>
-      `).join('');
+      `).join('') + `
+      <div class="notice">Informational only: topic matches are surfaced from selected NORS code and/or extracted keywords for drafting support.</div>`;
     }
 
     function renderReferences(referenceGroups, topicMatches) {
@@ -842,8 +851,9 @@
       const formData = getFormData();
       const narrative = buildNarrative(formData);
       const flags = validateNarrative(formData);
-      const topicMatches = extractTopics(formData);
-      const references = retrieveReferences(topicMatches);
+      const crosswalkResult = runDraftCrosswalk(formData);
+      const topicMatches = crosswalkResult.topicMatches;
+      const references = retrieveReferences(crosswalkResult);
 
       document.getElementById('draft-output').textContent = `Draft Only\n\n${narrative}\n\nInformational guardrail: This draft does not make legal conclusions, determine violations, or recommend enforcement action.`;
       renderValidation(flags);
