@@ -88,6 +88,25 @@
       </div>
 
       <div class="form-section">
+        <h3>Likely Topics &amp; References (Informational Only)</h3>
+        <p class="notice">Informational Only - does not determine violations</p>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+          <div>
+            <label>Likely Topics</label>
+            <div id="inline-topics-output" class="output-box">Run Extract Fields to see likely topics.</div>
+          </div>
+          <div>
+            <label>References</label>
+            <div id="inline-references-output" class="output-box">Reference mappings will appear here.</div>
+          </div>
+          <div>
+            <label>Trace</label>
+            <div id="inline-trace-output" class="output-box">Crosswalk trace will appear here.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
         <h3>Problem Description</h3>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
           <div>
@@ -609,6 +628,7 @@
       if (assistantData) {
         const formData = getFormData();
         const crosswalkResult = runDraftCrosswalk(formData);
+        renderInlineCrosswalk(crosswalkResult);
         renderOrganizedSections(formData);
         renderChecklistReview(formData);
         renderTopics(crosswalkResult.topicMatches);
@@ -619,7 +639,9 @@
 
     function buildCrosswalkKeywordText(formData) {
       return [
+        document.getElementById('scenario-notes').value.trim(),
         formData.problem_description,
+        formData.initial_plan_of_action,
         formData.complainant_actions_taken,
         formData.resident_perspective,
         formData.resident_desired_outcome,
@@ -638,6 +660,58 @@
         norsCode: formData.nors_code,
         keywordText: buildCrosswalkKeywordText(formData)
       }, assistantData);
+    }
+
+    function renderInlineCrosswalk(crosswalkResult) {
+      const topicsOutput = document.getElementById('inline-topics-output');
+      const referencesOutput = document.getElementById('inline-references-output');
+      const traceOutput = document.getElementById('inline-trace-output');
+      const topicMatches = crosswalkResult.topicMatches || [];
+      const authorityGroups = crosswalkResult.authorityGroups || [];
+      const trace = crosswalkResult.trace || [];
+
+      if (!topicMatches.length) {
+        topicsOutput.textContent = 'No likely topics identified yet. Add note details or a NORS code and run Extract Fields.';
+      } else {
+        topicsOutput.innerHTML = topicMatches.map(match => `
+          <div style="margin-bottom:12px;">
+            <strong>${escapeHtml(match.topic.replace(/_/g, ' '))}${match.keywordMatchCount ? ` (${match.keywordMatchCount} matches)` : ''}</strong>
+            <div class="subtle">
+              ${match.norsCodes.length && match.keywords.length
+                ? 'From NORS code and keywords'
+                : match.norsCodes.length
+                  ? 'From NORS code'
+                  : 'From keywords'}
+            </div>
+          </div>
+        `).join('');
+      }
+
+      if (!authorityGroups.length) {
+        referencesOutput.textContent = topicMatches.length
+          ? 'No authority mappings found for matched topics.'
+          : 'No references to display yet.';
+      } else {
+        referencesOutput.innerHTML = authorityGroups.map(group => `
+          <div style="margin-bottom:12px;">
+            <strong>${escapeHtml(group.topic.replace(/_/g, ' '))}</strong>
+            <ul class="result-list">
+              ${group.authorities.map(authority => `
+                <li>
+                  <strong>${escapeHtml(authority.citation)}</strong>
+                  <br><span>${escapeHtml(authority.title)}</span>
+                  <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
+                  <br><span class="subtle">Reason: ${escapeHtml(authority.reason)}</span>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        `).join('');
+      }
+
+      traceOutput.innerHTML = trace.length
+        ? `<ul class="result-list">${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
+        : 'No trace generated yet.';
     }
 
     function fillTemplate(template, formData) {
@@ -856,6 +930,7 @@
       const references = retrieveReferences(crosswalkResult);
 
       document.getElementById('draft-output').textContent = `Draft Only\n\n${narrative}\n\nInformational guardrail: This draft does not make legal conclusions, determine violations, or recommend enforcement action.`;
+      renderInlineCrosswalk(crosswalkResult);
       renderValidation(flags);
       renderOrganizedSections(formData);
       renderChecklistReview(formData);
