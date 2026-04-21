@@ -675,14 +675,9 @@
       } else {
         topicsOutput.innerHTML = topicMatches.map(match => `
           <div style="margin-bottom:12px;">
-            <strong>${escapeHtml(match.topic.replace(/_/g, ' '))}${match.keywordMatchCount ? ` (${match.keywordMatchCount} matches)` : ''}</strong>
-            <div class="subtle">
-              ${match.norsCodes.length && match.keywords.length
-                ? 'From NORS code and keywords'
-                : match.norsCodes.length
-                  ? 'From NORS code'
-                  : 'From keywords'}
-            </div>
+            <strong>${escapeHtml(formatTopicName(match.topic))}</strong>
+            <div class="subtle">${escapeHtml(getTopicSourceText(match))}</div>
+            <div class="subtle">${escapeHtml(getKeywordMatchText(match))}</div>
           </div>
         `).join('');
       }
@@ -694,14 +689,14 @@
       } else {
         referencesOutput.innerHTML = authorityGroups.map(group => `
           <div style="margin-bottom:12px;">
-            <strong>${escapeHtml(group.topic.replace(/_/g, ' '))}</strong>
+            <strong>${escapeHtml(formatTopicName(group.topic))}</strong>
             <ul class="result-list">
               ${group.authorities.map(authority => `
                 <li>
                   <strong>${escapeHtml(authority.citation)}</strong>
                   <br><span>${escapeHtml(authority.title)}</span>
                   <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
-                  <br><span class="subtle">Reason: ${escapeHtml(authority.reason)}</span>
+                  <br><span class="subtle">Why shown: ${escapeHtml(authority.reason)}</span>
                 </li>
               `).join('')}
             </ul>
@@ -760,6 +755,25 @@
       if (match.norsCodes.length) parts.push(`NORS: ${match.norsCodes.join(', ')}`);
       if (match.keywords.length) parts.push(`keywords: ${match.keywords.map(keyword => `"${keyword}"`).join(', ')}`);
       return parts.join('; ');
+    }
+
+    function formatTopicName(topic) {
+      return (topic || '').replace(/_/g, ' ');
+    }
+
+    function getTopicSourceText(match) {
+      const hasNors = match.norsCodes?.length;
+      const hasKeywords = match.keywords?.length;
+      if (hasNors && hasKeywords) return 'Matched from selected NORS code and note keywords';
+      if (hasNors) return 'Matched from selected NORS code';
+      if (hasKeywords) return 'Matched from note keywords';
+      return 'Matched from local topic rules';
+    }
+
+    function getKeywordMatchText(match) {
+      const count = match.keywordMatchCount || match.keywords?.length || 0;
+      if (!count) return 'No keyword matches';
+      return `${count} keyword match${count === 1 ? '' : 'es'}`;
     }
 
     function retrieveReferences(crosswalkResult) {
@@ -855,14 +869,9 @@
 
       output.innerHTML = topicMatches.map(match => `
         <div style="margin-bottom:12px;">
-          <strong>${match.topic.replace(/_/g, ' ')}${match.keywordMatchCount ? ` (${match.keywordMatchCount} matches)` : ''}</strong>
-          <div class="subtle">
-            ${match.norsCodes.length && match.keywords.length
-              ? 'From NORS code and keywords'
-              : match.norsCodes.length
-                ? 'From NORS code'
-                : 'From keywords'}
-          </div>
+          <strong>${escapeHtml(formatTopicName(match.topic))}</strong>
+          <div class="subtle">${escapeHtml(getTopicSourceText(match))}</div>
+          <div class="subtle">${escapeHtml(getKeywordMatchText(match))}</div>
         </div>
       `).join('');
     }
@@ -877,10 +886,11 @@
 
       output.innerHTML = topicMatches.map(match => `
         <div style="margin-bottom:12px;">
-          <strong>${match.topic.replace(/_/g, ' ')}</strong>
+          <strong>${escapeHtml(formatTopicName(match.topic))}</strong>
           <ul class="result-list">
-            ${match.norsCodes.map(code => `<li>NORS code ${code}</li>`).join('')}
-            ${match.keywords.map(keyword => `<li>keyword "${keyword}"</li>`).join('')}
+            ${match.norsCodes.length ? `<li>Selected NORS code: ${match.norsCodes.map(escapeHtml).join(', ')}</li>` : ''}
+            ${match.keywords.length ? `<li>Matched note keywords: ${match.keywords.map(keyword => `"${escapeHtml(keyword)}"`).join(', ')}</li>` : ''}
+            <li>Source: ${escapeHtml(getTopicSourceText(match))}</li>
           </ul>
         </div>
       `).join('') + `
@@ -899,15 +909,15 @@
 
       output.innerHTML = referenceGroups.map(group => `
         <div style="margin-bottom:14px;">
-          <strong>${group.topic.replace(/_/g, ' ')}</strong>
-          <div class="subtle">Why shown: ${getMatchSummary(group)}</div>
+          <strong>${escapeHtml(formatTopicName(group.topic))}</strong>
+          <div class="subtle">${escapeHtml(getTopicSourceText(group))}</div>
           <ul class="result-list">
             ${group.references.map(reference => `
               <li>
-                <strong>${reference.citation}</strong>
-                ${reference.title ? ` - ${reference.title}` : ''}
-                <br><span class="subtle">Source category: ${reference.label}</span>
-                <br><span class="subtle">Selected because ${group.topic.replace(/_/g, ' ')} matched ${reference.matchSummary || 'local topic rules'}${reference.reason ? `; ${reference.reason}` : ''}</span>
+                <strong>${escapeHtml(reference.citation)}</strong>
+                ${reference.title ? `<br><span>${escapeHtml(reference.title)}</span>` : ''}
+                <br><span class="subtle">Category: ${escapeHtml(reference.label || reference.category || 'Reference')}</span>
+                <br><span class="subtle">Why shown: ${escapeHtml(reference.reason || getMatchSummary(group) || 'Matched local topic rules')}</span>
               </li>
             `).join('')}
           </ul>
