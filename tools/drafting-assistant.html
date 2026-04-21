@@ -209,8 +209,20 @@
       </div>
       <div class="panel">
         <div class="pill">Informational Only</div>
+        <h2>Likely Topics</h2>
+        <p class="subtle">Matched from selected NORS code and local keyword rules.</p>
+        <div id="topics-output" class="output-box">Likely topic matches will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Informational References Only</div>
+        <h2>Why They Matched</h2>
+        <p class="subtle">Transparent keyword and NORS-code matching details.</p>
+        <div id="topic-reasons-output" class="output-box">Match reasons will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Informational References Only</div>
         <h2>Relevant References</h2>
-        <p class="subtle">Citations only. No legal conclusions or violation determinations.</p>
+        <p class="subtle">Grouped by likely topic. Citations are informational only. No legal conclusions or violation determinations.</p>
         <div id="references-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
     </section>
@@ -405,30 +417,53 @@
     }
 
     function extractTopics(formData) {
-      const topics = new Set();
+      const topicMatches = {};
       const rules = assistantData.retrievalRules.matching || {};
 
+      function addTopic(topic, sourceType, value) {
+        if (!topicMatches[topic]) {
+          topicMatches[topic] = { topic, norsCodes: [], keywords: [] };
+        }
+        if (sourceType === 'nors' && !topicMatches[topic].norsCodes.includes(value)) {
+          topicMatches[topic].norsCodes.push(value);
+        }
+        if (sourceType === 'keyword' && !topicMatches[topic].keywords.includes(value)) {
+          topicMatches[topic].keywords.push(value);
+        }
+      }
+
       if (rules.use_nors_code_first && formData.nors_code) {
-        (assistantData.norsToTopic[formData.nors_code] || []).forEach(topic => topics.add(topic));
+        (assistantData.norsToTopic[formData.nors_code] || []).forEach(topic => {
+          addTopic(topic, 'nors', formData.nors_code);
+        });
       }
 
       if (rules.use_keyword_fallback) {
         const searchableText = [
           formData.problem_description,
+          formData.complainant_actions_taken,
           formData.resident_perspective,
           formData.resident_desired_outcome,
           formData.actions_taken,
-          formData.facility_response
+          formData.facility_response,
+          formData.follow_up,
+          formData.authorization_note
         ].join(' ').toLowerCase();
 
         Object.entries(assistantData.keywordMap.keywords || {}).forEach(([keyword, mappedTopics]) => {
           if (searchableText.includes(keyword.toLowerCase())) {
-            mappedTopics.forEach(topic => topics.add(topic));
+            mappedTopics.forEach(topic => {
+              addTopic(topic, 'keyword', keyword);
+            });
           }
         });
       }
 
-      return Array.from(topics);
+      return Object.values(topicMatches).sort((a, b) => {
+        const aPriority = a.norsCodes.length ? 0 : 1;
+        const bPriority = b.norsCodes.length ? 0 : 1;
+        return aPriority - bPriority || a.topic.localeCompare(b.topic);
+      });
     }
 
     function fillTemplate(template, formData) {
@@ -468,35 +503,78 @@
       });
     }
 
-    function retrieveReferences(topics) {
+    function getAuthorityLabel(authority) {
+      const type = authority.type || '';
+      const layer = authority.layer || '';
+      const title = (authority.title || '').toLowerCase();
+
+      if (type === 'federal_regulation' && title.includes('resident rights')) {
+        return 'Federal Resident Rights';
+      }
+      if (type === 'federal_regulation' || layer === 'federal') {
+        return 'Federal Regulation';
+      }
+      if (type === 'appendix_pp' || layer === 'appendix_pp') {
+        return 'Appendix PP';
+      }
+      if (type === 'training' || layer === 'training') {
+        return 'Training / Guidance';
+      }
+      return type || layer ? `${layer || type}`.replace(/_/g, ' ') : 'Reference';
+    }
+
+    function getMatchSummary(match) {
+      const parts = [];
+      if (match.norsCodes.length) parts.push(`NORS: ${match.norsCodes.join(', ')}`);
+      if (match.keywords.length) parts.push(`keywords: ${match.keywords.map(keyword => `"${keyword}"`).join(', ')}`);
+      return parts.join('; ');
+    }
+
+    function retrieveReferences(topicMatches) {
       const topicMap = assistantData.topicToAuthority.topics || {};
       const authorityIndex = assistantData.authorityIndex.authorities || {};
       const ranking = assistantData.retrievalRules.ranking || {};
       const output = assistantData.retrievalRules.output || {};
       const maxResults = output.max_results || 8;
       const dedupe = assistantData.retrievalRules.matching?.deduplicate_authorities !== false;
-      const references = [];
+      const grouped = [];
       const seen = new Set();
+      let resultCount = 0;
 
-      topics.forEach(topic => {
-        (topicMap[topic] || []).forEach(item => {
+      topicMatches.forEach(match => {
+        const topicReferences = [];
+
+        (topicMap[match.topic] || []).forEach(item => {
           const authority = authorityIndex[item.authority_id];
           if (!authority) return;
+          if (resultCount >= maxResults) return;
           if (dedupe && seen.has(item.authority_id)) return;
 
           seen.add(item.authority_id);
-          references.push({
+          resultCount += 1;
+          topicReferences.push({
             id: item.authority_id,
             citation: authority.citation,
+            title: authority.title || '',
+            label: getAuthorityLabel(authority),
+            reason: item.reason || '',
+            matchSummary: getMatchSummary(match),
             rank: ranking[authority.type] || 0
           });
         });
+
+        topicReferences.sort((a, b) => b.rank - a.rank || a.citation.localeCompare(b.citation));
+        if (topicReferences.length) {
+          grouped.push({
+            topic: match.topic,
+            norsCodes: match.norsCodes,
+            keywords: match.keywords,
+            references: topicReferences
+          });
+        }
       });
 
-      return references
-        .sort((a, b) => b.rank - a.rank || a.citation.localeCompare(b.citation))
-        .slice(0, maxResults)
-        .map(reference => reference.citation);
+      return grouped;
     }
 
     function renderValidation(flags) {
@@ -515,17 +593,68 @@
       output.innerHTML = `<ul class="result-list">${items}</ul>`;
     }
 
-    function renderReferences(references, topics) {
+    function renderTopics(topicMatches) {
+      const output = document.getElementById('topics-output');
+
+      if (!topicMatches.length) {
+        output.textContent = 'No likely topics identified yet. Add a NORS code or matching scenario keywords.';
+        return;
+      }
+
+      output.innerHTML = topicMatches.map(match => `
+        <div style="margin-bottom:12px;">
+          <strong>${match.topic.replace(/_/g, ' ')}</strong>
+          <div class="subtle">${match.norsCodes.length ? 'NORS topic match' : 'Keyword topic match'}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderTopicReasons(topicMatches) {
+      const output = document.getElementById('topic-reasons-output');
+
+      if (!topicMatches.length) {
+        output.textContent = 'No match reasons available yet.';
+        return;
+      }
+
+      output.innerHTML = topicMatches.map(match => `
+        <div style="margin-bottom:12px;">
+          <strong>${match.topic.replace(/_/g, ' ')}</strong>
+          <ul class="result-list">
+            ${match.norsCodes.map(code => `<li>NORS code ${code}</li>`).join('')}
+            ${match.keywords.map(keyword => `<li>keyword "${keyword}"</li>`).join('')}
+          </ul>
+        </div>
+      `).join('');
+    }
+
+    function renderReferences(referenceGroups, topicMatches) {
       const output = document.getElementById('references-output');
 
-      if (!references.length) {
-        output.textContent = topics.length
+      if (!referenceGroups.length) {
+        output.textContent = topicMatches.length
           ? 'No citation matches were found for the identified topics.'
           : 'No topics identified. Add a NORS code or keywords such as abuse, discharge, rights, call light, medication, food, or staffing.';
         return;
       }
 
-      output.innerHTML = `<ul class="result-list">${references.map(citation => `<li>${citation}</li>`).join('')}</ul>`;
+      output.innerHTML = referenceGroups.map(group => `
+        <div style="margin-bottom:14px;">
+          <strong>${group.topic.replace(/_/g, ' ')}</strong>
+          <div class="subtle">Why shown: ${getMatchSummary(group)}</div>
+          <ul class="result-list">
+            ${group.references.map(reference => `
+              <li>
+                <strong>${reference.citation}</strong>
+                ${reference.title ? ` - ${reference.title}` : ''}
+                <br><span class="subtle">Source category: ${reference.label}</span>
+                <br><span class="subtle">Selected because ${group.topic.replace(/_/g, ' ')} matched ${reference.matchSummary || 'local topic rules'}${reference.reason ? `; ${reference.reason}` : ''}</span>
+              </li>
+            `).join('')}
+          </ul>
+        </div>
+      `).join('')}
+      <div class="notice">Informational guardrail: references are shown for drafting support only. This tool does not make legal conclusions, determine violations, or recommend enforcement or advocacy actions.</div>`;
     }
 
     function generateDraft() {
@@ -537,12 +666,14 @@
       const formData = getFormData();
       const narrative = buildNarrative(formData);
       const flags = validateNarrative(formData);
-      const topics = extractTopics(formData);
-      const references = retrieveReferences(topics);
+      const topicMatches = extractTopics(formData);
+      const references = retrieveReferences(topicMatches);
 
       document.getElementById('draft-output').textContent = `Draft Only\n\n${narrative}\n\nInformational guardrail: This draft does not make legal conclusions, determine violations, or recommend enforcement action.`;
       renderValidation(flags);
-      renderReferences(references, topics);
+      renderTopics(topicMatches);
+      renderTopicReasons(topicMatches);
+      renderReferences(references, topicMatches);
     }
 
     document.addEventListener('DOMContentLoaded', loadData);
