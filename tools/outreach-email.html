@@ -62,14 +62,47 @@
     </div>
   </main>
 
+  <script src="../Assets/shared.js"></script>
   <script>
-    function generateEmail() {
+    let defaultTemplateBody = null;
+
+    async function ensureTemplateLoaded() {
+      if (defaultTemplateBody) return defaultTemplateBody;
+
+      const data = await window.DanBeemData.loadJson('../data/email_templates.json');
+      const template = Array.isArray(data.templates) ? data.templates[0] : null;
+      defaultTemplateBody = template && template.body ? template.body : null;
+      return defaultTemplateBody;
+    }
+
+    function fillTemplate(template, values) {
+      return template.replace(/\{(\w+)\}/g, (_, key) => values[key] ?? `{${key}}`);
+    }
+
+    async function generateEmail() {
       const name = document.getElementById('contact-name').value || 'there';
       const facility = document.getElementById('facility-name').value || 'your facility';
       const topic = document.getElementById('topic').value || 'our upcoming visit';
       const followUp = document.getElementById('follow-up').value || 'a convenient time';
 
       const output = document.getElementById('email-output');
+
+      try {
+        const templateBody = await ensureTemplateLoaded();
+
+        if (templateBody) {
+          output.value = fillTemplate(templateBody, {
+            contact_name: name,
+            facility_name: facility,
+            topic: topic,
+            requested_date: followUp
+          });
+          return;
+        }
+      } catch (error) {
+        console.warn('Email template load failed, using fallback template.', error);
+      }
+
       output.value = `Hello ${name},\n\nI hope you're doing well. I\'m reaching out from the Ombudsman team to coordinate ${topic} at ${facility}. We would like to schedule time on ${followUp} to connect with residents and staff.\n\nPlease let me know if that date works or if you prefer another time. Thank you for supporting resident voice and quality of care.\n\nBest regards,\nDanBeem Ombudsman Team`;
     }
 
