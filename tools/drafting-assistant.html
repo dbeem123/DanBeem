@@ -397,55 +397,65 @@
       const authorityRows = [];
       const authorityIds = [];
 
+      function normalizeAuthorityRow(authorityId, authority, reason) {
+        if (!authority) {
+          return {
+            id: authorityId,
+            citation: 'Citation not available',
+            title: 'Authority metadata not found',
+            category: 'Missing metadata',
+            reason: reason || 'Selected by topic mapping, but details are missing from authority index.'
+          };
+        }
+
+        return {
+          id: authorityId,
+          citation: authority.citation || 'Citation not available',
+          title: authority.title || 'Title not available',
+          category: getAuthorityLabel(authority),
+          reason: reason || 'Selected by topic mapping.'
+        };
+      }
+
       if (!topics.length) {
         output.innerHTML = `
           <div class="notice">Informational Only: no mapped topics were found for NORS code ${escapeHtml(code)}.</div>
-          <ul class="result-list"><li>${escapeHtml(code)} - no mapped topic in nors_to_topic.json</li></ul>
+          <p><strong>Crosswalk Trace:</strong></p>
+          <ul class="result-list"><li>NORS code ${escapeHtml(code)} did not map to a topic in nors_to_topic.json.</li></ul>
         `;
         return;
       }
 
       topics.forEach(topic => {
-        trace.push(`${code} -> ${topic}`);
+        trace.push(`NORS code ${code} maps to topic "${topic}".`);
         const mappings = topicMap[topic] || [];
 
         if (!mappings.length) {
-          trace.push(`${topic} -> no authority IDs found in topic_to_authority.json`);
+          trace.push(`Topic "${topic}" has no authority IDs in topic_to_authority.json.`);
           return;
         }
 
         const ids = mappings.map(item => item.authority_id);
-        trace.push(`${topic} -> ${ids.join(', ')}`);
+        trace.push(`Topic "${topic}" maps to authority ID(s): ${ids.join(', ')}.`);
 
         mappings.forEach(item => {
           authorityIds.push(item.authority_id);
           const authority = authorityIndex[item.authority_id];
 
           if (!authority) {
-            trace.push(`${item.authority_id} -> missing from authority_index.json`);
-            authorityRows.push({
-              id: item.authority_id,
-              citation: 'Missing authority metadata',
-              title: '',
-              category: 'Missing',
-              reason: item.reason || ''
-            });
+            trace.push(`Authority ID "${item.authority_id}" is missing from authority_index.json.`);
+            authorityRows.push(normalizeAuthorityRow(item.authority_id, null, item.reason));
             return;
           }
 
-          trace.push(`${item.authority_id} -> ${authority.citation}`);
-          authorityRows.push({
-            id: item.authority_id,
-            citation: authority.citation || 'Citation not provided',
-            title: authority.title || '',
-            category: getAuthorityLabel(authority),
-            reason: item.reason || ''
-          });
+          trace.push(`Authority ID "${item.authority_id}" resolves to ${authority.citation || 'a citation not available in metadata'}.`);
+          authorityRows.push(normalizeAuthorityRow(item.authority_id, authority, item.reason));
         });
       });
 
       output.innerHTML = `
         <div class="notice">Informational Only: this crosswalk surfaces possible references only. It does not determine violations or make legal conclusions.</div>
+        <p>These references are informational only and were surfaced from the selected NORS code through topic mapping.</p>
         <p><strong>Selected NORS Code:</strong> ${escapeHtml(code)}</p>
         <p><strong>Mapped Topic(s):</strong> ${topics.map(escapeHtml).join(', ')}</p>
         <p><strong>Matched Authority ID(s):</strong> ${authorityIds.length ? authorityIds.map(escapeHtml).join(', ') : 'None found'}</p>
@@ -453,13 +463,15 @@
         <ul class="result-list">
           ${authorityRows.length ? authorityRows.map(row => `
             <li>
-              <strong>${escapeHtml(row.id)}</strong> - ${escapeHtml(row.citation)}
-              ${row.title ? ` - ${escapeHtml(row.title)}` : ''}
-              <br><span class="subtle">Category: ${escapeHtml(row.category)}${row.reason ? `; Reason: ${escapeHtml(row.reason)}` : ''}</span>
+              <strong>${escapeHtml(row.citation)}</strong>
+              <br><span>${escapeHtml(row.title)}</span>
+              <br><span class="subtle">Authority ID: ${escapeHtml(row.id)}</span>
+              <br><span class="subtle">Category / Type: ${escapeHtml(row.category)}</span>
+              <br><span class="subtle">Why selected: ${escapeHtml(row.reason)}</span>
             </li>
           `).join('') : '<li>No authorities found for mapped topic(s).</li>'}
         </ul>
-        <p><strong>Trace:</strong></p>
+        <p><strong>Crosswalk Trace:</strong></p>
         <ul class="result-list">
           ${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
         </ul>
