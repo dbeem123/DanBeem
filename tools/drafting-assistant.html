@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drafting &amp; Reference Assistant</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    label { display:block; font-weight:700; margin-bottom:6px; }
+    input, select, textarea {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-family:inherit;
+    }
+    textarea { min-height:96px; resize:vertical; }
+    select option { color:#06121b; }
+    .form-section { margin-top:14px; }
+    .output-box {
+      white-space:pre-wrap;
+      min-height:90px;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+    }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+    .warning {
+      border-color:rgba(251,191,36,0.3);
+      background:rgba(251,191,36,0.08);
+    }
+    .error {
+      border-color:rgba(251,113,133,0.3);
+      background:rgba(251,113,133,0.08);
+    }
+    .result-list { margin:0; padding-left:20px; }
+    .result-list li { margin:6px 0; }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Drafting &amp; Reference Assistant</div>
+          <div class="subtle" style="font-size:12px;">Draft Only</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="outreach-email.html">Outreach Email Builder</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel" aria-labelledby="assistant-title">
+      <div class="pill">Draft Only</div>
+      <h1 id="assistant-title" style="margin-top:8px;">Drafting &amp; Reference Assistant</h1>
+      <p class="subtle">Creates draft narrative language and informational reference citations from structured inputs. This tool does not make legal conclusions, determine violations, or recommend enforcement actions.</p>
+      <div id="load-status" class="notice" role="status">Loading assistant data...</div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="form-title">
+      <h2 id="form-title">Draft Inputs</h2>
+      <p class="subtle">All generated text is Draft Only and should be reviewed before use.</p>
+
+      <div class="form-section">
+        <h3>Scenario Input</h3>
+        <label for="scenario-notes">Paste Scenario Notes</label>
+        <textarea id="scenario-notes" placeholder="Paste intake notes, resident comments, actions, or follow-up notes here."></textarea>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn secondary" type="button" onclick="extractScenarioFields()">Extract Fields</button>
+        </div>
+        <div id="scenario-extract-notice" class="notice" style="display:none;">Extracted fields are draft suggestions and must be reviewed.</div>
+      </div>
+
+      <div class="form-section">
+        <h3>Problem Description</h3>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+          <div>
+            <label for="complainant-type">Complainant Type</label>
+            <select id="complainant-type">
+              <option value="">Select one</option>
+              <option>Resident</option>
+              <option>Family member</option>
+              <option>Facility staff</option>
+              <option>Anonymous complainant</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label for="identity-permission">Identity Permission</label>
+            <select id="identity-permission">
+              <option value="">Select one</option>
+              <option>granted</option>
+              <option>not granted</option>
+              <option>not discussed yet</option>
+            </select>
+          </div>
+          <div>
+            <label for="nors-code">NORS Code</label>
+            <select id="nors-code">
+              <option value="">No NORS code selected</option>
+              <option value="F03">F03</option>
+              <option value="A01">A01</option>
+              <option value="C01">C01</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <label for="problem-description">Problem Description</label>
+          <textarea id="problem-description" placeholder="Describe the reported concern, using observable facts where possible."></textarea>
+        </div>
+        <div style="margin-top:12px;">
+          <label for="complainant-actions-taken">Prior Steps Taken</label>
+          <textarea id="complainant-actions-taken" placeholder="What did the complainant or resident already try?"></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Resident Perspective</h3>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+          <div>
+            <label for="resident-perspective">Resident Perspective</label>
+            <textarea id="resident-perspective" placeholder="Capture the resident's words, preferences, concerns, or experience."></textarea>
+          </div>
+          <div>
+            <label for="resident-desired-outcome">Resident Desired Outcome</label>
+            <textarea id="resident-desired-outcome" placeholder="What outcome does the resident want?"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3>Actions Taken</h3>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+          <div>
+            <label for="initial-plan-of-action">Initial Plan of Action</label>
+            <textarea id="initial-plan-of-action" placeholder="Planned interviews, records review, observation, follow-up, or other steps."></textarea>
+          </div>
+          <div>
+            <label for="actions-taken">Actions Taken</label>
+            <textarea id="actions-taken" placeholder="Document completed Ombudsman actions."></textarea>
+          </div>
+          <div>
+            <label for="facility-response">Facility Response</label>
+            <textarea id="facility-response" placeholder="Summarize facility response, if any."></textarea>
+          </div>
+          <div>
+            <label for="follow-up">Follow-up</label>
+            <textarea id="follow-up" placeholder="Next contact, monitoring plan, or follow-up date."></textarea>
+          </div>
+        </div>
+        <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+          <div>
+            <label for="case-status">Case Status</label>
+            <select id="case-status">
+              <option value="">Select one</option>
+              <option>open</option>
+              <option>partially resolved</option>
+              <option>resolved</option>
+              <option>closed</option>
+            </select>
+          </div>
+          <div>
+            <label for="resident-satisfaction">Resident Satisfaction</label>
+            <select id="resident-satisfaction">
+              <option value="">Select one</option>
+              <option>not yet documented</option>
+              <option>satisfied</option>
+              <option>partially satisfied</option>
+              <option>not satisfied</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="generate-button" class="btn" type="button" onclick="generateDraft()" disabled>Generate Draft</button>
+      </div>
+    </section>
+
+    <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Draft outputs">
+      <div class="panel">
+        <div class="pill">Draft Only</div>
+        <h2>Draft Narrative</h2>
+        <div id="draft-output" class="output-box">Generated draft narrative will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Review Required</div>
+        <h2>Validation Results</h2>
+        <div id="validation-output" class="output-box">Validation results will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Informational Only</div>
+        <h2>Relevant References</h2>
+        <p class="subtle">Citations only. No legal conclusions or violation determinations.</p>
+        <div id="references-output" class="output-box">Relevant reference citations will appear here.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Draft Only - informational reference support, not legal advice or violation determination.</footer>
+
+  <script>
+    let assistantData = null;
+
+    const dataFiles = {
+      templates: '../narrative_templates.json',
+      validationRules: '../narrative_validation_rules.json',
+      keywordMap: '../keyword_map.json',
+      norsToTopic: '../nors_to_topic.json',
+      topicToAuthority: '../topic_to_authority.json',
+      authorityIndex: '../authority_index.json',
+      retrievalRules: '../retrieval_rules.json'
+    };
+
+    const fieldIds = {
+      complainant_type: 'complainant-type',
+      identity_permission: 'identity-permission',
+      problem_description: 'problem-description',
+      complainant_actions_taken: 'complainant-actions-taken',
+      resident_perspective: 'resident-perspective',
+      resident_desired_outcome: 'resident-desired-outcome',
+      initial_plan_of_action: 'initial-plan-of-action',
+      actions_taken: 'actions-taken',
+      facility_response: 'facility-response',
+      follow_up: 'follow-up',
+      case_status: 'case-status',
+      resident_satisfaction: 'resident-satisfaction'
+    };
+
+    async function loadData() {
+      const status = document.getElementById('load-status');
+      const generateButton = document.getElementById('generate-button');
+
+      try {
+        const entries = await Promise.all(Object.entries(dataFiles).map(async ([key, path]) => {
+          const response = await fetch(path);
+          if (!response.ok) {
+            throw new Error(`${path} returned HTTP ${response.status}`);
+          }
+          return [key, await response.json()];
+        }));
+
+        assistantData = Object.fromEntries(entries);
+        status.className = 'notice';
+        status.textContent = 'Assistant data loaded. Ready to generate Draft Only narrative and informational references.';
+        generateButton.disabled = false;
+      } catch (err) {
+        assistantData = null;
+        status.className = 'notice error';
+        status.textContent = `Assistant data could not be loaded. Please run this page from a local web server and confirm the JSON files are present. Details: ${err.message}`;
+        generateButton.disabled = true;
+      }
+    }
+
+    function getFormData() {
+      const formData = {};
+      Object.entries(fieldIds).forEach(([field, id]) => {
+        formData[field] = document.getElementById(id).value.trim();
+      });
+      formData.nors_code = document.getElementById('nors-code').value.trim();
+      formData.case_closed = formData.case_status.toLowerCase() === 'closed';
+      return formData;
+    }
+
+    function firstMatchingSentence(sentences, keywords) {
+      return sentences.find(sentence => {
+        const lower = sentence.toLowerCase();
+        return keywords.some(keyword => lower.includes(keyword));
+      }) || '';
+    }
+
+    function normalizeScenarioText(text) {
+      return text
+        .replace(/\r/g, '\n')
+        .split(/\n+|(?<=[.!?])\s+/)
+        .map(sentence => sentence.trim())
+        .filter(Boolean);
+    }
+
+    function extractFieldsFromScenario(text) {
+      const sentences = normalizeScenarioText(text);
+      const joined = sentences.join(' ');
+
+      return {
+        problem_description: firstMatchingSentence(sentences, [
+          'problem', 'concern', 'complaint', 'issue', 'reported', 'alleges',
+          'abuse', 'neglect', 'discharge', 'transfer', 'rights', 'call light',
+          'medication', 'food', 'staffing', 'pain', 'toileting'
+        ]) || joined,
+        resident_perspective: firstMatchingSentence(sentences, [
+          'resident said', 'resident stated', 'resident reports', 'resident reported',
+          'resident feels', 'resident wants', 'resident described', 'according to resident'
+        ]),
+        actions_taken: firstMatchingSentence(sentences, [
+          'ombudsman', 'interviewed', 'observed', 'reviewed', 'called',
+          'spoke with', 'followed up', 'contacted', 'documented', 'visited'
+        ])
+      };
+    }
+
+    function setFieldIfEmpty(fieldName, value) {
+      const id = fieldIds[fieldName];
+      const element = id ? document.getElementById(id) : null;
+      if (!element || element.value.trim() || !value) return false;
+      element.value = value;
+      return true;
+    }
+
+    function extractScenarioFields() {
+      const scenarioText = document.getElementById('scenario-notes').value.trim();
+      const notice = document.getElementById('scenario-extract-notice');
+
+      if (!scenarioText) {
+        notice.style.display = 'block';
+        notice.className = 'notice warning';
+        notice.textContent = 'Paste scenario notes before extracting fields.';
+        return;
+      }
+
+      const extracted = extractFieldsFromScenario(scenarioText);
+      const changed = [
+        setFieldIfEmpty('problem_description', extracted.problem_description),
+        setFieldIfEmpty('resident_perspective', extracted.resident_perspective),
+        setFieldIfEmpty('actions_taken', extracted.actions_taken)
+      ].some(Boolean);
+
+      notice.style.display = 'block';
+      notice.className = 'notice';
+      notice.textContent = changed
+        ? 'Extracted fields are draft suggestions and must be reviewed.'
+        : 'No empty target fields were updated. Existing field values were preserved.';
+    }
+
+    function extractTopics(formData) {
+      const topics = new Set();
+      const rules = assistantData.retrievalRules.matching || {};
+
+      if (rules.use_nors_code_first && formData.nors_code) {
+        (assistantData.norsToTopic[formData.nors_code] || []).forEach(topic => topics.add(topic));
+      }
+
+      if (rules.use_keyword_fallback) {
+        const searchableText = [
+          formData.problem_description,
+          formData.resident_perspective,
+          formData.resident_desired_outcome,
+          formData.actions_taken,
+          formData.facility_response
+        ].join(' ').toLowerCase();
+
+        Object.entries(assistantData.keywordMap.keywords || {}).forEach(([keyword, mappedTopics]) => {
+          if (searchableText.includes(keyword.toLowerCase())) {
+            mappedTopics.forEach(topic => topics.add(topic));
+          }
+        });
+      }
+
+      return Array.from(topics);
+    }
+
+    function fillTemplate(template, formData) {
+      return template.replace(/\{([^}]+)\}/g, (match, field) => {
+        return formData[field] || `[missing ${field}]`;
+      });
+    }
+
+    function buildNarrative(formData) {
+      const config = assistantData.templates;
+      const output = [];
+
+      config.sections.forEach(sectionKey => {
+        const section = config.templates[sectionKey];
+        if (!section) return;
+
+        output.push(section.header);
+        section.sentences.forEach(sentence => {
+          output.push(fillTemplate(sentence.template, formData));
+        });
+        output.push('');
+      });
+
+      return output.join('\n').trim();
+    }
+
+    function conditionApplies(condition, formData) {
+      if (!condition) return true;
+      if (condition === 'case_closed == true') return formData.case_closed === true;
+      return true;
+    }
+
+    function validateNarrative(formData) {
+      return (assistantData.validationRules.rules || []).filter(rule => {
+        if (!conditionApplies(rule.condition, formData)) return false;
+        return !formData[rule.field];
+      });
+    }
+
+    function retrieveReferences(topics) {
+      const topicMap = assistantData.topicToAuthority.topics || {};
+      const authorityIndex = assistantData.authorityIndex.authorities || {};
+      const ranking = assistantData.retrievalRules.ranking || {};
+      const output = assistantData.retrievalRules.output || {};
+      const maxResults = output.max_results || 8;
+      const dedupe = assistantData.retrievalRules.matching?.deduplicate_authorities !== false;
+      const references = [];
+      const seen = new Set();
+
+      topics.forEach(topic => {
+        (topicMap[topic] || []).forEach(item => {
+          const authority = authorityIndex[item.authority_id];
+          if (!authority) return;
+          if (dedupe && seen.has(item.authority_id)) return;
+
+          seen.add(item.authority_id);
+          references.push({
+            id: item.authority_id,
+            citation: authority.citation,
+            rank: ranking[authority.type] || 0
+          });
+        });
+      });
+
+      return references
+        .sort((a, b) => b.rank - a.rank || a.citation.localeCompare(b.citation))
+        .slice(0, maxResults)
+        .map(reference => reference.citation);
+    }
+
+    function renderValidation(flags) {
+      const output = document.getElementById('validation-output');
+
+      if (!flags.length) {
+        output.innerHTML = '<div class="notice">No missing required or warning fields were found. Review still required before use.</div>';
+        return;
+      }
+
+      const items = flags.map(flag => {
+        const label = flag.severity === 'error' ? 'Required' : 'Warning';
+        return `<li><strong>${label}:</strong> ${flag.message}</li>`;
+      }).join('');
+
+      output.innerHTML = `<ul class="result-list">${items}</ul>`;
+    }
+
+    function renderReferences(references, topics) {
+      const output = document.getElementById('references-output');
+
+      if (!references.length) {
+        output.textContent = topics.length
+          ? 'No citation matches were found for the identified topics.'
+          : 'No topics identified. Add a NORS code or keywords such as abuse, discharge, rights, call light, medication, food, or staffing.';
+        return;
+      }
+
+      output.innerHTML = `<ul class="result-list">${references.map(citation => `<li>${citation}</li>`).join('')}</ul>`;
+    }
+
+    function generateDraft() {
+      if (!assistantData) {
+        document.getElementById('draft-output').textContent = 'Assistant data is not loaded yet.';
+        return;
+      }
+
+      const formData = getFormData();
+      const narrative = buildNarrative(formData);
+      const flags = validateNarrative(formData);
+      const topics = extractTopics(formData);
+      const references = retrieveReferences(topics);
+
+      document.getElementById('draft-output').textContent = `Draft Only\n\n${narrative}\n\nInformational guardrail: This draft does not make legal conclusions, determine violations, or recommend enforcement action.`;
+      renderValidation(flags);
+      renderReferences(references, topics);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>
