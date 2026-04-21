@@ -208,24 +208,6 @@
       </div>
     </section>
 
-    <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
-      <div class="pill">Informational Only</div>
-      <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
-      <p class="subtle">Temporary test for NORS code to topic to authority mapping. This does not determine violations or make legal conclusions.</p>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
-        <div>
-          <label for="crosswalk-nors-code">Select NORS Code</label>
-          <select id="crosswalk-nors-code">
-            <option value="">Loading NORS codes...</option>
-          </select>
-        </div>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button class="btn secondary" type="button" onclick="runCrosswalk()">Run Crosswalk</button>
-      </div>
-      <div id="crosswalk-output" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
-    </section>
-
     <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Draft outputs">
       <div class="panel">
         <div class="pill">Draft Only</div>
@@ -265,6 +247,25 @@
         <p class="subtle">Grouped by likely topic. Citations are informational only. No legal conclusions or violation determinations.</p>
         <div id="references-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
+      <div class="pill">Informational Only</div>
+      <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
+      <p class="notice">Informational Only – does not determine violations</p>
+      <p class="subtle">Temporary test for NORS code to topic to authority mapping.</p>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+        <div>
+          <label for="norsCodeSelect">Select NORS Code</label>
+          <select id="norsCodeSelect">
+            <option value="">Loading NORS codes...</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+        <button id="runCrosswalkBtn" class="btn secondary" type="button">Run Crosswalk</button>
+      </div>
+      <div id="crosswalkResult" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
     </section>
   </main>
 
@@ -336,6 +337,7 @@
         status.textContent = 'Assistant data loaded. Ready to generate Draft Only narrative and informational references.';
         generateButton.disabled = false;
         populateCrosswalkOptions();
+        bindCrosswalkHandler();
       } catch (err) {
         assistantData = null;
         status.className = 'notice error';
@@ -364,7 +366,7 @@
     }
 
     function populateCrosswalkOptions() {
-      const select = document.getElementById('crosswalk-nors-code');
+      const select = document.getElementById('norsCodeSelect');
       if (!select) return;
 
       const codes = Object.keys(assistantData?.norsToTopic || {});
@@ -376,9 +378,16 @@
       }).join('');
     }
 
+    function bindCrosswalkHandler() {
+      const button = document.getElementById('runCrosswalkBtn');
+      if (!button || button.dataset.bound === 'true') return;
+      button.addEventListener('click', runCrosswalk);
+      button.dataset.bound = 'true';
+    }
+
     function runCrosswalk() {
-      const output = document.getElementById('crosswalk-output');
-      const code = document.getElementById('crosswalk-nors-code').value;
+      const output = document.getElementById('crosswalkResult');
+      const code = document.getElementById('norsCodeSelect').value;
 
       if (!assistantData) {
         output.innerHTML = '<div class="notice error">Assistant data is not loaded yet, so the crosswalk cannot run.</div>';
