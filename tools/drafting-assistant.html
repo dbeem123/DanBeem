@@ -77,9 +77,9 @@
       <p class="subtle">All generated text is Draft Only and should be reviewed before use.</p>
 
       <div class="form-section">
-        <h3>Scenario Input</h3>
-        <label for="scenario-notes">Paste Scenario Notes</label>
-        <textarea id="scenario-notes" placeholder="Paste intake notes, resident comments, actions, or follow-up notes here."></textarea>
+        <h3>Main Note Input</h3>
+        <label for="scenario-notes">Paste De-identified Note</label>
+        <textarea id="scenario-notes" placeholder="Paste any de-identified case note, intake note, follow-up note, resident comment, action note, or outcome note here."></textarea>
         <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
           <button class="btn secondary" type="button" onclick="extractScenarioFields()">Extract Fields</button>
         </div>
@@ -117,6 +117,14 @@
               <option value="A01">A01</option>
               <option value="C01">C01</option>
             </select>
+          </div>
+          <div>
+            <label for="concern-area">Concern / Complaint Area</label>
+            <input id="concern-area" type="text" placeholder="Care quality, discharge, resident rights..." />
+          </div>
+          <div>
+            <label for="resident-right">Resident Right</label>
+            <input id="resident-right" type="text" placeholder="Choice, dignity, privacy, visitation..." />
           </div>
         </div>
         <div style="margin-top:12px;">
@@ -166,6 +174,10 @@
             <label for="follow-up">Follow-up</label>
             <textarea id="follow-up" placeholder="Next contact, monitoring plan, or follow-up date."></textarea>
           </div>
+          <div>
+            <label for="status-or-outcome">Status or Outcome</label>
+            <textarea id="status-or-outcome" placeholder="Current status, outcome, resolution, or resident satisfaction note."></textarea>
+          </div>
         </div>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
           <div>
@@ -199,6 +211,16 @@
     <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Draft outputs">
       <div class="panel">
         <div class="pill">Draft Only</div>
+        <h2>Organized Note Sections</h2>
+        <div id="organized-output" class="output-box">Extracted note sections will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Review Required</div>
+        <h2>Checklist Review</h2>
+        <div id="checklist-output" class="output-box">Checklist review will appear here.</div>
+      </div>
+      <div class="panel">
+        <div class="pill">Draft Only</div>
         <h2>Draft Narrative</h2>
         <div id="draft-output" class="output-box">Generated draft narrative will appear here.</div>
       </div>
@@ -209,7 +231,7 @@
       </div>
       <div class="panel">
         <div class="pill">Informational Only</div>
-        <h2>Likely Topics</h2>
+        <h2>Likely Topics / Complaint Areas</h2>
         <p class="subtle">Matched from selected NORS code and local keyword rules.</p>
         <div id="topics-output" class="output-box">Likely topic matches will appear here.</div>
       </div>
@@ -221,7 +243,7 @@
       </div>
       <div class="panel">
         <div class="pill">Informational References Only</div>
-        <h2>Relevant References</h2>
+        <h2>Possible Relevant References</h2>
         <p class="subtle">Grouped by likely topic. Citations are informational only. No legal conclusions or violation determinations.</p>
         <div id="references-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
@@ -256,7 +278,10 @@
       facility_response: 'facility-response',
       follow_up: 'follow-up',
       case_status: 'case-status',
-      resident_satisfaction: 'resident-satisfaction'
+      resident_satisfaction: 'resident-satisfaction',
+      concern_area: 'concern-area',
+      resident_right: 'resident-right',
+      status_or_outcome: 'status-or-outcome'
     };
 
     async function loadData() {
@@ -330,8 +355,10 @@
         resident_desired_outcome: [],
         complainant_actions_taken: [],
         actions_taken: [],
+        facility_response: [],
         follow_up: [],
-        authorization_note: []
+        authorization_note: [],
+        status_or_outcome: []
       };
 
       const classifiers = {
@@ -348,6 +375,13 @@
           { pattern: /\b(plans to follow up|will follow up|will contact|will call|next step|next steps|check back|revisit|monitor)\b/i, weight: 6 },
           { pattern: /\b(tomorrow|next week|within \d+|in \d+ days|by friday|by monday)\b/i, weight: 2 }
         ],
+        status_or_outcome: [
+          { pattern: /\b(resolved|partially resolved|unresolved|closed|remains open|case remains open|outcome|status|resident satisfied|resident not satisfied|satisfied with)\b/i, weight: 7 }
+        ],
+        facility_response: [
+          { pattern: /\b(facility|administrator|director of nursing|don|staff)\b.*\b(stated|said|reported|responded|agreed|denied|explained|indicated)\b/i, weight: 7 },
+          { pattern: /\bfacility response\b/i, weight: 7 }
+        ],
         complainant_actions_taken: [
           { pattern: /\b(resident|complainant|family|daughter|son|caller|she|he|they)\b.*\b(has not yet raised|has not raised|have not raised|not yet raised|already told|previously told|spoke with|spoke to|reported to|told the nurse|called the facility|filed a grievance|asked staff)\b/i, weight: 8 },
           { pattern: /\b(has not yet raised|has not raised|have not raised|not yet raised|already told|previously told|spoke with|spoke to|reported to|told the nurse|called the facility|filed a grievance|asked staff)\b/i, weight: 7 },
@@ -358,7 +392,7 @@
           { pattern: /\b(feels|felt|embarrassed|uncomfortable|worried|afraid|upset|frustrated|concerned|typically|usually)\b/i, weight: 5 }
         ],
         actions_taken: [
-          { pattern: /\b(ombudsman interviewed|ombudsman observed|ombudsman reviewed|ombudsman contacted|ombudsman called|ombudsman visited|interviewed resident|observed|reviewed records|contacted staff|documented)\b/i, weight: 5 }
+          { pattern: /\b(ombudsman interviewed|ombudsman observed|ombudsman reviewed|ombudsman contacted|ombudsman called|ombudsman visited|interviewed resident|observed|reviewed records|contacted staff|documented|visited resident|spoke with resident|spoke with facility)\b/i, weight: 5 }
         ],
         problem_description: [
           { pattern: /\b(did not assist|didn't assist|not answered|was not answered|were not answered|not provided|was not provided|were not provided|missed|delayed|late|ignored|refused|unanswered)\b/i, weight: 7 },
@@ -371,6 +405,8 @@
         'resident_desired_outcome',
         'authorization_note',
         'follow_up',
+        'status_or_outcome',
+        'facility_response',
         'complainant_actions_taken',
         'resident_perspective',
         'actions_taken',
@@ -390,8 +426,10 @@
         resident_desired_outcome: extracted.resident_desired_outcome.join('\n'),
         complainant_actions_taken: extracted.complainant_actions_taken.join('\n'),
         actions_taken: extracted.actions_taken.join('\n'),
+        facility_response: extracted.facility_response.join('\n'),
         follow_up: extracted.follow_up.join('\n'),
-        authorization_note: extracted.authorization_note.join('\n')
+        authorization_note: extracted.authorization_note.join('\n'),
+        status_or_outcome: extracted.status_or_outcome.join('\n')
       };
     }
 
@@ -421,8 +459,10 @@
         setFieldIfEmpty('resident_desired_outcome', extracted.resident_desired_outcome),
         setFieldIfEmpty('complainant_actions_taken', extracted.complainant_actions_taken),
         setFieldIfEmpty('actions_taken', extracted.actions_taken),
+        setFieldIfEmpty('facility_response', extracted.facility_response),
         setFieldIfEmpty('follow_up', extracted.follow_up),
-        setFieldIfEmpty('authorization_note', extracted.authorization_note)
+        setFieldIfEmpty('authorization_note', extracted.authorization_note),
+        setFieldIfEmpty('status_or_outcome', extracted.status_or_outcome)
       ].some(Boolean);
 
       notice.style.display = 'block';
@@ -430,6 +470,16 @@
       notice.textContent = changed
         ? 'Extracted fields are draft suggestions and must be reviewed.'
         : 'No empty target fields were updated. Existing field values were preserved.';
+
+      if (assistantData) {
+        const formData = getFormData();
+        const topicMatches = extractTopics(formData);
+        renderOrganizedSections(formData);
+        renderChecklistReview(formData);
+        renderTopics(topicMatches);
+        renderTopicReasons(topicMatches);
+        renderReferences(retrieveReferences(topicMatches), topicMatches);
+      }
     }
 
     function extractTopics(formData) {
@@ -463,7 +513,10 @@
           formData.actions_taken,
           formData.facility_response,
           formData.follow_up,
-          formData.authorization_note
+          formData.authorization_note,
+          formData.concern_area,
+          formData.resident_right,
+          formData.status_or_outcome
         ].join(' ').toLowerCase();
 
         Object.entries(assistantData.keywordMap.keywords || {}).forEach(([keyword, mappedTopics]) => {
@@ -609,6 +662,69 @@
       output.innerHTML = `<ul class="result-list">${items}</ul>`;
     }
 
+    function getOrganizedSections(formData) {
+      return [
+        { field: 'problem_description', label: 'Problem Description' },
+        { field: 'resident_perspective', label: 'Resident Perspective' },
+        { field: 'complainant_actions_taken', label: 'Complainant / Resident Prior Actions' },
+        { field: 'resident_desired_outcome', label: 'Resident Desired Outcome' },
+        { field: 'authorization_note', label: 'Authorization Note' },
+        { field: 'actions_taken', label: 'Ombudsman Actions' },
+        { field: 'facility_response', label: 'Facility Response' },
+        { field: 'follow_up', label: 'Follow-up' },
+        { field: 'status_or_outcome', label: 'Status or Outcome' }
+      ].map(section => ({
+        ...section,
+        value: formData[section.field] || ''
+      }));
+    }
+
+    function renderOrganizedSections(formData) {
+      const output = document.getElementById('organized-output');
+      const sections = getOrganizedSections(formData);
+      const present = sections.filter(section => section.value);
+
+      if (!present.length) {
+        output.textContent = 'No supported note sections were extracted yet. Paste a note, click Extract Fields, then review/edit fields before generating.';
+        return;
+      }
+
+      output.innerHTML = present.map(section => `
+        <div style="margin-bottom:12px;">
+          <strong>${section.label}</strong>
+          <div class="subtle" style="white-space:pre-wrap;">${section.value}</div>
+        </div>
+      `).join('');
+    }
+
+    function getChecklistStatus(section, formData) {
+      if (section.value) return 'Present';
+      if (section.field === 'authorization_note' && formData.identity_permission) return 'Present';
+      if (section.field === 'status_or_outcome' && formData.case_status) return 'Present';
+      if (section.field === 'problem_description' && !formData.problem_description && !formData.concern_area && !formData.nors_code) return 'Unclear';
+      return 'Missing';
+    }
+
+    function renderChecklistReview(formData) {
+      const output = document.getElementById('checklist-output');
+      const sections = getOrganizedSections(formData);
+
+      output.innerHTML = `
+        <ul class="result-list">
+          ${sections.map(section => {
+            const status = getChecklistStatus(section, formData);
+            const note = status === 'Missing'
+              ? 'Not found in this note; may be acceptable for follow-up or partial notes.'
+              : status === 'Unclear'
+                ? 'Not enough information to classify from this note.'
+                : 'Supported by extracted or structured fields.';
+            return `<li><strong>${section.label}:</strong> ${status}<br><span class="subtle">${note}</span></li>`;
+          }).join('')}
+        </ul>
+        <div class="notice">Checklist is informational. The tool does not assume this is an initial intake note, and missing fields are not treated as errors unless existing validation rules flag them.</div>
+      `;
+    }
+
     function renderTopics(topicMatches) {
       const output = document.getElementById('topics-output');
 
@@ -687,6 +803,8 @@
 
       document.getElementById('draft-output').textContent = `Draft Only\n\n${narrative}\n\nInformational guardrail: This draft does not make legal conclusions, determine violations, or recommend enforcement action.`;
       renderValidation(flags);
+      renderOrganizedSections(formData);
+      renderChecklistReview(formData);
       renderTopics(topicMatches);
       renderTopicReasons(topicMatches);
       renderReferences(references, topicMatches);
