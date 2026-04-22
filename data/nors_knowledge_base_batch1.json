@@ -1,0 +1,1964 @@
+{
+  "code_summary_rows": [
+    {
+      "nors_code": "A01",
+      "nors_label": "Abuse: physical",
+      "nors_table_2_page": 2,
+      "nors_definition": "Intentional use of physical force resulting in illness, injury, pain, functional impairment, distress, or death.",
+      "use_when": "Resident reports or evidence shows staff or another person used physical force—hitting, slapping, pushing, kicking, restraining punitively—that caused or risked harm. Use even when harm is alleged, not yet proven.",
+      "do_not_use_when": "Accidental injury during care (use F02/F03 instead); chemical restraint without physical contact (consider A03 or F04); incident is purely neglect without volitional act (use A05).",
+      "reporting_tips": "Document the specific act described, body part/area affected, who allegedly committed the act, and whether it was reported internally. Note whether facility self-reported to the state survey agency within 2 hours per §483.12(c)(1).",
+      "examples": [
+        "CNA struck resident on arm while providing personal care",
+        "Staff forcibly restrained resident in chair causing bruising",
+        "Resident reports being slapped when calling out for help",
+        "Unexplained bruises or injuries of unknown source on resident"
+      ],
+      "common_concern_phrases": [
+        "hit me", "pushed me", "grabbed me too hard", "bruise I can't explain",
+        "hurt me", "was rough with me", "shoved", "pinched"
+      ],
+      "likely_topics": ["abuse", "physical abuse", "staff conduct", "injury"],
+      "likely_neighbor_codes": ["A03", "A05", "D06", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.12 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "Confirm alignment with CT §19a-550(b)(9) which prohibits mental and physical abuse; also cross-check with CT §17b-450 mandatory reporting requirements.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "A02",
+      "nors_label": "Abuse: sexual",
+      "nors_table_2_page": 2,
+      "nors_definition": "Forced or unwanted sexual interaction of any kind.",
+      "use_when": "Resident reports or evidence indicates any unwanted touching of a sexual nature, exposure, forced viewing of sexual material, or coerced sexual contact by staff, another resident, or visitor.",
+      "do_not_use_when": "Consensual sexual activity between residents (rights issue only if consent is unclear); general privacy violation without sexual component (use D04).",
+      "reporting_tips": "Treat as critical complaint; ensure resident's safety, privacy, and emotional support are addressed immediately. Check whether facility followed mandated reporting timeline (2 hours for serious bodily injury per §483.12(c)(1)). Note investigative status.",
+      "examples": [
+        "Staff member made unwanted sexual contact with resident during bathing",
+        "Resident alleges forced sexual interaction with another resident",
+        "Staff exposed themselves to a resident",
+        "Resident reports unwanted sexual touching by overnight staff"
+      ],
+      "common_concern_phrases": [
+        "touched me inappropriately", "sexual assault", "exposed themselves",
+        "made me do things", "unwanted touching", "rape", "forced me"
+      ],
+      "likely_topics": ["sexual abuse", "abuse", "assault", "staff conduct"],
+      "likely_neighbor_codes": ["A01", "A03", "D04", "D06"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.12 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "Mandatory reporting obligations for ombudsman staff vary; review CT §17b-450 and §17b-451. Cross-check with 45 CFR 1324.19(b)(8) on disclosure when witnessing abuse.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "A03",
+      "nors_label": "Abuse: psychological/emotional",
+      "nors_table_2_page": 2,
+      "nors_definition": "Infliction of anguish, pain, or distress through verbal or nonverbal acts including verbal assaults, insults, threats, intimidation, humiliation, and harassment.",
+      "use_when": "Resident reports that staff (or another person) yelled at, threatened, belittled, humiliated, or otherwise caused emotional distress through words or actions. Includes silent treatments, deliberate ignoring, or repeated intimidation.",
+      "do_not_use_when": "Isolated rude/disrespectful interaction without repeated or intentional pattern (use D03 for dignity/respect). Exclude when behavior is resident-to-resident without facility's failure to intervene.",
+      "reporting_tips": "Note specific words or actions alleged, frequency, whether resident expressed fear or distress, and whether any witness corroborates. Check if verbal threats accompanied physical acts (co-code with A01).",
+      "examples": [
+        "Staff repeatedly calls resident demeaning names",
+        "Staff threatened resident with loss of care if they complained",
+        "Staff mocked resident's incontinence in front of others",
+        "Aide yells at resident who calls for help repeatedly"
+      ],
+      "common_concern_phrases": [
+        "yelled at me", "called me names", "threatened me", "humiliated me",
+        "made fun of me", "scared of them", "won't leave me alone", "intimidates me"
+      ],
+      "likely_topics": ["psychological abuse", "emotional abuse", "verbal abuse", "staff conduct"],
+      "likely_neighbor_codes": ["A01", "D03", "D06", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.12 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "CT §19a-550(b)(9) prohibits mental and physical abuse; confirm psychological abuse specifically falls within this subsection's scope for CT-specific complaints.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "A04",
+      "nors_label": "Abuse: financial exploitation",
+      "nors_table_2_page": 2,
+      "nors_definition": "Illegal or improper use of an individual's funds, property, or assets for another person's profit or advantage.",
+      "use_when": "Evidence that staff, family member, or other person misused resident's money, stole from resident, used resident's financial accounts without authorization, or coerced resident into signing financial documents.",
+      "do_not_use_when": "Facility billing dispute or insurance issue unrelated to misappropriation (use appropriate administrative code); resident voluntarily gifts money (requires careful assessment of coercion).",
+      "reporting_tips": "Note specific funds, property, or assets allegedly misappropriated; the alleged perpetrator's relationship to resident; whether resident's financial capacity is in question. Document whether family/guardian is involved and whether facility was aware.",
+      "examples": [
+        "Staff member stole cash from resident's room",
+        "Family member draining resident's bank account without authority",
+        "Resident coerced into changing power of attorney to caregiver",
+        "Personal belongings repeatedly go missing from room"
+      ],
+      "common_concern_phrases": [
+        "money is missing", "stole from me", "took my jewelry", "signed papers I didn't understand",
+        "can't access my own money", "my account is empty", "missing belongings"
+      ],
+      "likely_topics": ["financial exploitation", "theft", "misappropriation", "elder financial abuse"],
+      "likely_neighbor_codes": ["A01", "A03", "D09"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.12 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "CT §19a-550(b)(21) entitles residents to file complaints with DSS and DPH about misappropriation; confirm whether CT APS referral is appropriate per 45 CFR 1324.19(b)(3). CT §19a-550(b)(8) covers quarterly financial accounting.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "A05",
+      "nors_label": "Neglect: gross",
+      "nors_table_2_page": 2,
+      "nors_definition": "Failure to protect from harm or to meet needs for essential medical care, nutrition, hydration, hygiene, clothing, ADLs, or shelter, resulting in serious risk to health or safety.",
+      "use_when": "Resident has serious unmet care needs—severe pressure injuries from lack of repositioning, dehydration, untreated wounds, fecal impaction, extreme filth—that reflect a systemic or egregious failure. Distinguishable from ordinary neglect by severity and risk.",
+      "do_not_use_when": "Ordinary care lapses not rising to serious risk level (consider F02, F03, H02 instead); situation where resident refused care (document refusal). Do not conflate with isolated missed care tasks.",
+      "reporting_tips": "Document observable indicators: pressure injury stage/location, weight loss, lab values if available, hygiene condition, wound status. Note timeframe over which condition developed and whether facility identified and addressed the issue.",
+      "examples": [
+        "Resident developed Stage 4 pressure injury due to failure to reposition",
+        "Resident found severely dehydrated with no documented hydration attempts",
+        "Resident found in soiled briefs for extended period with no care response",
+        "Resident with untreated infected wound for multiple days"
+      ],
+      "common_concern_phrases": [
+        "nobody comes to turn me", "left in wet bed all night", "haven't bathed me in a week",
+        "sore is getting worse", "losing so much weight", "never gets water", "skin is breaking down"
+      ],
+      "likely_topics": ["neglect", "gross neglect", "pressure injuries", "dehydration", "ADLs", "basic care"],
+      "likely_neighbor_codes": ["A01", "F02", "F03", "H02", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.12 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "CT §19a-550(b)(9) prohibits physical abuse but does not explicitly define 'gross neglect'; federal definition from NORS applies. Confirm whether DPH mandatory report required under CT §17b-450.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "C03",
+      "nors_label": "Discharge or eviction",
+      "nors_table_2_page": 3,
+      "nors_definition": "Resident received discharge notice and does not want to leave; was transferred or discharged without proper notice or due process; was not advised of bed-hold rights; or was not readmitted after hospitalization.",
+      "use_when": "Resident received a discharge notice without 30-day written notice; discharge notice lacks required content (appeal rights, ombudsman contact); facility refused readmission after hospital stay; bed-hold policy was not explained before transfer; resident was moved without being told their rights.",
+      "do_not_use_when": "Voluntary discharge requested by resident or family; room-to-room transfer within facility (unless violates §483.10(e)(7)); clinical transfer to appropriate level of care with proper notice and consent.",
+      "reporting_tips": "Obtain copy of discharge notice and check for: 30-day timing per §483.15(c)(4), required content per §483.15(c)(5) (reason, effective date, location, appeal rights, ombudsman contact), copy to ombudsman per §483.15(c)(3)(i). Confirm whether appeal was filed and if facility complied with §431.230 stay requirement.",
+      "examples": [
+        "Resident received discharge notice with only 3 days notice",
+        "Discharge notice did not include ombudsman contact information",
+        "Facility refused to readmit resident after hospital stay",
+        "Resident told to leave but never given a written discharge notice",
+        "Family told bed-hold expired without prior written notification"
+      ],
+      "common_concern_phrases": [
+        "told to leave", "evicting me", "discharge notice", "won't take me back", "lost my bed",
+        "didn't know I could appeal", "no notice", "kicking me out"
+      ],
+      "likely_topics": ["discharge", "eviction", "bed-hold", "readmission", "transfer rights"],
+      "likely_neighbor_codes": ["D05", "D06", "D09"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.15 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-15.xml"},
+        {"label": "CT §19a-535 (Connecticut General Assembly)", "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "CT §19a-535 and §19a-550(b)(23) govern transfer/discharge rights in CT. CT law requires the facility send a copy of the discharge notice to the ombudsman. Confirm alignment between federal 30-day notice and any CT-specific notice periods under §19a-535.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D01",
+      "nors_label": "Rights: choice in health care",
+      "nors_table_2_page": 4,
+      "nors_definition": "Resident was denied the right to choose their own physician, pharmacy, hospice, or other health care provider.",
+      "use_when": "Resident wants to use their own physician, specialist, pharmacy, or hospice but facility is pressuring use of facility-contracted providers; facility refuses to accommodate chosen provider; resident not informed of right to choose.",
+      "do_not_use_when": "Resident dissatisfied with quality of care from a chosen provider (use F03 or appropriate quality code); physician choice is clinically contraindicated and properly documented.",
+      "reporting_tips": "Confirm which provider the resident wants and what barrier the facility has erected. Check whether chosen provider meets facility licensing/participation requirements. Note whether resident was informed of their right under §483.10(d) and CT §19a-550(b)(4).",
+      "examples": [
+        "Facility insists resident use facility's contracted pharmacy instead of resident's preferred pharmacy",
+        "Resident wants their personal physician involved but facility denies access",
+        "Facility pressuring resident to use its contracted hospice provider",
+        "Resident not told they could keep their own doctor"
+      ],
+      "common_concern_phrases": [
+        "won't let me use my own doctor", "have to use their pharmacy", "can't choose my hospice",
+        "forced to use their provider", "my doctor isn't allowed here"
+      ],
+      "likely_topics": ["choice of physician", "choice of pharmacy", "hospice rights", "provider choice"],
+      "likely_neighbor_codes": ["D09", "F03", "F04"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(d) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(d) is the specific provision for choice of attending physician. CT §19a-550(b)(4) mirrors this right. Note: F552 (Right to Make Treatment Decisions, §483.10(b)) and F561 (Self-Determination, §483.10(f)(1)) also overlap when choice in providers is part of care planning.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D03",
+      "nors_label": "Rights: dignity and respect",
+      "nors_table_2_page": 4,
+      "nors_definition": "Resident was treated with rudeness, indifference, or insensitivity.",
+      "use_when": "Resident or family reports disrespectful, rude, dismissive, or condescending treatment by staff that does not rise to the level of psychological abuse. Use for isolated or pattern of undignified treatment—rough handling, talking over resident, ignoring preferences—without the intentional harm element of A03.",
+      "do_not_use_when": "Behavior is intentional, repeated, and causing psychological distress (use A03 instead); staff follows facility policy that itself is disrespectful (also code systemic issue separately).",
+      "reporting_tips": "Describe specific staff behavior and context. Note whether resident's cultural, ethnic, or personal preferences were ignored. Document whether facility has addressed similar complaints previously.",
+      "examples": [
+        "Staff talks about resident in third person as if they are not present",
+        "CNA calls resident by childhood nickname the resident dislikes",
+        "Staff enters room without knocking and does not explain what they are doing",
+        "Resident's complaint was dismissed with 'you're just confused'"
+      ],
+      "common_concern_phrases": [
+        "treated like a child", "nobody listens", "rude to me", "dismissed me",
+        "talked over me", "disrespectful", "ignored my preferences", "doesn't knock"
+      ],
+      "likely_topics": ["dignity", "respect", "staff attitude", "person-centered care"],
+      "likely_neighbor_codes": ["A03", "D04", "D05", "F02"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(a)(1) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(a)(1) requires each resident be treated with 'respect and dignity.' CT §19a-550(b)(11) requires 'consideration, respect, and full recognition of the patient's dignity and individuality.' F550 (§483.10(a)) is the primary F-tag anchor.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D04",
+      "nors_label": "Rights: privacy",
+      "nors_table_2_page": 4,
+      "nors_definition": "Facility fails to ensure privacy during provision of care, treatment, or in other aspects of life.",
+      "use_when": "Staff enters room without knocking or announcement; care is provided with door open or in front of others; resident's medical information is discussed in common areas; mail is opened before delivery; staff shares personal information without consent.",
+      "do_not_use_when": "Staff oversight for safety monitoring that resident consented to; emergency entry without notice; standard care documentation that resident was informed about.",
+      "reporting_tips": "Document the specific privacy violation and context. Note whether facility has policies on knocking/announcing before entry. Mail privacy is specifically protected under §483.10(h)(2); document if mail was opened. Distinguish bodily privacy (care delivery) from informational privacy (records/communications).",
+      "examples": [
+        "Staff performs personal care with door or curtain open",
+        "Resident's diagnosis discussed loudly in hallway",
+        "Resident's mail is opened by staff before delivery",
+        "Staff enters room without knocking while resident is changing"
+      ],
+      "common_concern_phrases": [
+        "no privacy", "door left open", "they talk about me in the hall", "opened my mail",
+        "my medical information was shared", "didn't knock", "exposed during care"
+      ],
+      "likely_topics": ["privacy", "bodily privacy", "informational privacy", "mail rights", "confidentiality"],
+      "likely_neighbor_codes": ["D03", "D07", "D09"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(h) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(h)(1)-(2) covers personal privacy including mail. CT §19a-550(b)(10) covers confidential treatment and (b)(13)(A) covers right to send/receive mail unopened. F563 (mail, §483.10(f)(7)) and F583 (privacy/confidentiality, §483.10(h)) are the primary F-tag anchors.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D05",
+      "nors_label": "Rights: response to complaints",
+      "nors_table_2_page": 4,
+      "nors_definition": "Facility staff ignores or trivializes a resident's complaint, or there is no grievance process.",
+      "use_when": "Resident filed a complaint or grievance with the facility and received no response, a dismissive response, or was told there is no process for complaints. Use also when facility has no written grievance policy or it is not shared with residents.",
+      "do_not_use_when": "Resident is complaining to the ombudsman about a facility issue (this is the intake itself, not a D05 complaint); facility investigated and resident disagrees with outcome (may still be D05 if process was inadequate or dismissive).",
+      "reporting_tips": "Ask whether resident used facility's grievance process, what response they received, and the timeline. Per §483.10(j)(4), facility must have written grievance policy; check whether it was provided upon request. Note if facility retaliated after complaint (co-code D06).",
+      "examples": [
+        "Resident complained about care and staff said 'there's nothing I can do'",
+        "Grievance submitted in writing 3 weeks ago with no written response",
+        "Facility administrator dismisses family's concerns as 'normal aging'",
+        "No posted or available grievance policy"
+      ],
+      "common_concern_phrases": [
+        "nobody does anything", "complained but nothing changed", "told me to stop complaining",
+        "no grievance form", "didn't hear back", "they don't listen", "dismissed my concern"
+      ],
+      "likely_topics": ["grievance process", "complaint response", "resident rights", "facility responsiveness"],
+      "likely_neighbor_codes": ["D03", "D06", "D09", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(j) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(j) and F585 are the primary federal anchors. CT §19a-550(b)(6) and (b)(7) require facilities to encourage exercise of rights and make prompt efforts to resolve grievances. CT §19a-550(b)(21) entitles resident to file complaints with DSS and DPH.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D06",
+      "nors_label": "Rights: retaliation",
+      "nors_table_2_page": 4,
+      "nors_definition": "Acts of retaliation by facility staff in response to a complaint made to the facility, the ombudsman, or a state survey agency.",
+      "use_when": "Following a complaint, a resident or family member experiences negative consequences—reduced care, threats, sudden discharge notices, room changes, denial of privileges—that appear connected to the complaint. Temporal relationship between complaint and adverse action is a key indicator.",
+      "do_not_use_when": "Change in care is clinically indicated and properly documented with no connection to complaint; room change preceded the complaint.",
+      "reporting_tips": "Document the specific complaint/complaint date and the retaliatory action/date. Note any statements by staff linking the two. Check whether facility has anti-retaliation policies per §483.12(b)(5)(iii). 42 CFR §483.10(b)(1) explicitly prohibits interference or reprisal.",
+      "examples": [
+        "After family contacted ombudsman, resident was put on discharge notice",
+        "Staff became cold and slow to respond after resident filed formal grievance",
+        "Resident told 'if you keep complaining you'll have to find somewhere else to live'",
+        "Room change issued within days of complaint to state survey agency"
+      ],
+      "common_concern_phrases": [
+        "getting back at me", "punishing me", "things got worse after I complained",
+        "threatened with discharge", "now they're ignoring me more", "retaliating"
+      ],
+      "likely_topics": ["retaliation", "intimidation", "rights violation", "complaint consequences"],
+      "likely_neighbor_codes": ["D05", "C03", "A03", "D09"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(b)(1)-(2) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(b)(1)-(2) prohibits interference, coercion, discrimination, or reprisal in exercise of rights. §483.12(b)(5)(iii) requires policy prohibiting/preventing retaliation. CT §19a-550(b)(6) prohibits restraint, interference, coercion, discrimination or reprisal for presenting grievances.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D07",
+      "nors_label": "Rights: visitors",
+      "nors_table_2_page": 4,
+      "nors_definition": "Restrictions on resident's ability to choose who to associate with and when to visit.",
+      "use_when": "Facility restricts visitor access without clinical or safety justification; family is told they cannot visit or must limit visits; resident wants to see a specific person but facility prohibits it without valid reason; facility restricts visitation based on race, religion, or other protected characteristics.",
+      "do_not_use_when": "Resident has explicitly requested no visits from a specific person (resident's right to deny); clinical or safety restriction properly documented and justified; temporary pandemic-related protocols (assess separately).",
+      "reporting_tips": "Confirm whether restriction was imposed by facility or resident. Per §483.10(f)(4), resident has right to receive visitors at time of their choosing. Check whether restriction is clinically documented and whether it was communicated to resident. Note if ombudsman access was restricted (potential separate violation of §483.10(f)(4)(i)(C)).",
+      "examples": [
+        "Facility tells family visits are limited to 2 hours without clinical justification",
+        "Resident wants to see a friend but facility says no after 8pm",
+        "Facility posted 'no visitors' sign without resident input",
+        "Specific family member denied entry without explanation"
+      ],
+      "common_concern_phrases": [
+        "won't let my family visit", "visiting hours are too limited", "banned my friend",
+        "can't see who I want", "restricted visitors", "told visitors to leave"
+      ],
+      "likely_topics": ["visitor rights", "visitation restrictions", "family access", "association rights"],
+      "likely_neighbor_codes": ["D04", "D09", "D06"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(f)(4) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(f)(4) is detailed with non-discrimination requirements and immediate family access. CT §19a-550(b)(16) covers privacy for visits by spouse or designated person. F564 (§483.10(f)(4)) is the primary F-tag anchor.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "D09",
+      "nors_label": "Rights: other rights and preferences",
+      "nors_table_2_page": 4,
+      "nors_definition": "Deprivation of any right not defined in D01–D08, such as personal liberty, freedom of choice, assembly, speech, religious freedom, or right to vote.",
+      "use_when": "Resident's rights issue does not fit D01–D08: inability to attend religious services, vote, attend community activities, access the internet, participate in resident council, or exercise any other civil/liberty right. Also use for preferences about daily schedule, activities, or lifestyle not accommodated.",
+      "do_not_use_when": "Rights issue clearly fits D01–D08 (use the specific code); clinical restriction properly documented for safety.",
+      "reporting_tips": "Identify the specific right or preference being denied. Note whether facility has a policy that restricts the right and whether it is clinically justified. Reference §483.10(f)(1) (self-determination) for schedule/activity/lifestyle preferences. CT §19a-550(b)(1) frames residents as having all rights of any state resident.",
+      "examples": [
+        "Resident wants to attend church services but facility prevents access to transportation",
+        "Resident not allowed to participate in outside community elections/voting",
+        "Resident council meetings are run by administration and residents cannot speak freely",
+        "Resident wants to use personal technology but facility prohibits it"
+      ],
+      "common_concern_phrases": [
+        "can't go to church", "can't vote", "not allowed to use my phone", "council is controlled by staff",
+        "can't choose my own schedule", "restricted from activities", "can't leave when I want"
+      ],
+      "likely_topics": ["self-determination", "civil rights", "religious freedom", "voting rights", "personal liberty", "resident council"],
+      "likely_neighbor_codes": ["D01", "D04", "D05", "D07"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(f)(1) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(f)(1) (self-determination: choose activities, schedules, health care, providers) is the broadest resident rights provision. F561 covers this. CT §19a-550(b)(1) explicitly states resident 'has no fewer rights than any other resident of the state.' CT §19a-550(b)(14) covers social, religious, and community activities.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "F02",
+      "nors_label": "Resident care: respond to requests for assistance",
+      "nors_table_2_page": 5,
+      "nors_definition": "Failure to promptly respond to call light or bell, or requests for assistance go unanswered.",
+      "use_when": "Resident rings call light and staff does not respond for an unreasonable time; call light system is broken or not accessible; resident falls or has an accident because help was not available when called; resident's requests for assistance are consistently ignored.",
+      "do_not_use_when": "Single brief delay that was subsequently addressed and does not represent a pattern; resident chose not to use call system.",
+      "reporting_tips": "Document specific incidents including time waited, what help was needed, and outcome. Note whether call light system was functional. Consider co-coding with J03 (staffing) if delays appear systemic and related to understaffing.",
+      "examples": [
+        "Resident waited 45 minutes for assistance to the bathroom and had an accident",
+        "Call light broken for 3 days, no repair",
+        "Staff repeatedly tells resident to wait when they ask for help getting up",
+        "Resident fell trying to get up without help because no one responded to call"
+      ],
+      "common_concern_phrases": [
+        "nobody answers my light", "call light doesn't work", "waited so long", "had an accident waiting",
+        "ring and ring but no one comes", "ignored when I ask for help"
+      ],
+      "likely_topics": ["call light", "response time", "assistance", "unmet needs"],
+      "likely_neighbor_codes": ["A05", "J03", "F03", "H02"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.10(e)(3) (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-10.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.10(e)(3) provides right to reasonable accommodation of needs and requests. F558 (§483.10(e)(3)) is primary F-tag anchor. CT §19a-550(b)(11) requires 'reasonable accommodation of individual needs and preferences.' If systemic, investigate §483.35 (J03/F725) for staffing inadequacy.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "F03",
+      "nors_label": "Resident care: care planning",
+      "nors_table_2_page": 5,
+      "nors_definition": "Facility does not create or follow a person-centered care plan; planning process excludes the resident or representative; or staff disregards or are not informed of the plan.",
+      "use_when": "No care plan exists; care plan does not reflect resident's current needs or preferences; resident/family was not invited to care plan meeting; staff are unaware of care plan contents; facility fails to follow care plan despite its existence; care plan not updated after changes in condition.",
+      "do_not_use_when": "Resident disagrees with clinical judgment included in care plan (different rights issue); care plan exists and is followed but resident prefers different approach (may be D01/D09).",
+      "reporting_tips": "Ask whether resident/family was invited to the care conference. Note specific care plan elements missing or not followed. Per §483.21(b)(2)(ii)(E), failure to include resident must be documented with reason. Check whether care plan addresses current clinical needs identified in assessment.",
+      "examples": [
+        "Resident with diabetes has no care plan for dietary management",
+        "Family not invited to care conference and didn't know plan was changed",
+        "Staff unaware resident requires thickened liquids per care plan",
+        "Care plan not updated 6 months after major stroke"
+      ],
+      "common_concern_phrases": [
+        "no care plan", "wasn't invited to my care meeting", "staff don't follow my plan",
+        "they changed my care without asking", "nobody told the staff about my needs",
+        "care plan is out of date"
+      ],
+      "likely_topics": ["care planning", "person-centered care", "care conference", "care plan compliance"],
+      "likely_neighbor_codes": ["F02", "F04", "D01", "J03", "H02"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.21 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-21.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.21",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.21(b)(1)-(3) is the comprehensive care plan requirement. §483.10(c)(2)-(3) covers resident's right to participate in care planning. F656 (§483.21(b)(1)) is the primary F-tag anchor. F553 (§483.10(b)(4)) covers right to participate. CT §19a-550(b)(4) includes right to participate in planning medical treatment.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "F04",
+      "nors_label": "Resident care: medications",
+      "nors_table_2_page": 5,
+      "nors_definition": "Medication given in error, not given on time or at all; not documented or incorrectly documented.",
+      "use_when": "Resident did not receive a prescribed medication; wrong medication or dose was given; medication was given at wrong time; medication administration was not documented; resident was given medication without a valid order; concerns about unnecessary psychotropic medications.",
+      "do_not_use_when": "Resident voluntarily refused medication (document refusal); concern is about prescription of medication by physician rather than administration by facility (clinical judgment issue).",
+      "reporting_tips": "Document the specific medication, prescribed schedule, and what was missed or done incorrectly. Note whether the error was recorded in the MAR. Per §483.45(f), error rates over 5% or significant individual errors are regulatory violations. Psychotropic medication concerns require careful assessment under §483.45(e) and F605.",
+      "examples": [
+        "Blood pressure medication not given for 2 days, no documentation of why",
+        "Resident given another resident's medication",
+        "Pain medication not given at prescribed time, resident in pain for hours",
+        "Psychotropic drug started without care plan or adequate indication"
+      ],
+      "common_concern_phrases": [
+        "missed my medication", "gave me the wrong pill", "not getting my pain meds on time",
+        "didn't document it", "started new medication without telling me", "overmedicated",
+        "sleeping pills without my consent"
+      ],
+      "likely_topics": ["medication errors", "medication administration", "psychotropic drugs", "MAR documentation"],
+      "likely_neighbor_codes": ["F03", "D01", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.45 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-45.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.45(f) covers medication errors; (d) covers unnecessary drugs; (e) covers psychotropic drugs. F757 (unnecessary medications §483.45(d)) and formerly F758 (psychotropic §483.45(e), now F605 per Rev. 229) are related F-tags. CT §19a-550(b)(22) requires psychopharmacologic drugs only as part of written plan of care with independent review. Note: F758 was deleted and consolidated into F605 as of April 2025.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "H01",
+      "nors_label": "Dietary: food services",
+      "nors_table_2_page": 8,
+      "nors_definition": "Food quantity, quality, variation, choice, temperature, and timing of meals and snacks are substandard or do not meet resident expectations.",
+      "use_when": "Food is served cold when it should be hot; meals lack variety or choice; portions are insufficient; food quality is poor (unpalatable, unappetizing, improperly prepared); resident's cultural, religious, or dietary preferences are not accommodated; meal timing is problematic (more than 14 hours between dinner and breakfast).",
+      "do_not_use_when": "Resident's individual therapeutic diet restriction is clinically appropriate and properly ordered; facility meets baseline requirements but resident has high personal expectations beyond regulatory standards.",
+      "reporting_tips": "Document specific complaints—what food was served, temperature, portion size, frequency of problem. Note whether resident's dietary preferences or therapeutic needs are in the care plan. Check meal timing against the 14-hour rule in §483.60(f)(2). CT §19a-550(b)(3) covers services available and related charges.",
+      "examples": [
+        "Hot food served cold, consistently every meal",
+        "Same menu 3 days in a row with no alternatives offered",
+        "Resident's Kosher dietary requirement not met",
+        "Portions too small, resident reports being hungry",
+        "Meals served 16 hours apart without nightly snack"
+      ],
+      "common_concern_phrases": [
+        "food is cold", "always the same food", "not enough to eat", "terrible food quality",
+        "no choices", "can't eat what they serve", "hungry", "doesn't meet my dietary needs"
+      ],
+      "likely_topics": ["food quality", "meal choice", "meal timing", "dietary preferences", "nutrition"],
+      "likely_neighbor_codes": ["H02", "F03", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.60 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-60.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.60(c)-(f) cover menus, nutritional adequacy, food quality, and meal frequency. §483.60(d)(2) requires food 'at a safe and appetizing temperature.' F801 (§483.60(a)) addresses qualified dietary staff; F802 (§483.60(a)(3)) addresses sufficient support staff. Menu/food quality issues often link to F806 (§483.60(d)) or F808 (§483.60(f)).",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "H02",
+      "nors_label": "Dietary: dining and hydration",
+      "nors_table_2_page": 8,
+      "nors_definition": "Facility staff fails to assist with dining or ensure adequate hydration.",
+      "use_when": "Resident needs assistance eating or drinking but staff does not provide it; resident's food/drinks sit untouched without staff intervention; resident shows signs of dehydration; resident who needs feeding assistance is left alone at meals; water and fluids not offered consistently throughout the day.",
+      "do_not_use_when": "Resident has refused assistance; dietary restriction limits fluid intake as clinically ordered (different issue); concern is about food quality/temperature (use H01).",
+      "reporting_tips": "Document whether resident's care plan identifies need for dining assistance; note whether trays are returned untouched without staff observation. Check whether facility offers fluids consistently per §483.60(d)(6). Per §483.60(h), residents with complex feeding problems should not use paid feeding assistants.",
+      "examples": [
+        "Resident with dementia left alone at meals without prompting or assistance",
+        "Resident losing weight because staff don't help them eat",
+        "Water pitcher out of reach and refilled only once daily",
+        "Resident with swallowing difficulty receiving no prompting or oversight during meals"
+      ],
+      "common_concern_phrases": [
+        "nobody helps me eat", "can't reach my water", "food goes cold, nobody helps",
+        "losing weight because I can't feed myself", "dehydrated", "no one checks if I'm drinking"
+      ],
+      "likely_topics": ["dining assistance", "hydration", "eating help", "nutrition", "feeding"],
+      "likely_neighbor_codes": ["A05", "F02", "F03", "H01", "J03"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.60 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-60.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.60(d)(6) requires sufficient drinks to maintain hydration; §483.60(g) covers assistive devices; §483.60(h) covers paid feeding assistants. F802 (§483.60(a)(3)) addresses sufficient support staff for dining. Severe cases may escalate to A05 (gross neglect). CT §19a-550(b)(11) requires reasonable accommodation of individual needs.",
+      "overall_mapping_confidence": "direct"
+    },
+    {
+      "nors_code": "J03",
+      "nors_label": "Administration: staffing",
+      "nors_table_2_page": 10,
+      "nors_definition": "Problems with shortage of staff, high turnover, overuse of temporary agencies; complaints about skills or training of staff.",
+      "use_when": "Resident experiences care problems that appear directly related to insufficient staff, high turnover causing lack of familiarity, overreliance on agency/temp staff who do not know residents, or staff who lack training for residents' specific needs.",
+      "do_not_use_when": "Complaint is about a specific staff behavior (use A-codes for abuse; D03 for dignity); use J03 when systemic staffing inadequacy is the root cause, possibly in addition to other codes.",
+      "reporting_tips": "Note specific care lapses and whether they recur across shifts or with multiple staff. Document whether facility posts daily staffing data per §483.35(g). Agency/temp use concern connects to §483.35(d)(2). Training gaps connect to §483.35(c) (nurse aide competency). Distinguish J03 (root cause: system) from individual staff conduct codes.",
+      "examples": [
+        "Same aide covers entire wing alone overnight; call lights go unanswered",
+        "New agency staff every week who don't know residents' needs",
+        "High staff turnover means care plan is never followed consistently",
+        "Facility cannot maintain enough licensed nurses per shift"
+      ],
+      "common_concern_phrases": [
+        "not enough staff", "always short-staffed", "different faces every day", "agency staff don't know me",
+        "always temp workers", "nobody knows my routine", "they just don't have enough people",
+        "staff aren't trained for this"
+      ],
+      "likely_topics": ["staffing levels", "staff turnover", "agency staff", "nurse training", "competency"],
+      "likely_neighbor_codes": ["F02", "F03", "A05", "H02"],
+      "do_not_map_f_tags": [],
+      "handout_or_resource_urls": [
+        {"label": "NORS Codes and Definitions (NORC/LTCO)", "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"},
+        {"label": "42 CFR §483.35 (GovInfo)", "url": "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-35.xml"}
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_notes": "42 CFR §483.35(a)(1)-(2) address sufficient nursing staff; §483.35(c) nurse aide competency; §483.35(d)(2) prohibits use of non-permanent employees who don't meet competency requirements. F725 (§483.35(a)(1)-(2)) and F726 (§483.35(a)(3)) are primary F-tag anchors. Note: CT minimum staffing standards may be stricter than federal minimums; verify current CT DPH staffing regulations.",
+      "overall_mapping_confidence": "direct"
+    }
+  ],
+  "authority_rows": [
+    {
+      "nors_code": "A01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F600",
+      "authority_label": "Freedom from Abuse, Neglect, and Exploitation",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12(a)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F600 - Freedom from Abuse, Neglect, and Exploitation",
+      "mapping_rationale_short": "§483.12(a)(1) prohibits verbal, mental, sexual, or physical abuse; directly corresponds to A01 physical abuse",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12 Freedom from abuse, neglect, and exploitation — (a)(1): Not use verbal, mental, sexual, or physical abuse, corporal punishment, or involuntary seclusion",
+      "human_review_note": "Confirm PDF page start from live Appendix PP (Rev. 232, 07-23-25)",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"
+      ]
+    },
+    {
+      "nors_code": "A01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F602",
+      "authority_label": "Facility Policies — Abuse Prevention",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12(b)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F602 - Facility Policies Prohibiting Abuse",
+      "mapping_rationale_short": "§483.12(b) requires written policies prohibiting and preventing abuse, including training and QAPI coordination",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12(b): The facility must develop and implement written policies and procedures that: (b)(1) Prohibit and prevent abuse, neglect, and exploitation",
+      "human_review_note": "Confirm PDF page start. Note this is a facility-policy tag, not a resident-outcome tag; use when alleging systemic failure to prevent abuse.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"
+      ]
+    },
+    {
+      "nors_code": "A01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F607",
+      "authority_label": "Reporting of Alleged Violations",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12(c)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F607 - Reporting of Alleged Violations",
+      "mapping_rationale_short": "§483.12(c)(1) requires reporting alleged abuse within 2 hours (serious) or 24 hours to administrator and state survey agency",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12(c)(1): all alleged violations involving abuse...reported immediately, but not later than 2 hours after the allegation is made...to the administrator of the facility and to other officials",
+      "human_review_note": "Confirm PDF page start. Relevant when assessing whether facility self-reported properly.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-12.xml"
+      ]
+    },
+    {
+      "nors_code": "A01",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(9)",
+      "authority_label": "CT Patients' Bill of Rights — Freedom from Mental and Physical Abuse",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(9)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(9) prohibits mental and physical abuse, corporal punishment, and involuntary seclusion for CT nursing facility residents",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(9): is free from mental and physical abuse, corporal punishment, involuntary seclusion and any physical or chemical restraints imposed for purposes of discipline or convenience",
+      "human_review_note": "Confirmed from CT General Assembly website, effective through 2024 legislative session.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "A01",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority for all resident complaints including abuse",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints made by or on behalf of residents that relate to action, inaction, or decisions, that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "This is the universal ombudsman authority anchor present for every NORS code.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "A02",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F600",
+      "authority_label": "Freedom from Abuse, Neglect, and Exploitation",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12(a)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F600 - Freedom from Abuse, Neglect, and Exploitation",
+      "mapping_rationale_short": "§483.12(a)(1) prohibits sexual abuse; F600 includes all categories of abuse",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12(a)(1): Not use verbal, mental, sexual, or physical abuse, corporal punishment, or involuntary seclusion",
+      "human_review_note": "Confirm PDF page start. Sexual abuse is explicitly listed in §483.12(a)(1).",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ]
+    },
+    {
+      "nors_code": "A02",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(9)",
+      "authority_label": "CT Patients' Bill of Rights — Freedom from Mental and Physical Abuse",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(9)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(9) prohibits all forms of abuse including sexual abuse under general prohibition",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(9): is free from mental and physical abuse, corporal punishment, involuntary seclusion",
+      "human_review_note": "Sexual abuse is subsumed under 'physical abuse' in CT statute; confirm CT DPH regulations explicitly define sexual abuse.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "A02",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "A03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F600",
+      "authority_label": "Freedom from Abuse, Neglect, and Exploitation",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12(a)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F600 - Freedom from Abuse, Neglect, and Exploitation",
+      "mapping_rationale_short": "§483.12(a)(1) prohibits verbal and mental abuse, directly corresponding to psychological/emotional abuse",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12(a)(1): Not use verbal, mental, sexual, or physical abuse, corporal punishment, or involuntary seclusion",
+      "human_review_note": "Confirm PDF page start. Verbal and mental abuse in §483.12 aligns directly with A03 psychological abuse definition.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ]
+    },
+    {
+      "nors_code": "A03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F550",
+      "authority_label": "Resident Rights — Dignity and Respect",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(a)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F550 - Resident Rights",
+      "mapping_rationale_short": "§483.10(a)(1) requires dignified existence; psychological abuse violates this core right",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.10(a)(1): A facility must treat each resident with respect and dignity",
+      "human_review_note": "F550 is a supplementary anchor; F600 is primary for abuse. Use F550 when psychological abuse also involves dignity violation.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "A03",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(9)",
+      "authority_label": "CT Patients' Bill of Rights — Freedom from Mental Abuse",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(9)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(9) explicitly prohibits mental abuse, directly corresponding to A03",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(9): is free from mental and physical abuse, corporal punishment, involuntary seclusion",
+      "human_review_note": "CT statute explicitly uses the term 'mental abuse' which maps directly to A03.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "A03",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "A04",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F600",
+      "authority_label": "Freedom from Abuse, Neglect, and Exploitation",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F600 - Freedom from Abuse, Neglect, and Exploitation",
+      "mapping_rationale_short": "§483.12 introductory text includes freedom from 'misappropriation of resident property' and 'exploitation'; directly maps to A04",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12: The resident has the right to be free from abuse, neglect, misappropriation of resident property, and exploitation",
+      "human_review_note": "Confirm PDF page start. 'Misappropriation of resident property' is explicit in §483.12 introductory text.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ]
+    },
+    {
+      "nors_code": "A04",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(21)",
+      "authority_label": "CT Patients' Bill of Rights — Right to File Complaint re: Misappropriation",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(21)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(21) entitles resident to file complaints about misappropriation of patient property",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(21): is entitled to file a complaint with the Department of Social Services and the Department of Public Health regarding patient abuse, neglect or misappropriation of patient property",
+      "human_review_note": "Confirmed from CT General Assembly website.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "A04",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "A05",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F600",
+      "authority_label": "Freedom from Abuse, Neglect, and Exploitation",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.12",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F600 - Freedom from Abuse, Neglect, and Exploitation",
+      "mapping_rationale_short": "§483.12 introductory text includes freedom from 'neglect'; gross neglect is the most severe form",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.12: The resident has the right to be free from abuse, neglect, misappropriation of resident property, and exploitation",
+      "human_review_note": "Confirm PDF page start. Note gross neglect (A05) is more severe than ordinary neglect; §483.12(c)(1) reporting timeline applies to neglect resulting in serious bodily injury.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ]
+    },
+    {
+      "nors_code": "A05",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(9)",
+      "authority_label": "CT Patients' Bill of Rights — Freedom from Abuse and Neglect",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(9)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(9) prohibits physical abuse; gross neglect is encompassed under this protection",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "CGS §19a-550(b)(9): is free from mental and physical abuse, corporal punishment, involuntary seclusion",
+      "human_review_note": "CT statute does not explicitly define 'gross neglect' as a separate category; confirm applicable CT DPH definitions and mandatory reporting requirements under CT §17b-450.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "A05",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(b)(1)",
+      "authority_label": "LTCO Complaint Investigation — Including Neglect",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(b)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "45 CFR §1324.19(b)(1) explicitly includes neglect as a complaint type to investigate",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(b)(1): The Ombudsman or representative of the Office shall investigate a complaint, including but not limited to a complaint related to abuse, neglect, or exploitation",
+      "human_review_note": "This subsection explicitly names neglect alongside abuse and exploitation.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "C03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F627",
+      "authority_label": "Inappropriate Transfers and Discharges",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.15(c)(1)-(2)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F627 - Inappropriate Transfers and Discharges",
+      "mapping_rationale_short": "§483.15(c)(1)(i) enumerates permissible grounds for discharge; F627 addresses violations of these limits",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.15(c)(1)(i): The facility must permit each resident to remain in the facility, and not transfer or discharge the resident from the facility unless [enumerated grounds]",
+      "human_review_note": "F627 is a new/revised tag as of Rev. 229 (April 2025), consolidating content from former F622. Confirm current Appendix PP text. §483.15(c)(1)(ii) prohibits transfer while appeal is pending.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-15.xml"
+      ]
+    },
+    {
+      "nors_code": "C03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F628",
+      "authority_label": "Transfer and Discharge Process",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.15(c)(2)-(8)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F628 - Transfer and Discharge Process",
+      "mapping_rationale_short": "§483.15(c)(3)-(5) require 30-day written notice with specific content including ombudsman contact; (c)(3)(i) requires copy sent to ombudsman; (d) covers bed-hold; (e) covers readmission",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.15(c)(3)(i): Notify the resident and the resident's representative(s) of the transfer or discharge...The facility must send a copy of the notice to a representative of the Office of the State Long-Term Care Ombudsman",
+      "human_review_note": "F628 is also a new/revised tag as of Rev. 229 (April 2025). §483.15(d) covers bed-hold notice; §483.15(e) covers readmission rights.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-15.xml"
+      ]
+    },
+    {
+      "nors_code": "C03",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-535",
+      "authority_label": "CT Transfer and Discharge Rights",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535",
+      "authority_section_or_tag": "§19a-535(b)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-535(b) sets permissible grounds for transfer/discharge in CT nursing facilities, paralleling §483.15(c)(1)",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-535(b): A facility shall not transfer or discharge a resident from the facility except to meet the welfare of the resident which cannot be met in the facility, or unless the resident no longer needs the services of the facility due to improved health...",
+      "human_review_note": "CT §19a-535 must be checked for CT-specific notice periods and bed-hold requirements which may differ from or supplement federal requirements. CT §19a-550(b)(23) references §19a-535 directly.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "C03",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(23)",
+      "authority_label": "CT Patients' Bill of Rights — Transfer/Discharge Only Pursuant to §19a-535",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(23)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(23) entitles resident to be transferred or discharged only pursuant to §19a-535",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(23): is entitled to be transferred or discharged from the facility only pursuant to section 19a-535, 19a-535a or 19a-535b, as applicable",
+      "human_review_note": "Confirmed from CT General Assembly website. Cross-reference §19a-535a and §19a-535b for assisted living and other facility types if applicable.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "C03",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman authority; also note §483.15(c)(3)(i) requires facility to send discharge notice copy to ombudsman",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "The ombudsman receives a copy of every discharge notice per §483.15(c)(3)(i). This creates an affirmative monitoring obligation.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F552",
+      "authority_label": "Right to be Informed/Make Treatment Decisions",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(b)(1)-(3) and §483.10(c)(5)-(6)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F552 - Right to be Informed/Make Treatment Decisions",
+      "mapping_rationale_short": "§483.10(b)(1) prohibits interference in exercise of rights; §483.10(c)(5) includes right to choose treatment alternatives/options",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.10(c)(5): The right to be informed in advance...of the risks and benefits of proposed care, of treatment and treatment alternatives or treatment options and to choose the alternative or option he or she prefers",
+      "human_review_note": "F552 overlaps with D01 for treatment decisions; the primary D01 provision is §483.10(d) (choice of physician) mapped to F552 secondarily. Review Appendix PP F552 for its exact regulatory citations as updated in Rev. 229.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F561",
+      "authority_label": "Self-Determination",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(f)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F561 - Self-Determination",
+      "mapping_rationale_short": "§483.10(f)(1) gives resident right to choose health care and providers consistent with interests and care plan",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(f)(1): The resident has a right to choose activities, schedules...health care and providers of health care services consistent with his or her interests, assessments, plan of care",
+      "human_review_note": "Confirm PDF page start. F561 covers choice of health care providers as part of self-determination.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D01",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(4)",
+      "authority_label": "CT Patients' Bill of Rights — Right to Choose Physician or APRN",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(4)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(4) explicitly grants right to choose own physician or APRN and participate in medical treatment planning",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(4): In such facility or hospital is entitled to choose the patient's own physician or advanced practice registered nurse and is fully informed...of the patient's medical condition",
+      "human_review_note": "Confirmed from CT General Assembly website. CT extends right to APRN choice, broader than federal language.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D01",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F550",
+      "authority_label": "Resident Rights — Dignified Existence",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(a)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F550 - Resident Rights",
+      "mapping_rationale_short": "§483.10(a)(1) requires facility treat each resident with respect and dignity; D03 is the NORS expression of this obligation",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(a)(1): A facility must treat each resident with respect and dignity and care for each resident in a manner and in an environment that promotes maintenance or enhancement of his or her quality of life",
+      "human_review_note": "Confirm PDF page start. Note Rev. 229 revised F550 procedures. F550 is the primary dignity F-tag.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D03",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(11)",
+      "authority_label": "CT Patients' Bill of Rights — Quality Care with Dignity and Respect",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(11)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(11) requires treatment 'with consideration, respect, and full recognition of the patient's dignity and individuality'",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(11): receives quality care and services with reasonable accommodation of individual needs and preferences...and is treated with consideration, respect, and full recognition of the patient's dignity and individuality, including privacy in treatment and in care for the patient's personal needs",
+      "human_review_note": "Confirmed from CT General Assembly website. CT specifically includes 'individuality' and 'privacy in treatment' in the dignity standard.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D03",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D04",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F583",
+      "authority_label": "Right to Personal Privacy/Confidentiality of Records",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(h)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F583 - Right to Personal Privacy/Confidentiality of Records",
+      "mapping_rationale_short": "§483.10(h)(1)-(2) explicitly covers personal privacy including bodily privacy, mail, telephone, electronic communications",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(h)(1): Personal privacy includes accommodations, medical treatment, written and telephone communications, personal care, visits, and meetings of family and resident groups",
+      "human_review_note": "Confirm PDF page start. §483.10(h)(2) specifically addresses right to send and receive unopened mail. F563 is the specific mail-rights F-tag.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D04",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F563",
+      "authority_label": "Right to Receive/Send Mail",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(f)(7) / §483.10(h)(2)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F563 - Right to Receive/Send Mail",
+      "mapping_rationale_short": "§483.10(h)(2) provides right to send and receive unopened mail and materials delivered to the facility",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(h)(2): the right to send and promptly receive unopened mail and other letters, packages and other materials delivered to the facility for the resident",
+      "human_review_note": "Confirm exact F563 regulatory citation in current Appendix PP; mail right is in §483.10(h)(2) in the privacy section.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D04",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(10)",
+      "authority_label": "CT Patients' Bill of Rights — Confidentiality of Personal and Medical Records",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(10)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(10) assures confidential treatment of personal and medical records",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(10): is assured confidential treatment of the patient's personal and medical records, and may approve or refuse their release to any individual outside the facility",
+      "human_review_note": "CT §19a-550(b)(13)(A) also covers right to send/receive mail unopened. CT §19a-550(b)(11) includes privacy in treatment.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D04",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor. Note §483.10(h)(3)(ii) specifically provides ombudsman access to resident records.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D05",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F585",
+      "authority_label": "Right to Participate in Grievance Process",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(j)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F585 - Right to Participate in Grievance Process",
+      "mapping_rationale_short": "§483.10(j)(1)-(4) establishes comprehensive grievance rights including right to file without reprisal and prompt resolution",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(j)(1): The resident has the right to voice grievances to the facility or other agency or entity that hears grievances without discrimination or reprisal and without fear of discrimination or reprisal",
+      "human_review_note": "Confirm PDF page start. §483.10(j)(4) requires facility to have written grievance policy and provide copy upon request. Facility failure to establish or follow grievance process maps to D05.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D05",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(6)-(7)",
+      "authority_label": "CT Patients' Bill of Rights — Exercise of Rights and Grievance Resolution",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(6)-(7)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(6) prohibits reprisal for presenting grievances; (b)(7) requires prompt efforts to resolve grievances",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(6): has the right to present grievances and recommend changes...without restraint, interference, coercion, discrimination or reprisal; (b)(7): shall have prompt efforts made by such nursing home facility...to resolve grievances the patient may have",
+      "human_review_note": "Confirmed from CT General Assembly website. CT §19a-550(b)(6)(C) also ensures access to ombudsman.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D05",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D06",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F550",
+      "authority_label": "Resident Rights — Non-Interference and Non-Reprisal",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(b)(1)-(2)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F550 - Resident Rights",
+      "mapping_rationale_short": "§483.10(b)(1)-(2) explicitly prohibit interference, coercion, discrimination, and reprisal in exercise of rights",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(b)(1): The facility must ensure that the resident can exercise his or her rights without interference, coercion, discrimination, or reprisal from the facility; §483.10(b)(2): The resident has the right to be free of interference, coercion, discrimination, and reprisal from the facility in exercising his or her rights",
+      "human_review_note": "Confirm PDF page start for F550. D06 retaliation directly violates §483.10(b)(1)-(2). Also, §483.12(b)(5)(iii) prohibits and prevents retaliation for reporting crimes.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D06",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(6)",
+      "authority_label": "CT Patients' Bill of Rights — Non-Reprisal for Grievances",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(6)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(6) prohibits restraint, interference, coercion, discrimination or reprisal for presenting grievances or exercising rights",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(6): has the right to present grievances and recommend changes in policies, procedures and services...without restraint, interference, coercion, discrimination or reprisal from the nursing home facility",
+      "human_review_note": "Confirmed from CT General Assembly website.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D06",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D07",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F564",
+      "authority_label": "Right to Receive/Restrict Visitors",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(f)(4)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F564 - Right to Receive/Restrict Visitors",
+      "mapping_rationale_short": "§483.10(f)(4) provides detailed visitation rights including immediate access, non-discrimination, and right to deny consent",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(f)(4): The resident has a right to receive visitors of his or her choosing at the time of his or her choosing, subject to the resident's right to deny visitation when applicable, and in a manner that does not impose on the rights of another resident",
+      "human_review_note": "Confirm PDF page start. §483.10(f)(4)(vi)(C) prohibits restriction on basis of race, color, national origin, religion, sex, gender identity, sexual orientation, or disability.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D07",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(16)",
+      "authority_label": "CT Patients' Bill of Rights — Privacy for Visits by Spouse or Designee",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(16)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(16) assures privacy for visits by spouse or designated person; also covers same-sex spouse room sharing",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "CGS §19a-550(b)(16): is assured privacy for visits by the patient's spouse or a person designated by the patient...and, if the patient is married and both the patient and the patient's spouse are inpatients in the facility, they are permitted to share a room",
+      "human_review_note": "CT §19a-550(b)(16) is more specific to spousal/designated visits; CT §19a-550(b)(1)(A) covers associating and communicating privately with persons of choice. Review for broader visitor right applicability.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D07",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority; also note §483.10(f)(4)(i)(C) guarantees ombudsman immediate access",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Ombudsman has guaranteed immediate access under §483.10(f)(4)(i)(C). If ombudsman access is restricted, this is also a D07 concern.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "D09",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F561",
+      "authority_label": "Self-Determination",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(f)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F561 - Self-Determination",
+      "mapping_rationale_short": "§483.10(f)(1) grants broad self-determination including choice of activities, schedules, health care, and providers",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(f)(1): The resident has a right to choose activities, schedules (including sleeping and waking times), health care and providers of health care services consistent with his or her interests, assessments, plan of care and other applicable provisions of this part",
+      "human_review_note": "Confirm PDF page start. F561 is the primary catch-all for rights not captured in other specific F-tags.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "D09",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(1)",
+      "authority_label": "CT Patients' Bill of Rights — All Rights of Any State Resident",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(1) grants residents all rights of any other state resident including association, communication, and technology use",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(1): has no fewer rights than any other resident of the state, including, but not limited to (A) associating and communicating privately with persons of the patient's choice, and (B) purchasing and using technology of the patient's choice",
+      "human_review_note": "CT §19a-550(b)(1) is extremely broad and encompasses many D09 situations. Also relevant: CT §19a-550(b)(14) covers social, religious, and community activities.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "D09",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "F02",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F558",
+      "authority_label": "Accommodation of Needs/Reasonable Requests",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(e)(3)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F558 - Accommodation of Needs/Reasonable Requests",
+      "mapping_rationale_short": "§483.10(e)(3) provides right to reside and receive services with reasonable accommodation of resident needs and preferences",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(e)(3): The right to reside and receive services in the facility with reasonable accommodation of resident needs and preferences except when to do so would endanger the health or safety of the resident or other residents",
+      "human_review_note": "Confirm PDF page start. Call light/assistance requests are covered under accommodation of needs. Consider also §483.25 quality of care if unresponded requests lead to adverse clinical outcomes.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "F02",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(11)",
+      "authority_label": "CT Patients' Bill of Rights — Reasonable Accommodation of Needs and Preferences",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(11)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(11) requires quality care and services with reasonable accommodation of individual needs and preferences",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(11): receives quality care and services with reasonable accommodation of individual needs and preferences, except where the health or safety of the individual would be endangered",
+      "human_review_note": "Confirmed from CT General Assembly website.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "F02",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "F03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F656",
+      "authority_label": "Comprehensive Care Plan",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.21(b)(1)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F656 - Comprehensive Care Plan",
+      "mapping_rationale_short": "§483.21(b)(1) requires person-centered comprehensive care plan with resident participation; §483.21(b)(3)(ii) requires services be provided by qualified persons per written care plan",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.21(b)(1): The facility must develop and implement a comprehensive person-centered care plan for each resident...that includes measurable objectives and timeframes to meet a resident's medical, nursing, and mental and psychosocial needs",
+      "human_review_note": "Confirm PDF page start. F553 (§483.10(b)(4)) is also relevant for resident's right to participate in care planning. F656 addresses the care plan content and process.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.21"
+      ]
+    },
+    {
+      "nors_code": "F03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F553",
+      "authority_label": "Right to Participate in Planning Care",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.10(b)(4) / §483.10(c)(2)-(3)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F553 - Right to Participate in Planning Care",
+      "mapping_rationale_short": "§483.10(c)(2)(i)-(v) provides detailed right to participate in care plan development, revision, and receipt of services in plan",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.10(c)(2): The right to participate in the development and implementation of his or her person-centered plan of care, including but not limited to: (i) The right to participate in the planning process, including the right to identify individuals or roles to be included in the planning process, the right to request meetings and the right to request revisions",
+      "human_review_note": "F553 is primarily a rights-based anchor; F656 is the care plan quality anchor. Both apply to F03 complaints.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "F03",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(4)",
+      "authority_label": "CT Patients' Bill of Rights — Right to Participate in Medical Treatment Planning",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(4)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(4) provides right to participate in planning of medical treatment",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(4): is afforded the opportunity to participate in the planning of the patient's medical treatment and to refuse to participate in experimental research",
+      "human_review_note": "Confirmed from CT General Assembly website.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "F03",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "F04",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F757",
+      "authority_label": "Unnecessary Medications",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.45(d)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F757 - Unnecessary Medications",
+      "mapping_rationale_short": "§483.45(d) defines unnecessary drugs (excessive dose, duration, without monitoring or indication, with adverse consequences); overlaps with F04 when medications given in error or inappropriately",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.45(d): Each resident's drug regimen must be free from unnecessary drugs. An unnecessary drug is any drug when used in excessive dose...for excessive duration...without adequate monitoring...without adequate indications for its use",
+      "human_review_note": "F757 covers unnecessary medications broadly; F04 (NORS) includes medication errors and missed doses. For psychotropic-specific complaints, F605 (§483.45(e), revised April 2025 replacing F758) is relevant.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45"
+      ]
+    },
+    {
+      "nors_code": "F04",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F605",
+      "authority_label": "Free from Unnecessary Psychotropic Medications/PRN Use",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.45(e)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F605 - Free from Unnecessary Psychotropic Medications/PRN Use",
+      "mapping_rationale_short": "§483.45(e) requires psychotropic drugs to be necessary, used with gradual dose reductions, and PRN orders limited; effective April 2025 consolidating former F758",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.45(e): Residents who have not used psychotropic drugs are not given these drugs unless the medication is necessary to treat a specific condition as diagnosed and documented in the clinical record",
+      "human_review_note": "Note: Former F758 was deleted and content relocated to F605 as of Appendix PP Rev. 229 (April 2025). CT §19a-550(b)(22) requires psychopharmacologic drugs only on orders of physician or APRN as part of written plan of care with independent annual review.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45"
+      ]
+    },
+    {
+      "nors_code": "F04",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(22)",
+      "authority_label": "CT Patients' Bill of Rights — Psychopharmacologic Drugs Only per Written Plan of Care",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(22)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(22) requires psychopharmacologic drugs only on physician/APRN orders, as part of written care plan, with independent external review annually",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(22): is entitled to have psychopharmacologic drugs administered only on orders of a physician or an advanced practice registered nurse and only as part of a written plan of care developed in accordance with Section 1919(b)(2) of the Social Security Act",
+      "human_review_note": "Confirmed from CT General Assembly website. CT adds independent external consultant annual review requirement beyond federal standard.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "F04",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "H01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F801",
+      "authority_label": "Qualified Dietary Staff",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.60(a)(1)-(2)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F801 - Qualified Dietary Staff",
+      "mapping_rationale_short": "§483.60(a)(1)-(2) require qualified dietitian and director of food services; qualifications affect food service quality underlying H01",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.60(a)(1): A qualified dietitian or other clinically qualified nutrition professional either full-time, part-time, or on a consultant basis",
+      "human_review_note": "Confirm PDF page start. F801 is more about staffing qualifications; H01 food quality complaints more directly map to F806 (§483.60(d) food and drink) and F808 (§483.60(f) meal frequency). Review Appendix PP for F806/F808 numbers.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+      ]
+    },
+    {
+      "nors_code": "H01",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F802",
+      "authority_label": "Sufficient Dietary Staff",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.60(a)(3)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F802 - Sufficient Dietary Staff",
+      "mapping_rationale_short": "§483.60(a)(3) requires sufficient support personnel to safely carry out food/nutrition service functions; insufficient staff links to H01/H02 problems",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.60(a)(3) Support staff: The facility must provide sufficient support personnel to safely and effectively carry out the functions of the food and nutrition service",
+      "human_review_note": "F802 confirmed from Appendix PP ANFP document. Insufficient dietary staff often underlies H01 and H02 complaints. Cross-reference with J03 if broader staffing pattern.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+      ]
+    },
+    {
+      "nors_code": "H01",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(3)",
+      "authority_label": "CT Patients' Bill of Rights — Information About Services",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(3)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(3) covers services available; dietary services are a core component of facility services",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "CGS §19a-550(b)(3): Is fully informed...of services available in such facility or chronic disease hospital, and of related charges",
+      "human_review_note": "No specific CT statute directly addresses food quality standards for nursing homes; the federal regulatory standard (§483.60) is the primary authority. CT DPH regulations may have additional requirements.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "H01",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "H02",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F801",
+      "authority_label": "Qualified Dietary Staff",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.60(a)(1)-(2)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F801 - Qualified Dietary Staff",
+      "mapping_rationale_short": "§483.60(a) staffing requirements underpin adequate dining assistance capacity",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "§483.60(a): The facility must employ sufficient staff with the appropriate competencies and skills sets to carry out the functions of the food and nutrition service",
+      "human_review_note": "Confirm PDF page start. H02 dining assistance failures often trace to insufficient or inadequately trained dietary/nursing staff.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+      ]
+    },
+    {
+      "nors_code": "H02",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F802",
+      "authority_label": "Sufficient Dietary Staff",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.60(a)(3)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F802 - Sufficient Dietary Staff",
+      "mapping_rationale_short": "§483.60(a)(3) sufficient support staff required to carry out dining service including assistance to residents needing help",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.60(a)(3): The facility must provide sufficient support personnel to safely and effectively carry out the functions of the food and nutrition service",
+      "human_review_note": "§483.60(g) (assistive devices) and §483.60(h) (paid feeding assistants) also apply to H02 dining assistance issues. Hydration per §483.60(d)(6).",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+      ]
+    },
+    {
+      "nors_code": "H02",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(11)",
+      "authority_label": "CT Patients' Bill of Rights — Reasonable Accommodation of Individual Needs",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(11)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(11) requires reasonable accommodation of individual needs and preferences including dining assistance needs",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "CGS §19a-550(b)(11): receives quality care and services with reasonable accommodation of individual needs and preferences",
+      "human_review_note": "Confirmed from CT General Assembly website.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "H02",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "J03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F725",
+      "authority_label": "Sufficient Nursing Staff",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.35(a)(1)-(2)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F725 - Sufficient Nursing Staff",
+      "mapping_rationale_short": "§483.35(a)(1)-(2) require sufficient numbers of licensed nurses and other nursing personnel on 24-hour basis per care plans",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.35(a)(1): The facility must provide services by sufficient numbers of each of the following types of personnel on a 24-hour basis to provide nursing care to all residents in accordance with resident care plans: (i) licensed nurses; and (ii) Other nursing personnel, including but not limited to nurse aides",
+      "human_review_note": "Confirm PDF page start. §483.35(g) requires daily public posting of staffing data — check this when investigating J03 complaints. CT minimum staffing ratios may be stricter; verify CT DPH regulations.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-35.xml"
+      ]
+    },
+    {
+      "nors_code": "J03",
+      "authority_type": "appendix_pp_direct",
+      "authority_citation": "F726",
+      "authority_label": "Nurse Aide Competency",
+      "authority_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "authority_section_or_tag": "§483.35(a)(3) and §483.35(c)-(d)",
+      "appendix_pp_pdf_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": "F726 - Nurse Aide Competency",
+      "mapping_rationale_short": "§483.35(c) requires nurse aides demonstrate competency in skills/techniques for resident needs; §483.35(d)(2) restricts use of non-permanent employees who don't meet competency requirements",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "§483.35(c): The facility must ensure that nurse aides are able to demonstrate competency in skills and techniques necessary to care for residents' needs, as identified through resident assessments, and described in the plan of care; §483.35(d)(2): A facility must not use on a temporary, per diem, leased, or any basis other than a permanent employee any individual who does not meet the requirements in paragraphs (d)(1)(i) and (ii)",
+      "human_review_note": "Confirm PDF page start. §483.35(d)(2) is the key provision for agency/temp staff complaints under J03.",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35",
+        "https://www.govinfo.gov/content/pkg/CFR-2023-title42-vol5/xml/CFR-2023-title42-vol5-sec483-35.xml"
+      ]
+    },
+    {
+      "nors_code": "J03",
+      "authority_type": "ct_statute",
+      "authority_citation": "CGS §19a-550(b)(11)",
+      "authority_label": "CT Patients' Bill of Rights — Quality Care and Reasonable Accommodation",
+      "authority_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "authority_section_or_tag": "§19a-550(b)(11)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "CT §19a-550(b)(11) requires quality care; inadequate staffing is a primary barrier to quality care delivery",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "CGS §19a-550(b)(11): receives quality care and services with reasonable accommodation of individual needs and preferences",
+      "human_review_note": "No specific CT statute on minimum staffing ratios in this section; CT DPH regulations under CGS §19a-521 et seq. and related chapters contain staffing standards. Human reviewer should verify current CT DPH staffing ratio requirements.",
+      "official_source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "nors_code": "J03",
+      "authority_type": "ombudsman_authority",
+      "authority_citation": "45 CFR §1324.19(a)(1)",
+      "authority_label": "LTCO Duties — Identify, Investigate, Resolve Complaints",
+      "authority_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "authority_section_or_tag": "§1324.19(a)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Universal ombudsman complaint-handling authority",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "45 CFR §1324.19(a)(1): Identify, investigate, and resolve complaints...that may adversely affect the health, safety, welfare, or rights of the residents",
+      "human_review_note": "Universal ombudsman authority anchor. Also note §1324.13(a)(7) authorizes ombudsman to comment on laws and regulations affecting resident welfare, including staffing standards.",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    }
+  ],
+  "do_not_map_catalog": [
+    {
+      "nors_code": "A01",
+      "reason": "Do not map F600 or state abuse statutes when alleged perpetrator is another resident (resident-to-resident) unless facility failed to protect — in that case map facility's failure to prevent as A05 (gross neglect) or F602 (policy failure), not A01 directly against facility",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ]
+    },
+    {
+      "nors_code": "A04",
+      "reason": "Do not map financial exploitation F-tags when perpetrator is family member not employed by or acting on behalf of the facility; refer to Adult Protective Services or law enforcement; ombudsman may still assist under 45 CFR 1324.19(b)(3)(i)",
+      "mapping_confidence": "no_direct_f_tag",
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "nors_code": "C03",
+      "reason": "Do not map F627/F628 for voluntary discharges requested by resident or legal representative; also do not apply when clinical transfer to higher level of care was clinically indicated, properly documented, and resident was informed",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15"
+      ]
+    },
+    {
+      "nors_code": "F04",
+      "reason": "Former F758 (Free from Unnecessary Psychotropic Medications) was deleted as of Appendix PP Rev. 229 (April 28, 2025) and consolidated into F605. Do not cite F758 in current complaints; use F605 for psychotropic medication concerns",
+      "mapping_confidence": "no_direct_f_tag",
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ]
+    },
+    {
+      "nors_code": "D07",
+      "reason": "Do not map F564 visitor restrictions when restriction was requested by the resident themselves (resident exercising right to deny visitation); restriction must be facility-imposed to map to D07",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ]
+    },
+    {
+      "nors_code": "J03",
+      "reason": "Do not map F725/F726 staffing tags when complaint is about a specific staff member's conduct or attitude (use A01-A03, D03 as appropriate); J03 is for systemic staffing inadequacy, not individual staff behavior",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35"
+      ]
+    },
+    {
+      "nors_code": "H01",
+      "reason": "Do not map food quality F-tags when resident's dissatisfaction is with clinically required therapeutic diet that is properly prescribed and nutritionally adequate; distinguish preference complaints from care standard violations",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60"
+      ]
+    },
+    {
+      "nors_code": "F03",
+      "reason": "Do not map F656 care planning when complaint is actually about disagreement with clinical judgment in the care plan (not about absence, exclusion, or non-compliance); clinical judgment disputes are separate from care planning process violations",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.21"
+      ]
+    },
+    {
+      "nors_code": "A02",
+      "reason": "Do not map A02 sexual abuse F-tags to consensual sexual activity between residents with capacity; this is a dignity/privacy matter (D04/D09) if facility is interfering; only map A02 when interaction is non-consensual or involves a resident who cannot consent",
+      "mapping_confidence": "conditional",
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ]
+    }
+  ]
+}

@@ -18,15 +18,17 @@
     crosswalkCatalog: ['../crosswalk_catalog.json', '../data/crosswalk_catalog.json'],
     retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json'],
     norsComplaintGuidance: ['../data/nors_complaint_code_guidance.json', '../nors_complaint_code_guidance.json'],
-    norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json']
+    norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json'],
+    norsKnowledgeBase: ['../data/nors_knowledge_base_batch1.json', '../nors_knowledge_base_batch1.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
     if (key === 'norsComplaintGuidance') return { items: [] };
     if (key === 'norsResourceCatalog') return { resources: [] };
+    if (key === 'norsKnowledgeBase') return { code_summary_rows: [], authority_rows: [], do_not_map_catalog: [] };
     return {};
   }
 
@@ -186,20 +188,23 @@
       const minor = (major.minorCodes || []).find(item => item.code === code);
       if (minor) {
         const guidance = getNorsComplaintGuidance(code, data);
+        const knowledge = getNorsKnowledgeSummary(code, data);
         return {
           majorCode: major.code,
           majorLabel: major.label,
           code: minor.code,
           label: minor.label,
           description: minor.description || '',
-          definition: guidance.definition || minor.definition || minor.description || '',
-          examples: guidance.examples || minor.examples || [],
-          reportingTips: guidance.reporting_tips || minor.reportingTips || '',
-          useWhen: guidance.use_when || '',
-          likelyPhrases: guidance.likely_phrases || [],
-          doNotUseWhen: guidance.do_not_use_when || '',
-          humanReview: guidance.human_review || '',
-          source: guidance.source || 'NORS Table 2 complaint code guidance'
+          definition: knowledge.nors_definition || guidance.definition || minor.definition || minor.description || '',
+          examples: knowledge.examples || guidance.examples || minor.examples || [],
+          reportingTips: knowledge.reporting_tips || guidance.reporting_tips || minor.reportingTips || '',
+          useWhen: knowledge.use_when || guidance.use_when || '',
+          likelyPhrases: knowledge.common_concern_phrases || guidance.likely_phrases || [],
+          doNotUseWhen: knowledge.do_not_use_when || guidance.do_not_use_when || '',
+          humanReview: knowledge.human_review_notes || guidance.human_review || '',
+          source: knowledge.nors_table_2_page
+            ? `NORS Table 2 complaint code guidance, page ${knowledge.nors_table_2_page}`
+            : guidance.source || 'NORS Table 2 complaint code guidance'
         };
       }
     }
@@ -211,6 +216,12 @@
     const code = (norsCode || '').trim();
     const items = data?.norsComplaintGuidance?.items || [];
     return items.find(item => item.code === code) || {};
+  }
+
+  function getNorsKnowledgeSummary(norsCode, data) {
+    const code = (norsCode || '').trim();
+    const rows = data?.norsKnowledgeBase?.code_summary_rows || [];
+    return rows.find(row => row.nors_code === code) || {};
   }
 
   function getMatchedNorsCodes(norsCode, topicMatches = []) {
@@ -268,6 +279,25 @@
         audience: resource.audience || '',
         reason: reasons[0],
         informational_only: resource.informational_only !== false
+      });
+    });
+
+    (data?.norsKnowledgeBase?.code_summary_rows || []).forEach(row => {
+      if (!matchedCodes.includes(row.nors_code)) return;
+      (row.handout_or_resource_urls || []).forEach(resource => {
+        if (!resource?.url || seen.has(resource.url)) return;
+        seen.add(resource.url);
+        output.push({
+          id: `knowledge_${row.nors_code}_${resource.url}`,
+          title: resource.label || `${row.nors_code} resource`,
+          description: `Source-backed resource from the ${row.nors_code} knowledge-base handoff.`,
+          type: 'Knowledge-base resource',
+          url: resource.url,
+          source: 'NORS knowledge base batch 1',
+          audience: 'Ombudsman staff',
+          reason: `matched NORS code ${row.nors_code}`,
+          informational_only: true
+        });
       });
     });
 
