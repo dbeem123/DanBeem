@@ -251,8 +251,8 @@
     <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
       <div class="pill">Informational Only</div>
       <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
-      <p class="notice">Informational Only – does not determine violations</p>
-      <p class="subtle">Temporary test for NORS code to topic to authority mapping.</p>
+      <p class="notice">Informational Only - does not determine violations</p>
+      <p class="subtle">Temporary test for NORS code or keyword/concern text to topic to authority mapping.</p>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
         <div>
           <label for="norsCodeSelect">Select NORS Code</label>
@@ -261,10 +261,16 @@
           </select>
           <div id="crosswalk-code-guidance" class="notice" style="display:none;"></div>
         </div>
+        <div>
+          <label for="crosswalkKeywordText">Keyword / Concern</label>
+          <textarea id="crosswalkKeywordText" placeholder="Example: call light, discharge notice, privacy, dignity, abuse, medication, staffing..."></textarea>
+        </div>
       </div>
       <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button id="runCrosswalkBtn" class="btn secondary" type="button">Run Crosswalk</button>
+        <button id="runKeywordCrosswalkBtn" class="btn" type="button">Run Keyword / Concern Lookup</button>
+        <button id="runCrosswalkBtn" class="btn secondary" type="button">Run NORS Code Lookup</button>
       </div>
+      <div id="crosswalk-input-warning" class="notice warning" style="display:none;"></div>
       <div id="crosswalkResult" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
     </section>
 
@@ -496,33 +502,38 @@
 
     function bindCrosswalkHandler() {
       const button = document.getElementById('runCrosswalkBtn');
-      if (!button || button.dataset.bound === 'true') return;
-      button.addEventListener('click', runCrosswalk);
-      button.dataset.bound = 'true';
+      const keywordButton = document.getElementById('runKeywordCrosswalkBtn');
+      if (button && button.dataset.bound !== 'true') {
+        button.addEventListener('click', runCrosswalk);
+        button.dataset.bound = 'true';
+      }
+      if (keywordButton && keywordButton.dataset.bound !== 'true') {
+        keywordButton.addEventListener('click', runKeywordCrosswalk);
+        keywordButton.dataset.bound = 'true';
+      }
     }
 
-    function runCrosswalk() {
+    function showCrosswalkInputWarning(message) {
+      const output = document.getElementById('crosswalk-input-warning');
+      if (!output) return;
+      if (!message) {
+        output.style.display = 'none';
+        output.textContent = '';
+        return;
+      }
+      output.style.display = 'block';
+      output.textContent = message;
+    }
+
+    function renderCrosswalkTestResult(result, selectedLabel) {
       const output = document.getElementById('crosswalkResult');
-      const code = document.getElementById('norsCodeSelect').value;
-
-      if (!assistantData) {
-        output.innerHTML = '<div class="notice error">Assistant data is not loaded yet, so the crosswalk cannot run.</div>';
-        return;
-      }
-
-      if (!code) {
-        output.innerHTML = '<div class="notice warning">Select a NORS code before running the crosswalk.</div>';
-        return;
-      }
-
-      const result = Crosswalk.runCrosswalk({ norsCode: code, keywordText: '' }, assistantData);
       const topics = result.topicMatches.map(match => match.topic);
       const authorityRows = result.authorityGroups.flatMap(group => group.authorities);
       const authorityIds = authorityRows.map(authority => authority.id);
 
       if (!topics.length) {
         output.innerHTML = `
-          <div class="notice">Informational Only: no mapped topics were found for NORS code ${escapeHtml(code)}.</div>
+          <div class="notice">Informational Only: no mapped topics were found for ${escapeHtml(selectedLabel)}.</div>
           <p><strong>Crosswalk Trace:</strong></p>
           <ul class="result-list">${result.trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}</ul>
         `;
@@ -531,8 +542,8 @@
 
       output.innerHTML = `
         <div class="notice">Informational Only: this crosswalk surfaces possible references only. It does not determine violations or make legal conclusions.</div>
-        <p>These references are informational only and were surfaced from the selected NORS code through topic mapping.</p>
-        <p><strong>Selected NORS Code:</strong> ${escapeHtml(code)}</p>
+        <p>These references are informational only and were surfaced through the shared topic mapping.</p>
+        <p><strong>Lookup:</strong> ${escapeHtml(selectedLabel)}</p>
         <p><strong>Mapped Topic(s):</strong> ${topics.map(escapeHtml).join(', ')}</p>
         <p><strong>Matched Authority ID(s):</strong> ${authorityIds.length ? authorityIds.map(escapeHtml).join(', ') : 'None found'}</p>
         <p><strong>Matched Citations / Authorities:</strong></p>
@@ -552,6 +563,44 @@
           ${result.trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}
         </ul>
       `;
+    }
+
+    function runCrosswalk() {
+      const output = document.getElementById('crosswalkResult');
+      const code = document.getElementById('norsCodeSelect').value;
+
+      if (!assistantData) {
+        output.innerHTML = '<div class="notice error">Assistant data is not loaded yet, so the crosswalk cannot run.</div>';
+        return;
+      }
+
+      if (!code) {
+        showCrosswalkInputWarning('Select a NORS code before running NORS code lookup.');
+        return;
+      }
+
+      showCrosswalkInputWarning('');
+      const result = Crosswalk.runCrosswalk({ norsCode: code, keywordText: '' }, assistantData);
+      renderCrosswalkTestResult(result, `NORS code ${code}`);
+    }
+
+    function runKeywordCrosswalk() {
+      const output = document.getElementById('crosswalkResult');
+      const keywordText = document.getElementById('crosswalkKeywordText').value.trim();
+
+      if (!assistantData) {
+        output.innerHTML = '<div class="notice error">Assistant data is not loaded yet, so the crosswalk cannot run.</div>';
+        return;
+      }
+
+      if (!keywordText) {
+        showCrosswalkInputWarning('Enter a keyword or concern before running keyword lookup.');
+        return;
+      }
+
+      showCrosswalkInputWarning('');
+      const result = Crosswalk.runCrosswalk({ norsCode: '', keywordText }, assistantData);
+      renderCrosswalkTestResult(result, `keyword / concern "${keywordText}"`);
     }
 
     function normalizeScenarioText(text) {

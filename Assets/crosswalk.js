@@ -1,6 +1,13 @@
 (function () {
   const NORS_TABLE_2_URL = 'https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf';
   const APPENDIX_PP_URL = 'https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf';
+  const CT_NURSING_HOME_REGS_URL = 'https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/';
+  const CT_NURSING_HOME_STATUTES_URL = 'https://www.cga.ct.gov/current/pub/chap_368v.htm';
+  const CT_OMBUDSMAN_STATUTES_URL = 'https://www.cga.ct.gov/current/pub/chap_319l.htm';
+
+  const APPENDIX_PP_PAGE_BY_FTAG = {
+    F607: 151
+  };
 
   const DEFAULT_PATHS = {
     norsHierarchy: ['../nors_hierarchy.json', '../data/nors_hierarchy.json'],
@@ -338,17 +345,34 @@
 
   function getAuthorityUrl(authority = {}) {
     const citation = authority.citation || '';
-    const cfrMatch = citation.match(/42\s+CFR\s+ยง?([0-9.]+)/i);
+    const category = authority.category || authority.label || '';
+    const cfrMatch = citation.match(/42\s+CFR\s+(?:ง|ยง)?\s*([0-9.]+)/i);
     if (cfrMatch) {
       return `https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-${cfrMatch[1]}`;
     }
-    if (/^F\d+/i.test(citation)) {
-      return APPENDIX_PP_URL;
+    const ftagMatch = citation.match(/^F\d+/i);
+    if (ftagMatch) {
+      const ftag = ftagMatch[0].toUpperCase();
+      const page = APPENDIX_PP_PAGE_BY_FTAG[ftag];
+      return page ? `${APPENDIX_PP_URL}#page=${page}` : APPENDIX_PP_URL;
+    }
+    if (/19-13-D8t/i.test(citation) || authority.authority_id === 'ct_nursing_home_regs') {
+      return CT_NURSING_HOME_REGS_URL;
+    }
+    if (/State Statute/i.test(category) || /^CGS/i.test(citation)) {
+      const sectionMatch = citation.match(/(?:ง+|Sec\.?\s*)\s*(17a-\d+[a-z]?|19a-\d+[a-z]?)/i);
+      if (/17a-/i.test(citation) || authority.authority_id === 'ct_17a_870') {
+        return sectionMatch
+          ? `${CT_OMBUDSMAN_STATUTES_URL}#sec_${sectionMatch[1].toLowerCase()}`
+          : CT_OMBUDSMAN_STATUTES_URL;
+      }
+      return sectionMatch
+        ? `${CT_NURSING_HOME_STATUTES_URL}#sec_${sectionMatch[1].toLowerCase()}`
+        : CT_NURSING_HOME_STATUTES_URL;
     }
     if (authority.url) return authority.url;
     return '';
   }
-
   function normalizeAuthority(authorityId, authority, reason, match) {
     return {
       id: authorityId,
