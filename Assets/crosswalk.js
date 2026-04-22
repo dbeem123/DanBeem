@@ -1,4 +1,7 @@
 (function () {
+  const NORS_TABLE_2_URL = 'https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf';
+  const APPENDIX_PP_URL = 'https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf';
+
   const DEFAULT_PATHS = {
     norsHierarchy: ['../nors_hierarchy.json', '../data/nors_hierarchy.json'],
     keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
@@ -180,11 +183,68 @@
 
   function getKeywordEntries(data) {
     const keywords = data.keywordMap?.keywords || {};
-    if (Array.isArray(keywords)) return keywords;
-    return Object.entries(keywords).map(([phrase, topics]) => ({
+    const mappedEntries = Array.isArray(keywords) ? keywords : Object.entries(keywords).map(([phrase, topics]) => ({
       phrase,
-      topics: Array.isArray(topics) ? topics : []
+      topics
     }));
+    const catalogEntries = getCatalogRecords(data).flatMap(record => {
+      const phrases = [
+        record.topic_label,
+        record.nors_minor_label,
+        ...(record.keywords || [])
+      ].filter(Boolean);
+      const labelPrefix = (record.nors_minor_label || '').split(':')[0].trim();
+      if (labelPrefix) phrases.push(labelPrefix);
+
+      return phrases.map(phrase => ({
+        phrase,
+        topics: [record.topic_slug],
+        likely_nors_codes: [record.nors_minor_code]
+      }));
+    });
+
+    return [...mappedEntries, ...catalogEntries].map(entry => ({
+      ...entry,
+      topics: toArray(entry.topics).filter(Boolean),
+      likely_nors_codes: toArray(entry.likely_nors_codes).filter(Boolean),
+      authority_ids: toArray(entry.authority_ids).filter(Boolean)
+    }));
+  }
+
+  function toArray(value) {
+    if (!value) return [];
+    return Array.isArray(value) ? value : [value];
+  }
+
+  function getWordTokens(value) {
+    return String(value || '').toLowerCase().match(/[a-z0-9]+/g) || [];
+  }
+
+  function getWordStem(value) {
+    let token = String(value || '').toLowerCase();
+    if (token.endsWith('ies') && token.length > 4) return `${token.slice(0, -3)}y`;
+    if (token.endsWith('ing') && token.length > 5) token = token.slice(0, -3);
+    if (token.endsWith('ed') && token.length > 4) token = token.slice(0, -2);
+    if (token.endsWith('s') && token.length > 3) token = token.slice(0, -1);
+    if (token.endsWith('e') && token.length > 3) token = token.slice(0, -1);
+    return token;
+  }
+
+  function tokensMatch(keywordToken, textToken) {
+    if (keywordToken === textToken) return true;
+    return getWordStem(keywordToken) === getWordStem(textToken);
+  }
+
+  function keywordPhraseMatches(phrase, searchableText, searchableTokens) {
+    const normalizedPhrase = String(phrase || '').toLowerCase().trim();
+    if (!normalizedPhrase) return false;
+    if (searchableText.includes(normalizedPhrase)) return true;
+
+    const phraseTokens = getWordTokens(normalizedPhrase);
+    if (!phraseTokens.length) return false;
+    return phraseTokens.every(phraseToken => {
+      return searchableTokens.some(textToken => tokensMatch(phraseToken, textToken));
+    });
   }
 
   function getTopicsFromNorsCode(norsCode, data) {
@@ -208,11 +268,12 @@
   function getTopicsFromKeywords(text, data) {
     const topicMatches = {};
     const searchableText = (text || '').toLowerCase();
+    const searchableTokens = getWordTokens(searchableText);
     if (!searchableText) return [];
 
     getKeywordEntries(data).forEach(entry => {
       const phrase = entry.phrase || '';
-      if (phrase && searchableText.includes(phrase.toLowerCase())) {
+      if (keywordPhraseMatches(phrase, searchableText, searchableTokens)) {
         (entry.topics || []).forEach(topic => {
           addTopic(topicMatches, topic, 'keyword', phrase);
         });
@@ -271,6 +332,23 @@
     return parts.join('; ');
   }
 
+  function formatTopicName(topic) {
+    return String(topic || '').replace(/_/g, ' ');
+  }
+
+  function getAuthorityUrl(authority = {}) {
+    const citation = authority.citation || '';
+    const cfrMatch = citation.match(/42\s+CFR\s+§?([0-9.]+)/i);
+    if (cfrMatch) {
+      return `https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-${cfrMatch[1]}`;
+    }
+    if (/^F\d+/i.test(citation)) {
+      return APPENDIX_PP_URL;
+    }
+    if (authority.url) return authority.url;
+    return '';
+  }
+
   function normalizeAuthority(authorityId, authority, reason, match) {
     return {
       id: authorityId,
@@ -278,6 +356,7 @@
       title: authority?.title || (authority ? 'Title not available' : 'Authority metadata not found'),
       category: authority ? getAuthorityLabel(authority) : 'Missing metadata',
       label: authority ? getAuthorityLabel(authority) : 'Missing metadata',
+      url: getAuthorityUrl(authority),
       reason: reason || (authority ? 'Selected by topic mapping.' : 'Selected by topic mapping, but details are missing from authority index.'),
       matchSummary: getMatchSummary(match),
       rank: authority ? 0 : -1,
@@ -358,39 +437,57 @@
     return groups;
   }
 
-  function buildCrosswalkTrace({ norsCode, keywordText, topicMatches, authorityGroups } = {}) {
+  function buildCrosswalkTrace({ norsCode, keywordText, topicMatches, authorityGroups, data } = {}) {
     const trace = [];
     const code = (norsCode || '').trim();
     const keyword = (keywordText || '').trim();
+    const addTrace = (message, links = []) => {
+      trace.push({ message, links: links.filter(link => link && link.url) });
+    };
 
     if (code && !topicMatches.some(match => match.norsCodes.includes(code))) {
-      trace.push(`NORS code ${code} did not map to a topic in nors_to_topic.json.`);
+      addTrace(`The selected NORS code ${code} did not map to a topic in the local crosswalk data.`);
     }
 
     if (keyword && !topicMatches.some(match => match.keywords.length)) {
-      trace.push('Keyword / concern text did not match keyword_map.json.');
+      addTrace('The keyword / concern text did not match a keyword phrase, NORS label, or catalog keyword in the local crosswalk data.');
+    } else if (!keyword) {
+      addTrace('No keyword / concern text was used for this run; results are based on the selected NORS code only.');
     }
 
     topicMatches.forEach(match => {
       if (match.norsCodes.length) {
-        trace.push(`NORS code ${match.norsCodes.join(', ')} maps to topic "${match.topic}".`);
+        const codeLabels = match.norsCodes.map(item => {
+          const detail = getNorsCodeDetail(item, data || {});
+          return detail ? `${item} (${detail.label})` : item;
+        });
+        addTrace(`Selected NORS code ${codeLabels.join(', ')} maps to the topic "${formatTopicName(match.topic)}".`, [{
+          label: 'NORS Table 2',
+          url: NORS_TABLE_2_URL
+        }]);
       }
       if (match.keywords.length) {
-        trace.push(`Keyword(s) ${match.keywords.map(item => `"${item}"`).join(', ')} map to topic "${match.topic}".`);
+        addTrace(`The keyword text matched ${match.keywords.map(item => `"${item}"`).join(', ')}, which maps to the topic "${formatTopicName(match.topic)}".`);
       }
 
       const group = authorityGroups.find(item => item.topic === match.topic);
       if (!group || !group.authorities.length) {
-        trace.push(`Topic "${match.topic}" has no authority IDs in topic_to_authority.json.`);
+        addTrace(`The topic "${formatTopicName(match.topic)}" was identified, but no authority references were found for it.`);
         return;
       }
 
-      trace.push(`Topic "${match.topic}" maps to authority ID(s): ${group.authorities.map(item => item.id).join(', ')}.`);
+      addTrace(`The topic "${formatTopicName(match.topic)}" surfaced ${group.authorities.length} possible reference${group.authorities.length === 1 ? '' : 's'} from the crosswalk catalog.`, group.authorities.map(authority => ({
+        label: authority.citation,
+        url: authority.url
+      })));
       group.authorities.forEach(authority => {
         if (authority.missing) {
-          trace.push(`Authority ID "${authority.id}" is missing from authority_index.json.`);
+          addTrace(`Authority metadata is missing for ${authority.id}.`);
         } else {
-          trace.push(`Authority ID "${authority.id}" resolves to ${authority.citation}.`);
+          addTrace(`${authority.citation} (${authority.title}) is included as a ${authority.category} reference because ${authority.reason || 'it is mapped to the identified topic'}.`, [{
+            label: authority.citation,
+            url: authority.url
+          }]);
         }
       });
     });
@@ -405,7 +502,7 @@
     const keywordMatches = text ? getTopicsFromKeywords(text, data) : [];
     const topicMatches = mergeTopicMatches(norsMatches, keywordMatches);
     const authorityGroups = getAuthoritiesForTopics(topicMatches, data);
-    const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups });
+    const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups, data });
     const warnings = [];
 
     if (!topicMatches.length) {
@@ -439,6 +536,7 @@
     getNorsCodeOptions,
     getNorsCodeDetail,
     getAuthorityLabel,
+    getAuthorityUrl,
     buildCrosswalkTrace,
     runCrosswalk
   };

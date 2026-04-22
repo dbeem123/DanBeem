@@ -218,7 +218,7 @@
           <ul class="result-list">
             ${group.authorities.map(authority => `
               <li>
-                <strong>${escapeHtml(authority.citation)}</strong>
+                <strong>${renderAuthorityLink(authority)}</strong>
                 <br><span>${escapeHtml(authority.title)}</span>
                 <br><span class="subtle">Authority ID: ${escapeHtml(authority.id)}</span>
                 <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
@@ -231,13 +231,28 @@
       <div class="notice">Informational guardrail: references are shown for review support only. This tool does not make legal conclusions or determine violations.</div>`;
     }
 
+    function renderAuthorityLink(authority) {
+      const label = escapeHtml(authority.citation || 'Reference');
+      if (!authority.url) return label;
+      return `<a href="${escapeHtml(authority.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    }
+
+    function renderTraceItem(item) {
+      if (typeof item === 'string') return escapeHtml(item);
+      const links = item.links || [];
+      const linkHtml = links.length
+        ? `<div class="subtle">Official source${links.length === 1 ? '' : 's'}: ${links.map(link => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label || 'source')}</a>`).join(', ')}</div>`
+        : '';
+      return `${escapeHtml(item.message || '')}${linkHtml}`;
+    }
+
     function renderTrace(trace) {
       const output = document.getElementById('trace-output');
       if (!trace.length) {
         output.textContent = 'No trace generated.';
         return;
       }
-      output.innerHTML = `<ul class="result-list">${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
+      output.innerHTML = `<ul class="result-list">${trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}</ul>`;
     }
 
     function renderWarnings(warnings) {

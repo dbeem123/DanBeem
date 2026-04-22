@@ -524,7 +524,7 @@
         output.innerHTML = `
           <div class="notice">Informational Only: no mapped topics were found for NORS code ${escapeHtml(code)}.</div>
           <p><strong>Crosswalk Trace:</strong></p>
-          <ul class="result-list">${result.trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+          <ul class="result-list">${result.trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}</ul>
         `;
         return;
       }
@@ -539,7 +539,7 @@
         <ul class="result-list">
           ${authorityRows.length ? authorityRows.map(row => `
             <li>
-              <strong>${escapeHtml(row.citation)}</strong>
+              <strong>${renderAuthorityLink(row)}</strong>
               <br><span>${escapeHtml(row.title)}</span>
               <br><span class="subtle">Authority ID: ${escapeHtml(row.id)}</span>
               <br><span class="subtle">Category / Type: ${escapeHtml(row.category || row.label)}</span>
@@ -549,7 +549,7 @@
         </ul>
         <p><strong>Crosswalk Trace:</strong></p>
         <ul class="result-list">
-          ${result.trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}
+          ${result.trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}
         </ul>
       `;
     }
@@ -774,7 +774,7 @@
             <ul class="result-list">
               ${getReferenceList(group).map(authority => `
                 <li>
-                  <strong>${escapeHtml(authority.citation)}</strong>
+                  <strong>${renderAuthorityLink(authority)}</strong>
                   ${authority.title ? `<br><span>${escapeHtml(authority.title)}</span>` : ''}
                   <br><span class="subtle reference-meta">${escapeHtml(getReferenceCategory(authority))}</span>
                   <br><span class="subtle">Why shown: ${escapeHtml(getReferenceReason(authority, group))}</span>
@@ -786,7 +786,7 @@
       }
 
       traceOutput.innerHTML = trace.length
-        ? `<ul class="result-list">${trace.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`
+        ? `<ul class="result-list">${trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}</ul>`
         : 'No trace generated yet.';
     }
 
@@ -878,6 +878,21 @@
 
     function getReferenceReason(reference, group) {
       return reference.reason || getMatchSummary(group) || 'Matched through the topic crosswalk.';
+    }
+
+    function renderAuthorityLink(authority) {
+      const label = escapeHtml(authority.citation || 'Reference');
+      if (!authority.url) return label;
+      return `<a href="${escapeHtml(authority.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    }
+
+    function renderTraceItem(item) {
+      if (typeof item === 'string') return escapeHtml(item);
+      const links = item.links || [];
+      const linkHtml = links.length
+        ? `<div class="subtle">Official source${links.length === 1 ? '' : 's'}: ${links.map(link => `<a href="${escapeHtml(link.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label || 'source')}</a>`).join(', ')}</div>`
+        : '';
+      return `${escapeHtml(item.message || '')}${linkHtml}`;
     }
 
     function retrieveReferences(crosswalkResult) {
@@ -1017,7 +1032,7 @@
           <ul class="result-list">
             ${getReferenceList(group).map(reference => `
               <li>
-                <strong>${escapeHtml(reference.citation)}</strong>
+                <strong>${renderAuthorityLink(reference)}</strong>
                 ${reference.title ? `<br><span>${escapeHtml(reference.title)}</span>` : ''}
                 <br><span class="subtle reference-meta">${escapeHtml(getReferenceCategory(reference))}</span>
                 <br><span class="subtle">Why shown: ${escapeHtml(getReferenceReason(reference, group))}</span>
