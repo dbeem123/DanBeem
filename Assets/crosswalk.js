@@ -16,13 +16,15 @@
     topicToAuthority: ['../topic_to_authority.json', '../data/topic_to_authority.json'],
     authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
     crosswalkCatalog: ['../crosswalk_catalog.json', '../data/crosswalk_catalog.json'],
-    retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json']
+    retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json'],
+    norsComplaintGuidance: ['../data/nors_complaint_code_guidance.json', '../nors_complaint_code_guidance.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
+    if (key === 'norsComplaintGuidance') return { items: [] };
     return {};
   }
 
@@ -181,20 +183,32 @@
     for (const major of getNorsCodeOptions(data)) {
       const minor = (major.minorCodes || []).find(item => item.code === code);
       if (minor) {
+        const guidance = getNorsComplaintGuidance(code, data);
         return {
           majorCode: major.code,
           majorLabel: major.label,
           code: minor.code,
           label: minor.label,
           description: minor.description || '',
-          definition: minor.definition || minor.description || '',
-          examples: minor.examples || [],
-          reportingTips: minor.reportingTips || ''
+          definition: guidance.definition || minor.definition || minor.description || '',
+          examples: guidance.examples || minor.examples || [],
+          reportingTips: guidance.reporting_tips || minor.reportingTips || '',
+          useWhen: guidance.use_when || '',
+          likelyPhrases: guidance.likely_phrases || [],
+          doNotUseWhen: guidance.do_not_use_when || '',
+          humanReview: guidance.human_review || '',
+          source: guidance.source || 'NORS Table 2 complaint code guidance'
         };
       }
     }
 
     return null;
+  }
+
+  function getNorsComplaintGuidance(norsCode, data) {
+    const code = (norsCode || '').trim();
+    const items = data?.norsComplaintGuidance?.items || [];
+    return items.find(item => item.code === code) || {};
   }
 
   function getAuthorityIndex(data) {
@@ -249,6 +263,7 @@
 
   function getWordStem(value) {
     let token = String(value || '').toLowerCase();
+    if (token === 'staffing') return token;
     if (token.endsWith('ies') && token.length > 4) return `${token.slice(0, -3)}y`;
     if (token.endsWith('ing') && token.length > 5) token = token.slice(0, -3);
     if (token.endsWith('ed') && token.length > 4) token = token.slice(0, -2);

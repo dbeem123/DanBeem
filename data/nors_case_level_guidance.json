@@ -122,17 +122,24 @@
       "source": "NORS Table 1 Case Level 2024"
     },
     {
+      "id": "likely_nors_codes",
+      "label": "Likely NORS Codes",
+      "short_help": "Shows possible NORS code matches for review.",
+      "details": "Likely NORS codes are screening suggestions based on the selected code and/or matched concern text. Confirm the final code against the Table 2 definition, examples, and reporting tips.",
+      "source": "NORS Table 1 Case Level 2024 and NORS Table 2 complaint code guidance"
+    },
+    {
       "id": "possible_references",
       "label": "Possible Relevant References",
       "short_help": "Lists authorities connected to matched topics or NORS codes.",
-      "details": "References are informational support for review and drafting. They do not determine violations, legal conclusions, or required actions.",
+      "details": "References are research leads for review and drafting. They are not findings that a violation occurred and do not determine legal conclusions or required actions.",
       "source": "NORS Table 1 Case Level 2024"
     },
     {
       "id": "crosswalk_trace",
       "label": "Crosswalk Trace",
       "short_help": "Explains why topics and references were surfaced.",
-      "details": "The trace shows the path from selected NORS code or keyword text to topic and authority references. It is intended to make the crosswalk transparent for review.",
+      "details": "The trace shows which NORS code or keyword text triggered each topic, likely code, and authority reference. Use it to see where human review is still needed.",
       "source": "NORS Table 1 Case Level 2024"
     },
     {

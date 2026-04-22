@@ -2,6 +2,48 @@
     "version":  "1.0",
     "keywords":  [
                      {
+                         "phrase":  "abuse",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  [
+                                                   "A01",
+                                                   "A03",
+                                                   "A05"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ],
+                         "notes":  "Screening phrase only. Review facts to select the most specific abuse, neglect, exploitation, dignity, or care code."
+                     },
+                     {
+                         "phrase":  "abused",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  [
+                                                   "A01",
+                                                   "A03",
+                                                   "A05"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ],
+                         "notes":  "Screening phrase only. Review facts to select the most specific abuse, neglect, exploitation, dignity, or care code."
+                     },
+                     {
+                         "phrase":  "feeling abused",
+                         "topics":  "abuse_neglect_exploitation",
+                         "likely_nors_codes":  [
+                                                   "A01",
+                                                   "A03",
+                                                   "A05"
+                                               ],
+                         "authority_ids":  [
+                                               "42cfr_483_12",
+                                               "f600"
+                                           ],
+                         "notes":  "Screening phrase only. Review facts to select the most specific abuse, neglect, exploitation, dignity, or care code."
+                     },
+                     {
                          "phrase":  "abuse not reported",
                          "topics":  [
                                         "administrative_oversight",

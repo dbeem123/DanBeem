@@ -1,0 +1,159 @@
+{
+  "version": "1.0",
+  "source": "NORS Table 2 complaint code guidance - curated app guidance",
+  "items": [
+    {
+      "code": "A01",
+      "label": "Abuse: physical",
+      "use_when": "Use when the concern is intentional use of physical force by staff, another resident, family, a representative, a friend, or another person.",
+      "likely_phrases": ["staff grabbed me", "left bruises", "hit him", "handled her rough", "pushed during transfer", "slapped", "yanked my arm"],
+      "do_not_use_when": "Do not use for non-willful poor care or delay. Use care codes when the issue is care quality, or A05 when gross neglect rather than intentional force is the better fit.",
+      "human_review": "Confirm whether the reported conduct was intentional physical force and identify the alleged perpetrator type when coding.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "A03",
+      "label": "Abuse: psychological",
+      "use_when": "Use when the concern is intimidation, threats, humiliation, verbal cruelty, or similar psychological mistreatment.",
+      "likely_phrases": ["they yelled at me", "staff threatened me", "made fun of her", "humiliated him", "called me names", "scared me into doing it"],
+      "do_not_use_when": "Do not use for ordinary rudeness or insensitivity without abuse-level mistreatment. Use D03 for less severe dignity and respect concerns.",
+      "human_review": "Review whether the reported conduct rises to psychological abuse or is better treated as dignity/respect.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "A04",
+      "label": "Financial exploitation",
+      "use_when": "Use when someone illegally or improperly uses a resident's funds, property, or assets for another person's profit or advantage.",
+      "likely_phrases": ["money missing", "they used her debit card", "stole his check", "took my wallet", "used resident funds", "cashed her checks"],
+      "do_not_use_when": "Do not use for facility billing, charges, or payment disputes without misuse of resident assets.",
+      "human_review": "Separate resident-asset misuse from billing or trust-fund administration issues.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "A05",
+      "label": "Gross neglect",
+      "use_when": "Use when failure to meet essential care needs threatens the resident's health, safety, or welfare.",
+      "likely_phrases": ["left soaked all day", "no food or water", "bedbound and not turned", "pressure sore from no care", "nobody checked on him", "ignored serious symptoms"],
+      "do_not_use_when": "Do not use for an isolated lesser care failure that is better coded under a specific F-code.",
+      "human_review": "Use A05 only when the failure to meet essential care threatens health, safety, or welfare.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "C03",
+      "label": "Discharge or eviction",
+      "use_when": "Use when the resident received a discharge notice and does not want to leave, was transferred or discharged without notice or due process, was not advised of bed-hold or readmission rules, or was sent to an inappropriate place.",
+      "likely_phrases": ["they're kicking me out", "got a 30-day notice", "sent to hospital and won't take me back", "discharged with nowhere to go", "transfer notice is wrong", "forced out"],
+      "do_not_use_when": "Do not use for an intra-facility room move or roommate issue. Use C04 for room issues.",
+      "human_review": "Confirm whether the issue is discharge, transfer, readmission, bed-hold, notice, or appeal rights.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "F02",
+      "label": "Response to requests for assistance",
+      "use_when": "Use when staff fail to respond promptly to call lights, call bells, or other requests for help.",
+      "likely_phrases": ["call light ignored", "no one answers the bell", "waited 45 minutes for toilet help", "kept buzzing", "left me in bed", "no response when I asked for transfer help"],
+      "do_not_use_when": "Do not use when the delay is retaliatory after a complaint. Use D06 for retaliation.",
+      "human_review": "Repeated dangerous nonresponse may need review for A05 gross neglect.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "F03",
+      "label": "Care planning",
+      "use_when": "Use when the facility does not create or follow a person-centered care plan, excludes the resident or representative, or staff disregard the plan.",
+      "likely_phrases": ["care plan not followed", "never included in care-plan meeting", "staff didn't know the plan", "plan says two-person assist but they ignore it", "PASRR services missing"],
+      "do_not_use_when": "Do not use when the issue is broader care delivery without a care-plan problem. Use the more specific care code when one fits better.",
+      "human_review": "Look for a plan, meeting, participation, implementation, or service mismatch fact.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "F04",
+      "label": "Medications",
+      "use_when": "Use when medication is given in error, not given on time or at all, not documented correctly, not secured, expired, mislabeled, or not filled timely.",
+      "likely_phrases": ["missed meds", "wrong pill", "late insulin", "med pass skipped", "expired medication", "medication cart left open", "pharmacy delay"],
+      "do_not_use_when": "Do not use when the concern is mainly choice of provider. Use D01 for provider choice.",
+      "human_review": "Psychotropic medication, restraint, and treatment-rights issues may need additional review.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "D03",
+      "label": "Dignity and respect",
+      "use_when": "Use when the resident is treated with rudeness, indifference, or insensitivity.",
+      "likely_phrases": ["staff were rude", "talked down to me", "didn't knock", "treated like a child", "ignored her preferences", "embarrassed him in public"],
+      "do_not_use_when": "Do not use when the conduct rises to abuse. Use A-codes when abuse is the better fit. If the core problem is unanswered requests for help, use F02.",
+      "human_review": "Separate dignity/respect concerns from abuse, privacy, and response-to-assistance concerns.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "D07",
+      "label": "Visitors",
+      "use_when": "Use when the facility restricts the resident's ability to choose who to associate with and when to visit, in the facility or community.",
+      "likely_phrases": ["can't see my daughter", "visits restricted", "won't let partner in", "visitor hours too limited", "staff blocked my friend", "wouldn't allow private visit"],
+      "do_not_use_when": "Do not use when the issue is privacy during a visit rather than access to visitors. Use D04 for privacy concerns.",
+      "human_review": "Confirm whether the issue is visitor access, private visiting, association, or a separate privacy concern.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "D04",
+      "label": "Privacy",
+      "use_when": "Use when the facility fails to ensure privacy during care or treatment, or in other aspects of life such as confidential information, mail, phone, email, or ombudsman meetings.",
+      "likely_phrases": ["left curtain open", "opened my mail", "discussed my condition publicly", "listened to my call", "wouldn't let me talk privately", "shared my information"],
+      "do_not_use_when": "Do not use for broader dignity/respect concerns without a privacy component. Use D03. If interference is with ombudsman access, review B03.",
+      "human_review": "Identify the privacy setting: care, information, mail, phone, email, visit, or ombudsman contact.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "H01",
+      "label": "Food services",
+      "use_when": "Use when food quantity, quality, variety, choice, temperature, or timing of meals or snacks is substandard or does not meet resident expectations.",
+      "likely_phrases": ["food cold", "same food every day", "tiny portions", "menu not followed", "no alternatives", "snacks unavailable", "food tastes bad"],
+      "do_not_use_when": "Do not use when the main issue is staff assistance with eating or drinking. Use H02. If the problem is willful food deprivation, review A01 or A05.",
+      "human_review": "Separate food quality or timing from dining assistance and hydration support.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "H02",
+      "label": "Dining and hydration",
+      "use_when": "Use when staff fail to assist with dining or adequate hydration, including adaptive equipment, tray setup, reminders, fluids, or direct assistance.",
+      "likely_phrases": ["tray left out of reach", "no one helped him eat", "not enough to drink", "dehydrated", "never opened milk carton", "needs feeding help but waits too long"],
+      "do_not_use_when": "Do not use when the issue is food quality, variety, or timing rather than assistance. Use H01.",
+      "human_review": "If deprivation is willful or rises to essential-care failure, review A01 or A05.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "J03",
+      "label": "Staffing",
+      "use_when": "Use when the complaint is shortage of staff, turnover, overuse of agency staff, or inadequate staff skill or training.",
+      "likely_phrases": ["not enough aides", "short staffed", "agency staff every day", "high turnover", "no trained staff", "nobody available on weekends"],
+      "do_not_use_when": "Do not use when the problem is specifically an absent or unresponsive administrator. Use J01.",
+      "human_review": "Use the more specific care code too when staffing caused a concrete care failure.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "D05",
+      "label": "Response to complaints",
+      "use_when": "Use when staff ignore or trivialize a resident complaint, there is no grievance process, or the grievance process is not followed or made known.",
+      "likely_phrases": ["they won't take complaints", "no grievance form", "administrator ignored us", "nothing happens when we complain", "never told us the process"],
+      "do_not_use_when": "Do not use when the harm after complaining is retaliation. Use D06.",
+      "human_review": "Separate failure to respond to complaints from retaliation after a complaint.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "D01",
+      "label": "Choice in health care",
+      "use_when": "Use when the resident is denied the right to choose physician, pharmacy, hospice, or other provider, or the resident's preferred care or treatment schedule is not accommodated.",
+      "likely_phrases": ["won't let me keep my doctor", "forced pharmacy", "can't choose hospice", "therapy schedule not my choice", "med time not consistent with my routine"],
+      "do_not_use_when": "Do not use when the problem is about a service delivered by an outside provider not arranged by the facility.",
+      "human_review": "Review whether provider choice, treatment choice, or schedule choice is the main concern.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    },
+    {
+      "code": "D09",
+      "label": "Other rights and preferences",
+      "use_when": "Use when the deprivation involves a resident right not already defined in D01-D08, such as personal liberty, broader freedom of choice, assembly, speech, religion, voting, cohabitation, smoking or non-smoking, or refusal of care or treatment.",
+      "likely_phrases": ["won't let me go to worship", "stopped me from voting", "won't let us live together", "forced treatment", "blocked my right to refuse"],
+      "do_not_use_when": "Do not use when a more specific D-code fits, especially D04 privacy, D05 grievances, or D07 visitors.",
+      "human_review": "Use as a fallback for rights and preferences only after checking more specific D-codes.",
+      "source": "NORS Table 2 complaint code guidance - curated app guidance"
+    }
+  ]
+}

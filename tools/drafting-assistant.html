@@ -159,7 +159,7 @@
             <div id="inline-topics-output" class="output-box">Run Extract Fields to see likely topics.</div>
           </div>
           <div>
-            <label>Likely NORS Codes</label>
+            <label><span data-help-id="likely_nors_codes">Likely NORS Codes</span></label>
             <div id="inline-nors-output" class="output-box">Likely NORS codes will appear here.</div>
           </div>
           <div>
@@ -519,9 +519,13 @@
         <strong>${escapeHtml(detail.code)} - ${escapeHtml(detail.label)}</strong>
         <div class="subtle">${escapeHtml(detail.majorCode)} - ${escapeHtml(detail.majorLabel)}</div>
         ${detail.definition ? `<p><strong>Definition, Examples &amp; Reporting Tips:</strong><br>${escapeHtml(detail.definition)}</p>` : ''}
+        ${detail.useWhen ? `<p><strong>Use when:</strong><br>${escapeHtml(detail.useWhen)}</p>` : ''}
+        ${detail.likelyPhrases && detail.likelyPhrases.length ? `<p><strong>Likely phrases:</strong><br>${detail.likelyPhrases.map(escapeHtml).join(', ')}</p>` : ''}
+        ${detail.doNotUseWhen ? `<p><strong>Do not use when:</strong><br>${escapeHtml(detail.doNotUseWhen)}</p>` : ''}
+        ${detail.humanReview ? `<p><strong>Human review note:</strong><br>${escapeHtml(detail.humanReview)}</p>` : ''}
         ${examples.length ? `<p><strong>Examples:</strong><br>${examples.map(escapeHtml).join('<br>')}</p>` : ''}
         ${detail.reportingTips ? `<p><strong>Examples and Reporting Tips:</strong><br>${escapeHtml(detail.reportingTips)}</p>` : ''}
-        <div class="subtle">Source: NORS Table 2 complaint code guidance. Informational only.</div>
+        <div class="subtle">Source: ${escapeHtml(detail.source || 'NORS Table 2 complaint code guidance')}. Informational only.</div>
       `;
     }
 
