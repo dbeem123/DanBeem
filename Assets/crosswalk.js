@@ -365,6 +365,39 @@
     return String(topic || '').replace(/_/g, ' ');
   }
 
+  function getCtStatuteSection(value) {
+    const sectionMatch = String(value || '').match(/\b(17a|19a)-\d+[a-z]?\b/i);
+    return sectionMatch ? sectionMatch[0].toLowerCase() : '';
+  }
+
+  function getCtStatuteChapterUrl(authority = {}) {
+    const citation = authority.citation || '';
+    const explicitUrl = authority.url || '';
+    const searchText = `${citation} ${explicitUrl} ${authority.authority_id || ''}`;
+    const section = getCtStatuteSection(searchText);
+
+    if (section.startsWith('17a-')) return CT_OMBUDSMAN_STATUTES_URL;
+    if (section.startsWith('19a-')) return CT_NURSING_HOME_STATUTES_URL;
+    if (/chapter\s*319l|chap_319l|ct_17a_870/i.test(searchText)) return CT_OMBUDSMAN_STATUTES_URL;
+    if (/chapter\s*368v|chap_368v|ct_nursing_home_statutes/i.test(searchText)) return CT_NURSING_HOME_STATUTES_URL;
+    return '';
+  }
+
+  function getCtStatuteUrl(authority = {}) {
+    const citation = authority.citation || '';
+    const explicitUrl = authority.url || '';
+
+    if (/cga\.ct\.gov/i.test(explicitUrl) && /#sec_/i.test(explicitUrl)) {
+      return explicitUrl;
+    }
+
+    const baseUrl = getCtStatuteChapterUrl(authority);
+    if (!baseUrl) return '';
+
+    const section = getCtStatuteSection(`${citation} ${explicitUrl}`);
+    return section ? `${baseUrl}#sec_${section}` : baseUrl;
+  }
+
   function getAuthorityUrl(authority = {}) {
     const citation = authority.citation || '';
     const category = authority.category || authority.label || '';
@@ -382,6 +415,10 @@
       return CT_NURSING_HOME_REGS_URL;
     }
     if (/State Statute/i.test(category) || /^CGS/i.test(citation)) {
+      const ctStatuteUrl = getCtStatuteUrl(authority);
+      if (ctStatuteUrl) return ctStatuteUrl;
+      if (/State Statute/i.test(category) && authority.url) return authority.url;
+
       const sectionMatch = citation.match(/(?:§+|Sec\.?\s*)\s*(17a-\d+[a-z]?|19a-\d+[a-z]?)/i);
       if (/17a-/i.test(citation) || authority.authority_id === 'ct_17a_870') {
         return sectionMatch
@@ -453,12 +490,14 @@
         if (resultCount >= maxResults) return;
         if (dedupe && seen.has(item.authority_id)) return;
 
-        const authority = authorityIndex[item.authority_id] || {
+        const indexedAuthority = authorityIndex[item.authority_id] || {};
+        const authority = {
+          ...indexedAuthority,
           authority_id: item.authority_id,
-          citation: item.citation,
-          title: item.title,
-          category: item.category,
-          url: item.url
+          citation: item.citation || indexedAuthority.citation,
+          title: item.title || indexedAuthority.title,
+          category: item.category || indexedAuthority.category,
+          url: item.url || indexedAuthority.url
         };
         seen.add(item.authority_id);
         resultCount += 1;
