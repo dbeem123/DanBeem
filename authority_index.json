@@ -968,10 +968,14 @@
                             "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
                             "short_reason":  "Additional transfer and discharge requirements under 42 CFR §483.15(c) — bed hold, readmission, discharge planning. NOTE: Consolidated from F624/F625/F626 in Nov 2024 revision.",
                             "related_topics":  [
+                                                   "autonomy_choice",
+                                                   "community_transition",
                                                    "transfer_discharge"
                                                ],
                             "related_nors_codes":  [
-                                                       "C03"
+                                                       "C03",
+                                                       "D02",
+                                                       "L03"
                                                    ]
                         },
                         {
@@ -1000,24 +1004,6 @@
                                                ],
                             "related_nors_codes":  [
                                                        "F03"
-                                                   ]
-                        },
-                        {
-                            "authority_id":  "f660",
-                            "citation":  "F660",
-                            "title":  "Discharge Planning Process",
-                            "category":  "Appendix PP",
-                            "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
-                            "short_reason":  "Discharge planning process requirements under 42 CFR §483.21(c).",
-                            "related_topics":  [
-                                                   "autonomy_choice",
-                                                   "community_transition",
-                                                   "transfer_discharge"
-                                               ],
-                            "related_nors_codes":  [
-                                                       "C03",
-                                                       "D02",
-                                                       "L03"
                                                    ]
                         },
                         {
@@ -1176,22 +1162,6 @@
                                                ],
                             "related_nors_codes":  [
                                                        "F04"
-                                                   ]
-                        },
-                        {
-                            "authority_id":  "f758",
-                            "citation":  "F758",
-                            "title":  "Free from Unnecessary Psychotropic Meds/PRN Use",
-                            "category":  "Appendix PP",
-                            "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
-                            "short_reason":  "Freedom from unnecessary psychotropic medications and inappropriate PRN use under 42 CFR §483.45(e)-(f). Updated Aug 2024.",
-                            "related_topics":  [
-                                                   "chemical_restraint",
-                                                   "medications"
-                                               ],
-                            "related_nors_codes":  [
-                                                       "F04",
-                                                       "F12"
                                                    ]
                         },
                         {

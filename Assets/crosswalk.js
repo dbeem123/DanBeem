@@ -9,6 +9,12 @@
     F607: 151
   };
 
+  const KNOWLEDGE_AUTHORITY_ROW_SKIP = new Set([
+    // Batch 1 labels this as an A01 direct row, but F602 is a misappropriation/exploitation tag.
+    // Keep F602 tied to financial exploitation unless a later SME pass confirms a narrower use.
+    'A01|F602'
+  ]);
+
   const DEFAULT_PATHS = {
     norsHierarchy: ['../nors_hierarchy.json', '../data/nors_hierarchy.json'],
     keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
@@ -19,16 +25,18 @@
     retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json'],
     norsComplaintGuidance: ['../data/nors_complaint_code_guidance.json', '../nors_complaint_code_guidance.json'],
     norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json'],
-    norsKnowledgeBase: ['../data/nors_knowledge_base_batch1.json', '../nors_knowledge_base_batch1.json']
+    norsKnowledgeBase: ['../data/nors_knowledge_base_batch1.json', '../nors_knowledge_base_batch1.json'],
+    appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'appendixPpTagPages']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
     if (key === 'norsComplaintGuidance') return { items: [] };
     if (key === 'norsResourceCatalog') return { resources: [] };
     if (key === 'norsKnowledgeBase') return { code_summary_rows: [], authority_rows: [], do_not_map_catalog: [] };
+    if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     return {};
   }
 
@@ -304,6 +312,15 @@
     return output;
   }
 
+  function getKnowledgeCaveatWarnings(norsCode, topicMatches = [], data) {
+    const matchedCodes = getMatchedNorsCodes(norsCode, topicMatches);
+    if (!matchedCodes.length) return [];
+
+    return (data?.norsKnowledgeBase?.do_not_map_catalog || [])
+      .filter(row => matchedCodes.includes(row.nors_code))
+      .map(row => `Review caveat for ${row.nors_code}: ${row.reason}`);
+  }
+
   function getAuthorityIndex(data) {
     const authorities = data.authorityIndex?.authorities || {};
     if (Array.isArray(authorities)) {
@@ -321,7 +338,12 @@
       phrase,
       topics
     }));
-    const catalogEntries = getCatalogRecords(data).flatMap(record => {
+    const catalogRecords = getCatalogRecords(data);
+    const topicByNorsCode = catalogRecords.reduce((index, record) => {
+      if (record.nors_minor_code && record.topic_slug) index[record.nors_minor_code] = record.topic_slug;
+      return index;
+    }, {});
+    const catalogEntries = catalogRecords.flatMap(record => {
       const phrases = [
         record.topic_label,
         record.nors_minor_label,
@@ -336,8 +358,26 @@
         likely_nors_codes: [record.nors_minor_code]
       }));
     });
+    const complaintGuidanceEntries = (data?.norsComplaintGuidance?.items || []).flatMap(item => {
+      const topic = topicByNorsCode[item.code];
+      if (!topic) return [];
+      return (item.likely_phrases || []).map(phrase => ({
+        phrase,
+        topics: [topic],
+        likely_nors_codes: [item.code]
+      }));
+    });
+    const knowledgeGuidanceEntries = (data?.norsKnowledgeBase?.code_summary_rows || []).flatMap(row => {
+      const topic = topicByNorsCode[row.nors_code];
+      if (!topic) return [];
+      return (row.common_concern_phrases || []).map(phrase => ({
+        phrase,
+        topics: [topic],
+        likely_nors_codes: [row.nors_code]
+      }));
+    });
 
-    return [...mappedEntries, ...catalogEntries].map(entry => ({
+    return [...mappedEntries, ...catalogEntries, ...complaintGuidanceEntries, ...knowledgeGuidanceEntries].map(entry => ({
       ...entry,
       topics: toArray(entry.topics).filter(Boolean),
       likely_nors_codes: toArray(entry.likely_nors_codes).filter(Boolean),
@@ -506,15 +546,137 @@
     return section ? `${baseUrl}#sec_${section}` : baseUrl;
   }
 
+  function getCtStatuteUrlFromCitation(citation) {
+    const section = getCtStatuteSection(citation);
+    if (!section) return '';
+    const baseUrl = section.startsWith('17a-') ? CT_OMBUDSMAN_STATUTES_URL : CT_NURSING_HOME_STATUTES_URL;
+    return `${baseUrl}#sec_${section}`;
+  }
+
+  function getAuthorityIdFromKnowledgeRow(row = {}) {
+    const citation = row.authority_citation || '';
+    const ftagMatch = citation.match(/^F\d+/i);
+    if (ftagMatch) return ftagMatch[0].toLowerCase();
+
+    const cfrMatch = citation.match(/\b(42|45)\s+CFR\s+(?:§\s*)?([0-9.]+)/i);
+    if (cfrMatch) {
+      const subsectionParts = [...citation.matchAll(/\(([a-z0-9]+)\)/gi)].map(match => match[1].toLowerCase());
+      return `${cfrMatch[1]}cfr_${cfrMatch[2].replace(/\./g, '_')}${subsectionParts.length ? `_${subsectionParts.join('_')}` : ''}`;
+    }
+
+    const ctSection = getCtStatuteSection(citation);
+    if (ctSection) {
+      const subsectionParts = [...citation.matchAll(/\(([a-z0-9]+)\)/gi)].map(match => match[1].toLowerCase());
+      return `ct_${ctSection.replace(/-/g, '_')}${subsectionParts.length ? `_${subsectionParts.join('_')}` : ''}`;
+    }
+
+    return String(citation || row.authority_label || 'authority')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '');
+  }
+
+  function getKnowledgeAuthorityCategory(row = {}) {
+    const type = row.authority_type || '';
+    if (type.startsWith('appendix_pp')) return 'Appendix PP';
+    if (type.startsWith('federal_reg')) return 'Federal Regulation';
+    if (type === 'ombudsman_authority') return 'Ombudsman Program Authority';
+    if (type === 'ct_statute') return 'State Statute';
+    if (type === 'ct_regulation') return 'State Regulation';
+    if (type === 'handout_resource' || type === 'ct_official_resource') return 'Training';
+    return 'Reference';
+  }
+
+  function getKnowledgeAuthorityUrl(row = {}) {
+    const citation = row.authority_citation || '';
+    const ftagMatch = citation.match(/^F\d+/i);
+    if (ftagMatch) {
+      return row.appendix_pp_pdf_url || APPENDIX_PP_URL;
+    }
+
+    const cfrMatch = citation.match(/\b(42|45)\s+CFR\s+(?:§\s*)?([0-9.]+)/i);
+    if (cfrMatch?.[1] === '42') {
+      return `https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-${cfrMatch[2]}`;
+    }
+    if (cfrMatch?.[1] === '45') {
+      return `https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-${cfrMatch[2]}`;
+    }
+
+    const ctUrl = getCtStatuteUrlFromCitation(citation);
+    return ctUrl || row.authority_url || '';
+  }
+
+  function getKnowledgeMappingType(row = {}) {
+    if (row.authority_type === 'ct_statute' || row.authority_type === 'ct_regulation') return 'state_overlay';
+    return row.mapping_confidence || 'related';
+  }
+
+  function getKnowledgeAuthorityMappingsForMatch(match = {}, data) {
+    const matchedCodes = [...new Set([...(match.norsCodes || []), ...(match.likelyNorsCodes || [])])];
+    if (!matchedCodes.length) return [];
+
+    return (data?.norsKnowledgeBase?.authority_rows || [])
+      .filter(row => matchedCodes.includes(row.nors_code))
+      .filter(row => !KNOWLEDGE_AUTHORITY_ROW_SKIP.has(`${row.nors_code}|${row.authority_citation}`))
+      .map(row => {
+        const mappingType = getKnowledgeMappingType(row);
+        return {
+          authority_id: getAuthorityIdFromKnowledgeRow(row),
+          reason: row.mapping_rationale_short || `${mappingType.replace(/_/g, ' ')} knowledge-base mapping`,
+          citation: row.authority_citation || '',
+          title: row.authority_label || '',
+          category: getKnowledgeAuthorityCategory(row),
+          url: getKnowledgeAuthorityUrl(row),
+          mapping_type: mappingType,
+          human_review_note: row.human_review_note || '',
+          official_source_urls: row.official_source_urls || [],
+          appendixPpPdfUrl: row.appendix_pp_pdf_url || '',
+          appendixPpHeadingExact: row.appendix_pp_heading_exact || '',
+          appendixPpPageStart: row.appendix_pp_pdf_page_start || null
+        };
+      });
+  }
+
+  function getAppendixPpTagPage(fTag, data) {
+    const tag = String(fTag || '').toUpperCase();
+    const rows = data?.appendixPpTagPages?.appendix_pp_tag_page_rows || [];
+    return rows.find(row => String(row.f_tag || '').toUpperCase() === tag) || null;
+  }
+
+  function applyAppendixPpTagPage(authority = {}, data) {
+    const citation = authority.citation || '';
+    const ftagMatch = citation.match(/^F\d+/i);
+    if (!ftagMatch) return authority;
+
+    const tag = ftagMatch[0].toUpperCase();
+    const pageRow = getAppendixPpTagPage(tag, data);
+    if (!pageRow || pageRow.status !== 'confirmed' || !pageRow.appendix_pp_pdf_page_start) return authority;
+
+    return {
+      ...authority,
+      appendixPpPageStart: pageRow.appendix_pp_pdf_page_start,
+      appendixPpHeadingExact: pageRow.heading_exact || '',
+      appendixPpPdfUrl: pageRow.appendix_pp_pdf_url || APPENDIX_PP_URL,
+      url: `${pageRow.appendix_pp_pdf_url || APPENDIX_PP_URL}#page=${pageRow.appendix_pp_pdf_page_start}`
+    };
+  }
+
   function getAuthorityUrl(authority = {}) {
     const citation = authority.citation || '';
     const category = authority.category || authority.label || '';
-    const cfrMatch = citation.match(/42\s+CFR\s+(?:§|Â§)?\s*([0-9.]+)/i);
-    if (cfrMatch) {
-      return `https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-${cfrMatch[1]}`;
+    const cfrMatch = citation.match(/\b(42|45)\s+CFR\s+(?:§|Â§)?\s*([0-9.]+)/i);
+    if (cfrMatch?.[1] === '42') {
+      return `https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-${cfrMatch[2]}`;
+    }
+    if (cfrMatch?.[1] === '45') {
+      return `https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324/subpart-A/section-${cfrMatch[2]}`;
     }
     const ftagMatch = citation.match(/^F\d+/i);
     if (ftagMatch) {
+      if (authority.url && /#page=/i.test(authority.url)) return authority.url;
+      if (authority.appendixPpPageStart) {
+        return `${authority.appendixPpPdfUrl || APPENDIX_PP_URL}#page=${authority.appendixPpPageStart}`;
+      }
       const ftag = ftagMatch[0].toUpperCase();
       const page = APPENDIX_PP_PAGE_BY_FTAG[ftag];
       return page ? `${APPENDIX_PP_URL}#page=${page}` : APPENDIX_PP_URL;
@@ -551,7 +713,11 @@
       reason: reason || (authority ? 'Selected by topic mapping.' : 'Selected by topic mapping, but details are missing from authority index.'),
       matchSummary: getMatchSummary(match),
       rank: authority ? 0 : -1,
-      missing: !authority
+      missing: !authority,
+      humanReviewNote: authority?.human_review_note || authority?.humanReviewNote || '',
+      officialSourceUrls: authority?.official_source_urls || authority?.officialSourceUrls || [],
+      appendixPpHeadingExact: authority?.appendixPpHeadingExact || authority?.appendix_pp_heading_exact || '',
+      appendixPpPageStart: authority?.appendixPpPageStart || authority?.appendix_pp_pdf_page_start || null
     };
   }
 
@@ -576,8 +742,12 @@
 
     topicMatches.forEach(match => {
       const authorities = [];
+      const matchedCodesForTopic = [...new Set([...(match.norsCodes || []), ...(match.likelyNorsCodes || [])])];
       const catalogMappings = catalogRecords
-        .filter(record => record.topic_slug === match.topic || (match.norsCodes || []).includes(record.nors_minor_code))
+        .filter(record => {
+          if (matchedCodesForTopic.length) return matchedCodesForTopic.includes(record.nors_minor_code);
+          return record.topic_slug === match.topic;
+        })
         .flatMap(record => [
           ...normalizeMappingList(record.federal_regulations),
           ...normalizeMappingList(record.appendix_pp_tags),
@@ -586,27 +756,44 @@
         .filter(item => item.authority_id)
         .map(item => ({
           authority_id: item.authority_id,
-          reason: item.mapping_type ? `${item.mapping_type.replace(/_/g, ' ')} mapping` : '',
+          reason: item.reason || item.mapping_rationale_short || (item.mapping_type ? `${item.mapping_type.replace(/_/g, ' ')} mapping` : ''),
           citation: item.citation,
           title: item.title,
           category: item.category,
-          url: item.url
+          url: item.url,
+          mapping_type: item.mapping_type,
+          human_review_note: item.human_review_note || '',
+          official_source_urls: item.official_source_urls || []
         }));
-      const mappings = catalogMappings.length ? catalogMappings : topicMap[match.topic] || [];
+      const knowledgeMappings = getKnowledgeAuthorityMappingsForMatch(match, data);
+      const hasExactOmbudsmanAuthority = knowledgeMappings.some(item => /^45cfr_1324_19_/.test(item.authority_id));
+      const hasExactCtStatute = knowledgeMappings.some(item => item.category === 'State Statute');
+      const filteredCatalogMappings = catalogMappings.filter(item => {
+        if (hasExactOmbudsmanAuthority && item.authority_id === '45cfr_1324_19') return false;
+        if (hasExactCtStatute && item.authority_id === 'ct_nursing_home_statutes') return false;
+        return true;
+      });
+      const baseMappings = filteredCatalogMappings.length ? filteredCatalogMappings : topicMap[match.topic] || [];
+      const mappings = [...knowledgeMappings, ...baseMappings];
 
       mappings.forEach(item => {
         if (resultCount >= maxResults) return;
         if (dedupe && seen.has(item.authority_id)) return;
 
         const indexedAuthority = authorityIndex[item.authority_id] || {};
-        const authority = {
+        const authority = applyAppendixPpTagPage({
           ...indexedAuthority,
           authority_id: item.authority_id,
           citation: item.citation || indexedAuthority.citation,
           title: item.title || indexedAuthority.title,
           category: item.category || indexedAuthority.category,
-          url: item.url || indexedAuthority.url
-        };
+          url: item.url || indexedAuthority.url,
+          human_review_note: item.human_review_note || indexedAuthority.human_review_note || '',
+          official_source_urls: item.official_source_urls || indexedAuthority.official_source_urls || [],
+          appendixPpPdfUrl: item.appendixPpPdfUrl || indexedAuthority.appendixPpPdfUrl || '',
+          appendixPpHeadingExact: item.appendixPpHeadingExact || indexedAuthority.appendixPpHeadingExact || '',
+          appendixPpPageStart: item.appendixPpPageStart || indexedAuthority.appendixPpPageStart || null
+        }, data);
         seen.add(item.authority_id);
         resultCount += 1;
 
@@ -679,7 +866,7 @@
         return;
       }
 
-      addTrace(`The topic "${formatTopicName(match.topic)}" surfaced ${group.authorities.length} possible reference${group.authorities.length === 1 ? '' : 's'} from the crosswalk catalog.`, group.authorities.map(authority => ({
+      addTrace(`The topic "${formatTopicName(match.topic)}" surfaced ${group.authorities.length} possible reference${group.authorities.length === 1 ? '' : 's'} from the crosswalk data and knowledge base.`, group.authorities.map(authority => ({
         label: authority.citation,
         url: authority.url
       })));
@@ -715,6 +902,7 @@
     if (topicMatches.length && !authorityGroups.length) {
       warnings.push('Topics were matched, but no authority references were found.');
     }
+    getKnowledgeCaveatWarnings(code, topicMatches, data).forEach(warning => warnings.push(warning));
     authorityGroups.forEach(group => {
       group.authorities.forEach(authority => {
         if (authority.missing) {

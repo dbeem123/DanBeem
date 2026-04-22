@@ -12,15 +12,15 @@
 - `authority_rows` are not yet merged into `crosswalk_catalog.json` or `authority_index.json`.
 
 ## Reason
-- All Appendix PP `appendix_pp_pdf_page_start` values are currently `null`.
-- Several F-tag assignments were confirmed through secondary sources rather than a direct Appendix PP page-start verification pass.
-- The tool should not display exact PDF jump links or definitive new F-tag mappings until current CMS Appendix PP page starts are confirmed.
+- Original Batch 1 authority rows had `appendix_pp_pdf_page_start` values set to `null`.
+- Current live Appendix PP page starts are now staged in `data/appendix_pp_tag_pages.json` and are used by the shared crosswalk renderer for existing F-tag links.
+- Authority-row promotion still needs a separate merge pass so each new or revised mapping is reviewed against existing `crosswalk_catalog.json` mappings and any deprecated tag references are cleaned up deliberately.
 
 ## Next Safe Step
-- Complete an Appendix PP page-start lookup for the F-tags in Batch 1.
-- Then merge verified authority rows into `authority_index.json` and `crosswalk_catalog.json`, preserving:
+- Merge verified authority rows into `authority_index.json` and `crosswalk_catalog.json`, preserving:
   - `mapping_confidence`
   - `human_review_note`
   - exact eCFR URLs
   - exact CGA section anchors
   - `no_direct_f_tag` caveats
+  - Appendix PP live PDF page starts from `data/appendix_pp_tag_pages.json`
