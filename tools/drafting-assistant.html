@@ -843,6 +843,7 @@
       const topicMatches = crosswalkResult.topicMatches || [];
       const authorityGroups = crosswalkResult.authorityGroups || [];
       const trace = crosswalkResult.trace || [];
+      const warnings = crosswalkResult.warnings || [];
 
       if (!topicMatches.length) {
         topicsOutput.textContent = 'No likely topics identified yet. Add note details or a NORS code and run Extract Fields.';
@@ -881,9 +882,13 @@
         `).join('');
       }
 
-      traceOutput.innerHTML = trace.length
+      const traceHtml = trace.length
         ? `<ul class="result-list">${trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}</ul>`
         : 'No trace generated yet.';
+      const warningHtml = warnings.length
+        ? `<div class="notice warning" style="margin-top:12px;"><strong>Review caveats</strong><ul class="result-list">${warnings.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div>`
+        : '';
+      traceOutput.innerHTML = `${traceHtml}${warningHtml}`;
     }
 
     function fillTemplate(template, formData) {
