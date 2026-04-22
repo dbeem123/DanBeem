@@ -69,10 +69,13 @@
   function addTopic(topicMatches, topic, sourceType, value) {
     if (!topic) return;
     if (!topicMatches[topic]) {
-      topicMatches[topic] = { topic, norsCodes: [], keywords: [], keywordMatchCount: 0 };
+      topicMatches[topic] = { topic, norsCodes: [], likelyNorsCodes: [], keywords: [], keywordMatchCount: 0 };
     }
     if (sourceType === 'nors' && value && !topicMatches[topic].norsCodes.includes(value)) {
       topicMatches[topic].norsCodes.push(value);
+    }
+    if (sourceType === 'likely_nors' && value && !topicMatches[topic].likelyNorsCodes.includes(value)) {
+      topicMatches[topic].likelyNorsCodes.push(value);
     }
     if (sourceType === 'keyword' && value) {
       if (!topicMatches[topic].keywords.includes(value)) {
@@ -85,7 +88,10 @@
   function sortTopicMatches(topicMatches) {
     return Object.values(topicMatches).map(match => ({
       ...match,
-      keywordMatchCount: match.keywordMatchCount || match.keywords.length || 0
+      norsCodes: match.norsCodes || [],
+      likelyNorsCodes: match.likelyNorsCodes || [],
+      keywords: match.keywords || [],
+      keywordMatchCount: match.keywordMatchCount || (match.keywords || []).length || 0
     })).sort((a, b) => {
       const aPriority = a.norsCodes.length ? 0 : 1;
       const bPriority = b.norsCodes.length ? 0 : 1;
@@ -97,6 +103,7 @@
     const merged = {};
     topicMatchArrays.flat().forEach(match => {
       (match.norsCodes || []).forEach(code => addTopic(merged, match.topic, 'nors', code));
+      (match.likelyNorsCodes || []).forEach(code => addTopic(merged, match.topic, 'likely_nors', code));
       (match.keywords || []).forEach(keyword => addTopic(merged, match.topic, 'keyword', keyword));
     });
     return sortTopicMatches(merged);
@@ -296,6 +303,7 @@
       if (keywordPhraseMatches(phrase, searchableText, searchableTokens)) {
         (entry.topics || []).forEach(topic => {
           addTopic(topicMatches, topic, 'keyword', phrase);
+          (entry.likely_nors_codes || []).forEach(code => addTopic(topicMatches, topic, 'likely_nors', code));
         });
       }
     });
@@ -317,6 +325,7 @@
 
     if (useKeywordFallback) {
       getTopicsFromKeywords(keywordText, data).forEach(match => {
+        match.likelyNorsCodes.forEach(code => addTopic(topicMatches, match.topic, 'likely_nors', code));
         match.keywords.forEach(keyword => addTopic(topicMatches, match.topic, 'keyword', keyword));
       });
     }
@@ -505,6 +514,16 @@
       }
       if (match.keywords.length) {
         addTrace(`The keyword text matched ${match.keywords.map(item => `"${item}"`).join(', ')}, which maps to the topic "${formatTopicName(match.topic)}".`);
+      }
+      if (match.likelyNorsCodes?.length) {
+        const codeLabels = match.likelyNorsCodes.map(item => {
+          const detail = getNorsCodeDetail(item, data || {});
+          return detail ? `${item} (${detail.label})` : item;
+        });
+        addTrace(`Based on matched keywords, the crosswalk suggests likely NORS code${codeLabels.length === 1 ? '' : 's'} ${codeLabels.join(', ')} for review.`, [{
+          label: 'NORS Table 2',
+          url: NORS_TABLE_2_URL
+        }]);
       }
 
       const group = authorityGroups.find(item => item.topic === match.topic);

@@ -21,7 +21,7 @@
     select option { color:#06121b; }
     textarea { min-height:110px; resize:vertical; }
     .output-box {
-      white-space:pre-wrap;
+      white-space:normal;
       min-height:80px;
       padding:12px;
       border-radius:10px;
@@ -204,6 +204,7 @@
           </div>
           <ul class="result-list">
             ${match.norsCodes.map(code => `<li>NORS code ${escapeHtml(code)}</li>`).join('')}
+            ${(match.likelyNorsCodes || []).map(code => `<li>likely NORS code ${escapeHtml(code)}</li>`).join('')}
             ${match.keywords.map(keyword => `<li>keyword "${escapeHtml(keyword)}"</li>`).join('')}
           </ul>
         </div>
