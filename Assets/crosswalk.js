@@ -19,6 +19,13 @@
     retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json']
   };
 
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority']);
+
+  function getOptionalFallback(key) {
+    if (key === 'topicToAuthority') return { topics: {} };
+    return {};
+  }
+
   async function loadJsonFile(paths, keyName) {
     const candidates = Array.isArray(paths) ? paths : [paths];
     const errors = [];
@@ -47,7 +54,13 @@
   async function loadCrosswalkData(paths = {}) {
     const mergedPaths = { ...DEFAULT_PATHS, ...paths };
     const entries = await Promise.all(Object.entries(mergedPaths).map(async ([key, path]) => {
-      return [key, await loadJsonFile(path, key)];
+      try {
+        return [key, await loadJsonFile(path, key)];
+      } catch (err) {
+        if (!OPTIONAL_DATA_KEYS.has(key)) throw err;
+        console.warn(`[crosswalk] Optional legacy data ${key} could not be loaded; continuing with normalized crosswalk catalog.`);
+        return [key, getOptionalFallback(key)];
+      }
     }));
 
     return Object.fromEntries(entries);
@@ -346,7 +359,7 @@
   function getAuthorityUrl(authority = {}) {
     const citation = authority.citation || '';
     const category = authority.category || authority.label || '';
-    const cfrMatch = citation.match(/42\s+CFR\s+(?:�|§)?\s*([0-9.]+)/i);
+    const cfrMatch = citation.match(/42\s+CFR\s+(?:§|Â§)?\s*([0-9.]+)/i);
     if (cfrMatch) {
       return `https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-${cfrMatch[1]}`;
     }
@@ -360,7 +373,7 @@
       return CT_NURSING_HOME_REGS_URL;
     }
     if (/State Statute/i.test(category) || /^CGS/i.test(citation)) {
-      const sectionMatch = citation.match(/(?:�+|Sec\.?\s*)\s*(17a-\d+[a-z]?|19a-\d+[a-z]?)/i);
+      const sectionMatch = citation.match(/(?:§+|Sec\.?\s*)\s*(17a-\d+[a-z]?|19a-\d+[a-z]?)/i);
       if (/17a-/i.test(citation) || authority.authority_id === 'ct_17a_870') {
         return sectionMatch
           ? `${CT_OMBUDSMAN_STATUTES_URL}#sec_${sectionMatch[1].toLowerCase()}`

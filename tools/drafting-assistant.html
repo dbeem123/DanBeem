@@ -80,6 +80,7 @@
       </div>
       <nav class="nav">
         <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="nors-crosswalk.html">NORS Crosswalk Tool</a>
         <a class="navLink linkBtn" href="outreach-email.html">Outreach Email Builder</a>
       </nav>
     </div>
@@ -255,29 +256,13 @@
     </section>
 
     <section class="panel" style="margin-top:18px;" aria-labelledby="crosswalk-title">
-      <div class="pill">Informational Only</div>
-      <h2 id="crosswalk-title">NORS Crosswalk Test</h2>
+      <div class="pill">Standalone Tool</div>
+      <h2 id="crosswalk-title">Need a deeper crosswalk lookup?</h2>
       <p class="notice">Informational Only - does not determine violations</p>
-      <p class="subtle">Temporary test for NORS code or keyword/concern text to topic to authority mapping.</p>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
-        <div>
-          <label for="norsCodeSelect">Select NORS Code</label>
-          <select id="norsCodeSelect">
-            <option value="">Loading NORS codes...</option>
-          </select>
-          <div id="crosswalk-code-guidance" class="notice" style="display:none;"></div>
-        </div>
-        <div>
-          <label for="crosswalkKeywordText"><span data-help-id="keyword_concern">Keyword / Concern</span></label>
-          <textarea id="crosswalkKeywordText" placeholder="Example: call light, discharge notice, privacy, dignity, abuse, medication, staffing..."></textarea>
-        </div>
-      </div>
+      <p class="subtle">Use the standalone NORS Crosswalk Tool for direct NORS code lookup, keyword / concern lookup, clickable authority references, and trace details.</p>
       <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button id="runKeywordCrosswalkBtn" class="btn" type="button">Run Keyword / Concern Lookup</button>
-        <button id="runCrosswalkBtn" class="btn secondary" type="button">Run NORS Code Lookup</button>
+        <a class="btn secondary" href="nors-crosswalk.html">Open NORS Crosswalk Tool</a>
       </div>
-      <div id="crosswalk-input-warning" class="notice warning" style="display:none;"></div>
-      <div id="crosswalkResult" class="output-box" style="margin-top:12px;">Crosswalk results will appear here.</div>
     </section>
 
     <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Draft outputs">
@@ -1001,8 +986,8 @@
 
       output.innerHTML = present.map(section => `
         <div style="margin-bottom:12px;">
-          <strong>${section.label}</strong>
-          <div class="subtle" style="white-space:pre-wrap;">${section.value}</div>
+          <strong>${escapeHtml(section.label)}</strong>
+          <div class="subtle" style="white-space:pre-wrap;">${escapeHtml(section.value)}</div>
         </div>
       `).join('');
     }
