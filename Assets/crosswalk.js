@@ -26,16 +26,18 @@
     norsComplaintGuidance: ['../data/nors_complaint_code_guidance.json', '../nors_complaint_code_guidance.json'],
     norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json'],
     norsKnowledgeBase: ['../data/nors_knowledge_base_batch1.json', '../nors_knowledge_base_batch1.json'],
+    norsKnowledgeBaseBatch2: ['../data/nors_knowledge_base_batch2.json', '../nors_knowledge_base_batch2.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'appendixPpTagPages']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'appendixPpTagPages']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
     if (key === 'norsComplaintGuidance') return { items: [] };
     if (key === 'norsResourceCatalog') return { resources: [] };
     if (key === 'norsKnowledgeBase') return { code_summary_rows: [], authority_rows: [], do_not_map_catalog: [] };
+    if (key === 'norsKnowledgeBaseBatch2') return { code_summary_rows: [], authority_rows: [], appendix_pp_page_rows: [], do_not_map_catalog: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     return {};
   }
@@ -125,6 +127,39 @@
 
   function getCatalogRecords(data) {
     return Array.isArray(data.crosswalkCatalog?.records) ? data.crosswalkCatalog.records : [];
+  }
+
+  function getKnowledgeBases(data) {
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2].filter(Boolean);
+  }
+
+  function getKnowledgeCodeRows(data) {
+    return getKnowledgeBases(data).flatMap(base => base.code_summary_rows || []);
+  }
+
+  function getKnowledgeAuthorityRows(data) {
+    return getKnowledgeBases(data).flatMap(base => base.authority_rows || []);
+  }
+
+  function getKnowledgeDoNotMapRows(data) {
+    return getKnowledgeBases(data).flatMap(base => base.do_not_map_catalog || []);
+  }
+
+  function normalizeKnowledgeSummary(row = {}) {
+    if (!row || !Object.keys(row).length) return {};
+    return {
+      ...row,
+      nors_label: row.nors_label || row.label || '',
+      nors_table_2_page: row.nors_table_2_page || row.nors_pdf_page || '',
+      nors_definition: row.nors_definition || row.definition || '',
+      use_when: row.use_when || row.useWhen || '',
+      do_not_use_when: row.do_not_use_when || row.doNotUseWhen || '',
+      reporting_tips: row.reporting_tips || row.reportingTips || '',
+      examples: row.examples || [],
+      common_concern_phrases: row.common_concern_phrases || row.commonConcernPhrases || [],
+      human_review_notes: row.human_review_notes || row.humanReviewNotes || row.notes || '',
+      handout_or_resource_urls: row.handout_or_resource_urls || row.handoutOrResourceUrls || []
+    };
   }
 
   function getNorsCodeOptions(data) {
@@ -228,8 +263,8 @@
 
   function getNorsKnowledgeSummary(norsCode, data) {
     const code = (norsCode || '').trim();
-    const rows = data?.norsKnowledgeBase?.code_summary_rows || [];
-    return rows.find(row => row.nors_code === code) || {};
+    const rows = getKnowledgeCodeRows(data);
+    return normalizeKnowledgeSummary(rows.find(row => row.nors_code === code) || {});
   }
 
   function getMatchedNorsCodes(norsCode, topicMatches = []) {
@@ -290,7 +325,7 @@
       });
     });
 
-    (data?.norsKnowledgeBase?.code_summary_rows || []).forEach(row => {
+    getKnowledgeCodeRows(data).map(normalizeKnowledgeSummary).forEach(row => {
       if (!matchedCodes.includes(row.nors_code)) return;
       (row.handout_or_resource_urls || []).forEach(resource => {
         if (!resource?.url || seen.has(resource.url)) return;
@@ -316,7 +351,7 @@
     const matchedCodes = getMatchedNorsCodes(norsCode, topicMatches);
     if (!matchedCodes.length) return [];
 
-    return (data?.norsKnowledgeBase?.do_not_map_catalog || [])
+    return getKnowledgeDoNotMapRows(data)
       .filter(row => matchedCodes.includes(row.nors_code))
       .map(row => `Review caveat for ${row.nors_code}: ${row.reason}`);
   }
@@ -367,7 +402,7 @@
         likely_nors_codes: [item.code]
       }));
     });
-    const knowledgeGuidanceEntries = (data?.norsKnowledgeBase?.code_summary_rows || []).flatMap(row => {
+    const knowledgeGuidanceEntries = getKnowledgeCodeRows(data).map(normalizeKnowledgeSummary).flatMap(row => {
       const topic = topicByNorsCode[row.nors_code];
       if (!topic) return [];
       return (row.common_concern_phrases || []).map(phrase => ({
@@ -554,7 +589,7 @@
   }
 
   function getAuthorityIdFromKnowledgeRow(row = {}) {
-    const citation = row.authority_citation || '';
+    const citation = normalizeAuthorityCitation(row.authority_citation || row.citation || '');
     const ftagMatch = citation.match(/^F\d+/i);
     if (ftagMatch) return ftagMatch[0].toLowerCase();
 
@@ -581,14 +616,14 @@
     if (type.startsWith('appendix_pp')) return 'Appendix PP';
     if (type.startsWith('federal_reg')) return 'Federal Regulation';
     if (type === 'ombudsman_authority') return 'Ombudsman Program Authority';
-    if (type === 'ct_statute') return 'State Statute';
+    if (type === 'ct_statute' || type === 'state_overlay') return 'State Statute';
     if (type === 'ct_regulation') return 'State Regulation';
     if (type === 'handout_resource' || type === 'ct_official_resource') return 'Training';
     return 'Reference';
   }
 
   function getKnowledgeAuthorityUrl(row = {}) {
-    const citation = row.authority_citation || '';
+    const citation = normalizeAuthorityCitation(row.authority_citation || row.citation || '');
     const ftagMatch = citation.match(/^F\d+/i);
     if (ftagMatch) {
       return row.appendix_pp_pdf_url || APPENDIX_PP_URL;
@@ -607,24 +642,34 @@
   }
 
   function getKnowledgeMappingType(row = {}) {
-    if (row.authority_type === 'ct_statute' || row.authority_type === 'ct_regulation') return 'state_overlay';
+    if (row.authority_type === 'ct_statute' || row.authority_type === 'ct_regulation' || row.authority_type === 'state_overlay') return 'state_overlay';
     return row.mapping_confidence || 'related';
+  }
+
+  function normalizeAuthorityCitation(citation) {
+    const value = String(citation || '').trim();
+    const ftagMatch = value.match(/^F\d+/i);
+    if (ftagMatch) return ftagMatch[0].toUpperCase();
+    return value.replace(/\s*\(page\s*\d+\)\s*/i, '').trim();
   }
 
   function getKnowledgeAuthorityMappingsForMatch(match = {}, data) {
     const matchedCodes = [...new Set([...(match.norsCodes || []), ...(match.likelyNorsCodes || [])])];
     if (!matchedCodes.length) return [];
 
-    return (data?.norsKnowledgeBase?.authority_rows || [])
+    return getKnowledgeAuthorityRows(data)
       .filter(row => matchedCodes.includes(row.nors_code))
-      .filter(row => !KNOWLEDGE_AUTHORITY_ROW_SKIP.has(`${row.nors_code}|${row.authority_citation}`))
+      .filter(row => !KNOWLEDGE_AUTHORITY_ROW_SKIP.has(`${row.nors_code}|${normalizeAuthorityCitation(row.authority_citation || row.citation || '')}`))
+      .filter(row => normalizeAuthorityCitation(row.authority_citation || row.citation || '') !== 'F556')
       .map(row => {
+        const citation = normalizeAuthorityCitation(row.authority_citation || row.citation || '');
+        const redirectedCitation = citation === 'F758' ? 'F605' : citation;
         const mappingType = getKnowledgeMappingType(row);
         return {
-          authority_id: getAuthorityIdFromKnowledgeRow(row),
-          reason: row.mapping_rationale_short || `${mappingType.replace(/_/g, ' ')} knowledge-base mapping`,
-          citation: row.authority_citation || '',
-          title: row.authority_label || '',
+          authority_id: citation === 'F758' ? 'f605' : getAuthorityIdFromKnowledgeRow(row),
+          reason: row.mapping_rationale_short || row.notes || `${mappingType.replace(/_/g, ' ')} knowledge-base mapping`,
+          citation: redirectedCitation,
+          title: row.authority_label || row.description || '',
           category: getKnowledgeAuthorityCategory(row),
           url: getKnowledgeAuthorityUrl(row),
           mapping_type: mappingType,

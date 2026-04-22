@@ -1,0 +1,3150 @@
+{
+  "code_summary_rows": [
+    {
+      "nors_code": "B01",
+      "nors_series": "B",
+      "label": "Access to Information and Records",
+      "definition": "Access denied or delayed to information or records.",
+      "nors_pdf_page": 2,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Rights",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "B02",
+      "nors_series": "B",
+      "label": "Language and Communication Barriers",
+      "definition": "Information not provided in understandable language or format; no interpreter provided.",
+      "nors_pdf_page": 3,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Rights",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "B03",
+      "nors_series": "B",
+      "label": "Willful Interference with Ombudsman Program",
+      "definition": "Intentional prevention of or interference with resident or complainant accessing the ombudsman program.",
+      "nors_pdf_page": 3,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Ombudsman Access",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No direct facility F-tag when interference is by someone other than the facility."
+    },
+    {
+      "nors_code": "C01",
+      "nors_series": "C",
+      "label": "Admission",
+      "definition": "Admitted against wishes; admission agreement missing or has illegal provisions.",
+      "nors_pdf_page": 3,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Admission/Discharge",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "C02",
+      "nors_series": "C",
+      "label": "Appeal Process",
+      "definition": "Resident did not receive information on appeal rights or assistance filing; facility failed to follow appeal ruling.",
+      "nors_pdf_page": 3,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Admission/Discharge",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "C04",
+      "nors_series": "C",
+      "label": "Room Issues",
+      "definition": "Request for room change denied; objection to planned room change; inadequate notice of change.",
+      "nors_pdf_page": 3,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Admission/Discharge",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "D02",
+      "nors_series": "D",
+      "label": "Live in Less Restrictive Setting",
+      "definition": "Not offered transition planning; request to return to community denied, ignored, or inadequately addressed.",
+      "nors_pdf_page": 4,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Rights",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "D08",
+      "nors_series": "D",
+      "label": "Resident or Family Council",
+      "definition": "Interference with formation; staff doesn't assist or exerts too much control; doesn't respond to council requests.",
+      "nors_pdf_page": 4,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Rights",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "nors_series": "E",
+      "label": "Billing and Charges",
+      "definition": "Incorrect/improper billing; overcharging; raising rates without notice; deposits not refunded; billing for services not provided.",
+      "nors_pdf_page": 5,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Financial",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No direct F-tag covers billing disputes; F567-F570 cover trust fund management, not billing errors per se."
+    },
+    {
+      "nors_code": "E02",
+      "nors_series": "E",
+      "label": "Personal Property",
+      "definition": "Loss or mismanagement by facility of resident property including money or trust fund.",
+      "nors_pdf_page": 5,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Financial",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "F602 only applies when facility or facility staff misappropriate; if family member, refer to APS."
+    },
+    {
+      "nors_code": "F01",
+      "nors_series": "F",
+      "label": "Accidents and Falls",
+      "definition": "Unexpected or unintended incident or injury of unknown origin; may result in injury or illness.",
+      "nors_pdf_page": 5,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F05",
+      "nors_series": "F",
+      "label": "Personal Hygiene",
+      "definition": "Failure to provide hygiene services; not bathed timely; allowed to remain in soiled clothing/incontinent briefs; hands/face not washed; teeth/dentures not cleaned.",
+      "nors_pdf_page": 6,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F06",
+      "nors_series": "F",
+      "label": "Access to Health-Related Services",
+      "definition": "Failure to obtain/maintain healthcare services based on change in condition, resident request, or not obtained timely.",
+      "nors_pdf_page": 6,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F07",
+      "nors_series": "F",
+      "label": "Symptoms Unattended",
+      "definition": "Failure to accommodate, identify, or provide services related to change in condition; symptoms not addressed and care not provided.",
+      "nors_pdf_page": 6,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F08",
+      "nors_series": "F",
+      "label": "Incontinence Care",
+      "definition": "Failure to provide incontinence/catheter care timely as requested or per care plan; not providing necessary bowel/bladder training.",
+      "nors_pdf_page": 6,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F09",
+      "nors_series": "F",
+      "label": "Assistive Devices or Equipment",
+      "definition": "Failure to provide access to assistive devices/supports; failure to maintain adaptive equipment.",
+      "nors_pdf_page": 7,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F10",
+      "nors_series": "F",
+      "label": "Rehabilitation Services",
+      "definition": "Failure to provide/arrange rehabilitation therapies; resident not assisted/encouraged to improve or maintain function or ambulate.",
+      "nors_pdf_page": 7,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "nors_series": "F",
+      "label": "Physical Restraint",
+      "definition": "Use of device attached to body that cannot be removed by resident, deliberately preventing free movement or normal access to body.",
+      "nors_pdf_page": 7,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Abuse/Restraint",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F12",
+      "nors_series": "F",
+      "label": "Chemical Restraint",
+      "definition": "Use of any drug for discipline or convenience not required to treat medical symptoms.",
+      "nors_pdf_page": 7,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Abuse/Restraint",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "F13",
+      "nors_series": "F",
+      "label": "Infection Control",
+      "definition": "Insufficient measures to prevent or control infection.",
+      "nors_pdf_page": 7,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "G01",
+      "nors_series": "G",
+      "label": "Activities",
+      "definition": "Lack of choice and appropriate activities; facility fails to consider individual preferences; variety limited or not offered; posted activities not conducted.",
+      "nors_pdf_page": 7,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Quality of Life",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "G02",
+      "nors_series": "G",
+      "label": "Transportation",
+      "definition": "Failure to assist resident in obtaining transportation for community participation or healthcare appointments.",
+      "nors_pdf_page": 8,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Quality of Life",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No specific transportation F-tag exists; transportation is generally a quality-of-life issue under §483.10(f)(1)."
+    },
+    {
+      "nors_code": "G03",
+      "nors_series": "G",
+      "label": "Conflict Resolution",
+      "definition": "Disagreement between residents where ombudsman assistance requested to achieve resolution.",
+      "nors_pdf_page": 8,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Ombudsman Mediation",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Conflict resolution between residents has no direct F-tag; ombudsman mediates under program authority."
+    },
+    {
+      "nors_code": "G04",
+      "nors_series": "G",
+      "label": "Social Services",
+      "definition": "Not available or appropriate; facility fails to provide social services to help resident achieve goals or access supports.",
+      "nors_pdf_page": 8,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "nors_series": "H",
+      "label": "Therapeutic or Special Diet",
+      "definition": "Therapeutic diet not served per care plan; special request diet or food preferences not accommodated.",
+      "nors_pdf_page": 8,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Care",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "nors_series": "I",
+      "label": "Environment",
+      "definition": "Building environment including safety hazards; room or water temperature too hot/cold; ventilation inadequate.",
+      "nors_pdf_page": 8,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Environment",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "I02",
+      "nors_series": "I",
+      "label": "Building Structure",
+      "definition": "Building interior/exterior not maintained; building hazards; poor lighting; building not secure.",
+      "nors_pdf_page": 9,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Environment",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "I03",
+      "nors_series": "I",
+      "label": "Supplies, Storage and Furnishings",
+      "definition": "Furnishings lacking or in disrepair; inadequate locked storage; shortage of supplies (bed linens, towels, toilet paper).",
+      "nors_pdf_page": 9,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Environment",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "I04",
+      "nors_series": "I",
+      "label": "Accessibility",
+      "definition": "Building and grounds accessibility complaints.",
+      "nors_pdf_page": 9,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Environment",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No single dedicated ADA/accessibility F-tag in nursing home survey; accessibility is generally within F920-F926 range."
+    },
+    {
+      "nors_code": "I05",
+      "nors_series": "I",
+      "label": "Housekeeping, Laundry and Pest Abatement",
+      "definition": "Housekeeping inadequate/absent; rooms not clean; linens not changed; laundry not washed; pest control problems.",
+      "nors_pdf_page": 9,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Environment",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": ""
+    },
+    {
+      "nors_code": "J01",
+      "nors_series": "J",
+      "label": "Administrative Oversight",
+      "definition": "Mismanagement; administrator absent/unresponsive/inadequately trained/not supervising; incomplete/missing/falsified records; background screening not performed; illegal policies/practices.",
+      "nors_pdf_page": 9,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Administration",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No single 'administrator absent' F-tag; cite §483.70 generally."
+    },
+    {
+      "nors_code": "J02",
+      "nors_series": "J",
+      "label": "Fiscal Management",
+      "definition": "Facility lacks fiscal resources resulting in staff shortages, staff alerts of not being paid, lack of food or supplies, utilities cut off.",
+      "nors_pdf_page": 10,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Administration",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No direct 'fiscal crisis' F-tag; investigative tool is to cite the resulting care failures (F725, F801, etc.)."
+    },
+    {
+      "nors_code": "K01",
+      "nors_series": "K",
+      "label": "Regulatory System",
+      "definition": "Complaints about actions or inactions of licensing/certification agency or similar regulatory agency.",
+      "nors_pdf_page": 10,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Outside Agency",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Outside agency issue; no facility F-tag applicable. Route to appropriate regulatory agency."
+    },
+    {
+      "nors_code": "K02",
+      "nors_series": "K",
+      "label": "Medicaid",
+      "definition": "Complaints regarding Medicaid eligibility, coverage, or issues related to Medicaid program.",
+      "nors_pdf_page": 10,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Outside Agency",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Outside agency issue; no facility F-tag applicable."
+    },
+    {
+      "nors_code": "K03",
+      "nors_series": "K",
+      "label": "Managed Care",
+      "definition": "Complaints regarding covered services, denial of services, or other managed care plan issues.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Outside Agency",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Outside agency issue; no facility F-tag applicable."
+    },
+    {
+      "nors_code": "K04",
+      "nors_series": "K",
+      "label": "Medicare",
+      "definition": "Complaints regarding Medicare eligibility, coverage, or issues related to Medicare program.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Outside Agency",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Outside agency issue; no facility F-tag applicable."
+    },
+    {
+      "nors_code": "K05",
+      "nors_series": "K",
+      "label": "Veterans Affairs",
+      "definition": "Complaints about eligibility, coverage, or issues related to DVA.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Outside Agency",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Outside agency issue; no facility F-tag applicable."
+    },
+    {
+      "nors_code": "K06",
+      "nors_series": "K",
+      "label": "Private Insurance",
+      "definition": "Complaints regarding any private insurance company, covered services, or denial of payment.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Outside Agency",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Outside agency issue; no facility F-tag applicable."
+    },
+    {
+      "nors_code": "L01",
+      "nors_series": "L",
+      "label": "Resident Representative or Family Conflict",
+      "definition": "Representative/family interferes with resident's decision making and preferences related to health, welfare, safety, or rights but does not rise to abuse/neglect/exploitation level.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Non-Facility System",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No direct F-tag; if representative conduct rises to exploitation, use A04/F602."
+    },
+    {
+      "nors_code": "L02",
+      "nors_series": "L",
+      "label": "Services from Outside Provider",
+      "definition": "Problems with services provided by individual or entity not associated with or arranged by the facility.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Non-Facility System",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "No facility F-tag; outside provider complaints go to the relevant licensing authority."
+    },
+    {
+      "nors_code": "L03",
+      "nors_series": "L",
+      "label": "Request to Transition to Community Setting",
+      "definition": "Barriers to transition to community; inadequate assistance with housing, services and supports not related to facility action/inaction.",
+      "nors_pdf_page": 11,
+      "nors_source_url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "primary_category": "Non-Facility System",
+      "facility_type_applicability": [
+        "nursing_home",
+        "assisted_living"
+      ],
+      "notes": "Community transition barriers NOT caused by facility have no F-tag; barriers caused by facility inaction may implicate §483.15(b)."
+    }
+  ],
+  "authority_rows": [
+    {
+      "nors_code": "B01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(b)(1)-(2)",
+      "description": "Right to be informed of services and rights",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F552 (page 13)",
+      "description": "Right to be Informed/Make Treatment Decisions",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "B01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(2),(3)",
+      "description": "Right to be informed of services and rights",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(10)",
+      "description": "Confidential treatment of records",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(b)(1)-(2)",
+      "description": "Right to be informed in understandable language/format",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F552 (page 13)",
+      "description": "Right to be Informed/Make Treatment Decisions",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "B02",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(2),(3)",
+      "description": "Right to be informed of services and rights",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.11(a)(1)(i)",
+      "description": "Ombudsman access rights",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.11",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B03",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(k)",
+      "description": "Contact with External Entities",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "B03",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F586 (page 70)",
+      "description": "Contact with External Entities",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.15",
+      "description": "Admission, transfer, and discharge rights",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F627 (relocated — page null)",
+      "description": "Admission/Transfer/Discharge rights (Rev. 229 addition, not in Rev. 225 PDF)",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": "F627 is a Rev. 229 addition; status=relocated; page=null"
+    },
+    {
+      "nors_code": "C01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-535",
+      "description": "Transfer and discharge",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(23)",
+      "description": "Transfer/discharge per 19a-535 only",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.15",
+      "description": "Admission, transfer, and discharge rights including appeal process",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F628 (relocated — page null)",
+      "description": "Appeal rights (Rev. 229 addition, not in Rev. 225 PDF)",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": "F628 is a Rev. 229 addition; status=relocated; page=null"
+    },
+    {
+      "nors_code": "C02",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-535",
+      "description": "Transfer and discharge",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C02",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(23)",
+      "description": "Transfer/discharge per 19a-535 only",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C04",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C04",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.15",
+      "description": "Admission, transfer, and discharge — room change",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "C04",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-535",
+      "description": "Transfer and discharge",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "C04",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(23)",
+      "description": "Transfer/discharge per 19a-535 only",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "D02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "D02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.15(b)",
+      "description": "Transitions to community",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "D02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F561 (page 24)",
+      "description": "Self-determination",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "D02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(1)(ii)(C)",
+      "description": "Public agencies — systems advocacy",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "D02",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(23)",
+      "description": "Transfer/discharge per 19a-535 only",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "D08",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "D08",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(f)(5)",
+      "description": "Right to organize resident groups",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "D08",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F565 (page 32)",
+      "description": "Right to organize/participate in resident groups",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "D08",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(14)",
+      "description": "Right to participate in patient groups",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "D08",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(18)",
+      "description": "Right to organize and maintain patient-run resident council",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(f)(10)",
+      "description": "Financial affairs/billing",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F567 (page 35)",
+      "description": "Right to manage financial affairs",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F568 (page 38)",
+      "description": "Accounting and Records",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F569 (page 39)",
+      "description": "Notice of certain balances",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "E01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(8)",
+      "description": "Quarterly accounting of financial transactions",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(f)(10)",
+      "description": "Financial affairs",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "E02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.12",
+      "description": "Misappropriation — when facility is actor",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "mapping_confidence": "direct",
+      "notes": "Applies when facility or facility staff misappropriate"
+    },
+    {
+      "nors_code": "E02",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F602 (page 95)",
+      "description": "Misappropriation/Exploitation — when facility is actor",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": "Only applies when facility or facility staff misappropriate; if family member, refer to APS"
+    },
+    {
+      "nors_code": "E02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F570 (page 39)",
+      "description": "Assurance of financial security/surety bond",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "E02",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(8)",
+      "description": "Quarterly accounting of financial transactions",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.25(d)",
+      "description": "Accidents",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F01",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F689 (page 326)",
+      "description": "Accidents",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(11)",
+      "description": "Quality care",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F05",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F05",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.24(a)",
+      "description": "Activities of daily living",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F05",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F677 (page 270)",
+      "description": "ADL assistance",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F05",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(11)",
+      "description": "Dignity and quality care",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F06",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F06",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.25",
+      "description": "Quality of Care",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F06",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F684 (page 284)",
+      "description": "Quality of Care",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F06",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(4)",
+      "description": "Right to choose physician",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F07",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F07",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.25",
+      "description": "Quality of Care",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F07",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F684 (page 284)",
+      "description": "Quality of Care",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F07",
+      "authority_type": "appendix_pp_related",
+      "citation": "F580 (page 55)",
+      "description": "Notification of Changes",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F08",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F08",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.25(e)",
+      "description": "Incontinence",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F08",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F690 (page 351)",
+      "description": "Incontinence",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F09",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F09",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.25",
+      "description": "Quality of Care — assistive devices",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F09",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.65",
+      "description": "Specialized rehabilitative services",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.65",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F09",
+      "authority_type": "appendix_pp_related",
+      "citation": "F684 (page 284)",
+      "description": "Quality of Care",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F10",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F10",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.25(b)",
+      "description": "Rehabilitation/restorative",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F10",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.65",
+      "description": "Specialized rehabilitative services",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.65",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F10",
+      "authority_type": "appendix_pp_related",
+      "citation": "F688 (page 321)",
+      "description": "Mobility",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.12",
+      "description": "Freedom from restraints — physical",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(e)(2)",
+      "description": "Right to be free from restraints",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "authority_type": "appendix_pp_related",
+      "citation": "F600 (page 70)",
+      "description": "Freedom from Abuse",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "authority_type": "appendix_pp_related",
+      "citation": "F700 (page 445)",
+      "description": "Bed Rails",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F11",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(9)",
+      "description": "Free from physical restraints",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.12",
+      "description": "Freedom from chemical restraints",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.45(e)",
+      "description": "Psychotropic drugs/chemical restraints",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F605 (page 126)",
+      "description": "Free from Chemical Restraints (Rev. 225/229)",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": "F758 deleted in Rev. 229; use F605 for psychotropic/chemical restraint"
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "appendix_pp_related",
+      "citation": "F600 (page 70)",
+      "description": "Freedom from Abuse",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(9)",
+      "description": "Free from chemical restraints",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F13",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F13",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.80",
+      "description": "Infection Control",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.80",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "F13",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F880 (page 770)",
+      "description": "Infection Control",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.24(c)",
+      "description": "Activities",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G01",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F679 (page 278)",
+      "description": "Activities program",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F680 (page 282)",
+      "description": "Qualified activities director",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "G01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(14)",
+      "description": "Right to participate in social, religious, community activities",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G02",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.10(f)(1)",
+      "description": "Self-determination/community access",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "G02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F561 (page 24)",
+      "description": "Self-determination",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "G03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution/mediation authority (primary)",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G03",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.10(f)",
+      "description": "Resident rights — general",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "G04",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G04",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.40(d)",
+      "description": "Social services",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.40",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G04",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F745 (page 536)",
+      "description": "Medically-related social services",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "G04",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(14)",
+      "description": "Social activities — related",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.60(e)",
+      "description": "Therapeutic diets",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.60",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.21(b)",
+      "description": "Care planning",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.21",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F808 (page 641)",
+      "description": "Therapeutic Diets",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "authority_type": "appendix_pp_related",
+      "citation": "F656 (page 238)",
+      "description": "Comprehensive Care Plan",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "H03",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(11)",
+      "description": "Reasonable accommodation",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(i)",
+      "description": "Safe environment",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.90",
+      "description": "Physical environment",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F584 (page 63)",
+      "description": "Safe Environment",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F921 (page 849)",
+      "description": "Other Environmental Conditions",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F922 (page 849)",
+      "description": "Water availability",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "appendix_pp_related",
+      "citation": "F923 (page 850)",
+      "description": "Ventilation",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(11)",
+      "description": "Quality care",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.90",
+      "description": "Physical environment",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I02",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.10(i)",
+      "description": "Safe environment",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F920 (page 848)",
+      "description": "Dining and Resident Activities physical environment",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I02",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F921 (page 849)",
+      "description": "Other Environmental Conditions",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I03",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(i)(1)",
+      "description": "Safe, clean, comfortable environment; personal belongings",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I03",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F584 (page 63)",
+      "description": "Safe Environment",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I03",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(15)",
+      "description": "Right to retain personal clothing and possessions",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I04",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I04",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.90",
+      "description": "Physical environment/accessibility",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I04",
+      "authority_type": "appendix_pp_related",
+      "citation": "F921 (page 849)",
+      "description": "Environmental Conditions",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I05",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I05",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.10(i)(2)",
+      "description": "Housekeeping and maintenance",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "I05",
+      "authority_type": "appendix_pp_related",
+      "citation": "F584 (page 63)",
+      "description": "Safe Environment",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "I05",
+      "authority_type": "appendix_pp_direct",
+      "citation": "F925 (page 850)",
+      "description": "Pest control",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "direct",
+      "notes": "Direct for pest-specific complaints"
+    },
+    {
+      "nors_code": "I05",
+      "authority_type": "appendix_pp_related",
+      "citation": "F812 (page 652)",
+      "description": "Food safety — procurement/storage",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": "Related if housekeeping affects food service"
+    },
+    {
+      "nors_code": "I05",
+      "authority_type": "appendix_pp_related",
+      "citation": "F813 (page 674)",
+      "description": "Food safety — pest/sanitation plan",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": "Related if housekeeping affects food service"
+    },
+    {
+      "nors_code": "J01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "J01",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.70",
+      "description": "Administration",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "J01",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.12(b)",
+      "description": "Background checks",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "J01",
+      "authority_type": "state_overlay",
+      "citation": "CT §19a-550(b)(21)",
+      "description": "Right to file complaints",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "J02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "J02",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.70",
+      "description": "Administration",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "J02",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.35",
+      "description": "Nursing services/staffing",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "J02",
+      "authority_type": "appendix_pp_related",
+      "citation": "F725 (page 475)",
+      "description": "Sufficient Nursing Staff",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "K01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(7)",
+      "description": "Systems advocacy — comment on laws/regulations",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(4)",
+      "description": "Represent interests before government agencies",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(7)",
+      "description": "Systems advocacy — comment on laws/regulations",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(4)",
+      "description": "Represent interests before government agencies",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K02",
+      "authority_type": "federal_reg_related",
+      "citation": "42 U.S.C. §1396r (Social Security Act §1919)",
+      "description": "Medicaid nursing facility requirements",
+      "url": "https://www.ssa.gov/OP_Home/ssact/title19/1919.htm",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "K03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(7)",
+      "description": "Systems advocacy — comment on laws/regulations",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(4)",
+      "description": "Represent interests before government agencies",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K04",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(7)",
+      "description": "Systems advocacy — comment on laws/regulations",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K04",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(4)",
+      "description": "Represent interests before government agencies",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K04",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K04",
+      "authority_type": "federal_reg_related",
+      "citation": "42 U.S.C. §1395i-3 (Social Security Act §1819)",
+      "description": "Medicare skilled nursing facility requirements",
+      "url": "https://www.ssa.gov/OP_Home/ssact/title18/1819.htm",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "K05",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(7)",
+      "description": "Systems advocacy — comment on laws/regulations",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K05",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(4)",
+      "description": "Represent interests before government agencies",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K05",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K06",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(7)",
+      "description": "Systems advocacy — comment on laws/regulations",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K06",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(4)",
+      "description": "Represent interests before government agencies",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "K06",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "L01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(b)(5)-(7)",
+      "description": "Representative conflict procedures",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "L01",
+      "authority_type": "federal_reg_related",
+      "citation": "42 CFR §483.10(b)(4)",
+      "description": "Resident representative authority limits",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "L01",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "L02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "L02",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(h)",
+      "description": "MOU with outside providers",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "L03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.19(a)(1)",
+      "description": "Ombudsman complaint resolution authority",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "mapping_confidence": "direct",
+      "notes": ""
+    },
+    {
+      "nors_code": "L03",
+      "authority_type": "federal_reg_direct",
+      "citation": "42 CFR §483.15(b)",
+      "description": "Transitions to community",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "mapping_confidence": "direct",
+      "notes": "Applies when barriers caused by facility inaction"
+    },
+    {
+      "nors_code": "L03",
+      "authority_type": "ombudsman_authority",
+      "citation": "45 CFR §1324.13(a)(1)(ii)(C)",
+      "description": "Public agencies — systems advocacy",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "mapping_confidence": "related",
+      "notes": ""
+    },
+    {
+      "nors_code": "L03",
+      "authority_type": "appendix_pp_related",
+      "citation": "F561 (page 24)",
+      "description": "Self-determination",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "mapping_confidence": "related",
+      "notes": ""
+    }
+  ],
+  "appendix_pp_page_rows": [
+    {
+      "ftag": "F554",
+      "appendix_pp_pdf_page_start": 16,
+      "cfr_section": "§483.10(c)(3)-(5)",
+      "heading": "Continuation of planning/care information rights",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F555",
+      "appendix_pp_pdf_page_start": 18,
+      "cfr_section": "§483.10(d)",
+      "heading": "Choice of Attending Physician",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F556",
+      "appendix_pp_pdf_page_start": 19,
+      "cfr_section": "",
+      "heading": "RESERVED — This tag number is in reserve for future use and there will be no citations under this tag.",
+      "status": "reserved",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "No CFR section; no citations should ever be made under this tag."
+    },
+    {
+      "ftag": "F559",
+      "appendix_pp_pdf_page_start": 22,
+      "cfr_section": "§483.10(e)(4)",
+      "heading": "Right to share a room with spouse",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F560",
+      "appendix_pp_pdf_page_start": 23,
+      "cfr_section": "§483.10(e)(7)",
+      "heading": "Right to refuse transfer to another room",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F562",
+      "appendix_pp_pdf_page_start": 27,
+      "cfr_section": "§483.10(f)(4)(i)",
+      "heading": "Immediate access to resident by immediate family/visiting persons",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F565",
+      "appendix_pp_pdf_page_start": 32,
+      "cfr_section": "§483.10(f)(5)",
+      "heading": "Right to organize/participate in resident groups",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F566",
+      "appendix_pp_pdf_page_start": 34,
+      "cfr_section": "§483.10(f)(9)",
+      "heading": "Right to choose/refuse to perform facility services",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F567",
+      "appendix_pp_pdf_page_start": 35,
+      "cfr_section": "§483.10(f)(10)",
+      "heading": "Right to manage financial affairs",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F568",
+      "appendix_pp_pdf_page_start": 38,
+      "cfr_section": "§483.10(f)(10)(iii)",
+      "heading": "Accounting and Records (financial)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F569",
+      "appendix_pp_pdf_page_start": 39,
+      "cfr_section": "§483.10(f)(10)(iv)",
+      "heading": "Notice of certain SSI/Medicaid balances",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F570",
+      "appendix_pp_pdf_page_start": 39,
+      "cfr_section": "§483.10(f)(10)(vi)",
+      "heading": "Assurance of financial security (surety bond)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F576",
+      "appendix_pp_pdf_page_start": 48,
+      "cfr_section": "§483.10(g)(6)",
+      "heading": "Telephone access (including cell phone)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F578",
+      "appendix_pp_pdf_page_start": 50,
+      "cfr_section": "§483.10(c)(6)",
+      "heading": "Right to request/refuse/discontinue treatment",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F580",
+      "appendix_pp_pdf_page_start": 55,
+      "cfr_section": "§483.10(g)(14)",
+      "heading": "Notification of Changes",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F584",
+      "appendix_pp_pdf_page_start": 63,
+      "cfr_section": "§483.10(i)",
+      "heading": "Safe Environment",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F586",
+      "appendix_pp_pdf_page_start": 70,
+      "cfr_section": "§483.10(k)",
+      "heading": "Contact with External Entities",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F610",
+      "appendix_pp_pdf_page_start": 173,
+      "cfr_section": "§483.12(c)",
+      "heading": "Investigation of alleged violations",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F627",
+      "appendix_pp_pdf_page_start": null,
+      "cfr_section": "§483.15",
+      "heading": "Admission/Transfer/Discharge rights",
+      "status": "relocated",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Rev. 229 addition; not present in Rev. 225 PDF."
+    },
+    {
+      "ftag": "F628",
+      "appendix_pp_pdf_page_start": null,
+      "cfr_section": "§483.15",
+      "heading": "Appeal rights",
+      "status": "relocated",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Rev. 229 addition; not present in Rev. 225 PDF."
+    },
+    {
+      "ftag": "F675",
+      "appendix_pp_pdf_page_start": 264,
+      "cfr_section": "§483.24",
+      "heading": "Quality of Life",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F676",
+      "appendix_pp_pdf_page_start": 270,
+      "cfr_section": "§483.24(a)",
+      "heading": "Activities of daily living",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F677",
+      "appendix_pp_pdf_page_start": 270,
+      "cfr_section": "§483.24(a)(2)",
+      "heading": "ADL assistance for unable residents",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F679",
+      "appendix_pp_pdf_page_start": 278,
+      "cfr_section": "§483.24(c)(1)",
+      "heading": "Activities program",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F680",
+      "appendix_pp_pdf_page_start": 282,
+      "cfr_section": "§483.24(c)(2)",
+      "heading": "Qualified activities director",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F688",
+      "appendix_pp_pdf_page_start": 321,
+      "cfr_section": "§483.25(c)",
+      "heading": "Mobility",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F689",
+      "appendix_pp_pdf_page_start": 326,
+      "cfr_section": "§483.25(d)",
+      "heading": "Accidents",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F690",
+      "appendix_pp_pdf_page_start": 351,
+      "cfr_section": "§483.25(e)",
+      "heading": "Incontinence",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F691",
+      "appendix_pp_pdf_page_start": 370,
+      "cfr_section": "§483.25(f)",
+      "heading": "Colostomy/urostomy/ileostomy care",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F692",
+      "appendix_pp_pdf_page_start": 371,
+      "cfr_section": "§483.25(g)",
+      "heading": "Assisted nutrition and hydration",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F693",
+      "appendix_pp_pdf_page_start": 383,
+      "cfr_section": "§483.25(g)",
+      "heading": "Assisted nutrition and hydration (continuation/related)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F694",
+      "appendix_pp_pdf_page_start": 391,
+      "cfr_section": "§483.25(h)",
+      "heading": "Parenteral fluids",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F695",
+      "appendix_pp_pdf_page_start": 396,
+      "cfr_section": "§483.25(i)",
+      "heading": "Respiratory care",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F700",
+      "appendix_pp_pdf_page_start": 445,
+      "cfr_section": "§483.25(n)",
+      "heading": "Bed rails",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F740",
+      "appendix_pp_pdf_page_start": 501,
+      "cfr_section": "§483.40",
+      "heading": "Behavioral health services",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F741",
+      "appendix_pp_pdf_page_start": 510,
+      "cfr_section": "§483.40(a)",
+      "heading": "Sufficient behavioral health staff",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F742",
+      "appendix_pp_pdf_page_start": 518,
+      "cfr_section": "§483.40(b)",
+      "heading": "Treatment/services for mental/psychosocial concerns",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F743",
+      "appendix_pp_pdf_page_start": 526,
+      "cfr_section": "§483.40(b)(2)",
+      "heading": "Residents without mental disorder diagnosis",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F744",
+      "appendix_pp_pdf_page_start": 531,
+      "cfr_section": "§483.40(b)",
+      "heading": "Continuation of §483.40(b) behavioral health services",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Exact heading uncertain from PDF extraction; likely §483.40(b) continuation. Flag for human review."
+    },
+    {
+      "ftag": "F745",
+      "appendix_pp_pdf_page_start": 536,
+      "cfr_section": "§483.40(d)",
+      "heading": "Medically-related social services",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F755",
+      "appendix_pp_pdf_page_start": 538,
+      "cfr_section": "§483.45",
+      "heading": "Pharmacy Services (general)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F756",
+      "appendix_pp_pdf_page_start": 554,
+      "cfr_section": "§483.45(c)",
+      "heading": "Drug Regimen Review",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F757",
+      "appendix_pp_pdf_page_start": 565,
+      "cfr_section": "§483.45(d)",
+      "heading": "Unnecessary Drugs",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F758",
+      "appendix_pp_pdf_page_start": 566,
+      "cfr_section": "§483.45(c)(3)/(e)",
+      "heading": "Psychotropic drugs",
+      "status": "deleted",
+      "replacement_ftag": "F605",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Present in Rev. 225 (page 566); deleted in Rev. 229. Use F605 for psychotropic/chemical restraint going forward."
+    },
+    {
+      "ftag": "F759",
+      "appendix_pp_pdf_page_start": 597,
+      "cfr_section": "§483.45(f)(1)",
+      "heading": "Medication Errors — free from medication error",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F760",
+      "appendix_pp_pdf_page_start": 597,
+      "cfr_section": "§483.45(f)(2)",
+      "heading": "Medication Errors — free from significant medication error",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F761",
+      "appendix_pp_pdf_page_start": 608,
+      "cfr_section": "§483.45(g)",
+      "heading": "Labeling of Drugs and Biologicals",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F800",
+      "appendix_pp_pdf_page_start": 629,
+      "cfr_section": "§483.60",
+      "heading": "Food and Nutrition Services (general intro)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F803",
+      "appendix_pp_pdf_page_start": 633,
+      "cfr_section": "§483.60(c)",
+      "heading": "Menus and Nutritional Adequacy",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F804",
+      "appendix_pp_pdf_page_start": 636,
+      "cfr_section": "§483.60(d)",
+      "heading": "Food and drink — general",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F805",
+      "appendix_pp_pdf_page_start": 637,
+      "cfr_section": "§483.60(d)",
+      "heading": "Food and drink (continuation)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F806",
+      "appendix_pp_pdf_page_start": 638,
+      "cfr_section": "§483.60(d)",
+      "heading": "Food and drink — specific subsection",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F807",
+      "appendix_pp_pdf_page_start": 639,
+      "cfr_section": "§483.60(d)",
+      "heading": "Food and drink (continuation)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F808",
+      "appendix_pp_pdf_page_start": 641,
+      "cfr_section": "§483.60(e)",
+      "heading": "Therapeutic Diets",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F809",
+      "appendix_pp_pdf_page_start": 642,
+      "cfr_section": "§483.60(f)",
+      "heading": "Frequency of Meals",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F810",
+      "appendix_pp_pdf_page_start": 643,
+      "cfr_section": "§483.60(g)",
+      "heading": "Assistive devices (eating equipment)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F811",
+      "appendix_pp_pdf_page_start": 644,
+      "cfr_section": "§483.60(h)",
+      "heading": "Paid Feeding Assistants",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F812",
+      "appendix_pp_pdf_page_start": 652,
+      "cfr_section": "§483.60(i)(1)",
+      "heading": "Food safety — procurement/storage",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F813",
+      "appendix_pp_pdf_page_start": 674,
+      "cfr_section": "§483.60(i)(3)",
+      "heading": "Food safety — pest/sanitation plan",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F880",
+      "appendix_pp_pdf_page_start": 770,
+      "cfr_section": "§483.80",
+      "heading": "Infection Control",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F920",
+      "appendix_pp_pdf_page_start": 848,
+      "cfr_section": "§483.90(h)",
+      "heading": "Dining and Resident Activities (physical environment)",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F921",
+      "appendix_pp_pdf_page_start": 849,
+      "cfr_section": "§483.90(i)",
+      "heading": "Other Environmental Conditions",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F922",
+      "appendix_pp_pdf_page_start": 849,
+      "cfr_section": "§483.90(i)(1)",
+      "heading": "Water availability",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F923",
+      "appendix_pp_pdf_page_start": 850,
+      "cfr_section": "§483.90(i)(2)",
+      "heading": "Ventilation",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F924",
+      "appendix_pp_pdf_page_start": 850,
+      "cfr_section": "§483.90(i)(3)",
+      "heading": "Corridor handrails",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F925",
+      "appendix_pp_pdf_page_start": 850,
+      "cfr_section": "§483.90(i)(4)",
+      "heading": "Pest control",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F926",
+      "appendix_pp_pdf_page_start": 851,
+      "cfr_section": "§483.90(i)(5)",
+      "heading": "Smoking policies",
+      "status": "active",
+      "replacement_ftag": "",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    }
+  ],
+  "do_not_map_catalog": [
+    {
+      "entry_id": "DNM-001",
+      "nors_code": "A01",
+      "ftag": "F602",
+      "reason": "F602 covers §483.12 Misappropriation of Resident Property/Exploitation (financial/property), not physical abuse. A01 (physical abuse) should not use F602 as a direct mapping.",
+      "correct_mapping_for_ftag": "F602 maps to A04 (financial exploitation) as direct; E02 (personal property loss) as direct.",
+      "correct_ftags_for_nors_code": [
+        "F600 (direct)",
+        "F607 (related)",
+        "F609 (related)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ],
+      "batch": "batch2_correction"
+    },
+    {
+      "entry_id": "DNM-002",
+      "nors_code": "B03",
+      "ftag": "no_direct_f_tag",
+      "reason": "B03 (willful interference with ombudsman program) has no direct facility F-tag when the interference is by someone other than the facility. Route to 45 CFR §1324.11(a)(1)(i) ombudsman access rights and 42 CFR §483.10(k)/F586 only when facility is the actor.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F586 (when facility is actor)"
+      ],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.11",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-003",
+      "nors_code": "E01",
+      "ftag": "no_direct_f_tag",
+      "reason": "No direct F-tag covers billing disputes. F567-F570 cover resident trust fund management, not billing errors per se. Billing complaints are handled under facility contract/admission agreement obligations.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F567 (trust fund — related)",
+        "F568 (accounting — related)",
+        "F569 (balance notice — related)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-004",
+      "nors_code": "E02",
+      "ftag": "F602",
+      "reason": "F602 only applies when the facility or facility staff misappropriate resident property. If a family member or other non-facility person is the actor, refer to Adult Protective Services. F602 must not be cited in E02 cases involving non-facility actors.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F602 (direct — when facility is actor only)",
+        "F570 (related)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-005",
+      "nors_code": "G02",
+      "ftag": "no_direct_f_tag",
+      "reason": "No specific transportation F-tag exists in Appendix PP. Transportation complaints are a quality-of-life issue. The tool should suggest contacting the facility for transportation assistance under §483.10(f)(1) self-determination, not cite a survey tag.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F561 (related — self-determination)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-006",
+      "nors_code": "G03",
+      "ftag": "no_direct_f_tag",
+      "reason": "Conflict resolution between residents is a pure ombudsman mediation role. No survey F-tag is applicable. Ombudsman acts under 45 CFR §1324.19(a)(1) program authority.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-007",
+      "nors_code": "K01",
+      "ftag": "no_direct_f_tag",
+      "reason": "K01-K06 are outside agency issues. Appendix PP does not apply unless the facility separately committed a violation. Always route to the appropriate outside agency plus 45 CFR 1324.19/1324.13 ombudsman authority.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-008",
+      "nors_code": "K02",
+      "ftag": "no_direct_f_tag",
+      "reason": "K02 Medicaid is an outside agency issue. No facility F-tag applicable unless facility separately committed a violation.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-009",
+      "nors_code": "K03",
+      "ftag": "no_direct_f_tag",
+      "reason": "K03 Managed Care is an outside agency issue. No facility F-tag applicable unless facility separately committed a violation.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-010",
+      "nors_code": "K04",
+      "ftag": "no_direct_f_tag",
+      "reason": "K04 Medicare is an outside agency issue. No facility F-tag applicable unless facility separately committed a violation.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-011",
+      "nors_code": "K05",
+      "ftag": "no_direct_f_tag",
+      "reason": "K05 Veterans Affairs is an outside agency issue. No facility F-tag applicable unless facility separately committed a violation.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-012",
+      "nors_code": "K06",
+      "ftag": "no_direct_f_tag",
+      "reason": "K06 Private Insurance is an outside agency issue. No facility F-tag applicable unless facility separately committed a violation.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-013",
+      "nors_code": "L01",
+      "ftag": "no_direct_f_tag",
+      "reason": "L01 has no direct F-tag. If representative conduct rises to exploitation level, use A04/F602 instead. Ombudsman acts under 45 CFR §1324.19(b)(5)-(7) representative conflict procedures.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-014",
+      "nors_code": "L02",
+      "ftag": "no_direct_f_tag",
+      "reason": "L02 has no facility F-tag. Outside provider complaints go to the relevant licensing authority. Ombudsman acts under 45 CFR §1324.19(a)(1) and §1324.13(h) MOU authority.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-015",
+      "nors_code": "L03",
+      "ftag": "no_direct_f_tag",
+      "reason": "L03 community transition barriers NOT caused by facility have no F-tag. Barriers caused by facility inaction may implicate §483.15(b)/F561. Always distinguish between facility-caused and non-facility-caused barriers.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F561 (related — when facility is actor)",
+        "§483.15(b) (when facility caused barrier)"
+      ],
+      "official_source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-016",
+      "nors_code": "I04",
+      "ftag": "no_dedicated_accessibility_f_tag",
+      "reason": "No single dedicated ADA/accessibility F-tag exists in the nursing home survey. Accessibility complaints fall generally within F920-F926 range under physical environment. Do not cite a single accessibility-specific tag.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F921 (related — environmental conditions)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.90"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-017",
+      "nors_code": "J01",
+      "ftag": "no_single_administrator_absent_f_tag",
+      "reason": "No single 'administrator absent' F-tag exists. Cite §483.70 Administration generally; resulting care failures should be cited through the applicable care F-tags.",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "§483.70 general"
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70"
+      ],
+      "batch": "batch2"
+    },
+    {
+      "entry_id": "DNM-018",
+      "nors_code": "J02",
+      "ftag": "no_direct_fiscal_crisis_f_tag",
+      "reason": "No direct 'fiscal crisis' F-tag exists. Investigative approach is to cite the resulting care failures (F725 insufficient nursing staff, F801 food and nutrition services, etc.).",
+      "correct_mapping_for_ftag": "",
+      "correct_ftags_for_nors_code": [
+        "F725 (related — insufficient nursing staff)",
+        "F800/F801 series (related — food/nutrition if supplies lacking)"
+      ],
+      "official_source_urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.70",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "batch": "batch2"
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-001",
+      "flag_type": "reserved_tag",
+      "affected_ftag": "F556",
+      "affected_nors_code": "",
+      "description": "F556 is a RESERVED tag. No citations should ever be made under this tag. Any tool logic that might auto-suggest F556 must be blocked.",
+      "recommended_action": "Add hard block in tool logic: F556 = never suggest, never cite.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch2"
+    },
+    {
+      "flag_id": "HRF-002",
+      "flag_type": "uncertain_heading",
+      "affected_ftag": "F744",
+      "affected_nors_code": "",
+      "description": "F744 heading was not cleanly extracted from PDF. Likely §483.40(b) continuation. Exact heading is uncertain.",
+      "recommended_action": "Human reviewer should manually verify F744 heading against current CMS Appendix PP PDF.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch2"
+    },
+    {
+      "flag_id": "HRF-003",
+      "flag_type": "no_direct_f_tag",
+      "affected_ftag": "",
+      "affected_nors_code": "G02",
+      "description": "G02 (Transportation) — no specific F-tag exists in Appendix PP. Tool should suggest contacting facility for transportation assistance under §483.10(f)(1) self-determination, NOT cite a survey tag.",
+      "recommended_action": "Tool must display advisory: 'No transportation-specific F-tag exists. Suggest facility action under §483.10(f)(1).'",
+      "source": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "batch": "batch2"
+    },
+    {
+      "flag_id": "HRF-004",
+      "flag_type": "no_direct_f_tag",
+      "affected_ftag": "",
+      "affected_nors_code": "G03",
+      "description": "G03 (Conflict Resolution) — pure ombudsman mediation role. No survey F-tag applicable. Ombudsman operates under 45 CFR §1324.19(a)(1).",
+      "recommended_action": "Tool must display advisory: 'Ombudsman mediates under program authority. No F-tag citation appropriate.'",
+      "source": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "batch": "batch2"
+    },
+    {
+      "flag_id": "HRF-005",
+      "flag_type": "routing_rule",
+      "affected_ftag": "",
+      "affected_nors_code": "K01,K02,K03,K04,K05,K06,L01,L02,L03",
+      "description": "K01-K06 and L01-L03 codes must never trigger F-tag suggestions. Always route to appropriate outside agency plus 45 CFR 1324.19/1324.13 ombudsman authority.",
+      "recommended_action": "Tool must enforce routing rule: K and L series → outside agency routing only, no Appendix PP F-tags.",
+      "source": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "batch": "batch2"
+    },
+    {
+      "flag_id": "HRF-006",
+      "flag_type": "incorrect_existing_mapping",
+      "affected_ftag": "F602",
+      "affected_nors_code": "A01",
+      "description": "A01 + F602 mapping in existing crosswalk_catalog.json is INCORRECT. F602 covers financial misappropriation/exploitation (§483.12), not physical abuse. This mapping must be removed and corrected in the existing catalog.",
+      "recommended_action": "CODEX: Remove F602 from A01 mappings. Add F602 as direct mapping for A04 and E02. Verify crosswalk_catalog.json A01 entry uses only F600 (direct), F607 (related), F609 (related).",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch2_correction"
+    },
+    {
+      "flag_id": "HRF-007",
+      "flag_type": "deleted_tag_replacement",
+      "affected_ftag": "F758",
+      "affected_nors_code": "",
+      "description": "F758 was present in Rev. 225 PDF (page 566) but was deleted in Rev. 229. Going forward, F605 must be used for psychotropic drug/chemical restraint complaints.",
+      "recommended_action": "Tool must redirect any F758 reference to F605. Display notice: 'F758 was deleted in Rev. 229; use F605 for psychotropic/chemical restraint citations.'",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch2"
+    }
+  ]
+}
