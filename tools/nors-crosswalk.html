@@ -88,8 +88,10 @@
         </div>
       </div>
       <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button id="run-crosswalk" class="btn" type="button" disabled>Run Crosswalk</button>
+        <button id="run-keyword-crosswalk" class="btn" type="button" disabled>Run Keyword / Concern Lookup</button>
+        <button id="run-nors-crosswalk" class="btn secondary" type="button" disabled>Run NORS Code Lookup</button>
       </div>
+      <div id="input-warning" class="notice warning" style="display:none;"></div>
       <p class="notice">Informational Only - surfaced references are for review support and do not determine violations.</p>
     </section>
 
@@ -264,34 +266,69 @@
       output.innerHTML = `<ul class="result-list">${warnings.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
     }
 
-    function runStandaloneCrosswalk() {
-      const norsCode = document.getElementById('nors-code').value;
-      const keywordText = document.getElementById('keyword-text').value;
-      const result = Crosswalk.runCrosswalk({ norsCode, keywordText }, crosswalkData);
-
+    function renderResult(result) {
       renderTopics(result.topicMatches);
       renderAuthorities(result.authorityGroups);
       renderTrace(result.trace);
       renderWarnings(result.warnings);
     }
 
+    function showInputWarning(message) {
+      const output = document.getElementById('input-warning');
+      if (!message) {
+        output.style.display = 'none';
+        output.textContent = '';
+        return;
+      }
+      output.style.display = 'block';
+      output.textContent = message;
+    }
+
+    function runKeywordCrosswalk() {
+      const keywordText = document.getElementById('keyword-text').value.trim();
+      if (!keywordText) {
+        showInputWarning('Enter a keyword or concern before running keyword lookup.');
+        return;
+      }
+      showInputWarning('');
+      const result = Crosswalk.runCrosswalk({ norsCode: '', keywordText }, crosswalkData);
+
+      renderResult(result);
+    }
+
+    function runNorsCodeCrosswalk() {
+      const norsCode = document.getElementById('nors-code').value;
+      if (!norsCode) {
+        showInputWarning('Select a NORS code before running NORS code lookup.');
+        return;
+      }
+      showInputWarning('');
+      const result = Crosswalk.runCrosswalk({ norsCode, keywordText: '' }, crosswalkData);
+
+      renderResult(result);
+    }
+
     async function loadPage() {
       const status = document.getElementById('load-status');
-      const button = document.getElementById('run-crosswalk');
+      const keywordButton = document.getElementById('run-keyword-crosswalk');
+      const norsButton = document.getElementById('run-nors-crosswalk');
 
       try {
         if (!window.Crosswalk) throw new Error('Shared crosswalk logic did not load.');
         crosswalkData = await Crosswalk.loadCrosswalkData(crosswalkPaths);
         populateNorsCodes();
         document.getElementById('nors-code').addEventListener('change', renderNorsCodeGuidance);
-        button.disabled = false;
-        button.addEventListener('click', runStandaloneCrosswalk);
+        keywordButton.disabled = false;
+        norsButton.disabled = false;
+        keywordButton.addEventListener('click', runKeywordCrosswalk);
+        norsButton.addEventListener('click', runNorsCodeCrosswalk);
         status.className = 'notice';
         status.textContent = 'Crosswalk data loaded.';
       } catch (err) {
         status.className = 'notice error';
         status.textContent = `Crosswalk data could not be loaded. Details: ${err.message}`;
-        button.disabled = true;
+        keywordButton.disabled = true;
+        norsButton.disabled = true;
       }
     }
 
