@@ -80,6 +80,7 @@
           <select id="nors-code">
             <option value="">Loading NORS codes...</option>
           </select>
+          <div id="nors-code-guidance" class="notice" style="display:none;"></div>
         </div>
         <div>
           <label for="keyword-text">Keyword / Concern</label>
@@ -154,6 +155,28 @@
           </optgroup>
         `;
       }).join('');
+    }
+
+    function renderNorsCodeGuidance() {
+      const select = document.getElementById('nors-code');
+      const output = document.getElementById('nors-code-guidance');
+      const detail = Crosswalk.getNorsCodeDetail(select.value, crosswalkData);
+
+      if (!detail) {
+        output.style.display = 'none';
+        output.innerHTML = '';
+        return;
+      }
+
+      const examples = Array.isArray(detail.examples) ? detail.examples : [];
+      output.style.display = 'block';
+      output.innerHTML = `
+        <strong>${escapeHtml(detail.code)} - ${escapeHtml(detail.label)}</strong>
+        <div class="subtle">${escapeHtml(detail.majorCode)} - ${escapeHtml(detail.majorLabel)}</div>
+        ${detail.definition ? `<p><strong>Definition / Use Guidance:</strong><br>${escapeHtml(detail.definition)}</p>` : ''}
+        ${examples.length ? `<p><strong>Examples:</strong><br>${examples.map(escapeHtml).join('<br>')}</p>` : ''}
+        ${detail.reportingTips ? `<p><strong>Examples and Reporting Tips:</strong><br>${escapeHtml(detail.reportingTips)}</p>` : ''}
+      `;
     }
 
     function renderTopics(topicMatches) {
@@ -244,6 +267,7 @@
         if (!window.Crosswalk) throw new Error('Shared crosswalk logic did not load.');
         crosswalkData = await Crosswalk.loadCrosswalkData(crosswalkPaths);
         populateNorsCodes();
+        document.getElementById('nors-code').addEventListener('change', renderNorsCodeGuidance);
         button.disabled = false;
         button.addEventListener('click', runStandaloneCrosswalk);
         status.className = 'notice';

@@ -93,7 +93,10 @@
         minorCodes: (major.minor_codes || []).map(minor => ({
           code: minor.code,
           label: minor.label || minor.code,
-          description: minor.description || ''
+          description: minor.description || '',
+          definition: minor.definition || minor.description || '',
+          examples: minor.examples || [],
+          reportingTips: minor.reporting_tips || minor.examples_and_reporting_tips || ''
         }))
       }));
     }
@@ -116,7 +119,10 @@
           grouped[majorCode].minorCodes.push({
             code: record.nors_minor_code,
             label: record.nors_minor_label || record.nors_minor_code,
-            description: ''
+            description: '',
+            definition: '',
+            examples: [],
+            reportingTips: ''
           });
         }
       });
@@ -133,9 +139,32 @@
       if (!fallbackGroups[majorCode]) {
         fallbackGroups[majorCode] = { code: majorCode, label: majorCode, description: '', minorCodes: [] };
       }
-      fallbackGroups[majorCode].minorCodes.push({ code, label: code, description: '' });
+      fallbackGroups[majorCode].minorCodes.push({ code, label: code, description: '', definition: '', examples: [], reportingTips: '' });
     });
     return Object.values(fallbackGroups);
+  }
+
+  function getNorsCodeDetail(norsCode, data) {
+    const code = (norsCode || '').trim();
+    if (!code) return null;
+
+    for (const major of getNorsCodeOptions(data)) {
+      const minor = (major.minorCodes || []).find(item => item.code === code);
+      if (minor) {
+        return {
+          majorCode: major.code,
+          majorLabel: major.label,
+          code: minor.code,
+          label: minor.label,
+          description: minor.description || '',
+          definition: minor.definition || minor.description || '',
+          examples: minor.examples || [],
+          reportingTips: minor.reportingTips || ''
+        };
+      }
+    }
+
+    return null;
   }
 
   function getAuthorityIndex(data) {
@@ -408,6 +437,7 @@
     getTopicsFromInputs,
     getAuthoritiesForTopics,
     getNorsCodeOptions,
+    getNorsCodeDetail,
     getAuthorityLabel,
     buildCrosswalkTrace,
     runCrosswalk
