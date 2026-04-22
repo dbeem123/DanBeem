@@ -110,6 +110,11 @@
         <div id="authorities-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
       <div class="panel">
+        <div class="pill">Resource</div>
+        <h2><span data-help-id="handouts_resources">Handouts &amp; Resources</span></h2>
+        <div id="resources-output" class="output-box">Handouts and resources will appear here.</div>
+      </div>
+      <div class="panel">
         <div class="pill">Trace</div>
         <h2><span data-help-id="crosswalk_trace">Crosswalk Trace</span></h2>
         <div id="trace-output" class="output-box">Trace will appear here.</div>
@@ -247,6 +252,36 @@
       return `<a href="${escapeHtml(authority.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
     }
 
+    function renderResources(resources) {
+      const output = document.getElementById('resources-output');
+      if (!resources.length) {
+        output.textContent = 'No handouts or resources matched this lookup.';
+        return;
+      }
+
+      output.innerHTML = `
+        <ul class="result-list">
+          ${resources.map(resource => `
+            <li>
+              <strong>${renderResourceLink(resource)}</strong>
+              ${resource.description ? `<br><span>${escapeHtml(resource.description)}</span>` : ''}
+              <br><span class="subtle">Type: ${escapeHtml(resource.type || 'Resource')}</span>
+              ${resource.audience ? `<br><span class="subtle">Audience: ${escapeHtml(resource.audience)}</span>` : ''}
+              ${resource.reason ? `<br><span class="subtle">Why shown: ${escapeHtml(resource.reason)}</span>` : ''}
+              ${resource.source ? `<br><span class="subtle">Source: ${escapeHtml(resource.source)}</span>` : ''}
+            </li>
+          `).join('')}
+        </ul>
+        <div class="notice">Informational guardrail: resources are for education and review support only. They do not determine violations or replace Ombudsman judgment.</div>
+      `;
+    }
+
+    function renderResourceLink(resource) {
+      const label = escapeHtml(resource.title || 'Resource');
+      if (!resource.url) return label;
+      return `<a href="${escapeHtml(resource.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    }
+
     function renderTraceItem(item) {
       if (typeof item === 'string') return escapeHtml(item);
       const links = item.links || [];
@@ -277,6 +312,7 @@
     function renderResult(result) {
       renderTopics(result.topicMatches);
       renderAuthorities(result.authorityGroups);
+      renderResources(result.resources || []);
       renderTrace(result.trace);
       renderWarnings(result.warnings);
     }

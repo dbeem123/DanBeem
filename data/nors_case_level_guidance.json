@@ -136,6 +136,13 @@
       "source": "NORS Table 1 Case Level 2024"
     },
     {
+      "id": "handouts_resources",
+      "label": "Handouts & Resources",
+      "short_help": "Shows educational resources related to the selected code or matched concern.",
+      "details": "Resources may include NORS guidance, resident-facing handouts, or official reference materials. They are for education and review support only and do not decide the final code or outcome.",
+      "source": "App guidance using NORS Table 2 and official resource links"
+    },
+    {
       "id": "crosswalk_trace",
       "label": "Crosswalk Trace",
       "short_help": "Explains why topics and references were surfaced.",

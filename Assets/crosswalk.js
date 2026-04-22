@@ -17,14 +17,16 @@
     authorityIndex: ['../authority_index.json', '../data/reference_source_index.json'],
     crosswalkCatalog: ['../crosswalk_catalog.json', '../data/crosswalk_catalog.json'],
     retrievalRules: ['../retrieval_rules.json', '../data/retrieval_rules.json'],
-    norsComplaintGuidance: ['../data/nors_complaint_code_guidance.json', '../nors_complaint_code_guidance.json']
+    norsComplaintGuidance: ['../data/nors_complaint_code_guidance.json', '../nors_complaint_code_guidance.json'],
+    norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
     if (key === 'norsComplaintGuidance') return { items: [] };
+    if (key === 'norsResourceCatalog') return { resources: [] };
     return {};
   }
 
@@ -209,6 +211,67 @@
     const code = (norsCode || '').trim();
     const items = data?.norsComplaintGuidance?.items || [];
     return items.find(item => item.code === code) || {};
+  }
+
+  function getMatchedNorsCodes(norsCode, topicMatches = []) {
+    const codes = new Set();
+    if (norsCode) codes.add(norsCode);
+    topicMatches.forEach(match => {
+      (match.norsCodes || []).forEach(code => codes.add(code));
+      (match.likelyNorsCodes || []).forEach(code => codes.add(code));
+    });
+    return [...codes].filter(Boolean);
+  }
+
+  function getResourcesForInputs({ norsCode, keywordText, topicMatches = [] } = {}, data) {
+    const resources = data?.norsResourceCatalog?.resources || [];
+    const matchedCodes = getMatchedNorsCodes(norsCode, topicMatches);
+    const matchedMajors = [...new Set(matchedCodes.map(code => code.charAt(0)).filter(Boolean))];
+    const matchedTopics = topicMatches.map(match => match.topic).filter(Boolean);
+    const searchableText = String(keywordText || '').toLowerCase();
+    const seen = new Set();
+    const output = [];
+
+    resources.forEach(resource => {
+      const appliesTo = resource.applies_to || {};
+      const reasons = [];
+      const resourceCodes = appliesTo.nors_codes || [];
+      const resourceMajors = appliesTo.major_codes || [];
+      const resourceTopics = appliesTo.topics || [];
+      const resourceKeywords = appliesTo.keywords || [];
+
+      if (appliesTo.all_nors_codes && matchedCodes.length) {
+        reasons.push('shown for NORS code lookup support');
+      }
+      resourceCodes.filter(code => matchedCodes.includes(code)).forEach(code => {
+        reasons.push(`matched NORS code ${code}`);
+      });
+      resourceMajors.filter(code => matchedMajors.includes(code)).forEach(code => {
+        reasons.push(`matched NORS major code ${code}`);
+      });
+      resourceTopics.filter(topic => matchedTopics.includes(topic)).forEach(topic => {
+        reasons.push(`matched topic ${formatTopicName(topic)}`);
+      });
+      resourceKeywords.filter(keyword => searchableText.includes(String(keyword).toLowerCase())).forEach(keyword => {
+        reasons.push(`matched keyword "${keyword}"`);
+      });
+
+      if (!reasons.length || seen.has(resource.id)) return;
+      seen.add(resource.id);
+      output.push({
+        id: resource.id,
+        title: resource.title || 'Resource',
+        description: resource.description || '',
+        type: resource.type || resource.resource_type || 'Resource',
+        url: resource.url || '',
+        source: resource.source || '',
+        audience: resource.audience || '',
+        reason: reasons[0],
+        informational_only: resource.informational_only !== false
+      });
+    });
+
+    return output;
   }
 
   function getAuthorityIndex(data) {
@@ -612,6 +675,7 @@
     const keywordMatches = text ? getTopicsFromKeywords(text, data) : [];
     const topicMatches = mergeTopicMatches(norsMatches, keywordMatches);
     const authorityGroups = getAuthoritiesForTopics(topicMatches, data);
+    const resources = getResourcesForInputs({ norsCode: code, keywordText: text, topicMatches }, data);
     const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups, data });
     const warnings = [];
 
@@ -632,6 +696,7 @@
     return {
       topicMatches,
       authorityGroups,
+      resources,
       trace,
       warnings
     };
@@ -645,6 +710,7 @@
     getAuthoritiesForTopics,
     getNorsCodeOptions,
     getNorsCodeDetail,
+    getResourcesForInputs,
     getAuthorityLabel,
     getAuthorityUrl,
     buildCrosswalkTrace,

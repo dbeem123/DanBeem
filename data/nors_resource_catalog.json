@@ -1,0 +1,129 @@
+{
+  "version": "1.0",
+  "resources": [
+    {
+      "id": "nors_complaint_codes_definitions",
+      "title": "NORS Complaint Codes and Definitions",
+      "description": "Official complaint-code reference with NORS Table 2 definitions, examples, and reporting tips.",
+      "type": "NORS guidance",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "source": "National Ombudsman Resource Center",
+      "audience": "Ombudsman staff",
+      "informational_only": true,
+      "applies_to": {
+        "all_nors_codes": true
+      }
+    },
+    {
+      "id": "ct_ltcop_resident_rights",
+      "title": "Your Rights as a Resident of a Long-Term Care Facility",
+      "description": "Connecticut Long Term Care Ombudsman resident-rights resource for residents, families, and representatives.",
+      "type": "Resident handout",
+      "url": "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility",
+      "source": "Connecticut Long Term Care Ombudsman Program",
+      "audience": "Residents and families",
+      "informational_only": true,
+      "applies_to": {
+        "major_codes": ["B", "C", "D"],
+        "topics": [
+          "access_information",
+          "admission",
+          "autonomy_choice",
+          "complaint_response",
+          "dignity_respect",
+          "privacy",
+          "transfer_discharge",
+          "visitors"
+        ]
+      }
+    },
+    {
+      "id": "ecfr_resident_rights_483_10",
+      "title": "Federal Resident Rights Regulation",
+      "description": "Federal nursing-facility resident-rights regulation, useful when the issue involves dignity, privacy, visitors, grievances, choice, or access to information.",
+      "type": "Federal reference",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "source": "eCFR",
+      "audience": "Ombudsman staff",
+      "informational_only": true,
+      "applies_to": {
+        "major_codes": ["B", "D"],
+        "topics": [
+          "access_information",
+          "autonomy_choice",
+          "complaint_response",
+          "dignity_respect",
+          "privacy",
+          "visitors"
+        ]
+      }
+    },
+    {
+      "id": "ecfr_abuse_neglect_483_12",
+      "title": "Freedom from Abuse, Neglect, and Exploitation",
+      "description": "Federal nursing-facility regulation for abuse, neglect, exploitation, reporting, investigations, and prevention policies.",
+      "type": "Federal reference",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "source": "eCFR",
+      "audience": "Ombudsman staff",
+      "informational_only": true,
+      "applies_to": {
+        "nors_codes": ["A01", "A02", "A03", "A04", "A05"],
+        "topics": [
+          "abuse_neglect_exploitation",
+          "financial_exploitation",
+          "gross_neglect"
+        ]
+      }
+    },
+    {
+      "id": "ecfr_transfer_discharge_483_15",
+      "title": "Admission, Transfer, and Discharge Rights",
+      "description": "Federal nursing-facility regulation covering admission, transfer, discharge, notice, bed-hold, and readmission rights.",
+      "type": "Federal reference",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "source": "eCFR",
+      "audience": "Ombudsman staff",
+      "informational_only": true,
+      "applies_to": {
+        "nors_codes": ["C01", "C02", "C03"],
+        "topics": [
+          "admission",
+          "transfer_discharge"
+        ]
+      }
+    },
+    {
+      "id": "cms_appendix_pp",
+      "title": "CMS State Operations Manual Appendix PP",
+      "description": "CMS interpretive guidance for nursing-facility survey requirements and F-tags.",
+      "type": "Survey guidance",
+      "url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "source": "CMS",
+      "audience": "Ombudsman staff",
+      "informational_only": true,
+      "applies_to": {
+        "major_codes": ["A", "B", "C", "D", "F", "G", "H", "I", "J"]
+      }
+    },
+    {
+      "id": "ct_ltcop_regulations",
+      "title": "Connecticut LTCOP Regulations and Statutes",
+      "description": "Connecticut Long Term Care Ombudsman page linking state regulations and statutes relevant to Ombudsman program work.",
+      "type": "State resource",
+      "url": "https://portal.ct.gov/ltcop/regulations",
+      "source": "Connecticut Long Term Care Ombudsman Program",
+      "audience": "Ombudsman staff",
+      "informational_only": true,
+      "applies_to": {
+        "major_codes": ["A", "B", "D", "J", "K", "L"],
+        "topics": [
+          "abuse_neglect_exploitation",
+          "administrative_oversight",
+          "retaliation",
+          "willful_interference"
+        ]
+      }
+    }
+  ]
+}
