@@ -6,6 +6,7 @@
   <title>NORS Crosswalk Tool</title>
   <link rel="stylesheet" href="../Assets/shared.css">
   <script defer src="../Assets/crosswalk.js"></script>
+  <script defer src="../Assets/nors-help.js"></script>
   <style>
     label { display:block; font-weight:700; margin-bottom:6px; }
     input, select, textarea {
@@ -80,16 +81,18 @@
           <select id="nors-code">
             <option value="">Loading NORS codes...</option>
           </select>
+          <div style="margin-top:12px;">
+            <button id="run-nors-crosswalk" class="btn secondary" type="button" disabled>Run NORS Code Lookup</button>
+          </div>
           <div id="nors-code-guidance" class="notice" style="display:none;"></div>
         </div>
         <div>
-          <label for="keyword-text">Keyword / Concern</label>
+          <label for="keyword-text"><span data-help-id="keyword_concern">Keyword / Concern</span></label>
           <textarea id="keyword-text" placeholder="Example: call light, discharge notice, privacy, dignity, abuse, medication, staffing..."></textarea>
+          <div style="margin-top:12px;">
+            <button id="run-keyword-crosswalk" class="btn" type="button" disabled>Run Keyword / Concern Lookup</button>
+          </div>
         </div>
-      </div>
-      <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
-        <button id="run-keyword-crosswalk" class="btn" type="button" disabled>Run Keyword / Concern Lookup</button>
-        <button id="run-nors-crosswalk" class="btn secondary" type="button" disabled>Run NORS Code Lookup</button>
       </div>
       <div id="input-warning" class="notice warning" style="display:none;"></div>
       <p class="notice">Informational Only - surfaced references are for review support and do not determine violations.</p>
@@ -98,17 +101,17 @@
     <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Crosswalk outputs">
       <div class="panel">
         <div class="pill">Likely</div>
-        <h2>Likely Topics / Complaint Areas</h2>
+        <h2><span data-help-id="likely_topics">Likely Topics / Complaint Areas</span></h2>
         <div id="topics-output" class="output-box">Likely topics will appear here.</div>
       </div>
       <div class="panel">
         <div class="pill">Reference</div>
-        <h2>Possible Relevant References</h2>
+        <h2><span data-help-id="possible_references">Possible Relevant References</span></h2>
         <div id="authorities-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
       <div class="panel">
         <div class="pill">Trace</div>
-        <h2>Crosswalk Trace</h2>
+        <h2><span data-help-id="crosswalk_trace">Crosswalk Trace</span></h2>
         <div id="trace-output" class="output-box">Trace will appear here.</div>
       </div>
       <div class="panel">

@@ -6,6 +6,7 @@
   <title>Drafting &amp; Reference Assistant</title>
   <link rel="stylesheet" href="../Assets/shared.css">
   <script defer src="../Assets/crosswalk.js"></script>
+  <script defer src="../Assets/nors-help.js"></script>
   <style>
     label { display:block; font-weight:700; margin-bottom:6px; }
     input, select, textarea {
@@ -111,15 +112,15 @@
         <p class="notice">Informational Only - does not determine violations</p>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
           <div>
-            <label>Likely Topics</label>
+            <label><span data-help-id="likely_topics">Likely Topics</span></label>
             <div id="inline-topics-output" class="output-box">Run Extract Fields to see likely topics.</div>
           </div>
           <div>
-            <label>References</label>
+            <label><span data-help-id="possible_references">References</span></label>
             <div id="inline-references-output" class="output-box">Reference mappings will appear here.</div>
           </div>
           <div>
-            <label>Trace</label>
+            <label><span data-help-id="crosswalk_trace">Trace</span></label>
             <div id="inline-trace-output" class="output-box">Crosswalk trace will appear here.</div>
           </div>
         </div>
@@ -129,7 +130,7 @@
         <h3>Problem Description</h3>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
           <div>
-            <label for="complainant-type">Complainant Type</label>
+            <label for="complainant-type"><span data-help-id="complainant_type">Complainant Type</span></label>
             <select id="complainant-type">
               <option value="">Select one</option>
               <option>Resident</option>
@@ -140,13 +141,14 @@
             </select>
           </div>
           <div>
-            <label for="identity-permission">Identity Permission</label>
+            <label for="identity-permission"><span data-help-id="identity_permission">Identity Permission</span></label>
             <select id="identity-permission">
               <option value="">Select one</option>
               <option>granted</option>
               <option>not granted</option>
               <option>not discussed yet</option>
             </select>
+            <div data-help-inline="identity_permission"></div>
           </div>
           <div>
             <label for="nors-code">NORS Code</label>
@@ -168,16 +170,17 @@
           </div>
         </div>
         <div style="margin-top:12px;">
-          <label for="problem-description">Problem Description</label>
+          <label for="problem-description"><span data-help-id="problem_description">Problem Description</span></label>
           <textarea id="problem-description" placeholder="Describe the reported concern, using observable facts where possible."></textarea>
         </div>
         <div style="margin-top:12px;">
-          <label for="complainant-actions-taken">Prior Steps Taken</label>
+          <label for="complainant-actions-taken"><span data-help-id="prior_steps">Prior Steps Taken</span></label>
           <textarea id="complainant-actions-taken" placeholder="What did the complainant or resident already try?"></textarea>
         </div>
         <div style="margin-top:12px;">
-          <label for="authorization-note">Authorization Note</label>
+          <label for="authorization-note"><span data-help-id="authorization_note">Authorization Note</span></label>
           <textarea id="authorization-note" placeholder="Document permission, authorization, or requested Ombudsman role."></textarea>
+          <div data-help-inline="authorization_note"></div>
         </div>
       </div>
 
@@ -185,11 +188,11 @@
         <h3>Resident Perspective</h3>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
           <div>
-            <label for="resident-perspective">Resident Perspective</label>
+            <label for="resident-perspective"><span data-help-id="resident_perspective">Resident Perspective</span></label>
             <textarea id="resident-perspective" placeholder="Capture the resident's words, preferences, concerns, or experience."></textarea>
           </div>
           <div>
-            <label for="resident-desired-outcome">Resident Desired Outcome</label>
+            <label for="resident-desired-outcome"><span data-help-id="resident_desired_outcome">Resident Desired Outcome</span></label>
             <textarea id="resident-desired-outcome" placeholder="What outcome does the resident want?"></textarea>
           </div>
         </div>
@@ -199,29 +202,30 @@
         <h3>Actions Taken</h3>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
           <div>
-            <label for="initial-plan-of-action">Initial Plan of Action</label>
+            <label for="initial-plan-of-action"><span data-help-id="initial_plan_of_action">Initial Plan of Action</span></label>
             <textarea id="initial-plan-of-action" placeholder="Planned interviews, records review, observation, follow-up, or other steps."></textarea>
           </div>
           <div>
-            <label for="actions-taken">Actions Taken</label>
+            <label for="actions-taken"><span data-help-id="actions_taken">Actions Taken</span></label>
             <textarea id="actions-taken" placeholder="Document completed Ombudsman actions."></textarea>
           </div>
           <div>
-            <label for="facility-response">Facility Response</label>
+            <label for="facility-response"><span data-help-id="facility_response">Facility Response</span></label>
             <textarea id="facility-response" placeholder="Summarize facility response, if any."></textarea>
           </div>
           <div>
-            <label for="follow-up">Follow-up</label>
+            <label for="follow-up"><span data-help-id="follow_up">Follow-up</span></label>
             <textarea id="follow-up" placeholder="Next contact, monitoring plan, or follow-up date."></textarea>
           </div>
           <div>
-            <label for="status-or-outcome">Status or Outcome</label>
+            <label for="status-or-outcome"><span data-help-id="status_or_outcome">Status or Outcome</span></label>
             <textarea id="status-or-outcome" placeholder="Current status, outcome, resolution, or resident satisfaction note."></textarea>
+            <div data-help-inline="status_or_outcome"></div>
           </div>
         </div>
         <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
           <div>
-            <label for="case-status">Case Status</label>
+            <label for="case-status"><span data-help-id="case_status">Case Status</span></label>
             <select id="case-status">
               <option value="">Select one</option>
               <option>open</option>
@@ -229,9 +233,10 @@
               <option>resolved</option>
               <option>closed</option>
             </select>
+            <div data-help-inline="case_status"></div>
           </div>
           <div>
-            <label for="resident-satisfaction">Resident Satisfaction</label>
+            <label for="resident-satisfaction"><span data-help-id="resident_satisfaction">Resident Satisfaction</span></label>
             <select id="resident-satisfaction">
               <option value="">Select one</option>
               <option>not yet documented</option>
@@ -239,6 +244,7 @@
               <option>partially satisfied</option>
               <option>not satisfied</option>
             </select>
+            <div data-help-inline="resident_satisfaction"></div>
           </div>
         </div>
       </div>
@@ -262,7 +268,7 @@
           <div id="crosswalk-code-guidance" class="notice" style="display:none;"></div>
         </div>
         <div>
-          <label for="crosswalkKeywordText">Keyword / Concern</label>
+          <label for="crosswalkKeywordText"><span data-help-id="keyword_concern">Keyword / Concern</span></label>
           <textarea id="crosswalkKeywordText" placeholder="Example: call light, discharge notice, privacy, dignity, abuse, medication, staffing..."></textarea>
         </div>
       </div>
@@ -282,7 +288,8 @@
       </div>
       <div class="panel">
         <div class="pill">Review Required</div>
-        <h2>Checklist Review</h2>
+        <h2><span data-help-id="checklist_review">Checklist Review</span></h2>
+        <div data-help-inline="checklist_review"></div>
         <div id="checklist-output" class="output-box">Checklist review will appear here.</div>
       </div>
       <div class="panel">
@@ -292,24 +299,25 @@
       </div>
       <div class="panel">
         <div class="pill">Review Required</div>
-        <h2>Validation Results</h2>
+        <h2><span data-help-id="validation_results">Validation Results</span></h2>
+        <div data-help-inline="validation_results"></div>
         <div id="validation-output" class="output-box">Validation results will appear here.</div>
       </div>
       <div class="panel">
         <div class="pill">Informational Only</div>
-        <h2>Likely Topics / Complaint Areas</h2>
+        <h2><span data-help-id="likely_topics">Likely Topics / Complaint Areas</span></h2>
         <p class="subtle">Matched from selected NORS code and local keyword rules.</p>
         <div id="topics-output" class="output-box">Likely topic matches will appear here.</div>
       </div>
       <div class="panel">
         <div class="pill">Informational References Only</div>
-        <h2>Why They Matched</h2>
+        <h2><span data-help-id="crosswalk_trace">Why They Matched</span></h2>
         <p class="subtle">Transparent keyword and NORS-code matching details.</p>
         <div id="topic-reasons-output" class="output-box">Match reasons will appear here.</div>
       </div>
       <div class="panel">
         <div class="pill">Informational References Only</div>
-        <h2>Possible Relevant References</h2>
+        <h2><span data-help-id="possible_references">Possible Relevant References</span></h2>
         <p class="subtle">Grouped by likely topic. Citations are informational only. No legal conclusions or violation determinations.</p>
         <div id="references-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>

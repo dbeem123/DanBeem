@@ -1,0 +1,146 @@
+{
+  "version": "1.0",
+  "source": "NORS Table 1 Case Level 2024",
+  "items": [
+    {
+      "id": "complainant_type",
+      "label": "Complainant Type",
+      "short_help": "Identifies who brought the concern to the Ombudsman program.",
+      "details": "Use this to clarify whether the contact came from the resident, a family member or representative, facility staff, an anonymous complainant, or another person. This helps preserve resident direction and distinguish the source of the complaint from the resident's own preferences.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "identity_permission",
+      "label": "Identity Permission",
+      "short_help": "Records whether the resident or complainant permits disclosure of identifying information.",
+      "details": "Ombudsman work is directed by resident consent and confidentiality. Document whether permission was granted, not granted, or not yet discussed before sharing identifying information with a facility or other party.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "problem_description",
+      "label": "Problem Description",
+      "short_help": "Summarizes the complaint or concern using observable facts.",
+      "details": "Capture what was reported, who was affected, when it occurred if known, and the resident impact. Avoid legal conclusions or violation findings in the draft note.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "prior_steps",
+      "label": "Prior Steps Taken",
+      "short_help": "Documents what the resident or complainant already tried before or during Ombudsman involvement.",
+      "details": "Note whether the resident, representative, or complainant already raised the concern with staff, filed a grievance, requested a meeting, or chose not to take prior action.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "authorization_note",
+      "label": "Authorization Note",
+      "short_help": "Documents consent, direction, and the requested Ombudsman role.",
+      "details": "Use this field to record permission to act, permission to disclose identity or details, resident direction, or limits on what the Ombudsman should do. If authorization is not yet discussed, document that clearly.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "resident_perspective",
+      "label": "Resident Perspective",
+      "short_help": "Captures the resident's own words, preferences, and experience.",
+      "details": "When available, document the resident's view separately from the complainant's report. This supports resident-directed advocacy and helps distinguish what the resident wants from what others request.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "resident_desired_outcome",
+      "label": "Resident Desired Outcome",
+      "short_help": "Records what the resident wants to happen.",
+      "details": "The desired outcome should reflect the resident's stated goal when known. If the resident's desired outcome is unknown or differs from the complainant's request, document that distinction.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "initial_plan_of_action",
+      "label": "Initial Plan of Action",
+      "short_help": "Summarizes planned Ombudsman steps.",
+      "details": "Examples include resident interview, facility contact with consent, records review when authorized, observation, follow-up contact, referral discussion, or monitoring. Keep the language draft-only and informational.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "actions_taken",
+      "label": "Actions Taken",
+      "short_help": "Documents Ombudsman activities completed on the case.",
+      "details": "Record concrete actions such as interviews, calls, visits, review of information, discussion of options, or follow-up. Avoid implying enforcement findings.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "facility_response",
+      "label": "Facility Response",
+      "short_help": "Summarizes what the facility reported or agreed to do.",
+      "details": "Use neutral attribution such as 'facility stated' or 'staff reported.' Include only the response provided; do not treat it as verified unless the case note supports that.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "follow_up",
+      "label": "Follow-up",
+      "short_help": "Notes planned next contact, monitoring, or additional review.",
+      "details": "Use this for next steps, follow-up dates, monitoring plans, or unresolved items. Follow-up can be appropriate even when a case is partially resolved or awaiting resident confirmation.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "status_or_outcome",
+      "label": "Status or Outcome",
+      "short_help": "Describes the current case status, outcome, or resolution narrative.",
+      "details": "Document the current state of the issue and whether the resident's goal was met, partially met, not met, or still pending when known. Keep this separate from legal or regulatory conclusions.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "case_status",
+      "label": "Case Status",
+      "short_help": "Indicates whether the case is open, partially resolved, resolved, or closed.",
+      "details": "Use this to reflect case workflow status. A closed case should have enough outcome information for review, but closure does not mean the tool has determined a violation or legal result.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "resident_satisfaction",
+      "label": "Resident Satisfaction",
+      "short_help": "Records the resident's satisfaction with the outcome when known.",
+      "details": "Resident satisfaction should reflect the resident's view, not the facility's or complainant's view. If the resident has not been asked or satisfaction is not documented, use that option.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "checklist_review",
+      "label": "Checklist Review",
+      "short_help": "Shows whether common case-note elements are present, missing, or unclear.",
+      "details": "This is an internal drafting aid. Missing items are not automatically errors unless the validation rules separately flag them.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "validation_results",
+      "label": "Validation Results",
+      "short_help": "Flags draft-note fields that may need review before use.",
+      "details": "Validation helps identify missing or warning fields. It does not decide whether a complaint is substantiated, whether a violation occurred, or whether enforcement action is appropriate.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "likely_topics",
+      "label": "Likely Topics",
+      "short_help": "Shows topics inferred from selected NORS code or text keywords.",
+      "details": "Topic matches help organize reference support. They are not complaint determinations and should be reviewed by staff.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "possible_references",
+      "label": "Possible Relevant References",
+      "short_help": "Lists authorities connected to matched topics or NORS codes.",
+      "details": "References are informational support for review and drafting. They do not determine violations, legal conclusions, or required actions.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "crosswalk_trace",
+      "label": "Crosswalk Trace",
+      "short_help": "Explains why topics and references were surfaced.",
+      "details": "The trace shows the path from selected NORS code or keyword text to topic and authority references. It is intended to make the crosswalk transparent for review.",
+      "source": "NORS Table 1 Case Level 2024"
+    },
+    {
+      "id": "keyword_concern",
+      "label": "Keyword / Concern",
+      "short_help": "Free-text concern used to infer likely topics.",
+      "details": "Use plain language such as 'call light not answered' or 'discharge notice.' Keyword lookup is a screening aid and should be reviewed against the case facts.",
+      "source": "NORS Table 1 Case Level 2024"
+    }
+  ]
+}
