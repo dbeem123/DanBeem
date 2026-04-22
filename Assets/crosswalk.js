@@ -27,10 +27,11 @@
     norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json'],
     norsKnowledgeBase: ['../data/nors_knowledge_base_batch1.json', '../nors_knowledge_base_batch1.json'],
     norsKnowledgeBaseBatch2: ['../data/nors_knowledge_base_batch2.json', '../nors_knowledge_base_batch2.json'],
-    appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json']
+    appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
+    sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'appendixPpTagPages']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -39,6 +40,7 @@
     if (key === 'norsKnowledgeBase') return { code_summary_rows: [], authority_rows: [], do_not_map_catalog: [] };
     if (key === 'norsKnowledgeBaseBatch2') return { code_summary_rows: [], authority_rows: [], appendix_pp_page_rows: [], do_not_map_catalog: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
+    if (key === 'sourceRegistry') return { sources: [] };
     return {};
   }
 
@@ -581,6 +583,45 @@
     return section ? `${baseUrl}#sec_${section}` : baseUrl;
   }
 
+  function getSourceRegistry(data) {
+    return data?.sourceRegistry?.sources || [];
+  }
+
+  function findSourceById(data, id) {
+    return getSourceRegistry(data).find(source => source.id === id) || null;
+  }
+
+  function getSourceIdForAuthority(authority = {}) {
+    const citation = authority.citation || '';
+    const category = authority.category || authority.label || '';
+    const url = authority.url || '';
+
+    if (/^F\d+/i.test(citation) || /Appendix PP/i.test(category) || /som107ap_pp|appendix-pp/i.test(url)) return 'cms_appendix_pp';
+    if (/42\s+CFR/i.test(citation) || /title-42|part-483/i.test(url)) return 'ecfr_42_part_483';
+    if (/45\s+CFR/i.test(citation) || /title-45|part-1324/i.test(url)) return 'ecfr_45_part_1324';
+    if (/19-13-D8t/i.test(citation) || /eregulations\.ct\.gov/i.test(url)) return 'ct_eregulations_19_13_d8t';
+    if (/17a-/i.test(citation) || /chap_319l/i.test(url) || authority.authority_id === 'ct_17a_870') return 'ct_chapter_319l';
+    if (/19a-/i.test(citation) || /^CGS/i.test(citation) || /chap_368v/i.test(url)) return 'ct_chapter_368v';
+    if (/NORS/i.test(category) || /ltcombudsman\.org/i.test(url)) return 'nors_table_2';
+    return '';
+  }
+
+  function getAuthoritySourceInfo(authority = {}, data) {
+    const sourceId = authority.source_id || authority.sourceId || getSourceIdForAuthority(authority);
+    const source = sourceId ? findSourceById(data, sourceId) : null;
+    if (!source) return null;
+
+    return {
+      id: source.id,
+      title: source.title,
+      owner: source.owner,
+      category: source.category,
+      url: source.url,
+      versionOrRevision: source.version_or_revision || '',
+      lastVerified: source.last_verified || ''
+    };
+  }
+
   function getCtStatuteUrlFromCitation(citation) {
     const section = getCtStatuteSection(citation);
     if (!section) return '';
@@ -747,7 +788,8 @@
     if (authority.url) return authority.url;
     return '';
   }
-  function normalizeAuthority(authorityId, authority, reason, match) {
+  function normalizeAuthority(authorityId, authority, reason, match, data) {
+    const sourceInfo = getAuthoritySourceInfo(authority, data);
     return {
       id: authorityId,
       citation: authority?.citation || 'Citation not available',
@@ -762,7 +804,8 @@
       humanReviewNote: authority?.human_review_note || authority?.humanReviewNote || '',
       officialSourceUrls: authority?.official_source_urls || authority?.officialSourceUrls || [],
       appendixPpHeadingExact: authority?.appendixPpHeadingExact || authority?.appendix_pp_heading_exact || '',
-      appendixPpPageStart: authority?.appendixPpPageStart || authority?.appendix_pp_pdf_page_start || null
+      appendixPpPageStart: authority?.appendixPpPageStart || authority?.appendix_pp_pdf_page_start || null,
+      sourceInfo
     };
   }
 
@@ -842,7 +885,7 @@
         seen.add(item.authority_id);
         resultCount += 1;
 
-        const normalized = normalizeAuthority(item.authority_id, authority, item.reason, match);
+        const normalized = normalizeAuthority(item.authority_id, authority, item.reason, match, data);
         normalized.rank = authority ? ranking[authority.type] || ranking[authority.category] || 0 : -1;
         authorities.push(normalized);
       });
@@ -976,6 +1019,7 @@
     getResourcesForInputs,
     getAuthorityLabel,
     getAuthorityUrl,
+    getAuthoritySourceInfo,
     buildCrosswalkTrace,
     runCrosswalk
   };

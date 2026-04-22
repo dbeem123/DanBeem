@@ -237,6 +237,7 @@
                 <br><span>${escapeHtml(authority.title)}</span>
                 <br><span class="subtle">Authority ID: ${escapeHtml(authority.id)}</span>
                 <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
+                ${renderAuthoritySourceLine(authority)}
                 <br><span class="subtle">Why selected: ${escapeHtml(authority.reason)}</span>
               </li>
             `).join('')}
@@ -250,6 +251,17 @@
       const label = escapeHtml(authority.citation || 'Reference');
       if (!authority.url) return label;
       return `<a href="${escapeHtml(authority.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    }
+
+    function renderAuthoritySourceLine(authority) {
+      const source = authority.sourceInfo;
+      if (!source) return '';
+      const label = source.title || source.owner || 'Official source';
+      const verified = source.lastVerified ? `; verified ${source.lastVerified}` : '';
+      const sourceLink = source.url
+        ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`
+        : escapeHtml(label);
+      return `<br><span class="subtle">Source: ${sourceLink}${verified}</span>`;
     }
 
     function renderResources(resources) {

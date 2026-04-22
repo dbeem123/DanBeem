@@ -1,0 +1,126 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-04-22",
+  "sources": [
+    {
+      "id": "ct_responsible_ai_framework",
+      "title": "State of Connecticut Responsible AI Framework",
+      "owner": "State of Connecticut Office of Policy and Management",
+      "category": "AI Governance",
+      "url": "https://portal.ct.gov/-/media/opm/fin-general/policies/ct-responsible-ai-policy-framework-final-02012024.pdf",
+      "version_or_revision": "Policy AI-01, February 1, 2024",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Responsible-use alignment: fairness, privacy, transparency, accountability, security, accuracy, and explainability."
+    },
+    {
+      "id": "ct_ai_inventory",
+      "title": "State of Connecticut Artificial Intelligence Inventory",
+      "owner": "Connecticut Department of Administrative Services",
+      "category": "AI Governance",
+      "url": "https://portal.ct.gov/das/knowledge-base/articles/bits/ai-inventory",
+      "version_or_revision": "2025 inventory page",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Inventory and documentation reference for AI systems and use cases."
+    },
+    {
+      "id": "ct_ai_board_governance",
+      "title": "AI Board and Governance",
+      "owner": "Connecticut Department of Administrative Services",
+      "category": "AI Governance",
+      "url": "https://portal.ct.gov/das/knowledge-base/articles/bits/ai-board-and-governance",
+      "version_or_revision": "Governance page",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Governance reference for responsible AI review and oversight."
+    },
+    {
+      "id": "ct_ai_use_guidance",
+      "title": "Considering AI for Your Agency? Start Here",
+      "owner": "Connecticut Department of Administrative Services",
+      "category": "AI Governance",
+      "url": "https://portal.ct.gov/das/knowledge-base/articles/bits/considering-ai-for-your-agency-start-here",
+      "version_or_revision": "AI use guidance page",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Use-case approval, public-data use limits, and intake guidance."
+    },
+    {
+      "id": "nors_table_2",
+      "title": "NORS Table 2 Complaint Codes and Definitions",
+      "owner": "National Ombudsman Resource Center / Long-Term Care Ombudsman Resource Center",
+      "category": "NORS Guidance",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "version_or_revision": "NORS complaint code guidance",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Source of NORS complaint code labels, definitions, examples, and reporting guidance."
+    },
+    {
+      "id": "ecfr_42_part_483",
+      "title": "42 CFR Part 483 Subpart B",
+      "owner": "Electronic Code of Federal Regulations",
+      "category": "Federal Regulation",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B",
+      "version_or_revision": "Current eCFR",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Federal nursing facility requirements and resident rights citations."
+    },
+    {
+      "id": "ecfr_45_part_1324",
+      "title": "45 CFR Part 1324",
+      "owner": "Electronic Code of Federal Regulations",
+      "category": "Ombudsman Program Authority",
+      "url": "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324",
+      "version_or_revision": "Current eCFR",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Ombudsman program authority, duties, consent, access, and systems advocacy references."
+    },
+    {
+      "id": "cms_appendix_pp",
+      "title": "CMS State Operations Manual Appendix PP",
+      "owner": "Centers for Medicare & Medicaid Services",
+      "category": "Appendix PP",
+      "url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "version_or_revision": "Live CMS Appendix PP PDF",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Surveyor guidance and F-tag reference links, including page anchors where verified."
+    },
+    {
+      "id": "ct_chapter_368v",
+      "title": "Connecticut General Statutes Chapter 368v",
+      "owner": "Connecticut General Assembly",
+      "category": "State Statute",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "version_or_revision": "Current CGA publication",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Connecticut nursing home statutes and patients' bill of rights overlays."
+    },
+    {
+      "id": "ct_chapter_319l",
+      "title": "Connecticut General Statutes Chapter 319l",
+      "owner": "Connecticut General Assembly",
+      "category": "State Statute",
+      "url": "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "version_or_revision": "Current CGA publication",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Connecticut Long-Term Care Ombudsman statutory references."
+    },
+    {
+      "id": "ct_eregulations_19_13_d8t",
+      "title": "Connecticut eRegulations Section 19-13-D8t",
+      "owner": "State of Connecticut eRegulations",
+      "category": "State Regulation",
+      "url": "https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/",
+      "version_or_revision": "Current eRegulations page",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Connecticut nursing home regulation overlay."
+    },
+    {
+      "id": "ct_ltcop",
+      "title": "Connecticut Long-Term Care Ombudsman Program",
+      "owner": "State of Connecticut",
+      "category": "State Program Resource",
+      "url": "https://portal.ct.gov/ltcop",
+      "version_or_revision": "Program website",
+      "last_verified": "2026-04-22",
+      "use_in_tool": "Connecticut Ombudsman program context and public resources."
+    }
+  ]
+}

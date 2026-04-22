@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Responsible Use &amp; Sources</title>
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    .source-list { margin:0; padding-left:20px; }
+    .source-list li { margin:10px 0; }
+    .principle-grid { grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo">DB</div>
+        <div>
+          <div style="font-weight:800">Responsible Use &amp; Sources</div>
+          <div class="subtle" style="font-size:12px;">Transparency &amp; Human Review</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="drafting-assistant.html">Drafting Assistant</a>
+        <a class="navLink linkBtn" href="nors-crosswalk.html">NORS Crosswalk</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="panel" aria-labelledby="responsible-title">
+      <div class="pill">Responsible Use</div>
+      <h1 id="responsible-title" style="margin-top:8px;">Responsible Use &amp; Source Transparency</h1>
+      <p class="subtle">This site is a test environment for drafting support and informational reference lookup. Outputs are suggestions for review, not legal conclusions, violation determinations, or enforcement recommendations.</p>
+      <div class="notice">Use de-identified information only. Do not enter resident names, dates of birth, Social Security numbers, Medicaid numbers, facility room numbers, or other identifying details.</div>
+    </section>
+
+    <section class="grid principle-grid" style="margin-top:18px;" aria-label="Responsible use principles">
+      <article class="panel">
+        <div class="pill">Human Review</div>
+        <h2>Staff Stay In Control</h2>
+        <p>The tools organize notes, suggest likely topics, and surface references. A trained user must confirm facts, final NORS coding, resident direction, consent, and any next steps.</p>
+      </article>
+      <article class="panel">
+        <div class="pill">Transparency</div>
+        <h2>Sources Are Visible</h2>
+        <p>Reference results show citation, category, why the item appeared, official source links, and source verification dates where available.</p>
+      </article>
+      <article class="panel">
+        <div class="pill">Privacy</div>
+        <h2>De-Identified Inputs</h2>
+        <p>The Drafting Assistant is intended for de-identified notes. Avoid entering personal identifiers or confidential details that are not needed for drafting support.</p>
+      </article>
+      <article class="panel">
+        <div class="pill">No Determinations</div>
+        <h2>Informational Only</h2>
+        <p>Crosswalk results are research leads. A displayed regulation, F-tag, statute, or resource does not mean a violation occurred.</p>
+      </article>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="ct-ai-title">
+      <h2 id="ct-ai-title">Connecticut Responsible AI Alignment</h2>
+      <p>The site is designed to align with Connecticut responsible AI themes: purposeful use, accuracy and verifiability, privacy, equity and fairness, transparency, understandability, accountability, adaptability, and security.</p>
+      <ul class="source-list">
+        <li><a href="https://portal.ct.gov/-/media/opm/fin-general/policies/ct-responsible-ai-policy-framework-final-02012024.pdf" target="_blank" rel="noopener noreferrer">State of Connecticut Responsible AI Framework</a></li>
+        <li><a href="https://portal.ct.gov/das/knowledge-base/articles/bits/considering-ai-for-your-agency-start-here" target="_blank" rel="noopener noreferrer">Connecticut DAS AI use guidance</a></li>
+        <li><a href="https://portal.ct.gov/das/knowledge-base/articles/bits/ai-inventory" target="_blank" rel="noopener noreferrer">Connecticut AI Inventory</a></li>
+        <li><a href="https://portal.ct.gov/das/knowledge-base/articles/bits/ai-board-and-governance" target="_blank" rel="noopener noreferrer">Connecticut AI Board and Governance</a></li>
+      </ul>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="sources-title">
+      <h2 id="sources-title">Official Source Registry</h2>
+      <p class="subtle">The crosswalk uses official or owner-provided sources where possible. The source registry is stored in <code>data/source_registry.json</code>.</p>
+      <div id="source-registry-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source registry...</div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Responsible use support - informational only, human review required.</footer>
+
+  <script>
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function renderSourceRegistry(data) {
+      const output = document.getElementById('source-registry-output');
+      const sources = data.sources || [];
+      if (!sources.length) {
+        output.textContent = 'No source registry entries found.';
+        return;
+      }
+
+      output.innerHTML = sources.map(source => `
+        <article class="card">
+          <div class="pill">${escapeHtml(source.category || 'Source')}</div>
+          <h3>${escapeHtml(source.title)}</h3>
+          <p class="subtle">${escapeHtml(source.owner || '')}</p>
+          <p>${escapeHtml(source.use_in_tool || '')}</p>
+          <p class="subtle">Version: ${escapeHtml(source.version_or_revision || 'Current source')}</p>
+          <p class="subtle">Last verified: ${escapeHtml(source.last_verified || 'Not documented')}</p>
+          ${source.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">Open official source</a></p>` : ''}
+        </article>
+      `).join('');
+    }
+
+    async function loadSourceRegistry() {
+      const output = document.getElementById('source-registry-output');
+      try {
+        const response = await fetch('../data/source_registry.json');
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        renderSourceRegistry(await response.json());
+      } catch (err) {
+        output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSourceRegistry);
+  </script>
+</body>
+</html>
