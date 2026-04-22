@@ -156,6 +156,7 @@
               <option value="A01">A01</option>
               <option value="C01">C01</option>
             </select>
+            <div id="nors-code-guidance" class="notice" style="display:none;"></div>
           </div>
           <div>
             <label for="concern-area">Concern / Complaint Area</label>
@@ -258,6 +259,7 @@
           <select id="norsCodeSelect">
             <option value="">Loading NORS codes...</option>
           </select>
+          <div id="crosswalk-code-guidance" class="notice" style="display:none;"></div>
         </div>
       </div>
       <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
@@ -392,6 +394,7 @@
         generateButton.disabled = false;
         populateMainNorsOptions();
         populateCrosswalkOptions();
+        bindNorsGuidanceHandlers();
         bindCrosswalkHandler();
       } catch (err) {
         assistantData = null;
@@ -451,6 +454,43 @@
       if (!select) return;
 
       select.innerHTML = getNorsOptionHtml('Select NORS code');
+    }
+
+    function renderNorsCodeGuidance(selectId, outputId) {
+      const select = document.getElementById(selectId);
+      const output = document.getElementById(outputId);
+      const detail = select && assistantData ? Crosswalk.getNorsCodeDetail(select.value, assistantData) : null;
+
+      if (!output) return;
+      if (!detail) {
+        output.style.display = 'none';
+        output.innerHTML = '';
+        return;
+      }
+
+      const examples = Array.isArray(detail.examples) ? detail.examples : [];
+      output.style.display = 'block';
+      output.innerHTML = `
+        <strong>${escapeHtml(detail.code)} - ${escapeHtml(detail.label)}</strong>
+        <div class="subtle">${escapeHtml(detail.majorCode)} - ${escapeHtml(detail.majorLabel)}</div>
+        ${detail.definition ? `<p><strong>Definition / Use Guidance:</strong><br>${escapeHtml(detail.definition)}</p>` : ''}
+        ${examples.length ? `<p><strong>Examples:</strong><br>${examples.map(escapeHtml).join('<br>')}</p>` : ''}
+        ${detail.reportingTips ? `<p><strong>Examples and Reporting Tips:</strong><br>${escapeHtml(detail.reportingTips)}</p>` : ''}
+      `;
+    }
+
+    function bindNorsGuidanceHandlers() {
+      const mainSelect = document.getElementById('nors-code');
+      const crosswalkSelect = document.getElementById('norsCodeSelect');
+
+      if (mainSelect && mainSelect.dataset.guidanceBound !== 'true') {
+        mainSelect.addEventListener('change', () => renderNorsCodeGuidance('nors-code', 'nors-code-guidance'));
+        mainSelect.dataset.guidanceBound = 'true';
+      }
+      if (crosswalkSelect && crosswalkSelect.dataset.guidanceBound !== 'true') {
+        crosswalkSelect.addEventListener('change', () => renderNorsCodeGuidance('norsCodeSelect', 'crosswalk-code-guidance'));
+        crosswalkSelect.dataset.guidanceBound = 'true';
+      }
     }
 
     function bindCrosswalkHandler() {
