@@ -256,6 +256,13 @@
     };
   }
 
+  function normalizeMappingList(value) {
+    if (!value) return [];
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'object' && Object.keys(value).length) return [value];
+    return [];
+  }
+
   function getAuthoritiesForTopics(topicMatches, data) {
     const topicMap = data.topicToAuthority?.topics || {};
     const authorityIndex = getAuthorityIndex(data);
@@ -273,10 +280,11 @@
       const catalogMappings = catalogRecords
         .filter(record => record.topic_slug === match.topic || (match.norsCodes || []).includes(record.nors_minor_code))
         .flatMap(record => [
-          ...(record.federal_regulations || []),
-          ...(record.appendix_pp_tags || []),
-          ...(record.connecticut_overlay || [])
+          ...normalizeMappingList(record.federal_regulations),
+          ...normalizeMappingList(record.appendix_pp_tags),
+          ...normalizeMappingList(record.connecticut_overlay)
         ])
+        .filter(item => item.authority_id)
         .map(item => ({
           authority_id: item.authority_id,
           reason: item.mapping_type ? `${item.mapping_type.replace(/_/g, ' ')} mapping` : '',
