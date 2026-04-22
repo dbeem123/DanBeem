@@ -122,6 +122,7 @@
     let crosswalkData = null;
 
     const crosswalkPaths = {
+      norsHierarchy: ['../nors_hierarchy.json', '../data/nors_hierarchy.json'],
       keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
       norsToTopic: '../nors_to_topic.json',
       topicToAuthority: '../topic_to_authority.json',
@@ -140,12 +141,18 @@
 
     function populateNorsCodes() {
       const select = document.getElementById('nors-code');
-      const codes = Object.keys(crosswalkData?.norsToTopic || {});
-      const fallbackCodes = ['F03', 'A01', 'C01'];
-      const options = codes.length ? codes : fallbackCodes;
+      const groups = Crosswalk.getNorsCodeOptions(crosswalkData);
 
-      select.innerHTML = '<option value="">No NORS code selected</option>' + options.map(code => {
-        return `<option value="${escapeHtml(code)}">${escapeHtml(code)}</option>`;
+      select.innerHTML = '<option value="">No NORS code selected</option>' + groups.map(group => {
+        const groupLabel = `${group.code} - ${group.label}`;
+        return `
+          <optgroup label="${escapeHtml(groupLabel)}">
+            ${group.minorCodes.map(minor => {
+              const label = `${minor.code} - ${minor.label}`;
+              return `<option value="${escapeHtml(minor.code)}" title="${escapeHtml(minor.description || label)}">${escapeHtml(label)}</option>`;
+            }).join('')}
+          </optgroup>
+        `;
       }).join('');
     }
 

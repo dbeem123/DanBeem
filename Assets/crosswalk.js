@@ -1,5 +1,6 @@
 (function () {
   const DEFAULT_PATHS = {
+    norsHierarchy: ['../nors_hierarchy.json', '../data/nors_hierarchy.json'],
     keywordMap: ['../keyword_map.json', '../data/keyword_map.json'],
     norsToTopic: ['../nors_to_topic.json', '../data/nors_to_topic.json'],
     topicToAuthority: ['../topic_to_authority.json', '../data/topic_to_authority.json'],
@@ -80,6 +81,61 @@
 
   function getCatalogRecords(data) {
     return Array.isArray(data.crosswalkCatalog?.records) ? data.crosswalkCatalog.records : [];
+  }
+
+  function getNorsCodeOptions(data) {
+    const majorCodes = data?.norsHierarchy?.major_codes || [];
+    if (Array.isArray(majorCodes) && majorCodes.length) {
+      return majorCodes.map(major => ({
+        code: major.code,
+        label: major.label || major.code,
+        description: major.description || '',
+        minorCodes: (major.minor_codes || []).map(minor => ({
+          code: minor.code,
+          label: minor.label || minor.code,
+          description: minor.description || ''
+        }))
+      }));
+    }
+
+    const records = getCatalogRecords(data);
+    if (records.length) {
+      const grouped = {};
+      records.forEach(record => {
+        const majorCode = record.nors_major_code || (record.nors_minor_code || '').charAt(0);
+        if (!majorCode) return;
+        if (!grouped[majorCode]) {
+          grouped[majorCode] = {
+            code: majorCode,
+            label: record.nors_major_label || majorCode,
+            description: '',
+            minorCodes: []
+          };
+        }
+        if (record.nors_minor_code && !grouped[majorCode].minorCodes.some(minor => minor.code === record.nors_minor_code)) {
+          grouped[majorCode].minorCodes.push({
+            code: record.nors_minor_code,
+            label: record.nors_minor_label || record.nors_minor_code,
+            description: ''
+          });
+        }
+      });
+      return Object.values(grouped).sort((a, b) => a.code.localeCompare(b.code)).map(major => ({
+        ...major,
+        minorCodes: major.minorCodes.sort((a, b) => a.code.localeCompare(b.code))
+      }));
+    }
+
+    const codes = Object.keys(data?.norsToTopic || {}).sort();
+    const fallbackGroups = {};
+    codes.forEach(code => {
+      const majorCode = code.charAt(0);
+      if (!fallbackGroups[majorCode]) {
+        fallbackGroups[majorCode] = { code: majorCode, label: majorCode, description: '', minorCodes: [] };
+      }
+      fallbackGroups[majorCode].minorCodes.push({ code, label: code, description: '' });
+    });
+    return Object.values(fallbackGroups);
   }
 
   function getAuthorityIndex(data) {
@@ -343,6 +399,7 @@
     getTopicsFromKeywords,
     getTopicsFromInputs,
     getAuthoritiesForTopics,
+    getNorsCodeOptions,
     getAuthorityLabel,
     buildCrosswalkTrace,
     runCrosswalk
