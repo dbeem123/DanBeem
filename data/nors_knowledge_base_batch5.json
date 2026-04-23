@@ -1,0 +1,490 @@
+{
+  "meta": {
+    "batch": "batch5",
+    "generated_date": "2026-04-23",
+    "description": "QA pass on Batch 4. Contains: resource corrections, additional resources for gaps, tooltip rows for consent/disclosure and NOMNC distinctions, workflow corrections, source-quality corrections, and human-review flags. All sources verified via HTTP 200 check or confirmed-live prior fetches. CGA.ct.gov URLs return SSL errors in automated checks but are confirmed live via browser fetch — flagged accordingly.",
+    "url_check_notes": "RR-019, RR-020, RR-021 (cga.ct.gov URLs) return SSL_CERTIFICATE_VERIFY_FAILED in Python urllib due to sandbox SSL config — these are confirmed live URLs based on successful content fetch. All 27 other Batch 4 URLs returned HTTP 200."
+  },
+
+  "resource_corrections": [
+    {
+      "resource_id": "RR-019",
+      "issue": "URL contains anchor (#sec_19a-550). Python urllib SSL check fails due to sandbox SSL config, not a broken link. Content confirmed live via fetch_url. However, anchor fragments may not resolve directly in all browsers — the base URL is more reliable for linking.",
+      "corrected_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "corrected_title": "CT General Statutes Chapter 368v — Health Care Institutions (§19a-550 Patients' Bill of Rights, §19a-535 Transfer/Discharge)",
+      "corrected_source_owner": "Connecticut General Assembly",
+      "corrected_authority_level": "high",
+      "recommended_action": "keep",
+      "human_review_note": "Link the base URL chap_368v.htm rather than the anchor. Instruct Codex to note that §19a-550 and §19a-535 are both within this chapter. Anchor fragments can be retained as supplemental deep-links if the browser supports them.",
+      "source_urls": ["https://www.cga.ct.gov/current/pub/chap_368v.htm"]
+    },
+    {
+      "resource_id": "RR-020",
+      "issue": "URL contains anchor (#sec_19a-535). Same SSL check issue as RR-019. Content confirmed live. Additionally: the Justia summary of §19a-535 confirms appeal deadline for nursing home involuntary discharge is 60 days to request a hearing, but resident must request within 20 days to STAY the discharge — this is more precise than the Batch 4 summary stated.",
+      "corrected_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "corrected_title": "CT General Statutes §19a-535 — Transfer or Discharge of Patients (within Chapter 368v)",
+      "corrected_source_owner": "Connecticut General Assembly",
+      "corrected_authority_level": "high",
+      "recommended_action": "keep",
+      "human_review_note": "Correct appeal-timeline language in WG-002 and any tooltip referencing §19a-535: 60-day window to request hearing; 20-day window to stay the discharge. See also §19a-535a for residential care home (MRC) transfer/discharge — separate statute with 10-day appeal deadline and 7-business-day hearing schedule.",
+      "source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing"
+      ]
+    },
+    {
+      "resource_id": "RR-021",
+      "issue": "URL returns SSL error in automated check — confirmed live via content fetch (Chapter 319l fully extracted). No content correction needed. SSL flag is a sandbox artifact only.",
+      "corrected_url": "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "corrected_title": "CT General Statutes Chapter 319l — Long-Term Care Ombudsman Program (§17a-870 through §17a-886)",
+      "corrected_source_owner": "Connecticut General Assembly",
+      "corrected_authority_level": "high",
+      "recommended_action": "keep",
+      "human_review_note": "No content change needed. SSL error is a sandbox artifact. CT CGA site is live. Confirm URL resolves in production browser before deployment.",
+      "source_urls": ["https://www.cga.ct.gov/current/pub/chap_319l.htm"]
+    },
+    {
+      "resource_id": "RR-024",
+      "issue": "RR-024 was listed as a specific 'How to Obtain Important Discharge Documents' resource but the confirmed content of portal.ct.gov/ltcop shows that sub-resource is listed only as a quick-link label ('How to Obtain Important Discharge Documents') with no confirmed direct URL. The base portal page returned HTTP 200. The resource as written implies a direct sub-page URL that cannot be confirmed.",
+      "corrected_url": "https://portal.ct.gov/ltcop",
+      "corrected_title": "CT Long Term Care Ombudsman Program — Official Program Page (portal.ct.gov/ltcop)",
+      "corrected_source_owner": "Connecticut Long Term Care Ombudsman Program (CT DADS)",
+      "corrected_authority_level": "high",
+      "recommended_action": "mark_caveat",
+      "human_review_note": "Replace the resource description: 'The CT LTCOP official program page (portal.ct.gov/ltcop) contains a Quick Links section including Visitation Center, How to Obtain Important Discharge Documents, DPH Blast Fax Page, and DPH Survey Inspection Results. Sub-page URLs for these quick links were not independently confirmed as of April 2026. Navigate from the root page. Phone: 860-424-5200.' Do not link directly to sub-pages that have not been independently verified.",
+      "source_urls": ["https://portal.ct.gov/ltcop"]
+    },
+    {
+      "resource_id": "RR-005",
+      "issue": "HRF-B4-005 (Batch 4) correctly flagged that the NORC abuse teaching notes describe LTCO as a 'mandated reporter.' This is now definitively confirmed as incorrect for Connecticut: CT CGS §17a-412 does NOT list the Long-Term Care Ombudsman as a mandated reporter. CT Chapter 319l does NOT designate LTCO as a mandated reporter. 45 CFR §1324.19(b)(3)(iii) explicitly states LTCO 'shall not report' without consent (with specific limited exceptions). The resource is useful as staff training but must carry a mandatory caveat.",
+      "corrected_url": "https://ltcombudsman.org/uploads/files/support/Chapter_8_Elder_and_Dependent_Adult_Abuse_Teaching_Notes.pdf",
+      "corrected_title": "Responding to Elder and Dependent Adult Abuse — NORC Teaching Notes [REQUIRES CAVEAT — see human_review_note]",
+      "corrected_source_owner": "National Ombudsman Resource Center (NORC)",
+      "corrected_authority_level": "medium",
+      "recommended_action": "mark_caveat",
+      "human_review_note": "CODEX must display a caveat alongside this resource wherever it appears: 'IMPORTANT: This training material uses the term mandated reporter. In Connecticut, the Long-Term Care Ombudsman is NOT a mandated reporter under CGS §17a-412. Federal 45 CFR §1324.19(b)(3)(iii) requires consent before reporting, notwithstanding state laws to the contrary. Consult the State Ombudsman before making any disclosure. Limited exceptions under §1324.19(b)(6)-(b)(8) apply only with Ombudsman approval.' Authority level downgraded to medium for regulatory interpretation; retains value as training material.",
+      "source_urls": [
+        "https://portal.ct.gov/dph/practitioner-licensing--investigations/plis/mandatory-reporters-of-abuse-neglect-exploitation-and-impaired-practitioners",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "resource_id": "RR-013",
+      "issue": "Title states 'Summary of CMS's Revised Guidance for Surveyors (Rev. 232 / January 2026).' The Consumer Voice document is a summary of CMS QSO-26-03-NH (January 2026 guidance memo). Batch 4 states this is about psychotropic medications / Rev. 232 specifically. The document is a Consumer Voice advocacy summary, not a CMS document. Authority level should be medium for regulatory citation — it is advocacy/training, not CMS primary source.",
+      "corrected_url": "https://theconsumervoice.org/wp-content/uploads/2025/01/Summary-of-Revised-CMS-Guidance-for-Surveyors.pdf",
+      "corrected_title": "Consumer Voice Summary: CMS Surveyor Guidance Update QSO-26-03-NH (January 2026) — Psychotropic Medications [advocacy/training resource]",
+      "corrected_source_owner": "National Consumer Voice for Quality Long-Term Care [advocacy/training resource — not a CMS document]",
+      "corrected_authority_level": "medium",
+      "recommended_action": "mark_caveat",
+      "human_review_note": "Display label: 'This is a Consumer Voice summary of CMS guidance, not a CMS publication. For the primary CMS guidance, access CMS QSO-26-03-NH directly.' Authority level = medium for regulatory interpretation; high for advocacy/training use.",
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2025/01/Summary-of-Revised-CMS-Guidance-for-Surveyors.pdf",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/nursing-homes"
+      ]
+    }
+  ],
+
+  "additional_resource_rows": [
+    {
+      "id": "RR-031",
+      "title": "CT DSS Memo — Mandatory Reporting for Residents of Long-Term Care Facilities (CGS §17a-408 through §17a-412)",
+      "resource_type": "official_guidance",
+      "url": "https://portal.ct.gov/-/media/Departments-and-Agencies/DSS/Social-Work-Services/ReportingForLTCInvestigations.pdf",
+      "source_owner": "Connecticut Department of Social Services (DSS)",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "A04", "A05", "B03"],
+      "applies_to_topics": ["mandatory reporting", "mandated reporters CT", "abuse reporting", "CGS 17a-412", "ombudsman not mandated reporter", "complaint routing"],
+      "audience": "ombudsman_staff",
+      "summary": "Official CT DSS memo clarifying that CGS §§17a-408 through 17a-412 designate certain health professionals and facility staff as mandated reporters for LTC resident abuse/neglect/exploitation — but the Office of the Long-Term Care Ombudsman continues to receive complaints directly. The memo lists mandated reporter professions (physicians, nurses, social workers, LTC facility administrators, nurse's aides, any person paid to care for a patient) and confirms that reports go to DSS Commissioner pursuant to CGS Chapter 319. The LTCO is NOT listed as a mandated reporter. This document is the authoritative CT-specific guidance for distinguishing facility staff mandatory reporting obligations from LTCO consent-first complaint handling.",
+      "when_to_show": "Whenever a staff member asks whether LTCO is a mandated reporter or when training on the distinction between facility staff reporting duties and LTCO consent-first obligations. Essential for abuse cases (A01–A05).",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-032",
+      "title": "CMS Beneficiary and Family Centered Care QIO (BFCC-QIO) — Fast Appeals for Medicare-Covered Services",
+      "resource_type": "webpage",
+      "url": "https://www.medicare.gov/providers-services/claims-appeals-complaints/appeals/fast-appeals",
+      "source_owner": "Centers for Medicare & Medicaid Services (Medicare.gov)",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["K04", "C01", "C02"],
+      "applies_to_topics": ["Medicare SNF appeal", "BFCC-QIO", "fast appeal", "NOMNC", "benefit termination appeal", "Acentra", "Livanta"],
+      "audience": "resident",
+      "summary": "Official Medicare.gov page explaining fast appeal rights when Medicare-covered services are ending at an SNF, hospital, home health, hospice, or CORF. States that BFCC-QIO is now administered by Commence or Acentra Health depending on state. Explains NOMNC triggers, timeline, and that services continue during appeal. Key point: the NOMNC triggers a Medicare coverage appeal — it is NOT a nursing facility transfer/discharge notice under 42 CFR §483.15.",
+      "when_to_show": "K04 (Medicare complaints), C01/C02 where resident thinks Medicare non-coverage notice is a discharge notice. Use to explain fast appeal rights before the coverage end date.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-033",
+      "title": "CMS NOMNC/DENC Official Forms Page — Notice of Medicare Non-Coverage (Form CMS-10123)",
+      "resource_type": "form",
+      "url": "https://www.cms.gov/medicare/forms-notices/beneficiary-notices-initiative/ffs-ma-nomnc-denc",
+      "source_owner": "Centers for Medicare & Medicaid Services (CMS)",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["K04", "C01", "C02"],
+      "applies_to_topics": ["NOMNC", "CMS-10123", "Medicare non-coverage notice", "DENC detailed explanation", "SNF Medicare coverage ending", "BFCC-QIO appeal"],
+      "audience": "ombudsman_staff",
+      "summary": "Official CMS forms page for the Notice of Medicare Non-Coverage (NOMNC). Required for HHAs, SNFs, hospices, and CORFs when Medicare-covered services are ending. Triggers right to request expedited QIO determination. Distinct from a nursing facility transfer/discharge notice under 42 CFR §483.15. Downloads include the NOMNC form and the Detailed Explanation of Non-Coverage (DENC) used when the beneficiary requests a QIO review.",
+      "when_to_show": "When staff or resident needs to identify or understand a NOMNC. Use alongside tooltip TT-009 to clarify the NOMNC vs. discharge notice distinction.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-034",
+      "title": "CT DSS — Requesting a Hearing (Nursing Home Transfer/Discharge Appeals)",
+      "resource_type": "webpage",
+      "url": "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing",
+      "source_owner": "Connecticut Department of Social Services (DSS)",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["CT discharge appeal", "nursing home hearing", "DSS appeal", "appeal timeline", "§19a-535 appeal", "stay of discharge"],
+      "audience": "ombudsman_staff",
+      "summary": "Official CT DSS page explaining how to request an administrative hearing for nursing facility involuntary transfer or discharge. Key timelines confirmed: (1) Resident has 60 days from facility's notice date to request a hearing. (2) To STAY (postpone) the discharge, resident must request the hearing within 20 days of receipt of notice. (3) For failure to readmit after hospitalization, 20-day deadline. Authority: CGS §§17b-60; 19a-535(c); 19a-537(h). Hearing requested in writing to DSS.",
+      "when_to_show": "C01 or C02 complaints where resident wants to appeal and needs to understand CT-specific deadlines. Critical: the 20-day stay deadline is shorter than what most residents expect.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-035",
+      "title": "CT General Statutes §19a-535a — Residential Care Homes Transfer/Discharge Appeal",
+      "resource_type": "statute",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "source_owner": "Connecticut General Assembly",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["MRC discharge appeal", "residential care home discharge", "assisted living transfer", "CT §19a-535a"],
+      "audience": "ombudsman_staff",
+      "summary": "CT §19a-535a governs transfer/discharge for residential care homes (MRCs/assisted living), separate from nursing homes under §19a-535. Key differences: appeal request must be filed within 10 days of notice; hearing held within 7 business days; commissioner issues decision within 20 days of closing hearing record; emergency discharge process also separately defined. Facility must send discharge notice to CT LTCOP by fax/electronic communication on same day as notice to resident. Notice must include State Ombudsman contact information.",
+      "when_to_show": "C01/C02 where the facility is an assisted living / MRC rather than a nursing home. The §19a-535a timelines are tighter than §19a-535.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-036",
+      "title": "CMS Updated Guidance for Nursing Home Resident Health and Safety — Phase 3 Fact Sheet",
+      "resource_type": "official_guidance",
+      "url": "https://www.cms.gov/newsroom/fact-sheets/updated-guidance-nursing-home-resident-health-and-safety",
+      "source_owner": "Centers for Medicare & Medicaid Services (CMS)",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["F13", "F11", "F12", "J01"],
+      "applies_to_topics": ["infection control", "infection preventionist", "Phase 3 CMS guidance", "F880", "trauma informed care", "compliance ethics", "QAPI"],
+      "audience": "ombudsman_staff",
+      "summary": "Official CMS fact sheet (June 2022) on Phase 3 surveyor guidance updates. Key infection control provision: facilities must have a part-time Infection Preventionist (IP) who works on-site and has specialized training. IP cannot be an off-site consultant. Also covers arbitration, quality of life/care, food and nutrition, physical environment, and staffing. Useful staff reference for F880 (infection control) and F13 complaints.",
+      "when_to_show": "F13 (infection control) complaints; J01 (administrative/management) where IP role or compliance program is the issue.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-037",
+      "title": "Consumer Voice — Staffing Matters: Why Nursing Home Staffing Is a Resident Rights Issue",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/05/Staffing-Matters.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care [advocacy/training resource]",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["J01", "J02"],
+      "applies_to_topics": ["staffing", "nurse-to-resident ratio", "staffing adequacy", "F725", "staffing minimums", "resident safety staffing"],
+      "audience": "ombudsman_staff",
+      "summary": "Consumer Voice report (2022) demonstrating the relationship between staffing levels, quality ratings, and resident safety outcomes. Cites CMS PBJ staffing data. Notes that the 4.1 HPRD minimum standard is aspirational — CMS has not implemented it as federal minimum. Useful background for J01/J02 staffing complaints. Note: minimum staffing rule (May 2024, 42 CFR 483.71) was issued after this report; status as of 2026 should be independently verified.",
+      "when_to_show": "J01 or J02 complaints where staffing levels are the underlying issue. Advocacy context for ombudsman conversations with management.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-038",
+      "title": "Consumer Voice — Guide to Commenting on Nursing Home Staffing Standard Rollbacks (2026)",
+      "resource_type": "training",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2026/01/Guide-to-Commenting-on-Staffing-Standard-Rollbacks.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care [advocacy/training resource]",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["J01", "J02"],
+      "applies_to_topics": ["staffing", "minimum staffing rule", "42 CFR 483.71", "staffing rollbacks 2025", "HPRD", "F725"],
+      "audience": "ombudsman_staff",
+      "summary": "Consumer Voice guide (January 2026) on the December 2025 CMS rule that may rescind or roll back the May 2024 minimum staffing standards. Key facts: May 2024 rule required 3.48 HPRD total nurse staffing minimum and 24/7 RN requirement. Even if rescinded, facilities must still provide 'sufficient' staff per resident needs assessment (42 CFR 483.71 and 89 Fed. Reg. 92, 40883). Current status of the staffing rule should be verified at CMS.gov before citing this document.",
+      "when_to_show": "J01/J02 staffing complaints where advocate needs context on current federal staffing standards. Caveat: rule status may have changed — verify at CMS.gov.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    },
+    {
+      "id": "RR-039",
+      "title": "Consumer Voice — Using Data to Protect Nursing Home Residents (PBJ Staffing Data Guide)",
+      "resource_type": "training",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/Using_Data_to_Protect_NH_Residents_1.25.24.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care [advocacy/training resource]",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["J01", "J02"],
+      "applies_to_topics": ["staffing data", "PBJ data", "CMS Care Compare", "nursing home ratings", "F725", "staffing advocacy"],
+      "audience": "ombudsman_staff",
+      "summary": "Consumer Voice guide (January 2024) explaining how to use CMS Payroll-Based Journal (PBJ) staffing data and Care Compare to research a specific nursing home's staffing levels. Includes links to CMS Care Compare (medicare.gov/care-compare) and CMS Provider Info Dataset. Useful for ombudsman staff preparing for facility visits or advocacy around staffing complaints.",
+      "when_to_show": "J01/J02 complaints where ombudsman needs to research a specific facility's staffing record before a visit or advocacy conversation.",
+      "informational_only": true,
+      "last_verified": "2026-04-23"
+    }
+  ],
+
+  "tooltip_rows": [
+    {
+      "id": "TT-001",
+      "term": "Permission to Investigate",
+      "short_help": "The resident's consent for the ombudsman to look into their complaint.",
+      "details": "Under 45 CFR §1324.19(b)(2)(B), the ombudsman must request informed consent from the resident (or resident representative if the resident cannot communicate consent) before investigating a complaint. Consent can be communicated in writing, orally, visually, or through auxiliary aids. It must be documented contemporaneously. This is separate from consent to disclose or consent to report to another agency.",
+      "where_to_show": ["abuse_case_workflow", "drafting_note_workflow", "nors_lookup_A01", "nors_lookup_A02", "nors_lookup_A03", "nors_lookup_A04", "nors_lookup_A05"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/1324.19"],
+      "human_review_note": ""
+    },
+    {
+      "id": "TT-002",
+      "term": "Permission to Disclose Resident Identity",
+      "short_help": "Separate consent for sharing the resident's name or identifying information with others.",
+      "details": "Even after the resident consents to an investigation, a separate consent decision governs whether the ombudsman may disclose the resident's identity to the facility, survey agency, APS, law enforcement, or other parties. Under CT CGS §17a-882(2) and 45 CFR §1324.13(e), identity cannot be disclosed without written consent, or oral/visual consent documented contemporaneously, or a court order. In Connecticut, the State Ombudsman has sole authority over disclosure decisions. A resident may consent to investigation but refuse disclosure — that decision must be followed.",
+      "where_to_show": ["abuse_case_workflow", "drafting_note_workflow", "nors_lookup_A01", "nors_lookup_A02", "nors_lookup_A03", "nors_lookup_A04", "nors_lookup_A05", "nors_lookup_B03"],
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.13",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ],
+      "human_review_note": ""
+    },
+    {
+      "id": "TT-003",
+      "term": "Permission to Refer or Report to Another Agency",
+      "short_help": "Consent for the ombudsman to send information to APS, DPH, law enforcement, or another agency.",
+      "details": "This is the most consequential consent decision. Under 45 CFR §1324.19(b)(3)(iii), the ombudsman 'shall not report suspected abuse, neglect or exploitation of a resident when a resident or resident representative has not communicated informed consent to such report, notwithstanding State laws to the contrary.' Exceptions exist only under §1324.19(b)(6), (b)(7), and (b)(8) — all of which require: (1) resident cannot communicate consent AND has no representative; (2) ombudsman has reasonable cause to believe harm may result; (3) no evidence resident would object; and (4) approval of the Ombudsman. Staff must escalate to the State Ombudsman before disclosing without consent.",
+      "where_to_show": ["abuse_case_workflow", "nors_lookup_A01", "nors_lookup_A02", "nors_lookup_A03", "nors_lookup_A04", "nors_lookup_A05"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/1324.19"],
+      "human_review_note": "This tooltip must be reviewed by the State Ombudsman to confirm CT LTCOP policy on §1324.19(b)(6)-(b)(8) procedure. Federal rule requires Ombudsman approval — confirm CT protocol."
+    },
+    {
+      "id": "TT-004",
+      "term": "Representative Consent / Resident Direction Conflict",
+      "short_help": "When a resident's representative disagrees with what the resident wants.",
+      "details": "The ombudsman's primary obligation is to the resident's expressed wishes, not the wishes of a representative (family member, guardian, power of attorney). Under 45 CFR §1324.19(b)(2)(A), the ombudsman must identify the interests and wishes of the resident. If a resident representative's direction conflicts with the resident's expressed wishes, the ombudsman may access records and take action without representative permission if: (1) the resident is unable to consent and has no representative, or (2) there is reasonable cause to believe the representative is not acting in the resident's best interest — and Ombudsman approval is obtained (CGS §17a-878(a)(2)(C)). A competent resident's own consent supersedes that of any representative.",
+      "where_to_show": ["abuse_case_workflow", "drafting_note_workflow", "nors_lookup_L01", "nors_lookup_A04"],
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ],
+      "human_review_note": "Flag for supervisor review any time a representative's direction conflicts with a competent resident's expressed wishes."
+    },
+    {
+      "id": "TT-005",
+      "term": "Disclosure Without Consent — When It May Apply",
+      "short_help": "Rare exception allowing the ombudsman to refer without resident consent.",
+      "details": "Under 45 CFR §1324.19(b)(6): disclosure without consent requires ALL of the following: (1) resident cannot communicate informed consent; (2) resident has no representative; (3) ombudsman has reasonable cause to believe an action may adversely affect the resident's health, safety, welfare, or rights; (4) no evidence the resident would object; (5) ombudsman believes referral is in resident's best interest; AND (6) Ombudsman approval is obtained. Under (b)(7): same conditions apply when representative is not acting in resident's best interest. Under (b)(8): if staff personally witnesses abuse/gross neglect, they must still seek consent from the resident first — disclosure without consent requires the same conditions above plus Ombudsman approval. In Connecticut: CT §17a-882 adds that disclosure requires written or contemporaneously documented oral/visual consent, or a court order. The State Ombudsman's approval is required in all non-consent disclosure situations in CT.",
+      "where_to_show": ["abuse_case_workflow", "nors_lookup_A01", "nors_lookup_A02", "nors_lookup_A03", "nors_lookup_A05"],
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ],
+      "human_review_note": "Must be reviewed and approved by State Ombudsman before this tooltip is displayed to staff. CT-specific procedures under §17a-882 and LTCOP policy manual should govern what is displayed here."
+    },
+    {
+      "id": "TT-006",
+      "term": "Is the LTCO a Mandated Reporter in Connecticut?",
+      "short_help": "No. Connecticut law does not designate the LTCO as a mandated reporter.",
+      "details": "Connecticut CGS §17a-412 lists specific health professionals and facility staff as mandated reporters for LTC resident abuse (physicians, nurses, social workers, facility administrators, nurse's aides, and any person paid to care for a patient). The Long-Term Care Ombudsman is NOT included in this list. Connecticut Chapter 319l (the LTCOP statute) does not impose mandatory reporting obligations on the ombudsman. Federal 45 CFR §1324.19(b)(3)(iii) explicitly requires the LTCO to 'shall not report' without consent — overriding state laws that might suggest otherwise. The ombudsman operates under a consent-first framework. However, facility staff (nurses, aides, administrators) ARE mandated reporters under §17a-412 and must report within 5 calendar days to the DSS Commissioner.",
+      "where_to_show": ["abuse_case_workflow", "nors_lookup_A01", "nors_lookup_A02", "nors_lookup_A03", "nors_lookup_A04", "nors_lookup_A05", "training_resources"],
+      "source_urls": [
+        "https://portal.ct.gov/dph/practitioner-licensing--investigations/plis/mandatory-reporters-of-abuse-neglect-exploitation-and-impaired-practitioners",
+        "https://portal.ct.gov/-/media/Departments-and-Agencies/DSS/Social-Work-Services/ReportingForLTCInvestigations.pdf",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "human_review_note": "This tooltip is the most critical consent/reporting distinction for CT staff. Review with State Ombudsman before deploying. Confirm current CT LTCOP policy and any CT-specific guidance that may supplement the federal rule."
+    },
+    {
+      "id": "TT-007",
+      "term": "What Is a NOMNC?",
+      "short_help": "A Medicare notice that coverage for services is ending — not a nursing home discharge notice.",
+      "details": "A Notice of Medicare Non-Coverage (NOMNC, Form CMS-10123) is a federal Medicare form required when Medicare-covered SNF, home health, hospice, or CORF services are ending. It triggers the right to request a fast appeal to the BFCC-QIO (in Connecticut: contact Commence or Acentra Health — verify current QIO at CMS.gov). A NOMNC is NOT the same as a nursing facility transfer/discharge notice. The NOMNC means Medicare will stop paying — it does not mean the resident must leave the building. A resident may remain in the facility and arrange private pay or Medicaid payment. If a facility tells a resident they must leave because of a NOMNC, that is a separate involuntary discharge subject to the 30-day notice requirements under 42 CFR §483.15 and CGS §19a-535.",
+      "where_to_show": ["nors_lookup_C01", "nors_lookup_C02", "nors_lookup_K04", "discharge_case_workflow", "Medicare_Medicaid_resources"],
+      "source_urls": [
+        "https://www.cms.gov/medicare/forms-notices/beneficiary-notices-initiative/ffs-ma-nomnc-denc",
+        "https://www.medicare.gov/providers-services/claims-appeals-complaints/appeals/fast-appeals"
+      ],
+      "human_review_note": ""
+    },
+    {
+      "id": "TT-008",
+      "term": "Facility Transfer/Discharge Notice vs. NOMNC",
+      "short_help": "Two different notices with different rights — do not confuse them.",
+      "details": "A nursing facility transfer/discharge notice (required under 42 CFR §483.15 / F627 and CGS §19a-535) is a written notice that the facility intends to discharge or transfer the resident. It must state one of the six lawful reasons, the proposed effective date (at least 30 days out, with exceptions), the destination, appeal rights, and the CT LTCOP contact information. The resident may appeal and have the discharge stayed by requesting a hearing. A Medicare NOMNC is about Medicare coverage only — it is issued by the SNF when Medicare Part A SNF benefit days are ending or when services no longer qualify as skilled. The NOMNC does not require the resident to leave. A valid facility discharge notice and a NOMNC are issued under separate authorities for separate purposes and may (or may not) arrive at the same time.",
+      "where_to_show": ["nors_lookup_C01", "nors_lookup_C02", "nors_lookup_K04", "discharge_case_workflow"],
+      "source_urls": [
+        "https://www.cms.gov/medicare/forms-notices/beneficiary-notices-initiative/ffs-ma-nomnc-denc",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing"
+      ],
+      "human_review_note": ""
+    },
+    {
+      "id": "TT-009",
+      "term": "CT Discharge Appeal Deadlines",
+      "short_help": "Deadlines for appealing a nursing home discharge in Connecticut.",
+      "details": "For nursing homes under CGS §19a-535: (1) Resident has 60 days from the facility's notice date to request a hearing from DSS. (2) To STAY (postpone) the discharge, the hearing request must be filed within 20 days of receipt of notice. (3) For failure to readmit after hospitalization, the deadline to request a hearing is 20 days. For residential care homes (MRCs) under §19a-535a: (1) Appeal must be filed within 10 days of receipt of notice. (2) Hearing held within 7 business days of receipt of request. (3) Decision issued within 20 days of closing hearing record. Critical: the 20-day stay deadline (nursing homes) and 10-day appeal deadline (MRCs) are much shorter than the 60-day window — residents who want to stop a discharge must act immediately. Contact CT DSS at: portal.ct.gov/dss to request a hearing in writing.",
+      "where_to_show": ["nors_lookup_C01", "nors_lookup_C02", "discharge_case_workflow"],
+      "source_urls": [
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ],
+      "human_review_note": "These timelines were confirmed from the CT DSS hearing page and CGS §19a-535 / §19a-535a as of April 2026. Verify annually — CT DSS may amend procedures."
+    },
+    {
+      "id": "TT-010",
+      "term": "Nursing Home vs. Residential Care Home (MRC) Discharge Rules",
+      "short_help": "Discharge appeal rules are different depending on the type of CT facility.",
+      "details": "Connecticut has two separate discharge statutes. CGS §19a-535 applies to nursing facilities (SNFs and NFs). CGS §19a-535a applies to residential care homes (also called Managed Residential Communities / assisted living). Key differences: §19a-535a (MRC) requires the facility to send the discharge notice to the CT LTCOP by fax/electronic communication on the same day as notice to the resident. The MRC appeal window is 10 days (not 20 or 60 days). The MRC appeal goes to the Commissioner of Public Health (not DSS). If uncertain which statute applies, ask the ombudsman program which license category the facility holds.",
+      "where_to_show": ["nors_lookup_C01", "nors_lookup_C02", "discharge_case_workflow"],
+      "source_urls": ["https://www.cga.ct.gov/current/pub/chap_368v.htm"],
+      "human_review_note": "Confirm with CT LTCOP whether §19a-535a MRC notices are currently being forwarded to the program as required, and whether the program has a tracking mechanism for these notices."
+    },
+    {
+      "id": "TT-011",
+      "term": "F-tag vs. NORS Code — What Staff Should Know",
+      "short_help": "F-tags are surveyor tools. NORS codes are ombudsman reporting categories. They are not the same.",
+      "details": "An F-tag (e.g., F600, F757) is a numbered label that CMS surveyors use to cite a specific federal nursing home requirement when they find a deficiency. The ombudsman program does not cite F-tags — that is the surveyor's role. A NORS code (e.g., A01, F12) is a complaint category used in the National Ombudsman Reporting System to classify what a complaint is about. The crosswalk tool maps NORS codes to the F-tags that surveyors would cite for the same issue — this helps ombudsman staff understand the regulatory basis for a complaint, not make a legal citation themselves.",
+      "where_to_show": ["nors_lookup", "training_resources", "plain_language_section"],
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "human_review_note": ""
+    },
+    {
+      "id": "TT-012",
+      "term": "Consent to Investigate — How to Document It",
+      "short_help": "Consent must be documented immediately after it is given.",
+      "details": "Under 45 CFR §1324.19(b)(4), informed consent to investigate must be documented contemporaneously — meaning at the time it is given, not later. The method of consent must also be noted: (1) Written consent: document the signed document. (2) Oral consent: write a note at the time of the conversation recording that the resident verbally consented, including date, time, and what they agreed to. (3) Visual consent (e.g., nodding, pointing): document that the resident communicated consent visually, what they indicated, and when. Auxiliary aids (e.g., communication board): document what was used. A vague note written hours later ('resident seemed to agree') does not satisfy this requirement.",
+      "where_to_show": ["drafting_note_workflow", "abuse_case_workflow", "training_resources"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/1324.19"],
+      "human_review_note": ""
+    }
+  ],
+
+  "workflow_corrections": [
+    {
+      "workflow_id": "WG-002",
+      "issue": "Batch 4 WG-002 stated appeal must be filed 'before the discharge date' without specifying CT-specific timelines. The confirmed CT law (CGS §19a-535) establishes a 60-day window to request a hearing overall, but only a 20-day window to STAY the discharge. The Batch 4 guidance understates the urgency for residents who want to stop a discharge from happening.",
+      "corrected_guidance_text": "Document: (1) Date notice was received by resident and/or representative. (2) Whether notice was written (verbal notice is not sufficient). (3) Whether notice included all required elements: reason, proposed effective date, destination location, appeal rights, CT LTCOP contact information. (4) Whether a physician documented the clinical reason in the medical record (required if reason is clinical need or safety). (5) Whether CT LTCOP was notified per 42 CFR §483.15(c)(3) and — for MRCs under §19a-535a — whether facility sent notice to LTCOP by fax/electronic communication on the same day. (6) CT appeal deadlines: for nursing homes (§19a-535): resident has 60 days from notice date to request a hearing with DSS, but must request within 20 days of receipt to STAY the discharge. For MRCs (§19a-535a): appeal must be filed within 10 days of receipt; hearing held within 7 business days. (7) Whether the resident wishes to appeal — if so, act immediately given the 20-day/10-day stay deadlines. (8) Whether the facility is offering discharge planning assistance (required). Note: a NOMNC (Medicare Non-Coverage Notice) is NOT a discharge notice — receiving a NOMNC does not mean the resident must leave. Route NOMNC questions to K04 (Medicare) and use TT-007.",
+      "corrected_do_not_say": "Do not tell the resident they have 30 days to decide whether to appeal — the deadline to STAY the discharge is 20 days for nursing homes and 10 days for MRCs. Do not conflate a NOMNC with a discharge notice. Do not tell the resident they must move if they have not received a written notice meeting all required elements.",
+      "recommended_action": "replace",
+      "source_urls": [
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://www.cms.gov/medicare/forms-notices/beneficiary-notices-initiative/ffs-ma-nomnc-denc"
+      ]
+    },
+    {
+      "workflow_id": "WG-001",
+      "issue": "Batch 4 WG-001 referenced 'personally witnessing suspected gross neglect/abuse' routing using §1324.19(b)(8) but did not include the critical point that consent must still be sought FIRST from the resident even when staff personally witnesses abuse. The procedure is: seek consent → if resident can consent, follow their direction; only if resident cannot consent AND has no representative may staff proceed under (b)(8) conditions. Additionally, the phrase 'open case as complainant' from §1324.19(b)(8)(ii) should be included for that specific scenario.",
+      "corrected_guidance_text": "Before documenting or disclosing anything: (1) Offer the resident privacy for the conversation. (2) Determine whether the resident can communicate informed consent. (3) Request informed consent to investigate — document the method (written, oral, visual, auxiliary aids) and the date/time contemporaneously per 45 CFR §1324.19(b)(4). (4) Ask the resident whether they want the information reported and whether their identity may be disclosed. (5) Do NOT report to APS, survey agency, or law enforcement without consent UNLESS all six conditions of §1324.19(b)(6) apply AND Ombudsman approval is obtained. (6) If staff personally witnesses suspected abuse/gross neglect (§1324.19(b)(8)): STILL seek consent from the resident first. If resident can consent → follow their direction. If resident cannot consent and has no representative available → open a case with the ombudsman program as the complainant, follow complaint resolution procedures, and — with Ombudsman approval — refer to facility management and/or appropriate agency, provided: (a) no evidence resident would object; (b) reasonable cause to believe disclosure is in resident's best interest. (7) Record perpetrator code (01=facility staff, 02=another resident, 03=family/rep/friend, 99=other). (8) In Connecticut: the LTCO is NOT a mandated reporter under CGS §17a-412. Consent-first is required by both federal (45 CFR §1324.19(b)(3)(iii)) and CT (CGS §17a-882) law.",
+      "corrected_do_not_say": "Do not report to law enforcement or survey agency without resident consent or Ombudsman approval. Do not disclose the resident's identity to the facility before confirming consent. Do not tell staff they are 'required to report' — in Connecticut, the LTCO is not a mandated reporter under §17a-412.",
+      "recommended_action": "replace",
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://portal.ct.gov/-/media/Departments-and-Agencies/DSS/Social-Work-Services/ReportingForLTCInvestigations.pdf",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ]
+    }
+  ],
+
+  "source_quality_corrections": [
+    {
+      "source_id": "SQ-009",
+      "issue": "Batch 4 SQ-009 assigned authority_level 'high' overall to NORC / National Consumer Voice. This is correct for advocacy/training resources but should be explicitly split: 'high' for training and educational use; 'medium' for regulatory interpretation and legal citation support. The Batch 4 entry acknowledged this in the limitations field but did not update authority_level. Correcting to 'medium' with clarification note so CODEX does not treat Consumer Voice summaries as equivalent to primary law or CMS official guidance.",
+      "corrected_authority_level": "medium",
+      "corrected_preferred_use": "Use NORC (ltcombudsman.org) and Consumer Voice (theconsumervoice.org) resources as: (1) HIGH authority for staff training, resident handouts, and issue-area orientation; (2) MEDIUM authority for regulatory interpretation — always verify Consumer Voice summaries against the primary CMS, CFR, or CT statute source before citing the regulatory conclusion. Mark all Consumer Voice PDFs with 'advocacy/training resource' label. Do not present Consumer Voice summaries as equivalent to CMS guidance or federal regulations.",
+      "corrected_limitations": "Neither NORC nor Consumer Voice is a regulatory body. Materials are advocacy/training resources. Some PDFs are dated and may not reflect current regulatory revisions (e.g., Rev. 229/232 Appendix PP changes, post-2024 staffing rule changes, post-2024 CMS guidance memos). Always check the document publication date. For any document dated before 2022, verify content against current 42 CFR Part 483 and Appendix PP Rev. 232. Consumer Voice advocacy positions (e.g., on staffing minimums, antipsychotics) should be labeled as advocacy positions, not legal requirements.",
+      "source_urls": [
+        "https://ltcombudsman.org",
+        "https://theconsumervoice.org"
+      ]
+    },
+    {
+      "source_id": "SQ-004",
+      "issue": "Batch 4 SQ-004 noted that the CMS legacy URL 'may serve Rev. 225' but did not explicitly state that Batch 3 confirmed Rev. 232 is the live PDF at a separate URL. Codex needs a clear primary URL for the live Rev. 232 PDF vs. the legacy URL.",
+      "corrected_authority_level": "high",
+      "corrected_preferred_use": "Use the live Rev. 232 URL for all current page references: https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf (confirmed Rev. 232, 07-23-25, ~930 pages). The legacy URL (appendix-pp-state-operations-manual.pdf) may redirect to an older revision. Always confirm the PDF revision date on page 1 before citing page numbers. Batch 3 confirmed all Rev. 232 F-tag page numbers — use nors_knowledge_base_batch3.json appendix_pp_page_rows as the authoritative page reference.",
+      "corrected_limitations": "Not a regulation — interpretive guidance for surveyors only. Page numbers shift with each revision. Rev. 232 (07-23-25) is current as of April 2026 — verify for future revisions. F627/F628 were added in Rev. 229; F758 was deleted in Rev. 229. Always check revision date before citing.",
+      "source_urls": [
+        "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ]
+    }
+  ],
+
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B5-001",
+      "flag_type": "broken_link",
+      "description": "RR-019, RR-020, RR-021 (cga.ct.gov URLs) return SSL_CERTIFICATE_VERIFY_FAILED in automated HTTP checks due to sandbox SSL configuration — not actual broken links. Content was confirmed live via fetch_url (Chapter 319l fully extracted; §19a-550 and §19a-535 content confirmed). All three URLs are valid. However, they should be periodically re-verified in a production browser environment. CGA.ct.gov has historically changed URL structures with legislative session updates.",
+      "recommended_action": "CODEX: Mark these three URLs for manual re-verification each July 1 (effective date of CT statutory updates). Use the base chapter URLs (chap_368v.htm, chap_319l.htm) without anchor fragments as the primary links. Confirm anchors still work in production browser before deployment.",
+      "source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ]
+    },
+    {
+      "flag_id": "HRF-B5-002",
+      "flag_type": "mandatory_reporting_risk",
+      "description": "Confirmed: CT Long-Term Care Ombudsman is NOT a mandated reporter under CGS §17a-412. The statute lists specific health professionals and facility staff — the LTCO is not among them. CT Chapter 319l imposes no mandatory reporting duty. 45 CFR §1324.19(b)(3)(iii) expressly states the LTCO 'shall not report' without consent, notwithstanding state law. Any tool content, training material, or tooltip that implies LTCO staff 'must report' abuse without consent is incorrect for Connecticut. RR-005 (NORC Teaching Notes, 2018) uses the term 'mandated reporter' and has been corrected to medium authority with mandatory caveat (resource_corrections above).",
+      "recommended_action": "CODEX: (1) Search all displayed text, tooltips, and workflow guidance for the phrase 'mandated reporter' or 'must report' in the context of LTCO staff — replace with consent-first language. (2) Where facility staff mandatory reporting (§17a-412) is relevant, label it clearly as a facility staff obligation, not an LTCO obligation. (3) Add TT-006 (LTCO mandated reporter tooltip) to all A-series code lookup pages. (4) Add caveat to RR-005 wherever displayed.",
+      "source_urls": [
+        "https://portal.ct.gov/dph/practitioner-licensing--investigations/plis/mandatory-reporters-of-abuse-neglect-exploitation-and-impaired-practitioners",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "flag_id": "HRF-B5-003",
+      "flag_type": "consent_risk",
+      "description": "Batch 4 WG-001 listed consent steps but did not distinguish three separate consent decisions that must be made in sequence: (1) consent to investigate, (2) consent to disclose identity, (3) consent to refer/report to another agency. Conflating these three into a single 'consent' step risks staff obtaining consent to investigate and then assuming that also covers disclosure and reporting. CT §17a-882 and 45 CFR §1324.13 make disclosure a separately controlled decision requiring Ombudsman authority. Tooltip rows TT-001 through TT-005 and corrected WG-001 address this.",
+      "recommended_action": "CODEX: (1) Display TT-001, TT-002, and TT-003 as a sequential consent checklist in the abuse case workflow — not as a single consent field. (2) Ensure case note drafting tool has separate fields or checkboxes for each consent type. (3) Never auto-populate 'consent to report' based on 'consent to investigate.'",
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ]
+    },
+    {
+      "flag_id": "HRF-B5-004",
+      "flag_type": "workflow_confusion",
+      "description": "CT discharge appeal timelines were understated in Batch 4 WG-002. The critical distinction is: 60-day window to request a hearing overall, but only 20-day window to STAY (prevent) the discharge — for nursing homes. For MRCs, the appeal window is only 10 days (§19a-535a). Many residents and families will assume they have 30 days to decide (matching the advance notice period) — the actual stay deadline is shorter. Additionally, §19a-535a requires the MRC to notify the CT LTCOP on the same day the discharge notice is given to the resident — this is an automatic notification trigger the LTCOP should be monitoring.",
+      "recommended_action": "CODEX: (1) Replace WG-002 with the corrected workflow text above. (2) Add TT-009 (CT discharge appeal deadlines) and TT-010 (nursing home vs. MRC discharge rules) to C01 and C02 code lookup pages. (3) Add RR-034 (CT DSS hearing page) as a required resource for all C01/C02 complaints. (4) Add RR-035 (§19a-535a) as a required resource when the facility is an MRC/assisted living.",
+      "source_urls": [
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "flag_id": "HRF-B5-005",
+      "flag_type": "resource_gap",
+      "description": "No confirmed-live, standalone infection control resident handout from NORC, Consumer Voice, or CT LTCOP was identified. The NORC infection prevention issue page (ltcombudsman.org/issues/infection-prevention) returned an incomplete page error in direct fetch. CMS Fact Sheet (RR-036, added above) covers the infection preventionist requirement but is staff-facing, not resident-facing. A resident-facing infection control fact sheet (plain language, about what residents can expect during an outbreak) does not appear to exist from the primary acceptable source list.",
+      "recommended_action": "CODEX: For F13 (infection control) complaints, display CMS Phase 3 Fact Sheet (RR-036) for staff context and the NORC issue page URL (ltcombudsman.org/issues/infection-prevention) for additional resources. Flag for CT LTCOP staff: a plain-language resident/family handout on infection control and resident rights during an outbreak does not currently exist from primary sources — consider whether CT LTCOP or Consumer Voice can produce one.",
+      "source_urls": [
+        "https://www.cms.gov/newsroom/fact-sheets/updated-guidance-nursing-home-resident-health-and-safety",
+        "https://ltcombudsman.org/issues/infection-prevention"
+      ]
+    },
+    {
+      "flag_id": "HRF-B5-006",
+      "flag_type": "resource_gap",
+      "description": "No confirmed-live NORC or Consumer Voice handout specifically addressing medication errors (F759/F760) for residents was identified. RR-013 (Consumer Voice QSO-26-03-NH summary) covers psychotropic medications. RR-025 (NORC antipsychotic issue page) covers antipsychotics. But medication administration errors (wrong drug, wrong dose, wrong time, wrong person) as a standalone resident-facing handout was not found at any acceptable source. This is a gap for F07 and the F12/F-series medication NORS codes.",
+      "recommended_action": "CODEX: For medication error complaints (F12 → F759/F760 routing), display the medication distinction workflow guidance (WG-003) and the NORC antipsychotic issue page (RR-025) for psychotropic-specific cases. Flag for CT LTCOP staff: a resident-facing medication error rights handout does not currently exist from primary sources. Consider linking to CMS QSO-26-03-NH directly if it is publicly accessible.",
+      "source_urls": [
+        "https://ltcombudsman.org/issues/antipsychotic-drugs",
+        "https://theconsumervoice.org/wp-content/uploads/2025/01/Summary-of-Revised-CMS-Guidance-for-Surveyors.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-B5-007",
+      "flag_type": "authority_level_risk",
+      "description": "RR-038 (Consumer Voice Staffing Rollbacks Guide, January 2026) references the December 2025 CMS rule that may rescind the May 2024 minimum staffing standards. The current regulatory status of 42 CFR §483.71 and the minimum staffing rule (89 Fed. Reg. 92) is uncertain as of April 2026. Displaying this resource without a caveat about the regulatory status risks presenting potentially superseded advocacy positions as current regulatory requirements.",
+      "recommended_action": "CODEX: Display RR-038 with a mandatory caveat: 'The regulatory status of the May 2024 minimum staffing rule (42 CFR §483.71) was under review as of early 2026. Verify current status at CMS.gov before citing minimum staffing requirements. Even if the rule is rescinded, facilities must still provide sufficient staff per resident needs (42 CFR §483.71 or successor).' This caveat must appear every time RR-037, RR-038, or RR-039 is displayed.",
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2026/01/Guide-to-Commenting-on-Staffing-Standard-Rollbacks.pdf",
+        "https://www.cms.gov/medicare/health-safety-standards/quality-safety-oversight-general-information/nursing-homes"
+      ]
+    }
+  ]
+}

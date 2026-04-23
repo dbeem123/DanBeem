@@ -29,11 +29,12 @@
     norsKnowledgeBaseBatch2: ['../data/nors_knowledge_base_batch2.json', '../nors_knowledge_base_batch2.json'],
     norsKnowledgeBaseBatch3: ['../data/nors_knowledge_base_batch3.json', '../nors_knowledge_base_batch3.json'],
     norsKnowledgeBaseBatch4: ['../data/nors_knowledge_base_batch4.json', '../nors_knowledge_base_batch4.json'],
+    norsKnowledgeBaseBatch5: ['../data/nors_knowledge_base_batch5.json', '../nors_knowledge_base_batch5.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -43,6 +44,7 @@
     if (key === 'norsKnowledgeBaseBatch2') return { code_summary_rows: [], authority_rows: [], appendix_pp_page_rows: [], do_not_map_catalog: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch3') return { code_summary_rows: [], authority_rows: [], appendix_pp_page_rows: [], do_not_map_catalog: [], keyword_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch4') return { resource_rows: [], workflow_guidance_rows: [], source_quality_rows: [], plain_language_explainer_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch5') return { resource_corrections: [], additional_resource_rows: [], tooltip_rows: [], workflow_corrections: [], source_quality_corrections: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -136,7 +138,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -156,23 +158,98 @@
   }
 
   function getKnowledgeResourceRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.resource_rows || []);
+    return getKnowledgeBases(data)
+      .flatMap(base => [...(base.resource_rows || []), ...(base.additional_resource_rows || [])])
+      .map(row => applyResourceCorrection(row, data));
   }
 
   function getKnowledgeWorkflowRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.workflow_guidance_rows || []);
+    const rows = getKnowledgeBases(data).flatMap(base => base.workflow_guidance_rows || []);
+    return applyWorkflowCorrections(rows, data);
   }
 
   function getKnowledgeSourceQualityRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.source_quality_rows || []);
+    const rows = getKnowledgeBases(data).flatMap(base => base.source_quality_rows || []);
+    return applySourceQualityCorrections(rows, data);
   }
 
   function getKnowledgeExplainerRows(data) {
     return getKnowledgeBases(data).flatMap(base => base.plain_language_explainer_rows || []);
   }
 
+  function getKnowledgeTooltipRows(data) {
+    return getKnowledgeBases(data).flatMap(base => base.tooltip_rows || []);
+  }
+
   function getKnowledgeHumanReviewFlags(data) {
     return getKnowledgeBases(data).flatMap(base => base.human_review_flags || []);
+  }
+
+  function getKnowledgeResourceCorrections(data) {
+    return getKnowledgeBases(data).flatMap(base => base.resource_corrections || []);
+  }
+
+  function getKnowledgeWorkflowCorrections(data) {
+    return getKnowledgeBases(data).flatMap(base => base.workflow_corrections || []);
+  }
+
+  function getKnowledgeSourceQualityCorrections(data) {
+    return getKnowledgeBases(data).flatMap(base => base.source_quality_corrections || []);
+  }
+
+  function cleanReviewText(value) {
+    return String(value || '')
+      .replace(/\bCODEX\b:?\s*/gi, '')
+      .replace(/\bInstruct Codex to\s*/gi, '')
+      .trim();
+  }
+
+  function applyResourceCorrection(resource = {}, data) {
+    const correction = getKnowledgeResourceCorrections(data).find(item => item.resource_id === resource.id);
+    if (!correction) return resource;
+
+    return {
+      ...resource,
+      title: correction.corrected_title || resource.title,
+      url: correction.corrected_url || resource.url,
+      source_owner: correction.corrected_source_owner || resource.source_owner,
+      authority_level: correction.corrected_authority_level || resource.authority_level,
+      human_review_note: cleanReviewText(correction.human_review_note || resource.human_review_note || ''),
+      correction_note: correction.issue || resource.correction_note || '',
+      recommended_action: correction.recommended_action || resource.recommended_action || ''
+    };
+  }
+
+  function applyWorkflowCorrections(rows, data) {
+    const corrections = getKnowledgeWorkflowCorrections(data);
+    return rows.map(row => {
+      const correction = corrections.find(item => item.workflow_id === row.id);
+      if (!correction || correction.recommended_action !== 'replace') return row;
+
+      return {
+        ...row,
+        guidance_text: correction.corrected_guidance_text || row.guidance_text,
+        do_not_say: correction.corrected_do_not_say || row.do_not_say,
+        source_urls: correction.source_urls || row.source_urls || [],
+        correction_note: correction.issue || ''
+      };
+    });
+  }
+
+  function applySourceQualityCorrections(rows, data) {
+    const corrections = getKnowledgeSourceQualityCorrections(data);
+    return rows.map(row => {
+      const correction = corrections.find(item => item.source_id === row.source_id);
+      if (!correction) return row;
+
+      return {
+        ...row,
+        authority_level: correction.corrected_authority_level || row.authority_level,
+        preferred_use: correction.corrected_preferred_use || row.preferred_use,
+        limitations: correction.corrected_limitations || row.limitations,
+        correction_note: correction.issue || ''
+      };
+    });
   }
 
   function normalizeKnowledgeSummary(row = {}) {
@@ -407,6 +484,9 @@
         reason: reasons[0],
         whenToShow: resource.when_to_show || '',
         lastVerified: resource.last_verified || '',
+        authorityLevel: resource.authority_level || '',
+        humanReviewNote: resource.human_review_note || resource.correction_note || '',
+        recommendedAction: resource.recommended_action || '',
         informational_only: resource.informational_only !== false
       });
     });
@@ -491,7 +571,7 @@
 
     getKnowledgeHumanReviewFlags(data).forEach(flag => {
       const id = flag.flag_id || flag.id || '';
-      const action = flag.recommended_action || flag.description || '';
+      const action = cleanReviewText(flag.recommended_action || flag.description || '');
       if (!action) return;
 
       if (id === 'HRF-B4-001' && resourceIds.has('RR-024')) {
@@ -512,9 +592,60 @@
       if (id === 'HRF-B4-005' && resourceIds.has('RR-005')) {
         warnings.push(`Resource caveat (${id}): ${action}`);
       }
+      if (id === 'HRF-B5-001' && ['RR-019', 'RR-020', 'RR-021'].some(resourceId => resourceIds.has(resourceId))) {
+        warnings.push(`Source review (${id}): ${action}`);
+      }
+      if (id === 'HRF-B5-002' && (
+        matchedCodes.some(code => /^A0[1-5]$/.test(code)) ||
+        resourceIds.has('RR-005')
+      )) {
+        warnings.push(`Mandatory reporting caveat (${id}): ${action}`);
+      }
+      if (id === 'HRF-B5-003' && (
+        matchedCodes.some(code => /^A0[1-5]$/.test(code) || code === 'B03') ||
+        /consent|permission|identity|authorization|disclosure|report/.test(text)
+      )) {
+        warnings.push(`Consent workflow note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B5-004' && matchedCodes.some(code => ['C01', 'C02'].includes(code))) {
+        warnings.push(`Discharge timeline note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B5-005' && (
+        matchedCodes.some(code => ['F13', 'I01', 'I02', 'I03', 'I04', 'I05'].includes(code)) ||
+        /infection|infection control/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Resource gap (${id}): ${action}`);
+      }
+      if (id === 'HRF-B5-006' && (
+        matchedCodes.some(code => ['F04', 'F05', 'F07', 'F11', 'F12'].includes(code)) ||
+        /medication|drug|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Resource gap (${id}): ${action}`);
+      }
+      if (id === 'HRF-B5-007' && (
+        matchedCodes.some(code => ['J01', 'J02', 'J03'].includes(code)) ||
+        ['RR-037', 'RR-038', 'RR-039'].some(resourceId => resourceIds.has(resourceId))
+      )) {
+        warnings.push(`Staffing resource caveat (${id}): ${action}`);
+      }
     });
 
     return warnings;
+  }
+
+  function getContextTipsForInputs({ norsCode, topicMatches = [], workflowGuidance = [] } = {}, data) {
+    const matchedCodes = getMatchedNorsCodes(norsCode, topicMatches);
+    const contexts = new Set();
+
+    if (matchedCodes.length || topicMatches.length) contexts.add('nors_lookup');
+    matchedCodes.forEach(code => contexts.add(`nors_lookup_${code}`));
+    workflowGuidance.forEach(row => {
+      if (row.workflow) contexts.add(`${row.workflow}_workflow`);
+    });
+
+    return getKnowledgeTooltipRows(data).filter(row => {
+      return toArray(row.where_to_show).some(context => contexts.has(context));
+    });
   }
 
   function getAuthorityIndex(data) {
@@ -1156,6 +1287,7 @@
     const authorityGroups = getAuthoritiesForTopics(topicMatches, data);
     const resources = getResourcesForInputs({ norsCode: code, keywordText: text, topicMatches }, data);
     const workflowGuidance = getWorkflowGuidanceForInputs({ norsCode: code, topicMatches }, data);
+    const contextTips = getContextTipsForInputs({ norsCode: code, topicMatches, workflowGuidance }, data);
     const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups, data });
     const warnings = [];
 
@@ -1183,6 +1315,7 @@
       authorityGroups,
       resources,
       workflowGuidance,
+      contextTips,
       trace,
       warnings
     };
@@ -1201,6 +1334,7 @@
     getKnowledgeWorkflowRows,
     getKnowledgeSourceQualityRows,
     getKnowledgeExplainerRows,
+    getKnowledgeTooltipRows,
     getKnowledgeHumanReviewFlags,
     getAuthorityLabel,
     getAuthorityUrl,

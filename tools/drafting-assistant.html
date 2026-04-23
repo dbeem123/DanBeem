@@ -199,7 +199,7 @@
             <div data-help-inline="identity_permission"></div>
           </div>
           <div>
-            <label for="nors-code">NORS Code</label>
+            <label for="nors-code"><span data-help-id="TT-011">NORS Code</span></label>
             <select id="nors-code">
               <option value="">No NORS code selected</option>
               <option value="F03">F03</option>
@@ -845,6 +845,7 @@
       const authorityGroups = crosswalkResult.authorityGroups || [];
       const trace = crosswalkResult.trace || [];
       const warnings = crosswalkResult.warnings || [];
+      const contextTips = crosswalkResult.contextTips || [];
 
       if (!topicMatches.length) {
         topicsOutput.textContent = 'No likely topics identified yet. Add note details or a NORS code and run Extract Fields.';
@@ -890,7 +891,10 @@
       const warningHtml = warnings.length
         ? `<div class="notice warning" style="margin-top:12px;"><strong>Review caveats</strong><ul class="result-list">${warnings.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul></div>`
         : '';
-      traceOutput.innerHTML = `${traceHtml}${warningHtml}`;
+      const tipHtml = contextTips.length
+        ? `<div class="notice" style="margin-top:12px;"><strong>Context tips</strong><ul class="result-list">${contextTips.map(item => `<li><strong>${escapeHtml(item.term || item.id || 'Tip')}</strong>${item.short_help ? `<br>${escapeHtml(item.short_help)}` : ''}${item.details ? `<br><span class="subtle">${escapeHtml(item.details)}</span>` : ''}</li>`).join('')}</ul></div>`
+        : '';
+      traceOutput.innerHTML = `${traceHtml}${tipHtml}${warningHtml}`;
     }
 
     function fillTemplate(template, formData) {

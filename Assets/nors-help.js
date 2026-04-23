@@ -1,27 +1,55 @@
 (function () {
   const DEFAULT_PATHS = ['../data/nors_case_level_guidance.json', 'data/nors_case_level_guidance.json'];
+  const BATCH5_PATHS = ['../data/nors_knowledge_base_batch5.json', 'data/nors_knowledge_base_batch5.json'];
   let guidanceById = {};
 
-  async function loadGuidance() {
+  async function loadFirstJson(paths) {
     const errors = [];
-    for (const path of DEFAULT_PATHS) {
+    for (const path of paths) {
       try {
         const response = await fetch(path);
         if (!response.ok) {
           errors.push(`${path} returned HTTP ${response.status}`);
           continue;
         }
-        const payload = await response.json();
-        guidanceById = (payload.items || []).reduce((index, item) => {
-          index[item.id] = item;
-          return index;
-        }, {});
-        return;
+        return response.json();
       } catch (err) {
         errors.push(`${path}: ${err.message}`);
       }
     }
-    console.warn('[nors-help] Case-level guidance could not be loaded:', errors.join('; '));
+    throw new Error(errors.join('; '));
+  }
+
+  function mergeGuidanceItems(items) {
+    items.forEach(item => {
+      if (item?.id) guidanceById[item.id] = item;
+    });
+  }
+
+  function normalizeTooltipRow(row) {
+    return {
+      id: row.id,
+      label: row.term || row.id,
+      short_help: row.short_help || '',
+      details: row.details || '',
+      source: 'NORS knowledge base Batch 5'
+    };
+  }
+
+  async function loadGuidance() {
+    try {
+      const payload = await loadFirstJson(DEFAULT_PATHS);
+      mergeGuidanceItems(payload.items || []);
+    } catch (err) {
+      console.warn('[nors-help] Case-level guidance could not be loaded:', err.message);
+    }
+
+    try {
+      const payload = await loadFirstJson(BATCH5_PATHS);
+      mergeGuidanceItems((payload.tooltip_rows || []).map(normalizeTooltipRow));
+    } catch (err) {
+      console.warn('[nors-help] Batch 5 tooltip guidance could not be loaded:', err.message);
+    }
   }
 
   function closeOtherHelpButtons(currentButton) {

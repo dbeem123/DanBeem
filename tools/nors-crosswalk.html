@@ -78,7 +78,7 @@
       <h2 id="input-title">Crosswalk Inputs</h2>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
         <div>
-          <label for="nors-code">NORS Code</label>
+          <label for="nors-code"><span data-help-id="TT-011">NORS Code</span></label>
           <select id="nors-code">
             <option value="">Loading NORS codes...</option>
           </select>
@@ -289,6 +289,8 @@
               ${resource.whenToShow ? `<br><span class="subtle">Use when: ${escapeHtml(resource.whenToShow)}</span>` : ''}
               ${resource.source ? `<br><span class="subtle">Source: ${escapeHtml(resource.source)}</span>` : ''}
               ${resource.lastVerified ? `<br><span class="subtle">Last verified: ${escapeHtml(resource.lastVerified)}</span>` : ''}
+              ${resource.authorityLevel ? `<br><span class="subtle">Authority level: ${escapeHtml(resource.authorityLevel)}</span>` : ''}
+              ${resource.humanReviewNote ? `<br><span class="subtle">Review note: ${escapeHtml(resource.humanReviewNote)}</span>` : ''}
             </li>
           `).join('')}
         </ul>
@@ -302,15 +304,15 @@
       return `<a href="${escapeHtml(resource.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
     }
 
-    function renderWorkflowGuidance(rows) {
+    function renderWorkflowGuidance(rows, contextTips) {
       const output = document.getElementById('workflow-output');
-      if (!rows.length) {
+      if (!rows.length && !contextTips.length) {
         output.textContent = 'No workflow guidance matched this lookup.';
         return;
       }
 
       output.innerHTML = `
-        <ul class="result-list">
+        ${rows.length ? `<ul class="result-list">
           ${rows.map(row => `
             <li>
               <strong>${escapeHtml((row.workflow || row.id || 'Workflow').replace(/_/g, ' '))}</strong>
@@ -320,7 +322,20 @@
               ${renderWorkflowSourceLinks(row.source_urls || [])}
             </li>
           `).join('')}
-        </ul>
+        </ul>` : ''}
+        ${contextTips.length ? `
+          <p><strong>Context Tips</strong></p>
+          <ul class="result-list">
+            ${contextTips.map(row => `
+              <li>
+                <strong>${escapeHtml(row.term || row.id || 'Tip')}</strong>
+                ${row.short_help ? `<br><span>${escapeHtml(row.short_help)}</span>` : ''}
+                ${row.details ? `<br><span class="subtle">${escapeHtml(row.details)}</span>` : ''}
+                ${renderWorkflowSourceLinks(row.source_urls || [])}
+              </li>
+            `).join('')}
+          </ul>
+        ` : ''}
         <div class="notice">Workflow notes are informational reminders for human review. They do not determine violations or final NORS coding.</div>
       `;
     }
@@ -361,7 +376,7 @@
       renderTopics(result.topicMatches);
       renderAuthorities(result.authorityGroups);
       renderResources(result.resources || []);
-      renderWorkflowGuidance(result.workflowGuidance || []);
+      renderWorkflowGuidance(result.workflowGuidance || [], result.contextTips || []);
       renderTrace(result.trace);
       renderWarnings(result.warnings);
     }

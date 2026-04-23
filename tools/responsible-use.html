@@ -130,6 +130,13 @@
         .replace(/'/g, '&#039;');
     }
 
+    function cleanReviewText(value) {
+      return String(value || '')
+        .replace(/\bCODEX\b:?\s*/gi, '')
+        .replace(/\bInstruct Codex to\s*/gi, '')
+        .trim();
+    }
+
     function renderCardList(outputId, items, renderItem, emptyText) {
       const output = document.getElementById(outputId);
       if (!items.length) {
@@ -212,8 +219,8 @@
             <li>
               <strong>${escapeHtml(row.flag_id || row.id || 'Review flag')}</strong>
               ${row.flag_type ? `<span class="subtle"> - ${escapeHtml(row.flag_type)}</span>` : ''}
-              <br>${escapeHtml(row.description || '')}
-              ${row.recommended_action ? `<br><span class="subtle">Recommended action: ${escapeHtml(row.recommended_action)}</span>` : ''}
+              <br>${escapeHtml(cleanReviewText(row.description || ''))}
+              ${row.recommended_action ? `<br><span class="subtle">Recommended action: ${escapeHtml(cleanReviewText(row.recommended_action))}</span>` : ''}
               ${renderSourceLinks(row.source_urls || [])}
             </li>
           `).join('')}
@@ -224,6 +231,42 @@
     function renderSourceLinks(urls) {
       if (!urls.length) return '';
       return `<p class="subtle">Sources: ${urls.map((url, index) => `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">source ${index + 1}</a>`).join(', ')}</p>`;
+    }
+
+    function applyWorkflowCorrections(rows, corrections) {
+      return rows.map(row => {
+        const correction = corrections.find(item => item.workflow_id === row.id);
+        if (!correction || correction.recommended_action !== 'replace') return row;
+        return {
+          ...row,
+          guidance_text: correction.corrected_guidance_text || row.guidance_text,
+          do_not_say: correction.corrected_do_not_say || row.do_not_say,
+          source_urls: correction.source_urls || row.source_urls || []
+        };
+      });
+    }
+
+    function applySourceQualityCorrections(rows, corrections) {
+      return rows.map(row => {
+        const correction = corrections.find(item => item.source_id === row.source_id);
+        if (!correction) return row;
+        return {
+          ...row,
+          authority_level: correction.corrected_authority_level || row.authority_level,
+          preferred_use: correction.corrected_preferred_use || row.preferred_use,
+          limitations: correction.corrected_limitations || row.limitations
+        };
+      });
+    }
+
+    function tooltipRowsToGlossary(rows) {
+      return rows.map(row => ({
+        term: row.term || row.id,
+        plain_language_definition: row.short_help || '',
+        ombudsman_context: row.details || '',
+        not_the_same_as: [],
+        source_urls: row.source_urls || []
+      }));
     }
 
     async function loadJson(path) {
@@ -239,11 +282,17 @@
           loadJson('../data/source_registry.json'),
           loadJson('../data/nors_knowledge_base_batch4.json')
         ]);
+        const batch5 = await loadJson('../data/nors_knowledge_base_batch5.json').catch(() => ({
+          workflow_corrections: [],
+          source_quality_corrections: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
         renderSourceRegistry(sourceRegistry);
-        renderSourceQuality(batch4.source_quality_rows || []);
-        renderWorkflowRows(batch4.workflow_guidance_rows || []);
-        renderGlossary(batch4.plain_language_explainer_rows || []);
-        renderHumanReviewFlags(batch4.human_review_flags || []);
+        renderSourceQuality(applySourceQualityCorrections(batch4.source_quality_rows || [], batch5.source_quality_corrections || []));
+        renderWorkflowRows(applyWorkflowCorrections(batch4.workflow_guidance_rows || [], batch5.workflow_corrections || []));
+        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || [])]);
+        renderHumanReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || [])]);
       } catch (err) {
         output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
         document.getElementById('source-quality-output').textContent = `Source quality notes could not be loaded. Details: ${err.message}`;
