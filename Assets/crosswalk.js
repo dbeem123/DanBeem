@@ -1138,6 +1138,7 @@
   }
 
   function getAuthorityLabel(authority = {}) {
+    if (isAppendixPpAuthority(authority)) return 'CMS Appendix PP Survey Guidance';
     if (authority.category) return authority.category;
     const type = authority.type || '';
     const layer = authority.layer || '';
@@ -1150,12 +1151,38 @@
       return 'Federal Regulation';
     }
     if (type === 'appendix_pp' || layer === 'appendix_pp') {
-      return 'Appendix PP';
+      return 'CMS Appendix PP Survey Guidance';
     }
     if (type === 'training' || layer === 'training') {
       return 'Training / Guidance';
     }
     return type || layer ? `${layer || type}`.replace(/_/g, ' ') : 'Reference';
+  }
+
+  function isAppendixPpAuthority(authority = {}) {
+    const citation = authority.citation || authority.authority_citation || '';
+    const category = authority.category || authority.label || '';
+    const type = authority.type || authority.authority_type || '';
+    const layer = authority.layer || '';
+    const url = authority.url || authority.appendix_pp_pdf_url || authority.appendixPpPdfUrl || '';
+    return /^F\d+/i.test(citation) ||
+      /^appendix_pp/i.test(type) ||
+      layer === 'appendix_pp' ||
+      /Appendix PP/i.test(category) ||
+      /som107ap_pp|appendix-pp/i.test(url);
+  }
+
+  function getAuthorityLevel(authority = {}) {
+    if (isAppendixPpAuthority(authority)) return 'interpretive_guidance';
+    if (/Federal Regulation|Resident Rights/i.test(authority.category || authority.label || '')) return 'regulation';
+    if (/State Statute|State Regulation/i.test(authority.category || authority.label || '')) return 'state_authority';
+    if (/Ombudsman Program Authority/i.test(authority.category || authority.label || '')) return 'program_authority';
+    return authority.authority_level || authority.authorityLevel || '';
+  }
+
+  function getAuthorityGuidanceNote(authority = {}) {
+    if (!isAppendixPpAuthority(authority)) return '';
+    return 'CMS Appendix PP is interpretive survey guidance tied to federal nursing facility requirements. It supports review and context; this tool does not determine violations.';
   }
 
   function getMatchSummary(match) {
@@ -1273,7 +1300,7 @@
 
   function getKnowledgeAuthorityCategory(row = {}) {
     const type = row.authority_type || '';
-    if (type.startsWith('appendix_pp')) return 'Appendix PP';
+    if (type.startsWith('appendix_pp')) return 'CMS Appendix PP Survey Guidance';
     if (type.startsWith('federal_reg')) return 'Federal Regulation';
     if (type === 'ombudsman_authority') return 'Ombudsman Program Authority';
     if (type === 'ct_statute' || type === 'state_overlay') return 'State Statute';
@@ -1331,6 +1358,8 @@
           citation: redirectedCitation,
           title: row.authority_label || row.description || '',
           category: getKnowledgeAuthorityCategory(row),
+          authorityLevel: type.startsWith('appendix_pp') ? 'interpretive_guidance' : '',
+          guidanceNote: type.startsWith('appendix_pp') ? getAuthorityGuidanceNote({ authority_type: 'appendix_pp' }) : '',
           url: getKnowledgeAuthorityUrl(row),
           mapping_type: mappingType,
           human_review_note: row.human_review_note || '',
@@ -1420,6 +1449,8 @@
       matchSummary: getMatchSummary(match),
       rank: authority ? 0 : -1,
       missing: !authority,
+      authorityLevel: authority ? getAuthorityLevel(authority) : '',
+      guidanceNote: authority ? getAuthorityGuidanceNote(authority) : '',
       humanReviewNote: authority?.human_review_note || authority?.humanReviewNote || '',
       officialSourceUrls: authority?.official_source_urls || authority?.officialSourceUrls || [],
       appendixPpHeadingExact: authority?.appendixPpHeadingExact || authority?.appendix_pp_heading_exact || '',
@@ -1494,6 +1525,8 @@
           citation: item.citation || indexedAuthority.citation,
           title: item.title || indexedAuthority.title,
           category: item.category || indexedAuthority.category,
+          authorityLevel: item.authorityLevel || indexedAuthority.authorityLevel || indexedAuthority.authority_level || '',
+          guidanceNote: item.guidanceNote || indexedAuthority.guidanceNote || '',
           url: item.url || indexedAuthority.url,
           human_review_note: item.human_review_note || indexedAuthority.human_review_note || '',
           official_source_urls: item.official_source_urls || indexedAuthority.official_source_urls || [],
