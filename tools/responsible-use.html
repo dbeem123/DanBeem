@@ -99,6 +99,12 @@
       <div id="source-quality-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source quality notes...</div>
     </section>
 
+    <section class="panel" style="margin-top:18px;" aria-labelledby="verification-title">
+      <h2 id="verification-title">Source Verification Notes</h2>
+      <p class="subtle">These entries track live URL checks, confirmed substitutes, and unresolved source gaps.</p>
+      <div id="source-verification-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source verification notes...</div>
+    </section>
+
     <section class="panel" style="margin-top:18px;" aria-labelledby="workflow-title">
       <h2 id="workflow-title">Workflow Guardrails</h2>
       <p class="subtle">These notes help keep outputs resident-directed, source-backed, and clear that the tool does not make legal conclusions.</p>
@@ -193,6 +199,19 @@
       `, 'No workflow guidance found.');
     }
 
+    function renderSourceVerification(rows) {
+      renderCardList('source-verification-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.status || 'Source')}</div>
+          <h3>${escapeHtml(row.source_or_claim || 'Source verification')}</h3>
+          <p>${escapeHtml(row.what_was_verified || '')}</p>
+          ${row.limitations ? `<p class="subtle">Limitations: ${escapeHtml(row.limitations)}</p>` : ''}
+          ${row.recommended_tool_action ? `<p class="subtle">Recommended action: ${escapeHtml(cleanReviewText(row.recommended_tool_action))}</p>` : ''}
+          ${row.verified_url ? `<p><a class="navLink linkBtn" href="${escapeHtml(row.verified_url)}" target="_blank" rel="noopener noreferrer">Open verified source</a></p>` : ''}
+        </article>
+      `, 'No source verification rows found.');
+    }
+
     function renderGlossary(rows) {
       renderCardList('glossary-output', rows, row => `
         <article class="card">
@@ -261,11 +280,22 @@
 
     function tooltipRowsToGlossary(rows) {
       return rows.map(row => ({
-        term: row.term || row.id,
-        plain_language_definition: row.short_help || '',
-        ombudsman_context: row.details || '',
+        term: row.term || row.tooltip_type?.replace(/_/g, ' ') || row.id,
+        plain_language_definition: row.short_help || row.tooltip_text || '',
+        ombudsman_context: row.details || row.authority || '',
         not_the_same_as: [],
         source_urls: row.source_urls || []
+      }));
+    }
+
+    function workflowUpdatesToRows(rows) {
+      return rows.map(row => ({
+        id: row.id,
+        workflow: row.workflow_area || row.id,
+        trigger: row.update_type ? `${row.update_type.replace(/_/g, ' ')} update` : 'Workflow update',
+        guidance_text: row.corrected_guidance || '',
+        do_not_say: row.caveat || '',
+        source_urls: []
       }));
     }
 
@@ -288,14 +318,25 @@
           tooltip_rows: [],
           human_review_flags: []
         }));
+        const batch6 = await loadJson('../data/nors_knowledge_base_batch6.json').catch(() => ({
+          source_verification_rows: [],
+          workflow_update_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
         renderSourceRegistry(sourceRegistry);
         renderSourceQuality(applySourceQualityCorrections(batch4.source_quality_rows || [], batch5.source_quality_corrections || []));
-        renderWorkflowRows(applyWorkflowCorrections(batch4.workflow_guidance_rows || [], batch5.workflow_corrections || []));
-        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || [])]);
-        renderHumanReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || [])]);
+        renderSourceVerification(batch6.source_verification_rows || []);
+        renderWorkflowRows([
+          ...applyWorkflowCorrections(batch4.workflow_guidance_rows || [], batch5.workflow_corrections || []),
+          ...workflowUpdatesToRows(batch6.workflow_update_rows || [])
+        ]);
+        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || [])]);
+        renderHumanReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || [])]);
       } catch (err) {
         output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
         document.getElementById('source-quality-output').textContent = `Source quality notes could not be loaded. Details: ${err.message}`;
+        document.getElementById('source-verification-output').textContent = `Source verification notes could not be loaded. Details: ${err.message}`;
         document.getElementById('workflow-output').textContent = `Workflow guardrails could not be loaded. Details: ${err.message}`;
         document.getElementById('glossary-output').textContent = `Glossary could not be loaded. Details: ${err.message}`;
         document.getElementById('human-review-output').textContent = `Human review flags could not be loaded. Details: ${err.message}`;

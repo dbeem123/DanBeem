@@ -1,0 +1,376 @@
+{
+  "meta": {
+    "batch": "6",
+    "purpose": "source verification and gap closure",
+    "date_completed": "2026-04-23",
+    "notes": [
+      "All source_verification_rows reflect live-fetch results from April 2026 session.",
+      "CT portal.ct.gov returns HTTP 200 for soft-404 pages — paths verified by checking final redirect URL for /en/404error/ pattern.",
+      "QSO-26-03-NH is confirmed to be about SOM Chapters 5 and 7 / complaint procedures / F610 — NOT psychotropic medications. Batch 4 RR-013 must be corrected.",
+      "QSO-25-07-NH (Nov 18, 2024, eff. Feb 24, 2025) is the correct memo for psychotropic medication guidance (F605, F757 revision, F758 deletion).",
+      "42 CFR 483.35 staffing rescission effective February 2, 2026 — 24/7 RN, HPRD minimums removed. RN 8 consecutive hours/day, 7 days/week requirement remains.",
+      "No confirmed resident-facing handouts found for medication errors or infection control from acceptable sources — human_review_flags issued."
+    ]
+  },
+
+  "resource_rows": [],
+
+  "resource_corrections": [
+    {
+      "id": "RC-001",
+      "target_batch": "4",
+      "target_row_id": "RR-013",
+      "field_corrected": "url and description",
+      "original_value": {
+        "url": "https://www.cms.gov/files/document/qso-26-03-nh.pdf",
+        "description": "CMS QSO-26-03-NH — psychotropic medications / antipsychotic drug guidance memo"
+      },
+      "corrected_value": {
+        "url": "https://www.cms.gov/files/document/qso-26-03-nh-original-release-date-2026-01-30.pdf",
+        "description": "CMS QSO-26-03-NH (Jan 30, 2026) — Revisions to State Operations Manual (SOM) Chapters 5 and 7 addressing complaint procedures and F610. NOT related to psychotropic medications or antipsychotics.",
+        "subject_tag": "F610, SOM Ch.5, SOM Ch.7, complaint procedures"
+      },
+      "reason": "QSO-26-03-NH was misidentified in Batch 4 as covering psychotropic medications. Live fetch confirmed the memo subject is SOM Chapters 5 and 7 / complaint procedures / F610. The psychotropic medication guidance is QSO-25-07-NH.",
+      "verification_source": "Live fetch of https://www.cms.gov/files/document/qso-26-03-nh.pdf confirmed redirect to qso-26-03-nh-original-release-date-2026-01-30.pdf; document subject confirmed January 30, 2026.",
+      "authority_level": "high",
+      "source_owner": "CMS"
+    },
+    {
+      "id": "RC-002",
+      "target_batch": "3",
+      "target_row_id": "medication_ladder_rows",
+      "field_corrected": "F757 scope description",
+      "original_value": "F757 (Unnecessary Medications) — applies to all unnecessary drugs",
+      "corrected_value": "F757 (Unnecessary Medications) — revised by QSO-25-07-NH (eff. Feb 24, 2025) to apply ONLY to non-psychotropic medications. Psychotropic unnecessary medications are now covered under F605.",
+      "reason": "QSO-25-07-NH restructured the psychotropic/chemical restraint tag cluster. F757 scope was narrowed; F605 absorbed F758 and now covers all psychotropic unnecessary medications and chemical restraints.",
+      "verification_source": "Consumer Voice summary of QSO-25-07-NH; CMS QSO-25-07-NH (Nov 18, 2024, eff. Feb 24, 2025). Direct CMS PDF URL (https://www.cms.gov/files/document/qso-25-07-nh.pdf) returned 404 in HEAD check — Consumer Voice summary used as interim reference.",
+      "authority_level": "medium",
+      "authority_caveat": "Consumer Voice summary is advocacy/training resource. CMS direct PDF URL unconfirmed as of April 2026. Promote to high authority when CMS PDF URL is confirmed live.",
+      "source_owner": "CMS (primary); Consumer Voice (summary only)"
+    },
+    {
+      "id": "RC-003",
+      "target_batch": "4",
+      "target_row_id": "RR-013",
+      "field_corrected": "authority_level",
+      "original_value": "medium",
+      "corrected_value": "high",
+      "reason": "URL is now confirmed live (redirects to official CMS PDF). Authority level corrected to high for the corrected subject matter (SOM Chapters 5/7, F610). Note: authority level for the psychotropic guidance memo (QSO-25-07-NH) remains medium until CMS direct PDF is confirmed.",
+      "verification_source": "Live fetch April 2026",
+      "source_owner": "CMS"
+    }
+  ],
+
+  "source_verification_rows": [
+    {
+      "id": "SV-001",
+      "source_or_claim": "CT LTCOP Visitation Center page",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/ltcop/visitation-center",
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "what_was_verified": "Page returns HTTP 200 and does not redirect to /en/404error/. Visitation Center content is live.",
+      "limitations": "Page content and sub-links not fully enumerated — specific PDFs linked from this page not verified individually.",
+      "recommended_tool_action": "retain_url"
+    },
+    {
+      "id": "SV-002",
+      "source_or_claim": "CT LTCOP Discharge Documents sub-page",
+      "status": "not_found",
+      "verified_url": null,
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "what_was_verified": "Multiple portal.ct.gov/ltcop/* paths tested. All paths either redirect to /en/404error/ or return soft-404 equivalents. No confirmed discharge documents sub-page found.",
+      "limitations": "Page may exist under a path not enumerated in session. Manual navigation from portal.ct.gov/ltcop may surface a valid URL.",
+      "recommended_tool_action": "human_review — do not link until URL confirmed by manual navigation"
+    },
+    {
+      "id": "SV-003",
+      "source_or_claim": "CT DPH Blast Fax page for nursing home survey notices",
+      "status": "not_found",
+      "verified_url": null,
+      "source_owner": "CT DPH / portal.ct.gov",
+      "what_was_verified": "Multiple portal.ct.gov/dph/* paths tested for blast fax or survey notification pages. All returned 404-equivalent responses.",
+      "limitations": "CT DPH facility licensing root confirmed at https://portal.ct.gov/dph/facility-licensing--investigations — blast fax sub-page not located.",
+      "recommended_tool_action": "human_review — attempt manual navigation from CT DPH facility licensing root"
+    },
+    {
+      "id": "SV-004",
+      "source_or_claim": "CT DPH Survey / Inspection Results page",
+      "status": "not_found",
+      "verified_url": null,
+      "source_owner": "CT DPH / portal.ct.gov",
+      "what_was_verified": "Multiple portal.ct.gov/dph/* paths tested for survey or inspection results. All returned 404-equivalent or soft-404 responses.",
+      "limitations": "Medicare Care Compare confirmed as functional substitute. CT DPH-specific page not located.",
+      "recommended_tool_action": "substitute_with_medicare_care_compare — use https://www.medicare.gov/care-compare/?providerType=NursingHome&redirect=true until CT DPH page confirmed"
+    },
+    {
+      "id": "SV-005",
+      "source_or_claim": "CT DPH Facility Licensing root page",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/dph/facility-licensing--investigations",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "what_was_verified": "Root page returns HTTP 200. No soft-404 pattern detected.",
+      "limitations": "Sub-pages for blast fax and survey results not confirmed. Root page only.",
+      "recommended_tool_action": "retain_url — use as parent reference only; do not link as survey results or blast fax resource"
+    },
+    {
+      "id": "SV-006",
+      "source_or_claim": "CT LTCOP media CDN PDFs (/media/ltcop/* discharge and visitation documents)",
+      "status": "not_found",
+      "verified_url": null,
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "what_was_verified": "All /media/ltcop/* paths tested for discharge and visitation PDFs. All redirect to 404 or soft-404.",
+      "limitations": "Individual PDF filenames not confirmed from any reliable index. May exist under different CDN paths.",
+      "recommended_tool_action": "human_review — do not link any /media/ltcop/* PDF without manual confirmation"
+    },
+    {
+      "id": "SV-007",
+      "source_or_claim": "Medicare Care Compare — Nursing Home search page",
+      "status": "confirmed",
+      "verified_url": "https://www.medicare.gov/care-compare/?providerType=NursingHome&redirect=true",
+      "source_owner": "CMS / Medicare.gov",
+      "what_was_verified": "Page confirmed live. Provides nursing home survey inspection results as functional substitute for unconfirmed CT DPH survey page.",
+      "limitations": "Federal resource — does not replace CT DPH page if CT DPH-specific data is required.",
+      "recommended_tool_action": "retain_url — use as survey results substitute reference"
+    },
+    {
+      "id": "SV-008",
+      "source_or_claim": "CMS QSO-26-03-NH direct PDF URL",
+      "status": "confirmed",
+      "verified_url": "https://www.cms.gov/files/document/qso-26-03-nh-original-release-date-2026-01-30.pdf",
+      "source_owner": "CMS",
+      "what_was_verified": "https://www.cms.gov/files/document/qso-26-03-nh.pdf confirmed live — redirects to qso-26-03-nh-original-release-date-2026-01-30.pdf. Document dated January 30, 2026. Subject: Revisions to SOM Chapters 5 and 7, complaint procedures, F610. NOT psychotropic medications.",
+      "limitations": "Redirect URL should be used as canonical link to avoid future redirect chain breakage.",
+      "recommended_tool_action": "update_url_to_redirect_target — use qso-26-03-nh-original-release-date-2026-01-30.pdf as canonical; correct subject tag to F610/SOM Ch.5/Ch.7"
+    },
+    {
+      "id": "SV-009",
+      "source_or_claim": "CMS QSO-25-07-NH direct PDF URL (psychotropic medication guidance, Nov 18, 2024)",
+      "status": "uncertain",
+      "verified_url": null,
+      "source_owner": "CMS",
+      "what_was_verified": "https://www.cms.gov/files/document/qso-25-07-nh.pdf returned 404 in HEAD check during April 2026 session.",
+      "limitations": "Consumer Voice summary of this memo is available and was used as interim reference. CMS direct PDF may exist under alternate path or may not yet be archived on cms.gov. Confirm before promoting to high authority.",
+      "recommended_tool_action": "human_review — attempt direct CMS fetch; if confirmed, promote authority_level to high and replace Consumer Voice URL"
+    },
+    {
+      "id": "SV-010",
+      "source_or_claim": "42 CFR §483.35 — current regulatory text post-rescission",
+      "status": "confirmed",
+      "verified_url": "https://www.law.cornell.edu/cfr/text/42/483.35",
+      "source_owner": "eCFR / law.cornell.edu (mirrors Federal Register)",
+      "what_was_verified": "Section confirmed live at law.cornell.edu. Last amended 90 FR 55697 (Dec 3, 2025). Current RN requirement: 8 consecutive hours/day, 7 days/week. No minimum HPRD in regulatory text. References §483.71 for facility assessment.",
+      "limitations": "Federal Register direct path blocked by robots.txt — law.cornell.edu used as authoritative mirror. Direct eCFR URL (https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35) should also be valid.",
+      "recommended_tool_action": "retain_url — law.cornell.edu is acceptable; add eCFR direct link as secondary if desired"
+    },
+    {
+      "id": "SV-011",
+      "source_or_claim": "42 CFR §483.71 — facility assessment requirements post-rescission",
+      "status": "confirmed",
+      "verified_url": "https://www.law.cornell.edu/cfr/text/42/483.71",
+      "source_owner": "eCFR / law.cornell.edu",
+      "what_was_verified": "URL confirmed live. Facility assessment requirements at §483.71 remain in effect after staffing rescission. The minimum staffing HPRD requirements and 24/7 RN requirement were rescinded; §483.71 facility assessment was not affected.",
+      "limitations": "None — regulatory text confirmed.",
+      "recommended_tool_action": "retain_url"
+    },
+    {
+      "id": "SV-012",
+      "source_or_claim": "Federal staffing rule rescission — minimum HPRD and 24/7 RN requirement",
+      "status": "confirmed",
+      "verified_url": null,
+      "source_owner": "CMS / Federal Register (interim final rule, Dec 2-3, 2025)",
+      "what_was_verified": "CMS issued interim final rule rescinding minimum staffing requirements. Published December 2-3, 2025. Effective February 2, 2026. Rescinded: 3.48 HPRD total, 0.55 RN HPRD, 2.45 CNA HPRD, 24/7 onsite RN. Facility assessment (§483.71) unaffected. Current requirement: RN 8 consecutive hours/day, 7 days/week.",
+      "limitations": "Federal Register direct URL blocked by robots.txt during session. Rescission confirmed via AHA news (Dec 2, 2025) and Consumer Voice (Dec 3, 2025) as corroborating secondary sources. Regulatory text confirmed at law.cornell.edu/cfr/text/42/483.35 (last amended 90 FR 55697, Dec 3, 2025).",
+      "recommended_tool_action": "cite_regulatory_text — use https://www.law.cornell.edu/cfr/text/42/483.35 as primary; note rescission effective date Feb 2, 2026 in any staffing resource row"
+    },
+    {
+      "id": "SV-013",
+      "source_or_claim": "CT mandatory reporting — CGS §17a-412 (LTCO not listed as mandated reporter)",
+      "status": "confirmed",
+      "verified_url": "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "source_owner": "CT General Assembly / CGA.ct.gov",
+      "what_was_verified": "CGS §17a-412 lists facility staff as mandated reporters. LTCO is NOT listed as a mandated reporter. CT Chapter 319l does not designate LTCO as a mandated reporter. Verified in Batch 5; carried forward confirmed.",
+      "limitations": "CGA.ct.gov URLs had SSL artifact in Batch 5 validation — recommend manual check if linking directly. CT DSS memo and CT DPH mandatory reporter page confirmed as functional substitutes.",
+      "recommended_tool_action": "retain_with_caveat — include SSL artifact note; prefer CT DSS memo or CT DPH page as primary links"
+    },
+    {
+      "id": "SV-014",
+      "source_or_claim": "45 CFR §1324.19(b)(3)(iii) — LTCO shall not report without resident consent",
+      "status": "confirmed",
+      "verified_url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "source_owner": "eCFR / law.cornell.edu",
+      "what_was_verified": "45 CFR §1324.19(b)(3)(iii) confirmed: LTCO shall not report information that would identify a complainant or resident without consent. Verified in Batch 5; carried forward confirmed.",
+      "limitations": "None — regulatory text confirmed.",
+      "recommended_tool_action": "retain_url"
+    },
+    {
+      "id": "SV-015",
+      "source_or_claim": "CT DSS mandatory reporting memo for long-term care investigations",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/-/media/Departments-and-Agencies/DSS/Social-Work-Services/ReportingForLTCInvestigations.pdf",
+      "source_owner": "CT DSS / portal.ct.gov",
+      "what_was_verified": "URL confirmed live in Batch 5; carried forward confirmed.",
+      "limitations": "PDF content last verified in Batch 5. Re-verify if used after July 2026.",
+      "recommended_tool_action": "retain_url"
+    },
+    {
+      "id": "SV-016",
+      "source_or_claim": "CT DPH mandatory reporters page",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/dph/practitioner-licensing--investigations/plis/mandatory-reporters-of-abuse-neglect-exploitation-and-impaired-practitioners",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "what_was_verified": "URL confirmed live in Batch 5; carried forward confirmed.",
+      "limitations": "None noted.",
+      "recommended_tool_action": "retain_url"
+    },
+    {
+      "id": "SV-017",
+      "source_or_claim": "Consumer Voice authority level for QSO-26-03-NH summary",
+      "status": "confirmed",
+      "verified_url": null,
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "what_was_verified": "Consumer Voice is an advocacy/training resource. For QSO-26-03-NH, the CMS direct PDF URL is now confirmed — Consumer Voice summary is not needed as a primary reference for this memo. For QSO-25-07-NH, Consumer Voice summary remains the best available reference until CMS direct PDF is confirmed.",
+      "limitations": "Consumer Voice should never be listed above medium authority. For QSO-25-07-NH specifically, label as advocacy/training resource pending CMS PDF confirmation.",
+      "recommended_tool_action": "for QSO-26-03-NH: use CMS PDF as primary (high authority); for QSO-25-07-NH: retain Consumer Voice at medium/advocacy until CMS PDF confirmed"
+    }
+  ],
+
+  "workflow_update_rows": [
+    {
+      "id": "WU-001",
+      "workflow_area": "medication_tag_routing",
+      "update_type": "correction",
+      "previous_guidance": "F757 covers all unnecessary medications including psychotropic drugs. F758 covers antipsychotic drugs.",
+      "corrected_guidance": "As of QSO-25-07-NH (eff. Feb 24, 2025): F758 is deleted (absorbed into F605). F757 covers ONLY non-psychotropic unnecessary medications. F605 covers all psychotropic unnecessary medications and chemical restraints. Updated medication tag routing ladder: F759/F760 (medication errors) → F605 (unnecessary psychotropic / chemical restraint) → F757 (unnecessary non-psychotropic drugs) → F756 (drug regimen review) → F755 (pharmacy services general).",
+      "authority": "QSO-25-07-NH (CMS, Nov 18, 2024, eff. Feb 24, 2025); Consumer Voice summary (medium authority, advocacy/training)",
+      "caveat": "Promote to high authority when CMS direct PDF URL for QSO-25-07-NH is confirmed live."
+    },
+    {
+      "id": "WU-002",
+      "workflow_area": "staffing_complaint_routing",
+      "update_type": "correction",
+      "previous_guidance": "24/7 RN onsite requirement under 42 CFR §483.35; minimum HPRD (3.48 total, 0.55 RN, 2.45 CNA) applicable.",
+      "corrected_guidance": "As of February 2, 2026: 24/7 RN requirement and all HPRD minimums rescinded by CMS interim final rule (published Dec 2-3, 2025, 90 FR 55697). Current requirement: RN onsite at least 8 consecutive hours/day, 7 days/week. Facility assessment requirements at §483.71 remain in effect and are not affected by rescission.",
+      "authority": "42 CFR §483.35 (last amended 90 FR 55697, Dec 3, 2025) at https://www.law.cornell.edu/cfr/text/42/483.35; 42 CFR §483.71 at https://www.law.cornell.edu/cfr/text/42/483.71",
+      "caveat": "Verify current HPRD status periodically — CMS may issue new rulemaking. Last verified April 2026."
+    },
+    {
+      "id": "WU-003",
+      "workflow_area": "qso_memo_routing",
+      "update_type": "correction",
+      "previous_guidance": "QSO-26-03-NH = psychotropic medication guidance (Batch 4 RR-013 description).",
+      "corrected_guidance": "QSO-26-03-NH (Jan 30, 2026) = SOM Chapters 5 and 7 / complaint procedures / F610. This memo has NO connection to psychotropic medications. Psychotropic guidance memo is QSO-25-07-NH (Nov 18, 2024, eff. Feb 24, 2025).",
+      "authority": "Live fetch of CMS PDF (https://www.cms.gov/files/document/qso-26-03-nh-original-release-date-2026-01-30.pdf) confirmed subject matter, April 2026.",
+      "caveat": "None — high confidence."
+    }
+  ],
+
+  "tooltip_rows": [
+    {
+      "id": "TT-B6-001",
+      "nors_code": "general",
+      "tooltip_type": "staffing_rescission_notice",
+      "display_trigger": "any staffing-related NORS code (e.g. codes referencing nurse staffing, RN availability)",
+      "tooltip_text": "Note: Federal minimum staffing requirements (HPRD minimums and 24/7 RN) were rescinded effective February 2, 2026. Current requirement is RN onsite at least 8 consecutive hours per day, 7 days per week. Facility assessment requirements (42 CFR §483.71) remain in effect.",
+      "authority": "42 CFR §483.35 (90 FR 55697, Dec 3, 2025)"
+    },
+    {
+      "id": "TT-B6-002",
+      "nors_code": "general",
+      "tooltip_type": "qso_memo_correction_notice",
+      "display_trigger": "any resource row referencing QSO-26-03-NH",
+      "tooltip_text": "QSO-26-03-NH (January 30, 2026) addresses revisions to State Operations Manual Chapters 5 and 7 and complaint procedures (F610). It does not address psychotropic medications. For psychotropic medication guidance, see QSO-25-07-NH (November 18, 2024, effective February 24, 2025).",
+      "authority": "CMS QSO-26-03-NH confirmed live at https://www.cms.gov/files/document/qso-26-03-nh-original-release-date-2026-01-30.pdf"
+    },
+    {
+      "id": "TT-B6-003",
+      "nors_code": "general",
+      "tooltip_type": "f757_scope_notice",
+      "display_trigger": "any resource or workflow row referencing F757",
+      "tooltip_text": "F757 (Unnecessary Medications) was revised by QSO-25-07-NH effective February 24, 2025. F757 now applies ONLY to non-psychotropic unnecessary medications. Unnecessary psychotropic medications and chemical restraints are governed by F605. F758 was deleted and its scope absorbed into F605.",
+      "authority": "QSO-25-07-NH (CMS, Nov 18, 2024, eff. Feb 24, 2025); Consumer Voice summary (medium authority, advocacy/training resource)"
+    },
+    {
+      "id": "TT-B6-004",
+      "nors_code": "general",
+      "tooltip_type": "ct_portal_url_caution",
+      "display_trigger": "any resource row linking to portal.ct.gov/ltcop/* or /media/ltcop/*",
+      "tooltip_text": "CT portal.ct.gov returns HTTP 200 for pages that are effectively not found (soft 404s). URLs should be verified by checking whether the final destination URL contains /en/404error/. Links to /media/ltcop/* PDF paths have not been confirmed live as of April 2026 — manual verification required before linking.",
+      "authority": "Live fetch verification, April 2026"
+    }
+  ],
+
+  "human_review_flags": [
+    {
+      "id": "HRF-B6-001",
+      "flag_type": "missing_resource",
+      "nors_code": "medication_errors",
+      "f_tag": "F759, F760",
+      "resource_type": "resident_facing_handout",
+      "description": "No confirmed live resident-facing handout for medication errors found from acceptable sources (NORC, Consumer Voice, CMS, CT LTCOP, CT DPH, CT DSS). All tested Consumer Voice and NORC PDF URLs returned 403 or 404. Manual navigation to Consumer Voice or NORC resource libraries required.",
+      "suggested_sources": [
+        "https://www.theconsumervoice.org/resources (manual search for 'medication errors' or 'resident rights medications')",
+        "https://norc.org/research/projects/nursing-home-resource-library.html (manual search)",
+        "https://www.cms.gov/Medicare/Provider-Enrollment-and-Certification/SurveyCertificationGenInfo/Downloads (manual search for resident rights medication handout)"
+      ],
+      "action_required": "Human navigator must confirm a live handout URL before adding as resource_row. Do not link unconfirmed PDF paths."
+    },
+    {
+      "id": "HRF-B6-002",
+      "flag_type": "missing_resource",
+      "nors_code": "infection_control_outbreak",
+      "f_tag": "F880, F881, F882",
+      "resource_type": "resident_facing_handout",
+      "description": "No confirmed live resident-facing handout for infection control or outbreak resident rights found from acceptable sources. All tested Consumer Voice and NORC infection control handout URLs returned 403 or 404. Manual navigation required.",
+      "suggested_sources": [
+        "https://www.theconsumervoice.org/resources (manual search for 'infection control' or 'outbreak' or 'resident rights infection')",
+        "https://norc.org/research/projects/nursing-home-resource-library.html (manual search)",
+        "https://www.cdc.gov/longtermcare/index.html (CDC LTC infection control — check for resident-facing materials)"
+      ],
+      "action_required": "Human navigator must confirm a live handout URL before adding as resource_row. Do not link unconfirmed PDF paths."
+    },
+    {
+      "id": "HRF-B6-003",
+      "flag_type": "url_unconfirmed",
+      "nors_code": "general",
+      "resource_type": "ct_ltcop_discharge_documents",
+      "description": "CT LTCOP discharge documents sub-page not found at any tested portal.ct.gov/ltcop/* path. No discharge-specific PDF paths confirmed under /media/ltcop/. Visitation Center page is confirmed but discharge documents page is not.",
+      "suggested_sources": [
+        "https://portal.ct.gov/ltcop (manual navigation — check sidebar or menu for discharge-related links)",
+        "https://portal.ct.gov/ltcop/visitation-center (confirmed live — may link to discharge docs from this page)"
+      ],
+      "action_required": "Manual navigation from CT LTCOP homepage required. Do not link any discharge documents URL until confirmed."
+    },
+    {
+      "id": "HRF-B6-004",
+      "flag_type": "url_unconfirmed",
+      "nors_code": "general",
+      "resource_type": "ct_dph_survey_results",
+      "description": "CT DPH nursing home survey/inspection results page not confirmed at any tested portal.ct.gov/dph/* path. Medicare Care Compare confirmed as functional substitute but does not replace a CT-specific DPH page if one exists.",
+      "suggested_sources": [
+        "https://portal.ct.gov/dph/facility-licensing--investigations (confirmed root — navigate for survey results sub-page)",
+        "https://www.medicare.gov/care-compare/?providerType=NursingHome&redirect=true (confirmed substitute)"
+      ],
+      "action_required": "Manual navigation from CT DPH facility licensing root. Use Medicare Care Compare as substitute resource row until CT DPH page confirmed."
+    },
+    {
+      "id": "HRF-B6-005",
+      "flag_type": "url_unconfirmed",
+      "nors_code": "general",
+      "resource_type": "cms_qso_25_07_nh_direct_pdf",
+      "description": "CMS direct PDF for QSO-25-07-NH (psychotropic medication guidance, Nov 18, 2024) returned 404 at https://www.cms.gov/files/document/qso-25-07-nh.pdf during April 2026 session. Consumer Voice summary used as interim reference at medium authority.",
+      "suggested_sources": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/surveycertificationgeninfo/policy-and-memos-to-states-and-regions (search for QSO-25-07-NH)",
+        "https://www.cms.gov/files/document/qso-25-07-nh.pdf (retry — may have been temporarily unavailable)"
+      ],
+      "action_required": "Attempt direct fetch of CMS PDF. If confirmed live, promote authority_level to high and replace Consumer Voice URL as primary reference for QSO-25-07-NH resource rows."
+    },
+    {
+      "id": "HRF-B6-006",
+      "flag_type": "data_correction_required",
+      "nors_code": "general",
+      "resource_type": "crosswalk_catalog_fix",
+      "description": "A01 + F602 mapping in crosswalk_catalog.json is confirmed incorrect per Batch 5 and prior session findings. This mapping must be corrected before any JSON batches are integrated into the live NORS Crosswalk Tool.",
+      "action_required": "CODEX must correct A01 → F602 mapping in crosswalk_catalog.json before integration. Do not integrate any batch JSON while this error persists in the live catalog."
+    }
+  ]
+}
