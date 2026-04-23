@@ -1,0 +1,149 @@
+{
+  "meta": {
+    "batch": "14",
+    "purpose": "Authority repair integration for care-delay, incontinence care, staffing, retaliation, and gross neglect context after source-locked QA",
+    "date_completed": "2026-04-23",
+    "normalization_note": "This batch preserves conservative authority bridges from the repair pass while aligning them to the app's current ACL/NORC Table 2 hierarchy, where F08 is Incontinence care and F06 is Access to health-related services."
+  },
+  "authority_rows": [
+    {
+      "nors_code": "F08",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.24(a)(2)",
+      "authority_label": "Quality of life - activities of daily living",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24",
+      "authority_section_or_tag": "§483.24(a)(2)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Current authority-repair QA anchors incontinence and toileting support to the ADL assistance requirement in §483.24(a)(2) rather than to a single Appendix PP tag.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.24(a)(2)",
+      "human_review_note": "Use this CFR as the primary federal context for incontinence and toileting care. Surface Appendix PP tags separately only when explicitly supported by current CMS guidance.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "D06",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.10(j)(1)",
+      "authority_label": "Grievances",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "authority_section_or_tag": "§483.10(j)(1)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Retaliation complaints are best anchored to the grievance-rights subsection protecting the resident's ability to voice grievances without discrimination or reprisal.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.10(j)(1)",
+      "human_review_note": "Use the grievance-without-reprisal subsection as the main federal context for D06. Do not imply that a single Appendix PP tag controls every retaliation complaint.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "J03",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.35",
+      "authority_label": "Nursing services",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.35",
+      "authority_section_or_tag": "§483.35",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Current authority-repair QA keeps J03 tied to the sufficient nursing staff requirement in §483.35 and treats Appendix PP staffing tags as contextual rather than mandatory.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.35",
+      "human_review_note": "Use the CFR staffing requirement as the main authority anchor. Treat F725 or other staffing tags as additional context when they are helpful, not as required crosswalk outputs.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "A05",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.12",
+      "authority_label": "Freedom from abuse, neglect, and exploitation",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "authority_section_or_tag": "§483.12",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "Gross neglect complaints should stay anchored to the federal abuse and neglect protections in §483.12, with more specific care codes added separately when the facts support multiple complaints.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.12",
+      "human_review_note": "Use A05 only when the facts meet NORS gross-neglect criteria. Specific care failures such as response delay or incontinence care may still be coded separately when the resident identifies them as distinct complaints.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    }
+  ],
+  "source_conflict_rows": [
+    {
+      "conflict_id": "SC-B14-001",
+      "issue": "Incoming authority-repair handoff used F06 for toileting and incontinence care, but the current app hierarchy and official ACL/NORC Table 2 place incontinence care under F08.",
+      "source_a": "ACL/NORC Table 2 identifies F08 as Incontinence care and F06 as Access to health-related services.",
+      "source_b": "Incoming repair handoff framed toileting and incontinence authority bridges under F06.",
+      "conflict_description": "Importing the handoff literally would attach incontinence-care logic to the wrong current NORS code.",
+      "recommended_resolution": "Keep F02 for response to requests for assistance, F08 for incontinence care, J03 for staffing, D06 for retaliation, and A05 for gross neglect. Re-express any F06 toileting authority rows as F08 before production use.",
+      "confidence": "confirmed",
+      "human_review_note": "This conflict concerns the current code numbering, not the usefulness of the underlying toileting-care authority logic."
+    }
+  ],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B14-001",
+      "label": "Response Delay Authority",
+      "short_help": "F02 does not have one uniquely controlling Appendix PP tag in the approved source set.",
+      "details": "Code F02 from NORS first. Quality-of-care or staffing authorities can help explain context, but the tool should not imply that one F-tag conclusively controls every call-light or response-delay complaint.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ],
+      "authority_level": "official",
+      "where_to_show": ["nors_lookup_F02"]
+    },
+    {
+      "tooltip_id": "TT-B14-002",
+      "label": "F02 vs F08 vs A05",
+      "short_help": "Separate response delay, incontinence care, and gross neglect based on facts, pattern, and harm.",
+      "details": "Use F02 for unanswered requests for help, F08 when the core issue is incontinence or toileting care, and review A05 only when repeated essential-care failures threaten health or safety.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf"
+      ],
+      "authority_level": "official",
+      "where_to_show": ["nors_lookup_F02", "nors_lookup_F08", "nors_lookup_A05"]
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B14-001",
+      "severity": "medium",
+      "issue": "No single Appendix PP tag was confirmed as the uniquely controlling authority for F02 response-to-assistance complaints in the approved source set.",
+      "recommended_action": "Keep F02 coding grounded in ACL/NORC Table 2. Use quality-of-care or staffing authorities as contextual review support only, and avoid implying that one F-tag conclusively governs every response-delay complaint.",
+      "affected_codes": ["F02"],
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "flag_id": "HRF-B14-002",
+      "severity": "medium",
+      "issue": "Boundary between F02 response delay, F08 incontinence care, and A05 gross neglect still depends on resident framing, duration, and harm.",
+      "recommended_action": "When notes describe unanswered calls plus being left wet or soiled, decide whether the resident is raising one concern or multiple distinct complaints. Escalate to A05 only when repeated essential-care failures threaten health or safety.",
+      "affected_codes": ["F02", "F08", "A05"],
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf"
+      ]
+    }
+  ]
+}

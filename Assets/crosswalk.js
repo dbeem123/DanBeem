@@ -38,12 +38,13 @@
     norsKnowledgeBaseBatch11: ['../data/nors_knowledge_base_batch11.json', '../nors_knowledge_base_batch11.json'],
     norsKnowledgeBaseBatch12: ['../data/nors_knowledge_base_batch12.json', '../nors_knowledge_base_batch12.json'],
     norsKnowledgeBaseBatch13: ['../data/nors_knowledge_base_batch13.json', '../nors_knowledge_base_batch13.json'],
+    norsKnowledgeBaseBatch14: ['../data/nors_knowledge_base_batch14.json', '../nors_knowledge_base_batch14.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json'],
     norsSourcePackLock: ['../data/nors_source_pack_lock.json', '../nors_source_pack_lock.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'norsKnowledgeBaseBatch13', 'appendixPpTagPages', 'sourceRegistry', 'norsSourcePackLock']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'norsKnowledgeBaseBatch13', 'norsKnowledgeBaseBatch14', 'appendixPpTagPages', 'sourceRegistry', 'norsSourcePackLock']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -62,6 +63,7 @@
     if (key === 'norsKnowledgeBaseBatch11') return { source_verification_rows: [], source_conflict_rows: [], keyword_routing_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch12') return { appendix_pp_related_investigation_rows: [], appendix_pp_source_rows: [], keyword_routing_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch13') return { appendix_pp_related_investigation_rows: [], appendix_pp_source_rows: [], source_conflict_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch14') return { authority_rows: [], source_conflict_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     if (key === 'norsSourcePackLock') return { source_pack_rows: [], source_relationship_rows: [], source_priority_rules: [], human_review_flags: [] };
@@ -156,7 +158,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11, data?.norsKnowledgeBaseBatch12, data?.norsKnowledgeBaseBatch13].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11, data?.norsKnowledgeBaseBatch12, data?.norsKnowledgeBaseBatch13, data?.norsKnowledgeBaseBatch14].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -1026,6 +1028,18 @@
         /qso 25 07|qso-25-07|qso 25 14|qso-25-14|f627|f628|f605|f757|f758|psychotropic|discharge|transfer/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`CMS QSO source note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B14-001' && (
+        matchedCodes.includes('F02') ||
+        /call light|call bell|requests? for assistance|waited .*help|no one came/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Authority specificity note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B14-002' && (
+        matchedCodes.some(code => ['F02', 'F08', 'A05'].includes(code)) ||
+        /left wet|left soiled|did not change|didn't change|bathroom help|toilet help|incontinence/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Coding boundary note (${id}): ${action}`);
       }
     });
 

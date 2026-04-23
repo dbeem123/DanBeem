@@ -875,18 +875,13 @@
                         "topic_label":  "Retaliation",
                         "resident_right_concept":  "Right to be free from retaliation for exercising rights",
                         "federal_regulations":  {
-                                                    "authority_id":  "42cfr_483_10",
-                                                    "citation":  "42 CFR §483.10",
-                                                    "title":  "Resident rights",
+                                                    "authority_id":  "42cfr_483_10_j_1",
+                                                    "citation":  "42 CFR §483.10(j)(1)",
+                                                    "title":  "Grievances",
                                                     "mapping_type":  "direct",
                                                     "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
                                                 },
                         "appendix_pp_tags":  {
-                                                 "authority_id":  "f550",
-                                                 "citation":  "F550",
-                                                 "title":  "Resident Rights/Exercise of Rights",
-                                                 "mapping_type":  "related",
-                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
                                              },
                         "connecticut_overlay":  {
                                                     "authority_id":  "ct_17a_870",
@@ -1174,7 +1169,7 @@
                                                         "authority_id":  "42cfr_483_25",
                                                         "citation":  "42 CFR §483.25",
                                                         "title":  "Quality of care",
-                                                        "mapping_type":  "direct",
+                                                        "mapping_type":  "related",
                                                         "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
                                                     },
                                                     {
@@ -1186,11 +1181,6 @@
                                                     }
                                                 ],
                         "appendix_pp_tags":  {
-                                                 "authority_id":  "f684",
-                                                 "citation":  "F684",
-                                                 "title":  "Quality of Care",
-                                                 "mapping_type":  "direct",
-                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
                                              },
                         "connecticut_overlay":  {
 
@@ -1204,7 +1194,7 @@
                                          "left waiting in bed",
                                          "no one responded"
                                      ],
-                        "notes":  "Use D06 if slow response is in reaction to a resident complaint or advocacy action."
+                        "notes":  "Use D06 if slow response is in reaction to a resident complaint or advocacy action. No single Appendix PP tag uniquely controls all F02 response-delay complaints."
                     },
                     {
                         "nors_major_code":  "F",
@@ -1316,18 +1306,13 @@
                         "topic_label":  "Care Quality",
                         "resident_right_concept":  "Right to hygiene and personal care services",
                         "federal_regulations":  {
-                                                    "authority_id":  "42cfr_483_25",
-                                                    "citation":  "42 CFR §483.25",
-                                                    "title":  "Quality of care",
+                                                    "authority_id":  "42cfr_483_24_a_2",
+                                                    "citation":  "42 CFR §483.24(a)(2)",
+                                                    "title":  "Activities of daily living",
                                                     "mapping_type":  "direct",
-                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24"
                                                 },
                         "appendix_pp_tags":  {
-                                                 "authority_id":  "f684",
-                                                 "citation":  "F684",
-                                                 "title":  "Quality of Care",
-                                                 "mapping_type":  "direct",
-                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
                                              },
                         "connecticut_overlay":  {
 
@@ -1464,18 +1449,13 @@
                         "topic_label":  "Care Quality",
                         "resident_right_concept":  "Right to incontinence and catheter care",
                         "federal_regulations":  {
-                                                    "authority_id":  "42cfr_483_25",
-                                                    "citation":  "42 CFR §483.25",
-                                                    "title":  "Quality of care",
+                                                    "authority_id":  "42cfr_483_24_a_2",
+                                                    "citation":  "42 CFR §483.24(a)(2)",
+                                                    "title":  "Activities of daily living",
                                                     "mapping_type":  "direct",
-                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.25"
+                                                    "url":  "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.24"
                                                 },
                         "appendix_pp_tags":  {
-                                                 "authority_id":  "f684",
-                                                 "citation":  "F684",
-                                                 "title":  "Quality of Care",
-                                                 "mapping_type":  "direct",
-                                                 "url":  "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
                                              },
                         "connecticut_overlay":  {
 
@@ -1490,7 +1470,7 @@
                                          "catheter problem",
                                          "diaper not changed"
                                      ],
-                        "notes":  null
+                        "notes":  "Use F02 when the core complaint is unanswered requests for assistance. Use A05 when repeated essential-care failures threaten health or safety."
                     },
                     {
                         "nors_major_code":  "F",

@@ -450,6 +450,11 @@
           tooltip_rows: [],
           human_review_flags: []
         }));
+        const batch14 = await loadJson('../data/nors_knowledge_base_batch14.json').catch(() => ({
+          source_conflict_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
         const norsSourcePack = await loadJson('../data/nors_source_pack_lock.json').catch(() => ({
           source_pack_rows: [],
           source_priority_rules: [],
@@ -471,10 +476,11 @@
           ...applyWorkflowCorrections(batch4.workflow_guidance_rows || [], batch5.workflow_corrections || []),
           ...workflowUpdatesToRows([...(batch6.workflow_update_rows || []), ...(batch7.workflow_update_rows || []), ...(batch8.workflow_update_rows || []), ...(batch9.workflow_update_rows || [])]),
           ...codingPrinciplesToWorkflowRows(batch10.coding_principle_rows || []),
-          ...sourceConflictsToWorkflowRows(batch11.source_conflict_rows || [])
+          ...sourceConflictsToWorkflowRows(batch11.source_conflict_rows || []),
+          ...sourceConflictsToWorkflowRows(batch14.source_conflict_rows || [])
         ]);
-        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || []), ...tooltipRowsToGlossary(batch7.tooltip_rows || []), ...tooltipRowsToGlossary(batch8.tooltip_rows || []), ...tooltipRowsToGlossary(batch9.tooltip_rows || []), ...tooltipRowsToGlossary(batch10.tooltip_rows || []), ...tooltipRowsToGlossary(batch11.tooltip_rows || [])]);
-        renderHumanReviewFlags(filterResolvedReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || []), ...(batch7.human_review_flags || []), ...(batch8.human_review_flags || []), ...(batch9.human_review_flags || []), ...(batch10.human_review_flags || []), ...(batch11.human_review_flags || []), ...(norsSourcePack.human_review_flags || [])], [...(batch7.resource_corrections || []), ...(batch8.resource_corrections || []), ...(batch9.resource_corrections || [])]));
+        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || []), ...tooltipRowsToGlossary(batch7.tooltip_rows || []), ...tooltipRowsToGlossary(batch8.tooltip_rows || []), ...tooltipRowsToGlossary(batch9.tooltip_rows || []), ...tooltipRowsToGlossary(batch10.tooltip_rows || []), ...tooltipRowsToGlossary(batch11.tooltip_rows || []), ...tooltipRowsToGlossary(batch14.tooltip_rows || [])]);
+        renderHumanReviewFlags(filterResolvedReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || []), ...(batch7.human_review_flags || []), ...(batch8.human_review_flags || []), ...(batch9.human_review_flags || []), ...(batch10.human_review_flags || []), ...(batch11.human_review_flags || []), ...(batch14.human_review_flags || []), ...(norsSourcePack.human_review_flags || [])], [...(batch7.resource_corrections || []), ...(batch8.resource_corrections || []), ...(batch9.resource_corrections || [])]));
       } catch (err) {
         output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
         document.getElementById('nors-source-pack-output').textContent = `NORS source pack could not be loaded. Details: ${err.message}`;
