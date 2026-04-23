@@ -116,6 +116,11 @@
         <div id="resources-output" class="output-box">Handouts and resources will appear here.</div>
       </div>
       <div class="panel">
+        <div class="pill">Workflow</div>
+        <h2>Workflow Notes</h2>
+        <div id="workflow-output" class="output-box">Workflow guidance will appear here.</div>
+      </div>
+      <div class="panel">
         <div class="pill">Trace</div>
         <h2><span data-help-id="crosswalk_trace">Crosswalk Trace</span></h2>
         <div id="trace-output" class="output-box">Trace will appear here.</div>
@@ -281,7 +286,9 @@
               <br><span class="subtle">Type: ${escapeHtml(resource.type || 'Resource')}</span>
               ${resource.audience ? `<br><span class="subtle">Audience: ${escapeHtml(resource.audience)}</span>` : ''}
               ${resource.reason ? `<br><span class="subtle">Why shown: ${escapeHtml(resource.reason)}</span>` : ''}
+              ${resource.whenToShow ? `<br><span class="subtle">Use when: ${escapeHtml(resource.whenToShow)}</span>` : ''}
               ${resource.source ? `<br><span class="subtle">Source: ${escapeHtml(resource.source)}</span>` : ''}
+              ${resource.lastVerified ? `<br><span class="subtle">Last verified: ${escapeHtml(resource.lastVerified)}</span>` : ''}
             </li>
           `).join('')}
         </ul>
@@ -293,6 +300,34 @@
       const label = escapeHtml(resource.title || 'Resource');
       if (!resource.url) return label;
       return `<a href="${escapeHtml(resource.url)}" target="_blank" rel="noopener noreferrer">${label}</a>`;
+    }
+
+    function renderWorkflowGuidance(rows) {
+      const output = document.getElementById('workflow-output');
+      if (!rows.length) {
+        output.textContent = 'No workflow guidance matched this lookup.';
+        return;
+      }
+
+      output.innerHTML = `
+        <ul class="result-list">
+          ${rows.map(row => `
+            <li>
+              <strong>${escapeHtml((row.workflow || row.id || 'Workflow').replace(/_/g, ' '))}</strong>
+              ${row.trigger ? `<br><span class="subtle">Trigger: ${escapeHtml(row.trigger)}</span>` : ''}
+              ${row.guidance_text ? `<br><span>${escapeHtml(row.guidance_text)}</span>` : ''}
+              ${row.do_not_say ? `<br><span class="subtle">Guardrail: ${escapeHtml(row.do_not_say)}</span>` : ''}
+              ${renderWorkflowSourceLinks(row.source_urls || [])}
+            </li>
+          `).join('')}
+        </ul>
+        <div class="notice">Workflow notes are informational reminders for human review. They do not determine violations or final NORS coding.</div>
+      `;
+    }
+
+    function renderWorkflowSourceLinks(urls) {
+      if (!urls.length) return '';
+      return `<br><span class="subtle">Sources: ${urls.map((url, index) => `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">source ${index + 1}</a>`).join(', ')}</span>`;
     }
 
     function renderTraceItem(item) {
@@ -326,6 +361,7 @@
       renderTopics(result.topicMatches);
       renderAuthorities(result.authorityGroups);
       renderResources(result.resources || []);
+      renderWorkflowGuidance(result.workflowGuidance || []);
       renderTrace(result.trace);
       renderWarnings(result.warnings);
     }

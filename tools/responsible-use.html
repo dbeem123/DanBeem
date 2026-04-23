@@ -17,6 +17,14 @@
       color:var(--text);
       margin-top:12px;
     }
+    .output-box {
+      white-space:normal;
+      min-height:80px;
+      padding:12px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+    }
   </style>
 </head>
 <body>
@@ -84,6 +92,30 @@
       <p class="subtle">The crosswalk uses official or owner-provided sources where possible. The source registry is stored in <code>data/source_registry.json</code>.</p>
       <div id="source-registry-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source registry...</div>
     </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="quality-title">
+      <h2 id="quality-title">Source Quality Notes</h2>
+      <p class="subtle">Batch 4 classifies the sources used by the crosswalk so staff can see preferred use and limitations.</p>
+      <div id="source-quality-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source quality notes...</div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="workflow-title">
+      <h2 id="workflow-title">Workflow Guardrails</h2>
+      <p class="subtle">These notes help keep outputs resident-directed, source-backed, and clear that the tool does not make legal conclusions.</p>
+      <div id="workflow-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading workflow guardrails...</div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="glossary-title">
+      <h2 id="glossary-title">Plain-Language Glossary</h2>
+      <p class="subtle">Short explanations for terms that can otherwise blur together in ombudsman work.</p>
+      <div id="glossary-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading glossary...</div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="review-flags-title">
+      <h2 id="review-flags-title">Human Review Flags</h2>
+      <p class="subtle">Known caveats and issues that should remain visible during staff review.</p>
+      <div id="human-review-output" class="output-box">Loading human review flags...</div>
+    </section>
   </main>
 
   <footer class="wrap subtle" style="margin-top:18px;">Responsible use support - informational only, human review required.</footer>
@@ -96,6 +128,15 @@
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
+    }
+
+    function renderCardList(outputId, items, renderItem, emptyText) {
+      const output = document.getElementById(outputId);
+      if (!items.length) {
+        output.textContent = emptyText;
+        return;
+      }
+      output.innerHTML = items.map(renderItem).join('');
     }
 
     function renderSourceRegistry(data) {
@@ -119,14 +160,96 @@
       `).join('');
     }
 
+    function renderSourceQuality(rows) {
+      renderCardList('source-quality-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.authority_level || 'Source')}</div>
+          <h3>${escapeHtml(row.source_title || 'Source')}</h3>
+          <p class="subtle">${escapeHtml(row.source_owner || '')}</p>
+          <p>${escapeHtml(row.preferred_use || '')}</p>
+          ${row.limitations ? `<p class="subtle">Limitations: ${escapeHtml(row.limitations)}</p>` : ''}
+          ${row.last_verified ? `<p class="subtle">Last verified: ${escapeHtml(row.last_verified)}</p>` : ''}
+          ${row.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">Open source</a></p>` : ''}
+        </article>
+      `, 'No source quality notes found.');
+    }
+
+    function renderWorkflowRows(rows) {
+      renderCardList('workflow-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.workflow || row.id || 'Workflow')}</div>
+          <h3>${escapeHtml(row.trigger || 'Workflow guidance')}</h3>
+          <p>${escapeHtml(row.guidance_text || '')}</p>
+          ${row.do_not_say ? `<p class="subtle">Guardrail: ${escapeHtml(row.do_not_say)}</p>` : ''}
+          ${renderSourceLinks(row.source_urls || [])}
+        </article>
+      `, 'No workflow guidance found.');
+    }
+
+    function renderGlossary(rows) {
+      renderCardList('glossary-output', rows, row => `
+        <article class="card">
+          <div class="pill">Explainer</div>
+          <h3>${escapeHtml(row.term || 'Term')}</h3>
+          <p>${escapeHtml(row.plain_language_definition || '')}</p>
+          ${row.ombudsman_context ? `<p class="subtle">${escapeHtml(row.ombudsman_context)}</p>` : ''}
+          ${row.not_the_same_as?.length ? `<p class="subtle">Not the same as: ${escapeHtml(row.not_the_same_as.join(', '))}</p>` : ''}
+          ${renderSourceLinks(row.source_urls || [])}
+        </article>
+      `, 'No glossary entries found.');
+    }
+
+    function renderHumanReviewFlags(rows) {
+      const output = document.getElementById('human-review-output');
+      if (!rows.length) {
+        output.textContent = 'No human review flags found.';
+        return;
+      }
+
+      output.innerHTML = `
+        <ul class="source-list">
+          ${rows.map(row => `
+            <li>
+              <strong>${escapeHtml(row.flag_id || row.id || 'Review flag')}</strong>
+              ${row.flag_type ? `<span class="subtle"> - ${escapeHtml(row.flag_type)}</span>` : ''}
+              <br>${escapeHtml(row.description || '')}
+              ${row.recommended_action ? `<br><span class="subtle">Recommended action: ${escapeHtml(row.recommended_action)}</span>` : ''}
+              ${renderSourceLinks(row.source_urls || [])}
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+
+    function renderSourceLinks(urls) {
+      if (!urls.length) return '';
+      return `<p class="subtle">Sources: ${urls.map((url, index) => `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">source ${index + 1}</a>`).join(', ')}</p>`;
+    }
+
+    async function loadJson(path) {
+      const response = await fetch(path);
+      if (!response.ok) throw new Error(`${path} returned HTTP ${response.status}`);
+      return response.json();
+    }
+
     async function loadSourceRegistry() {
       const output = document.getElementById('source-registry-output');
       try {
-        const response = await fetch('../data/source_registry.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        renderSourceRegistry(await response.json());
+        const [sourceRegistry, batch4] = await Promise.all([
+          loadJson('../data/source_registry.json'),
+          loadJson('../data/nors_knowledge_base_batch4.json')
+        ]);
+        renderSourceRegistry(sourceRegistry);
+        renderSourceQuality(batch4.source_quality_rows || []);
+        renderWorkflowRows(batch4.workflow_guidance_rows || []);
+        renderGlossary(batch4.plain_language_explainer_rows || []);
+        renderHumanReviewFlags(batch4.human_review_flags || []);
       } catch (err) {
         output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
+        document.getElementById('source-quality-output').textContent = `Source quality notes could not be loaded. Details: ${err.message}`;
+        document.getElementById('workflow-output').textContent = `Workflow guardrails could not be loaded. Details: ${err.message}`;
+        document.getElementById('glossary-output').textContent = `Glossary could not be loaded. Details: ${err.message}`;
+        document.getElementById('human-review-output').textContent = `Human review flags could not be loaded. Details: ${err.message}`;
       }
     }
 

@@ -1,0 +1,854 @@
+{
+  "meta": {
+    "batch": "batch4",
+    "generated_date": "2026-04-22",
+    "description": "Resource rows, workflow guidance, source quality classifications, plain-language explainers, and human review flags for the CT LTCOP NORS Crosswalk Tool and Drafting Assistant. All sources are official or highly authoritative. No inferred violations.",
+    "primary_sources": [
+      "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "https://www.law.cornell.edu/cfr/text/45/1324.11",
+      "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "https://portal.ct.gov/ltcop",
+      "https://theconsumervoice.org",
+      "https://ltcombudsman.org"
+    ]
+  },
+
+  "resource_rows": [
+    {
+      "id": "RR-001",
+      "title": "Nursing Home Discharges — You've Been Told to Leave…Now What?",
+      "resource_type": "handout",
+      "url": "https://ltcombudsman.org/uploads/files/library/nursing-home-discharges-final_-_8_2018.pdf",
+      "source_owner": "National Ombudsman Resource Center (NORC) / National Consumer Voice",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["involuntary discharge", "transfer", "appeal rights", "30-day notice"],
+      "audience": "resident",
+      "summary": "Plain-language fact sheet covering the six lawful reasons for discharge, written notice requirements, appeal rights, and the resident's right to remain pending appeal. Cites 42 CFR §483.15.",
+      "when_to_show": "When a complaint involves an involuntary transfer or discharge (C01, C02), especially if resident is unsure of their appeal rights.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-002",
+      "title": "Involuntary Transfer and Discharge — Consumer Voice Fact Sheet",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/06/involuntary-transfer-and-discharge_-final.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["involuntary discharge", "transfer", "appeal rights", "discharge notice"],
+      "audience": "resident",
+      "summary": "Describes federal protections for residents facing involuntary transfer or discharge, the six permissible reasons, notice requirements, documentation requirements, and complaint and appeal rights under the Nursing Home Reform Law of 1987.",
+      "when_to_show": "When a complaint involves an involuntary transfer or discharge (C01, C02).",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-003",
+      "title": "A Closer Look at the Revised Nursing Facility Regulations: Involuntary Transfer and Discharge",
+      "resource_type": "official_guidance",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/Revised_Nursing_Facility_Regulations_Involuntary_Transfer_and_Discharge.pdf",
+      "source_owner": "National Consumer Voice / Justice in Aging / Center for Medicare Advocacy",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["involuntary discharge", "transfer", "2016 regulations", "F627", "F628"],
+      "audience": "ombudsman_staff",
+      "summary": "Issue brief on the 2016 revised nursing facility transfer/discharge regulations (42 CFR §483.15). Covers six permissible reasons, notice requirements including LTCOP notification, documentation, discharge planning, and appeal rights. Note: predates Rev. 229 (F627/F628 additions).",
+      "when_to_show": "Staff reference for discharge cases. Note that F627/F628 were added by Rev. 229 and are not reflected here.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-004",
+      "title": "Abuse, Neglect, and Exploitation in Long-Term Care — NORC Issue Page",
+      "resource_type": "webpage",
+      "url": "https://ltcombudsman.org/issues/abuse-neglect-and-exploitation-in-long-term-care-facilities",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "A04", "A05"],
+      "applies_to_topics": ["abuse", "neglect", "exploitation", "misappropriation", "ombudsman role in abuse"],
+      "audience": "ombudsman_staff",
+      "summary": "Central NORC resource hub for abuse, neglect, and exploitation in long-term care. Links to training materials, fact sheets, and guidance on the ombudsman's role in abuse complaints. Includes training notes on indicators, reporting, and confidentiality.",
+      "when_to_show": "When a complaint involves any A-series NORS code (abuse, neglect, exploitation).",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-005",
+      "title": "Responding to Elder and Dependent Adult Abuse in Long-Term Care — Teaching Notes",
+      "resource_type": "training",
+      "url": "https://ltcombudsman.org/uploads/files/support/Chapter_8_Elder_and_Dependent_Adult_Abuse_Teaching_Notes.pdf",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "A04", "A05"],
+      "applies_to_topics": ["abuse", "neglect", "exploitation", "ombudsman mandatory reporting", "confidentiality", "indicators"],
+      "audience": "ombudsman_staff",
+      "summary": "Staff training notes covering six types of abuse/neglect/exploitation, indicators, the ombudsman's role as mandated reporter, confidentiality provisions, and when and how to report. Practical decision-tree guidance for complaint cases.",
+      "when_to_show": "Staff reference for any A-series complaint; especially useful for new representatives handling first abuse case.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-006",
+      "title": "Resident to Resident Mistreatment — Consumer Voice Fact Sheet",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/06/rrm-factsheet-large-font-508-compliant.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "G03"],
+      "applies_to_topics": ["resident-on-resident abuse", "conflict resolution", "safe environment", "abuse reporting"],
+      "audience": "resident",
+      "summary": "Large-print, 508-compliant fact sheet explaining physical, verbal, sexual, and financial abuse; neglect and exploitation; resident rights to report; and facility obligations to investigate. Designed for direct distribution to residents.",
+      "when_to_show": "When a complaint involves resident-on-resident conflict or mistreatment (A01–A03, G03). Safe to give directly to resident.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-007",
+      "title": "Your Rights as a Resident of a Long Term Care Facility — CT LTCOP",
+      "resource_type": "webpage",
+      "url": "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility",
+      "source_owner": "Connecticut Long Term Care Ombudsman Program (CT DADS)",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "B01", "B02"],
+      "applies_to_topics": ["resident rights", "grievances", "privacy", "visitation", "transfer", "independent choices", "participation in care"],
+      "audience": "resident",
+      "summary": "Official CT LTCOP page summarizing federal resident rights under the 1987 Nursing Home Reform Law: right to be fully informed, right to complain, right to participate in care, right to privacy, transfer/discharge rights, right to dignity, visitation rights, and right to independent choices. Includes links to CT-specific resources on grievances, care planning, and discharge.",
+      "when_to_show": "Any D-series or B-series complaint. General resident rights orientation for residents and families.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-008",
+      "title": "Residents' Rights and Facility Responsibilities — Consumer Voice Booklet",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/05/CV_ADCR_ResidentsRight_booklet_web.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "F03", "F06", "F11", "F12"],
+      "applies_to_topics": ["resident rights", "informed consent", "care planning", "restraints", "staffing", "dignity"],
+      "audience": "resident",
+      "summary": "Comprehensive booklet pairing each resident right with the corresponding facility obligation. Covers: informed consent for treatment, right to participate in care planning, right to refuse treatment, freedom from restraints, staffing adequacy, and dignity. Cites 42 CFR Part 483.",
+      "when_to_show": "Broad distribution for any rights-based complaint; especially useful for care planning (F03), restraint (F11/F12), and informed consent complaints.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-009",
+      "title": "Residents' Rights: Your Life, Your Care, Your Choices — NORC Presentation Script",
+      "resource_type": "training",
+      "url": "https://ltcombudsman.org/uploads/files/issues/RR.Prezi_Script_-_FINAL.pdf",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09"],
+      "applies_to_topics": ["resident rights", "dignity", "access", "financial management", "independent choices"],
+      "audience": "ombudsman_staff",
+      "summary": "Presentation script for a resident rights education module covering: dignity, self-determination, access to information and people, financial rights, and how the nursing home must protect and promote rights. Staff training resource.",
+      "when_to_show": "Staff training reference. Also useful for family council presentations.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-010",
+      "title": "CT LTCOP — Resident Rights Fact Sheet (Voices Forum)",
+      "resource_type": "handout",
+      "url": "https://portal.ct.gov/-/media/ltcop/voices20176residentsrightsanoverviewfactsheetfinalpdf.pdf",
+      "source_owner": "Connecticut Long Term Care Ombudsman Program (CT DADS)",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09"],
+      "applies_to_topics": ["resident rights", "quality of life", "ombudsman program", "how to get help"],
+      "audience": "resident",
+      "summary": "One-page CT LTCOP fact sheet summarizing the federal resident rights guarantee, quality of life protections, and how to contact the Long-Term Care Ombudsman Program for help. CT-branded official document.",
+      "when_to_show": "General distribution to residents and families. CT-specific contact information included.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-011",
+      "title": "YOUR RIGHTS, YOUR COMMUNITY — CT LTCOP Consumer Guide for Managed Residential Communities",
+      "resource_type": "handout",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/mrcguide.pdf",
+      "source_owner": "Connecticut Long Term Care Ombudsman Program (CT DADS)",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "C01", "C02"],
+      "applies_to_topics": ["resident rights", "assisted living", "managed residential community", "grievances", "ombudsman role"],
+      "audience": "resident",
+      "summary": "CT LTCOP consumer guide specifically for Managed Residential Communities (MRCs) / assisted living. Covers residents' bill of rights under CT law, grievance procedures, legal representation, and how to contact the ombudsman. CT statute-specific.",
+      "when_to_show": "When resident is in an assisted living / MRC setting rather than a nursing home.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-012",
+      "title": "6 Steps to Getting Quality Care in a Nursing Home — Consumer Voice Fact Sheet",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/5._6_Steps_to_Getting_Quality_Care_in_a_Nursing_Home.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["F03", "F06", "F07", "F05", "F08", "F10"],
+      "applies_to_topics": ["care planning", "quality of care", "self-advocacy", "care plan meeting", "ombudsman referral"],
+      "audience": "resident",
+      "summary": "Practical 6-step guide for residents: be informed of rights and care plan, create a support circle, participate in care plan meetings, build relationships with staff, and use ombudsman if needed. Safe for direct resident distribution.",
+      "when_to_show": "Any F-series care complaint; especially useful as an introductory handout before a care planning meeting.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-013",
+      "title": "Summary of CMS's Revised Guidance for Surveyors (Rev. 232 / January 2026)",
+      "resource_type": "official_guidance",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2025/01/Summary-of-Revised-CMS-Guidance-for-Surveyors.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["F12", "F07"],
+      "applies_to_topics": ["psychotropic medications", "antipsychotics", "unnecessary drugs", "chemical restraints", "gradual dose reduction", "informed consent for medications"],
+      "audience": "ombudsman_staff",
+      "summary": "Consumer Voice summary of the January 2026 CMS surveyor guidance updates (QSO-26-03-NH). Key points: psychotropic medications require diagnosis documentation AND evidence that nonpharmacological interventions were attempted or ruled out; resident has right to accept or decline psychotropic medication; written consent form is one acceptable form of documentation. References F605/F757.",
+      "when_to_show": "Staff reference for medication complaints (F12, F07). Especially relevant for antipsychotic/GDR cases.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-014",
+      "title": "Reference Guide: Summary of CMS's Updated Nursing Home Surveyor Guidance (Phase 3)",
+      "resource_type": "official_guidance",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/phase-3-summary.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["D07", "F13", "J02"],
+      "applies_to_topics": ["visitation", "infection control", "staffing", "call light system", "F563", "F880"],
+      "audience": "ombudsman_staff",
+      "summary": "Consumer Voice summary of Phase 3 CMS surveyor guidance updates. Covers visitation (F563), infection control (F880), staffing, call light system (F919), and compliance programs. Notes that NOMNC (Medicare non-coverage notice) is separate from discharge rights under 42 CFR §483.15.",
+      "when_to_show": "Staff reference for visitation, infection control, and staffing complaints. Clarifies NOMNC vs. discharge notice distinction.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-015",
+      "title": "Updated CMS Visitation Guidance — Consumer Voice Summary",
+      "resource_type": "official_guidance",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/Consumer_Voice_New_Visitation_Guidance_11.18.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["D07", "B03"],
+      "applies_to_topics": ["visitation", "family access", "ombudsman access", "infection control and visitation", "F563"],
+      "audience": "ombudsman_staff",
+      "summary": "Summary of CMS visitation guidance. Key points: indoor visitation must be allowed at all times; no limits on frequency, length, or number of visitors; ombudsman and P&A representatives must have immediate access to any resident regardless of transmission precautions; residents may leave the facility when they choose.",
+      "when_to_show": "When a complaint involves visitation access (D07) or ombudsman access (B03). Also relevant during any outbreak or infection concern.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-016",
+      "title": "Family Involvement in Nursing Home Care — Consumer Voice Fact Sheet",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/06/family-involvement-in-nursing-home-care-factsheet-final.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["D07", "D08"],
+      "applies_to_topics": ["family council", "family access", "family rights", "visitation", "resident council"],
+      "audience": "family",
+      "summary": "Fact sheet on family member rights under federal law, including immediate access rights, participation in care, and family council rights. Families can take concerns to staff and must receive a response.",
+      "when_to_show": "When a family member is the complainant and the issue involves access or family council complaints (D07, D08).",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-017",
+      "title": "Resident Council Rights — Consumer Voice Fact Sheet",
+      "resource_type": "handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/Resident_Council_Rights_Fact_Sheet.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "applies_to_nors_codes": ["D08"],
+      "applies_to_topics": ["resident council", "family council", "council rights", "facility response obligations"],
+      "audience": "resident",
+      "summary": "Fact sheet covering the right to form and hold private resident council meetings, facility obligations to provide space and a designated staff person, and the requirement to consider and respond to council grievances.",
+      "when_to_show": "When a complaint involves resident council interference or inadequate council support (D08).",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-018",
+      "title": "NORS Codes and Definitions — NORC Table 2",
+      "resource_type": "official_guidance",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": [],
+      "applies_to_topics": ["NORS codes", "complaint coding", "perpetrator codes", "code definitions", "when to use each code"],
+      "audience": "ombudsman_staff",
+      "summary": "Official NORC Table 2 defining all NORS complaint codes with examples and cross-references. Includes perpetrator codes for A01–A05, code routing tips (e.g., use A03 vs D03 vs A02 for verbal/sexual complaints), and guidance on when to use K vs L vs facility codes. Primary authority for complaint code selection.",
+      "when_to_show": "Staff reference any time a code selection is uncertain. Essential for training and QA.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-019",
+      "title": "CT General Statutes §19a-550 — Patients' Bill of Rights",
+      "resource_type": "statute",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "source_owner": "Connecticut General Assembly",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09", "A01", "A02", "A03", "A04", "A05", "F11", "F12"],
+      "applies_to_topics": ["CT resident rights", "patients bill of rights", "restraints", "privacy", "grievances", "financial management", "visitation", "room transfer"],
+      "audience": "ombudsman_staff",
+      "summary": "Full text of CT §19a-550, the CT Patients' Bill of Rights for nursing homes, residential care homes, and chronic disease hospitals. Establishes state-law rights parallel to federal 42 CFR §483.10. Key provisions: right to treat facility as home; informed consent; choice of physician; freedom from restraints; confidential records; dignity; mail/telephone privacy; room change notice; patient groups. Effective 2024-07-01.",
+      "when_to_show": "Any D-series complaint where state law provides additional protection beyond federal rights. Also relevant for A-series and F11/F12 (restraint) complaints.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-020",
+      "title": "CT General Statutes §19a-535 — Transfer or Discharge of Residents",
+      "resource_type": "statute",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535",
+      "source_owner": "Connecticut General Assembly",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["CT transfer discharge", "notice requirements", "appeal process", "CT law discharge"],
+      "audience": "ombudsman_staff",
+      "summary": "CT §19a-535 governs transfer/discharge conditions, notice requirements, and appeal/hearing procedures for nursing home residents in Connecticut. State-law overlay on federal 42 CFR §483.15 / F627–F628.",
+      "when_to_show": "Discharge/transfer complaints (C01, C02) where CT-specific procedures (appeal timeline, hearing process) are at issue.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-021",
+      "title": "CT General Statutes Chapter 319l — Long-Term Care Ombudsman Program",
+      "resource_type": "statute",
+      "url": "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "source_owner": "Connecticut General Assembly",
+      "applies_to_nors_codes": ["B03"],
+      "applies_to_topics": ["CT ombudsman authority", "ombudsman access", "disclosure", "confidentiality", "willful interference penalty"],
+      "audience": "ombudsman_staff",
+      "summary": "CT statutes §17a-870 through §17a-886 establishing the CT LTCOP. Key provisions: §17a-873 (State Ombudsman duties); §17a-875 (regional ombudsman duties); §17a-878 (access rights and penalty for willful interference — class B violation); §17a-882 (disclosure rules — identity protected unless written/oral/visual consent or court order); §17a-886 (Community Ombudsman program). Effective 2024-07-01.",
+      "when_to_show": "Any B03 (ombudsman access/interference) complaint. Staff reference for disclosure and consent decisions.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-022",
+      "title": "45 CFR §1324.19 — Duties of Representatives of the Office (Complaint Processing)",
+      "resource_type": "regulation",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "source_owner": "U.S. Department of Health and Human Services / ACL",
+      "applies_to_nors_codes": [],
+      "applies_to_topics": ["complaint investigation", "informed consent to investigate", "disclosure rules", "referral to other agencies", "abuse neglect exploitation disclosure"],
+      "audience": "ombudsman_staff",
+      "summary": "Federal regulation governing ombudsman complaint processing duties. Requires: offering privacy to resident; obtaining informed consent before investigating; documenting consent contemporaneously; not disclosing resident-identifying information without consent except under specific circumstances (§1324.19(b)(6)–(8)); obtaining Ombudsman approval before disclosing without consent. Governs the interaction between consent and referral to APS/law enforcement/survey agency.",
+      "when_to_show": "Staff reference for any complaint where consent, disclosure, or referral decisions must be made. Essential for abuse cases.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-023",
+      "title": "45 CFR §1324.11 — Access Rights of the Ombudsman Program",
+      "resource_type": "regulation",
+      "url": "https://www.law.cornell.edu/cfr/text/45/1324.11",
+      "source_owner": "U.S. Department of Health and Human Services / ACL",
+      "applies_to_nors_codes": ["B03"],
+      "applies_to_topics": ["ombudsman access", "facility access", "resident access", "medical records access", "HIPAA and ombudsman"],
+      "audience": "ombudsman_staff",
+      "summary": "Federal regulation establishing ombudsman access rights: access to facilities at any time during regular hours or when circumstances require; access to all residents; access to resident records with informed consent (or Ombudsman approval if resident is unable to consent and has no representative); access to administrative records; access to licensing/certification records. Confirms HIPAA does not preclude release of resident health information to the Ombudsman program.",
+      "when_to_show": "When a facility is blocking ombudsman access (B03) or when staff need authority to access records.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-024",
+      "title": "CT LTCOP — How to Obtain Important Discharge Documents",
+      "resource_type": "webpage",
+      "url": "https://portal.ct.gov/ltcop",
+      "source_owner": "Connecticut Long Term Care Ombudsman Program (CT DADS)",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["discharge documents", "discharge rights", "CT LTCOP quick links"],
+      "audience": "ombudsman_staff",
+      "summary": "CT LTCOP quick link resource for obtaining important discharge documents. Listed in the CT LTCOP Quick Links section at portal.ct.gov/ltcop. Direct URL for the specific sub-resource was not confirmed at time of verification — navigate from portal.ct.gov/ltcop.",
+      "when_to_show": "Discharge/transfer complaints (C01, C02) where resident or family needs help obtaining discharge documentation.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-025",
+      "title": "Antipsychotic Drugs — NORC Issue Page",
+      "resource_type": "webpage",
+      "url": "https://ltcombudsman.org/issues/antipsychotic-drugs",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["F12"],
+      "applies_to_topics": ["antipsychotic medications", "chemical restraints", "psychotropic drugs", "GDR", "F605"],
+      "audience": "ombudsman_staff",
+      "summary": "NORC issue page on antipsychotic drugs in long-term care. Aggregates guidance, training materials, and resources for ombudsman staff handling chemical restraint and unnecessary psychotropic medication complaints.",
+      "when_to_show": "Any F12 (chemical restraint) complaint or antipsychotic medication concern.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-026",
+      "title": "Infection Prevention — NORC Issue Page (Flu, COVID-19, Viruses)",
+      "resource_type": "webpage",
+      "url": "https://ltcombudsman.org/issues/infection-prevention",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["F13"],
+      "applies_to_topics": ["infection control", "COVID-19", "outbreak", "influenza", "F880"],
+      "audience": "ombudsman_staff",
+      "summary": "NORC issue page aggregating infection prevention resources for long-term care. Relevant for F880 and ombudsman response during outbreaks.",
+      "when_to_show": "Any F13 (infection control) complaint or outbreak situation.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-027",
+      "title": "Transfer/Discharge — NORC Issue Page",
+      "resource_type": "webpage",
+      "url": "https://ltcombudsman.org/issues/transfer-discharge",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["transfer", "discharge", "eviction", "appeal rights", "ombudsman role in discharge"],
+      "audience": "ombudsman_staff",
+      "summary": "NORC issue page aggregating transfer and discharge resources, guidance, and training materials. Hub for staff working on C01/C02 cases.",
+      "when_to_show": "Any C01 or C02 complaint. Good starting point for staff unfamiliar with discharge law.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-028",
+      "title": "Medicare and Medicaid — NORC Issue Page",
+      "resource_type": "webpage",
+      "url": "https://ltcombudsman.org/issues/medicare-and-medicaid",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["K02", "K04", "E01", "C02"],
+      "applies_to_topics": ["Medicare", "Medicaid", "SNF benefit", "NOMNC", "bed hold", "coverage dispute"],
+      "audience": "ombudsman_staff",
+      "summary": "NORC issue page on Medicare and Medicaid coverage issues in long-term care. Relevant for K02 (Medicaid complaints), K04 (Medicare complaints), and E01 (billing disputes). Covers NOMNC, bed-hold policies, and fair hearing rights.",
+      "when_to_show": "K02, K04, E01 complaints. When resident needs help understanding Medicare/Medicaid coverage rights.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-029",
+      "title": "Nursing Home Staffing — NORC Issue Page",
+      "resource_type": "webpage",
+      "url": "https://ltcombudsman.org/issues/nursing-home-staffing",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["J01", "J02"],
+      "applies_to_topics": ["staffing", "nurse-to-resident ratio", "staffing minimums", "F725", "F726"],
+      "audience": "ombudsman_staff",
+      "summary": "NORC issue page on nursing home staffing requirements, minimum staffing standards, and ombudsman advocacy around staffing complaints. Relevant for J01 (administrative/management complaints) and J02 (fiscal/staffing crisis).",
+      "when_to_show": "Any J01 or J02 complaint where staffing is the underlying issue.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    },
+    {
+      "id": "RR-030",
+      "title": "Nursing Home Residents' Rights — NORC Module 2 Booklet",
+      "resource_type": "handout",
+      "url": "https://ltcombudsman.org/uploads/files/support/Module-2.pdf",
+      "source_owner": "National Ombudsman Resource Center (NORC)",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06", "D07", "D08", "D09"],
+      "applies_to_topics": ["resident rights", "admission agreement", "legal services", "rights overview"],
+      "audience": "resident",
+      "summary": "NORC Module 2 booklet describing nursing home resident rights and facility responsibilities. Notes that facilities must provide residents with the Admission Agreement, a copy of resident rights, legal services listings, and facility rules at admission.",
+      "when_to_show": "General resident rights education. Safe for direct distribution to residents and families.",
+      "informational_only": true,
+      "last_verified": "2026-04-22"
+    }
+  ],
+
+  "workflow_guidance_rows": [
+    {
+      "id": "WG-001",
+      "workflow": "abuse_case",
+      "trigger": "Complaint involves A01–A05 (abuse, neglect, exploitation) by any perpetrator",
+      "guidance_text": "Before documenting or disclosing anything: (1) Offer the resident privacy for the conversation. (2) Determine whether the resident can communicate informed consent. (3) Request informed consent to investigate — document the method (written, oral, visual, auxiliary aids) and the date/time contemporaneously per 45 CFR §1324.19(b)(4). (4) Ask the resident whether they want the information reported and whether their identity may be disclosed. (5) Do NOT report to APS, survey agency, or law enforcement without consent UNLESS: resident is unable to consent AND has no representative AND reasonable cause exists that health/safety is at risk AND no evidence resident would object AND Ombudsman approves (§1324.19(b)(6)). (6) Record perpetrator code (01=facility staff, 02=another resident, 03=family/rep/friend, 99=other). (7) If personally witnessing suspected gross neglect/abuse: open case as complainant, seek consent, follow §1324.19(b)(8) procedure.",
+      "do_not_say": "Do not promise the resident that you will report to law enforcement or survey agency without first obtaining their consent. Do not disclose the resident's identity to the facility before confirming consent.",
+      "human_review_required": true,
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.11",
+        "https://ltcombudsman.org/uploads/files/support/Chapter_8_Elder_and_Dependent_Adult_Abuse_Teaching_Notes.pdf"
+      ]
+    },
+    {
+      "id": "WG-002",
+      "workflow": "discharge_case",
+      "trigger": "Complaint involves involuntary transfer or discharge (C01, C02)",
+      "guidance_text": "Document: (1) Date notice was received by resident and/or representative. (2) Whether notice was written (verbal notice is not valid). (3) Whether notice included all required elements: reason, proposed effective date, destination location, appeal rights, LTCOP contact information. (4) Whether a physician documented the reason in the medical record (required if reason is clinical need or safety). (5) Whether LTCOP was notified per revised 42 CFR §483.15(c)(3). (6) Whether the resident wishes to appeal — if so, appeal must be filed before the discharge date. (7) Whether the facility is attempting to resolve the stated reason through care planning before proceeding. Note: a NOMNC (Medicare Non-Coverage Notice) is NOT a discharge notice; these are separate processes under separate regulations.",
+      "do_not_say": "Do not tell the resident they must move if they have not received a valid written notice meeting all required elements. Do not conflate a NOMNC with a formal discharge notice.",
+      "human_review_required": true,
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/library/nursing-home-discharges-final_-_8_2018.pdf",
+        "https://theconsumervoice.org/wp-content/uploads/2024/06/involuntary-transfer-and-discharge_-final.pdf",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535"
+      ]
+    },
+    {
+      "id": "WG-003",
+      "workflow": "medication_case",
+      "trigger": "Complaint involves any medication concern (F05, F07, F11, F12)",
+      "guidance_text": "Apply the correct code and F-tag ladder: (1) Wrong drug/dose/time/person administered → F12 in NORS (medication error); F-tags F759/F760. (2) Drug used to control behavior for convenience/discipline (chemical restraint) → F12 in NORS; F-tag F605. (3) Any drug without adequate clinical indication (including antipsychotics, sedatives) → F12 in NORS; F-tag F757 (unnecessary drugs) or F605 if psychotropic. (4) Pharmacist drug regimen review failures → J01 or F-tag F756. For antipsychotics specifically: document whether (a) there is a diagnosis justifying the drug, (b) nonpharmacological interventions were tried and documented, (c) gradual dose reduction (GDR) has been attempted, (d) resident or representative provided informed consent. Note: F758 was DELETED in Rev. 229 — any reference to F758 must redirect to F605.",
+      "do_not_say": "Do not cite F758 — it is deleted. Do not confuse F757 (unnecessary drugs — all types) with F605 (psychotropic/chemical restraint specifically). Do not infer a violation without documented clinical evidence.",
+      "human_review_required": true,
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2025/01/Summary-of-Revised-CMS-Guidance-for-Surveyors.pdf",
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ]
+    },
+    {
+      "id": "WG-004",
+      "workflow": "rights_case",
+      "trigger": "Complaint involves resident rights denial (D-series codes)",
+      "guidance_text": "Document: (1) Specific right denied — reference both federal (42 CFR §483.10) and CT state law (§19a-550) where applicable. (2) Date(s) and circumstances of denial. (3) Whether resident made the right known to staff and was denied vs. whether right was never communicated to resident. (4) Whether the facility provided a written copy of resident rights at or before admission. (5) Whether resident was subject to interference, coercion, discrimination, or reprisal for exercising rights (§19a-550(b)(6)). (6) For D05 (grievances): whether grievance procedure was made known, whether a formal grievance was filed, and whether a timely response was given. Route: D01–D09 map to F-tags in §483.10 range (F550–F586); check Appendix PP Rev. 232 for specific F-tag page.",
+      "do_not_say": "Do not assume a right was denied without first confirming that the resident sought to exercise it. Do not cite a specific F-tag number in a resident-facing note.",
+      "human_review_required": false,
+      "source_urls": [
+        "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "id": "WG-005",
+      "workflow": "outside_agency_case",
+      "trigger": "Complaint involves K01–K06 (outside agency) or L01–L03 (non-facility system)",
+      "guidance_text": "K01–K06 and L01–L03 complaints are NOT facility deficiency complaints. Do NOT cite an Appendix PP F-tag. Document: (1) The specific agency/issue (e.g., Medicaid eligibility denial, Medicare SNF appeal, VA benefits problem, family conflict). (2) Whether the resident has been informed of their right to appeal or request a hearing with the relevant agency. (3) Referral made: CT DSS (K02 Medicaid), Livanta BFCC-QIO 1-888-319-8452 (K04 Medicare SNF), CT Insurance Department (K06), local CVSO (K05 VA), APS/probate court (L01 family conflict), CT DPH relevant license division (L02). (4) Ombudsman authority for outside agency complaints: 45 CFR §1324.19(a)(4) — represent interests before government agencies. (5) If facility action or inaction is a contributing factor (e.g., L03 — facility not providing transition planning), consider whether a companion facility code is also appropriate (e.g., D02).",
+      "do_not_say": "Do not cite an F-tag for K or L series complaints. Do not imply the ombudsman has enforcement authority over the outside agency.",
+      "human_review_required": false,
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    },
+    {
+      "id": "WG-006",
+      "workflow": "drafting_note",
+      "trigger": "Writing a case note or drafting an ombudsman contact record",
+      "guidance_text": "All case notes must document: (1) Date, time, and method of contact. (2) Whether resident was offered privacy for the conversation. (3) How informed consent to investigate was communicated and documented (written/oral/visual — if oral or visual, document contemporaneously per §1324.19(b)(4)). (4) Resident's stated perspective and desired outcome. (5) Whether resident consented to disclosure of their identity to the facility and/or other agencies. (6) Any information provided to the resident (rights, resources, referrals). (7) Action taken and planned follow-up. Notes are property of the Ombudsman program and subject to disclosure only under §1324.13(e) / CT §17a-882. Avoid language that infers a regulatory violation — describe observed or reported facts only.",
+      "do_not_say": "Do not write that a facility 'violated' a regulation — use 'reportedly' or 'as described by the resident.' Do not include information beyond what is needed for case documentation. Do not disclose the complainant's identity in the note body if the complainant is not the resident.",
+      "human_review_required": false,
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm"
+      ]
+    },
+    {
+      "id": "WG-007",
+      "workflow": "nors_lookup",
+      "trigger": "Staff is selecting a NORS code for a complaint",
+      "guidance_text": "Code selection rules from NORC Table 2: (1) Use A01–A05 only if the conduct meets the definition of abuse, gross neglect, or exploitation — not for general poor care or rudeness (use D03, F-series, or J-series instead). (2) Use A05 (gross neglect) only if failure to meet essential care clearly meets that threshold — otherwise use F or J series. (3) Use K01–K06 only when the complaint is about an outside agency, not the facility. (4) Use L01–L03 only when the complaint is about a non-facility actor (family, outside provider, system barrier). (5) A complaint can have multiple codes — code all relevant issues. (6) Perpetrator codes (01/02/03/99) are required for A01–A05. (7) When uncertain between two codes, use the more specific code and flag for supervisor review.",
+      "do_not_say": "Do not use a facility-level code (A–J) for a complaint that is entirely about an outside agency. Do not map a code to an F-tag that does not match the code's definition.",
+      "human_review_required": false,
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ]
+    }
+  ],
+
+  "source_quality_rows": [
+    {
+      "source_id": "SQ-001",
+      "source_title": "NORC NORS Table 2 — Complaint Codes and Definitions",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "source_owner": "National Ombudsman Resource Center (NORC) / National Consumer Voice",
+      "source_type": "official_guidance",
+      "authority_level": "high",
+      "preferred_use": "Primary authority for NORS code selection, definitions, code routing, and when-to-use guidance. Must be cited for any code_summary_row definition.",
+      "limitations": "Does not cite 42 CFR or 45 CFR directly in all entries. Code definitions may lag behind regulatory revisions — verify against current 45 CFR §1324 for procedure-related codes.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-002",
+      "source_title": "42 CFR Part 483 — Requirements for States and Long Term Care Facilities",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B",
+      "source_owner": "U.S. Department of Health and Human Services / CMS",
+      "source_type": "primary_law",
+      "authority_level": "high",
+      "preferred_use": "Primary federal regulatory authority for nursing home facility standards. Use for all F-tag mapping, CFR section citations, and facility obligation analysis. Subpart B (§483.5–§483.95) covers all SNF/NF requirements.",
+      "limitations": "eCFR may have access limitations (CAPTCHA). Use law.cornell.edu/cfr/text/42/part-483 as a reliable mirror. Always verify CFR section against the live Appendix PP for surveyor interpretation.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-003",
+      "source_title": "45 CFR Part 1324 — Long-Term Care Ombudsman Program",
+      "url": "https://www.law.cornell.edu/cfr/text/45/part-1324",
+      "source_owner": "U.S. Department of Health and Human Services / ACL",
+      "source_type": "primary_law",
+      "authority_level": "high",
+      "preferred_use": "Primary federal regulatory authority for ombudsman program functions, access rights, consent, disclosure, and complaint processing. Essential for all B03, consent/disclosure workflow, and outside-agency routing decisions. Subpart A (§§1324.1–1324.21) covers the LTCOP.",
+      "limitations": "Last updated 2024 (89 FR 11688). Subpart D (APS) and Subpart C (Legal Assistance) are separate programs not directly applicable to LTCO complaint work.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-004",
+      "source_title": "CMS Appendix PP — Guidance to Surveyors for Long Term Care Facilities",
+      "url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "source_owner": "Centers for Medicare & Medicaid Services (CMS)",
+      "source_type": "official_guidance",
+      "authority_level": "high",
+      "preferred_use": "Primary authority for F-tag definitions, surveyor guidance, and regulatory interpretation. Use Rev. 232 (07-23-25) for all current page references. Essential for all appendix_pp_page_rows and F-tag mapping. The legacy CMS URL above may serve Rev. 225 (08-08-24) — the live Rev. 232 is at the CMS SOM live URL.",
+      "limitations": "The URL at the legacy CMS path may not always serve the most current revision. Batch 3 confirmed Rev. 232 is the live version as of 07-23-25. Always verify PDF revision date before citing page numbers. Not a regulation itself — it is CMS interpretive guidance for surveyors.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-005",
+      "source_title": "CT General Statutes Chapter 368v — Health Care Institutions (§19a-550 et seq.)",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "source_owner": "Connecticut General Assembly",
+      "source_type": "primary_law",
+      "authority_level": "high",
+      "preferred_use": "Primary authority for Connecticut-specific nursing home resident rights (§19a-550 patients' bill of rights), transfer/discharge (§19a-535), and technology rights (§19a-550b). Use as state_overlay in authority_rows — not a substitute for federal 42 CFR Part 483.",
+      "limitations": "CT law applies in addition to federal law, not in place of it. Where federal law provides greater protection, federal law controls. Effective date 2024-07-01. Verify amendment history for sections not recently cited.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-006",
+      "source_title": "CT General Statutes Chapter 319l — Long-Term Care Ombudsman Program (§17a-870 et seq.)",
+      "url": "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "source_owner": "Connecticut General Assembly",
+      "source_type": "primary_law",
+      "authority_level": "high",
+      "preferred_use": "Primary authority for CT LTCOP structure, ombudsman duties (§17a-873), regional ombudsman duties (§17a-875), access rights and willful interference penalties (§17a-878), and disclosure/confidentiality rules (§17a-882). Use for any B03, consent, or disclosure decision in a CT context.",
+      "limitations": "CT-specific only. Federal 45 CFR §1324 is the parallel federal authority; where they differ, analyze which provides stronger protection. Community Ombudsman (§17a-886) applies to home care settings, not nursing homes.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-007",
+      "source_title": "CT eRegulations 19-13-D8t — Nursing Home Regulations",
+      "url": "https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19/19-13-D8t/",
+      "source_owner": "Connecticut Department of Public Health",
+      "source_type": "primary_law",
+      "authority_level": "high",
+      "preferred_use": "CT DPH nursing home regulations — state-level regulatory detail on staffing, physical environment, dietary, and medication standards. Use as state_overlay in authority_rows for I-series and H-series complaints where CT standards differ from federal.",
+      "limitations": "Eregulations portal may have navigation challenges. URL may change with portal updates. Always verify section before citing. Does not replace federal 42 CFR Part 483 — state regulations must be at least as stringent.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-008",
+      "source_title": "CT LTCOP Official Program Page — portal.ct.gov/ltcop",
+      "url": "https://portal.ct.gov/ltcop",
+      "source_owner": "Connecticut Long Term Care Ombudsman Program (CT DADS)",
+      "source_type": "state_resource",
+      "authority_level": "high",
+      "preferred_use": "Official CT program page. Use for CT-specific contact information (1-866-388-1888), program description, and state-produced handouts. State Ombudsman: Mairead Painter. Sub-pages contain resident rights, discharge documents, and consumer guides specific to CT.",
+      "limitations": "Some sub-page URLs have changed (portal.ct.gov/AgingAndDisability/* paths return 404). Always navigate from the root portal.ct.gov/ltcop URL. Content may not be updated with latest federal guidance revisions.",
+      "last_verified": "2026-04-22"
+    },
+    {
+      "source_id": "SQ-009",
+      "source_title": "NORC / National Consumer Voice — ltcombudsman.org and theconsumervoice.org",
+      "url": "https://ltcombudsman.org",
+      "source_owner": "National Ombudsman Resource Center / National Consumer Voice for Quality Long-Term Care",
+      "source_type": "federal_resource",
+      "authority_level": "high",
+      "preferred_use": "Highly authoritative training, handouts, issue guidance, and policy summaries for the LTCOP. Both domains (ltcombudsman.org and theconsumervoice.org) are the same organization. Acceptable for resource_rows. Preferred over law-firm articles, commercial sites, or blogs for any secondary interpretation. CMS references NORC as the national training partner for LTCOP.",
+      "limitations": "Not a regulatory body — materials are guidance/training, not law. Some materials are dated (2017–2018 handouts) and may not reflect post-Rev. 229 regulatory changes. Always check publication date. Authority_level = high for training/educational use; medium for regulatory interpretation (defer to primary sources).",
+      "last_verified": "2026-04-22"
+    }
+  ],
+
+  "plain_language_explainer_rows": [
+    {
+      "id": "PL-001",
+      "term": "NORS code",
+      "plain_language_definition": "A short letter-and-number label (like A01 or D05) used to categorize a complaint made to the Long-Term Care Ombudsman. NORS stands for National Ombudsman Reporting System. Every complaint handled by an ombudsman is assigned at least one NORS code so it can be counted and tracked nationally.",
+      "ombudsman_context": "NORS codes are required for all complaint cases entered in the reporting system. They do not determine the outcome of a complaint — they describe what the complaint is about. A single case can have multiple NORS codes.",
+      "not_the_same_as": ["F-tag", "CFR citation", "a legal finding"],
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"]
+    },
+    {
+      "id": "PL-002",
+      "term": "major code",
+      "plain_language_definition": "In the NORS system, a major code is the letter category (A, B, C, D, E, F, G, H, I, J, K, L) that groups complaints by broad topic. For example, A = Abuse/Neglect/Exploitation; F = Care issues; K = Complaints about outside agencies.",
+      "ombudsman_context": "Staff select the major code first when categorizing a complaint, then choose the specific minor code within that category. Major codes determine the general area of advocacy and whether an F-tag is potentially applicable.",
+      "not_the_same_as": ["minor code", "perpetrator code"],
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"]
+    },
+    {
+      "id": "PL-003",
+      "term": "minor code",
+      "plain_language_definition": "The two-digit number that follows the major code letter (e.g., '01' in A01, '05' in D05). The minor code identifies the specific type of complaint within the major category. For example, within the A (Abuse) category, A01 = physical abuse, A02 = sexual abuse, A03 = emotional/verbal abuse.",
+      "ombudsman_context": "The combination of major code + minor code (e.g., F12) is what gets entered in the reporting system and mapped to federal and state authorities. Minor codes are defined in NORC Table 2.",
+      "not_the_same_as": ["major code", "perpetrator code", "F-tag"],
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"]
+    },
+    {
+      "id": "PL-004",
+      "term": "F-tag",
+      "plain_language_definition": "A numbered label (like F600 or F757) that CMS uses to identify a specific federal nursing home requirement. Each F-tag corresponds to a section of the federal regulations (42 CFR Part 483). When surveyors find that a nursing home broke a rule, they cite the F-tag number for that rule.",
+      "ombudsman_context": "The NORS Crosswalk Tool maps NORS complaint codes to the F-tags that surveyors would cite for the same issue. This helps ombudsman staff understand the regulatory basis for a complaint. F-tags are a surveyor tool — ombudsman staff do not cite F-tags themselves.",
+      "not_the_same_as": ["NORS code", "CFR section", "a finding of violation"],
+      "source_urls": ["https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"]
+    },
+    {
+      "id": "PL-005",
+      "term": "Appendix PP",
+      "plain_language_definition": "A large CMS document (currently ~930 pages) that explains how surveyors should interpret and enforce each federal nursing home requirement. It contains the surveyor guidance for every F-tag. It is Part of the CMS State Operations Manual (SOM).",
+      "ombudsman_context": "Ombudsman staff use Appendix PP to understand what evidence surveyors look for when investigating a complaint. The current version is Rev. 232 (July 23, 2025). Page numbers changed from the prior version (Rev. 225) due to content additions in Rev. 229.",
+      "not_the_same_as": ["42 CFR Part 483 (the regulation itself)", "a facility policy", "a resident rights document"],
+      "source_urls": ["https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"]
+    },
+    {
+      "id": "PL-006",
+      "term": "42 CFR",
+      "plain_language_definition": "Title 42 of the Code of Federal Regulations, which contains federal health and human services regulations. The nursing home requirements are in 42 CFR Part 483. '42 CFR §483.10' means Part 483, Section 10 — the resident rights section.",
+      "ombudsman_context": "When an authority row cites '42 CFR §483.10(b)', it means the federal regulation — not the surveyor guidance. The regulation is the law; Appendix PP is CMS's explanation of how to apply it.",
+      "not_the_same_as": ["Appendix PP (surveyor guidance)", "45 CFR (which covers the ombudsman program)"],
+      "source_urls": ["https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"]
+    },
+    {
+      "id": "PL-007",
+      "term": "45 CFR",
+      "plain_language_definition": "Title 45 of the Code of Federal Regulations, which covers public welfare regulations. The Long-Term Care Ombudsman Program rules are in 45 CFR Part 1324. '45 CFR §1324.19' means the section on the duties of ombudsman representatives.",
+      "ombudsman_context": "45 CFR Part 1324 is the federal authority for what the ombudsman program must do: investigate complaints, handle consent, manage disclosure, and refer to other agencies. It is distinct from 42 CFR Part 483, which governs the nursing homes themselves.",
+      "not_the_same_as": ["42 CFR (which covers nursing home facility requirements)", "CT state statutes"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/part-1324"]
+    },
+    {
+      "id": "PL-008",
+      "term": "state overlay",
+      "plain_language_definition": "A Connecticut law or regulation that adds to or strengthens federal nursing home requirements. Where Connecticut law provides more protection than federal law, the stronger CT rule applies.",
+      "ombudsman_context": "In the NORS Crosswalk Tool, 'state_overlay' authority rows cite CT General Statutes or CT eRegulations. These are added alongside the federal 42 CFR citation — they are not a substitute for it. Example: CT §19a-550 mirrors and sometimes expands on 42 CFR §483.10.",
+      "not_the_same_as": ["the primary federal regulation", "a facility policy"],
+      "source_urls": ["https://www.cga.ct.gov/current/pub/chap_368v.htm"]
+    },
+    {
+      "id": "PL-009",
+      "term": "direct mapping",
+      "plain_language_definition": "When a NORS complaint code has a clear, one-to-one connection to a specific F-tag. The NORS code and the F-tag address the same problem. Example: E02 (personal property loss by facility staff) maps directly to F602 (financial misappropriation).",
+      "ombudsman_context": "In the crosswalk tool, a 'direct' mapping_confidence means the F-tag is the primary regulatory citation for that exact type of complaint. The tool should present these first.",
+      "not_the_same_as": ["related mapping", "topic-based mapping"],
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"]
+    },
+    {
+      "id": "PL-010",
+      "term": "related mapping",
+      "plain_language_definition": "When a NORS complaint code is connected to an F-tag, but the F-tag covers a broader area or a different aspect of the same issue. Example: F12 (chemical restraint) is related to F756 (drug regimen review) because both involve medications — but F756 is about the pharmacist's review, not the restraint itself.",
+      "ombudsman_context": "In the crosswalk tool, a 'related' mapping_confidence means the F-tag is worth knowing about but is not the primary citation. Staff should review related tags to understand the full regulatory picture.",
+      "not_the_same_as": ["direct mapping", "no direct F-tag"],
+      "source_urls": []
+    },
+    {
+      "id": "PL-011",
+      "term": "topic-based mapping",
+      "plain_language_definition": "When a NORS complaint code covers a broad topic that touches multiple F-tags, none of which alone captures the full complaint. The mapping is organized by subject matter rather than a direct code-to-tag connection.",
+      "ombudsman_context": "Used in the crosswalk tool when a NORS code spans multiple regulatory areas. Example: J01 (administrative/management failures) touches staffing (F725), abuse investigation (F607/F609/F610), and administration (§483.70) depending on the specific concern.",
+      "not_the_same_as": ["direct mapping", "related mapping"],
+      "source_urls": []
+    },
+    {
+      "id": "PL-012",
+      "term": "no direct F-tag",
+      "plain_language_definition": "When a NORS complaint code does not correspond to any specific nursing home F-tag. This happens when the complaint is about an outside agency (K-series), a non-facility actor (L-series), or an ombudsman mediation role (like G03).",
+      "ombudsman_context": "The crosswalk tool includes a 'no_direct_f_tag' caveat for these codes. Staff should NOT attempt to cite an F-tag for K or L series complaints, as those codes are not about facility regulatory violations. Route to the appropriate agency instead.",
+      "not_the_same_as": ["a mapping that hasn't been found yet", "a complaint that can't be investigated"],
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"]
+    },
+    {
+      "id": "PL-013",
+      "term": "resident-directed advocacy",
+      "plain_language_definition": "The core principle of ombudsman practice: advocacy follows what the resident wants, not what the ombudsman or family thinks is best. The ombudsman's job is to identify the resident's wishes and support them — even if the resident's choice seems unwise.",
+      "ombudsman_context": "Under 45 CFR §1324.19(b)(2), the ombudsman must ask the resident what they want to happen and work toward that outcome. This includes whether to investigate, whether to report, and whether to involve family or other agencies. A resident's right to make their own choices is protected even when those choices carry risk.",
+      "not_the_same_as": ["family-directed advocacy", "ombudsman deciding what is best for the resident"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/1324.19"]
+    },
+    {
+      "id": "PL-014",
+      "term": "consent / permission",
+      "plain_language_definition": "The resident's agreement to allow the ombudsman to investigate their complaint or share their information. Consent can be given in writing, spoken aloud, shown visually, or communicated through assistive aids. The method must be documented immediately.",
+      "ombudsman_context": "Under 45 CFR §1324.19(b)(4), informed consent is required before the ombudsman investigates a complaint or discloses the resident's identity. It must be documented contemporaneously. If a resident cannot communicate consent and has no representative, special rules apply (§1324.19(b)(6)). Consent is NOT a one-time waiver — it should be confirmed at each significant step.",
+      "not_the_same_as": ["family permission (family cannot consent on behalf of a competent resident)", "blanket authorization"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/1324.19", "https://www.law.cornell.edu/cfr/text/45/1324.11"]
+    },
+    {
+      "id": "PL-015",
+      "term": "disclosure",
+      "plain_language_definition": "Sharing information from an ombudsman case file — including the resident's name, complaint details, or any identifying information — with someone outside the ombudsman program (facility staff, survey agency, APS, law enforcement, etc.).",
+      "ombudsman_context": "Under 45 CFR §1324.13(e) and CT §17a-882, the State Ombudsman has sole authority over disclosure decisions. The ombudsman must not disclose a resident's identity without consent, except under the specific circumstances in §1324.19(b)(6)–(8). 'Disclosure' in CT requires written or oral/visual consent documented contemporaneously, or a court order (§17a-882).",
+      "not_the_same_as": ["publishing public data", "sharing information with the resident about their own case"],
+      "source_urls": ["https://www.law.cornell.edu/cfr/text/45/1324.13", "https://www.cga.ct.gov/current/pub/chap_319l.htm"]
+    },
+    {
+      "id": "PL-016",
+      "term": "grievance",
+      "plain_language_definition": "A formal complaint submitted by a resident to the facility requesting that the facility review and respond to a concern about care, services, or rights. Federal law requires facilities to have a written grievance process, and residents cannot be punished for filing one.",
+      "ombudsman_context": "Grievance rights are protected under 42 CFR §483.10(j) / F585. NORS code D05 applies when a facility fails to follow its own grievance procedure or retaliates against a resident for filing. The ombudsman can help a resident understand how to file a formal grievance and can advocate for a timely response.",
+      "not_the_same_as": ["an ombudsman complaint (which is separate from the facility grievance process)", "a survey complaint filed with DPH"],
+      "source_urls": ["https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility"]
+    },
+    {
+      "id": "PL-017",
+      "term": "involuntary discharge",
+      "plain_language_definition": "When a nursing home asks or requires a resident to leave against the resident's wishes. Federal law only allows this for six specific reasons. The facility must provide written notice at least 30 days in advance (with limited exceptions), and the resident has the right to appeal.",
+      "ombudsman_context": "NORS codes C01 and C02 apply to involuntary discharge and transfer complaints. The six lawful reasons are: (1) facility cannot meet needs; (2) health improved, no longer needs nursing care; (3) endangers safety of others; (4) endangers health of others; (5) failed to pay after reasonable notice; (6) facility is closing. F627/F628 in Appendix PP Rev. 232 govern the process.",
+      "not_the_same_as": ["a voluntary discharge (resident chooses to leave)", "a hospital transfer for acute care"],
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/library/nursing-home-discharges-final_-_8_2018.pdf",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535"
+      ]
+    },
+    {
+      "id": "PL-018",
+      "term": "transfer",
+      "plain_language_definition": "The movement of a resident from one bed to another — either within the same facility (intra-facility) or to a different facility — when the resident is expected to return to the original facility. Different from a discharge (where return is not expected).",
+      "ombudsman_context": "The same six lawful reasons and notice requirements apply to transfers as to discharges. An intra-facility room change (C04 in NORS) is a different situation governed by F560/F559. F627 covers the general transfer/discharge requirements in Appendix PP Rev. 232.",
+      "not_the_same_as": ["discharge (no expected return)", "intra-facility room change (different code — C04)"],
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2024/06/involuntary-transfer-and-discharge_-final.pdf"
+      ]
+    },
+    {
+      "id": "PL-019",
+      "term": "exploitation",
+      "plain_language_definition": "The illegal or improper use of a resident's money, property, or assets for someone else's benefit. This includes taking money, forging checks, pressuring residents to change wills or give gifts, and misusing a power of attorney.",
+      "ombudsman_context": "NORS code A04 (financial exploitation) applies when the perpetrator is facility staff or any other person. NORS code E02 (personal property loss) applies when the issue is lost or stolen property. F602 in Appendix PP covers financial misappropriation by the facility. If the perpetrator is a family member or outside actor, the ombudsman should also refer to APS.",
+      "not_the_same_as": ["neglect (failure to provide care)", "physical abuse (A01)", "theft by a stranger (still exploitation but route through APS if non-facility)"],
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2024/06/rrm-factsheet-large-font-508-compliant.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ]
+    },
+    {
+      "id": "PL-020",
+      "term": "gross neglect",
+      "plain_language_definition": "A severe failure to provide the basic care a resident needs, rising well above ordinary poor care — for example, leaving a resident in soiled conditions for many hours, failing to provide food or water, or ignoring a serious medical emergency. The harm must be significant and the failure must be clear.",
+      "ombudsman_context": "NORS code A05 is used for gross neglect. NORC guidance specifies: use A05 only when the failure to meet essential care is clear and meets the gross neglect threshold — otherwise use the appropriate F-series code (e.g., F05 for poor hygiene, F07 for unattended symptoms). The distinction matters because A05 requires more urgent escalation and is tracked separately in NORS.",
+      "not_the_same_as": ["ordinary poor care (use F-series codes)", "neglect by a non-facility actor (use L-series or refer to APS)"],
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"]
+    }
+  ],
+
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B4-001",
+      "flag_type": "source_gap",
+      "description": "CT LTCOP sub-page URLs (portal.ct.gov/AgingAndDisability/* and portal.ct.gov/dads/*) are returning 404 errors as of April 2026. The root page portal.ct.gov/ltcop and portal.ct.gov/LTCOP are live, but several linked sub-resources (Visitation Center, DPH Blast Fax Page, press release PDFs) may be at changed URLs or no longer hosted. The CT-branded consumer guides (MRC guide, resident rights fact sheet) were confirmed accessible via the media/ltcop CDN path.",
+      "recommended_action": "CODEX: Do not hard-link to portal.ct.gov/AgingAndDisability/* or portal.ct.gov/dads/* paths. Link directly to confirmed portal.ct.gov/ltcop sub-pages or the media CDN paths. CT LTCOP staff should be asked to confirm current URLs for the Visitation Center and discharge documents sub-pages.",
+      "source_urls": ["https://portal.ct.gov/ltcop"]
+    },
+    {
+      "flag_id": "HRF-B4-002",
+      "flag_type": "resource_gap",
+      "description": "No standalone CMS-produced resident-facing handouts on medication rights, care planning, or infection control were confirmed with live URLs. CMS's nursing home guidance page does not expose direct handout downloads. Existing Consumer Voice and NORC PDFs fill this gap but are not CMS-branded. If a CT-specific medication or infection control handout is desired, it would need to be created or sourced from CT DPH.",
+      "recommended_action": "Use Consumer Voice and NORC PDFs (confirmed live URLs in resource_rows) as the primary handout resources. Flag for CT LTCOP staff: consider whether a CT-branded medication rights or infection control fact sheet exists or should be created.",
+      "source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/nursing-homes",
+        "https://theconsumervoice.org/wp-content/uploads/2025/01/Summary-of-Revised-CMS-Guidance-for-Surveyors.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-B4-003",
+      "flag_type": "workflow_risk",
+      "description": "The distinction between the NOMNC (Medicare Notice of Non-Coverage) and a formal discharge notice under 42 CFR §483.15 is a high-error-risk area. Facilities commonly use NOMNC as a discharge notice, which is improper. Staff and residents may conflate these two documents, leading to missed appeal opportunities.",
+      "recommended_action": "CODEX: Add a workflow_guidance note or tooltip in the discharge case workflow (C01/C02) that explicitly states: 'A Medicare Non-Coverage Notice (NOMNC) is NOT a discharge notice. These are separate documents governed by separate rules. A NOMNC does not trigger discharge rights or the 30-day notice requirement.' Reference Consumer Voice Phase 3 summary (RR-014).",
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2024/07/phase-3-summary.pdf",
+        "https://ltcombudsman.org/uploads/files/library/nursing-home-discharges-final_-_8_2018.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-B4-004",
+      "flag_type": "plain_language_risk",
+      "description": "The terms 'consent' and 'permission' are used differently in different contexts within the tool: (1) resident consent to ombudsman investigating (45 CFR §1324.19); (2) resident consent to medical treatment (42 CFR §483.10(c)); (3) resident consent to release of records (42 CFR §483.10(g)). Conflating these could cause staff to misapply one type of consent where another is required.",
+      "recommended_action": "CODEX: In any plain_language_explainer, tooltip, or workflow note that uses 'consent,' specify which type of consent is meant. Consider adding context labels: 'consent to investigate (ombudsman)' vs. 'informed consent to treatment (medical)' vs. 'consent to release records (records access).'",
+      "source_urls": [
+        "https://www.law.cornell.edu/cfr/text/45/1324.19",
+        "https://www.law.cornell.edu/cfr/text/45/1324.11"
+      ]
+    },
+    {
+      "flag_id": "HRF-B4-005",
+      "flag_type": "mapping_risk",
+      "description": "Resource RR-005 (NORC Abuse Teaching Notes, 2018) describes the LTCO as a 'mandated reporter.' CT law and federal 45 CFR §1324.19(b)(3)(iii) establish that the ombudsman shall NOT report suspected abuse/neglect/exploitation without resident consent (with specific exceptions). If the teaching notes predate the 2016 final rule or CT statute update, the 'mandated reporter' language may conflict with current consent-first requirements.",
+      "recommended_action": "CODEX: When displaying RR-005, add a caveat: 'Note: This training material predates the 2016 Final Rule. Federal 45 CFR §1324.19(b)(3)(iii) and CT §17a-882 require resident consent before reporting, subject to limited exceptions. Consult the State Ombudsman for CT-specific mandatory reporting guidance.' Do not present the teaching notes as definitive on mandatory reporting without this caveat.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/Chapter_8_Elder_and_Dependent_Adult_Abuse_Teaching_Notes.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ]
+    }
+  ]
+}
