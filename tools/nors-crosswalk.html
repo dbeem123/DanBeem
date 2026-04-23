@@ -46,6 +46,147 @@
     }
     .result-list { margin:0; padding-left:20px; }
     .result-list li { margin:6px 0; }
+    .results-shell { margin-top:18px; }
+    .results-title-row {
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+    }
+    .summary-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      margin-top:14px;
+    }
+    .summary-card {
+      min-height:96px;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .summary-label {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .summary-value {
+      display:block;
+      margin-top:7px;
+      font-size:20px;
+      font-weight:850;
+      line-height:1.25;
+    }
+    .summary-note { margin-top:7px; }
+    .source-path {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin-top:12px;
+    }
+    .path-step {
+      padding:7px 9px;
+      border-radius:8px;
+      border:1px solid rgba(56,189,248,0.16);
+      background:rgba(56,189,248,0.055);
+      font-size:13px;
+      font-weight:700;
+    }
+    .path-arrow { color:var(--muted); }
+    .results-grid {
+      margin-top:18px;
+      grid-template-columns:minmax(0,0.9fr) minmax(0,1.2fr);
+    }
+    .output-section { display:grid; gap:10px; }
+    .result-item {
+      padding:10px 0;
+      border-top:1px solid var(--border);
+    }
+    .result-item:first-child { padding-top:0; border-top:0; }
+    .result-title {
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      font-weight:800;
+    }
+    .result-meta {
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:8px;
+    }
+    .code-chip,
+    .meta-chip {
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      padding:5px 8px;
+      border-radius:999px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.035);
+      color:var(--text);
+      font-size:12px;
+      font-weight:750;
+    }
+    .meta-chip.accent {
+      border-color:rgba(56,189,248,0.2);
+      background:rgba(56,189,248,0.075);
+    }
+    .authority-group { display:grid; gap:10px; }
+    .authority-topic {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .authority-item {
+      padding:11px 0;
+      border-top:1px solid var(--border);
+    }
+    .authority-item:first-child { padding-top:0; border-top:0; }
+    .meta-line { margin-top:4px; }
+    .detail-stack {
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+    details.disclosure { padding:0; overflow:hidden; }
+    details.disclosure > summary {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      cursor:pointer;
+      list-style:none;
+      padding:16px 18px;
+      font-weight:850;
+    }
+    details.disclosure > summary::-webkit-details-marker { display:none; }
+    .summary-caret { color:var(--muted); font-size:13px; }
+    details.disclosure[open] .summary-caret::after { content:"Collapse"; }
+    details.disclosure:not([open]) .summary-caret::after { content:"Expand"; }
+    .disclosure-body {
+      border-top:1px solid var(--border);
+      padding:14px 18px 18px;
+    }
+    .support-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:12px;
+    }
+    .support-block h3 { margin:0 0 8px; font-size:16px; }
+    .empty-state { color:var(--muted); }
+    @media (max-width:840px) {
+      .results-grid { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
@@ -99,37 +240,81 @@
       <p class="notice">Informational Only - surfaced references are for review support and do not determine violations.</p>
     </section>
 
-    <section class="grid" style="margin-top:18px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));" aria-label="Crosswalk outputs">
+    <section class="panel results-shell" aria-labelledby="results-title">
+      <div class="results-title-row">
+        <div>
+          <div class="pill">Results</div>
+          <h2 id="results-title" style="margin-top:8px;">Crosswalk Results</h2>
+          <p class="subtle">Start with the likely code/topic and the authority trail. Open the review sections when the facts suggest overlapping complaints or related-but-distinct references.</p>
+        </div>
+        <div class="source-path" aria-label="Crosswalk source trail">
+          <span class="path-step">NORS / keyword</span>
+          <span class="path-arrow">to</span>
+          <span class="path-step">topic</span>
+          <span class="path-arrow">to</span>
+          <span class="path-step">regulation / Appendix PP / CT</span>
+        </div>
+      </div>
+      <div id="summary-output" class="summary-grid">
+        <div class="summary-card">
+          <span class="summary-label">Ready</span>
+          <span class="summary-value">Run a lookup</span>
+          <div class="subtle summary-note">A compact source-based summary will appear here.</div>
+        </div>
+      </div>
+      <div class="notice">Human judgment stays in the loop: this tool surfaces likely references and related considerations. Ombudsman staff choose the final NORS code(s), regulations, and F-tags based on the complaint facts.</div>
+    </section>
+
+    <section class="grid results-grid" aria-label="Primary crosswalk outputs">
       <div class="panel">
         <div class="pill">Likely</div>
-        <h2><span data-help-id="likely_topics">Likely Topics / Complaint Areas</span></h2>
+        <h2><span data-help-id="likely_topics">Likely NORS / Topics</span></h2>
         <div id="topics-output" class="output-box">Likely topics will appear here.</div>
       </div>
       <div class="panel">
         <div class="pill">Reference</div>
-        <h2><span data-help-id="possible_references">Possible Relevant References</span></h2>
+        <h2><span data-help-id="possible_references">Authority Trail</span></h2>
         <div id="authorities-output" class="output-box">Relevant reference citations will appear here.</div>
       </div>
-      <div class="panel">
-        <div class="pill">Resource</div>
-        <h2><span data-help-id="handouts_resources">Handouts &amp; Resources</span></h2>
-        <div id="resources-output" class="output-box">Handouts and resources will appear here.</div>
-      </div>
-      <div class="panel">
-        <div class="pill">Workflow</div>
-        <h2>Workflow Notes</h2>
-        <div id="workflow-output" class="output-box">Workflow guidance will appear here.</div>
-      </div>
-      <div class="panel">
-        <div class="pill">Trace</div>
-        <h2><span data-help-id="crosswalk_trace">Crosswalk Trace</span></h2>
-        <div id="trace-output" class="output-box">Trace will appear here.</div>
-      </div>
-      <div class="panel">
-        <div class="pill">Review</div>
-        <h2>Warnings</h2>
-        <div id="warnings-output" class="output-box">Warnings will appear here.</div>
-      </div>
+    </section>
+
+    <section class="detail-stack" aria-label="Expanded crosswalk review">
+      <details class="panel disclosure" open>
+        <summary>
+          <span>Consider Also / Review Support</span>
+          <span class="summary-caret" aria-hidden="true"></span>
+        </summary>
+        <div class="disclosure-body support-grid">
+          <div class="support-block">
+            <h3>Workflow Notes</h3>
+            <div id="workflow-output" class="output-box">Workflow guidance will appear here.</div>
+          </div>
+          <div class="support-block">
+            <h3><span data-help-id="handouts_resources">Handouts &amp; Resources</span></h3>
+            <div id="resources-output" class="output-box">Handouts and resources will appear here.</div>
+          </div>
+        </div>
+      </details>
+
+      <details class="panel disclosure" id="trace-disclosure">
+        <summary>
+          <span><span data-help-id="crosswalk_trace">Why Matched / Source Trace</span></span>
+          <span class="summary-caret" aria-hidden="true"></span>
+        </summary>
+        <div class="disclosure-body">
+          <div id="trace-output" class="output-box">Trace will appear here.</div>
+        </div>
+      </details>
+
+      <details class="panel disclosure">
+        <summary>
+          <span>Warnings / Human Review Flags</span>
+          <span class="summary-caret" aria-hidden="true"></span>
+        </summary>
+        <div class="disclosure-body">
+          <div id="warnings-output" class="output-box">Warnings will appear here.</div>
+        </div>
+      </details>
     </section>
   </main>
 
@@ -200,28 +385,109 @@
       `;
     }
 
+    function formatTopicName(topic) {
+      return String(topic || 'topic').replace(/_/g, ' ');
+    }
+
+    function getAuthorityList(authorityGroups) {
+      return (authorityGroups || []).flatMap(group => group.authorities || []);
+    }
+
+    function getMatchedCodeValues(topicMatches) {
+      const codes = new Set();
+      (topicMatches || []).forEach(match => {
+        (match.norsCodes || []).forEach(code => codes.add(code));
+        (match.likelyNorsCodes || []).forEach(code => codes.add(code));
+      });
+      return [...codes].filter(Boolean);
+    }
+
+    function getCodeLabel(code) {
+      const detail = crosswalkData && window.Crosswalk ? Crosswalk.getNorsCodeDetail(code, crosswalkData) : null;
+      return detail ? `${code} - ${detail.label}` : code;
+    }
+
+    function renderCodeChip(code, className = '') {
+      return `<span class="code-chip ${className}">${escapeHtml(getCodeLabel(code))}</span>`;
+    }
+
+    function getAuthorityLayerSummary(authorities) {
+      const layers = new Set();
+      authorities.forEach(authority => {
+        const text = `${authority.citation || ''} ${authority.category || ''} ${authority.authorityLevel || ''}`.toLowerCase();
+        if (/appendix|f\d{3}/.test(text)) layers.add('Appendix PP / F-tags');
+        if (/42\s*cfr|federal/.test(text)) layers.add('42 CFR');
+        if (/45\s*cfr|ombudsman/.test(text)) layers.add('Ombudsman authority');
+        if (/\bct\b|connecticut|state statute/.test(text)) layers.add('CT overlay');
+      });
+      return [...layers];
+    }
+
+    function renderSummary(result) {
+      const output = document.getElementById('summary-output');
+      const topicMatches = result.topicMatches || [];
+      const authorities = getAuthorityList(result.authorityGroups || []);
+      const codes = getMatchedCodeValues(topicMatches);
+      const layers = getAuthorityLayerSummary(authorities);
+      const supportCount = (result.workflowGuidance || []).length + (result.contextTips || []).length + (result.resources || []).length;
+      const warningCount = (result.warnings || []).length;
+      const codeDisplay = codes.length
+        ? codes.slice(0, 5).map(code => escapeHtml(code)).join(', ') + (codes.length > 5 ? ` +${codes.length - 5}` : '')
+        : 'No code match';
+      const topicDisplay = topicMatches.length
+        ? topicMatches.slice(0, 3).map(match => escapeHtml(formatTopicName(match.topic))).join(', ') + (topicMatches.length > 3 ? ` +${topicMatches.length - 3}` : '')
+        : 'No topic match';
+      const layerDisplay = layers.length ? layers.slice(0, 3).join(', ') + (layers.length > 3 ? ` +${layers.length - 3}` : '') : 'No authority trail';
+
+      output.innerHTML = `
+        <div class="summary-card">
+          <span class="summary-label">Likely NORS</span>
+          <span class="summary-value">${codeDisplay}</span>
+          <div class="subtle summary-note">One case may contain multiple distinct complaints.</div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Matched Topic</span>
+          <span class="summary-value">${topicDisplay}</span>
+          <div class="subtle summary-note">Driven by selected code and/or keyword language.</div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Authority Layers</span>
+          <span class="summary-value">${escapeHtml(layerDisplay)}</span>
+          <div class="subtle summary-note">${authorities.length} reference${authorities.length === 1 ? '' : 's'} surfaced for review.</div>
+        </div>
+        <div class="summary-card">
+          <span class="summary-label">Review Support</span>
+          <span class="summary-value">${supportCount} note${supportCount === 1 ? '' : 's'}</span>
+          <div class="subtle summary-note">${warningCount} warning${warningCount === 1 ? '' : 's'} or human-review flag${warningCount === 1 ? '' : 's'}.</div>
+        </div>
+      `;
+    }
+
     function renderTopics(topicMatches) {
       const output = document.getElementById('topics-output');
       if (!topicMatches.length) {
-        output.textContent = 'No likely topics matched.';
+        output.innerHTML = '<span class="empty-state">No likely topics matched.</span>';
         return;
       }
 
       output.innerHTML = topicMatches.map(match => `
-        <div style="margin-bottom:12px;">
-          <strong>${escapeHtml(match.topic.replace(/_/g, ' '))}${match.keywordMatchCount ? ` (${match.keywordMatchCount} matches)` : ''}</strong>
-          <div class="subtle">
-            ${match.norsCodes.length && match.keywords.length
-              ? 'From NORS code and keywords'
-              : match.norsCodes.length
-                ? 'From NORS code'
-                : 'From keywords'}
+        <div class="result-item">
+          <div class="result-title">
+            <span>${escapeHtml(formatTopicName(match.topic))}</span>
+            ${match.keywordMatchCount ? `<span class="meta-chip accent">${match.keywordMatchCount} keyword match${match.keywordMatchCount === 1 ? '' : 'es'}</span>` : ''}
           </div>
-          <ul class="result-list">
-            ${match.norsCodes.map(code => `<li>NORS code ${escapeHtml(code)}</li>`).join('')}
-            ${(match.likelyNorsCodes || []).map(code => `<li>likely NORS code ${escapeHtml(code)}</li>`).join('')}
-            ${match.keywords.map(keyword => `<li>keyword "${escapeHtml(keyword)}"</li>`).join('')}
-          </ul>
+          <div class="subtle meta-line">
+            ${match.norsCodes.length && match.keywords.length
+              ? 'Matched from selected NORS code and keyword language.'
+              : match.norsCodes.length
+                ? 'Matched from the selected NORS code.'
+                : 'Matched from keyword language.'}
+          </div>
+          <div class="result-meta">
+            ${match.norsCodes.map(code => renderCodeChip(code, 'accent')).join('')}
+            ${(match.likelyNorsCodes || []).map(code => renderCodeChip(code)).join('')}
+            ${match.keywords.map(keyword => `<span class="meta-chip">keyword: ${escapeHtml(keyword)}</span>`).join('')}
+          </div>
         </div>
       `).join('');
     }
@@ -229,27 +495,30 @@
     function renderAuthorities(authorityGroups) {
       const output = document.getElementById('authorities-output');
       if (!authorityGroups.length) {
-        output.textContent = 'No authority mappings found for matched topics.';
+        output.innerHTML = '<span class="empty-state">No authority mappings found for matched topics.</span>';
         return;
       }
 
       output.innerHTML = authorityGroups.map(group => `
-        <div style="margin-bottom:14px;">
-          <strong>${escapeHtml(group.topic.replace(/_/g, ' '))}</strong>
-          <ul class="result-list">
+        <div class="authority-group">
+          <div class="authority-topic">${escapeHtml(formatTopicName(group.topic))}</div>
+          <div>
             ${group.authorities.map(authority => `
-              <li>
-                <strong>${renderAuthorityLink(authority)}</strong>
-                <br><span>${escapeHtml(authority.title)}</span>
-                <br><span class="subtle">Authority ID: ${escapeHtml(authority.id)}</span>
-                <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
-                ${authority.authorityLevel ? `<br><span class="subtle">Authority layer: ${escapeHtml(authority.authorityLevel.replace(/_/g, ' '))}</span>` : ''}
-                ${authority.guidanceNote ? `<br><span class="subtle">Guidance note: ${escapeHtml(authority.guidanceNote)}</span>` : ''}
+              <div class="authority-item">
+                <div class="result-title">
+                  <strong>${renderAuthorityLink(authority)}</strong>
+                  <span class="meta-chip">${escapeHtml(authority.category || authority.label || 'Reference')}</span>
+                </div>
+                <div class="meta-line">${escapeHtml(authority.title || 'Authority reference')}</div>
+                <div class="subtle meta-line">Authority ID: ${escapeHtml(authority.id || 'unknown')}</div>
+                ${authority.authorityLevel ? `<div class="subtle meta-line">Authority layer: ${escapeHtml(authority.authorityLevel.replace(/_/g, ' '))}</div>` : ''}
+                ${authority.guidanceNote ? `<div class="subtle meta-line">Guidance note: ${escapeHtml(authority.guidanceNote)}</div>` : ''}
+                ${authority.appendixPpPageStart ? `<div class="subtle meta-line">Appendix PP PDF page: ${escapeHtml(authority.appendixPpPageStart)}</div>` : ''}
                 ${renderAuthoritySourceLine(authority)}
-                <br><span class="subtle">Why selected: ${escapeHtml(authority.reason)}</span>
-              </li>
+                <div class="subtle meta-line">Why selected: ${escapeHtml(authority.reason || 'Mapped to the identified topic.')}</div>
+              </div>
             `).join('')}
-          </ul>
+          </div>
         </div>
       `).join('') + `
       <div class="notice">Informational guardrail: references are shown for review support only. CMS Appendix PP/F-tags are interpretive survey guidance tied to federal nursing facility requirements. This tool does not make legal conclusions or determine violations.</div>`;
@@ -269,33 +538,33 @@
       const sourceLink = source.url
         ? `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label)}</a>`
         : escapeHtml(label);
-      return `<br><span class="subtle">Source: ${sourceLink}${verified}</span>`;
+      return `<div class="subtle meta-line">Source: ${sourceLink}${verified}</div>`;
     }
 
     function renderResources(resources) {
       const output = document.getElementById('resources-output');
       if (!resources.length) {
-        output.textContent = 'No handouts or resources matched this lookup.';
+        output.innerHTML = '<span class="empty-state">No handouts or resources matched this lookup.</span>';
         return;
       }
 
       output.innerHTML = `
-        <ul class="result-list">
+        <div class="output-section">
           ${resources.map(resource => `
-            <li>
-              <strong>${renderResourceLink(resource)}</strong>
-              ${resource.description ? `<br><span>${escapeHtml(resource.description)}</span>` : ''}
-              <br><span class="subtle">Type: ${escapeHtml(resource.type || 'Resource')}</span>
-              ${resource.audience ? `<br><span class="subtle">Audience: ${escapeHtml(resource.audience)}</span>` : ''}
-              ${resource.reason ? `<br><span class="subtle">Why shown: ${escapeHtml(resource.reason)}</span>` : ''}
-              ${resource.whenToShow ? `<br><span class="subtle">Use when: ${escapeHtml(resource.whenToShow)}</span>` : ''}
-              ${resource.source ? `<br><span class="subtle">Source: ${escapeHtml(resource.source)}</span>` : ''}
-              ${resource.lastVerified ? `<br><span class="subtle">Last verified: ${escapeHtml(resource.lastVerified)}</span>` : ''}
-              ${resource.authorityLevel ? `<br><span class="subtle">Authority level: ${escapeHtml(resource.authorityLevel)}</span>` : ''}
-              ${resource.humanReviewNote ? `<br><span class="subtle">Review note: ${escapeHtml(resource.humanReviewNote)}</span>` : ''}
-            </li>
+            <div class="result-item">
+              <div class="result-title"><strong>${renderResourceLink(resource)}</strong></div>
+              ${resource.description || resource.summary ? `<div class="meta-line">${escapeHtml(resource.description || resource.summary)}</div>` : ''}
+              <div class="subtle meta-line">Type: ${escapeHtml(resource.type || 'Resource')}</div>
+              ${resource.audience ? `<div class="subtle meta-line">Audience: ${escapeHtml(Array.isArray(resource.audience) ? resource.audience.join(', ') : resource.audience)}</div>` : ''}
+              ${resource.reason ? `<div class="subtle meta-line">Why shown: ${escapeHtml(resource.reason)}</div>` : ''}
+              ${resource.whenToShow || resource.when_to_show ? `<div class="subtle meta-line">Use when: ${escapeHtml(resource.whenToShow || resource.when_to_show)}</div>` : ''}
+              ${resource.source ? `<div class="subtle meta-line">Source: ${escapeHtml(resource.source)}</div>` : ''}
+              ${resource.lastVerified ? `<div class="subtle meta-line">Last verified: ${escapeHtml(resource.lastVerified)}</div>` : ''}
+              ${resource.authorityLevel || resource.authority_level ? `<div class="subtle meta-line">Authority level: ${escapeHtml(resource.authorityLevel || resource.authority_level)}</div>` : ''}
+              ${resource.humanReviewNote || resource.human_review_note ? `<div class="subtle meta-line">Review note: ${escapeHtml(resource.humanReviewNote || resource.human_review_note)}</div>` : ''}
+            </div>
           `).join('')}
-        </ul>
+        </div>
         <div class="notice">Informational guardrail: resources are for education and review support only. They do not determine violations or replace Ombudsman judgment.</div>
       `;
     }
@@ -309,34 +578,34 @@
     function renderWorkflowGuidance(rows, contextTips) {
       const output = document.getElementById('workflow-output');
       if (!rows.length && !contextTips.length) {
-        output.textContent = 'No workflow guidance matched this lookup.';
+        output.innerHTML = '<span class="empty-state">No workflow guidance matched this lookup.</span>';
         return;
       }
 
       output.innerHTML = `
-        ${rows.length ? `<ul class="result-list">
+        ${rows.length ? `<div class="output-section">
           ${rows.map(row => `
-            <li>
-              <strong>${escapeHtml((row.workflow || row.id || 'Workflow').replace(/_/g, ' '))}</strong>
+            <div class="result-item">
+              <strong>${escapeHtml((row.workflow || row.workflow_id || row.id || 'Workflow').replace(/_/g, ' '))}</strong>
               ${row.trigger ? `<br><span class="subtle">Trigger: ${escapeHtml(row.trigger)}</span>` : ''}
-              ${row.guidance_text ? `<br><span>${escapeHtml(row.guidance_text)}</span>` : ''}
+              ${row.guidance_text || row.guidance ? `<br><span>${escapeHtml(row.guidance_text || row.guidance)}</span>` : ''}
               ${row.do_not_say ? `<br><span class="subtle">Guardrail: ${escapeHtml(row.do_not_say)}</span>` : ''}
               ${renderWorkflowSourceLinks(row.source_urls || [])}
-            </li>
+            </div>
           `).join('')}
-        </ul>` : ''}
+        </div>` : ''}
         ${contextTips.length ? `
           <p><strong>Context Tips</strong></p>
-          <ul class="result-list">
+          <div class="output-section">
             ${contextTips.map(row => `
-              <li>
-                <strong>${escapeHtml(row.term || row.id || 'Tip')}</strong>
+              <div class="result-item">
+                <strong>${escapeHtml(row.term || row.label || row.id || 'Tip')}</strong>
                 ${row.short_help ? `<br><span>${escapeHtml(row.short_help)}</span>` : ''}
                 ${row.details ? `<br><span class="subtle">${escapeHtml(row.details)}</span>` : ''}
                 ${renderWorkflowSourceLinks(row.source_urls || [])}
-              </li>
+              </div>
             `).join('')}
-          </ul>
+          </div>
         ` : ''}
         <div class="notice">Workflow notes are informational reminders for human review. They do not determine violations or final NORS coding.</div>
       `;
@@ -359,7 +628,7 @@
     function renderTrace(trace) {
       const output = document.getElementById('trace-output');
       if (!trace.length) {
-        output.textContent = 'No trace generated.';
+        output.innerHTML = '<span class="empty-state">No trace generated.</span>';
         return;
       }
       output.innerHTML = `<ul class="result-list">${trace.map(item => `<li>${renderTraceItem(item)}</li>`).join('')}</ul>`;
@@ -368,13 +637,14 @@
     function renderWarnings(warnings) {
       const output = document.getElementById('warnings-output');
       if (!warnings.length) {
-        output.textContent = 'No warnings.';
+        output.innerHTML = '<span class="empty-state">No warnings.</span>';
         return;
       }
       output.innerHTML = `<ul class="result-list">${warnings.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>`;
     }
 
     function renderResult(result) {
+      renderSummary(result);
       renderTopics(result.topicMatches);
       renderAuthorities(result.authorityGroups);
       renderResources(result.resources || []);

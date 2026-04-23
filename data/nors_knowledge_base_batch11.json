@@ -119,6 +119,18 @@
       "source_urls": [
         "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
       ]
+    },
+    {
+      "phrase_pattern": "after I complained|because I complained|after we complained|because we complained|punished for complaining|retaliation|retaliated against me|things got worse after I complained",
+      "likely_nors_codes": ["D06"],
+      "primary_code": "D06",
+      "related_codes": ["F02", "C03", "A01"],
+      "topic_slugs": ["retaliation"],
+      "explanation_for_trace": "ACL/NORC Table 2 places acts of retaliation or revenge by facility staff after a complaint under D06. The examples include threat of discharge, lack of care, requests ignored, call lights unanswered, and rough handling when those acts occur in response to a resident or family complaint.",
+      "warning_or_human_review_note": "When retaliation language is present, review D06 as a distinct rights complaint. Also consider the underlying harm as a separate complaint when the case facts support it, such as F02 for ignored call lights or C03 for retaliatory discharge threats.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
     }
   ],
   "tooltip_rows": [
