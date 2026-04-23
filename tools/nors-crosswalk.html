@@ -243,6 +243,8 @@
                 <br><span>${escapeHtml(authority.title)}</span>
                 <br><span class="subtle">Authority ID: ${escapeHtml(authority.id)}</span>
                 <br><span class="subtle">Category: ${escapeHtml(authority.category || authority.label)}</span>
+                ${authority.authorityLevel ? `<br><span class="subtle">Authority layer: ${escapeHtml(authority.authorityLevel.replace(/_/g, ' '))}</span>` : ''}
+                ${authority.guidanceNote ? `<br><span class="subtle">Guidance note: ${escapeHtml(authority.guidanceNote)}</span>` : ''}
                 ${renderAuthoritySourceLine(authority)}
                 <br><span class="subtle">Why selected: ${escapeHtml(authority.reason)}</span>
               </li>
@@ -250,7 +252,7 @@
           </ul>
         </div>
       `).join('') + `
-      <div class="notice">Informational guardrail: references are shown for review support only. This tool does not make legal conclusions or determine violations.</div>`;
+      <div class="notice">Informational guardrail: references are shown for review support only. CMS Appendix PP/F-tags are interpretive survey guidance tied to federal nursing facility requirements. This tool does not make legal conclusions or determine violations.</div>`;
     }
 
     function renderAuthorityLink(authority) {

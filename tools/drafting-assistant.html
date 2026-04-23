@@ -876,6 +876,8 @@
                   <strong>${renderAuthorityLink(authority)}</strong>
                   ${authority.title ? `<br><span>${escapeHtml(authority.title)}</span>` : ''}
                   <br><span class="subtle reference-meta">${escapeHtml(getReferenceCategory(authority))}</span>
+                  ${authority.authorityLevel ? `<br><span class="subtle">Authority layer: ${escapeHtml(authority.authorityLevel.replace(/_/g, ' '))}</span>` : ''}
+                  ${authority.guidanceNote ? `<br><span class="subtle">Guidance note: ${escapeHtml(authority.guidanceNote)}</span>` : ''}
                   ${renderAuthoritySourceLine(authority)}
                   <br><span class="subtle">Why shown: ${escapeHtml(getReferenceReason(authority, group))}</span>
                 </li>
@@ -1206,13 +1208,15 @@
                 <strong>${renderAuthorityLink(reference)}</strong>
                 ${reference.title ? `<br><span>${escapeHtml(reference.title)}</span>` : ''}
                 <br><span class="subtle reference-meta">${escapeHtml(getReferenceCategory(reference))}</span>
+                ${reference.authorityLevel ? `<br><span class="subtle">Authority layer: ${escapeHtml(reference.authorityLevel.replace(/_/g, ' '))}</span>` : ''}
+                ${reference.guidanceNote ? `<br><span class="subtle">Guidance note: ${escapeHtml(reference.guidanceNote)}</span>` : ''}
                 <br><span class="subtle">Why shown: ${escapeHtml(getReferenceReason(reference, group))}</span>
               </li>
             `).join('')}
           </ul>
         </div>
       `).join('') + `
-      <div class="notice">Informational guardrail: references are shown for drafting support only. This tool does not make legal conclusions, determine violations, or recommend enforcement or advocacy actions.</div>`;
+      <div class="notice">Informational guardrail: references are shown for drafting support only. CMS Appendix PP/F-tags are interpretive survey guidance tied to federal nursing facility requirements. This tool does not make legal conclusions, determine violations, or recommend enforcement or advocacy actions.</div>`;
     }
 
     function generateDraft() {
