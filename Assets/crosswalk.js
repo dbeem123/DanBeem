@@ -33,11 +33,12 @@
     norsKnowledgeBaseBatch6: ['../data/nors_knowledge_base_batch6.json', '../nors_knowledge_base_batch6.json'],
     norsKnowledgeBaseBatch7: ['../data/nors_knowledge_base_batch7.json', '../nors_knowledge_base_batch7.json'],
     norsKnowledgeBaseBatch8: ['../data/nors_knowledge_base_batch8.json', '../nors_knowledge_base_batch8.json'],
+    norsKnowledgeBaseBatch9: ['../data/nors_knowledge_base_batch9.json', '../nors_knowledge_base_batch9.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -51,6 +52,7 @@
     if (key === 'norsKnowledgeBaseBatch6') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch7') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch8') return { code_routing_corrections: [], resource_corrections: [], source_verification_rows: [], resource_currency_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch9') return { code_routing_corrections: [], resource_corrections: [], source_verification_rows: [], resource_currency_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -144,7 +146,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -342,7 +344,14 @@
   }
 
   function applyCodeRoutingCorrection(resource = {}, data) {
-    const correction = getKnowledgeCodeRoutingCorrections(data).find(item => item.target_row_id === resource.id);
+    const hasExplicitResourceCodeCorrection = getKnowledgeResourceCorrections(data).some(item => {
+      return (item.target_resource_id === resource.id || item.resource_id === resource.id || item.target_row_id === resource.id) &&
+        item.field === 'applies_to_nors_codes' &&
+        Object.prototype.hasOwnProperty.call(item, 'corrected_value');
+    });
+    if (hasExplicitResourceCodeCorrection) return resource;
+
+    const correction = [...getKnowledgeCodeRoutingCorrections(data)].reverse().find(item => item.target_row_id === resource.id);
     if (!correction || !Object.prototype.hasOwnProperty.call(correction, 'corrected_codes')) return resource;
 
     const correctedCodes = toArray(correction.corrected_codes);
@@ -540,6 +549,29 @@
     }) || keywordPhraseMatches(normalizedResourceTopic, searchableText, searchableTokens);
   }
 
+  function hasDischargeTerms(keywordText) {
+    return /\b(discharge|discharged|eviction|evict|transfer|transferred|appeal|hearing|notice|readmit|readmission|bed hold)\b/i.test(String(keywordText || ''));
+  }
+
+  function isPureC04RoomLookup(matchedCodes, keywordText) {
+    return matchedCodes.length === 1 && matchedCodes.includes('C04') && !hasDischargeTerms(keywordText);
+  }
+
+  function isDischargeSupportResource(resource = {}) {
+    const id = resource.id || '';
+    const text = [
+      id,
+      resource.title,
+      resource.summary,
+      resource.description,
+      resource.when_to_show,
+      resource.whenToShow,
+      toArray(resource.applies_to_topics).join(' ')
+    ].join(' ');
+    return ['RR-001', 'RR-002', 'RR-003', 'RR-B7-001', 'RR-B7-002', 'RR-B7-003', 'RR-B7-004', 'RR-B7-005'].includes(id) ||
+      /\b(discharge|eviction|transfer notice|appeal rights|f627|f628|qso-25-14)\b/i.test(text);
+  }
+
   function getResourcesForInputs({ norsCode, keywordText, topicMatches = [] } = {}, data) {
     const resources = data?.norsResourceCatalog?.resources || [];
     const knowledgeResources = getKnowledgeResourceRows(data);
@@ -550,6 +582,7 @@
     const searchableTokens = getWordTokens(searchableText);
     const seen = new Set();
     const output = [];
+    const suppressDischargeForC04 = isPureC04RoomLookup(matchedCodes, keywordText);
 
     resources.forEach(resource => {
       const appliesTo = resource.applies_to || {};
@@ -591,6 +624,8 @@
     });
 
     knowledgeResources.forEach(resource => {
+      if (suppressDischargeForC04 && isDischargeSupportResource(resource)) return;
+
       const reasons = [];
       const resourceCodes = toArray(resource.applies_to_nors_codes).filter(Boolean);
       const resourceTopics = toArray(resource.applies_to_topics).filter(Boolean);
@@ -663,16 +698,22 @@
     return matchedCodes.some(code => prefixes.some(prefix => code.startsWith(prefix)));
   }
 
-  function getWorkflowUpdateGuidanceForInputs({ norsCode, topicMatches = [], resources = [] } = {}, data) {
+  function getWorkflowUpdateGuidanceForInputs({ norsCode, keywordText = '', topicMatches = [], resources = [] } = {}, data) {
     const matchedCodes = getMatchedNorsCodes(norsCode, topicMatches);
     const matchedTopics = topicMatches.map(match => normalizeTopicKey(match.topic));
     const resourceIds = new Set(resources.map(resource => resource.id).filter(Boolean));
+    const suppressDischargeForC04 = isPureC04RoomLookup(matchedCodes, keywordText);
 
     return getKnowledgeWorkflowUpdateRows(data)
       .filter(row => {
         const area = row.workflow_area || '';
         const rowCodes = toArray(row.applies_to_nors_codes);
         const rowTopics = toArray(row.applies_to_topics).map(normalizeTopicKey);
+        const rowText = `${row.workflow_id || row.id || ''} ${area} ${rowTopics.join(' ')}`;
+
+        if (suppressDischargeForC04 && /discharge|transfer|appeal|ct discharge|admission transfer discharge/.test(rowText)) {
+          return false;
+        }
 
         if (rowCodes.some(code => matchedCodes.includes(code)) ||
           rowTopics.some(topic => matchedTopics.some(matchTopic => matchTopic.includes(topic) || topic.includes(matchTopic)))) {
@@ -714,7 +755,7 @@
       }));
   }
 
-  function getWorkflowGuidanceForInputs({ norsCode, topicMatches = [], resources = [] } = {}, data) {
+  function getWorkflowGuidanceForInputs({ norsCode, keywordText = '', topicMatches = [], resources = [] } = {}, data) {
     const matchedCodes = getMatchedNorsCodes(norsCode, topicMatches);
     const matchedTopics = topicMatches.map(match => normalizeTopicKey(match.topic));
 
@@ -746,7 +787,7 @@
       return false;
     });
 
-    return [...workflowRows, ...getWorkflowUpdateGuidanceForInputs({ norsCode, topicMatches, resources }, data)];
+    return [...workflowRows, ...getWorkflowUpdateGuidanceForInputs({ norsCode, keywordText, topicMatches, resources }, data)];
   }
 
   function getKnowledgeHumanReviewWarnings({ norsCode, topicMatches = [], resources = [], keywordText = '' } = {}, data) {
@@ -760,6 +801,9 @@
     });
     const hasBatch8Verification = getKnowledgeBases(data).some(base => {
       return base?.meta?.batch === '8' || (base?.source_verification_rows || []).some(row => /^SV-B8-/.test(row.source_id || row.id || ''));
+    });
+    const hasBatch9Verification = getKnowledgeBases(data).some(base => {
+      return base?.meta?.batch === '9' || (base?.source_verification_rows || []).some(row => /^SV-B9-/.test(row.source_id || row.id || ''));
     });
     const hasCorrectedDischargeWorkflow = getKnowledgeWorkflowCorrections(data).some(row => row.workflow_id === 'WG-002');
     const warnings = [];
@@ -883,18 +927,31 @@
       )) {
         warnings.push(`Infection resource caveat (${id}): ${action}`);
       }
-      if (id === 'HRF-B8-003' && (
+      if (id === 'HRF-B8-003' && !hasBatch9Verification && (
         matchedCodes.some(code => ['F07', 'F11', 'F12'].includes(code)) ||
         ['RR-B7-013', 'RR-B7-005'].some(resourceId => resourceIds.has(resourceId)) ||
         /qso 25 07|qso-25-07|f605|f757|f758|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`CMS QSO source note (${id}): ${action}`);
       }
-      if (id === 'HRF-B8-004' && (
+      if (id === 'HRF-B8-004' && !hasBatch9Verification && (
         ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
         ['RR-B7-001', 'RR-B7-002', 'RR-B7-003'].some(resourceId => resourceIds.has(resourceId))
       )) {
         warnings.push(`CT discharge resource currency note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B9-001' && (
+        ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+        resourceIds.has('RR-B7-002')
+      )) {
+        warnings.push(`CT discharge portal manual note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B9-002' && (
+        matchedCodes.some(code => ['C01', 'C02', 'C03', 'F07', 'F11', 'F12'].includes(code)) ||
+        ['RR-B7-003', 'RR-B7-005', 'RR-B7-013'].some(resourceId => resourceIds.has(resourceId)) ||
+        /qso 25 07|qso-25-07|qso 25 14|qso-25-14|f627|f628|f605|f757|f758|psychotropic|discharge|transfer/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`CMS QSO source note (${id}): ${action}`);
       }
     });
 
@@ -954,9 +1011,20 @@
           ['RR-B7-010', 'RR-B7-011', 'RR-B7-012'].some(id => resourceIds.has(id)) ||
           /infection|outbreak|covid/.test(`${matchedTopics} ${text}`);
       }
+      if (isPureC04RoomLookup(matchedCodes, keywordText) && ['TT-B8-003', 'TT-B9-001', 'TT-B9-002'].includes(type)) {
+        return false;
+      }
       if (type === 'TT-B8-003') {
         return ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
           /discharge|transfer|appeal/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B9-001') {
+        return ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+          /discharge|transfer|appeal|eviction|admission/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B9-002') {
+        return ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+          /discharge|transfer|appeal|hearing|stay/.test(`${matchedTopics} ${text}`);
       }
       return false;
     });
@@ -1634,7 +1702,7 @@
     const topicMatches = mergeTopicMatches(norsMatches, keywordMatches);
     const authorityGroups = getAuthoritiesForTopics(topicMatches, data);
     const resources = getResourcesForInputs({ norsCode: code, keywordText: text, topicMatches }, data);
-    const workflowGuidance = getWorkflowGuidanceForInputs({ norsCode: code, topicMatches, resources }, data);
+    const workflowGuidance = getWorkflowGuidanceForInputs({ norsCode: code, keywordText: text, topicMatches, resources }, data);
     const contextTips = getContextTipsForInputs({ norsCode: code, topicMatches, workflowGuidance, resources, keywordText: text }, data);
     const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups, data });
     const warnings = [];

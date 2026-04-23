@@ -1,0 +1,265 @@
+{
+  "meta": {
+    "batch": "9",
+    "purpose": "C-series discharge routing correction, CT discharge timeline verification, QSO source status, and discharge workflow caveats",
+    "date_completed": "2026-04-23"
+  },
+  "code_routing_corrections": [
+    {
+      "target_row_id": "C-series-routing-01",
+      "current_codes": ["C01", "C02", "C03", "C04"],
+      "corrected_codes": ["C01", "C02", "C03"],
+      "reason": "NORS Table 2 defines C01 as Admission, C02 as Appeal process, C03 as Discharge or eviction, and C04 as Room issues. Discharge portal, appeal, transfer/discharge handout, and CMS transfer/discharge resources should route to C01, C02, and C03, but not pure C04 room-change issues.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Part_II_Training_PPT.pdf",
+        "https://acl.gov/sites/default/files/programs/2018-05/NORS%20Crosswalk%20B%2004_30_2021.pdf"
+      ],
+      "confidence": "confirmed",
+      "human_review_note": "C04 Room issues should not auto-trigger discharge or appeal resources unless the facts also show a discharge, eviction, or transfer notice issue."
+    }
+  ],
+  "resource_corrections": [
+    {
+      "target_resource_id": "RR-B7-001",
+      "field": "applies_to_nors_codes",
+      "current_value": ["C01", "C02"],
+      "corrected_value": ["C01", "C02", "C03"],
+      "reason": "The CT LTCOP Discharge Portal is a hub for involuntary discharge and transfer processes and should surface for C03 Discharge or eviction along with C01/C02 where admission or appeal issues are tied to discharge.",
+      "source_urls": [
+        "https://portal.ct.gov/LTCOP/ltcop-discharge-portal",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ],
+      "confidence": "confirmed"
+    },
+    {
+      "target_resource_id": "RR-B7-002",
+      "field": "applies_to_nors_codes",
+      "current_value": ["C01", "C02"],
+      "corrected_value": ["C03"],
+      "reason": "The involuntary discharge portal user manual is primarily a technical process resource for submitting involuntary transfer/discharge notices and aligns most directly with C03 Discharge or eviction.",
+      "source_urls": [
+        "https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ],
+      "confidence": "likely"
+    },
+    {
+      "target_resource_id": "RR-B7-003",
+      "field": "applies_to_nors_codes",
+      "current_value": ["C01", "C02"],
+      "corrected_value": ["C03"],
+      "reason": "The CT LTCOP transfers and discharges QSO-25-14-NH portal update deck focuses on transfer/discharge notices, F627/F628, and portal submission workflows, which primarily support C03 Discharge or eviction.",
+      "source_urls": [
+        "https://portal.ct.gov/-/media/ltcop/pdf/snf-ltcop--discharges-and-transfers_cms-qso-25-14-nh-portal-updates.pdf",
+        "https://www.cms.gov/files/document/qso-25-14-nh.pdf"
+      ],
+      "confidence": "likely"
+    },
+    {
+      "target_resource_id": "RR-001",
+      "field": "applies_to_nors_codes",
+      "current_value": ["C01", "C02"],
+      "corrected_value": ["C01", "C02", "C03"],
+      "reason": "The NORC discharge handout addresses involuntary transfer/discharge rights and appeal options; C03 Discharge or eviction is the core discharge complaint code and should be included.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/library/nursing-home-discharges-final-8-2018.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ],
+      "confidence": "confirmed"
+    },
+    {
+      "target_resource_id": "RR-002",
+      "field": "applies_to_nors_codes",
+      "current_value": ["C01", "C02"],
+      "corrected_value": ["C01", "C02", "C03"],
+      "reason": "The Consumer Voice involuntary transfer/discharge fact sheet explains notice rules, permissible reasons, and appeal rights for discharge/eviction situations; C03 should be included.",
+      "source_urls": [
+        "https://theconsumervoice.org/wp-content/uploads/2024/06/involuntary-transfer-and-discharge-final.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ],
+      "confidence": "confirmed"
+    }
+  ],
+  "resource_currency_rows": [
+    {
+      "resource_id": "RR-B7-002",
+      "title": "LTCOP Involuntary Discharge Portal - Website Help Manual for Facility Staff",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf",
+      "publication_or_revision_date": "2022-12-01",
+      "current_status": "uncertain",
+      "audience": ["facility_staff", "ombudsman_staff"],
+      "applies_to_nors_codes": ["C03"],
+      "display_caveat": "Manual is dated December 2022 and predates CT Public Act 25-16 and CMS QSO-25-14-NH's 2025 transfer/discharge guidance; verify with CT LTCOP whether a newer help manual exists before relying on portal screenshots or workflow details.",
+      "source_urls": [
+        "https://portal.ct.gov/LTCOP/ltcop-discharge-portal",
+        "https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf",
+        "https://portal.ct.gov/ltcop/advocacy-over-the-years"
+      ]
+    },
+    {
+      "resource_id": "RR-B7-003",
+      "title": "Transfers and Discharges - CMS QSO-25-14-NH and LTCOP Portal Updates",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/snf-ltcop--discharges-and-transfers_cms-qso-25-14-nh-portal-updates.pdf",
+      "publication_or_revision_date": "2025-03-10",
+      "current_status": "current",
+      "audience": ["ombudsman_staff", "facility_staff"],
+      "applies_to_nors_codes": ["C03"],
+      "display_caveat": "Slide deck reflects QSO-25-14-NH transfer/discharge guidance and CT portal expectations; confirm against later CMS QSO updates or CT statutory changes after 2025 before treating as fully current.",
+      "source_urls": [
+        "https://portal.ct.gov/LTCOP/ltcop-discharge-portal",
+        "https://portal.ct.gov/-/media/ltcop/pdf/snf-ltcop--discharges-and-transfers_cms-qso-25-14-nh-portal-updates.pdf",
+        "https://www.cms.gov/files/document/qso-25-14-nh.pdf"
+      ]
+    }
+  ],
+  "source_verification_rows": [
+    {
+      "source_id": "SV-B9-001",
+      "source_name": "NORS Complaint Codes - C01-C04",
+      "url": "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+      "status": "confirmed",
+      "preferred_use": "Primary source for defining C01 Admission, C02 Appeal process, C03 Discharge or eviction, and C04 Room issues when deciding which discharge-related resources should trigger for which NORS codes.",
+      "limitations": "Provides NORS definitions and examples, not legal or regulatory text.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_2_Webinar_-_Final.pdf"
+      ]
+    },
+    {
+      "source_id": "SV-B9-002",
+      "source_name": "CGS 19a-535 - Nursing home transfer or discharge",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "status": "confirmed",
+      "preferred_use": "State-law source for nursing facility transfer/discharge conditions, notice requirements, appeal process, and timelines, including 20-day stay deadline and 60-day hearing request deadline for most involuntary discharges.",
+      "limitations": "CGA chapter page includes multiple sections; specific 19a-535 language must be located within the chapter and rechecked for amendments after 2024.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23",
+      "source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "source_id": "SV-B9-003",
+      "source_name": "CGS 19a-535a - Residential care homes transfer/discharge appeals",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "status": "confirmed",
+      "preferred_use": "State-law source for residential care home or managed residential community transfer/discharge appeals, including 10-day request deadline, 7-business-day hearing timing, and post-hearing decision timing.",
+      "limitations": "Recent legislation may amend 19a-535a; CGA text should be checked for new subsections or changes affecting notice or reporting obligations.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23",
+      "source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ]
+    },
+    {
+      "source_id": "SV-B9-004",
+      "source_name": "CMS QSO-25-07-NH Revised LTC Surveyor Guidance",
+      "url": "https://www.cms.gov/files/document/qso-25-07-nh-expired.pdf",
+      "status": "superseded",
+      "preferred_use": "Historical reference for psychotropic/unnecessary medication surveyor guidance changes; do not treat as current authority.",
+      "limitations": "CMS lists QSO-25-07-NH as expired; later memos revise or incorporate its content.",
+      "replacement_url": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "checked_date": "2026-04-23",
+      "source_urls": [
+        "https://www.cms.gov/files/document/qso-25-07-nh-expired.pdf",
+        "https://www.cms.gov/medicare/health-safety-standards/quality-safety-oversight-general-information/policy-memos/policy-memos-state-and-cms-location"
+      ]
+    },
+    {
+      "source_id": "SV-B9-005",
+      "source_name": "CMS QSO-25-14-NH Revised LTC Surveyor Guidance",
+      "url": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "status": "confirmed",
+      "preferred_use": "Current CMS memo for surveyor guidance on admission, transfer, and discharge, including F627 Inappropriate Transfers and Discharges and F628 Transfer and Discharge Process.",
+      "limitations": "Later CMS memos may supersede specific sections and should be checked periodically.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23",
+      "source_urls": [
+        "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+        "https://www.cms.gov/medicare/health-safety-standards/quality-safety-oversight-general-information/policy-memos/policy-memos-state-and-cms-location"
+      ]
+    }
+  ],
+  "workflow_update_rows": [
+    {
+      "workflow_id": "WU-B9-001",
+      "applies_to_nors_codes": ["C01", "C02", "C03"],
+      "applies_to_topics": ["admission_transfer_discharge", "appeal_rights", "ct_discharge_portal"],
+      "guidance": "For admission, transfer, and discharge complaints, use C01 Admission for admission-contract and admission-process issues, C02 Appeal process when the issue is absence, confusion, or failure to follow appeal procedures, and C03 Discharge or eviction for discharge/eviction planning, notice, procedure, implementation, or refusal to readmit. Discharge portal, CT appeal timelines, Consumer Voice/NORC transfer-discharge handouts, and CMS QSO-25-14-NH transfer/discharge guidance should display for C03 and may display for C01/C02 when the facts connect to discharge or eviction.",
+      "do_not_say": "Do not treat C04 Room issues as a discharge/eviction code or automatically show discharge appeal resources for pure room-location disputes unless the facts also show a discharge, eviction, or transfer notice issue.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://acl.gov/sites/default/files/programs/2018-05/NORS%20Crosswalk%20B%2004_30_2021.pdf",
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm"
+      ],
+      "confidence": "confirmed"
+    },
+    {
+      "workflow_id": "WU-B9-002",
+      "applies_to_nors_codes": ["C01", "C02", "C03"],
+      "applies_to_topics": ["ct_discharge_appeal_timelines"],
+      "guidance": "For nursing homes under CGS 19a-535, residents have 60 days from the notice date to request a hearing and 20 days from receipt to request a hearing to stay the discharge. For residential care homes or managed residential communities under CGS 19a-535a, residents have 10 days from receipt of notice to request a hearing; the hearing must occur within 7 business days, and the decision must be issued within 20 days after the hearing record closes.",
+      "do_not_say": "Do not tell residents they have 30 days to decide whether to appeal without mentioning the 20-day stay deadline for nursing homes and the 10-day appeal window for residential care homes.",
+      "source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing"
+      ],
+      "confidence": "confirmed"
+    }
+  ],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B9-001",
+      "label": "Which C-code for Discharge?",
+      "short_help": "C03 is the core discharge/eviction code; C01 and C02 may also apply.",
+      "details": "Use C03 Discharge or eviction when the complaint is primarily about the discharge or eviction itself, including planning, notice, procedure, implementation, or refusal to readmit. Use C01 Admission for admission-contract or bed-hold disputes, and C02 Appeal process when the complaint is that the facility failed to provide, explain, or follow an appeal process.",
+      "applies_to_fields": ["C01", "C02", "C03", "code_help"],
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://acl.gov/sites/default/files/programs/2018-05/NORS%20Crosswalk%20B%2004_30_2021.pdf"
+      ],
+      "authority_level": "training"
+    },
+    {
+      "tooltip_id": "TT-B9-002",
+      "label": "CT Discharge Appeals Timing",
+      "short_help": "Nursing homes: 20-day stay, 60-day appeal; MRCs: 10-day appeal.",
+      "details": "For nursing facilities, CGS 19a-535 gives residents 60 days from the notice date to request a hearing, but they must request within 20 days of receiving the notice to stay the discharge while the hearing is pending. For residential care homes or managed residential communities, CGS 19a-535a requires appeals within 10 days of notice.",
+      "applies_to_fields": ["C01", "C02", "C03", "discharge_case_workflow"],
+      "source_urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing"
+      ],
+      "authority_level": "official"
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B9-001",
+      "severity": "medium",
+      "issue": "Currency of CT LTCOP portal user manual versus newer CT discharge laws and QSO guidance.",
+      "recommended_action": "Ask CT LTCOP whether a more recent version of the Involuntary Discharge Portal Website Help Manual exists that reflects Public Act 25-16 and post-2022 changes. If a newer manual exists, update the resource row and mark the 2022 version as outdated or archive-only.",
+      "affected_rows": ["RR-B7-002"],
+      "source_urls": [
+        "https://portal.ct.gov/LTCOP/ltcop-discharge-portal",
+        "https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf",
+        "https://portal.ct.gov/ltcop/advocacy-over-the-years"
+      ]
+    },
+    {
+      "flag_id": "HRF-B9-002",
+      "severity": "high",
+      "issue": "QSO-25-07-NH stable CMS URL remains unresolved; memo is marked expired.",
+      "recommended_action": "Continue to treat QSO-25-07-NH as expired and not operative, using QSO-25-14-NH as the primary CMS memo for current transfer/discharge and F627/F628 surveyor guidance. Periodically re-check the CMS Policy and Memos index before promoting QSO-25-07-NH to high authority in the tool.",
+      "affected_rows": ["RR-B7-005", "RR-B7-013", "WU-B7-004", "TT-B7-003"],
+      "source_urls": [
+        "https://www.cms.gov/files/document/qso-25-07-nh-expired.pdf",
+        "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+        "https://www.cms.gov/medicare/health-safety-standards/quality-safety-oversight-general-information/policy-memos/policy-memos-state-and-cms-location"
+      ]
+    }
+  ]
+}
