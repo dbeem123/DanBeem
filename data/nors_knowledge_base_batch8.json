@@ -1,0 +1,388 @@
+{
+  "meta": {
+    "batch": "8",
+    "purpose": "QA corrections for code routing, QSO-25-07-NH status, CT discharge/inspection resources, infection-control routing, and handout gaps",
+    "date_completed": "2026-04-23"
+  },
+  "code_routing_corrections": [
+    {
+      "target_row_id": "RR-B7-001",
+      "current_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "corrected_codes": ["C01", "C02"],
+      "reason": "The CT LTCOP Discharge Portal is a staff-facing hub for involuntary nursing facility transfer and discharge procedures, portal access, and supporting documents. It should route to C-series discharge/transfer support rather than generic D-series rights resources.",
+      "source_urls": ["https://portal.ct.gov/LTCOP/ltcop-discharge-portal", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "D-series rights codes may still appear as secondary issues, but this discharge portal resource should trigger first on C-series discharge/transfer complaints."
+    },
+    {
+      "target_row_id": "RR-B7-002",
+      "current_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "corrected_codes": ["C01", "C02"],
+      "reason": "The LTCOP Involuntary Discharge Portal User Manual is a procedural guide for involuntary discharge notices and should attach to C-series discharge/transfer complaints, not general D-series rights complaints.",
+      "source_urls": ["https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "Use for CT electronic discharge notice workflow support; avoid showing it automatically for all D-series rights complaints."
+    },
+    {
+      "target_row_id": "RR-B7-003",
+      "current_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "corrected_codes": ["C01", "C02"],
+      "reason": "The SNF Transfer and Discharges / CMS QSO-25-14-NH portal update deck is specific to SNF transfer and discharge guidance and CT portal updates.",
+      "source_urls": ["https://portal.ct.gov/-/media/ltcop/pdf/snf-ltcop--discharges-and-transfers/cms-qso-25-14-nh-portal-updates.pdf", "https://www.cms.gov/files/document/qso-25-14-nh.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "Keep as a staff-facing reference for C-series discharge complaints."
+    },
+    {
+      "target_row_id": "RR-B7-004",
+      "current_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "corrected_codes": ["C01", "C02"],
+      "reason": "The Consumer Voice SNF transfer/discharge notice handout explains federal transfer/discharge notice rights and should be routed consistently with other discharge resources.",
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/t-d-notice.pdf", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "Ensure Batch 4 and Batch 7 discharge handouts use consistent C-series routing."
+    },
+    {
+      "target_row_id": "RR-B7-006",
+      "current_codes": ["A01", "A02", "A03", "B01"],
+      "corrected_codes": [],
+      "reason": "The CT DPH Nursing Home Inspections process page is a general survey/inspection process explainer and is not tied to a single NORS complaint code.",
+      "source_urls": ["https://portal.ct.gov/dph/facility-licensing--investigations/nursing-home-site/nursing-home-inspections", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "likely",
+      "human_review_note": "Trigger by topic, such as inspection_process, instead of suggesting it is specific to A/B complaint codes."
+    },
+    {
+      "target_row_id": "RR-B7-007",
+      "current_codes": ["A01", "A02", "A03", "B01"],
+      "corrected_codes": [],
+      "reason": "The CT eLicense inspection portal is a broad facility-lookup tool for survey/complaint reports and plans of correction, so narrow A/B code routing may mislead.",
+      "source_urls": ["https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331"],
+      "confidence": "likely",
+      "human_review_note": "Trigger by topics such as survey_results or inspection_reports so staff can use it across complaint types."
+    },
+    {
+      "target_row_id": "RR-B7-010",
+      "current_codes": ["G01", "G02", "G03"],
+      "corrected_codes": ["F13"],
+      "reason": "Consumer Voice's infectious disease outbreak visiting handout is primarily an infection/outbreak resource. NORS F13 is the infection-control complaint code.",
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "G-series may be secondary if the facts involve group rights or retaliation during an outbreak, but primary routing should be F13."
+    },
+    {
+      "target_row_id": "RR-B7-011",
+      "current_codes": ["G01", "G02", "G03"],
+      "corrected_codes": ["F13"],
+      "reason": "The Consumer Voice family advocacy COVID-19 fact sheet is most closely aligned with infection control and outbreak complaint support.",
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "Show as F13 support with COVID-context caveat."
+    },
+    {
+      "target_row_id": "RR-B7-012",
+      "current_codes": ["G01", "G02", "G03"],
+      "corrected_codes": ["F13"],
+      "reason": "CDC's infection-prevention page is written for residents about infection prevention and expectations in long-term care settings, matching F13 infection control.",
+      "source_urls": ["https://www.cdc.gov/long-term-care-facilities/about/index.html", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "Route as a high-authority infection-control resource."
+    },
+    {
+      "target_row_id": "RR-B7-013",
+      "current_codes": ["G06", "G07"],
+      "corrected_codes": ["F12"],
+      "reason": "The Consumer Voice/Justice in Aging issue brief on unnecessary drugs and antipsychotic medications supports medication/psychotropic complaint review rather than G-series routing.",
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/06/RevisedNursingFacilityRegulationsUnnecessaryDrugsandAntipsychoticMedicationscopy.pdf", "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "likely",
+      "human_review_note": "Use as an ombudsman-staff resource for F12 medication complaints, especially psychotropic/antipsychotic concerns."
+    },
+    {
+      "target_row_id": "WG-005",
+      "current_codes": ["K01", "K02", "K03", "K04", "K05", "K06", "L01", "L02", "L03"],
+      "corrected_codes": [],
+      "reason": "WG-005 already instructs that K and L complaints are outside-agency/system complaints and should not receive Appendix PP F-tags.",
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"],
+      "confidence": "confirmed",
+      "human_review_note": "Downstream crosswalk components should honor WG-005 and avoid auto-attaching F-tags to K/L complaints."
+    }
+  ],
+  "resource_corrections": [
+    {
+      "target_resource_id": "RR-024",
+      "field": "title",
+      "current_value": "CT LTCOP How to Obtain Important Discharge Documents",
+      "corrected_value": "CT Long Term Care Ombudsman Program - Official Program Page",
+      "reason": "RR-024 should remain a general CT LTCOP program page now that the dedicated CT discharge portal is confirmed separately.",
+      "source_urls": ["https://portal.ct.gov/LTCOP"],
+      "confidence": "confirmed"
+    },
+    {
+      "target_resource_id": "RR-024",
+      "field": "applies_to_nors_codes",
+      "current_value": ["C01", "C02"],
+      "corrected_value": [],
+      "reason": "The generic CT LTCOP home page should not be coded as a discharge-specific resource once RR-B7-001 is available.",
+      "source_urls": ["https://portal.ct.gov/LTCOP"],
+      "confidence": "likely"
+    },
+    {
+      "target_resource_id": "RR-B7-001",
+      "field": "authority_level",
+      "current_value": "high",
+      "corrected_value": "medium",
+      "reason": "The CT LTCOP discharge portal is a state program resource, distinct from primary statute or regulation.",
+      "source_urls": ["https://portal.ct.gov/LTCOP/ltcop-discharge-portal"],
+      "confidence": "likely"
+    },
+    {
+      "target_resource_id": "RR-B7-010",
+      "field": "applies_to_topics",
+      "current_value": ["infection control", "infectious disease outbreak", "visitation during outbreak", "resident rights infection", "family advocacy infection"],
+      "corrected_value": ["infection_control", "infectious_disease_outbreak", "visitation_during_outbreak", "resident_rights_infection", "family_advocacy_infection", "covid_context"],
+      "reason": "The resource was produced in a COVID-19 context and needs a clear caveat while still being generally useful for outbreaks.",
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf"],
+      "confidence": "confirmed"
+    },
+    {
+      "target_resource_id": "RR-B7-011",
+      "field": "applies_to_topics",
+      "current_value": ["infection control", "family advocacy", "complaint filing during outbreak", "resident rights infection", "COVID-19 nursing home"],
+      "corrected_value": ["infection_control", "family_advocacy", "complaint_filing_during_outbreak", "resident_rights_infection", "covid_context"],
+      "reason": "The resource has COVID-19 framing, so topics should include covid_context for display caveats.",
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf"],
+      "confidence": "confirmed"
+    }
+  ],
+  "source_verification_rows": [
+    {
+      "source_id": "SV-B8-001",
+      "source_name": "CMS QSO-25-07-NH Revised Long-Term Care Surveyor Guidance",
+      "url": "https://www.cms.gov/files/document/qso-25-07-nh-expired.pdf",
+      "status": "superseded",
+      "preferred_use": "Historical context only for medication surveyor guidance changes before QSO-25-14-NH revised effective dates.",
+      "limitations": "The direct QSO-25-07-NH path is unstable and an expired version should not be treated as current authority.",
+      "replacement_url": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "checked_date": "2026-04-23"
+    },
+    {
+      "source_id": "SV-B8-002",
+      "source_name": "CMS QSO-25-14-NH Revised LTC Surveyor Guidance",
+      "url": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "status": "confirmed",
+      "preferred_use": "Primary CMS memo reference for the current effective date of QSO-25-07-NH-related guidance and SNF transfer/discharge updates.",
+      "limitations": "Check latest CMS postings for future revisions.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23"
+    },
+    {
+      "source_id": "SV-B8-003",
+      "source_name": "CT LTCOP Discharge Portal",
+      "url": "https://portal.ct.gov/LTCOP/ltcop-discharge-portal",
+      "status": "confirmed",
+      "preferred_use": "Primary CT-specific portal for involuntary discharge/transfer resources and supporting documents.",
+      "limitations": "Linked PDFs may need periodic currency checks after statutory or CMS updates.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23"
+    },
+    {
+      "source_id": "SV-B8-004",
+      "source_name": "CT DPH FLIS Blast Fax Page",
+      "url": "https://portal.ct.gov/dph/facility-licensing--investigations/facility-licensing--investigations-section-flis/blast-fax-page",
+      "status": "confirmed",
+      "preferred_use": "Official CT DPH page for facility blast fax notices and regulatory communications.",
+      "limitations": "Individual notices were not enumerated in this pass.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23"
+    },
+    {
+      "source_id": "SV-B8-005",
+      "source_name": "CT DPH eLicense Nursing Home Inspection Documents Portal",
+      "url": "https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331",
+      "status": "confirmed",
+      "preferred_use": "Primary CT-specific portal for individual nursing home inspection and complaint investigation reports and plans of correction.",
+      "limitations": "Search requires date-range entry and URL stability should be monitored.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23"
+    },
+    {
+      "source_id": "SV-B8-006",
+      "source_name": "NORC NORS Codes and Definitions",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "status": "confirmed",
+      "preferred_use": "Primary authority for NORS code definitions and routing rules.",
+      "limitations": "Does not itself provide regulatory citations.",
+      "replacement_url": "",
+      "checked_date": "2026-04-23"
+    }
+  ],
+  "resource_currency_rows": [
+    {
+      "resource_id": "RR-B7-002",
+      "title": "LTCOP Involuntary Discharge Portal User Manual PDF",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf",
+      "publication_or_revision_date": "2022-12-01",
+      "current_status": "uncertain",
+      "audience": ["ombudsman_staff", "facility_staff"],
+      "applies_to_nors_codes": ["C01", "C02"],
+      "display_caveat": "User manual is dated December 2022 and may not fully reflect later CT public acts or CMS guidance.",
+      "source_urls": ["https://portal.ct.gov/LTCOP/ltcop-discharge-portal"]
+    },
+    {
+      "resource_id": "RR-B7-003",
+      "title": "SNF Transfer and Discharges CMS QSO-25-14-NH LTCOP Portal Updates PDF",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/snf-ltcop--discharges-and-transfers/cms-qso-25-14-nh-portal-updates.pdf",
+      "publication_or_revision_date": "",
+      "current_status": "uncertain",
+      "audience": ["ombudsman_staff"],
+      "applies_to_nors_codes": ["C01", "C02"],
+      "display_caveat": "Treat as current only if it aligns with the live QSO-25-14-NH memo and latest CT discharge statutes.",
+      "source_urls": ["https://www.cms.gov/files/document/qso-25-14-nh.pdf", "https://portal.ct.gov/LTCOP/ltcop-discharge-portal"]
+    },
+    {
+      "resource_id": "RR-B7-010",
+      "title": "Consumer Voice Tips for Facility Visits During an Infectious Disease Outbreak",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf",
+      "publication_or_revision_date": "2024-07-01",
+      "current_status": "current",
+      "audience": ["resident", "family"],
+      "applies_to_nors_codes": ["F13"],
+      "display_caveat": "Produced in a COVID-19 context; generally applicable to infectious disease outbreaks but policy examples should be interpreted with current CDC/CMS guidance.",
+      "source_urls": ["https://theconsumervoice.org/resources"]
+    },
+    {
+      "resource_id": "RR-B7-011",
+      "title": "Consumer Voice Family Advocacy for Nursing Home Residents During COVID-19",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf",
+      "publication_or_revision_date": "2024-07-01",
+      "current_status": "current",
+      "audience": ["resident", "family"],
+      "applies_to_nors_codes": ["F13"],
+      "display_caveat": "COVID-19 framed resource; use as advocacy/training support and pair with current CDC guidance.",
+      "source_urls": ["https://theconsumervoice.org/resources"]
+    },
+    {
+      "resource_id": "RR-B7-012",
+      "title": "CDC Infection Prevention and Long-Term Care Facility Residents",
+      "url": "https://www.cdc.gov/long-term-care-facilities/about/index.html",
+      "publication_or_revision_date": "2024-03-26",
+      "current_status": "current",
+      "audience": ["resident", "family"],
+      "applies_to_nors_codes": ["F13"],
+      "display_caveat": "High-authority CDC resource; verify update date if used after 2026.",
+      "source_urls": ["https://www.cdc.gov/long-term-care-facilities/about/index.html"]
+    },
+    {
+      "resource_id": "RR-034",
+      "title": "CT DSS Requesting a Hearing - Nursing Home Transfer/Discharge Appeals",
+      "url": "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing",
+      "publication_or_revision_date": "",
+      "current_status": "current",
+      "audience": ["ombudsman_staff"],
+      "applies_to_nors_codes": ["C01", "C02"],
+      "display_caveat": "Use as primary CT-specific source for nursing home discharge appeal timelines; verify procedural updates annually.",
+      "source_urls": ["https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing", "https://www.cga.ct.gov/current/pub/chap_368v.htm"]
+    },
+    {
+      "resource_id": "RR-035",
+      "title": "CT General Statutes 19a-535a Residential Care Homes Transfer/Discharge Appeal",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "publication_or_revision_date": "2024-07-01",
+      "current_status": "current",
+      "audience": ["ombudsman_staff"],
+      "applies_to_nors_codes": ["C01", "C02"],
+      "display_caveat": "MRC/residential care home timelines differ from nursing facility timelines and must not be conflated.",
+      "source_urls": ["https://www.cga.ct.gov/current/pub/chap_368v.htm"]
+    }
+  ],
+  "workflow_update_rows": [
+    {
+      "workflow_id": "WU-B8-001",
+      "applies_to_nors_codes": ["C01", "C02"],
+      "applies_to_topics": ["discharge", "transfer", "appeals", "ct_discharge_portal"],
+      "guidance": "For Connecticut involuntary transfer/discharge complaints, confirm whether the facility is a nursing home under CGS 19a-535 or a residential care home/MRC under 19a-535a; use the CT LTCOP Discharge Portal as the state-specific hub; rely on CT DSS and CGS sources for appeal timelines; treat training PDFs and handouts as support resources, not primary authority.",
+      "do_not_say": "Do not tell residents they simply have 30 days to decide on an appeal without explaining the shorter stay deadlines. Do not imply training materials or handouts are primary legal authority.",
+      "source_urls": ["https://portal.ct.gov/LTCOP/ltcop-discharge-portal", "https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing", "https://www.cga.ct.gov/current/pub/chap_368v.htm"],
+      "confidence": "confirmed"
+    },
+    {
+      "workflow_id": "WU-B8-002",
+      "applies_to_nors_codes": ["F13"],
+      "applies_to_topics": ["infection_control", "outbreak", "visitation"],
+      "guidance": "For F13 infection control complaints, pair high-authority CDC infection prevention content with Consumer Voice outbreak handouts, clearly identifying Consumer Voice pieces as COVID-context advocacy/training resources.",
+      "do_not_say": "Do not present Consumer Voice outbreak handouts as CMS or CDC guidance.",
+      "source_urls": ["https://www.cdc.gov/long-term-care-facilities/about/index.html", "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf", "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf"],
+      "confidence": "confirmed"
+    },
+    {
+      "workflow_id": "WU-B8-003",
+      "applies_to_nors_codes": ["K01", "K02", "K03", "K04", "K05", "K06", "L01", "L02", "L03"],
+      "applies_to_topics": ["outside_agency", "non_facility_actor"],
+      "guidance": "For K-series outside-agency and L-series non-facility complaints, no Appendix PP F-tags should be assigned. Use NORS Table 2 and 45 CFR 1324.19(a)(4) to route to appropriate outside agencies and avoid implying facility violations.",
+      "do_not_say": "Do not attach F-tags to K or L series complaints or describe them as nursing facility violations.",
+      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf", "https://www.law.cornell.edu/cfr/text/45/1324.19"],
+      "confidence": "confirmed"
+    }
+  ],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B8-001",
+      "label": "QSO-25-07-NH Status",
+      "short_help": "QSO-25-07-NH content is confirmed but the CMS PDF URL is unstable.",
+      "details": "The original QSO-25-07-NH PDF path is unstable and an expired version may exist. Treat QSO-25-14-NH as the operative CMS source for effective dates and use advocacy issue briefs only as training resources until a stable CMS PDF is confirmed.",
+      "applies_to_fields": ["resource_rows", "workflow_guidance", "medication_ladder"],
+      "source_urls": ["https://www.cms.gov/files/document/qso-25-14-nh.pdf", "https://theconsumervoice.org/wp-content/uploads/2024/06/RevisedNursingFacilityRegulationsUnnecessaryDrugsandAntipsychoticMedicationscopy.pdf"],
+      "authority_level": "app_guidance"
+    },
+    {
+      "tooltip_id": "TT-B8-002",
+      "label": "Infection Handouts Caveat",
+      "short_help": "Consumer Voice infection handouts are COVID-era advocacy tools.",
+      "details": "Consumer Voice infection outbreak handouts are advocacy/training resources, not CMS or CDC authority. Pair them with CDC infection-prevention content and flag their COVID-19 context.",
+      "applies_to_fields": ["resource_rows", "F13_resources"],
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf", "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf", "https://www.cdc.gov/long-term-care-facilities/about/index.html"],
+      "authority_level": "training"
+    },
+    {
+      "tooltip_id": "TT-B8-003",
+      "label": "Discharge Appeal Timelines - CT",
+      "short_help": "Deadlines differ for nursing homes and MRCs in Connecticut.",
+      "details": "For nursing homes under CGS 19a-535, residents have 60 days from the notice date to request a hearing, but must request within 20 days to stay the discharge. For residential care homes/MRCs under 19a-535a, residents have 10 days to request a hearing.",
+      "applies_to_fields": ["C01", "C02", "discharge_workflow"],
+      "source_urls": ["https://portal.ct.gov/dss/the-office-of-legal-counsel-regulations-and-administrative-hearings/office-of-legal-counsel-regulations-and-administrative-hearings---olcrah/requesting-a-hearing", "https://www.cga.ct.gov/current/pub/chap_368v.htm"],
+      "authority_level": "official"
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B8-001",
+      "severity": "high",
+      "issue": "No confirmed resident-facing medication error handout from acceptable sources.",
+      "recommended_action": "Do not add a medication-error handout unless a live resident-facing source from CMS, CT agencies, NORC, or Consumer Voice is confirmed.",
+      "affected_rows": ["RR-B7-013", "WG-003"],
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/06/RevisedNursingFacilityRegulationsUnnecessaryDrugsandAntipsychoticMedicationscopy.pdf", "https://theconsumervoice.org/resources"]
+    },
+    {
+      "flag_id": "HRF-B8-002",
+      "severity": "medium",
+      "issue": "Infection-control handouts have COVID-specific framing that may not fully align with future outbreak policies.",
+      "recommended_action": "Display a COVID-context caveat for RR-B7-010 and RR-B7-011 and cross-check CDC guidance for non-COVID outbreaks.",
+      "affected_rows": ["RR-B7-010", "RR-B7-011"],
+      "source_urls": ["https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf", "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf", "https://www.cdc.gov/long-term-care-facilities/about/index.html"]
+    },
+    {
+      "flag_id": "HRF-B8-003",
+      "severity": "high",
+      "issue": "QSO-25-07-NH CMS PDF URL remains unstable or unavailable.",
+      "recommended_action": "Use QSO-25-14-NH as the operative memo for effective date and related discharge guidance; use Consumer Voice/Justice in Aging issue briefs only as training references until a stable CMS QSO-25-07-NH PDF is confirmed.",
+      "affected_rows": ["RR-B7-005", "RR-B7-013", "WU-001", "TT-B6-003", "TT-B7-003"],
+      "source_urls": ["https://www.cms.gov/files/document/qso-25-14-nh.pdf", "https://theconsumervoice.org/wp-content/uploads/2024/06/RevisedNursingFacilityRegulationsUnnecessaryDrugsandAntipsychoticMedicationscopy.pdf"]
+    },
+    {
+      "flag_id": "HRF-B8-004",
+      "severity": "medium",
+      "issue": "CT LTCOP Discharge Portal supporting PDFs may not fully reflect the most recent CT public acts and CMS discharge guidance.",
+      "recommended_action": "Ask CT LTCOP whether newer versions of the discharge portal user manual and QSO-25-14-NH portal training exist.",
+      "affected_rows": ["RR-B7-002", "RR-B7-003"],
+      "source_urls": ["https://portal.ct.gov/LTCOP/ltcop-discharge-portal"]
+    }
+  ]
+}

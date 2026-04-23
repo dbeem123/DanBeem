@@ -32,11 +32,12 @@
     norsKnowledgeBaseBatch5: ['../data/nors_knowledge_base_batch5.json', '../nors_knowledge_base_batch5.json'],
     norsKnowledgeBaseBatch6: ['../data/nors_knowledge_base_batch6.json', '../nors_knowledge_base_batch6.json'],
     norsKnowledgeBaseBatch7: ['../data/nors_knowledge_base_batch7.json', '../nors_knowledge_base_batch7.json'],
+    norsKnowledgeBaseBatch8: ['../data/nors_knowledge_base_batch8.json', '../nors_knowledge_base_batch8.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -49,6 +50,7 @@
     if (key === 'norsKnowledgeBaseBatch5') return { resource_corrections: [], additional_resource_rows: [], tooltip_rows: [], workflow_corrections: [], source_quality_corrections: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch6') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch7') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch8') return { code_routing_corrections: [], resource_corrections: [], source_verification_rows: [], resource_currency_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -142,7 +144,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -165,7 +167,8 @@
     return getKnowledgeBases(data)
       .flatMap(base => [...(base.resource_rows || []), ...(base.additional_resource_rows || [])])
       .map(normalizeKnowledgeResourceRow)
-      .map(row => applyResourceCorrection(row, data));
+      .map(row => applyResourceCorrection(row, data))
+      .map(row => applyCodeRoutingCorrection(row, data));
   }
 
   function getKnowledgeWorkflowRows(data) {
@@ -183,7 +186,7 @@
   }
 
   function getKnowledgeTooltipRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.tooltip_rows || []);
+    return getKnowledgeBases(data).flatMap(base => base.tooltip_rows || []).map(normalizeKnowledgeTooltipRow);
   }
 
   function getKnowledgeHumanReviewFlags(data) {
@@ -212,6 +215,10 @@
       return base?.meta?.batch === '7' || (base?.workflow_update_rows || []).some(row => /^WU-B7-/.test(row.id || ''));
     });
     return hasBatch7 ? rows.filter(row => row.id !== 'WU-001') : rows;
+  }
+
+  function getKnowledgeCodeRoutingCorrections(data) {
+    return getKnowledgeBases(data).flatMap(base => base.code_routing_corrections || []);
   }
 
   function getKnowledgeSourceVerificationCorrections(data) {
@@ -275,6 +282,18 @@
     return resource;
   }
 
+  function normalizeKnowledgeTooltipRow(row = {}) {
+    const id = row.id || row.tooltip_id || '';
+    const label = row.term || row.label || row.tooltip_type?.replace(/_/g, ' ') || id;
+    return {
+      ...row,
+      id,
+      term: label,
+      short_help: row.short_help || row.tooltip_text || '',
+      details: row.details || row.authority || ''
+    };
+  }
+
   function applySourceVerificationCorrections(rows, data) {
     const corrections = getKnowledgeSourceVerificationCorrections(data);
     return rows.map(row => {
@@ -291,16 +310,15 @@
 
   function applyResourceCorrection(resource = {}, data) {
     const corrections = getKnowledgeResourceCorrections(data).filter(item => {
-      return item.resource_id === resource.id || item.target_row_id === resource.id;
+      return item.resource_id === resource.id || item.target_row_id === resource.id || item.target_resource_id === resource.id;
     });
     if (!corrections.length) return resource;
 
     return corrections.reduce((current, correction) => {
       const corrected = correction.corrected_value || {};
-      const correctedObject = typeof corrected === 'object' && corrected !== null ? corrected : {};
+      const correctedObject = typeof corrected === 'object' && corrected !== null && !Array.isArray(corrected) ? corrected : {};
       const isQso26Correction = current.id === 'RR-013' && correctedObject.subject_tag;
-
-      return {
+      const next = {
         ...current,
         title: correction.corrected_title || correctedObject.title || (isQso26Correction ? 'CMS QSO-26-03-NH - SOM Chapters 5 and 7 / complaint procedures / F610' : current.title),
         summary: correctedObject.description || correction.corrected_description || current.summary,
@@ -314,7 +332,26 @@
         correction_note: cleanReviewText(correction.reason || correction.issue || current.correction_note || ''),
         recommended_action: correction.recommended_action || current.recommended_action || ''
       };
+
+      if (correction.field && Object.prototype.hasOwnProperty.call(correction, 'corrected_value')) {
+        next[correction.field] = corrected;
+      }
+
+      return next;
     }, resource);
+  }
+
+  function applyCodeRoutingCorrection(resource = {}, data) {
+    const correction = getKnowledgeCodeRoutingCorrections(data).find(item => item.target_row_id === resource.id);
+    if (!correction || !Object.prototype.hasOwnProperty.call(correction, 'corrected_codes')) return resource;
+
+    const correctedCodes = toArray(correction.corrected_codes);
+    return {
+      ...resource,
+      applies_to_nors_codes: correctedCodes,
+      human_review_note: cleanReviewText(correction.human_review_note || resource.human_review_note || ''),
+      correction_note: cleanReviewText(correction.reason || resource.correction_note || '')
+    };
   }
 
   function applyWorkflowCorrections(rows, data) {
@@ -634,6 +671,14 @@
     return getKnowledgeWorkflowUpdateRows(data)
       .filter(row => {
         const area = row.workflow_area || '';
+        const rowCodes = toArray(row.applies_to_nors_codes);
+        const rowTopics = toArray(row.applies_to_topics).map(normalizeTopicKey);
+
+        if (rowCodes.some(code => matchedCodes.includes(code)) ||
+          rowTopics.some(topic => matchedTopics.some(matchTopic => matchTopic.includes(topic) || topic.includes(matchTopic)))) {
+          return true;
+        }
+
         if (area === 'medication_tag_routing') {
           return ['F04', 'F05', 'F07', 'F11', 'F12'].some(code => matchedCodes.includes(code)) ||
             matchedTopics.some(topic => /medication|drug|psychotropic|chemical restraint/.test(topic));
@@ -646,7 +691,7 @@
           return resourceIds.has('RR-013');
         }
         if (area === 'discharge_resource_routing') {
-          return ['C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+          return ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
             matchedTopics.some(topic => /discharge|transfer/.test(topic));
         }
         if (area === 'ct_dph_inspection_data_routing') {
@@ -660,12 +705,12 @@
         return false;
       })
       .map(row => ({
-        id: row.id,
-        workflow: row.workflow_area || row.id,
+        id: row.id || row.workflow_id,
+        workflow: row.workflow_area || row.workflow_id || row.id,
         trigger: row.update_type ? `${row.update_type.replace(/_/g, ' ')} update` : 'Workflow update',
-        guidance_text: row.corrected_guidance || '',
-        do_not_say: /^none\.?$/i.test(cleanReviewText(row.caveat || '')) ? '' : cleanReviewText(row.caveat || ''),
-        source_urls: extractUrls(row.authority || '')
+        guidance_text: row.corrected_guidance || row.guidance || '',
+        do_not_say: /^none\.?$/i.test(cleanReviewText(row.caveat || row.do_not_say || '')) ? '' : cleanReviewText(row.caveat || row.do_not_say || ''),
+        source_urls: row.source_urls || extractUrls(row.authority || '')
       }));
   }
 
@@ -712,6 +757,9 @@
     const hasBatch6Verification = getKnowledgeSourceVerificationRows(data).length > 0;
     const hasBatch7Verification = getKnowledgeBases(data).some(base => {
       return base?.meta?.batch === '7' || (base?.source_verification_rows || []).some(row => /^SV-B7-/.test(row.id || ''));
+    });
+    const hasBatch8Verification = getKnowledgeBases(data).some(base => {
+      return base?.meta?.batch === '8' || (base?.source_verification_rows || []).some(row => /^SV-B8-/.test(row.source_id || row.id || ''));
     });
     const hasCorrectedDischargeWorkflow = getKnowledgeWorkflowCorrections(data).some(row => row.workflow_id === 'WG-002');
     const warnings = [];
@@ -799,26 +847,51 @@
       )) {
         warnings.push(`CMS QSO source note (${id}): ${action}`);
       }
-      if (id === 'HRF-B7-001' && (
+      if (id === 'HRF-B7-001' && !hasBatch8Verification && (
         matchedCodes.some(code => ['F04', 'F07', 'F11', 'F12'].includes(code)) ||
         /medication|drug|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`Medication handout gap (${id}): ${action}`);
       }
-      if (id === 'HRF-B7-002' && (
+      if (id === 'HRF-B7-002' && !hasBatch8Verification && (
         matchedCodes.some(code => ['F07', 'F11', 'F12'].includes(code)) ||
         /psychotropic|antipsychotic|chemical restraint/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`CMS QSO source note (${id}): ${action}`);
       }
-      if (id === 'HRF-B7-003' && (
+      if (id === 'HRF-B7-003' && !hasBatch8Verification && (
         matchedCodes.includes('F13') ||
         ['RR-B7-010', 'RR-B7-011'].some(resourceId => resourceIds.has(resourceId))
       )) {
         warnings.push(`Infection resource currency note (${id}): ${action}`);
       }
-      if (id === 'HRF-B7-004' && (
-        ['C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+      if (id === 'HRF-B7-004' && !hasBatch8Verification && (
+        ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+        ['RR-B7-001', 'RR-B7-002', 'RR-B7-003'].some(resourceId => resourceIds.has(resourceId))
+      )) {
+        warnings.push(`CT discharge resource currency note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B8-001' && (
+        matchedCodes.some(code => ['F04', 'F07', 'F11', 'F12'].includes(code)) ||
+        /medication|drug|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Medication handout gap (${id}): ${action}`);
+      }
+      if (id === 'HRF-B8-002' && (
+        matchedCodes.includes('F13') ||
+        ['RR-B7-010', 'RR-B7-011'].some(resourceId => resourceIds.has(resourceId))
+      )) {
+        warnings.push(`Infection resource caveat (${id}): ${action}`);
+      }
+      if (id === 'HRF-B8-003' && (
+        matchedCodes.some(code => ['F07', 'F11', 'F12'].includes(code)) ||
+        ['RR-B7-013', 'RR-B7-005'].some(resourceId => resourceIds.has(resourceId)) ||
+        /qso 25 07|qso-25-07|f605|f757|f758|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`CMS QSO source note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B8-004' && (
+        ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
         ['RR-B7-001', 'RR-B7-002', 'RR-B7-003'].some(resourceId => resourceIds.has(resourceId))
       )) {
         warnings.push(`CT discharge resource currency note (${id}): ${action}`);
@@ -845,7 +918,7 @@
     return getKnowledgeTooltipRows(data).filter(row => {
       if (toArray(row.where_to_show).some(context => contexts.has(context))) return true;
 
-      const type = row.tooltip_type || '';
+      const type = row.tooltip_type || row.tooltip_id || '';
       if (type === 'staffing_rescission_notice') {
         return matchedCodes.some(code => ['J01', 'J02', 'J03'].includes(code)) ||
           /staffing|nursing staff|sufficient staff/.test(`${matchedTopics} ${text}`);
@@ -871,6 +944,19 @@
       if (type === 'qso_25_07_nh_effective_date_notice') {
         return ['RR-B7-005', 'RR-B7-013', 'RR-025'].some(id => resourceIds.has(id)) ||
           /qso 25 07|qso-25-07|f605|f757|f758|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B8-001') {
+        return ['RR-B7-005', 'RR-B7-013', 'RR-025'].some(id => resourceIds.has(id)) ||
+          /qso 25 07|qso-25-07|f605|f757|f758|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B8-002') {
+        return matchedCodes.includes('F13') ||
+          ['RR-B7-010', 'RR-B7-011', 'RR-B7-012'].some(id => resourceIds.has(id)) ||
+          /infection|outbreak|covid/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B8-003') {
+        return ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+          /discharge|transfer|appeal/.test(`${matchedTopics} ${text}`);
       }
       return false;
     });

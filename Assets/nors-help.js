@@ -3,6 +3,7 @@
   const BATCH5_PATHS = ['../data/nors_knowledge_base_batch5.json', 'data/nors_knowledge_base_batch5.json'];
   const BATCH6_PATHS = ['../data/nors_knowledge_base_batch6.json', 'data/nors_knowledge_base_batch6.json'];
   const BATCH7_PATHS = ['../data/nors_knowledge_base_batch7.json', 'data/nors_knowledge_base_batch7.json'];
+  const BATCH8_PATHS = ['../data/nors_knowledge_base_batch8.json', 'data/nors_knowledge_base_batch8.json'];
   let guidanceById = {};
 
   async function loadFirstJson(paths) {
@@ -30,8 +31,8 @@
 
   function normalizeTooltipRow(row) {
     return {
-      id: row.id,
-      label: row.term || row.tooltip_type?.replace(/_/g, ' ') || row.id,
+      id: row.id || row.tooltip_id,
+      label: row.term || row.label || row.tooltip_type?.replace(/_/g, ' ') || row.id || row.tooltip_id,
       short_help: row.short_help || row.tooltip_text || '',
       details: row.details || row.authority || '',
       source: 'NORS knowledge base Batch 5'
@@ -71,6 +72,16 @@
       })));
     } catch (err) {
       console.warn('[nors-help] Batch 7 tooltip guidance could not be loaded:', err.message);
+    }
+
+    try {
+      const payload = await loadFirstJson(BATCH8_PATHS);
+      mergeGuidanceItems((payload.tooltip_rows || []).map(row => ({
+        ...normalizeTooltipRow(row),
+        source: 'NORS knowledge base Batch 8'
+      })));
+    } catch (err) {
+      console.warn('[nors-help] Batch 8 tooltip guidance could not be loaded:', err.message);
     }
   }
 
