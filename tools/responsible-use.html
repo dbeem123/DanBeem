@@ -93,6 +93,18 @@
       <div id="source-registry-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source registry...</div>
     </section>
 
+    <section class="panel" style="margin-top:18px;" aria-labelledby="nors-source-pack-title">
+      <h2 id="nors-source-pack-title">NORS Source Pack Lock</h2>
+      <p class="subtle">This source pack defines the fixed source hierarchy for NORS coding QA. NORS tables and NORC training control coding; regulations and Appendix PP provide authority and interpretive context.</p>
+      <div id="nors-source-pack-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading NORS source pack...</div>
+    </section>
+
+    <section class="panel" style="margin-top:18px;" aria-labelledby="source-priority-title">
+      <h2 id="source-priority-title">Source Priority Rules</h2>
+      <p class="subtle">These rules prevent F-tags or legal citations from overriding NORS complaint-coding guidance.</p>
+      <div id="source-priority-output" class="grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">Loading source priority rules...</div>
+    </section>
+
     <section class="panel" style="margin-top:18px;" aria-labelledby="quality-title">
       <h2 id="quality-title">Source Quality Notes</h2>
       <p class="subtle">Batch 4 classifies the sources used by the crosswalk so staff can see preferred use and limitations.</p>
@@ -171,6 +183,34 @@
           ${source.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">Open official source</a></p>` : ''}
         </article>
       `).join('');
+    }
+
+    function renderNorsSourcePack(data) {
+      const rows = data.source_pack_rows || [];
+      renderCardList('nors-source-pack-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.authority_role || row.source_type || 'Source')}</div>
+          <h3>${escapeHtml(row.title || row.source_pack_id || 'NORS source')}</h3>
+          <p class="subtle">${escapeHtml(row.source_owner || '')} ${row.current_status ? `- ${escapeHtml(row.current_status)}` : ''}</p>
+          <p>${escapeHtml(row.preferred_use || '')}</p>
+          ${row.limitations ? `<p class="subtle">Limitations: ${escapeHtml(row.limitations)}</p>` : ''}
+          ${row.publication_or_revision_date ? `<p class="subtle">Revision: ${escapeHtml(row.publication_or_revision_date)}</p>` : ''}
+          ${row.recheck_frequency ? `<p class="subtle">Recheck: ${escapeHtml(row.recheck_frequency)}</p>` : ''}
+          ${row.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">Open source</a></p>` : ''}
+        </article>
+      `, 'No NORS source pack entries found.');
+    }
+
+    function renderSourcePriorityRules(rows) {
+      renderCardList('source-priority-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.rule_id || 'Priority')}</div>
+          <h3>${escapeHtml(row.rule || 'Source priority rule')}</h3>
+          <p>${escapeHtml(row.plain_language_rationale || '')}</p>
+          ${row.priority_order?.length ? `<p class="subtle">Priority order: ${escapeHtml(row.priority_order.join(' > '))}</p>` : ''}
+          ${row.applies_to?.length ? `<p class="subtle">Applies to: ${escapeHtml(row.applies_to.join(', '))}</p>` : ''}
+        </article>
+      `, 'No source priority rules found.');
     }
 
     function renderSourceQuality(rows) {
@@ -410,7 +450,14 @@
           tooltip_rows: [],
           human_review_flags: []
         }));
+        const norsSourcePack = await loadJson('../data/nors_source_pack_lock.json').catch(() => ({
+          source_pack_rows: [],
+          source_priority_rules: [],
+          human_review_flags: []
+        }));
         renderSourceRegistry(sourceRegistry);
+        renderNorsSourcePack(norsSourcePack);
+        renderSourcePriorityRules(norsSourcePack.source_priority_rules || []);
         renderSourceQuality(applySourceQualityCorrections(batch4.source_quality_rows || [], batch5.source_quality_corrections || []));
         renderSourceVerification(applySourceVerificationCorrections([
           ...(batch6.source_verification_rows || []),
@@ -427,9 +474,11 @@
           ...sourceConflictsToWorkflowRows(batch11.source_conflict_rows || [])
         ]);
         renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || []), ...tooltipRowsToGlossary(batch7.tooltip_rows || []), ...tooltipRowsToGlossary(batch8.tooltip_rows || []), ...tooltipRowsToGlossary(batch9.tooltip_rows || []), ...tooltipRowsToGlossary(batch10.tooltip_rows || []), ...tooltipRowsToGlossary(batch11.tooltip_rows || [])]);
-        renderHumanReviewFlags(filterResolvedReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || []), ...(batch7.human_review_flags || []), ...(batch8.human_review_flags || []), ...(batch9.human_review_flags || []), ...(batch10.human_review_flags || []), ...(batch11.human_review_flags || [])], [...(batch7.resource_corrections || []), ...(batch8.resource_corrections || []), ...(batch9.resource_corrections || [])]));
+        renderHumanReviewFlags(filterResolvedReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || []), ...(batch7.human_review_flags || []), ...(batch8.human_review_flags || []), ...(batch9.human_review_flags || []), ...(batch10.human_review_flags || []), ...(batch11.human_review_flags || []), ...(norsSourcePack.human_review_flags || [])], [...(batch7.resource_corrections || []), ...(batch8.resource_corrections || []), ...(batch9.resource_corrections || [])]));
       } catch (err) {
         output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
+        document.getElementById('nors-source-pack-output').textContent = `NORS source pack could not be loaded. Details: ${err.message}`;
+        document.getElementById('source-priority-output').textContent = `Source priority rules could not be loaded. Details: ${err.message}`;
         document.getElementById('source-quality-output').textContent = `Source quality notes could not be loaded. Details: ${err.message}`;
         document.getElementById('source-verification-output').textContent = `Source verification notes could not be loaded. Details: ${err.message}`;
         document.getElementById('workflow-output').textContent = `Workflow guardrails could not be loaded. Details: ${err.message}`;

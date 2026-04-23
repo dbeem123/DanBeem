@@ -39,10 +39,11 @@
     norsKnowledgeBaseBatch12: ['../data/nors_knowledge_base_batch12.json', '../nors_knowledge_base_batch12.json'],
     norsKnowledgeBaseBatch13: ['../data/nors_knowledge_base_batch13.json', '../nors_knowledge_base_batch13.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
-    sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
+    sourceRegistry: ['../data/source_registry.json', '../source_registry.json'],
+    norsSourcePackLock: ['../data/nors_source_pack_lock.json', '../nors_source_pack_lock.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'norsKnowledgeBaseBatch13', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'norsKnowledgeBaseBatch13', 'appendixPpTagPages', 'sourceRegistry', 'norsSourcePackLock']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -63,6 +64,7 @@
     if (key === 'norsKnowledgeBaseBatch13') return { appendix_pp_related_investigation_rows: [], appendix_pp_source_rows: [], source_conflict_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
+    if (key === 'norsSourcePackLock') return { source_pack_rows: [], source_relationship_rows: [], source_priority_rules: [], human_review_flags: [] };
     return {};
   }
 
@@ -239,6 +241,14 @@
   function getKnowledgeSourceVerificationRows(data) {
     const rows = getKnowledgeBases(data).flatMap(base => base.source_verification_rows || []);
     return applySourceVerificationCorrections(rows, data);
+  }
+
+  function getNorsSourcePackRows(data) {
+    return data?.norsSourcePackLock?.source_pack_rows || [];
+  }
+
+  function getNorsSourcePriorityRules(data) {
+    return data?.norsSourcePackLock?.source_priority_rules || [];
   }
 
   function getKnowledgeAppendixPpRelatedRows(data) {
@@ -1925,6 +1935,8 @@
     getKnowledgeTooltipRows,
     getKnowledgeHumanReviewFlags,
     getKnowledgeSourceVerificationRows,
+    getNorsSourcePackRows,
+    getNorsSourcePriorityRules,
     getKnowledgeWorkflowUpdateRows,
     getAuthorityLabel,
     getAuthorityUrl,
