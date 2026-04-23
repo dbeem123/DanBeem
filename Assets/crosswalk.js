@@ -1352,14 +1352,15 @@
         const citation = normalizeAuthorityCitation(row.authority_citation || row.citation || '');
         const redirectedCitation = citation === 'F758' ? 'F605' : citation;
         const mappingType = getKnowledgeMappingType(row);
+        const isAppendixPp = isAppendixPpAuthority(row);
         return {
           authority_id: citation === 'F758' ? 'f605' : getAuthorityIdFromKnowledgeRow(row),
           reason: row.mapping_rationale_short || row.notes || `${mappingType.replace(/_/g, ' ')} knowledge-base mapping`,
           citation: redirectedCitation,
           title: row.authority_label || row.description || '',
           category: getKnowledgeAuthorityCategory(row),
-          authorityLevel: type.startsWith('appendix_pp') ? 'interpretive_guidance' : '',
-          guidanceNote: type.startsWith('appendix_pp') ? getAuthorityGuidanceNote({ authority_type: 'appendix_pp' }) : '',
+          authorityLevel: isAppendixPp ? 'interpretive_guidance' : '',
+          guidanceNote: isAppendixPp ? getAuthorityGuidanceNote({ authority_type: 'appendix_pp' }) : '',
           url: getKnowledgeAuthorityUrl(row),
           mapping_type: mappingType,
           human_review_note: row.human_review_note || '',
