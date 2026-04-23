@@ -31,11 +31,12 @@
     norsKnowledgeBaseBatch4: ['../data/nors_knowledge_base_batch4.json', '../nors_knowledge_base_batch4.json'],
     norsKnowledgeBaseBatch5: ['../data/nors_knowledge_base_batch5.json', '../nors_knowledge_base_batch5.json'],
     norsKnowledgeBaseBatch6: ['../data/nors_knowledge_base_batch6.json', '../nors_knowledge_base_batch6.json'],
+    norsKnowledgeBaseBatch7: ['../data/nors_knowledge_base_batch7.json', '../nors_knowledge_base_batch7.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -47,6 +48,7 @@
     if (key === 'norsKnowledgeBaseBatch4') return { resource_rows: [], workflow_guidance_rows: [], source_quality_rows: [], plain_language_explainer_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch5') return { resource_corrections: [], additional_resource_rows: [], tooltip_rows: [], workflow_corrections: [], source_quality_corrections: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch6') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch7') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -140,7 +142,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -162,6 +164,7 @@
   function getKnowledgeResourceRows(data) {
     return getKnowledgeBases(data)
       .flatMap(base => [...(base.resource_rows || []), ...(base.additional_resource_rows || [])])
+      .map(normalizeKnowledgeResourceRow)
       .map(row => applyResourceCorrection(row, data));
   }
 
@@ -184,11 +187,15 @@
   }
 
   function getKnowledgeHumanReviewFlags(data) {
-    return getKnowledgeBases(data).flatMap(base => base.human_review_flags || []);
+    const resolved = getResolvedHumanReviewFlagIds(data);
+    return getKnowledgeBases(data)
+      .flatMap(base => base.human_review_flags || [])
+      .filter(flag => !resolved.has(flag.flag_id || flag.id));
   }
 
   function getKnowledgeSourceVerificationRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.source_verification_rows || []);
+    const rows = getKnowledgeBases(data).flatMap(base => base.source_verification_rows || []);
+    return applySourceVerificationCorrections(rows, data);
   }
 
   function getKnowledgeResourceCorrections(data) {
@@ -200,7 +207,21 @@
   }
 
   function getKnowledgeWorkflowUpdateRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.workflow_update_rows || []);
+    const rows = getKnowledgeBases(data).flatMap(base => base.workflow_update_rows || []);
+    const hasBatch7 = getKnowledgeBases(data).some(base => {
+      return base?.meta?.batch === '7' || (base?.workflow_update_rows || []).some(row => /^WU-B7-/.test(row.id || ''));
+    });
+    return hasBatch7 ? rows.filter(row => row.id !== 'WU-001') : rows;
+  }
+
+  function getKnowledgeSourceVerificationCorrections(data) {
+    return getKnowledgeResourceCorrections(data).filter(correction => /^SV-/.test(correction.target_row_id || ''));
+  }
+
+  function getResolvedHumanReviewFlagIds(data) {
+    return new Set(getKnowledgeResourceCorrections(data)
+      .filter(correction => /^HRF-/.test(correction.target_row_id || '') && correction.corrected_value?.flag_type === 'resolved')
+      .map(correction => correction.target_row_id));
   }
 
   function getKnowledgeSourceQualityCorrections(data) {
@@ -216,6 +237,56 @@
 
   function extractUrls(value) {
     return [...String(value || '').matchAll(/https?:\/\/[^\s;)]+/g)].map(match => match[0]);
+  }
+
+  function normalizeKnowledgeResourceRow(resource = {}) {
+    const id = resource.id || '';
+    if (/^RR-B7-00[1-5]$/.test(id)) {
+      return {
+        ...resource,
+        applies_to_nors_codes: ['C02', 'C03'],
+        human_review_note: cleanReviewText(resource.human_review_note || 'Batch 7 labeled these as D-series discharge resources; this app routes them to C02/C03 under the current NORS hierarchy.')
+      };
+    }
+    if (['RR-B7-010', 'RR-B7-011'].includes(id)) {
+      return {
+        ...resource,
+        applies_to_nors_codes: ['F13', 'D07']
+      };
+    }
+    if (id === 'RR-B7-012') {
+      return {
+        ...resource,
+        applies_to_nors_codes: ['F13']
+      };
+    }
+    if (id === 'RR-B7-013') {
+      return {
+        ...resource,
+        applies_to_nors_codes: ['F04', 'F12']
+      };
+    }
+    if (id === 'RR-B7-008') {
+      return {
+        ...resource,
+        applies_to_nors_codes: [...new Set([...toArray(resource.applies_to_nors_codes), 'A04', 'A05'])]
+      };
+    }
+    return resource;
+  }
+
+  function applySourceVerificationCorrections(rows, data) {
+    const corrections = getKnowledgeSourceVerificationCorrections(data);
+    return rows.map(row => {
+      const correction = corrections.find(item => item.target_row_id === row.id);
+      if (!correction) return row;
+      const corrected = correction.corrected_value || {};
+      return {
+        ...row,
+        ...corrected,
+        correction_note: cleanReviewText(correction.reason || '')
+      };
+    });
   }
 
   function applyResourceCorrection(resource = {}, data) {
@@ -574,6 +645,18 @@
         if (area === 'qso_memo_routing') {
           return resourceIds.has('RR-013');
         }
+        if (area === 'discharge_resource_routing') {
+          return ['C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+            matchedTopics.some(topic => /discharge|transfer/.test(topic));
+        }
+        if (area === 'ct_dph_inspection_data_routing') {
+          return ['RR-B7-006', 'RR-B7-007', 'RR-B7-008'].some(id => resourceIds.has(id)) ||
+            matchedTopics.some(topic => /inspection|survey|quality standards|abuse|neglect/.test(topic));
+        }
+        if (area === 'qso_25_07_nh_effective_date') {
+          return ['RR-B7-005', 'RR-B7-013', 'RR-025'].some(id => resourceIds.has(id)) ||
+            matchedTopics.some(topic => /medication|drug|psychotropic|chemical restraint/.test(topic));
+        }
         return false;
       })
       .map(row => ({
@@ -581,7 +664,7 @@
         workflow: row.workflow_area || row.id,
         trigger: row.update_type ? `${row.update_type.replace(/_/g, ' ')} update` : 'Workflow update',
         guidance_text: row.corrected_guidance || '',
-        do_not_say: row.caveat || '',
+        do_not_say: /^none\.?$/i.test(cleanReviewText(row.caveat || '')) ? '' : cleanReviewText(row.caveat || ''),
         source_urls: extractUrls(row.authority || '')
       }));
   }
@@ -627,6 +710,9 @@
     const text = normalizeTopicKey(keywordText);
     const resourceIds = new Set(resources.map(resource => resource.id).filter(Boolean));
     const hasBatch6Verification = getKnowledgeSourceVerificationRows(data).length > 0;
+    const hasBatch7Verification = getKnowledgeBases(data).some(base => {
+      return base?.meta?.batch === '7' || (base?.source_verification_rows || []).some(row => /^SV-B7-/.test(row.id || ''));
+    });
     const hasCorrectedDischargeWorkflow = getKnowledgeWorkflowCorrections(data).some(row => row.workflow_id === 'WG-002');
     const warnings = [];
 
@@ -689,13 +775,13 @@
       )) {
         warnings.push(`Staffing resource caveat (${id}): ${action}`);
       }
-      if (id === 'HRF-B6-001' && (
+      if (id === 'HRF-B6-001' && !hasBatch7Verification && (
         matchedCodes.some(code => ['F04', 'F05', 'F07', 'F11', 'F12'].includes(code)) ||
         /medication|drug|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`Medication resource gap (${id}): ${action}`);
       }
-      if (id === 'HRF-B6-002' && (
+      if (id === 'HRF-B6-002' && !hasBatch7Verification && (
         matchedCodes.some(code => ['F13', 'I01', 'I02', 'I03', 'I04', 'I05'].includes(code)) ||
         /infection|infection control|outbreak/.test(`${matchedTopics} ${text}`)
       )) {
@@ -707,11 +793,35 @@
       if (id === 'HRF-B6-004' && /survey|inspection|care compare/.test(`${matchedTopics} ${text}`)) {
         warnings.push(`Survey-results URL note (${id}): ${action}`);
       }
-      if (id === 'HRF-B6-005' && (
+      if (id === 'HRF-B6-005' && !hasBatch7Verification && (
         matchedCodes.some(code => ['F07', 'F11', 'F12'].includes(code)) ||
         /psychotropic|antipsychotic|chemical restraint/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`CMS QSO source note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B7-001' && (
+        matchedCodes.some(code => ['F04', 'F07', 'F11', 'F12'].includes(code)) ||
+        /medication|drug|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Medication handout gap (${id}): ${action}`);
+      }
+      if (id === 'HRF-B7-002' && (
+        matchedCodes.some(code => ['F07', 'F11', 'F12'].includes(code)) ||
+        /psychotropic|antipsychotic|chemical restraint/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`CMS QSO source note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B7-003' && (
+        matchedCodes.includes('F13') ||
+        ['RR-B7-010', 'RR-B7-011'].some(resourceId => resourceIds.has(resourceId))
+      )) {
+        warnings.push(`Infection resource currency note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B7-004' && (
+        ['C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+        ['RR-B7-001', 'RR-B7-002', 'RR-B7-003'].some(resourceId => resourceIds.has(resourceId))
+      )) {
+        warnings.push(`CT discharge resource currency note (${id}): ${action}`);
       }
     });
 
@@ -748,7 +858,19 @@
           /f757|psychotropic|antipsychotic|chemical restraint|unnecessary medication/.test(`${matchedTopics} ${text}`);
       }
       if (type === 'ct_portal_url_caution') {
-        return /portal\.ct\.gov\/ltcop|\/media\/ltcop/i.test(resourceUrls);
+        return resourceIds.has('RR-024');
+      }
+      if (type === 'discharge_portal_notice') {
+        return ['C02', 'C03'].some(code => matchedCodes.includes(code)) ||
+          /discharge|transfer/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'ct_inspection_data_notice') {
+        return ['RR-B7-006', 'RR-B7-007', 'RR-B7-008'].some(id => resourceIds.has(id)) ||
+          /inspection|survey|care compare|deficiency|plan of correction/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'qso_25_07_nh_effective_date_notice') {
+        return ['RR-B7-005', 'RR-B7-013', 'RR-025'].some(id => resourceIds.has(id)) ||
+          /qso 25 07|qso-25-07|f605|f757|f758|psychotropic|chemical restraint/.test(`${matchedTopics} ${text}`);
       }
       return false;
     });

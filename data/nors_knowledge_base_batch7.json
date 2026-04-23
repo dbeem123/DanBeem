@@ -1,0 +1,581 @@
+{
+  "meta": {
+    "batch": "7",
+    "purpose": "manual source verification and remaining resource gaps",
+    "date_completed": "2026-04-23",
+    "notes": [
+      "All source_verification_rows reflect live browser-navigation results from April 23, 2026.",
+      "QSO-25-07-NH CMS direct PDF remains unconfirmed as a stable canonical URL. The original PDF (qso-25-07-nh.pdf) returns 404. An expired version (qso-25-07-nh-expired.pdf) may exist but represents a superseded release. The memo was superseded January 15, 2025 and effective date moved to April 28, 2025 by QSO-25-14-NH.",
+      "CT LTCOP Discharge Portal confirmed live at portal.ct.gov/ltcop/ltcop-discharge-portal with multiple PDF resources confirmed.",
+      "QSO-25-14-NH surfaced during discharge portal navigation — covers SNF transfer/discharge and LTC surveyor guidance revisions effective April 28, 2025.",
+      "CT DPH eLicense portal confirmed as primary CT-specific nursing home inspection data source.",
+      "CT DPH Blast Fax sub-page path confirmed live — corrects Batch 6 SV-003 not_found finding.",
+      "No resident-facing medication error handout confirmed from any acceptable source — human_review_flag retained.",
+      "Two confirmed live resident-facing infection control handouts found from Consumer Voice; CDC LTCF page confirmed resident-facing.",
+      "NORC at norc.org is NORC at the University of Chicago (research/polling organization), not the National Ombudsman Resource Center. NORC ombudsman resources are hosted at theconsumervoice.org/norc/."
+    ]
+  },
+
+  "resource_rows": [
+    {
+      "id": "RR-B7-001",
+      "title": "CT LTCOP Discharge Portal — Involuntary Discharge Resources",
+      "resource_type": "official_program_page",
+      "url": "https://portal.ct.gov/ltcop/ltcop-discharge-portal",
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "applies_to_topics": ["involuntary discharge", "transfer", "discharge notice", "discharge rights", "SNF discharge portal"],
+      "audience": "ombudsman_staff",
+      "summary": "Official CT LTCOP hub for involuntary discharge procedures, portal access, and supporting documents. Contains links to the LTCOP Involuntary Discharge Portal login, user manual, Public Acts 22-57, 22-58, 23-48, 25-16, and CMS memo QSO-25-14-NH. Staff-facing portal; individual resident-facing documents linked from this page.",
+      "when_to_show": "Any NORS code in the D series (discharge/transfer). Ombudsman staff use to navigate discharge portal and access supporting documentation.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": ""
+    },
+    {
+      "id": "RR-B7-002",
+      "title": "LTCOP Involuntary Discharge Portal — User Manual (PDF)",
+      "resource_type": "procedural_guide",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf",
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "applies_to_topics": ["involuntary discharge", "discharge portal", "facility staff procedures", "transfer notice"],
+      "audience": "ombudsman_staff",
+      "summary": "CT LTCOP user manual for the Involuntary Discharge Portal (December 2022). Covers how facility staff submit discharge notices electronically. Staff/ombudsman-facing procedural document.",
+      "when_to_show": "When navigating discharge portal procedures or assisting facility staff with electronic notice submission.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Document dated December 2022 — verify currency against any portal updates since PA 23-48 and PA 25-16."
+    },
+    {
+      "id": "RR-B7-003",
+      "title": "SNF Transfer and Discharges — CMS QSO-25-14-NH & LTCOP Portal Updates (PDF)",
+      "resource_type": "training_slide_deck",
+      "url": "https://portal.ct.gov/-/media/ltcop/pdf/snf-ltcop--discharges-and-transfers_cms-qso-25-14-nh-portal-updates.pdf",
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "applies_to_topics": ["involuntary discharge", "transfer", "SNF discharge notice", "QSO-25-14-NH", "discharge portal updates"],
+      "audience": "ombudsman_staff",
+      "summary": "CT LTCOP training document covering SNF transfers and discharges in light of CMS QSO-25-14-NH and CT LTCOP portal updates. Ombudsman staff-facing. Covers revised federal surveyor guidance for discharge and how CT portal reflects these changes.",
+      "when_to_show": "When addressing discharge complaints under QSO-25-14-NH revised requirements or when orienting staff to post-2025 discharge procedures.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "QSO-25-14-NH moved QSO-25-07-NH effective date to April 28, 2025. Verify this document reflects current effective requirements."
+    },
+    {
+      "id": "RR-B7-004",
+      "title": "National Consumer Voice — SNF Transfer and Discharge Notice Resource",
+      "resource_type": "resident_handout",
+      "url": "https://ltcombudsman.org/uploads/files/support/t-d-notice.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care / ltcombudsman.org",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "applies_to_topics": ["discharge notice", "transfer notice", "resident rights discharge", "SNF discharge"],
+      "audience": "resident",
+      "summary": "Consumer Voice resident/family resource explaining SNF transfer and discharge notice requirements. Found linked from CT LTCOP Discharge Portal page. Resident-facing advocacy/training handout.",
+      "when_to_show": "When providing residents or families with plain-language explanation of their rights regarding discharge or transfer notices.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Hosted at ltcombudsman.org (Consumer Voice subdomain). Mark as advocacy/training resource, not legal authority. Confirm currency — may predate QSO-25-14-NH revisions (April 2025)."
+    },
+    {
+      "id": "RR-B7-005",
+      "title": "CMS QSO-25-14-NH — Revised LTC Surveyor Guidance (Transfer and Discharge)",
+      "resource_type": "cms_policy_memo",
+      "url": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "source_owner": "CMS",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["D01", "D02", "D03", "D04", "D05", "D06"],
+      "applies_to_topics": ["involuntary discharge", "transfer", "SNF discharge notice", "LTC surveyor guidance", "QSO-25-07-NH effective date"],
+      "audience": "ombudsman_staff",
+      "summary": "CMS QSO-25-14-NH revised LTC surveyor guidance. Moved the effective date of QSO-25-07-NH psychotropic medication guidance to April 28, 2025. Also covers SNF transfer and discharge surveyor guidance updates. Found linked from CT LTCOP Discharge Portal.",
+      "when_to_show": "When verifying current effective date of psychotropic medication guidance or SNF discharge surveyor standards.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Confirm exact subject scope of QSO-25-14-NH — CT LTCOP links it in the discharge portal context; verify whether transfer/discharge or medication guidance is the primary subject."
+    },
+    {
+      "id": "RR-B7-006",
+      "title": "CT DPH — Nursing Home Inspections Process Page",
+      "resource_type": "official_program_page",
+      "url": "https://portal.ct.gov/dph/facility-licensing--investigations/nursing-home-site/nursing-home-inspections",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "B01"],
+      "applies_to_topics": ["nursing home inspections", "survey process", "deficiency citations", "CT DPH oversight", "quality standards"],
+      "audience": "general",
+      "summary": "CT DPH page explaining how Connecticut conducts annual onsite nursing home inspections on behalf of CMS. Covers inspection team procedures, deficiency citation process, quality standards, and links to Medicare Care Compare and CT LTCOP. Does not contain individual facility inspection data — for that, see CT eLicense portal (RR-B7-007).",
+      "when_to_show": "When explaining the CT nursing home inspection process or directing residents/families to understand how oversight works.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "External links on this page (NHCompare, ct.gov/ltcop) use legacy URLs — verify they redirect correctly to current URLs."
+    },
+    {
+      "id": "RR-B7-007",
+      "title": "CT eLicense — Nursing Home Inspection Documents Search (CCNH)",
+      "resource_type": "official_data_portal",
+      "url": "https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331",
+      "source_owner": "CT DPH / eLicense.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "B01"],
+      "applies_to_topics": ["nursing home inspection reports", "survey results", "plans of correction", "CT facility data", "CCNH inspection documents"],
+      "audience": "general",
+      "summary": "CT DPH eLicense searchable database of Chronic and Convalescent Nursing Home (CCNH) inspection documents. Users can search by date range to retrieve individual facility inspection reports, deficiency findings, and plans of correction. This is the primary CT-specific source for individual nursing home survey/inspection data.",
+      "when_to_show": "When a resident, family, or ombudsman needs to review CT-specific inspection findings for a specific nursing home. Use as CT-specific complement to Medicare Care Compare.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Confirm search interface remains functional and date-range search produces results. URL contains a query ID parameter — verify URL stability over time."
+    },
+    {
+      "id": "RR-B7-008",
+      "title": "CT DPH — Submit a Healthcare Facility Complaint (FLIS)",
+      "resource_type": "official_complaint_portal",
+      "url": "https://portal.ct.gov/dph/facility-licensing--investigations/facility-licensing--investigations-section-flis/flis-complaint-submission",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["A01", "A02", "A03", "B01", "L01", "L02"],
+      "applies_to_topics": ["facility complaint", "abuse complaint", "neglect complaint", "CT DPH complaint hotline", "unsafe conditions reporting"],
+      "audience": "general",
+      "summary": "CT DPH Facility Licensing and Investigations Section (FLIS) complaint submission page. Instructions for filing complaints about licensed healthcare facilities including nursing homes. Categories include abuse, neglect, poor care, and unsafe/unsanitary conditions. CT DPH Complaint Hotline: (800) 828-9769.",
+      "when_to_show": "When a resident or family wants to file a complaint with CT DPH about a nursing home.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": ""
+    },
+    {
+      "id": "RR-B7-009",
+      "title": "CT DPH — Blast Fax Page (Facility Licensing Investigations)",
+      "resource_type": "official_program_page",
+      "url": "https://portal.ct.gov/dph/facility-licensing--investigations/facility-licensing--investigations-section-flis/blast-fax-page",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": [],
+      "applies_to_topics": ["CT DPH blast fax", "facility notifications", "regulatory notices to facilities"],
+      "audience": "ombudsman_staff",
+      "summary": "CT DPH FLIS Blast Fax page. Confirmed live sub-page under the Facility Licensing and Investigations section. Contains regulatory and notification communications sent to licensed facilities. Ombudsman staff-facing reference for tracking DPH facility communications.",
+      "when_to_show": "When checking whether a specific DPH notice or blast fax has been issued to facilities.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Page confirmed live at sidebar navigation. Verify content loads fully and blast fax documents are accessible — browser task confirmed the path exists but did not enumerate page body content."
+    },
+    {
+      "id": "RR-B7-010",
+      "title": "Consumer Voice — Tips for Facility Visits During an Infectious Disease Outbreak (PDF)",
+      "resource_type": "resident_handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["G01", "G02", "G03"],
+      "applies_to_topics": ["infection control", "infectious disease outbreak", "visitation during outbreak", "resident rights infection", "family advocacy infection"],
+      "audience": "resident",
+      "summary": "Consumer Voice resident/family-facing tip sheet on visiting nursing home residents during an infectious disease outbreak. Covers resident rights, visitor access, and advocacy steps during outbreak conditions. Confirmed live PDF (299 KB). Advocacy/training resource — not legal authority.",
+      "when_to_show": "When a resident or family raises concerns about visitation or care during an infectious disease outbreak.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Originally produced during COVID-19 context — verify applicability to non-COVID outbreaks. Label as advocacy/training resource."
+    },
+    {
+      "id": "RR-B7-011",
+      "title": "Consumer Voice — Family Advocacy for Nursing Home Residents During COVID-19 (PDF)",
+      "resource_type": "resident_handout",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["G01", "G02", "G03"],
+      "applies_to_topics": ["infection control", "family advocacy", "complaint filing during outbreak", "resident rights infection", "COVID-19 nursing home"],
+      "audience": "resident",
+      "summary": "Consumer Voice fact sheet for individuals and families of nursing home residents. Explains how to file complaints and protect resident rights during infection outbreaks. Confirmed live PDF (218 KB). Advocacy/training resource — not legal authority.",
+      "when_to_show": "When a family member needs plain-language guidance on advocating for a nursing home resident during an infection outbreak.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Produced during COVID-19 context — labeled for COVID-19 but covers general advocacy steps applicable to any outbreak. Confirm current utility."
+    },
+    {
+      "id": "RR-B7-012",
+      "title": "CDC — Infection Prevention and Long-Term Care Facility Residents",
+      "resource_type": "official_information_page",
+      "url": "https://www.cdc.gov/long-term-care-facilities/about/index.html",
+      "source_owner": "CDC / cdc.gov",
+      "authority_level": "high",
+      "applies_to_nors_codes": ["G01", "G02", "G03"],
+      "applies_to_topics": ["infection control", "infectious disease", "MRSA", "C. diff", "norovirus", "antibiotic stewardship", "resident rights infection", "long-term care infection prevention"],
+      "audience": "resident",
+      "summary": "CDC page on infection prevention in long-term care facilities, explicitly labeled 'For Everyone' and written directly to residents ('If you live in a nursing home...'). Covers C. diff, MRSA, norovirus, and antibiotic stewardship. Links to additional resident-facing sub-pages for each infection type. Confirmed live. High-authority federal source.",
+      "when_to_show": "When providing residents or families with authoritative information about infection prevention rights and expectations in nursing homes.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Page last updated March 26, 2024 per browser session. Verify currency periodically. Note: https://www.cdc.gov/longtermcare/ redirects to this URL."
+    },
+    {
+      "id": "RR-B7-013",
+      "title": "Consumer Voice — Unnecessary Drugs and Antipsychotic Medications (Issue Brief, PDF)",
+      "resource_type": "advocacy_issue_brief",
+      "url": "https://theconsumervoice.org/wp-content/uploads/2024/06/Revised_Nursing_Facility_Regulations_Unnecessary_Drugs_and_Antipsychotic_Medications_copy.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care / Justice in Aging",
+      "authority_level": "medium",
+      "applies_to_nors_codes": ["G06", "G07"],
+      "applies_to_topics": ["unnecessary medications", "antipsychotic medications", "psychotropic drugs", "F605", "F757", "medication regulation", "nursing facility regulations"],
+      "audience": "ombudsman_staff",
+      "summary": "Issue brief produced jointly by Consumer Voice and Justice in Aging explaining revised nursing facility regulations on unnecessary drugs and antipsychotic medications. Covers F605, F757, and related tag changes. Confirmed live PDF (3 pages). Written for advocates, ombudsmen, and policy audiences — NOT resident-facing. Advocacy/training resource — not legal authority.",
+      "when_to_show": "When ombudsman staff need background on the regulatory framework for unnecessary/antipsychotic medications to support a resident complaint.",
+      "informational_only": true,
+      "last_verified": "2026-04-23",
+      "human_review_note": "Confirm this brief reflects QSO-25-07-NH revisions (eff. April 28, 2025) — if produced before April 2025 it may predate the F758→F605 consolidation. Do not present to residents as a rights handout."
+    }
+  ],
+
+  "resource_corrections": [
+    {
+      "id": "RC-B7-001",
+      "target_batch": "6",
+      "target_row_id": "SV-003",
+      "field_corrected": "status and verified_url",
+      "original_value": {
+        "status": "not_found",
+        "verified_url": null,
+        "what_was_verified": "Multiple portal.ct.gov/dph/* paths tested for blast fax or survey notification pages. All returned 404-equivalent responses."
+      },
+      "corrected_value": {
+        "status": "confirmed",
+        "verified_url": "https://portal.ct.gov/dph/facility-licensing--investigations/facility-licensing--investigations-section-flis/blast-fax-page",
+        "what_was_verified": "CT DPH Blast Fax page confirmed live via manual sidebar navigation from the FLIS section. Path exists and loads without 404 redirect."
+      },
+      "reason": "Batch 6 tested guessed URL paths. Batch 7 manual navigation confirmed the correct sub-path under the FLIS section. Previous guesses did not include the /facility-licensing--investigations-section-flis/ segment.",
+      "verification_source": "Manual browser navigation from https://portal.ct.gov/dph/facility-licensing--investigations, April 23, 2026.",
+      "source_owner": "CT DPH / portal.ct.gov"
+    },
+    {
+      "id": "RC-B7-002",
+      "target_batch": "6",
+      "target_row_id": "SV-002",
+      "field_corrected": "status and verified_url",
+      "original_value": {
+        "status": "not_found",
+        "verified_url": null,
+        "what_was_verified": "Multiple portal.ct.gov/ltcop/* paths tested. All paths either redirect to /en/404error/ or return soft-404 equivalents. No confirmed discharge documents sub-page found."
+      },
+      "corrected_value": {
+        "status": "confirmed",
+        "verified_url": "https://portal.ct.gov/ltcop/ltcop-discharge-portal",
+        "what_was_verified": "CT LTCOP Discharge Portal page confirmed live via manual navigation. Contains discharge-related PDFs, portal login link, public act references, and CMS memo links. The page does not use the title 'discharge documents' but is the authoritative discharge resource hub."
+      },
+      "reason": "Batch 6 searched for a 'discharge documents sub-page' — the page exists under the path /ltcop-discharge-portal, not /discharge-documents. Manual navigation surfaced the correct URL.",
+      "verification_source": "Manual browser navigation from https://portal.ct.gov/ltcop, April 23, 2026.",
+      "source_owner": "CT LTCOP / portal.ct.gov"
+    },
+    {
+      "id": "RC-B7-003",
+      "target_batch": "6",
+      "target_row_id": "SV-004",
+      "field_corrected": "status, verified_url, limitations, recommended_tool_action",
+      "original_value": {
+        "status": "not_found",
+        "verified_url": null,
+        "limitations": "Medicare Care Compare confirmed as functional substitute. CT DPH-specific page not located.",
+        "recommended_tool_action": "substitute_with_medicare_care_compare"
+      },
+      "corrected_value": {
+        "status": "confirmed",
+        "verified_url": "https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331",
+        "limitations": "Searchable by date range only — not searchable by facility name directly from this URL. Individual facility inspection documents returned as PDFs. Medicare Care Compare remains a useful complement for star ratings and national comparison data.",
+        "recommended_tool_action": "add_as_primary_ct_resource — use eLicense portal as CT-specific inspection data source; retain Medicare Care Compare as national complement"
+      },
+      "reason": "Batch 6 could not find a CT DPH inspection data page via URL guessing. Batch 7 manual navigation from the DPH facility licensing root found the CT eLicense searchable inspection database, which is the primary CT-specific source for individual nursing home inspection documents.",
+      "verification_source": "Manual browser navigation from https://portal.ct.gov/dph/facility-licensing--investigations, April 23, 2026.",
+      "source_owner": "CT DPH / eLicense.ct.gov"
+    },
+    {
+      "id": "RC-B7-004",
+      "target_batch": "6",
+      "target_row_id": "HRF-B6-003",
+      "field_corrected": "flag_type and action_required",
+      "original_value": {
+        "flag_type": "url_unconfirmed",
+        "description": "CT LTCOP discharge documents sub-page not found at any tested portal.ct.gov/ltcop/* path.",
+        "action_required": "Manual navigation from CT LTCOP homepage required. Do not link any discharge documents URL until confirmed."
+      },
+      "corrected_value": {
+        "flag_type": "resolved",
+        "description": "CT LTCOP Discharge Portal confirmed live at https://portal.ct.gov/ltcop/ltcop-discharge-portal. Multiple discharge-related PDFs confirmed linked from that page. See Batch 7 RR-B7-001 through RR-B7-004.",
+        "action_required": "Close flag. Add RR-B7-001 through RR-B7-004 as discharge resource rows."
+      },
+      "reason": "HRF-B6-003 flagged the discharge documents page as unconfirmed. Batch 7 manual navigation resolved this — the page exists at /ltcop-discharge-portal.",
+      "verification_source": "Manual browser navigation, April 23, 2026.",
+      "source_owner": "CT LTCOP / portal.ct.gov"
+    },
+    {
+      "id": "RC-B7-005",
+      "target_batch": "6",
+      "target_row_id": "HRF-B6-004",
+      "field_corrected": "flag_type and action_required",
+      "original_value": {
+        "flag_type": "url_unconfirmed",
+        "description": "CT DPH nursing home survey/inspection results page not confirmed at any tested portal.ct.gov/dph/* path.",
+        "action_required": "Manual navigation from CT DPH facility licensing root. Use Medicare Care Compare as substitute resource row until CT DPH page confirmed."
+      },
+      "corrected_value": {
+        "flag_type": "resolved",
+        "description": "CT DPH inspection data confirmed live via CT eLicense portal (https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331). CT DPH Nursing Home Inspections process page also confirmed (https://portal.ct.gov/dph/facility-licensing--investigations/nursing-home-site/nursing-home-inspections). See Batch 7 RR-B7-006 and RR-B7-007.",
+        "action_required": "Close flag. Add RR-B7-006 and RR-B7-007 as CT DPH inspection resource rows. Retain Medicare Care Compare (SV-007) as national complement."
+      },
+      "reason": "HRF-B6-004 flagged CT DPH survey results as unconfirmed. Batch 7 manual navigation resolved with both a process page and the primary eLicense data portal.",
+      "verification_source": "Manual browser navigation, April 23, 2026.",
+      "source_owner": "CT DPH / portal.ct.gov and eLicense.ct.gov"
+    }
+  ],
+
+  "source_verification_rows": [
+    {
+      "id": "SV-B7-001",
+      "source_or_claim": "CMS QSO-25-07-NH direct PDF — https://www.cms.gov/files/document/qso-25-07-nh.pdf",
+      "status": "not_found",
+      "verified_url": null,
+      "source_owner": "CMS",
+      "what_was_verified": "Attempted direct fetch of https://www.cms.gov/files/document/qso-25-07-nh.pdf. Returns 'Error: Page Not Found.' Also attempted CMS Policy and Memos to States index navigation — memo does not appear in the current 2026-first table view. No stable CMS canonical PDF URL confirmed for this memo.",
+      "limitations": "An expired version may exist at https://www.cms.gov/files/document/qso-25-07-nh-expired.pdf — this represents the superseded original release (superseded January 15, 2025 by a revised version; effective date moved to April 28, 2025 by QSO-25-14-NH). The expired URL was not confirmed live in this session. LeadingAge NY hosts a combined-files copy at https://leadingageny.org/sites/leadingageny/assets/qso-25-07-nh-combined-files-pages.pdf — secondary source only, not acceptable as primary authority.",
+      "recommended_tool_action": "retain_uncertain — do not promote to high authority; use Consumer Voice issue brief (RR-B7-013) as interim ombudsman-staff reference; flag for periodic CMS URL re-check; do not use LeadingAge NY copy as primary source"
+    },
+    {
+      "id": "SV-B7-002",
+      "source_or_claim": "QSO-25-07-NH subject matter — covers F605, F757, F758",
+      "status": "confirmed",
+      "verified_url": null,
+      "source_owner": "CMS (primary); LeadingAge Iowa, GuideStar Eldercare, Skilled Nursing News (corroborating secondary sources)",
+      "what_was_verified": "QSO-25-07-NH (November 18, 2024) confirmed via multiple secondary sources to cover: (1) F758 consolidated into F605 (Freedom from Chemical Restraints), (2) F757 revised to apply only to non-psychotropic medications, (3) consent required before initiating or increasing psychotropic medication, (4) PRN psychotropic (non-antipsychotic) orders limited to 14 days, (5) GDR and non-pharmacological interventions required, (6) expanded definition of 'convenience.' Memo was later superseded January 15, 2025 and effective date moved to April 28, 2025 by QSO-25-14-NH.",
+      "limitations": "No CMS direct PDF confirmed. Subject matter verified via secondary sources only (LeadingAge Iowa, GuideStar Eldercare, Skilled Nursing News). CT LTCOP document (RR-B7-003) references QSO-25-14-NH as the operative memo — verify whether QSO-25-14-NH fully supersedes or only extends the effective date of QSO-25-07-NH.",
+      "recommended_tool_action": "retain_subject_confirmed — carry forward F605/F757/F758 corrections as confirmed; label authority as medium pending CMS PDF confirmation; add QSO-25-14-NH as related memo reference"
+    },
+    {
+      "id": "SV-B7-003",
+      "source_or_claim": "QSO-25-14-NH — CMS memo moving QSO-25-07-NH effective date to April 28, 2025",
+      "status": "confirmed",
+      "verified_url": "https://www.cms.gov/files/document/qso-25-14-nh.pdf",
+      "source_owner": "CMS",
+      "what_was_verified": "QSO-25-14-NH confirmed live at this URL — found linked from CT LTCOP Discharge Portal (RR-B7-001). CT LTCOP document title: 'SNF Transfer and Discharges CMS QSO-25-14-NH & LTCOP Portal Updates.' Per browser research: QSO-25-14-NH revised LTC surveyor guidance and moved the effective date of QSO-25-07-NH psychotropic medication guidance to April 28, 2025.",
+      "limitations": "Memo subject appears to cover both SNF transfer/discharge guidance and the QSO-25-07-NH effective date revision. Full subject scope not independently verified from PDF content — confirmed via CT LTCOP document title and secondary source references.",
+      "recommended_tool_action": "add_as_resource_row — see RR-B7-005; use as authoritative reference for current effective date of psychotropic medication surveyor guidance"
+    },
+    {
+      "id": "SV-B7-004",
+      "source_or_claim": "CT LTCOP Discharge Portal page",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/ltcop/ltcop-discharge-portal",
+      "source_owner": "CT LTCOP / portal.ct.gov",
+      "what_was_verified": "Page confirmed live via manual navigation from https://portal.ct.gov/ltcop. Does not redirect to /en/404error/. Contains: LTCOP Involuntary Discharge Portal login link, user manual PDF, training slide deck PDF (QSO-25-14-NH), Consumer Voice transfer/discharge resource, Public Acts 22-57, 22-58, 23-48, 25-16, and CMS QSO-25-14-NH PDF link.",
+      "limitations": "Individual PDFs on the page were found linked — not all PDFs independently downloaded/verified in this session. PDF at /media/ltcop/pdf/webportal/ltcop-inv-transfer-website-help-manual-for-facility-staff-dec-2022.pdf and /media/ltcop/pdf/snf-ltcop--discharges-and-transfers_cms-qso-25-14-nh-portal-updates.pdf confirmed present. Verify currency of December 2022 user manual.",
+      "recommended_tool_action": "add_as_primary_resource — see RR-B7-001; corrects Batch 6 SV-002 not_found status"
+    },
+    {
+      "id": "SV-B7-005",
+      "source_or_claim": "CT DPH eLicense nursing home inspection database",
+      "status": "confirmed",
+      "verified_url": "https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331",
+      "source_owner": "CT DPH / eLicense.ct.gov",
+      "what_was_verified": "Page confirmed live. Searchable database of CT Chronic and Convalescent Nursing Home (CCNH) inspection documents. Date-range search returns individual facility inspection reports, findings, and plans of correction. Confirmed as primary CT-specific source for nursing home survey/inspection data.",
+      "limitations": "Search interface requires date-range input — not searchable by facility name from this URL alone. URL contains a query ID parameter (queryIdnt=25331) — verify URL stability; this parameter should be tested periodically. Distinct from Medicare Care Compare which provides national star ratings.",
+      "recommended_tool_action": "add_as_primary_ct_resource — see RR-B7-007; corrects Batch 6 SV-004 not_found status; retain Medicare Care Compare as national complement"
+    },
+    {
+      "id": "SV-B7-006",
+      "source_or_claim": "CT DPH Nursing Home Inspections process page",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/dph/facility-licensing--investigations/nursing-home-site/nursing-home-inspections",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "what_was_verified": "Page confirmed live. Contains description of CT nursing home inspection process, how CMS contracts with CT for Medicare/Medicaid compliance inspections, deficiency citation process, and links to Medicare Care Compare and CT LTCOP.",
+      "limitations": "Does not contain individual facility inspection data — that data is in the eLicense portal (SV-B7-005). External links on this page use legacy URLs (NHCompare, ct.gov/ltcop) — verify redirects.",
+      "recommended_tool_action": "add_as_resource_row — see RR-B7-006"
+    },
+    {
+      "id": "SV-B7-007",
+      "source_or_claim": "CT DPH Blast Fax page",
+      "status": "confirmed",
+      "verified_url": "https://portal.ct.gov/dph/facility-licensing--investigations/facility-licensing--investigations-section-flis/blast-fax-page",
+      "source_owner": "CT DPH / portal.ct.gov",
+      "what_was_verified": "Page confirmed live via manual sidebar navigation from the FLIS section of the CT DPH facility licensing root page. Path exists and loads. Corrects Batch 6 SV-003 not_found status — previous guesses did not include the /facility-licensing--investigations-section-flis/ segment.",
+      "limitations": "Page body content not fully enumerated in browser session — confirmed live from sidebar navigation. Verify that blast fax documents are accessible and current on this page.",
+      "recommended_tool_action": "add_as_resource_row — see RR-B7-009; corrects Batch 6 SV-003 not_found status"
+    },
+    {
+      "id": "SV-B7-008",
+      "source_or_claim": "Consumer Voice — Tips for Facility Visits During an Infectious Disease Outbreak PDF",
+      "status": "confirmed",
+      "verified_url": "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-r3-tips-for-facility-visits-during-id-outbreak.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "what_was_verified": "PDF confirmed downloaded successfully (299 KB). Resident/family-facing tip sheet on visiting nursing home residents during an infectious disease outbreak.",
+      "limitations": "Produced in COVID-19 context — verify applicability to non-COVID infectious disease outbreaks. Advocacy/training resource; not legal authority.",
+      "recommended_tool_action": "add_as_resource_row — see RR-B7-010"
+    },
+    {
+      "id": "SV-B7-009",
+      "source_or_claim": "Consumer Voice — Family Advocacy for Nursing Home Residents During COVID-19 PDF",
+      "status": "confirmed",
+      "verified_url": "https://theconsumervoice.org/wp-content/uploads/2024/07/covid-19-family-advocacy-fact-sheet-for-individuals.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "what_was_verified": "PDF confirmed downloaded successfully (218 KB). Resident/family-facing fact sheet covering how to file complaints and protect rights during infection outbreaks.",
+      "limitations": "Produced in COVID-19 context — labeled COVID-19 but covers general advocacy steps. Advocacy/training resource; not legal authority.",
+      "recommended_tool_action": "add_as_resource_row — see RR-B7-011"
+    },
+    {
+      "id": "SV-B7-010",
+      "source_or_claim": "CDC — Infection Prevention and Long-Term Care Facility Residents page",
+      "status": "confirmed",
+      "verified_url": "https://www.cdc.gov/long-term-care-facilities/about/index.html",
+      "source_owner": "CDC / cdc.gov",
+      "what_was_verified": "Page confirmed live. Labeled 'For Everyone' on CDC site. Written directly to residents ('If you live in a nursing home...'). Covers C. diff, MRSA, norovirus, antibiotic stewardship. Updated March 26, 2024. Note: https://www.cdc.gov/longtermcare/ redirects to this URL.",
+      "limitations": "Page last updated March 26, 2024 — verify currency periodically. Some sub-pages on the same CDC hub are labeled 'Health Care Providers' (staff-facing) — distinguish from this resident-facing landing page.",
+      "recommended_tool_action": "add_as_resource_row — see RR-B7-012"
+    },
+    {
+      "id": "SV-B7-011",
+      "source_or_claim": "Consumer Voice — Unnecessary Drugs and Antipsychotic Medications Issue Brief PDF",
+      "status": "confirmed",
+      "verified_url": "https://theconsumervoice.org/wp-content/uploads/2024/06/Revised_Nursing_Facility_Regulations_Unnecessary_Drugs_and_Antipsychotic_Medications_copy.pdf",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care / Justice in Aging",
+      "what_was_verified": "PDF confirmed live (3 pages). Issue brief on revised nursing facility regulations for unnecessary drugs and antipsychotic medications (F605, F757). Joint publication by Consumer Voice and Justice in Aging. Written for policy advocates and ombudsmen — NOT resident-facing.",
+      "limitations": "Policy/advocacy audience only — do not present to residents as a rights handout. Verify whether brief predates QSO-25-07-NH revisions (April 28, 2025) — if so, F758→F605 consolidation language may be missing.",
+      "recommended_tool_action": "add_as_ombudsman_staff_resource_row — see RR-B7-013; label audience as ombudsman_staff"
+    },
+    {
+      "id": "SV-B7-012",
+      "source_or_claim": "Resident-facing medication error handout from acceptable sources (CMS, CT LTCOP, CT DPH, CT DSS, NORC, Consumer Voice)",
+      "status": "not_found",
+      "verified_url": null,
+      "source_owner": "N/A",
+      "what_was_verified": "Full manual search of Consumer Voice resource library (medications section, Getting Quality Care section, Residents' Rights section, direct search for 'medication errors' and 'medication rights'). Full search of norc.org. No confirmed live resident-facing handout or tip sheet on medication errors or medication rights in nursing homes found from any acceptable source.",
+      "limitations": "NORC at norc.org is NORC at the University of Chicago (research/polling organization) — does not publish resident-facing handouts. National Ombudsman Resource Center materials are hosted at theconsumervoice.org/norc/ — searched as part of Consumer Voice library. No medication error resident handout found there either.",
+      "recommended_tool_action": "retain_human_review_flag — see HRF-B7-001; no confirmed resource to add"
+    },
+    {
+      "id": "SV-B7-013",
+      "source_or_claim": "NORC (norc.org) as source for ombudsman resource handouts",
+      "status": "changed",
+      "verified_url": "https://theconsumervoice.org/norc/",
+      "source_owner": "National Consumer Voice for Quality Long-Term Care",
+      "what_was_verified": "norc.org is NORC at the University of Chicago — a large nonpartisan social research and polling organization. It has no resident-facing nursing home handouts. The National Ombudsman Resource Center (NORC) ombudsman materials are hosted at theconsumervoice.org/norc/. Future resource searches referencing 'NORC' should use theconsumervoice.org/norc/ not norc.org.",
+      "limitations": "theconsumervoice.org/norc/ URL not independently verified live in this session — confirmed as the correct hosting location based on Consumer Voice site structure.",
+      "recommended_tool_action": "update_all_norc_references — replace norc.org with theconsumervoice.org/norc/ in any future resource search or resource row referencing NORC handouts"
+    }
+  ],
+
+  "workflow_update_rows": [
+    {
+      "id": "WU-B7-001",
+      "workflow_area": "discharge_resource_routing",
+      "update_type": "addition",
+      "previous_guidance": "No confirmed CT LTCOP discharge sub-page. Use Medicare Care Compare and federal resources for discharge support.",
+      "corrected_guidance": "CT LTCOP Discharge Portal confirmed at https://portal.ct.gov/ltcop/ltcop-discharge-portal. Use as primary CT resource hub for involuntary discharge complaints. Contains portal login, user manual, training deck (QSO-25-14-NH), Consumer Voice transfer/discharge handout, and relevant Public Acts (22-57, 22-58, 23-48, 25-16). Ombudsman staff should navigate to this page first for any D-series NORS code.",
+      "authority": "CT LTCOP / portal.ct.gov — confirmed live April 23, 2026",
+      "caveat": "LTCOP portal login (adsapps.ct.gov) requires credentials — for facility staff and authorized ombudsman users only."
+    },
+    {
+      "id": "WU-B7-002",
+      "workflow_area": "ct_dph_inspection_data_routing",
+      "update_type": "addition",
+      "previous_guidance": "No confirmed CT DPH inspection data page. Use Medicare Care Compare as substitute.",
+      "corrected_guidance": "CT-specific nursing home inspection data available at CT eLicense portal (https://www.elicense.ct.gov/lookup/OnlineReportExecute.aspx?queryIdnt=25331) — searchable by date range. CT DPH Nursing Home Inspections process page confirmed at https://portal.ct.gov/dph/facility-licensing--investigations/nursing-home-site/nursing-home-inspections. Use eLicense for individual facility inspection documents; use Medicare Care Compare for star ratings and national comparison. CT DPH FLIS complaint submission at https://portal.ct.gov/dph/facility-licensing--investigations/facility-licensing--investigations-section-flis/flis-complaint-submission.",
+      "authority": "CT DPH / portal.ct.gov and eLicense.ct.gov — confirmed live April 23, 2026",
+      "caveat": "eLicense URL contains a query ID parameter (queryIdnt=25331) — monitor for URL changes."
+    },
+    {
+      "id": "WU-B7-003",
+      "workflow_area": "norc_url_routing",
+      "update_type": "correction",
+      "previous_guidance": "NORC resources referenced via norc.org.",
+      "corrected_guidance": "norc.org is NORC at the University of Chicago (research/polling) — not the National Ombudsman Resource Center. National Ombudsman Resource Center (NORC) materials are hosted at theconsumervoice.org/norc/. All future resource searches referencing NORC ombudsman handouts should use theconsumervoice.org/norc/ as the starting point.",
+      "authority": "Confirmed via browser session, April 23, 2026",
+      "caveat": "None."
+    },
+    {
+      "id": "WU-B7-004",
+      "workflow_area": "qso_25_07_nh_effective_date",
+      "update_type": "addition",
+      "previous_guidance": "QSO-25-07-NH issued November 18, 2024. No effective date change noted in prior batches.",
+      "corrected_guidance": "QSO-25-07-NH was originally issued November 18, 2024. It was superseded/revised January 15, 2025. QSO-25-14-NH subsequently moved the effective date to April 28, 2025. Current operative requirements (F605, F757, F758 deletion, consent requirements, 14-day PRN limit) are effective as of April 28, 2025. Reference QSO-25-14-NH (https://www.cms.gov/files/document/qso-25-14-nh.pdf) as the authoritative memo for the current effective requirements.",
+      "authority": "QSO-25-14-NH (CMS, confirmed live); secondary sources for QSO-25-07-NH subject matter",
+      "caveat": "QSO-25-07-NH CMS direct PDF remains unconfirmed. Verify via CMS Policy Memos index when checking currency."
+    }
+  ],
+
+  "tooltip_rows": [
+    {
+      "id": "TT-B7-001",
+      "nors_code": "general",
+      "tooltip_type": "discharge_portal_notice",
+      "display_trigger": "any D-series NORS code (discharge/transfer)",
+      "tooltip_text": "Connecticut LTCOP maintains an Involuntary Discharge Portal at portal.ct.gov/ltcop/ltcop-discharge-portal. This page contains discharge notice requirements, training resources, and links to the electronic portal where facilities submit discharge notices. Public Acts 22-57, 22-58, 23-48, and 25-16 govern CT nursing home and residential care home discharge requirements.",
+      "authority": "CT LTCOP / portal.ct.gov — confirmed live April 23, 2026"
+    },
+    {
+      "id": "TT-B7-002",
+      "nors_code": "general",
+      "tooltip_type": "ct_inspection_data_notice",
+      "display_trigger": "any NORS code where user may need CT facility inspection data",
+      "tooltip_text": "Connecticut nursing home inspection documents (findings, plans of correction) can be searched by date range at the CT eLicense portal: elicense.ct.gov. For national star ratings and comparison data, see Medicare Care Compare. To file a complaint with CT DPH, use the FLIS complaint submission page at portal.ct.gov/dph.",
+      "authority": "CT DPH / eLicense.ct.gov — confirmed live April 23, 2026"
+    },
+    {
+      "id": "TT-B7-003",
+      "nors_code": "general",
+      "tooltip_type": "qso_25_07_nh_effective_date_notice",
+      "display_trigger": "any resource row referencing QSO-25-07-NH or F605/F757/F758 medication tag changes",
+      "tooltip_text": "QSO-25-07-NH psychotropic medication guidance (F605, F757, F758) is effective as of April 28, 2025, per QSO-25-14-NH. The original November 18, 2024 release date was not the operative effective date. The CMS direct PDF for QSO-25-07-NH is currently unconfirmed — reference QSO-25-14-NH (CMS, confirmed live) for current requirements.",
+      "authority": "QSO-25-14-NH (CMS, confirmed live at https://www.cms.gov/files/document/qso-25-14-nh.pdf)"
+    }
+  ],
+
+  "human_review_flags": [
+    {
+      "id": "HRF-B7-001",
+      "flag_type": "missing_resource",
+      "nors_code": "medication_errors",
+      "f_tag": "F759, F760",
+      "resource_type": "resident_facing_handout",
+      "description": "No confirmed live resident-facing handout for medication errors or medication rights found from any acceptable source after full manual search of Consumer Voice resource library and norc.org. The Consumer Voice Unnecessary Drugs/Antipsychotic Medications Issue Brief (RR-B7-013) is confirmed live but is policy/advocacy-facing, not resident-facing. NORC at norc.org has no such resource. National Ombudsman Resource Center materials at theconsumervoice.org/norc/ were searched as part of Consumer Voice library — no medication error resident handout found.",
+      "suggested_sources": [
+        "https://theconsumervoice.org/norc/ (National Ombudsman Resource Center — search for medication error resident materials)",
+        "https://www.cms.gov/medicare/quality/nursing-home-improvement/residents-center (CMS Resident Center — check for medication rights materials)",
+        "https://portal.ct.gov/ltcop (CT LTCOP — check for any internally produced medication rights handout)"
+      ],
+      "action_required": "Human navigator must search theconsumervoice.org/norc/ and CMS Resident Center manually for any resident-facing medication error handout. If none found, consider whether CODEX should surface the Consumer Voice Issue Brief (RR-B7-013) with an explicit 'ombudsman use only' label rather than as a resident-facing resource."
+    },
+    {
+      "id": "HRF-B7-002",
+      "flag_type": "url_uncertain",
+      "nors_code": "general",
+      "resource_type": "cms_qso_25_07_nh_direct_pdf",
+      "description": "CMS direct PDF for QSO-25-07-NH remains unconfirmed after two batch attempts (Batches 6 and 7). The canonical /qso-25-07-nh.pdf path returns 404. An expired version (/qso-25-07-nh-expired.pdf) may exist but represents a superseded release. Subject matter of QSO-25-07-NH is confirmed via secondary sources. QSO-25-14-NH (confirmed live) should be used as the operative reference for current effective requirements.",
+      "suggested_sources": [
+        "https://www.cms.gov/medicare/health-safety-standards/quality-safety-oversight-general-information/policy-memos/policy-memos-states-cms-locations (scroll to FY2025 / November 2024 entries)",
+        "https://www.cms.gov/files/document/qso-25-07-nh-expired.pdf (attempt — may return the superseded version)",
+        "https://www.cms.gov/files/document/qso-25-14-nh.pdf (confirmed live — use as operative reference)"
+      ],
+      "action_required": "Attempt fetch of /qso-25-07-nh-expired.pdf to confirm whether expired version is accessible. If accessible, label with superseded/expired caveat. If neither URL is stable, use QSO-25-14-NH as the primary operative reference and note that QSO-25-07-NH content is described in secondary sources only."
+    },
+    {
+      "id": "HRF-B7-003",
+      "flag_type": "currency_check_required",
+      "nors_code": "general",
+      "resource_type": "consumer_voice_infection_control_handouts",
+      "description": "Consumer Voice infection control handouts (RR-B7-010, RR-B7-011) were produced in a COVID-19 context. Both PDFs are confirmed live and resident-facing. However, their applicability to non-COVID infectious disease outbreaks (e.g., norovirus, influenza, C. diff) should be verified before broad deployment in the NORS tool. Labels should clearly indicate the COVID-19 origin to avoid confusion.",
+      "suggested_sources": [
+        "https://theconsumervoice.org/resources (search for non-COVID infection control resident resources)",
+        "https://www.cdc.gov/long-term-care-facilities/about/index.html (confirmed live — broader infection types covered)"
+      ],
+      "action_required": "Review RR-B7-010 and RR-B7-011 content to confirm they address general outbreak rights (not COVID-specific only). Add COVID-19 context label if content is narrowly COVID-focused. CDC page (RR-B7-012) covers broader infection types and can supplement or substitute."
+    },
+    {
+      "id": "HRF-B7-004",
+      "flag_type": "currency_check_required",
+      "nors_code": "general",
+      "resource_type": "ct_ltcop_discharge_portal_pdfs",
+      "description": "LTCOP Involuntary Discharge Portal User Manual (RR-B7-002) is dated December 2022. Public Acts 23-48 (2023) and 25-16 (2025) have since been enacted — verify whether the user manual has been updated to reflect these changes. The training slide deck (RR-B7-003) references QSO-25-14-NH and may be more current, but its date was not confirmed in the browser session.",
+      "suggested_sources": [
+        "https://portal.ct.gov/ltcop/ltcop-discharge-portal (check for updated user manual or portal documentation)"
+      ],
+      "action_required": "Human navigator should confirm whether a post-2023 version of the LTCOP discharge portal user manual exists. If the December 2022 manual has not been updated, flag it as potentially outdated in any resource row display."
+    }
+  ]
+}

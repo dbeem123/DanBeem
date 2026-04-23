@@ -278,6 +278,24 @@
       });
     }
 
+    function applySourceVerificationCorrections(rows, corrections) {
+      return rows.map(row => {
+        const correction = corrections.find(item => item.target_row_id === row.id);
+        if (!correction) return row;
+        return {
+          ...row,
+          ...(correction.corrected_value || {})
+        };
+      });
+    }
+
+    function filterResolvedReviewFlags(rows, corrections) {
+      const resolved = new Set(corrections
+        .filter(correction => /^HRF-/.test(correction.target_row_id || '') && correction.corrected_value?.flag_type === 'resolved')
+        .map(correction => correction.target_row_id));
+      return rows.filter(row => !resolved.has(row.flag_id || row.id));
+    }
+
     function tooltipRowsToGlossary(rows) {
       return rows.map(row => ({
         term: row.term || row.tooltip_type?.replace(/_/g, ' ') || row.id,
@@ -324,15 +342,25 @@
           tooltip_rows: [],
           human_review_flags: []
         }));
+        const batch7 = await loadJson('../data/nors_knowledge_base_batch7.json').catch(() => ({
+          resource_corrections: [],
+          source_verification_rows: [],
+          workflow_update_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
         renderSourceRegistry(sourceRegistry);
         renderSourceQuality(applySourceQualityCorrections(batch4.source_quality_rows || [], batch5.source_quality_corrections || []));
-        renderSourceVerification(batch6.source_verification_rows || []);
+        renderSourceVerification(applySourceVerificationCorrections([
+          ...(batch6.source_verification_rows || []),
+          ...(batch7.source_verification_rows || [])
+        ], batch7.resource_corrections || []));
         renderWorkflowRows([
           ...applyWorkflowCorrections(batch4.workflow_guidance_rows || [], batch5.workflow_corrections || []),
-          ...workflowUpdatesToRows(batch6.workflow_update_rows || [])
+          ...workflowUpdatesToRows([...(batch6.workflow_update_rows || []), ...(batch7.workflow_update_rows || [])])
         ]);
-        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || [])]);
-        renderHumanReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || [])]);
+        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || []), ...tooltipRowsToGlossary(batch7.tooltip_rows || [])]);
+        renderHumanReviewFlags(filterResolvedReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || []), ...(batch7.human_review_flags || [])], batch7.resource_corrections || []));
       } catch (err) {
         output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
         document.getElementById('source-quality-output').textContent = `Source quality notes could not be loaded. Details: ${err.message}`;

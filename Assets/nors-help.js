@@ -2,6 +2,7 @@
   const DEFAULT_PATHS = ['../data/nors_case_level_guidance.json', 'data/nors_case_level_guidance.json'];
   const BATCH5_PATHS = ['../data/nors_knowledge_base_batch5.json', 'data/nors_knowledge_base_batch5.json'];
   const BATCH6_PATHS = ['../data/nors_knowledge_base_batch6.json', 'data/nors_knowledge_base_batch6.json'];
+  const BATCH7_PATHS = ['../data/nors_knowledge_base_batch7.json', 'data/nors_knowledge_base_batch7.json'];
   let guidanceById = {};
 
   async function loadFirstJson(paths) {
@@ -60,6 +61,16 @@
       })));
     } catch (err) {
       console.warn('[nors-help] Batch 6 tooltip guidance could not be loaded:', err.message);
+    }
+
+    try {
+      const payload = await loadFirstJson(BATCH7_PATHS);
+      mergeGuidanceItems((payload.tooltip_rows || []).map(row => ({
+        ...normalizeTooltipRow(row),
+        source: 'NORS knowledge base Batch 7'
+      })));
+    } catch (err) {
+      console.warn('[nors-help] Batch 7 tooltip guidance could not be loaded:', err.message);
     }
   }
 
