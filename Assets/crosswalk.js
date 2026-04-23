@@ -27,11 +27,12 @@
     norsResourceCatalog: ['../data/nors_resource_catalog.json', '../nors_resource_catalog.json'],
     norsKnowledgeBase: ['../data/nors_knowledge_base_batch1.json', '../nors_knowledge_base_batch1.json'],
     norsKnowledgeBaseBatch2: ['../data/nors_knowledge_base_batch2.json', '../nors_knowledge_base_batch2.json'],
+    norsKnowledgeBaseBatch3: ['../data/nors_knowledge_base_batch3.json', '../nors_knowledge_base_batch3.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -39,6 +40,7 @@
     if (key === 'norsResourceCatalog') return { resources: [] };
     if (key === 'norsKnowledgeBase') return { code_summary_rows: [], authority_rows: [], do_not_map_catalog: [] };
     if (key === 'norsKnowledgeBaseBatch2') return { code_summary_rows: [], authority_rows: [], appendix_pp_page_rows: [], do_not_map_catalog: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch3') return { code_summary_rows: [], authority_rows: [], appendix_pp_page_rows: [], do_not_map_catalog: [], keyword_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -132,7 +134,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -145,6 +147,10 @@
 
   function getKnowledgeDoNotMapRows(data) {
     return getKnowledgeBases(data).flatMap(base => base.do_not_map_catalog || []);
+  }
+
+  function getKnowledgeKeywordRows(data) {
+    return getKnowledgeBases(data).flatMap(base => base.keyword_rows || []);
   }
 
   function normalizeKnowledgeSummary(row = {}) {
@@ -354,7 +360,10 @@
     if (!matchedCodes.length) return [];
 
     return getKnowledgeDoNotMapRows(data)
-      .filter(row => matchedCodes.includes(row.nors_code))
+      .filter(row => {
+        const rowCodes = String(row.nors_code || '').split(',').map(code => code.trim()).filter(Boolean);
+        return rowCodes.some(code => matchedCodes.includes(code));
+      })
       .map(row => `Review caveat for ${row.nors_code}: ${row.reason}`);
   }
 
@@ -413,8 +422,23 @@
         likely_nors_codes: [row.nors_code]
       }));
     });
+    const knowledgeKeywordEntries = getKnowledgeKeywordRows(data).flatMap(row => {
+      const topic = topicByNorsCode[row.nors_code];
+      if (!topic) return [];
+      const authorityIds = (row.related_ftags || [])
+        .map(item => normalizeAuthorityCitation(item).toLowerCase())
+        .filter(item => item && item !== 'f556')
+        .map(item => item === 'f758' ? 'f605' : item);
+      return (row.keywords || []).map(phrase => ({
+        phrase,
+        topics: [topic],
+        likely_nors_codes: [row.nors_code],
+        authority_ids: authorityIds,
+        notes: (row.ombudsman_tips || []).join(' ')
+      }));
+    });
 
-    return [...mappedEntries, ...catalogEntries, ...complaintGuidanceEntries, ...knowledgeGuidanceEntries].map(entry => ({
+    return [...mappedEntries, ...catalogEntries, ...complaintGuidanceEntries, ...knowledgeGuidanceEntries, ...knowledgeKeywordEntries].map(entry => ({
       ...entry,
       topics: toArray(entry.topics).filter(Boolean),
       likely_nors_codes: toArray(entry.likely_nors_codes).filter(Boolean),

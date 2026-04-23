@@ -1,0 +1,2715 @@
+{
+  "meta": {
+    "batch": "batch3",
+    "generated_date": "2026-04-22",
+    "pdf_revision": "Rev. 232 (07-23-25)",
+    "pdf_pages": "~930",
+    "description": "Batch 3 QA and verification pass for NORS Crosswalk Tool. Contains: (1) appendix_pp_page_rows with all ~90 F-tags corrected to Rev. 232 PDF page numbers; (2) keyword_rows for all 41 Batch 2 NORS codes; (3) human_review_flags for F553/F801 no-header tags, medication distinctions, F627/F628 confirmation, Rev. 232 page corrections, and A01+F602 mapping correction; (4) do_not_map_catalog for deleted tags, reserved tags, outside-agency codes, and medication chain. No code_summary_rows or authority_rows in this batch — those are in Batch 1 and Batch 2.",
+    "primary_sources": [
+      "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+      "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "https://www.law.cornell.edu/cfr/text/45/1324.19",
+      "https://www.law.cornell.edu/cfr/text/45/1324.13",
+      "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550",
+      "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535"
+    ]
+  },
+  "code_summary_rows": [],
+  "authority_rows": [],
+  "appendix_pp_page_rows": [
+    {
+      "ftag": "F550",
+      "appendix_pp_pdf_page_start": 6,
+      "cfr_section": "§483.10(a) Resident Rights.",
+      "heading": "Resident Rights — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F552",
+      "appendix_pp_pdf_page_start": 14,
+      "cfr_section": "§483.10(c) Planning and Implementing Care.",
+      "heading": "Right to be Informed/Make Treatment Decisions",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F553",
+      "appendix_pp_pdf_page_start": 15,
+      "cfr_section": "§483.10(c)(2)-(3)",
+      "heading": "Right to Participate in Planning Care (shared section under F552)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "No standalone Rev. header in Rev. 232; content begins on page 15 within §483.10(c)(2)-(3) under F552 section. Use page 15 as best-available start."
+    },
+    {
+      "ftag": "F554",
+      "appendix_pp_pdf_page_start": 17,
+      "cfr_section": "",
+      "heading": "Continuation of Planning/Care Information Rights",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F555",
+      "appendix_pp_pdf_page_start": 19,
+      "cfr_section": "§483.10(d) Choice of Attending Physician.",
+      "heading": "Choice of Attending Physician",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F556",
+      "appendix_pp_pdf_page_start": 19,
+      "cfr_section": "",
+      "heading": "RESERVED — No citations under this tag",
+      "status": "reserved",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "F556 is reserved for future use. No CFR section. No citations should ever be made under this tag."
+    },
+    {
+      "ftag": "F557",
+      "appendix_pp_pdf_page_start": 20,
+      "cfr_section": "§483.10(e) Respect and Dignity.",
+      "heading": "Respect and Dignity",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F558",
+      "appendix_pp_pdf_page_start": 22,
+      "cfr_section": "§483.10(e)(3) The right to reside and receive services in the facility with reas",
+      "heading": "Right to reside and receive services — reasonable accommodation",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F559",
+      "appendix_pp_pdf_page_start": 23,
+      "cfr_section": "§483.10(e)(4) The right to share a room with his or her spouse when married resi",
+      "heading": "Right to share a room with spouse",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F560",
+      "appendix_pp_pdf_page_start": 24,
+      "cfr_section": "§483.10(e)(7) The right to refuse to transfer to another room in the facility, i",
+      "heading": "Right to refuse transfer to another room",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F561",
+      "appendix_pp_pdf_page_start": 26,
+      "cfr_section": "§483.10(f) Self-determination.",
+      "heading": "Self-determination",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F562",
+      "appendix_pp_pdf_page_start": 28,
+      "cfr_section": "§483.10(f)(4)(i) The facility must provide immediate access to any resident by:",
+      "heading": "Immediate access to resident by family/visitors",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F563",
+      "appendix_pp_pdf_page_start": 29,
+      "cfr_section": "§483.10(f)(4) The resident has a right to receive visitors of his or her choosin",
+      "heading": "Visitor access rights",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F564",
+      "appendix_pp_pdf_page_start": 32,
+      "cfr_section": "§483.10(f)(4)(vi) A facility must meet the following requirements:",
+      "heading": "Visitor access — facility requirements",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F565",
+      "appendix_pp_pdf_page_start": 33,
+      "cfr_section": "§483.10(f)(5) The resident has a right to organize and participate in resident g",
+      "heading": "Right to organize/participate in resident groups",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F566",
+      "appendix_pp_pdf_page_start": 35,
+      "cfr_section": "§483.10(f)(9) The resident has a right to choose or refuse to perform services f",
+      "heading": "Right to choose/refuse to perform facility services",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F567",
+      "appendix_pp_pdf_page_start": 36,
+      "cfr_section": "§483.10(f)(10) The resident has a right to manage his or her financial affairs. ",
+      "heading": "Right to manage financial affairs",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F568",
+      "appendix_pp_pdf_page_start": 39,
+      "cfr_section": "§483.10(f)(10)(iii) Accounting and Records.",
+      "heading": "Accounting and Records (financial)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F569",
+      "appendix_pp_pdf_page_start": 40,
+      "cfr_section": "§483.10(f)(10)(iv) Notice of certain balances.",
+      "heading": "Notice of certain balances",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F570",
+      "appendix_pp_pdf_page_start": 40,
+      "cfr_section": "§483.10(f)(10)(vi) Assurance of financial security.",
+      "heading": "Assurance of financial security — surety bond",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F572",
+      "appendix_pp_pdf_page_start": 44,
+      "cfr_section": "§483.10(g) Information and Communication.",
+      "heading": "Information and Communication",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F573",
+      "appendix_pp_pdf_page_start": 45,
+      "cfr_section": "§483.10(g)(2) The resident has the right to access personal and medical records ",
+      "heading": "Right to access personal and medical records",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F576",
+      "appendix_pp_pdf_page_start": 49,
+      "cfr_section": "§483.10(g)(6) The resident has the right to have reasonable access to the use of",
+      "heading": "Right to reasonable access to telephone/communications",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F578",
+      "appendix_pp_pdf_page_start": 51,
+      "cfr_section": "§483.10(c)(6) The right to request, refuse, and/or discontinue treatment, to par",
+      "heading": "Right to request, refuse, or discontinue treatment",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F580",
+      "appendix_pp_pdf_page_start": 56,
+      "cfr_section": "§483.10(g)(14) Notification of Changes.",
+      "heading": "Notification of Changes",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F583",
+      "appendix_pp_pdf_page_start": 61,
+      "cfr_section": "§483.10(h) Privacy and Confidentiality.",
+      "heading": "Privacy and Confidentiality",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F584",
+      "appendix_pp_pdf_page_start": 64,
+      "cfr_section": "§483.10(i) Safe Environment.",
+      "heading": "Safe Environment",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F585",
+      "appendix_pp_pdf_page_start": 68,
+      "cfr_section": "§483.10(j) Grievances.",
+      "heading": "Grievances",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F586",
+      "appendix_pp_pdf_page_start": 71,
+      "cfr_section": "§483.10(k) Contact with External Entities.",
+      "heading": "Contact with External Entities",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F600",
+      "appendix_pp_pdf_page_start": 71,
+      "cfr_section": "§483.12 Freedom from Abuse, Neglect, and Exploitation",
+      "heading": "Freedom from Abuse, Neglect, and Exploitation — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F602",
+      "appendix_pp_pdf_page_start": 97,
+      "cfr_section": "§483.12",
+      "heading": "Misappropriation of Resident Property / Exploitation (financial)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "F602 covers FINANCIAL misappropriation/exploitation only. Never map to physical abuse (A01)."
+    },
+    {
+      "ftag": "F603",
+      "appendix_pp_pdf_page_start": 106,
+      "cfr_section": "",
+      "heading": "Prohibition on Involuntary Seclusion",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F605",
+      "appendix_pp_pdf_page_start": 130,
+      "cfr_section": "§483.10(e) Respect and Dignity.",
+      "heading": "Psychotropic Drugs / Chemical Restraints (absorbed F758 Rev. 229)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "F605 absorbed all F758 content in Rev. 229. Use F605 for all psychotropic/chemical restraint citations. F758 is deleted."
+    },
+    {
+      "ftag": "F607",
+      "appendix_pp_pdf_page_start": 151,
+      "cfr_section": "§483.12(b) The facility must develop and implement written policies and procedur",
+      "heading": "Abuse Prevention Policies and Procedures",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F609",
+      "appendix_pp_pdf_page_start": 162,
+      "cfr_section": "§483.12(b) The facility must develop and implement written policies and procedur",
+      "heading": "Reporting Abuse Violations",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F610",
+      "appendix_pp_pdf_page_start": 184,
+      "cfr_section": "§483.12(c) In response to allegations of abuse, neglect, exploitation, or mistre",
+      "heading": "Investigation of Abuse Allegations",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F620",
+      "appendix_pp_pdf_page_start": 186,
+      "cfr_section": "§483.15(a) Admissions policy.",
+      "heading": "Admissions Policy",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F621",
+      "appendix_pp_pdf_page_start": 193,
+      "cfr_section": "",
+      "heading": "Admission, Transfer, and Discharge — Continuation",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F627",
+      "appendix_pp_pdf_page_start": 197,
+      "cfr_section": "§483.15(c) Transfer and discharge-",
+      "heading": "Transfer and Discharge — General Requirements (Rev. 229 addition)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Rev. 229 addition; replaced F622-F626. Independently confirmed in Rev. 232 at page 197."
+    },
+    {
+      "ftag": "F628",
+      "appendix_pp_pdf_page_start": 219,
+      "cfr_section": "§483.15(c)(2) Documentation.",
+      "heading": "Transfer and Discharge — Documentation (Rev. 229 addition)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Rev. 229 addition; replaced F660/F661. Independently confirmed in Rev. 232 at page 219."
+    },
+    {
+      "ftag": "F656",
+      "appendix_pp_pdf_page_start": 264,
+      "cfr_section": "§483.21(b) Comprehensive Care Plans",
+      "heading": "Comprehensive Care Plans",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F675",
+      "appendix_pp_pdf_page_start": 284,
+      "cfr_section": "§ 483.24 Quality of life",
+      "heading": "Quality of Life — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F676",
+      "appendix_pp_pdf_page_start": 290,
+      "cfr_section": "§483.24(a) Based on the comprehensive assessment of a resident and consistent wi",
+      "heading": "ADL — Activities of Daily Living assessment and maintenance",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F677",
+      "appendix_pp_pdf_page_start": 290,
+      "cfr_section": "§483.24(a)(2) A resident who is unable to carry out activities of daily living r",
+      "heading": "ADL Assistance — Resident unable to carry out ADLs",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F679",
+      "appendix_pp_pdf_page_start": 299,
+      "cfr_section": "§483.24(c) Activities",
+      "heading": "Activities Program",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F680",
+      "appendix_pp_pdf_page_start": 303,
+      "cfr_section": "",
+      "heading": "Activities Director — Qualifications",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F684",
+      "appendix_pp_pdf_page_start": 305,
+      "cfr_section": "§ 483.25 Quality of care",
+      "heading": "Quality of Care — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F686",
+      "appendix_pp_pdf_page_start": 320,
+      "cfr_section": "§483.25(b) Skin Integrity",
+      "heading": "Skin Integrity — Pressure Ulcers",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F688",
+      "appendix_pp_pdf_page_start": 345,
+      "cfr_section": "§483.25(c) Mobility.",
+      "heading": "Mobility — Range of Motion",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F689",
+      "appendix_pp_pdf_page_start": 350,
+      "cfr_section": "§483.25(d) Accidents.",
+      "heading": "Accidents — Prevention",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F690",
+      "appendix_pp_pdf_page_start": 375,
+      "cfr_section": "§483.25(e) Incontinence.",
+      "heading": "Incontinence — Bladder/Bowel",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F691",
+      "appendix_pp_pdf_page_start": 396,
+      "cfr_section": "§483.25(f) Colostomy, urostomy, or ileostomy care.",
+      "heading": "Colostomy, Urostomy, or Ileostomy Care",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F692",
+      "appendix_pp_pdf_page_start": 397,
+      "cfr_section": "§483.25(g) Assisted nutrition and hydration.",
+      "heading": "Assisted Nutrition and Hydration",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F693",
+      "appendix_pp_pdf_page_start": 410,
+      "cfr_section": "§483.25(g) Assisted nutrition and hydration.",
+      "heading": "Assisted Nutrition — Continuation",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F694",
+      "appendix_pp_pdf_page_start": 419,
+      "cfr_section": "",
+      "heading": "Parenteral Fluids",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F695",
+      "appendix_pp_pdf_page_start": 424,
+      "cfr_section": "§483.25(i) Respiratory care, including tracheostomy care and tracheal suctioning",
+      "heading": "Respiratory Care — Tracheostomy/Suctioning",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F700",
+      "appendix_pp_pdf_page_start": 478,
+      "cfr_section": "§483.25(n) Bed Rails.",
+      "heading": "Bed Rails",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F725",
+      "appendix_pp_pdf_page_start": 510,
+      "cfr_section": "§483.35 Nursing Services.",
+      "heading": "Nursing Services — Staffing (Rev. 229 updated)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Updated in Rev. 229."
+    },
+    {
+      "ftag": "F726",
+      "appendix_pp_pdf_page_start": 522,
+      "cfr_section": "§483.35 Nursing Services",
+      "heading": "Nurse Aide Competency and Training (Rev. 229 updated)",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "Updated in Rev. 229."
+    },
+    {
+      "ftag": "F740",
+      "appendix_pp_pdf_page_start": 548,
+      "cfr_section": "§483.40 Behavioral health services.",
+      "heading": "Behavioral Health Services — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F741",
+      "appendix_pp_pdf_page_start": 558,
+      "cfr_section": "§483.40(a) The facility must have sufficient staff who provide direct services t",
+      "heading": "Behavioral Health Staffing",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F742",
+      "appendix_pp_pdf_page_start": 567,
+      "cfr_section": "§483.40(b) Based on the comprehensive assessment of a resident, the facility mus",
+      "heading": "Behavioral Health — Resident Assessment/Treatment",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F743",
+      "appendix_pp_pdf_page_start": 575,
+      "cfr_section": "§483.40(b)(2) A resident whose assessment did not reveal or who does not have a",
+      "heading": "Behavioral Health — No Behavioral Health History",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F744",
+      "appendix_pp_pdf_page_start": 580,
+      "cfr_section": "§483.40(b)(3) A resident who displays or is diagnosed with dementia, receives th",
+      "heading": "Behavioral Health — Dementia Care",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F745",
+      "appendix_pp_pdf_page_start": 585,
+      "cfr_section": "§483.40(d) The facility must provide medically-related social services to attain",
+      "heading": "Medically-Related Social Services",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F755",
+      "appendix_pp_pdf_page_start": 587,
+      "cfr_section": "§483.45 Pharmacy Services",
+      "heading": "Pharmacy Services — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F756",
+      "appendix_pp_pdf_page_start": 603,
+      "cfr_section": "§483.45(c) Drug Regimen Review.",
+      "heading": "Drug Regimen Review",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F757",
+      "appendix_pp_pdf_page_start": 616,
+      "cfr_section": "§483.45(d) Unnecessary Drugs—General.",
+      "heading": "Unnecessary Drugs — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "CONFIRMED ACTIVE. F757 = unnecessary drugs (§483.45(d)). Only F758 was deleted, not F757."
+    },
+    {
+      "ftag": "F758",
+      "appendix_pp_pdf_page_start": null,
+      "cfr_section": "",
+      "heading": "DELETED (Rev. 229) — Absorbed into F605",
+      "status": "deleted",
+      "replacement_or_current_tag": "F605",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "F758 was deleted in Rev. 229 (04-28-25). All content moved to F605. Any F758 reference must redirect to F605."
+    },
+    {
+      "ftag": "F759",
+      "appendix_pp_pdf_page_start": 627,
+      "cfr_section": "§483.45(f) Medication Errors.",
+      "heading": "Medication Errors — Significant",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F760",
+      "appendix_pp_pdf_page_start": 627,
+      "cfr_section": "The facility must ensure that its—",
+      "heading": "Medication Errors — Medication Error Rate",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F761",
+      "appendix_pp_pdf_page_start": 639,
+      "cfr_section": "§483.45(g) Labeling of Drugs and Biologicals",
+      "heading": "Labeling of Drugs and Biologicals",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F800",
+      "appendix_pp_pdf_page_start": 660,
+      "cfr_section": "§483.60 Food and nutrition services.",
+      "heading": "Food and Nutrition Services — General Introduction",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F801",
+      "appendix_pp_pdf_page_start": 660,
+      "cfr_section": "§483.60(a)",
+      "heading": "Qualified Dietary Staff (§483.60(a))",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": "No standalone Rev. header in Rev. 232. Content embedded within §483.60(a) section between F800 (p.660) and F802 (p.663). Best-available page: 660-663 range. Use page 660 with caveat."
+    },
+    {
+      "ftag": "F802",
+      "appendix_pp_pdf_page_start": 663,
+      "cfr_section": "§483.60(a) Staffing",
+      "heading": "Staffing — Food and Nutrition Services",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F803",
+      "appendix_pp_pdf_page_start": 665,
+      "cfr_section": "§483.60(c) Menus and nutritional adequacy.",
+      "heading": "Menus and Nutritional Adequacy",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F804",
+      "appendix_pp_pdf_page_start": 667,
+      "cfr_section": "§483.60(d) Food and drink",
+      "heading": "Food and Drink — Palatable/Attractive/Nutritious",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F805",
+      "appendix_pp_pdf_page_start": 669,
+      "cfr_section": "§483.60(d) Food and drink",
+      "heading": "Food and Drink — Substitutes",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F806",
+      "appendix_pp_pdf_page_start": 669,
+      "cfr_section": "§483.60(d) Food and drink",
+      "heading": "Food and Drink — Snacks",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F807",
+      "appendix_pp_pdf_page_start": 670,
+      "cfr_section": "§483.60(d) Food and drink",
+      "heading": "Food and Drink — Assistive Devices for Dining",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F808",
+      "appendix_pp_pdf_page_start": 672,
+      "cfr_section": "§483.60(e) Therapeutic Diets",
+      "heading": "Therapeutic Diets",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F809",
+      "appendix_pp_pdf_page_start": 673,
+      "cfr_section": "§483.60(f) Frequency of Meals",
+      "heading": "Frequency of Meals",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F810",
+      "appendix_pp_pdf_page_start": 675,
+      "cfr_section": "§483.60(g) Assistive devices",
+      "heading": "Assistive Devices — Dining",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F811",
+      "appendix_pp_pdf_page_start": 675,
+      "cfr_section": "§483.60(h) Paid feeding assistants-",
+      "heading": "Paid Feeding Assistants",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F812",
+      "appendix_pp_pdf_page_start": 683,
+      "cfr_section": "§483.60(i) Food safety requirements.",
+      "heading": "Food Safety Requirements — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F813",
+      "appendix_pp_pdf_page_start": 706,
+      "cfr_section": "§483.60(i) Food Safety Requirements",
+      "heading": "Food Safety — Pest Control and Sanitation",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F880",
+      "appendix_pp_pdf_page_start": 809,
+      "cfr_section": "§483.80 Infection Control",
+      "heading": "Infection Control — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F920",
+      "appendix_pp_pdf_page_start": 900,
+      "cfr_section": "§483.90(h) Dining and Resident Activities",
+      "heading": "Dining and Resident Activities Areas",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F921",
+      "appendix_pp_pdf_page_start": 902,
+      "cfr_section": "§483.90(i) Other Environmental Conditions",
+      "heading": "Other Environmental Conditions — General",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F922",
+      "appendix_pp_pdf_page_start": 902,
+      "cfr_section": "The facility must--",
+      "heading": "Water Supply",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F923",
+      "appendix_pp_pdf_page_start": 902,
+      "cfr_section": "§483.90(i)(2) Have adequate outside ventilation by means of windows, or mechanic",
+      "heading": "Ventilation",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F924",
+      "appendix_pp_pdf_page_start": 902,
+      "cfr_section": "§483.90(i)(3) Equip corridors with firmly secured handrails on each side.",
+      "heading": "Corridors — Handrails",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F925",
+      "appendix_pp_pdf_page_start": 903,
+      "cfr_section": "§483.90(i)(4) Maintain an effective pest control program so that the facility is",
+      "heading": "Pest Control Program",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    },
+    {
+      "ftag": "F926",
+      "appendix_pp_pdf_page_start": 903,
+      "cfr_section": "§483.90(i)(5) Establish policies, in accordance with applicable Federal, State, ",
+      "heading": "Smoking Policies",
+      "status": "active",
+      "replacement_or_current_tag": "",
+      "pdf_revision": "Rev. 232 (07-23-25)",
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "notes": ""
+    }
+  ],
+  "do_not_map_catalog": [
+    {
+      "entry_id": "DNM-B3-001",
+      "nors_code": "F12",
+      "ftag": "F758",
+      "reason": "F758 was deleted in Rev. 229 (04-28-25). All psychotropic/chemical restraint content was absorbed into F605. F758 no longer exists in the current Appendix PP (Rev. 232). Any citation of F758 is invalid.",
+      "correct_mapping_for_ftag": "F758 content → F605 (current active tag for psychotropics/chemical restraints)",
+      "correct_ftags_for_nors_code": [
+        "F605 (direct)",
+        "F757 (unnecessary drugs — related)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "batch": "batch3"
+    },
+    {
+      "entry_id": "DNM-B3-002",
+      "nors_code": "F12",
+      "ftag": "F757",
+      "reason": "F757 (Unnecessary Drugs — General, §483.45(d)) is NOT the same as F605 (Psychotropic Drugs). F12 (Chemical Restraint = drug used for discipline/convenience) maps primarily to F605, not F757. F757 covers all unnecessary drugs (any drug without adequate indication), which is a broader category. Do NOT substitute F757 for F605 in chemical restraint cases.",
+      "correct_mapping_for_ftag": "F757 maps to F12 as related (secondary), not as direct primary.",
+      "correct_ftags_for_nors_code": [
+        "F605 (direct primary)",
+        "F757 (related secondary)"
+      ],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "batch": "batch3"
+    },
+    {
+      "entry_id": "DNM-B3-003",
+      "nors_code": "",
+      "ftag": "F556",
+      "reason": "F556 is RESERVED. No CFR section is assigned. No citations should ever be made under F556. Any automated tool logic that might suggest F556 must be blocked.",
+      "correct_mapping_for_ftag": "N/A — reserved tag, no mapping",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf"
+      ],
+      "batch": "batch3"
+    },
+    {
+      "entry_id": "DNM-B3-004",
+      "nors_code": "K01,K02,K03,K04,K05,K06",
+      "ftag": "any_f_tag",
+      "reason": "K01-K06 series codes represent complaints about OUTSIDE AGENCIES (regulatory system, Medicaid, managed care, Medicare, VA, private insurance). These complaints are NOT facility deficiencies and must never be mapped to Appendix PP F-tags. Route exclusively to the relevant agency plus ombudsman authority (45 CFR §1324.19).",
+      "correct_mapping_for_ftag": "N/A — outside agency codes",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "batch": "batch3"
+    },
+    {
+      "entry_id": "DNM-B3-005",
+      "nors_code": "L01,L02,L03",
+      "ftag": "any_f_tag",
+      "reason": "L01-L03 series codes represent NON-FACILITY SYSTEM complaints (family/representative conflict, outside provider services, non-facility community transition barriers). These are not facility deficiencies and must never be mapped to Appendix PP F-tags. Exception: if facility inaction is a contributing factor in L03, may route to §483.15(b). Route to ombudsman authority (45 CFR §1324.13, §1324.19) and appropriate community resources.",
+      "correct_mapping_for_ftag": "N/A — non-facility system codes",
+      "correct_ftags_for_nors_code": [],
+      "official_source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.13",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "batch": "batch3"
+    },
+    {
+      "entry_id": "DNM-B3-006",
+      "nors_code": "G02",
+      "ftag": "no_transportation_ftag",
+      "reason": "No transportation-specific F-tag exists in Appendix PP. Transportation complaints (G02) should not be mapped to any survey F-tag. Route to §483.10(f)(1) self-determination advisory and Medicaid NEMT benefit. Do NOT cite F579 (telephone) or other communication tags for transportation issues.",
+      "correct_mapping_for_ftag": "N/A — no transportation F-tag",
+      "correct_ftags_for_nors_code": [
+        "F561 (self-determination — advisory only, not a direct citation)"
+      ],
+      "official_source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ],
+      "batch": "batch3"
+    },
+    {
+      "entry_id": "DNM-B3-007",
+      "nors_code": "G03",
+      "ftag": "no_mediation_ftag",
+      "reason": "G03 (Conflict Resolution) is a pure ombudsman mediation role. No survey F-tag is appropriate for resident-on-resident conflict resolution by ombudsman. Only if conflict creates safety risk should F584 be considered for referral to surveyor, not as an ombudsman citation.",
+      "correct_mapping_for_ftag": "N/A — ombudsman mediation only",
+      "correct_ftags_for_nors_code": [
+        "F584 (surveyor referral only if safety risk, not ombudsman citation)"
+      ],
+      "official_source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.law.cornell.edu/cfr/text/45/1324.19"
+      ],
+      "batch": "batch3"
+    }
+  ],
+  "keyword_rows": [
+    {
+      "nors_code": "B01",
+      "keywords": [
+        "access to records",
+        "medical records",
+        "denied records",
+        "records request",
+        "information denied",
+        "right to records",
+        "chart access",
+        "delayed records",
+        "personal records",
+        "care plan access",
+        "ombudsman records"
+      ],
+      "ombudsman_tips": [
+        "Resident has right to inspect and copy records within 24 hours (business days) under §483.10(g)(2)",
+        "Request must be responded to in reasonable timeframe",
+        "If denied, document date, who denied, and reason given",
+        "Cross-reference F573 in Appendix PP for surveyor guidance"
+      ],
+      "handout_topics": [
+        "resident rights",
+        "medical records access",
+        "right to information"
+      ],
+      "related_ftags": [
+        "F572",
+        "F573",
+        "F583"
+      ],
+      "related_nors_codes": [
+        "B02"
+      ]
+    },
+    {
+      "nors_code": "B02",
+      "keywords": [
+        "language barrier",
+        "interpreter",
+        "no interpreter",
+        "communication barrier",
+        "not understood",
+        "translation",
+        "language access",
+        "written materials",
+        "readable format",
+        "large print",
+        "understandable language",
+        "LEP",
+        "limited English"
+      ],
+      "ombudsman_tips": [
+        "§483.10(b)(1) requires facility to inform resident of rights in understandable language and format",
+        "If resident has LEP (limited English proficiency), facility must provide interpreter or translated materials",
+        "Document specific language need and whether facility has a policy",
+        "Related to Title VI civil rights obligations for Medicaid-funded facilities"
+      ],
+      "handout_topics": [
+        "language access",
+        "resident rights",
+        "communication"
+      ],
+      "related_ftags": [
+        "F552",
+        "F572"
+      ],
+      "related_nors_codes": [
+        "B01"
+      ]
+    },
+    {
+      "nors_code": "B03",
+      "keywords": [
+        "ombudsman access denied",
+        "interference with ombudsman",
+        "blocked ombudsman",
+        "ombudsman program",
+        "willful interference",
+        "retaliation",
+        "complaint retaliation",
+        "access prevented",
+        "ombudsman visit denied",
+        "LTCOP access",
+        "staff interference"
+      ],
+      "ombudsman_tips": [
+        "45 CFR §1324.11 guarantees ombudsman access to facilities, residents, and records",
+        "Willful interference with ombudsman is separately reportable under state law",
+        "If facility actor — cite F586 (§483.10(k) contact with external entities)",
+        "If non-facility actor — route to 45 CFR §1324.11(a)(1)(i) only; no F-tag for non-facility interference",
+        "Document exact nature of interference, staff/party involved, and date"
+      ],
+      "handout_topics": [
+        "ombudsman program",
+        "long-term care ombudsman",
+        "resident rights"
+      ],
+      "related_ftags": [
+        "F586"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "C01",
+      "keywords": [
+        "admission",
+        "involuntary admission",
+        "admission agreement",
+        "illegal admission clause",
+        "third-party guarantee",
+        "admission contract",
+        "signed against will",
+        "admission policy",
+        "waiver of rights",
+        "admission paperwork",
+        "illegal provisions"
+      ],
+      "ombudsman_tips": [
+        "§483.15(a) prohibits requiring third-party guarantee of payment as condition of admission",
+        "Admission agreements cannot waive federal/state rights",
+        "If resident was admitted against their wishes, this may also implicate A-series abuse codes",
+        "Review admission agreement for prohibited clauses — document specific language",
+        "F620 governs admissions policy in Appendix PP"
+      ],
+      "handout_topics": [
+        "admission rights",
+        "resident rights",
+        "discharge planning"
+      ],
+      "related_ftags": [
+        "F620",
+        "F621"
+      ],
+      "related_nors_codes": [
+        "C02"
+      ]
+    },
+    {
+      "nors_code": "C02",
+      "keywords": [
+        "appeal rights",
+        "discharge appeal",
+        "transfer appeal",
+        "appeal process",
+        "notice of discharge",
+        "right to appeal",
+        "fair hearing",
+        "Medicaid fair hearing",
+        "appeal not filed",
+        "appeal ruling ignored",
+        "30-day notice",
+        "discharge notice"
+      ],
+      "ombudsman_tips": [
+        "§483.15(c)(5) requires facility to inform resident of right to appeal a transfer/discharge",
+        "Medicaid residents have right to request state fair hearing to contest discharge",
+        "Ombudsman can assist resident in filing appeal or understanding process",
+        "F627/F628 (Rev. 229) govern transfer/discharge process and documentation",
+        "Time limits apply — document date notice was received"
+      ],
+      "handout_topics": [
+        "discharge rights",
+        "appeal process",
+        "transfer rights"
+      ],
+      "related_ftags": [
+        "F627",
+        "F628",
+        "F620"
+      ],
+      "related_nors_codes": [
+        "C01"
+      ]
+    },
+    {
+      "nors_code": "C04",
+      "keywords": [
+        "room change",
+        "room transfer",
+        "roommate change",
+        "room assignment",
+        "denied room change",
+        "inadequate notice",
+        "forced move",
+        "objection to room change",
+        "right to refuse room transfer",
+        "room request denied",
+        "compatible roommate"
+      ],
+      "ombudsman_tips": [
+        "§483.10(e)(7) gives resident right to refuse intra-facility transfer if purpose is convenience/cost",
+        "If room change is for a legitimate clinical reason, facility must provide notice",
+        "Spousal room-sharing right is protected under F559",
+        "Document whether notice was given, reason stated, and resident's response",
+        "F560 (§483.10(e)(7)) is the primary F-tag for room change refusal"
+      ],
+      "handout_topics": [
+        "room rights",
+        "transfer within facility",
+        "resident rights"
+      ],
+      "related_ftags": [
+        "F559",
+        "F560",
+        "F561"
+      ],
+      "related_nors_codes": [
+        "C01",
+        "C02"
+      ]
+    },
+    {
+      "nors_code": "D02",
+      "keywords": [
+        "transition to community",
+        "community transition",
+        "less restrictive setting",
+        "return home",
+        "discharge to community",
+        "MDS assessment",
+        "transition planning",
+        "PASRR",
+        "Money Follows the Person",
+        "housing assistance",
+        "community placement"
+      ],
+      "ombudsman_tips": [
+        "§483.15(b)(1) requires facility to assist residents who wish to return to/remain in community",
+        "Ombudsman may refer to Money Follows the Person or similar transition programs",
+        "Document if facility failed to initiate transition planning when requested",
+        "If transition barriers are NOT caused by facility, use L03 instead",
+        "APS/protective services referral if transition is being blocked by family or representative"
+      ],
+      "handout_topics": [
+        "community transition",
+        "discharge planning",
+        "Money Follows the Person"
+      ],
+      "related_ftags": [
+        "F621",
+        "F627"
+      ],
+      "related_nors_codes": [
+        "L03"
+      ]
+    },
+    {
+      "nors_code": "D08",
+      "keywords": [
+        "resident council",
+        "family council",
+        "council interference",
+        "council denied",
+        "council not supported",
+        "staff control of council",
+        "council requests ignored",
+        "resident group",
+        "council formation",
+        "council response",
+        "group activities"
+      ],
+      "ombudsman_tips": [
+        "§483.10(f)(5) protects right to organize and participate in resident/family groups",
+        "Facility must provide space, privacy, staff assistance, and respond to council concerns",
+        "Staff may not interfere with or dominate council activities",
+        "Document specific interference: was it room denial, staff attendance, or failure to respond?",
+        "F565 in Appendix PP covers resident group rights"
+      ],
+      "handout_topics": [
+        "resident council",
+        "family council",
+        "self-determination"
+      ],
+      "related_ftags": [
+        "F565",
+        "F561"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "E01",
+      "keywords": [
+        "billing dispute",
+        "overcharge",
+        "incorrect bill",
+        "rate increase",
+        "no notice of rate change",
+        "deposit not refunded",
+        "charged for services not provided",
+        "billing error",
+        "Medicaid billing",
+        "Medicare billing",
+        "out-of-pocket charges",
+        "extra charges",
+        "ancillary charges"
+      ],
+      "ombudsman_tips": [
+        "No direct F-tag covers billing disputes per se",
+        "F567-F570 cover resident trust fund/financial management, not billing errors",
+        "Route to CT DMAS, CMS, or managed care plan for coverage disputes",
+        "Billing errors related to trust fund mismanagement may implicate F602",
+        "Document itemized charges and what resident disputes"
+      ],
+      "handout_topics": [
+        "billing rights",
+        "financial rights",
+        "Medicaid rights"
+      ],
+      "related_ftags": [
+        "F567",
+        "F568",
+        "F569",
+        "F570"
+      ],
+      "related_nors_codes": [
+        "E02",
+        "K02",
+        "K04"
+      ]
+    },
+    {
+      "nors_code": "E02",
+      "keywords": [
+        "stolen property",
+        "missing property",
+        "lost belongings",
+        "trust fund mismanagement",
+        "financial exploitation",
+        "resident funds",
+        "money taken",
+        "personal property loss",
+        "jewelry stolen",
+        "misappropriation",
+        "valuables missing",
+        "resident account",
+        "trust account",
+        "personal allowance"
+      ],
+      "ombudsman_tips": [
+        "F602 applies when facility or facility staff misappropriate resident property",
+        "If perpetrator is family or outside visitor — route to Adult Protective Services (APS)",
+        "Trust fund: facility must maintain separate accounts and provide quarterly statements",
+        "Document items, approximate value, when noticed missing, and who had access",
+        "This is one of the few codes where F602 (§483.12 financial exploitation) is directly applicable"
+      ],
+      "handout_topics": [
+        "financial exploitation",
+        "resident property rights",
+        "trust fund"
+      ],
+      "related_ftags": [
+        "F602",
+        "F567",
+        "F568",
+        "F569"
+      ],
+      "related_nors_codes": [
+        "A04",
+        "E01"
+      ]
+    },
+    {
+      "nors_code": "F01",
+      "keywords": [
+        "fall",
+        "accident",
+        "injury",
+        "fall prevention",
+        "fall risk",
+        "unsupervised fall",
+        "hip fracture",
+        "head injury",
+        "near miss",
+        "unsafe environment",
+        "fall assessment",
+        "call light",
+        "restraint-free falls",
+        "bed alarm",
+        "non-slip"
+      ],
+      "ombudsman_tips": [
+        "§483.25(d) requires adequate supervision and assistive devices to prevent accidents",
+        "F689 in Appendix PP covers accident prevention — start at page 350 in Rev. 232",
+        "Review care plan for fall risk assessment and interventions documented",
+        "Bed rails are separately regulated under F700 (§483.25(n))",
+        "Document circumstances: time, location, witnesses, injury, care plan in place"
+      ],
+      "handout_topics": [
+        "fall prevention",
+        "accident prevention",
+        "resident safety"
+      ],
+      "related_ftags": [
+        "F689",
+        "F700",
+        "F684"
+      ],
+      "related_nors_codes": [
+        "F09"
+      ]
+    },
+    {
+      "nors_code": "F05",
+      "keywords": [
+        "personal hygiene",
+        "bathing",
+        "not bathed",
+        "dirty clothes",
+        "soiled",
+        "incontinence brief not changed",
+        "grooming",
+        "dental care",
+        "dentures",
+        "oral hygiene",
+        "hair care",
+        "nail care",
+        "odor",
+        "body odor",
+        "unclean",
+        "unwashed"
+      ],
+      "ombudsman_tips": [
+        "§483.24(a) and §483.25 require ADL assistance commensurate with resident's assessed needs",
+        "F676/F677 cover ADL assistance including bathing, grooming, dressing",
+        "Resident has right to choose bathing schedule and method within care plan",
+        "Document frequency of bathing offered/refused, hygiene status observed, and care plan",
+        "Odor or soiled clothing observed during visit is documentable evidence"
+      ],
+      "handout_topics": [
+        "personal care",
+        "activities of daily living",
+        "resident dignity"
+      ],
+      "related_ftags": [
+        "F676",
+        "F677",
+        "F684",
+        "F675"
+      ],
+      "related_nors_codes": [
+        "F08"
+      ]
+    },
+    {
+      "nors_code": "F06",
+      "keywords": [
+        "healthcare access",
+        "doctor visit",
+        "physician access",
+        "specialist referral",
+        "medical appointment",
+        "delayed treatment",
+        "refused treatment",
+        "care not obtained",
+        "change in condition not addressed",
+        "hospitalization refused",
+        "ER refused",
+        "physician unresponsive",
+        "medical services"
+      ],
+      "ombudsman_tips": [
+        "§483.10(d) protects right to choose attending physician and access healthcare services",
+        "§483.25 requires facility to provide necessary care based on resident's comprehensive assessment",
+        "If facility failed to act on change in condition, also consider F07 or F684",
+        "Document timeline: when change noticed, when family/resident notified, when physician contacted",
+        "F555 covers choice of physician; F684 covers quality of care generally"
+      ],
+      "handout_topics": [
+        "healthcare rights",
+        "physician access",
+        "quality of care"
+      ],
+      "related_ftags": [
+        "F555",
+        "F684",
+        "F580"
+      ],
+      "related_nors_codes": [
+        "F07"
+      ]
+    },
+    {
+      "nors_code": "F07",
+      "keywords": [
+        "symptoms unattended",
+        "pain unmanaged",
+        "ignored symptoms",
+        "change in condition",
+        "unresponsive staff",
+        "call light ignored",
+        "pain management",
+        "symptom ignored",
+        "unaddressed symptoms",
+        "medical deterioration",
+        "vital signs not taken",
+        "fall not assessed",
+        "pressure ulcer unaddressed"
+      ],
+      "ombudsman_tips": [
+        "§483.25 requires facility to identify and address changes in resident condition",
+        "§483.10(g)(14)/F580 requires timely notification of significant condition changes to family",
+        "Document specific symptoms, when reported, response time, and outcome",
+        "If symptom was pain — may also implicate quality of care (F684) and care plan (F656)",
+        "Pressure ulcers, infections, and dehydration are common unattended symptoms"
+      ],
+      "handout_topics": [
+        "symptom management",
+        "pain management",
+        "quality of care"
+      ],
+      "related_ftags": [
+        "F684",
+        "F656",
+        "F580",
+        "F686"
+      ],
+      "related_nors_codes": [
+        "F06",
+        "F01"
+      ]
+    },
+    {
+      "nors_code": "F08",
+      "keywords": [
+        "incontinence",
+        "catheter care",
+        "incontinence brief",
+        "bladder training",
+        "bowel training",
+        "toileting program",
+        "Foley catheter",
+        "incontinent",
+        "UTI prevention",
+        "toileting schedule",
+        "prompted voiding",
+        "diaper not changed"
+      ],
+      "ombudsman_tips": [
+        "§483.25(e) requires facility to provide bladder and bowel management based on assessment",
+        "F690 in Appendix PP (page 375 Rev. 232) covers incontinence care in detail",
+        "Resident cannot be left in wet/soiled briefs for extended period — dignity violation",
+        "Toileting program must be in care plan if resident is incontinent",
+        "UTIs that recur may signal inadequate catheter care or toileting program"
+      ],
+      "handout_topics": [
+        "incontinence care",
+        "personal care",
+        "care planning"
+      ],
+      "related_ftags": [
+        "F690",
+        "F691",
+        "F684",
+        "F676"
+      ],
+      "related_nors_codes": [
+        "F05",
+        "F07"
+      ]
+    },
+    {
+      "nors_code": "F09",
+      "keywords": [
+        "assistive devices",
+        "wheelchair",
+        "walker",
+        "cane",
+        "adaptive equipment",
+        "hearing aid",
+        "glasses",
+        "dentures lost",
+        "prosthetic",
+        "orthotics",
+        "hearing aids not provided",
+        "broken equipment",
+        "call light",
+        "bed alarm"
+      ],
+      "ombudsman_tips": [
+        "§483.25(h) and §483.10(b) protect resident's right to necessary assistive devices",
+        "Facility must ensure devices are maintained, available, and functioning",
+        "Loss of hearing aid or glasses is a property complaint (E02) as well as care complaint",
+        "Document specific device, its condition, date last seen, and resident impact",
+        "F688 (mobility/ROM) and F689 (accidents) may also apply if device absence caused injury"
+      ],
+      "handout_topics": [
+        "assistive devices",
+        "adaptive equipment",
+        "resident property"
+      ],
+      "related_ftags": [
+        "F688",
+        "F689",
+        "F810"
+      ],
+      "related_nors_codes": [
+        "E02",
+        "F01"
+      ]
+    },
+    {
+      "nors_code": "F10",
+      "keywords": [
+        "rehabilitation",
+        "physical therapy",
+        "occupational therapy",
+        "speech therapy",
+        "PT OT ST",
+        "therapy denied",
+        "therapy discontinued",
+        "restorative nursing",
+        "ambulation program",
+        "ROM program",
+        "functional decline",
+        "Medicare therapy",
+        "rehab refused",
+        "therapy not provided"
+      ],
+      "ombudsman_tips": [
+        "§483.24(a) requires facility to assist resident in maintaining/improving function",
+        "F676/F677/F688 cover functional maintenance and ADL assistance",
+        "Medicare Part A SNF benefit covers skilled rehabilitation — denial may be appeals issue",
+        "Restorative nursing program (less than skilled therapy) must be in care plan",
+        "If therapy was reduced without clinical justification, document and consider surveyor referral"
+      ],
+      "handout_topics": [
+        "rehabilitation services",
+        "Medicare SNF benefit",
+        "functional status"
+      ],
+      "related_ftags": [
+        "F676",
+        "F677",
+        "F688",
+        "F684"
+      ],
+      "related_nors_codes": [
+        "F06",
+        "F07"
+      ]
+    },
+    {
+      "nors_code": "F11",
+      "keywords": [
+        "physical restraint",
+        "vest restraint",
+        "geri chair",
+        "tray table locked",
+        "side rails as restraint",
+        "lap belt",
+        "wrist restraint",
+        "restraint free",
+        "chemical restraint",
+        "freedom of movement",
+        "restraint documentation",
+        "least restrictive",
+        "restraint order"
+      ],
+      "ombudsman_tips": [
+        "§483.10(e) protects right to be free from physical restraints used for discipline or convenience",
+        "F700 (bed rails) and F605 (chemical restraints) are closely related F-tags",
+        "Any physical device that restricts movement requires written order and informed consent",
+        "Restraint must be least restrictive option; alternatives must be documented and tried",
+        "Ombudsman should ask: Is there an order? Was consent obtained? Were alternatives tried?"
+      ],
+      "handout_topics": [
+        "restraint-free care",
+        "physical restraints",
+        "resident rights"
+      ],
+      "related_ftags": [
+        "F700",
+        "F605",
+        "F557",
+        "F684"
+      ],
+      "related_nors_codes": [
+        "F12"
+      ]
+    },
+    {
+      "nors_code": "F12",
+      "keywords": [
+        "chemical restraint",
+        "antipsychotic",
+        "Haldol",
+        "Risperdal",
+        "Seroquel",
+        "sedation for behavior",
+        "unnecessary medication",
+        "drug for discipline",
+        "psychotropic medication",
+        "behavior medication",
+        "medication without consent",
+        "PRN antipsychotic overuse",
+        "chemical sedation"
+      ],
+      "ombudsman_tips": [
+        "§483.10(e) and §483.45 prohibit using drugs as restraints for discipline or convenience",
+        "F605 (page 130 Rev. 232) covers psychotropic drugs including antipsychotics",
+        "F757 (page 616 Rev. 232) covers unnecessary drugs generally — broader than just psychotropics",
+        "Key distinction: F12 = chemical restraint (discipline/convenience); F605 = any psychotropic per §483.45(e)",
+        "GDR (gradual dose reduction) attempts are required unless clinically contraindicated",
+        "Informed consent required for psychotropic medications in Connecticut"
+      ],
+      "handout_topics": [
+        "chemical restraints",
+        "antipsychotic medications",
+        "psychotropic drugs",
+        "medication rights"
+      ],
+      "related_ftags": [
+        "F605",
+        "F757",
+        "F756",
+        "F557"
+      ],
+      "related_nors_codes": [
+        "F11"
+      ]
+    },
+    {
+      "nors_code": "F13",
+      "keywords": [
+        "infection control",
+        "COVID",
+        "influenza",
+        "infection outbreak",
+        "hand hygiene",
+        "PPE",
+        "isolation precautions",
+        "wound infection",
+        "MRSA",
+        "C. diff",
+        "sepsis",
+        "healthcare acquired infection",
+        "HAI",
+        "infectious disease",
+        "catheter infection"
+      ],
+      "ombudsman_tips": [
+        "§483.80 requires a comprehensive infection prevention and control program (IPCP)",
+        "F880 (page 809 Rev. 232) is the primary F-tag for infection control",
+        "Outbreak reporting requirements exist at state level (CT DPH)",
+        "Document: number of residents/staff affected, PPE availability, facility response",
+        "Infection control failures may also implicate quality of care (F684) and staffing (F725)"
+      ],
+      "handout_topics": [
+        "infection control",
+        "outbreak prevention",
+        "COVID",
+        "resident safety"
+      ],
+      "related_ftags": [
+        "F880",
+        "F684",
+        "F725"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "G01",
+      "keywords": [
+        "activities",
+        "activity program",
+        "boredom",
+        "activities not offered",
+        "posted activities not held",
+        "individual preferences ignored",
+        "activity variety",
+        "leisure activities",
+        "meaningful activities",
+        "activity director",
+        "social engagement",
+        "outdoor activities",
+        "religious activities"
+      ],
+      "ombudsman_tips": [
+        "§483.24(c) requires ongoing program of activities designed to meet residents' interests",
+        "F679/F680 in Appendix PP cover activities program and director qualifications",
+        "Activities must reflect individual resident preferences from assessment",
+        "Posted activities schedule must be followed or residents notified of cancellation",
+        "Resident right to participate or refuse activities without retaliation"
+      ],
+      "handout_topics": [
+        "activities program",
+        "quality of life",
+        "resident interests"
+      ],
+      "related_ftags": [
+        "F679",
+        "F680",
+        "F675",
+        "F561"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "G02",
+      "keywords": [
+        "transportation",
+        "medical transportation",
+        "appointment transportation",
+        "community outing",
+        "van service",
+        "transportation denied",
+        "Medicaid transport",
+        "non-emergency medical transport",
+        "NEMT",
+        "ride to appointment",
+        "community participation",
+        "outing refused"
+      ],
+      "ombudsman_tips": [
+        "No specific F-tag exists for transportation; ombudsman assists under §483.10(f)(1) self-determination",
+        "Medicaid non-emergency medical transportation (NEMT) is a covered benefit — contact state Medicaid",
+        "Facility obligation is to assist in arranging (not necessarily providing) transportation",
+        "If lack of transportation prevents access to healthcare, also consider F06",
+        "CT DSS administers Medicaid NEMT benefit"
+      ],
+      "handout_topics": [
+        "transportation rights",
+        "community access",
+        "Medicaid transportation"
+      ],
+      "related_ftags": [
+        "F561",
+        "F555"
+      ],
+      "related_nors_codes": [
+        "F06"
+      ]
+    },
+    {
+      "nors_code": "G03",
+      "keywords": [
+        "resident conflict",
+        "roommate conflict",
+        "neighbor dispute",
+        "bullying",
+        "harassment by another resident",
+        "conflict between residents",
+        "ombudsman mediation",
+        "resident disagreement",
+        "LGBTQ conflict",
+        "cultural conflict"
+      ],
+      "ombudsman_tips": [
+        "G03 is a pure ombudsman mediation role — no survey F-tag citation is appropriate",
+        "Ombudsman authority: 45 CFR §1324.19(a)(1)",
+        "If behavior rises to resident-on-resident abuse, escalate to A-series and alert surveyor agency",
+        "Document: nature of conflict, parties, prior attempts at resolution, and current status",
+        "Facility has obligation under F584 (safe environment) if conflict creates safety risk"
+      ],
+      "handout_topics": [
+        "conflict resolution",
+        "ombudsman services",
+        "resident-on-resident conflict"
+      ],
+      "related_ftags": [
+        "F584",
+        "F600"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "G04",
+      "keywords": [
+        "social services",
+        "social worker",
+        "discharge planning",
+        "community resources",
+        "financial counseling",
+        "grief counseling",
+        "mental health referral",
+        "social services not available",
+        "family conflict resolution",
+        "advance directives",
+        "healthcare proxy",
+        "guardianship"
+      ],
+      "ombudsman_tips": [
+        "§483.40(d) and F745 require medically-related social services based on assessment",
+        "Social services must help resident attain/maintain health and well-being",
+        "Facilities with 120+ beds must have qualified social worker on staff",
+        "Document specific unmet need and whether resident/family has requested services",
+        "Advance directives (F578) and healthcare proxy may be handled through social services"
+      ],
+      "handout_topics": [
+        "social services",
+        "discharge planning",
+        "community resources"
+      ],
+      "related_ftags": [
+        "F745",
+        "F656",
+        "F578"
+      ],
+      "related_nors_codes": [
+        "D02"
+      ]
+    },
+    {
+      "nors_code": "H03",
+      "keywords": [
+        "therapeutic diet",
+        "special diet",
+        "low sodium diet",
+        "diabetic diet",
+        "texture modified diet",
+        "pureed food",
+        "diet order not followed",
+        "food allergy",
+        "food preference",
+        "religious diet",
+        "halal",
+        "kosher",
+        "renal diet",
+        "diet not served",
+        "nutritional supplements"
+      ],
+      "ombudsman_tips": [
+        "§483.60(e) requires therapeutic diets per physician order — F808 (page 672 Rev. 232)",
+        "§483.60(d) requires palatable food that meets food preferences — F804-F807",
+        "Resident has right to choose food alternatives within acceptable nutritional parameters",
+        "Document specific diet order, what was served, and how it differed from the order",
+        "Food allergy violations are both a care issue (F684) and a therapeutic diet issue (F808)"
+      ],
+      "handout_topics": [
+        "therapeutic diets",
+        "food rights",
+        "nutrition"
+      ],
+      "related_ftags": [
+        "F808",
+        "F803",
+        "F804",
+        "F692",
+        "F693"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "I01",
+      "keywords": [
+        "temperature too hot",
+        "temperature too cold",
+        "ventilation",
+        "air quality",
+        "room too warm",
+        "no heat",
+        "no air conditioning",
+        "water temperature",
+        "scalding water",
+        "poor ventilation",
+        "air circulation",
+        "HVAC",
+        "humidity"
+      ],
+      "ombudsman_tips": [
+        "§483.90(i) requires safe/comfortable environment — F921-F926 cover specific environmental conditions",
+        "F922 (water), F923 (ventilation) apply to specific temperature/air complaints",
+        "F584 (safe environment) also applies if temperature extremes pose health risk",
+        "CT regulations may specify temperature ranges — cross-reference CT DPH facility standards",
+        "Document specific temperature readings, times, and resident health impact"
+      ],
+      "handout_topics": [
+        "environmental safety",
+        "temperature regulation",
+        "safe environment"
+      ],
+      "related_ftags": [
+        "F584",
+        "F921",
+        "F922",
+        "F923"
+      ],
+      "related_nors_codes": [
+        "I02"
+      ]
+    },
+    {
+      "nors_code": "I02",
+      "keywords": [
+        "building safety",
+        "structural hazard",
+        "poor lighting",
+        "broken equipment",
+        "unsecured building",
+        "security risk",
+        "exit not secure",
+        "door broken",
+        "elevator not working",
+        "lighting inadequate",
+        "trip hazard",
+        "floor hazard",
+        "exterior maintenance",
+        "building exterior"
+      ],
+      "ombudsman_tips": [
+        "§483.90 covers physical environment — F920-F926 are the primary F-tags",
+        "F584 (safe environment) is relevant if building hazard creates safety risk",
+        "Lighting inadequacy is specifically addressed under F921 environmental conditions",
+        "Document location, nature of hazard, when reported to facility, and response",
+        "Life safety code violations should be referred to CT DPH fire/life safety inspector"
+      ],
+      "handout_topics": [
+        "building safety",
+        "physical environment",
+        "resident safety"
+      ],
+      "related_ftags": [
+        "F584",
+        "F920",
+        "F921",
+        "F924"
+      ],
+      "related_nors_codes": [
+        "I01"
+      ]
+    },
+    {
+      "nors_code": "I03",
+      "keywords": [
+        "supplies shortage",
+        "linens",
+        "towels",
+        "toilet paper",
+        "personal supplies",
+        "furnishings broken",
+        "bed broken",
+        "wheelchair broken",
+        "storage",
+        "locked storage",
+        "personal property storage",
+        "room furnishings",
+        "supply shortage"
+      ],
+      "ombudsman_tips": [
+        "§483.90 and §483.10 protect resident's right to adequate supplies and furnishings",
+        "F584 (safe environment) applies if broken furnishings create a safety risk",
+        "Personal property storage: facility must provide secure storage for valuables (F567-F570 area)",
+        "Supply shortages that affect care quality may implicate J02 (fiscal management)",
+        "Document specific items missing/broken, date first noticed, and facility response"
+      ],
+      "handout_topics": [
+        "supplies and equipment",
+        "physical environment",
+        "personal property"
+      ],
+      "related_ftags": [
+        "F584",
+        "F920",
+        "F567"
+      ],
+      "related_nors_codes": [
+        "I01",
+        "J02"
+      ]
+    },
+    {
+      "nors_code": "I04",
+      "keywords": [
+        "accessibility",
+        "ADA",
+        "wheelchair accessible",
+        "ramp",
+        "elevator",
+        "doorway width",
+        "handicap access",
+        "grab bars",
+        "handrail",
+        "accessible bathroom",
+        "mobility access",
+        "disability accommodation"
+      ],
+      "ombudsman_tips": [
+        "No single ADA/accessibility F-tag exists in nursing home survey — use F920-F926 range",
+        "F924 (handrails in corridors) is the most specific environmental accessibility tag",
+        "ADA complaints may be routed to HHS Office for Civil Rights or CT CHRO",
+        "Physical accessibility within the facility is also a quality-of-life issue (F675)",
+        "Document specific barrier, resident need, and impact on daily life"
+      ],
+      "handout_topics": [
+        "accessibility",
+        "ADA rights",
+        "physical environment"
+      ],
+      "related_ftags": [
+        "F924",
+        "F920",
+        "F675"
+      ],
+      "related_nors_codes": [
+        "I02"
+      ]
+    },
+    {
+      "nors_code": "I05",
+      "keywords": [
+        "housekeeping",
+        "laundry",
+        "pest control",
+        "rodents",
+        "insects",
+        "room not clean",
+        "dirty room",
+        "garbage",
+        "odor from room",
+        "mold",
+        "dirty linens",
+        "laundry not returned",
+        "pest infestation",
+        "sanitation"
+      ],
+      "ombudsman_tips": [
+        "§483.60(i) and §483.90 cover sanitation and pest control — F812/F813/F925",
+        "F812 (food safety) applies if kitchen/food storage has pest problems",
+        "F813 (pest control/sanitation) applies to general facility pest complaints",
+        "F925 specifically covers pest control program",
+        "Housekeeping deficiencies that create health risks may also implicate F880 (infection control)",
+        "Document type of pest, location observed, date, and facility response"
+      ],
+      "handout_topics": [
+        "housekeeping",
+        "sanitation",
+        "pest control"
+      ],
+      "related_ftags": [
+        "F812",
+        "F813",
+        "F925",
+        "F880",
+        "F920"
+      ],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "J01",
+      "keywords": [
+        "administrative oversight",
+        "mismanagement",
+        "administrator absent",
+        "no supervision",
+        "incomplete records",
+        "falsified records",
+        "background check",
+        "illegal policy",
+        "management failure",
+        "unlicensed facility",
+        "corporate oversight",
+        "governance failure",
+        "regulatory violation"
+      ],
+      "ombudsman_tips": [
+        "No single 'administrator absent' F-tag; cite §483.70 (administration) generally",
+        "Falsified records may implicate multiple F-tags including F600-F610 (abuse/investigation)",
+        "Background screening failures: 42 CFR §483.70(e) requires criminal background checks",
+        "If records are falsified or missing, document what records and what was expected",
+        "Refer to CT DADS for licensing violations if facility-level governance is the issue"
+      ],
+      "handout_topics": [
+        "facility administration",
+        "regulatory compliance",
+        "management oversight"
+      ],
+      "related_ftags": [
+        "F607",
+        "F609",
+        "F725"
+      ],
+      "related_nors_codes": [
+        "J02"
+      ]
+    },
+    {
+      "nors_code": "J02",
+      "keywords": [
+        "fiscal crisis",
+        "facility bankruptcy",
+        "staff not paid",
+        "staff shortage",
+        "food shortage",
+        "utilities shut off",
+        "water shut off",
+        "closure",
+        "financial instability",
+        "ownership change",
+        "staffing crisis"
+      ],
+      "ombudsman_tips": [
+        "No direct 'fiscal crisis' F-tag; cite resulting care failures (F725 staffing, F800-F813 nutrition, etc.)",
+        "Facility closure notification requirements: §483.15(c) requires advance notice to residents",
+        "Report imminent closure risk to CT DADS and CMS immediately",
+        "Staff alerts of not being paid is a sentinel indicator — document and escalate",
+        "Coordinate with CT DADS on emergency placement if closure is imminent"
+      ],
+      "handout_topics": [
+        "facility closure",
+        "fiscal management",
+        "emergency relocation"
+      ],
+      "related_ftags": [
+        "F725",
+        "F800",
+        "F684"
+      ],
+      "related_nors_codes": [
+        "J01"
+      ]
+    },
+    {
+      "nors_code": "K01",
+      "keywords": [
+        "regulatory agency",
+        "licensing agency",
+        "surveyor complaint",
+        "survey process",
+        "certification agency",
+        "OHCA complaint",
+        "DPH complaint",
+        "CMS complaint",
+        "state survey agency",
+        "inspection complaint",
+        "survey result"
+      ],
+      "ombudsman_tips": [
+        "K01 is an outside agency complaint — no facility F-tag applicable",
+        "Route to: CT DPH Survey Division for nursing home licensing/survey complaints",
+        "CMS complaint: 1-800-MEDICARE or CMS.gov complaint portal",
+        "Ombudsman authority: 45 CFR §1324.19(a)(1) for complaint resolution",
+        "Ombudsman may help resident navigate the survey/complaint process"
+      ],
+      "handout_topics": [
+        "regulatory complaints",
+        "state survey agency",
+        "CMS complaints"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "K02",
+      "keywords": [
+        "Medicaid",
+        "Medicaid eligibility",
+        "Medicaid denial",
+        "Medicaid coverage",
+        "spend-down",
+        "HUSKY",
+        "DSS",
+        "Medicaid application",
+        "Medicaid renewal",
+        "Medicaid spend down",
+        "Medicaid waiver",
+        "LTSS Medicaid"
+      ],
+      "ombudsman_tips": [
+        "K02 is an outside agency complaint — no facility F-tag applicable",
+        "Route to: CT DSS (Department of Social Services) for Medicaid eligibility issues",
+        "Medicaid fair hearing rights: resident may request hearing within 90 days of denial",
+        "Legal aid may assist with Medicaid appeals — provide referral",
+        "Ombudsman authority: 45 CFR §1324.19(a)(1)"
+      ],
+      "handout_topics": [
+        "Medicaid rights",
+        "DSS",
+        "Medicaid eligibility"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": [
+        "K04"
+      ]
+    },
+    {
+      "nors_code": "K03",
+      "keywords": [
+        "managed care",
+        "managed care plan",
+        "MCO complaint",
+        "Aetna Better Health",
+        "ConnectiCare",
+        "UnitedHealthcare Community Plan",
+        "managed care denial",
+        "prior authorization",
+        "care coordination",
+        "MCO grievance",
+        "managed care appeal"
+      ],
+      "ombudsman_tips": [
+        "K03 is an outside agency complaint — no facility F-tag applicable",
+        "Route to: CT DSS Managed Care Operations or the specific managed care plan",
+        "Resident has right to file internal MCO grievance and external appeal",
+        "CT Office of Healthcare Advocate can assist with managed care complaints",
+        "Ombudsman authority: 45 CFR §1324.19(a)(1)"
+      ],
+      "handout_topics": [
+        "managed care",
+        "insurance complaints",
+        "appeals process"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": [
+        "K02",
+        "K04"
+      ]
+    },
+    {
+      "nors_code": "K04",
+      "keywords": [
+        "Medicare",
+        "Medicare denial",
+        "Medicare coverage",
+        "SNF benefit",
+        "Medicare days exhausted",
+        "Medicare appeal",
+        "BFCC-QIO",
+        "Livanta",
+        "Medicare Part A",
+        "Medicare Part B",
+        "Medicare Part D",
+        "Medicare supplement",
+        "Medicare Advantage",
+        "QIO appeal",
+        "hospital discharge appeal"
+      ],
+      "ombudsman_tips": [
+        "K04 is an outside agency complaint — no facility F-tag applicable",
+        "SNF Medicare appeal (BFCC-QIO): 1-888-319-8452 (Livanta for CT)",
+        "Expedited appeal must be requested before discharge from Medicare-covered stay",
+        "Medicare drug coverage complaints: Part D plan or SHIP counselor",
+        "CT SHIP (1-800-994-9422) provides free Medicare counseling"
+      ],
+      "handout_topics": [
+        "Medicare rights",
+        "SNF Medicare benefit",
+        "Medicare appeals"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": [
+        "K02",
+        "K03"
+      ]
+    },
+    {
+      "nors_code": "K05",
+      "keywords": [
+        "veterans affairs",
+        "VA benefits",
+        "VA healthcare",
+        "DVA complaint",
+        "veterans benefits",
+        "Aid and Attendance",
+        "VA pension",
+        "CVSO",
+        "veterans home",
+        "VA nursing care",
+        "military benefits"
+      ],
+      "ombudsman_tips": [
+        "K05 is an outside agency complaint — no facility F-tag applicable",
+        "Route to: local VA regional office or CT Veterans Affairs (portal.ct.gov/DVA)",
+        "County Veterans Service Officers (CVSO) can assist with VA benefits claims",
+        "Aid and Attendance pension benefit helps veterans pay for nursing home care",
+        "Ombudsman authority: 45 CFR §1324.19(a)(1)"
+      ],
+      "handout_topics": [
+        "veterans benefits",
+        "VA healthcare",
+        "Aid and Attendance"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "K06",
+      "keywords": [
+        "private insurance",
+        "long-term care insurance",
+        "LTC insurance",
+        "insurance denial",
+        "insurance claim",
+        "insurance company complaint",
+        "insurance appeal",
+        "insurance coverage",
+        "life insurance",
+        "annuity"
+      ],
+      "ombudsman_tips": [
+        "K06 is an outside agency complaint — no facility F-tag applicable",
+        "Route to: CT Insurance Department (ct.gov/cid) for insurance company complaints",
+        "Long-term care insurance disputes: document denial letter and policy terms",
+        "CT Insurance Department consumer helpline can mediate insurance complaints",
+        "Ombudsman authority: 45 CFR §1324.19(a)(1)"
+      ],
+      "handout_topics": [
+        "private insurance",
+        "long-term care insurance",
+        "insurance appeals"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "L01",
+      "keywords": [
+        "family conflict",
+        "family interference",
+        "representative conflict",
+        "guardian interfering",
+        "healthcare proxy conflict",
+        "POA conflict",
+        "family making decisions against resident wishes",
+        "surrogacy conflict",
+        "family overriding preferences",
+        "representative misconduct"
+      ],
+      "ombudsman_tips": [
+        "L01 is a non-facility system complaint — no direct F-tag applicable",
+        "Ombudsman's role is to advocate for resident's expressed wishes and self-determination",
+        "If representative conduct rises to exploitation or abuse, elevate to A04/F602 and APS",
+        "Guardianship/conservatorship disputes require probate court involvement — refer to legal aid",
+        "45 CFR §1324.13 and §1324.19 govern ombudsman advocacy with representatives"
+      ],
+      "handout_topics": [
+        "representative rights",
+        "family conflict",
+        "self-determination"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": [
+        "A04"
+      ]
+    },
+    {
+      "nors_code": "L02",
+      "keywords": [
+        "outside provider",
+        "home health agency",
+        "independent contractor",
+        "outside agency services",
+        "non-facility services",
+        "visiting provider",
+        "private aide",
+        "agency aide",
+        "hospice complaint",
+        "outside therapist"
+      ],
+      "ombudsman_tips": [
+        "L02 is a non-facility system complaint — no facility F-tag applicable",
+        "Route to: the licensing authority for the specific provider type",
+        "If outside provider is hospice — route to CT DPH Hospice licensure",
+        "If outside provider arranged by facility — may implicate facility oversight duties",
+        "Document provider name, service type, nature of complaint, and date"
+      ],
+      "handout_topics": [
+        "outside providers",
+        "home health",
+        "hospice complaints"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": []
+    },
+    {
+      "nors_code": "L03",
+      "keywords": [
+        "community transition barriers",
+        "housing not available",
+        "community placement",
+        "inadequate transition support",
+        "waiver slot unavailable",
+        "HCBS unavailable",
+        "community supports not in place",
+        "non-facility transition barriers",
+        "waiting list",
+        "Money Follows the Person barriers"
+      ],
+      "ombudsman_tips": [
+        "L03 covers transition barriers NOT caused by facility — no facility F-tag applicable",
+        "If barriers are caused by facility inaction, use D02 instead (facility obligation)",
+        "Route to: CT DSS LTSS, Money Follows the Person (MFP) program, or community resources",
+        "ADRC (Aging and Disability Resource Center) can assist with community placement",
+        "45 CFR §1324.19(a)(1) authorizes ombudsman assistance with transition planning"
+      ],
+      "handout_topics": [
+        "community transition",
+        "housing resources",
+        "transition planning"
+      ],
+      "related_ftags": [],
+      "related_nors_codes": [
+        "D02"
+      ]
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B3-001",
+      "flag_type": "no_standalone_header",
+      "affected_ftag": "F801",
+      "affected_nors_code": "",
+      "description": "F801 (§483.60(a) Qualified Dietary Staff) has no standalone Rev. header in Rev. 232 PDF. Content is embedded within the §483.60(a) section between F800 (page 660) and F802 (page 663). Best-available page assignment: 660 with caveat. Surveyor guidance for F801 is integrated with F800/F802 text.",
+      "recommended_action": "Tool must display note: 'F801 shares §483.60(a) section with F800/F802 in Rev. 232 PDF (pages 660-663). No standalone surveyor guidance page exists. Reference page 660 with caveat.' CODEX: set appendix_pp_pdf_page_start=660 with notes field populated.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch3"
+    },
+    {
+      "flag_id": "HRF-B3-002",
+      "flag_type": "no_standalone_header",
+      "affected_ftag": "F553",
+      "affected_nors_code": "",
+      "description": "F553 (§483.10(c)(2)-(3) Right to Participate in Planning Care) has no standalone Rev. header in Rev. 232 PDF. Content begins on page 15 within the F552 section (§483.10(c)). The F553 tag appears embedded under the §483.10(c)(2)-(3) subsection on page 15.",
+      "recommended_action": "Tool must display note: 'F553 shares §483.10(c) section with F552 in Rev. 232 PDF. Content starts page 15. No standalone surveyor guidance header.' CODEX: set appendix_pp_pdf_page_start=15 with notes field populated.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch3"
+    },
+    {
+      "flag_id": "HRF-B3-003",
+      "flag_type": "medication_distinction_ladder",
+      "affected_ftag": "F605,F757,F759,F760,F755,F756",
+      "affected_nors_code": "F12",
+      "description": "Medication F-tags must be distinguished carefully. The correct ladder (most specific to least specific): (1) F759/F760 = medication administration errors (§483.45(f)); (2) F757 = unnecessary drugs — general (§483.45(d)) — ACTIVE, confirmed Rev. 232 page 616; (3) F605 = psychotropic drugs / chemical restraints (§483.10(e)/§483.45(e)) — also absorbed F758; (4) F756 = drug regimen review (§483.45(c)) — pharmacist review failures; (5) F755 = pharmacy services — general (§483.45) — broadest catch-all. CRITICAL: F758 was DELETED in Rev. 229 and all content moved to F605. F757 is ACTIVE and should NOT be confused with F758.",
+      "recommended_action": "Tool must use the following routing logic for medication complaints: Medication error (wrong drug/dose/time/person) → F759/F760. Drug used for discipline/convenience → F605 (chemical restraint). Antipsychotic without indication/GDR → F605. Unnecessary drug (any drug without adequate indication) → F757. Pharmacist review failure → F756. NEVER cite F758 — redirect to F605. CODEX: add routing logic note to all medication-related NORS codes (F12, F07, F11).",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch3"
+    },
+    {
+      "flag_id": "HRF-B3-004",
+      "flag_type": "revision_confirmation",
+      "affected_ftag": "F627,F628",
+      "affected_nors_code": "C01,C02",
+      "description": "F627 and F628 were added in Rev. 229 (replacing F622-F626, F660, F661). Both have been independently confirmed in Rev. 232 PDF: F627 at page 197 (§483.15(c) Transfer and Discharge); F628 at page 219 (§483.15(c)(2) Documentation). Any Batch 2 authority rows that cited F627/F628 as 'page null' should be updated to reflect the confirmed Rev. 232 pages.",
+      "recommended_action": "CODEX: Update all authority rows and appendix_pp_page_rows that contain F627 or F628 to set appendix_pp_pdf_page_start = 197 (F627) and 219 (F628). Remove 'relocated — page null' notes. Add 'Rev. 229 addition, confirmed Rev. 232' note.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch3"
+    },
+    {
+      "flag_id": "HRF-B3-005",
+      "flag_type": "page_number_correction",
+      "affected_ftag": "all_batch2_ftags",
+      "affected_nors_code": "",
+      "description": "All appendix_pp_page_rows in Batch 2 were based on Rev. 225 PDF (08-08-24, 873 pages). The live production PDF is now Rev. 232 (07-23-25, ~930 pages). Page numbers have shifted for most F-tags due to Rev. 229 content additions (F627/F628 Transfer/Discharge sections, updated F725/F726 Nursing Services). Batch 3 appendix_pp_page_rows provides corrected Rev. 232 pages for all ~90 F-tags.",
+      "recommended_action": "CODEX: Replace all appendix_pp_page_rows from Batch 2 with Batch 3 corrected rows. Update pdf_revision field from 'Rev. 225' to 'Rev. 232 (07-23-25)' on all rows. Key page differences (Rev.225 → Rev.232): F627: null → 197; F628: null → 219; F675: 264 → 284; F689: 326 → 350; F740: 501 → 548; F880: 770 → 809; F920: 848 → 900.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch3"
+    },
+    {
+      "flag_id": "HRF-B3-006",
+      "flag_type": "incorrect_existing_mapping_escalation",
+      "affected_ftag": "F602",
+      "affected_nors_code": "A01",
+      "description": "Escalation of Batch 2 HRF-006. The existing crosswalk_catalog.json maps A01 (Physical Abuse) to F602. This is INCORRECT. F602 covers §483.12 financial misappropriation/exploitation ONLY. A01 maps to F600 (direct), F607 (related), F609 (related). F602 correctly maps to A04 (Financial Exploitation) and E02 (Personal Property Loss). This error must be corrected in the live tool before Batch 3 data is integrated.",
+      "recommended_action": "CODEX: (1) Remove F602 from A01 mappings in crosswalk_catalog.json. (2) Add F600 as direct mapping for A01. (3) Verify A04 authority rows include F602 as direct. (4) Verify E02 authority rows include F602 as direct. This is a data integrity correction that affects the live tool.",
+      "source": "https://www.cms.gov/medicare/provider-enrollment-and-certification/guidanceforlawsandregulations/downloads/appendix-pp-state-operations-manual.pdf",
+      "batch": "batch3_correction"
+    }
+  ]
+}
