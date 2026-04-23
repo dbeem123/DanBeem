@@ -1,0 +1,271 @@
+{
+  "meta": {
+    "batch": "10",
+    "purpose": "NORS complaint-coding training sources, ambiguity rules, and call-light/call-bell keyword routing refinements",
+    "date_completed": "2026-04-23",
+    "normalization_note": "The returned research used F06 for call-light response examples. This application's active NORS hierarchy and Table 2 working data identify response to requests for assistance as F02, so call-light/call-bell response routing is normalized to F02 here."
+  },
+  "source_rows": [
+    {
+      "id": "SRC-B10-001",
+      "title": "NORS Training Part 2: Complaint Coding Basic Principles",
+      "url": "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf",
+      "type": "training_basic_principles",
+      "description": "NORC Part II complaint-coding principles, including one complaint equals one complaint code, A-M versus N-Q code structure, and abuse/gross neglect/exploitation coding."
+    },
+    {
+      "id": "SRC-B10-002",
+      "title": "NORS Training Part 2: Complaint Coding Quiz",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
+      "type": "training_quiz",
+      "description": "NORC Part II quiz scenarios for practicing selection of the single best complaint code using Table 2."
+    },
+    {
+      "id": "SRC-B10-003",
+      "title": "NORS Training Part 2: Complaint Coding Quiz Answer Sheet",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+      "type": "training_quiz_answers",
+      "description": "Answer sheet reinforcing one complaint equals one complaint code and use of Table 2 examples and reporting tips."
+    },
+    {
+      "id": "SRC-B10-004",
+      "title": "NORS Training Part 2: Complaint Coding Beyond the Basics Quiz Answers",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-beyond-basics-quiz-answers.pdf",
+      "type": "training_quiz_answers",
+      "description": "Updated Beyond the Basics answer sheet with multi-issue scenario coding, K/L outside-agency examples, and barriers-to-transition examples."
+    },
+    {
+      "id": "SRC-B10-005",
+      "title": "NORS Training Part II: Complaint Coding Webinar Slides",
+      "url": "https://ltcombudsman.org/uploads/files/support/nors-training-ii-slides.pdf",
+      "type": "webinar_slides",
+      "description": "Slides covering NORS complaint-coding basic principles and facility versus non-facility complaint structure."
+    },
+    {
+      "id": "SRC-B10-006",
+      "title": "NORS Frequently Asked Questions: Complaint Coding",
+      "url": "https://ltcombudsman.org/uploads/files/support/NORS_Training_FAQ_webinar_FINAL.pdf",
+      "type": "faq",
+      "description": "NORC FAQ addressing one-code versus multiple distinct complaints and when to separate complaint issues."
+    }
+  ],
+  "coding_principle_rows": [
+    {
+      "principle_id": "CP-B10-001",
+      "principle_text": "One complaint equals one complaint code; select the single complaint code that best describes each complaint.",
+      "practical_tool_rule": "When parsing user text, group facts into distinct complaint issues and avoid assigning multiple similar codes for the same problem.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-ii-slides.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf"
+      ]
+    },
+    {
+      "principle_id": "CP-B10-002",
+      "principle_text": "If a case involves multiple distinct complaints, identify codes for each complaint rather than forcing all issues into one code.",
+      "practical_tool_rule": "When a phrase bundle mentions unrelated problems, the tool should propose separate likely codes for review.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_FAQ_webinar_FINAL.pdf"
+      ]
+    },
+    {
+      "principle_id": "CP-B10-003",
+      "principle_text": "Use A-M codes for complaints against the facility and N-Q codes for complaints not against the facility.",
+      "practical_tool_rule": "Outside-agency or system concerns should not be forced into facility F-tag mappings when the facility is not the actor.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-ii-slides.pdf"
+      ]
+    },
+    {
+      "principle_id": "CP-B10-004",
+      "principle_text": "Use A-series codes only when the complaint meets definitions for abuse, gross neglect, or exploitation.",
+      "practical_tool_rule": "Ordinary poor care, delays, or rude tone should usually route to F-series care or D-series rights unless abuse/gross neglect facts are clear.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"
+      ]
+    },
+    {
+      "principle_id": "CP-B10-005",
+      "principle_text": "When a complaint could fit under two similar NORS codes, choose the one code that best describes the complaint using Table 2 examples and reporting tips.",
+      "practical_tool_rule": "The tool should present a primary likely code and simpler secondary review notes for overlapping scenarios.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_FAQ_webinar_FINAL.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ]
+    }
+  ],
+  "ambiguity_rule_rows": [
+    {
+      "phrase_pattern": "call bell|call light|call lights|call bells",
+      "primary_interpretation": "Delayed response to resident requests for assistance, especially toileting, transfer, repositioning, or other care needs.",
+      "primary_likely_nors_codes": ["F02"],
+      "secondary_likely_nors_codes": ["J03", "A05", "F09"],
+      "context_words_that_shift_code": {
+        "equipment_problem": ["broken", "not working", "malfunction", "cord missing"],
+        "staffing_focus": ["short staffed", "not enough staff", "no aides", "no staff on the hall"],
+        "severe_harm": ["found on floor", "pressure injury", "unconscious", "left for hours", "severe harm"]
+      },
+      "do_not_map_when": "Do not treat every mention of a call bell as an equipment/device issue. If the complaint is that staff did not respond, F02 is the better primary route in this app's NORS hierarchy.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ],
+      "confidence": "likely"
+    },
+    {
+      "phrase_pattern": "room change|moved rooms|moved to another room|lost my room",
+      "primary_interpretation": "Room location or roommate issues within the facility, not facility discharge.",
+      "primary_likely_nors_codes": ["C04"],
+      "secondary_likely_nors_codes": ["D03", "C03"],
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ],
+      "confidence": "confirmed"
+    }
+  ],
+  "keyword_routing_rows": [
+    {
+      "phrase_pattern": "call bell|call light|call bells|call lights",
+      "likely_nors_codes": ["F02"],
+      "primary_code": "F02",
+      "related_codes": ["J03", "A05"],
+      "topic_slugs": ["care_quality", "response_time", "call_system", "care_delay"],
+      "authority_hint_ids": ["CP-B10-001", "CP-B10-005"],
+      "explanation_for_trace": "NORS training uses call light and toileting examples as care-response issues. Under this app's active NORS hierarchy, response to call lights/call bells routes to F02 unless context shows a broken device, broad staffing complaint, retaliation, or extreme harm.",
+      "warning_or_human_review_note": "If the narrative shows very long unattended periods, repeated serious harm, or staff intentionally denying help, flag for human review to consider A05 or another code.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "call bell not answered|call light not answered|no one answered call light|no one answered call bell|call bell ignored|call light ignored|unanswered call light|unanswered call bell|no one came",
+      "likely_nors_codes": ["F02"],
+      "primary_code": "F02",
+      "related_codes": ["J03"],
+      "topic_slugs": ["care_quality", "response_time", "toileting", "care_delay"],
+      "authority_hint_ids": ["CP-B10-001", "CP-B10-005"],
+      "explanation_for_trace": "Unanswered call lights and call bells are treated as response-to-assistance care concerns. Staffing can be a related issue if the text emphasizes short staffing, but the immediate resident impact remains the primary route.",
+      "warning_or_human_review_note": "If the text emphasizes retaliation after a complaint, review D06. If the text emphasizes short staffing as the complaint itself, review J03 as a related code.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "waited for toilet help|waited too long for toilet|no one helped me to the bathroom|kept waiting for help",
+      "likely_nors_codes": ["F02"],
+      "primary_code": "F02",
+      "related_codes": ["A05", "J03"],
+      "topic_slugs": ["care_quality", "toileting", "incontinence_care", "response_time"],
+      "authority_hint_ids": ["CP-B10-001", "CP-B10-005"],
+      "explanation_for_trace": "Toileting delays and being left wet after a request for help are care-response concerns. Repeated severe harm may require human review for gross neglect.",
+      "warning_or_human_review_note": "Consider A05 only when the pattern is extreme, dangerous, or meets gross-neglect criteria; otherwise keep the care-response code as primary.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "short staffed and no one answers call bells|short staffed and call lights unanswered|not enough staff to answer call lights|not enough staff to answer call bells",
+      "likely_nors_codes": ["F02", "J03"],
+      "primary_code": "F02",
+      "related_codes": ["J03"],
+      "topic_slugs": ["care_quality", "response_time", "staffing"],
+      "authority_hint_ids": ["CP-B10-003"],
+      "explanation_for_trace": "When call-light delay is tied to staffing, F02 remains the primary care-response issue and J03 is a related staffing/system concern.",
+      "warning_or_human_review_note": "Use J03 as primary only when the complaint is mainly about overall staffing adequacy rather than a specific resident request for help.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-ii-slides.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "call bell broken|call light broken|call bell not working|call light not working|call light malfunction|call bell malfunction",
+      "likely_nors_codes": ["F09", "F02"],
+      "primary_code": "F09",
+      "related_codes": ["F02"],
+      "topic_slugs": ["care_quality", "call_system", "equipment"],
+      "authority_hint_ids": ["CP-B10-003"],
+      "explanation_for_trace": "A broken or malfunctioning call device is an equipment/access problem. If the broken device caused unanswered requests or delayed care, F02 should also be reviewed.",
+      "warning_or_human_review_note": "Confirm whether the concern is the device itself or staff response after the resident requested help.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "call bell out of reach|call light out of reach|could not reach call bell|could not reach call light",
+      "likely_nors_codes": ["F02", "F09"],
+      "primary_code": "F02",
+      "related_codes": ["F09", "A05"],
+      "topic_slugs": ["care_quality", "call_system", "care_setup", "safety"],
+      "authority_hint_ids": ["CP-B10-005"],
+      "explanation_for_trace": "A call device left out of reach prevents the resident from requesting assistance. This is primarily a care-response/setup issue, with equipment/access as a related review item.",
+      "warning_or_human_review_note": "If staff intentionally removed access to the call bell or repeated failures caused serious harm, flag for human review.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ]
+    }
+  ],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B10-001",
+      "label": "Call Lights - Care vs Staffing",
+      "short_help": "Unanswered call lights are usually a response-to-assistance care complaint.",
+      "details": "NORS complaint-coding training uses call light and toileting scenarios as care complaints. In this app's NORS hierarchy, call light/call bell response routes to F02. Use staffing as related context when short staffing is prominent, and use equipment/device routing when the call bell itself is broken or out of reach.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ],
+      "authority_level": "training"
+    },
+    {
+      "tooltip_id": "TT-B10-002",
+      "label": "Room Change vs Discharge",
+      "short_help": "Room moves inside the facility are room issues, not discharge.",
+      "details": "If a resident is moved to a different room or gets a new roommate but is not told to leave the facility, use the room-issues code. Use discharge codes only when the complaint involves being required to leave the facility or receiving a discharge/eviction notice.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf"
+      ],
+      "authority_level": "training"
+    },
+    {
+      "tooltip_id": "TT-B10-003",
+      "label": "Abuse vs Poor Care",
+      "short_help": "Use A-codes only when abuse, gross neglect, or exploitation definitions are met.",
+      "details": "Many complaints describe poor care, delays, or disrespect that should route to care or rights codes. A-codes should be reserved for facts supporting abuse, gross neglect, or exploitation.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_II_Principles-bw.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"
+      ],
+      "authority_level": "training"
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B10-001",
+      "severity": "medium",
+      "issue": "Exact question numbers for several training examples were not included in the research handoff.",
+      "recommended_action": "Before treating scenario rows as official question-level citations, a reviewer should open the full Part II quiz, answer sheet, and Table 2 to confirm exact example codes and question numbers.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-B10-002",
+      "severity": "medium",
+      "issue": "Batch 10 research used F06 for call-light response, but this app's active NORS hierarchy uses F02.",
+      "recommended_action": "Keep call-light/call-bell response routing normalized to F02 unless the project updates the full NORS hierarchy and crosswalk catalog to a different official code set.",
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/NORS_Codes_and_Definitions_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"
+      ]
+    }
+  ]
+}

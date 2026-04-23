@@ -34,11 +34,13 @@
     norsKnowledgeBaseBatch7: ['../data/nors_knowledge_base_batch7.json', '../nors_knowledge_base_batch7.json'],
     norsKnowledgeBaseBatch8: ['../data/nors_knowledge_base_batch8.json', '../nors_knowledge_base_batch8.json'],
     norsKnowledgeBaseBatch9: ['../data/nors_knowledge_base_batch9.json', '../nors_knowledge_base_batch9.json'],
+    norsKnowledgeBaseBatch10: ['../data/nors_knowledge_base_batch10.json', '../nors_knowledge_base_batch10.json'],
+    norsKnowledgeBaseBatch11: ['../data/nors_knowledge_base_batch11.json', '../nors_knowledge_base_batch11.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -53,6 +55,8 @@
     if (key === 'norsKnowledgeBaseBatch7') return { resource_rows: [], resource_corrections: [], source_verification_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch8') return { code_routing_corrections: [], resource_corrections: [], source_verification_rows: [], resource_currency_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch9') return { code_routing_corrections: [], resource_corrections: [], source_verification_rows: [], resource_currency_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch10') return { source_rows: [], coding_principle_rows: [], ambiguity_rule_rows: [], keyword_routing_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch11') return { source_verification_rows: [], source_conflict_rows: [], keyword_routing_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -146,7 +150,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -161,8 +165,38 @@
     return getKnowledgeBases(data).flatMap(base => base.do_not_map_catalog || []);
   }
 
+  function splitPhrasePattern(value) {
+    return String(value || '')
+      .split('|')
+      .map(phrase => phrase.trim())
+      .filter(Boolean);
+  }
+
+  function normalizeKeywordRoutingRow(row = {}) {
+    const phrases = splitPhrasePattern(row.phrase_pattern || row.phrase || row.pattern);
+    const likelyCodes = toArray(row.likely_nors_codes || row.primary_code).filter(Boolean);
+    const relatedCodes = toArray(row.related_codes).filter(Boolean);
+    const topics = toArray(row.topic_slugs || row.topics).filter(Boolean);
+    const authorityIds = toArray(row.authority_ids).filter(Boolean);
+    const notes = row.explanation_for_trace || row.warning_or_human_review_note || '';
+
+    return phrases.map(phrase => ({
+      ...row,
+      phrase,
+      keywords: [phrase],
+      topics,
+      likely_nors_codes: likelyCodes,
+      related_codes: relatedCodes,
+      authority_ids: authorityIds,
+      notes
+    }));
+  }
+
   function getKnowledgeKeywordRows(data) {
-    return getKnowledgeBases(data).flatMap(base => base.keyword_rows || []);
+    return getKnowledgeBases(data).flatMap(base => [
+      ...(base.keyword_rows || []),
+      ...(base.keyword_routing_rows || []).flatMap(normalizeKeywordRoutingRow)
+    ]).sort((a, b) => getWordTokens(b.phrase || b.phrase_pattern || '').length - getWordTokens(a.phrase || a.phrase_pattern || '').length);
   }
 
   function getKnowledgeResourceRows(data) {
@@ -1026,6 +1060,18 @@
         return ['C01', 'C02', 'C03'].some(code => matchedCodes.includes(code)) ||
           /discharge|transfer|appeal|hearing|stay/.test(`${matchedTopics} ${text}`);
       }
+      if (type === 'TT-B10-001') {
+        return matchedCodes.some(code => ['F02', 'F09', 'J03'].includes(code)) ||
+          /call bell|call bells|call light|call lights|no one came|toilet help|bathroom help/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B10-002') {
+        return matchedCodes.includes('C04') ||
+          /room change|moved rooms|moved to another room|lost my room|roommate/.test(`${matchedTopics} ${text}`);
+      }
+      if (type === 'TT-B10-003') {
+        return matchedCodes.some(code => /^A0[1-5]$/.test(code)) ||
+          /abuse|abused|gross neglect|rough handling|hit|slapped|exploitation/.test(`${matchedTopics} ${text}`);
+      }
       return false;
     });
   }
@@ -1041,6 +1087,13 @@
     return authorities;
   }
 
+  function isSupersededCallLightKnowledgeKeyword(row = {}, phrase = '') {
+    const normalizedPhrase = String(phrase || '').toLowerCase().trim();
+    const code = row.nors_code || row.primary_code || '';
+    return ['F01', 'F07', 'F09'].includes(code) &&
+      ['call light', 'call lights', 'call light ignored', 'call light not answered'].includes(normalizedPhrase);
+  }
+
   function getKeywordEntries(data) {
     const keywords = data.keywordMap?.keywords || {};
     const mappedEntries = Array.isArray(keywords) ? keywords : Object.entries(keywords).map(([phrase, topics]) => ({
@@ -1052,6 +1105,7 @@
       if (record.nors_minor_code && record.topic_slug) index[record.nors_minor_code] = record.topic_slug;
       return index;
     }, {});
+    const knownTopics = new Set(catalogRecords.map(record => record.topic_slug).filter(Boolean));
     const catalogEntries = catalogRecords.flatMap(record => {
       const phrases = [
         record.topic_label,
@@ -1086,18 +1140,28 @@
       }));
     });
     const knowledgeKeywordEntries = getKnowledgeKeywordRows(data).flatMap(row => {
-      const topic = topicByNorsCode[row.nors_code];
-      if (!topic) return [];
+      const likelyCodes = toArray(row.nors_code || row.likely_nors_codes || row.primary_code).filter(Boolean);
+      const rowTopics = toArray(row.topics || row.topic_slugs)
+        .filter(topic => knownTopics.has(topic));
+      const codeTopics = likelyCodes
+        .map(code => topicByNorsCode[code])
+        .filter(Boolean);
+      const topics = [...new Set([...rowTopics, ...codeTopics])];
+      if (!topics.length) return [];
       const authorityIds = (row.related_ftags || [])
         .map(item => normalizeAuthorityCitation(item).toLowerCase())
         .filter(item => item && item !== 'f556')
-        .map(item => item === 'f758' ? 'f605' : item);
-      return (row.keywords || []).map(phrase => ({
+        .map(item => item === 'f758' ? 'f605' : item)
+        .concat(toArray(row.authority_ids));
+      const phrases = toArray(row.keywords).length
+        ? toArray(row.keywords)
+        : splitPhrasePattern(row.phrase_pattern || row.phrase || row.pattern);
+      return phrases.filter(phrase => !isSupersededCallLightKnowledgeKeyword(row, phrase)).map(phrase => ({
         phrase,
-        topics: [topic],
-        likely_nors_codes: [row.nors_code],
-        authority_ids: authorityIds,
-        notes: (row.ombudsman_tips || []).join(' ')
+        topics,
+        likely_nors_codes: likelyCodes,
+        authority_ids: [...new Set(authorityIds.filter(Boolean))],
+        notes: row.notes || row.explanation_for_trace || (row.ombudsman_tips || []).join(' ')
       }));
     });
 

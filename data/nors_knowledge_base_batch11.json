@@ -1,0 +1,160 @@
+{
+  "meta": {
+    "batch": "11",
+    "purpose": "QA review of NORS coding validation handoff; preserve confirmed keyword improvements and block conflicting F-code recommendations",
+    "date_completed": "2026-04-23",
+    "normalization_note": "The incoming validation handoff included useful ambiguity guidance but also conflicted with ACL/NORC Table 2 on several F-code labels. This batch keeps only production-safe routing corrections aligned with the app's current NORS hierarchy and ACL Table 2."
+  },
+  "source_verification_rows": [
+    {
+      "source_id": "SV-B11-001",
+      "source_name": "ACL/NORC NORS Table 2 Complaint Codes and Definitions",
+      "url": "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+      "status": "confirmed",
+      "preferred_use": "Production source of truth for NORS complaint-code labels, definitions, examples, and reporting tips.",
+      "limitations": "Expiration date shown in the PDF is 10/31/2024; recheck ACL/NORC for any later approved Table 2 before major production releases.",
+      "checked_date": "2026-04-23"
+    },
+    {
+      "source_id": "SV-B11-002",
+      "source_name": "NORC Updated Complaint Codes List 2021",
+      "url": "https://ltcombudsman.org/uploads/files/support/NORS_Updated_Complaint_Codes_List_2021.pdf",
+      "status": "confirmed",
+      "preferred_use": "Quick-reference confirmation of current NORS minor-code labels, including F02, F08, F12, F13, H01, and H02.",
+      "limitations": "Use the full ACL/NORC Table 2 PDF for definitions and examples when there is any ambiguity.",
+      "checked_date": "2026-04-23"
+    }
+  ],
+  "source_conflict_rows": [
+    {
+      "conflict_id": "SC-B11-001",
+      "issue": "Incoming handoff mislabeled several current NORS F-codes.",
+      "source_a": "ACL/NORC Table 2 identifies F06 as Access to health-related services, F08 as Incontinence care, F12 as Chemical restraint, and H01/H02 as Dietary codes.",
+      "source_b": "Incoming validation handoff suggested F06 for toileting/incontinence, F07/F08 for food/dining, and F12 for medication errors.",
+      "conflict_description": "Those handoff recommendations conflict with the current app hierarchy and official Table 2. Promoting them would corrupt production code routing.",
+      "recommended_resolution": "Keep the app's current NORS hierarchy as production truth. Route call-light response to F02, incontinence care to F08, medication administration/errors to F04, chemical restraint to F12, food service to H01, and dining/hydration to H02.",
+      "confidence": "confirmed",
+      "human_review_note": "Do not import the conflicting F-code labels from the handoff. Use this row as a QA record explaining why those recommendations were rejected."
+    },
+    {
+      "conflict_id": "SC-B11-002",
+      "issue": "Generic call-light phrases can over-trigger equipment or accident mappings.",
+      "source_a": "ACL/NORC Table 2 F02 explicitly covers failure to promptly respond to call lights/call bells or requests for assistance.",
+      "source_b": "Older keyword rows associated generic 'call light' with accident prevention, symptoms unattended, and assistive devices.",
+      "conflict_description": "Broad call-light matches caused noisy results, including F09 assistive devices, when the user intended staff response delay.",
+      "recommended_resolution": "Use F02 as the default for generic call light/call bell response. Use F09 only when the device itself is broken, not working, inaccessible, or missing.",
+      "confidence": "confirmed",
+      "human_review_note": "The shared crosswalk logic now suppresses older broad call-light rows from accident/equipment knowledge rows."
+    }
+  ],
+  "keyword_routing_rows": [
+    {
+      "phrase_pattern": "left wet|left in bed wet|left in bed soaked|left in wet brief|left in soiled brief|no one changed me|diaper not changed|incontinence care not provided",
+      "likely_nors_codes": ["F08", "F02"],
+      "primary_code": "F08",
+      "related_codes": ["F02", "A05", "J03"],
+      "topic_slugs": ["care_quality", "incontinence_care", "response_time"],
+      "explanation_for_trace": "ACL Table 2 places incontinence and catheter care under F08. If the concern also describes a request for help that went unanswered, F02 is a related response-to-assistance code.",
+      "warning_or_human_review_note": "Consider A05 only when the facts suggest severe essential-care failure that threatens health, safety, or welfare.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "wrong pill|wrong dose|wrong medication|medication error|missed dose|missed med|gave me someone else's medicine|late insulin|med pass skipped",
+      "likely_nors_codes": ["F04"],
+      "primary_code": "F04",
+      "related_codes": ["F12"],
+      "topic_slugs": ["medications"],
+      "explanation_for_trace": "ACL Table 2 places medication given in error, not given on time, missed, expired, mislabeled, or undocumented medication under F04 Medications. F12 is chemical restraint, not the general medication-error code.",
+      "warning_or_human_review_note": "If the medication issue involves drugs used for discipline or convenience rather than to treat symptoms, review F12 Chemical restraint separately.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "chemical restraint|drugged for staff convenience|sedated for convenience|psychotropic for discipline|unnecessary antipsychotic restraint",
+      "likely_nors_codes": ["F12"],
+      "primary_code": "F12",
+      "related_codes": ["F04", "D01"],
+      "topic_slugs": ["medications", "restraints"],
+      "explanation_for_trace": "ACL Table 2 defines F12 as Chemical restraint: medication used for discipline or convenience that is not required to treat medical symptoms.",
+      "warning_or_human_review_note": "Separate chemical-restraint concerns from ordinary medication administration errors, which route to F04.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "food is cold|food cold|food tastes bad|same food every day|tiny portions|menu not followed|no alternatives|snacks unavailable",
+      "likely_nors_codes": ["H01"],
+      "primary_code": "H01",
+      "related_codes": ["A05"],
+      "topic_slugs": ["dietary_food"],
+      "explanation_for_trace": "ACL Table 2 places food quantity, quality, variety, choice, temperature, and meal/snack timing under H01 Food services.",
+      "warning_or_human_review_note": "Use A05 only for willful or severe food deprivation that meets gross-neglect criteria.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "tray left out of reach|no one helped me eat|no one helped him eat|not enough to drink|dehydrated|never opened milk carton|needs feeding help",
+      "likely_nors_codes": ["H02"],
+      "primary_code": "H02",
+      "related_codes": ["A05"],
+      "topic_slugs": ["dietary_food", "dining_hydration"],
+      "explanation_for_trace": "ACL Table 2 places dining assistance, tray setup, adaptive equipment for eating, direct feeding assistance, fluids, and hydration reminders under H02 Dining and hydration.",
+      "warning_or_human_review_note": "If the facts suggest willful deprivation or serious risk from lack of food/fluid assistance, flag for human review.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    },
+    {
+      "phrase_pattern": "I want a different doctor|won't let me keep my doctor|can't choose doctor|forced pharmacy|can't choose hospice|therapy schedule not my choice|med time not consistent with my routine",
+      "likely_nors_codes": ["D01"],
+      "primary_code": "D01",
+      "related_codes": ["F04", "F06"],
+      "topic_slugs": ["autonomy_choice"],
+      "explanation_for_trace": "ACL Table 2 places denial of the right to choose a physician, pharmacy, hospice, or preferred treatment schedule under D01 Choice in health care.",
+      "warning_or_human_review_note": "Do not route provider-choice language to medication error unless wrong drug, dose, time, omission, or documentation facts are present.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    }
+  ],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B11-001",
+      "label": "Current NORS Code Set",
+      "short_help": "Use the current ACL/NORC Table 2 code labels before importing outside summaries.",
+      "details": "The QA handoff included useful ambiguity guidance but mislabeled several current F-codes. Production routing should keep F02 for call-light response, F08 for incontinence care, F12 for chemical restraint, H01 for food service, and H02 for dining/hydration.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Updated_Complaint_Codes_List_2021.pdf"
+      ],
+      "authority_level": "official"
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B11-001",
+      "severity": "high",
+      "issue": "Do not import handoff rows that relabel F06, F07, F08, F12, H01, or H02 contrary to ACL/NORC Table 2.",
+      "recommended_action": "Keep the current app hierarchy. Use F02 for response to assistance, F08 for incontinence care, F04 for medication administration/error issues, F12 for chemical restraint, H01 for food service, and H02 for dining/hydration.",
+      "affected_codes": ["F02", "F04", "F06", "F07", "F08", "F12", "H01", "H02"],
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Updated_Complaint_Codes_List_2021.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-B11-002",
+      "severity": "medium",
+      "issue": "Recheck ACL/NORC Table 2 after 10/31/2024 before locking a final production release.",
+      "recommended_action": "The current official PDF used here has an expiration date of 10/31/2024. Before formal release, confirm whether ACL/NORC has published a later Table 2 and update the code hierarchy only if a newer official source changes labels or definitions.",
+      "affected_codes": ["A01", "A02", "A03", "A04", "A05", "F01", "F02", "F03", "F04", "F05", "F06", "F07", "F08", "F09", "F10", "F11", "F12", "F13", "H01", "H02", "H03"],
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    }
+  ]
+}
