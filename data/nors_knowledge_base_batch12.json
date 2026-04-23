@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "batch": "12",
+    "purpose": "Appendix PP related-but-distinct additional investigation logic seeded from F550 Potential Tags for Additional Investigation",
+    "date_completed": "2026-04-23",
+    "normalization_note": "Rows are normalized for this app's current NORS hierarchy and Rev. 232 Appendix PP page table. The research handoff included F550 page estimates that differ from data/appendix_pp_tag_pages.json; production display should prefer the verified Appendix PP page table."
+  },
+  "appendix_pp_related_investigation_rows": [
+    {
+      "rule_id": "APPXPP-F550-REL-001",
+      "source_ftag": "F550",
+      "source_citation": "F550",
+      "source_title": "Resident Rights",
+      "source_cfr": "42 CFR Sec. 483.10(a)-(b)",
+      "source_pdf_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "source_pdf_page_start": 6,
+      "source_heading_exact": "F550 - Resident Rights - General",
+      "related_ftag": "F583",
+      "related_citation": "F583",
+      "related_title": "Privacy and Confidentiality",
+      "related_cfr": "42 CFR Sec. 483.10(h)",
+      "related_pdf_page_start": 61,
+      "appendix_pp_condition_text": "lack of visual privacy while receiving treatment or ADL care from staff in the bedroom, bathroom, or bathing room",
+      "plain_language_when_to_consider": "If a dignity concern is really about the resident being exposed or not having privacy while staff provide bathing, toileting, dressing, or other hands-on care, review F583 on privacy and confidentiality in addition to F550.",
+      "likely_nors_codes": ["D03", "D04"],
+      "related_topics": ["privacy", "dignity_respect", "ADL_care"],
+      "mapping_type": "related",
+      "confidence": "confirmed",
+      "source_quote_heading_only": "POTENTIAL TAGS FOR ADDITIONAL INVESTIGATION - F550",
+      "human_review_note": "Keep F550 as the foundation when the complaint is about dignity or respect generally; add F583 when the facts involve lack of privacy or confidentiality during care. In this app's NORS hierarchy, D04 is the privacy code and D03 is dignity/respect."
+    },
+    {
+      "rule_id": "APPXPP-F550-REL-002",
+      "source_ftag": "F550",
+      "source_citation": "F550",
+      "source_title": "Resident Rights",
+      "source_cfr": "42 CFR Sec. 483.10(a)-(b)",
+      "source_pdf_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "source_pdf_page_start": 6,
+      "source_heading_exact": "F550 - Resident Rights - General",
+      "related_ftag": "F561",
+      "related_citation": "F561",
+      "related_title": "Self-determination",
+      "related_cfr": "42 CFR Sec. 483.10(f)(1)-(3), (8)",
+      "related_pdf_page_start": 26,
+      "appendix_pp_condition_text": "resident's lack of self-determination to make decisions about things that are important in his or her life",
+      "plain_language_when_to_consider": "If a dignity/rights concern is really about the resident not being allowed to make everyday choices, review F561 on self-determination as well as F550.",
+      "likely_nors_codes": ["D01", "D09"],
+      "related_topics": ["self_determination", "choice", "resident_rights"],
+      "mapping_type": "related",
+      "confidence": "confirmed",
+      "source_quote_heading_only": "POTENTIAL TAGS FOR ADDITIONAL INVESTIGATION - F550",
+      "human_review_note": "When the key fact is loss of choice, consider NORS rights codes related to autonomy and other rights/preferences, not only general dignity. Human review should confirm whether the primary focus is choice, broader self-determination, or disrespect."
+    },
+    {
+      "rule_id": "APPXPP-F550-REL-003",
+      "source_ftag": "F550",
+      "source_citation": "F550",
+      "source_title": "Resident Rights",
+      "source_cfr": "42 CFR Sec. 483.10(a)-(b)",
+      "source_pdf_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "source_pdf_page_start": 6,
+      "source_heading_exact": "F550 - Resident Rights - General",
+      "related_ftag": "F677",
+      "related_citation": "F677",
+      "related_title": "Activities of Daily Living (ADLs)",
+      "related_cfr": "42 CFR Sec. 483.24(a)(2)",
+      "related_pdf_page_start": 290,
+      "appendix_pp_condition_text": "failure to keep residents' faces, hands, teeth, fingernails, hair, and clothing clean",
+      "plain_language_when_to_consider": "If a dignity concern is really about basic grooming and cleanliness, also review F677 on ADL care in addition to F550.",
+      "likely_nors_codes": ["D03", "F05"],
+      "related_topics": ["ADL_care", "hygiene", "dignity_respect"],
+      "mapping_type": "related",
+      "confidence": "confirmed",
+      "source_quote_heading_only": "POTENTIAL TAGS FOR ADDITIONAL INVESTIGATION - F550",
+      "human_review_note": "For NORS, these facts may align with personal hygiene care-quality coding (F05) and/or dignity (D03), depending on the resident's framing and whether the complaint is about care failure, disrespect, or both."
+    },
+    {
+      "rule_id": "APPXPP-F550-REL-004",
+      "source_ftag": "F550",
+      "source_citation": "F550",
+      "source_title": "Resident Rights",
+      "source_cfr": "42 CFR Sec. 483.10(a)-(b)",
+      "source_pdf_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "source_pdf_page_start": 6,
+      "source_heading_exact": "F550 - Resident Rights - General",
+      "related_ftag": "F603",
+      "related_citation": "F603",
+      "related_title": "Involuntary Seclusion",
+      "related_cfr": "42 CFR Sec. 483.12(a)",
+      "related_pdf_page_start": 106,
+      "appendix_pp_condition_text": "resident is in a secured/locked area without clinical justification and/or placement is against the will of the resident, family, or resident representative",
+      "plain_language_when_to_consider": "If a dignity or rights concern involves a resident being locked in a unit or area without clear clinical justification or against their wishes, review F603 on involuntary seclusion and related abuse/neglect protections.",
+      "likely_nors_codes": ["A05", "D09"],
+      "related_topics": ["involuntary_seclusion", "abuse_neglect", "freedom_of_movement"],
+      "mapping_type": "related",
+      "confidence": "likely",
+      "source_quote_heading_only": "POTENTIAL TAGS FOR ADDITIONAL INVESTIGATION - F550",
+      "human_review_note": "Whether NORS coding should treat this as abuse/gross neglect or a rights violation depends on severity, intent, consent, clinical justification, and resident direction. D06 may also be relevant if confinement is retaliatory."
+    }
+  ],
+  "appendix_pp_source_rows": [
+    {
+      "ftag": "F550",
+      "citation": "F550",
+      "title": "Resident Rights",
+      "cfr_section": "42 CFR Sec. 483.10(a)-(b)",
+      "pdf_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "pdf_page_start": 6,
+      "heading_exact": "F550 - Resident Rights - General",
+      "has_potential_tags_section": true,
+      "potential_tags_section_page": 11,
+      "source_checked_date": "2026-04-23",
+      "notes": "Appendix PP F550 includes a clearly labeled Potential Tags for Additional Investigation section that references F583 Privacy and Confidentiality, F561 Self-determination, F677 ADLs, and F603 Involuntary Seclusion for specific dignity-related fact patterns."
+    },
+    {
+      "ftag": "F552",
+      "citation": "F552",
+      "title": "Right to be Informed and Participate in Care",
+      "cfr_section": "42 CFR Sec. 483.10(c)",
+      "pdf_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "pdf_page_start": 14,
+      "heading_exact": "F552 - Right to be Informed/Make Treatment Decisions",
+      "has_potential_tags_section": false,
+      "potential_tags_section_page": null,
+      "source_checked_date": "2026-04-23",
+      "notes": "The visible section for F552 includes regulatory text, definitions, guidance, and procedures, but a Potential Tags for Additional Investigation block was not confirmed in this batch."
+    }
+  ],
+  "keyword_routing_rows": [
+    {
+      "phrase_pattern": "locked unit against will|locked area against will|secured unit against will|kept in locked unit|kept in locked area|not allowed to leave unit|locked in memory care without clinical justification|secured area without clinical justification",
+      "likely_nors_codes": ["D09", "A05"],
+      "primary_code": "D09",
+      "related_codes": ["A05"],
+      "topic_slugs": ["involuntary_seclusion", "freedom_of_movement", "abuse_neglect"],
+      "explanation_for_trace": "Appendix PP F550 directs reviewers to consider F603 when a resident is in a secured or locked area without clinical justification or against the will of the resident, family, or representative.",
+      "warning_or_human_review_note": "Treat locked-area concerns as human-review items. Final NORS coding depends on resident direction, consent, clinical justification, severity, and whether the facts meet abuse/gross-neglect definitions.",
+      "source_urls": [
+        "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf"
+      ]
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-APPXPP-001",
+      "severity": "high",
+      "issue": "Only F550's Potential Tags for Additional Investigation section was fully captured in this batch.",
+      "recommended_action": "Open the live Appendix PP PDF and, for each priority F-tag, locate and extract the Potential Tags for Additional Investigation section if present. Confirm PDF page numbers using data/appendix_pp_tag_pages.json and avoid relying on page estimates from partial text.",
+      "affected_ftags": ["F552", "F553", "F557", "F558", "F561", "F563", "F564", "F583", "F585", "F600", "F602", "F603", "F607", "F609", "F627", "F628", "F656", "F684", "F686", "F725", "F726", "F801", "F802"],
+      "source_urls": [
+        "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-APPXPP-002",
+      "severity": "medium",
+      "issue": "NORS code suggestions for related investigation rows are review aids, not automatic final coding.",
+      "recommended_action": "Before finalizing related-but-distinct UI behavior, cross-check each suggested NORS code against the current ACL/NORC NORS Table 2 and adjust where the resident's framing, severity, consent, or facility actor changes the best code.",
+      "affected_ftags": ["F550", "F583", "F561", "F677", "F603"],
+      "source_urls": [
+        "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf"
+      ]
+    }
+  ]
+}

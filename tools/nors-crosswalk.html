@@ -286,6 +286,10 @@
         </summary>
         <div class="disclosure-body support-grid">
           <div class="support-block">
+            <h3>Additional Investigation Considerations</h3>
+            <div id="related-investigation-output" class="output-box">Related Appendix PP considerations will appear here.</div>
+          </div>
+          <div class="support-block">
             <h3>Workflow Notes</h3>
             <div id="workflow-output" class="output-box">Workflow guidance will appear here.</div>
           </div>
@@ -429,7 +433,7 @@
       const authorities = getAuthorityList(result.authorityGroups || []);
       const codes = getMatchedCodeValues(topicMatches);
       const layers = getAuthorityLayerSummary(authorities);
-      const supportCount = (result.workflowGuidance || []).length + (result.contextTips || []).length + (result.resources || []).length;
+      const supportCount = (result.relatedInvestigations || []).length + (result.workflowGuidance || []).length + (result.contextTips || []).length + (result.resources || []).length;
       const warningCount = (result.warnings || []).length;
       const codeDisplay = codes.length
         ? codes.slice(0, 5).map(code => escapeHtml(code)).join(', ') + (codes.length > 5 ? ` +${codes.length - 5}` : '')
@@ -569,6 +573,47 @@
       `;
     }
 
+    function renderAppendixPpLink(url, page, label) {
+      const href = url && page ? `${url}#page=${encodeURIComponent(page)}` : url;
+      if (!href) return escapeHtml(label || 'Appendix PP');
+      return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(label || 'Appendix PP')}</a>`;
+    }
+
+    function renderRelatedInvestigations(rows) {
+      const output = document.getElementById('related-investigation-output');
+      if (!output) return;
+      if (!rows.length) {
+        output.innerHTML = '<span class="empty-state">No related Appendix PP considerations matched this lookup.</span>';
+        return;
+      }
+
+      output.innerHTML = `
+        <div class="output-section">
+          ${rows.map(row => `
+            <div class="result-item">
+              <div class="result-title">
+                <strong>${escapeHtml(row.source_ftag || 'Source tag')} to ${escapeHtml(row.related_ftag || 'related tag')}</strong>
+                <span class="meta-chip">${escapeHtml(row.mapping_type || 'related')}</span>
+              </div>
+              <div class="meta-line">${escapeHtml(row.plain_language_when_to_consider || row.appendix_pp_condition_text || '')}</div>
+              ${row.appendix_pp_condition_text ? `<div class="subtle meta-line">Appendix PP trigger: ${escapeHtml(row.appendix_pp_condition_text)}</div>` : ''}
+              <div class="result-meta">
+                ${(row.likely_nors_codes || []).map(code => renderCodeChip(code)).join('')}
+                ${(row.related_topics || []).map(topic => `<span class="meta-chip">${escapeHtml(formatTopicName(topic))}</span>`).join('')}
+              </div>
+              <div class="subtle meta-line">Why shown: ${escapeHtml(row.match_reason || 'Matched the current code/topic/authority trail.')}</div>
+              <div class="subtle meta-line">
+                Source: ${renderAppendixPpLink(row.source_pdf_url, row.source_pdf_page_start, `${row.source_ftag} page ${row.source_pdf_page_start || ''}`)}
+                ${row.related_ftag ? `; Related: ${renderAppendixPpLink(row.related_pdf_url || row.source_pdf_url, row.related_pdf_page_start, `${row.related_ftag} page ${row.related_pdf_page_start || ''}`)}` : ''}
+              </div>
+              ${row.human_review_note ? `<div class="subtle meta-line">Review note: ${escapeHtml(row.human_review_note)}</div>` : ''}
+            </div>
+          `).join('')}
+        </div>
+        <div class="notice">These rows come from Appendix PP cross-references. They are prompts for additional review, not automatic NORS coding or deficiency findings.</div>
+      `;
+    }
+
     function renderResourceLink(resource) {
       const label = escapeHtml(resource.title || 'Resource');
       if (!resource.url) return label;
@@ -647,6 +692,7 @@
       renderSummary(result);
       renderTopics(result.topicMatches);
       renderAuthorities(result.authorityGroups);
+      renderRelatedInvestigations(result.relatedInvestigations || []);
       renderResources(result.resources || []);
       renderWorkflowGuidance(result.workflowGuidance || [], result.contextTips || []);
       renderTrace(result.trace);

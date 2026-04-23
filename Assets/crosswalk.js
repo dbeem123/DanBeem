@@ -36,11 +36,12 @@
     norsKnowledgeBaseBatch9: ['../data/nors_knowledge_base_batch9.json', '../nors_knowledge_base_batch9.json'],
     norsKnowledgeBaseBatch10: ['../data/nors_knowledge_base_batch10.json', '../nors_knowledge_base_batch10.json'],
     norsKnowledgeBaseBatch11: ['../data/nors_knowledge_base_batch11.json', '../nors_knowledge_base_batch11.json'],
+    norsKnowledgeBaseBatch12: ['../data/nors_knowledge_base_batch12.json', '../nors_knowledge_base_batch12.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'appendixPpTagPages', 'sourceRegistry']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'appendixPpTagPages', 'sourceRegistry']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -57,6 +58,7 @@
     if (key === 'norsKnowledgeBaseBatch9') return { code_routing_corrections: [], resource_corrections: [], source_verification_rows: [], resource_currency_rows: [], workflow_update_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch10') return { source_rows: [], coding_principle_rows: [], ambiguity_rule_rows: [], keyword_routing_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch11') return { source_verification_rows: [], source_conflict_rows: [], keyword_routing_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch12') return { appendix_pp_related_investigation_rows: [], appendix_pp_source_rows: [], keyword_routing_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     return {};
@@ -150,7 +152,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11, data?.norsKnowledgeBaseBatch12].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -235,6 +237,12 @@
   function getKnowledgeSourceVerificationRows(data) {
     const rows = getKnowledgeBases(data).flatMap(base => base.source_verification_rows || []);
     return applySourceVerificationCorrections(rows, data);
+  }
+
+  function getKnowledgeAppendixPpRelatedRows(data) {
+    return getKnowledgeBases(data)
+      .flatMap(base => base.appendix_pp_related_investigation_rows || [])
+      .map(row => normalizeAppendixPpRelatedInvestigationRow(row, data));
   }
 
   function getKnowledgeResourceCorrections(data) {
@@ -327,6 +335,26 @@
       term: label,
       short_help: row.short_help || row.tooltip_text || '',
       details: row.details || row.authority || ''
+    };
+  }
+
+  function normalizeAppendixPpRelatedInvestigationRow(row = {}, data) {
+    const sourceTag = String(row.source_ftag || row.source_f_tag || '').toUpperCase();
+    const relatedTag = String(row.related_ftag || row.related_f_tag || '').toUpperCase();
+    const sourcePage = getAppendixPpTagPage(sourceTag, data);
+    const relatedPage = getAppendixPpTagPage(relatedTag, data);
+
+    return {
+      ...row,
+      rule_id: row.rule_id || `${sourceTag}-${relatedTag}`,
+      source_ftag: sourceTag,
+      related_ftag: relatedTag,
+      source_pdf_page_start: sourcePage?.appendix_pp_pdf_page_start || row.source_pdf_page_start || null,
+      source_heading_exact: sourcePage?.heading_exact || row.source_heading_exact || sourceTag,
+      source_pdf_url: sourcePage?.appendix_pp_pdf_url || row.source_pdf_url || APPENDIX_PP_URL,
+      related_pdf_page_start: relatedPage?.appendix_pp_pdf_page_start || row.related_pdf_page_start || null,
+      related_heading_exact: relatedPage?.heading_exact || row.related_heading_exact || relatedTag,
+      related_pdf_url: relatedPage?.appendix_pp_pdf_url || row.related_pdf_url || row.source_pdf_url || APPENDIX_PP_URL
     };
   }
 
@@ -1690,6 +1718,81 @@
     return groups;
   }
 
+  function getFTagFromValue(value) {
+    const match = String(value || '').match(/\bF\d{3}\b/i);
+    return match ? match[0].toUpperCase() : '';
+  }
+
+  function getAuthorityFtags(authorityGroups = []) {
+    const tags = new Set();
+    authorityGroups.forEach(group => {
+      (group.authorities || []).forEach(authority => {
+        [
+          authority.citation,
+          authority.id,
+          authority.title,
+          authority.appendixPpHeadingExact,
+          authority.appendix_pp_heading_exact
+        ].forEach(value => {
+          const tag = getFTagFromValue(value);
+          if (tag) tags.add(tag);
+        });
+      });
+    });
+    return tags;
+  }
+
+  function getAppendixPpRelatedInvestigationRowsForInputs({ norsCode, keywordText = '', topicMatches = [], authorityGroups = [] } = {}, data) {
+    const rows = getKnowledgeAppendixPpRelatedRows(data);
+    if (!rows.length) return [];
+
+    const authorityFtags = getAuthorityFtags(authorityGroups);
+    const matchedCodes = new Set(getMatchedNorsCodes(norsCode, topicMatches));
+    const matchedTopicText = topicMatches.map(match => normalizeTopicKey(match.topic)).join(' ');
+    const keywordSearchText = normalizeTopicKey(keywordText);
+    const seen = new Set();
+
+    return rows.filter(row => {
+      const sourceTag = getFTagFromValue(row.source_ftag);
+      const relatedTag = getFTagFromValue(row.related_ftag);
+      const likelyCodes = toArray(row.likely_nors_codes);
+      const relatedTopics = toArray(row.related_topics).map(normalizeTopicKey);
+      const reasons = [];
+
+      if (sourceTag && authorityFtags.has(sourceTag)) {
+        reasons.push(`current authority trail includes ${sourceTag}`);
+      }
+      if (relatedTag && authorityFtags.has(relatedTag)) {
+        reasons.push(`current authority trail includes related tag ${relatedTag}`);
+      }
+      likelyCodes.filter(code => matchedCodes.has(code)).forEach(code => {
+        reasons.push(`matched related NORS code ${code}`);
+      });
+      relatedTopics.filter(topic => {
+        return topic && (
+          (matchedTopicText && matchedTopicText.includes(topic)) ||
+          (matchedTopicText && topic.includes(matchedTopicText)) ||
+          keywordSearchText.includes(topic)
+        );
+      }).forEach(topic => {
+        reasons.push(`matched related topic ${topic}`);
+      });
+
+      if (!reasons.length) return false;
+      row.match_reason = reasons[0];
+      return true;
+    }).filter(row => {
+      const id = row.rule_id || `${row.source_ftag}-${row.related_ftag}`;
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    }).sort((a, b) => {
+      const aSourceMatch = authorityFtags.has(a.source_ftag) ? 0 : 1;
+      const bSourceMatch = authorityFtags.has(b.source_ftag) ? 0 : 1;
+      return aSourceMatch - bSourceMatch || String(a.related_ftag || '').localeCompare(String(b.related_ftag || ''));
+    });
+  }
+
   function buildCrosswalkTrace({ norsCode, keywordText, topicMatches, authorityGroups, data } = {}) {
     const trace = [];
     const code = (norsCode || '').trim();
@@ -1768,6 +1871,7 @@
     const resources = getResourcesForInputs({ norsCode: code, keywordText: text, topicMatches }, data);
     const workflowGuidance = getWorkflowGuidanceForInputs({ norsCode: code, keywordText: text, topicMatches, resources }, data);
     const contextTips = getContextTipsForInputs({ norsCode: code, topicMatches, workflowGuidance, resources, keywordText: text }, data);
+    const relatedInvestigations = getAppendixPpRelatedInvestigationRowsForInputs({ norsCode: code, keywordText: text, topicMatches, authorityGroups }, data);
     const trace = buildCrosswalkTrace({ norsCode: code, keywordText: text, topicMatches, authorityGroups, data });
     const warnings = [];
 
@@ -1793,6 +1897,7 @@
     return {
       topicMatches,
       authorityGroups,
+      relatedInvestigations,
       resources,
       workflowGuidance,
       contextTips,
@@ -1810,6 +1915,7 @@
     getNorsCodeOptions,
     getNorsCodeDetail,
     getResourcesForInputs,
+    getAppendixPpRelatedInvestigationRowsForInputs,
     getKnowledgeResourceRows,
     getKnowledgeWorkflowRows,
     getKnowledgeSourceQualityRows,
