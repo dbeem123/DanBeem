@@ -40,12 +40,13 @@
     norsKnowledgeBaseBatch13: ['../data/nors_knowledge_base_batch13.json', '../nors_knowledge_base_batch13.json'],
     norsKnowledgeBaseBatch14: ['../data/nors_knowledge_base_batch14.json', '../nors_knowledge_base_batch14.json'],
     norsKnowledgeBaseBatch15: ['../data/nors_knowledge_base_batch15.json', '../nors_knowledge_base_batch15.json'],
+    norsKnowledgeBaseBatch16: ['../data/nors_knowledge_base_batch16.json', '../nors_knowledge_base_batch16.json'],
     appendixPpTagPages: ['../data/appendix_pp_tag_pages.json', '../appendix_pp_tag_pages.json'],
     sourceRegistry: ['../data/source_registry.json', '../source_registry.json'],
     norsSourcePackLock: ['../data/nors_source_pack_lock.json', '../nors_source_pack_lock.json']
   };
 
-  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'norsKnowledgeBaseBatch13', 'norsKnowledgeBaseBatch14', 'norsKnowledgeBaseBatch15', 'appendixPpTagPages', 'sourceRegistry', 'norsSourcePackLock']);
+  const OPTIONAL_DATA_KEYS = new Set(['norsToTopic', 'topicToAuthority', 'norsComplaintGuidance', 'norsResourceCatalog', 'norsKnowledgeBase', 'norsKnowledgeBaseBatch2', 'norsKnowledgeBaseBatch3', 'norsKnowledgeBaseBatch4', 'norsKnowledgeBaseBatch5', 'norsKnowledgeBaseBatch6', 'norsKnowledgeBaseBatch7', 'norsKnowledgeBaseBatch8', 'norsKnowledgeBaseBatch9', 'norsKnowledgeBaseBatch10', 'norsKnowledgeBaseBatch11', 'norsKnowledgeBaseBatch12', 'norsKnowledgeBaseBatch13', 'norsKnowledgeBaseBatch14', 'norsKnowledgeBaseBatch15', 'norsKnowledgeBaseBatch16', 'appendixPpTagPages', 'sourceRegistry', 'norsSourcePackLock']);
 
   function getOptionalFallback(key) {
     if (key === 'topicToAuthority') return { topics: {} };
@@ -66,6 +67,7 @@
     if (key === 'norsKnowledgeBaseBatch13') return { appendix_pp_related_investigation_rows: [], appendix_pp_source_rows: [], source_conflict_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch14') return { authority_rows: [], source_conflict_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'norsKnowledgeBaseBatch15') return { authority_rows: [], source_conflict_rows: [], tooltip_rows: [], human_review_flags: [] };
+    if (key === 'norsKnowledgeBaseBatch16') return { authority_rows: [], source_conflict_rows: [], tooltip_rows: [], human_review_flags: [] };
     if (key === 'appendixPpTagPages') return { appendix_pp_tag_page_rows: [] };
     if (key === 'sourceRegistry') return { sources: [] };
     if (key === 'norsSourcePackLock') return { source_pack_rows: [], source_relationship_rows: [], source_priority_rules: [], human_review_flags: [] };
@@ -160,7 +162,7 @@
   }
 
   function getKnowledgeBases(data) {
-    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11, data?.norsKnowledgeBaseBatch12, data?.norsKnowledgeBaseBatch13, data?.norsKnowledgeBaseBatch14, data?.norsKnowledgeBaseBatch15].filter(Boolean);
+    return [data?.norsKnowledgeBase, data?.norsKnowledgeBaseBatch2, data?.norsKnowledgeBaseBatch3, data?.norsKnowledgeBaseBatch4, data?.norsKnowledgeBaseBatch5, data?.norsKnowledgeBaseBatch6, data?.norsKnowledgeBaseBatch7, data?.norsKnowledgeBaseBatch8, data?.norsKnowledgeBaseBatch9, data?.norsKnowledgeBaseBatch10, data?.norsKnowledgeBaseBatch11, data?.norsKnowledgeBaseBatch12, data?.norsKnowledgeBaseBatch13, data?.norsKnowledgeBaseBatch14, data?.norsKnowledgeBaseBatch15, data?.norsKnowledgeBaseBatch16].filter(Boolean);
   }
 
   function getKnowledgeCodeRows(data) {
@@ -1048,6 +1050,24 @@
         /room change|moved rooms|roommate|private room|shared room|room assignment/.test(`${matchedTopics} ${text}`)
       )) {
         warnings.push(`Room-rights mapping note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B16-001' && (
+        matchedCodes.includes('L02') ||
+        /outside provider|outside service|hospice|outside therapist|outside aide|independent therapist/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Outside-provider mapping note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B16-002' && (
+        matchedCodes.some(code => ['F04', 'F12', 'A05'].includes(code)) ||
+        /missed medication|wrong medication|late insulin|drugged|sedated|chemical restraint|psychotropic/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Medication coding boundary note (${id}): ${action}`);
+      }
+      if (id === 'HRF-B16-003' && (
+        matchedCodes.some(code => ['D01', 'L02'].includes(code)) ||
+        /forced pharmacy|choose doctor|keep my doctor|outside provider|outside service|blocked hospice/.test(`${matchedTopics} ${text}`)
+      )) {
+        warnings.push(`Provider-choice boundary note (${id}): ${action}`);
       }
     });
 

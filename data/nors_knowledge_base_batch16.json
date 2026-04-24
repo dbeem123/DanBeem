@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "batch": "16",
+    "purpose": "Authority repair integration for medications, chemical restraint, provider choice, outside-provider services, and gross neglect context after source-locked QA",
+    "date_completed": "2026-04-24",
+    "normalization_note": "This batch adds conservative CFR anchors and review guardrails for F04, F12, D01, and A05 while preserving the app's existing stronger direct Appendix PP mappings. L02 remains intentionally loose because the approved source set does not clearly anchor it to one specific federal citation."
+  },
+  "authority_rows": [
+    {
+      "nors_code": "F04",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR 483.45",
+      "authority_label": "Pharmacy services",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.45",
+      "authority_section_or_tag": "483.45",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "F04 medication complaints align with the federal pharmacy-services requirements governing medication acquisition, storage, review, and administration.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR 483.45",
+      "human_review_note": "Use F04 for medication errors, omissions, late administration, and medication-access problems. Existing direct Appendix PP support for F755 remains available in the catalog.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "F12",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR 483.12(a)(2)",
+      "authority_label": "Freedom from chemical restraints",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "authority_section_or_tag": "483.12(a)(2)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "F12 chemical-restraint complaints align with the federal protection against drugs used for discipline or staff convenience rather than treatment of medical symptoms.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR 483.12(a)(2)",
+      "human_review_note": "Use F12 when the core issue is medication used to control behavior or convenience rather than treatment. Existing direct Appendix PP support for F605 remains available in the catalog.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "D01",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR 483.10(d)",
+      "authority_label": "Choice of attending physician",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "authority_section_or_tag": "483.10(d)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "D01 provider-choice complaints align most directly with the resident's federal right to choose an attending physician.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR 483.10(d)",
+      "human_review_note": "Use D01 when the complaint is that the resident cannot keep or choose a doctor, pharmacy, hospice, or other provider. Existing Appendix PP support for F555 and related rights context in the catalog should remain intact.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "A05",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR 483.12",
+      "authority_label": "Freedom from abuse, neglect, and exploitation",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+      "authority_section_or_tag": "483.12",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "A05 gross-neglect complaints remain anchored to the federal neglect protections when failure to provide medications or treatment creates serious risk or harm.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR 483.12",
+      "human_review_note": "Use A05 only when the facts meet NORS gross-neglect criteria. Specific medication or provider-service complaints may still be coded separately when the resident identifies them as distinct problems.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    }
+  ],
+  "source_conflict_rows": [
+    {
+      "conflict_id": "SC-B16-001",
+      "issue": "Incoming medication/provider-choice repair handoff cited 42 CFR 483.10(c) as the main direct federal anchor for D01 choice-in-health-care complaints.",
+      "source_a": "Current eCFR places choice of attending physician in 42 CFR 483.10(d), and the existing authority index already ties F555 to that subsection.",
+      "source_b": "Incoming repair handoff framed D01 primarily under 42 CFR 483.10(c).",
+      "conflict_description": "Using 42 CFR 483.10(c) as the main D01 anchor blurs provider choice with broader treatment-participation rights.",
+      "recommended_resolution": "Use 42 CFR 483.10(d) as the primary direct federal anchor for D01 provider-choice complaints, while allowing broader resident-rights context from the existing catalog to remain available where helpful.",
+      "confidence": "confirmed",
+      "human_review_note": "This is a subsection-precision correction, not a rejection of broader resident-rights context."
+    }
+  ],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B16-001",
+      "label": "F04 vs F12",
+      "short_help": "Medication error is usually F04; medication used as restraint is F12.",
+      "details": "Use F04 for wrong meds, missed meds, late meds, or pharmacy-access failures. Use F12 when the concern is that sedating or psychotropic medication is being used to control behavior or for staff convenience rather than treatment.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ],
+      "authority_level": "official",
+      "where_to_show": ["nors_lookup_F04", "nors_lookup_F12"]
+    },
+    {
+      "tooltip_id": "TT-B16-002",
+      "label": "D01 vs L02",
+      "short_help": "D01 is denial of provider choice; L02 is a problem with an outside provider or outside service.",
+      "details": "Use D01 when the resident says they cannot keep or choose a doctor, pharmacy, hospice, or other provider. Use L02 when the complaint is about a separately arranged outside provider or service not being delivered, blocked, or unavailable.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ],
+      "authority_level": "official",
+      "where_to_show": ["nors_lookup_D01", "nors_lookup_L02"]
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B16-001",
+      "severity": "medium",
+      "issue": "Approved sources do not clearly anchor L02 services-from-an-outside-provider complaints to one specific federal CFR section or Appendix PP tag.",
+      "recommended_action": "Keep L02 grounded in NORS definitions and use CFR or Appendix PP context only when a more specific related facility responsibility is clearly supported by the facts. Do not force a federal bridge for every outside-provider complaint.",
+      "affected_codes": ["L02"],
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "flag_id": "HRF-B16-002",
+      "severity": "medium",
+      "issue": "Boundary between F04 medication problems, F12 chemical restraint, and A05 gross neglect still depends on intent, pattern, and harm.",
+      "recommended_action": "Use F04 for medication errors or delays, F12 when medication is used to control behavior or for convenience, and review A05 only when repeated medication failures create serious risk or actual harm.",
+      "affected_codes": ["F04", "F12", "A05"],
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf"
+      ]
+    },
+    {
+      "flag_id": "HRF-B16-003",
+      "severity": "medium",
+      "issue": "Provider-choice complaints can overlap with outside-provider or service-arrangement problems when the resident is both denied a chosen provider and not receiving the service.",
+      "recommended_action": "Ask whether the main complaint is denial of choice, failure to arrange the service, or both. Record multiple complaints when the resident identifies distinct problems under Part II one-complaint-per-code guidance.",
+      "affected_codes": ["D01", "L02"],
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf"
+      ]
+    }
+  ]
+}
