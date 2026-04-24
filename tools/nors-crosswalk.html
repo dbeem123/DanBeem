@@ -140,8 +140,36 @@
       border-color:rgba(56,189,248,0.2);
       background:rgba(56,189,248,0.075);
     }
-    .authority-group { display:grid; gap:10px; }
+    .authority-group {
+      display:grid;
+      gap:12px;
+      padding:12px 0;
+      border-top:1px solid var(--border);
+    }
+    .authority-group:first-child {
+      padding-top:0;
+      border-top:0;
+    }
+    .authority-group-header {
+      display:grid;
+      gap:8px;
+    }
     .authority-topic {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .authority-sections {
+      display:grid;
+      gap:12px;
+    }
+    .authority-section {
+      display:grid;
+      gap:6px;
+    }
+    .authority-section-title {
       color:var(--muted);
       font-size:12px;
       font-weight:800;
@@ -153,6 +181,32 @@
       border-top:1px solid var(--border);
     }
     .authority-item:first-child { padding-top:0; border-top:0; }
+    .authority-collapse {
+      border:1px solid var(--glass-strong);
+      border-radius:10px;
+      background:rgba(255,255,255,0.02);
+      overflow:hidden;
+    }
+    .authority-collapse > summary {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      list-style:none;
+      cursor:pointer;
+      padding:12px 14px;
+      font-weight:800;
+    }
+    .authority-collapse > summary::-webkit-details-marker { display:none; }
+    .authority-collapse-body {
+      padding:0 14px 12px;
+      border-top:1px solid var(--border);
+    }
+    .authority-collapse-count {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
     .meta-line { margin-top:4px; }
     .detail-stack {
       display:grid;
@@ -443,6 +497,79 @@
       return `<span class="code-chip ${className}">${escapeHtml(getCodeLabel(code))}</span>`;
     }
 
+    function getAuthoritySectionKey(authority) {
+      const level = authority.authorityLevel || '';
+      const category = authority.category || authority.label || '';
+      if (level === 'regulation') return 'primary';
+      if (level === 'interpretive_guidance' || /^F\d{3}$/i.test(authority.citation || '')) return 'appendix';
+      if (level === 'state_authority' || level === 'program_authority') return 'localProgram';
+      if (/Training/i.test(category)) return 'related';
+      return 'related';
+    }
+
+    function getAuthoritySections(authorities) {
+      const buckets = {
+        primary: [],
+        appendix: [],
+        related: [],
+        localProgram: []
+      };
+
+      authorities.forEach(authority => {
+        buckets[getAuthoritySectionKey(authority)].push(authority);
+      });
+
+      return [
+        { key: 'primary', label: 'Primary References', authorities: buckets.primary, collapsible: false },
+        { key: 'appendix', label: 'Appendix PP / F-tags', authorities: buckets.appendix, collapsible: false },
+        { key: 'related', label: 'Additional Context', authorities: buckets.related, collapsible: false },
+        { key: 'localProgram', label: 'CT / Program', authorities: buckets.localProgram, collapsible: true }
+      ].filter(section => section.authorities.length);
+    }
+
+    function renderAuthorityItem(authority) {
+      return `
+        <div class="authority-item">
+          <div class="result-title">
+            <strong>${renderAuthorityLink(authority)}</strong>
+            <span class="meta-chip">${escapeHtml(authority.category || authority.label || 'Reference')}</span>
+          </div>
+          <div class="meta-line">${escapeHtml(authority.title || 'Authority reference')}</div>
+          <div class="subtle meta-line">Authority ID: ${escapeHtml(authority.id || 'unknown')}</div>
+          ${authority.authorityLevel ? `<div class="subtle meta-line">Authority layer: ${escapeHtml(authority.authorityLevel.replace(/_/g, ' '))}</div>` : ''}
+          ${authority.guidanceNote ? `<div class="subtle meta-line">Guidance note: ${escapeHtml(authority.guidanceNote)}</div>` : ''}
+          ${authority.appendixPpPageStart ? `<div class="subtle meta-line">Appendix PP PDF page: ${escapeHtml(authority.appendixPpPageStart)}</div>` : ''}
+          ${renderAuthoritySourceLine(authority)}
+          <div class="subtle meta-line">Why selected: ${escapeHtml(authority.reason || 'Mapped to the identified topic.')}</div>
+        </div>
+      `;
+    }
+
+    function renderAuthoritySection(section) {
+      if (section.collapsible) {
+        return `
+          <details class="authority-collapse">
+            <summary>
+              <span>${escapeHtml(section.label)}</span>
+              <span class="authority-collapse-count">${section.authorities.length} reference${section.authorities.length === 1 ? '' : 's'}</span>
+            </summary>
+            <div class="authority-collapse-body">
+              ${section.authorities.map(renderAuthorityItem).join('')}
+            </div>
+          </details>
+        `;
+      }
+
+      return `
+        <div class="authority-section">
+          <div class="authority-section-title">${escapeHtml(section.label)}</div>
+          <div>
+            ${section.authorities.map(renderAuthorityItem).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     function getAuthorityLayerSummary(authorities) {
       const layers = new Set();
       authorities.forEach(authority => {
@@ -533,23 +660,15 @@
 
       output.innerHTML = authorityGroups.map(group => `
         <div class="authority-group">
-          <div class="authority-topic">${escapeHtml(formatTopicName(group.topic))}</div>
-          <div>
-            ${group.authorities.map(authority => `
-              <div class="authority-item">
-                <div class="result-title">
-                  <strong>${renderAuthorityLink(authority)}</strong>
-                  <span class="meta-chip">${escapeHtml(authority.category || authority.label || 'Reference')}</span>
-                </div>
-                <div class="meta-line">${escapeHtml(authority.title || 'Authority reference')}</div>
-                <div class="subtle meta-line">Authority ID: ${escapeHtml(authority.id || 'unknown')}</div>
-                ${authority.authorityLevel ? `<div class="subtle meta-line">Authority layer: ${escapeHtml(authority.authorityLevel.replace(/_/g, ' '))}</div>` : ''}
-                ${authority.guidanceNote ? `<div class="subtle meta-line">Guidance note: ${escapeHtml(authority.guidanceNote)}</div>` : ''}
-                ${authority.appendixPpPageStart ? `<div class="subtle meta-line">Appendix PP PDF page: ${escapeHtml(authority.appendixPpPageStart)}</div>` : ''}
-                ${renderAuthoritySourceLine(authority)}
-                <div class="subtle meta-line">Why selected: ${escapeHtml(authority.reason || 'Mapped to the identified topic.')}</div>
-              </div>
-            `).join('')}
+          <div class="authority-group-header">
+            <div class="authority-topic">${escapeHtml(formatTopicName(group.topic))}</div>
+            <div class="result-meta">
+              ${(group.norsCodes || []).map(code => renderCodeChip(code, 'accent')).join('')}
+              ${(group.keywords || []).slice(0, 3).map(keyword => `<span class="meta-chip">keyword: ${escapeHtml(keyword)}</span>`).join('')}
+            </div>
+          </div>
+          <div class="authority-sections">
+            ${getAuthoritySections(group.authorities).map(renderAuthoritySection).join('')}
           </div>
         </div>
       `).join('') + `

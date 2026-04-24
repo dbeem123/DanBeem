@@ -1394,6 +1394,18 @@
     return authority.authority_level || authority.authorityLevel || '';
   }
 
+  function getAuthorityDisplayPriority(authority = {}) {
+    const level = getAuthorityLevel(authority);
+    const category = authority.category || authority.label || '';
+
+    if (level === 'regulation') return 5;
+    if (level === 'interpretive_guidance') return 4;
+    if (level === 'state_authority') return 3;
+    if (/Training/i.test(category)) return 2;
+    if (level === 'program_authority') return 0;
+    return 1;
+  }
+
   function getAuthorityGuidanceNote(authority = {}) {
     if (!isAppendixPpAuthority(authority)) return '';
     return 'CMS Appendix PP is interpretive survey guidance tied to federal nursing facility requirements. It supports review and context; this tool does not determine violations.';
@@ -1665,6 +1677,7 @@
       rank: authority ? 0 : -1,
       missing: !authority,
       authorityLevel: authority ? getAuthorityLevel(authority) : '',
+      displayPriority: authority ? getAuthorityDisplayPriority(authority) : -1,
       guidanceNote: authority ? getAuthorityGuidanceNote(authority) : '',
       humanReviewNote: authority?.human_review_note || authority?.humanReviewNote || '',
       officialSourceUrls: authority?.official_source_urls || authority?.officialSourceUrls || [],
@@ -1757,7 +1770,11 @@
         authorities.push(normalized);
       });
 
-      authorities.sort((a, b) => b.rank - a.rank || a.citation.localeCompare(b.citation));
+      authorities.sort((a, b) =>
+        (b.displayPriority || 0) - (a.displayPriority || 0) ||
+        b.rank - a.rank ||
+        a.citation.localeCompare(b.citation)
+      );
       if (authorities.length) {
         groups.push({
           topic: match.topic,
