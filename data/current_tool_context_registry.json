@@ -1,0 +1,421 @@
+{
+  "meta": {
+    "version": "1.0",
+    "generated_on": "2026-04-24",
+    "purpose": "Canonical audit and handoff registry for the current DanBeem tool surface, including all local HTML pages and the external context URLs used to build or explain the NORS crosswalk, drafting assistant, and responsible-use workflow.",
+    "notes": [
+      "Use this file as the single source of truth when sharing the current framework with another AI system or developer.",
+      "All local HTML pages in the repository are listed here, even when they are not part of the primary NORS workflow.",
+      "External authority/context documents are not stored as local HTML files; they are captured here so the handoff can remain complete."
+    ]
+  },
+  "primary_workflow_html_paths": [
+    "index.html",
+    "tools/drafting-assistant.html",
+    "tools/nors-crosswalk.html",
+    "tools/responsible-use.html"
+  ],
+  "secondary_workflow_html_paths": [
+    "tools/outreach-email.html"
+  ],
+  "adjacent_or_separate_html_paths": [
+    "dashboards/impact-2024.html"
+  ],
+  "html_pages": [
+    {
+      "path": "index.html",
+      "title": "DanBeem Ombudsman Tools and Resource Lab (Test Environment)",
+      "status": "active_primary",
+      "role": "Primary landing page for the current tool surface.",
+      "linked_from": [],
+      "links_to": [
+        "dashboards/impact-2024.html",
+        "tools/drafting-assistant.html",
+        "tools/nors-crosswalk.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [],
+      "notes": "This is the main entry point. It does not perform live AI calls."
+    },
+    {
+      "path": "tools/drafting-assistant.html",
+      "title": "Drafting & Reference Assistant",
+      "status": "active_primary",
+      "role": "Case-notes checklist and drafting workflow with inline NORS topic/reference support.",
+      "linked_from": [
+        "index.html",
+        "tools/nors-crosswalk.html",
+        "tools/responsible-use.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nors-crosswalk.html",
+        "tools/responsible-use.html",
+        "tools/outreach-email.html"
+      ],
+      "data_dependencies": [
+        "data/case_note_templates.json",
+        "data/case_note_validation_rules.json",
+        "Assets/crosswalk.js shared data loader and all crosswalk-linked JSON data"
+      ],
+      "notes": "Current drafting MVP. Closed-loop, local-data driven, no live model calls."
+    },
+    {
+      "path": "tools/nors-crosswalk.html",
+      "title": "NORS Crosswalk Tool",
+      "status": "active_primary",
+      "role": "Primary NORS code and keyword-to-authority crosswalk.",
+      "linked_from": [
+        "index.html",
+        "tools/drafting-assistant.html",
+        "tools/responsible-use.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/drafting-assistant.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "Assets/crosswalk.js shared data loader and all crosswalk-linked JSON data",
+        "Assets/nors-help.js"
+      ],
+      "notes": "Current crosswalk MVP. Closed-loop, local-data driven, no live model calls."
+    },
+    {
+      "path": "tools/responsible-use.html",
+      "title": "Responsible Use & Sources",
+      "status": "active_primary",
+      "role": "Transparency page for source registry, source pack, workflow guardrails, glossary, and human review flags.",
+      "linked_from": [
+        "index.html",
+        "tools/drafting-assistant.html",
+        "tools/nors-crosswalk.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/drafting-assistant.html",
+        "tools/nors-crosswalk.html"
+      ],
+      "data_dependencies": [
+        "data/source_registry.json",
+        "data/nors_source_pack_lock.json",
+        "data/nors_knowledge_base_batch4.json",
+        "data/nors_knowledge_base_batch5.json",
+        "data/nors_knowledge_base_batch6.json",
+        "data/nors_knowledge_base_batch7.json",
+        "data/nors_knowledge_base_batch8.json",
+        "data/nors_knowledge_base_batch9.json",
+        "data/nors_knowledge_base_batch10.json",
+        "data/nors_knowledge_base_batch11.json",
+        "data/nors_knowledge_base_batch14.json",
+        "data/nors_knowledge_base_batch15.json",
+        "data/nors_knowledge_base_batch16.json"
+      ],
+      "notes": "Primary transparency/audit page for the current NORS workflow."
+    },
+    {
+      "path": "tools/outreach-email.html",
+      "title": "Outreach Email Builder",
+      "status": "active_secondary",
+      "role": "Linked from the drafting assistant as a related writing utility.",
+      "linked_from": [
+        "tools/drafting-assistant.html"
+      ],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [
+        "data/email_templates.json"
+      ],
+      "notes": "Part of the writing/support tool cluster, but not part of the core NORS crosswalk flow."
+    },
+    {
+      "path": "dashboards/impact-2024.html",
+      "title": "Impact Dashboard - FFY 2024",
+      "status": "adjacent_separate",
+      "role": "Separate dashboard linked from the landing page.",
+      "linked_from": [
+        "index.html",
+        "multiple standalone tools"
+      ],
+      "links_to": [
+        "index.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Uses external libraries and annual-report links. Not part of the NORS crosswalk logic."
+    },
+    {
+      "path": "tools/drafting-reference-assistant.html",
+      "title": "Drafting & Reference Assistant",
+      "status": "repo_present_not_primary",
+      "role": "Earlier/alternate drafting prototype.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [
+        "data/case_note_templates.json",
+        "data/case_note_validation_rules.json"
+      ],
+      "notes": "Present in repo but not linked from the current landing page."
+    },
+    {
+      "path": "tools/case-timeline.html",
+      "title": "Case Timeline Builder",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/complaint-priority.html",
+      "title": "Complaint Priority Matrix",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/contact-card-builder.html",
+      "title": "Contact Card Builder",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/facility-scorecard.html",
+      "title": "Facility Scorecard",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/meeting-minutes.html",
+      "title": "Meeting Minutes Generator",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/quick-intake.html",
+      "title": "Quick Intake Triage",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/resident-checkin.html",
+      "title": "Resident Check-In",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/text-to-speech.html",
+      "title": "Text to Speech Tool",
+      "status": "repo_present_not_primary",
+      "role": "Standalone utility page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/visit-planner.html",
+      "title": "Visit Planner",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    },
+    {
+      "path": "tools/volunteer-shift.html",
+      "title": "Volunteer Shift Coverage",
+      "status": "repo_present_not_primary",
+      "role": "Standalone tool page present in repo.",
+      "linked_from": [],
+      "links_to": [
+        "index.html",
+        "dashboards/impact-2024.html"
+      ],
+      "data_dependencies": [],
+      "notes": "Not linked from the current primary workflow."
+    }
+  ],
+  "shared_context_data_files": [
+    "nors_hierarchy.json",
+    "keyword_map.json",
+    "nors_to_topic.json",
+    "topic_to_authority.json",
+    "crosswalk_catalog.json",
+    "authority_index.json",
+    "retrieval_rules.json",
+    "data/nors_complaint_code_guidance.json",
+    "data/nors_resource_catalog.json",
+    "data/source_registry.json",
+    "data/nors_source_pack_lock.json",
+    "data/appendix_pp_tag_pages.json",
+    "data/nors_knowledge_base_batch1.json",
+    "data/nors_knowledge_base_batch2.json",
+    "data/nors_knowledge_base_batch3.json",
+    "data/nors_knowledge_base_batch4.json",
+    "data/nors_knowledge_base_batch5.json",
+    "data/nors_knowledge_base_batch6.json",
+    "data/nors_knowledge_base_batch7.json",
+    "data/nors_knowledge_base_batch8.json",
+    "data/nors_knowledge_base_batch9.json",
+    "data/nors_knowledge_base_batch10.json",
+    "data/nors_knowledge_base_batch11.json",
+    "data/nors_knowledge_base_batch12.json",
+    "data/nors_knowledge_base_batch13.json",
+    "data/nors_knowledge_base_batch14.json",
+    "data/nors_knowledge_base_batch15.json",
+    "data/nors_knowledge_base_batch16.json"
+  ],
+  "context_url_groups": [
+    {
+      "group_id": "core_nors_coding_authority",
+      "title": "Core NORS Coding Authority",
+      "urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%201%20Case%20Level%20%2010-31-2024.pdf",
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%203%20Program%20Information%2010-31-2024.pdf"
+      ]
+    },
+    {
+      "group_id": "nors_hub_and_training",
+      "title": "NORS Hub And Training Pages",
+      "urls": [
+        "https://ltcombudsman.org/omb_support/nors",
+        "https://ltcombudsman.org/omb_support/nors/nors-faqs",
+        "https://ltcombudsman.org/omb_support/nors/revised-nors-data-collection",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_1_FINAL_for_website.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-I-quiz.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-I-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Part_II_Training_PPT.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/Part_II_Beyond_Basics_Quiz_Answers_2021.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-beyond-basics-quiz-answers.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-III-quiz-answers-verification-disposition-referral-and-closing-cases.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_IV_Basic_Principles.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://ltcombudsman.org/uploads/files/support/NORS_Course_Webinar_July_2025.pdf",
+        "https://ltcombudsman.org/uploads/files/support/office-hour-july-2024.pdf"
+      ]
+    },
+    {
+      "group_id": "initial_certification_curriculum",
+      "title": "Initial Certification Curriculum And Workflow Context",
+      "urls": [
+        "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+        "https://ltcombudsman.org/omb_support/training",
+        "https://ltcombudsman.org/uploads/files/support/curriculum-overview.pdf",
+        "https://consumervoice.talentlms.com"
+      ]
+    },
+    {
+      "group_id": "federal_regulatory_context",
+      "title": "Federal Regulatory Context",
+      "urls": [
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.12",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+        "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf"
+      ]
+    },
+    {
+      "group_id": "ombudsman_program_authority",
+      "title": "Ombudsman Program Authority",
+      "urls": [
+        "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324"
+      ]
+    },
+    {
+      "group_id": "connecticut_overlay_and_program",
+      "title": "Connecticut Overlay And Program Resources",
+      "urls": [
+        "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+        "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+        "https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/",
+        "https://portal.ct.gov/ltcop",
+        "https://portal.ct.gov/ltcop/regulations",
+        "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility"
+      ]
+    },
+    {
+      "group_id": "connecticut_ai_governance",
+      "title": "Connecticut AI Governance Context",
+      "urls": [
+        "https://portal.ct.gov/-/media/opm/fin-general/policies/ct-responsible-ai-policy-framework-final-02012024.pdf",
+        "https://portal.ct.gov/das/knowledge-base/articles/bits/ai-inventory",
+        "https://portal.ct.gov/das/knowledge-base/articles/bits/ai-board-and-governance",
+        "https://portal.ct.gov/das/knowledge-base/articles/bits/considering-ai-for-your-agency-start-here"
+      ]
+    },
+    {
+      "group_id": "adjacent_external_links_in_tool_surface",
+      "title": "Adjacent External Links Used By Other HTML Pages In The Current Repo Surface",
+      "urls": [
+        "https://ltcop.org/annual-reports/#ffy-2024",
+        "https://ltcop.org/annual-reports/#ffy-2023",
+        "https://ltcop.org/annual-reports/#ffy-2022",
+        "https://ltcop.org/annual-reports/#ffy-2021",
+        "https://ltcop.org/annual-reports/#ffy-2020",
+        "https://ltcop.org/annual-reports/#ffy-2019"
+      ]
+    }
+  ]
+}

@@ -1,11 +1,10 @@
 # DanBeem Ombudsman Tools and Resource Lab
 
-Professional landing page and tools for the DanBeem Ombudsman team. Includes dashboards, facility lookup, and chain analysis.
+Static ombudsman workflow tools focused on drafting support, NORS crosswalk reference lookup, responsible-use transparency, and related internal utilities.
 
 ## Setup & Running
 
-### 1. **Frontend (HTTP Server)**
-Start the static file server:
+Start a simple local static file server:
 
 ```bash
 # Windows (PowerShell)
@@ -15,126 +14,78 @@ python -m http.server 8000
 npx http-server -p 8000
 ```
 
-Then open: **http://localhost:8000**
+Then open:
 
-### 2. **Backend (CMS API Proxy)**
-The Chain Snapshot tool requires a backend proxy to fetch CMS data without CORS issues.
-
-Install dependencies:
-```bash
-npm install
-```
-
-Start the proxy server:
-```bash
-npm start
-```
-
-This runs on **http://localhost:3000** and proxies requests to CMS APIs.
-
-### 3. **Access the Tool**
-
-Once both servers are running:
 - **Landing Page:** http://localhost:8000/index.html
+- **Drafting Assistant:** http://localhost:8000/tools/drafting-assistant.html
+- **NORS Crosswalk:** http://localhost:8000/tools/nors-crosswalk.html
+- **Responsible Use:** http://localhost:8000/tools/responsible-use.html
 - **Impact Dashboard:** http://localhost:8000/dashboards/impact-2024.html
-  - Interactive charts
-  - Download PPTX presentation
-- **Chain Snapshot:** http://localhost:8000/tools/chain-snapshot.html
-  - Search facilities by name/city/state
-  - Enter CCN directly
-  - View facility details
-  - See recent deficiencies (F-tags)
 
-## Architecture
+## Current Architecture
 
-- **Frontend:** Static HTML/CSS/JS (no build step)
-- **Backend:** Express.js proxy (fetches CMS data server-side)
-- **Theme:** Dark glass UI with cyan/purple gradients
-- **APIs:** CMS Provider of Services, Enforcement & Inspections data
+- **Frontend:** Static HTML/CSS/JS
+- **Data model:** Local JSON files, especially under `data/`
+- **Crosswalk logic:** Shared loader and matching logic in `Assets/crosswalk.js`
+- **Theme:** Dark glass UI with accessible focus states and semantic structure
 
-## Features
+## Current Primary Workflow
 
 ### Landing Page
-- Professional hero section
-- Navigation to tools and dashboards
-- Test environment disclaimer
 
-### Impact Dashboard (FFY 2023 vs 2024)
-- KPI cards: Total cases, facilities, staffing, resolution rate
-- Bar chart comparing case volumes
-- Download presentation (PPTX export via PptxGenJS)
+- entry point for the featured tools
+- links to the current NORS/drafting workflow
 
-### Chain Snapshot Tool
-- **Two search modes:**
-  - Direct CCN lookup (10-digit facility code)
-  - Search by name, city, or state
-- **Facility Summary:** Name, address, phone, beds, type
-- **Deficiencies:** Recent F-tags with violation descriptions
-- **Ownership Signals:** Placeholder for chain affiliation (configurable)
+### Drafting & Reference Assistant
 
-## Frontend Styling
+- structured case-note drafting support
+- checklist review and validation
+- inline topic/reference support driven by local data
 
-All styles defined in `Assets/shared.css`:
-- Dark background (#07101a)
-- Glass-morphism panels
-- Responsive layout (mobile-first)
-- Accessibility: focus states, color contrast, semantic HTML
+### NORS Crosswalk Tool
 
-## Backend API Endpoints
+- NORS code lookup
+- keyword / concern lookup
+- authority trail grouped by topic
+- review support, trace output, and human-review flags
 
-Proxy server provides:
+### Responsible Use & Sources
 
-- `GET /api/health` — Health check
-- `GET /api/search-facility?name=...&city=...&state=...` — Search facilities
-- `GET /api/facility/:ccn` — Fetch facility by CCN
-- `GET /api/deficiencies/:ccn` — Fetch deficiencies for facility
+- source registry
+- source-pack transparency
+- workflow guardrails
+- glossary and review flags
 
-**Example:**
-```bash
-curl http://localhost:3000/api/search-facility?name=Sunrise&state=IL
-```
+### Impact Dashboard
 
-## Fallback Behavior
+- annual-review dashboard and report links
 
-If the backend is not running or CMS APIs are unavailable, the frontend gracefully falls back to demo data. This allows the tool to remain functional for UI testing.
+## Data-Driven Source Of Truth
 
-## Deployment
+Per repo rules, use JSON files in `/data` as the source of truth whenever a normalized version exists.
 
-### GitHub Pages (Frontend only)
-1. Enable Pages in repository settings
-2. Site: https://dbeem123.github.io/DanBeem/
+Important files include:
 
-⚠️ **Note:** Chain Snapshot tool requires backend to run; demo data only without it.
+- `data/nors_source_pack_lock.json`
+- `data/source_registry.json`
+- `data/nors_resource_catalog.json`
+- `data/case_note_templates.json`
+- `data/case_note_validation_rules.json`
+- `data/current_tool_context_registry.json`
 
-### Production Deployment
-- Deploy Node.js backend to Heroku, AWS Lambda, or your own server
-- Update `API_BASE` in `tools/chain-snapshot.html` to production backend URL
-- Frontend can remain on GitHub Pages
+## Deployment Notes
 
-## File Structure
-
-```
-DanBeem/
-├── index.html                 # Landing page
-├── Assets/
-│   ├── shared.css            # Theme & components
-│   └── shared.js             # Common utilities
-├── dashboards/
-│   └── impact-2024.html      # Impact Dashboard
-├── tools/
-│   └── chain-snapshot.html   # Chain Snapshot Tool
-├── server.js                  # Node.js CMS proxy backend
-├── package.json              # Backend dependencies
-└── README.md                 # This file
-```
+- the current NORS crosswalk and drafting workflow are closed-loop and local-data driven
+- there is no required backend for the current primary workflow
+- production hosting can remain a static-site deployment as long as the app stays in this architecture
 
 ## Notes
 
-- **No sensitive data stored** — all queries are on-demand
-- **CORS-safe** — backend proxy prevents browser-level CORS errors
-- **Lightweight** — minimal dependencies, fast load times
-- **Test environment flag** — clear disclaimer on all pages
+- **No live AI dependency required for the current NORS/drafting flow**
+- **Informational only** guardrails are built into the workflow
+- **Human review remains required**
+- **Source transparency is part of the product**
 
 ## Contact & Support
 
-For issues or questions, refer to the repository issues or contact the DanBeem team.
+For issues or questions, use the repository history and source-of-truth data files as the starting point.
