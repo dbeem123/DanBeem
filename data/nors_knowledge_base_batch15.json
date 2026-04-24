@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "batch": "15",
+    "purpose": "Authority repair integration for room change, discharge, dignity, and rights-preference context after source-locked QA",
+    "date_completed": "2026-04-23",
+    "normalization_note": "This batch adds conservative CFR anchors and review guardrails for C03, C04, D03, and D09 without displacing stronger existing direct Appendix PP mappings already verified in the app."
+  },
+  "authority_rows": [
+    {
+      "nors_code": "C03",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.15(c)",
+      "authority_label": "Transfer and discharge requirements",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.15",
+      "authority_section_or_tag": "§483.15(c)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "C03 discharge or eviction complaints align with the facility-initiated transfer and discharge protections in §483.15(c), including notice, reasons, and appeal-related safeguards.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.15(c)",
+      "human_review_note": "Use C03 when the resident is being required to leave the facility or is denied return after hospitalization. NORS Table 2 still controls the code choice.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "C04",
+      "authority_type": "federal_reg_related",
+      "authority_citation": "42 CFR §483.10(e)",
+      "authority_label": "Respect and dignity / room and roommate rights context",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "authority_section_or_tag": "§483.10(e)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "C04 room issues relate broadly to resident rights around room and roommate choice, notice of room changes, and respect for preferences while the resident remains in the facility.",
+      "mapping_confidence": "related",
+      "source_quote_heading_only": "42 CFR §483.10(e)",
+      "human_review_note": "This is a contextual authority bridge, not a single controlling tag. Keep C04 selection grounded in NORS definitions and use tag-level mappings only where the existing catalog already has direct support.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "D03",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.10(a)",
+      "authority_label": "Dignity",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "authority_section_or_tag": "§483.10(a)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "D03 dignity and respect complaints align with the resident's right to be treated with dignity under §483.10(a).",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.10(a)",
+      "human_review_note": "Use D03 alongside C03 or C04 when the complaint is also about how staff handled the move or discharge, not instead of the C-code.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    },
+    {
+      "nors_code": "D09",
+      "authority_type": "federal_reg_direct",
+      "authority_citation": "42 CFR §483.10(f)",
+      "authority_label": "Self-determination",
+      "authority_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10",
+      "authority_section_or_tag": "§483.10(f)",
+      "appendix_pp_pdf_url": null,
+      "appendix_pp_pdf_page_start": null,
+      "appendix_pp_heading_exact": null,
+      "mapping_rationale_short": "D09 other rights and preferences complaints align with the self-determination and choice provisions in §483.10(f), especially when loss of choice in living arrangements is a distinct concern.",
+      "mapping_confidence": "direct",
+      "source_quote_heading_only": "42 CFR §483.10(f)",
+      "human_review_note": "Use D09 in addition to C03 or C04 only when the resident identifies loss of choice or broader rights concerns as part of the complaint.",
+      "official_source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    }
+  ],
+  "source_conflict_rows": [],
+  "tooltip_rows": [
+    {
+      "tooltip_id": "TT-B15-001",
+      "label": "Room Move vs Discharge",
+      "short_help": "A room move inside the facility is usually C04; leaving the facility is C03.",
+      "details": "Use C04 for room assignment, roommate, or intra-facility room-change complaints when the resident stays in the facility. Use C03 when the resident is told to leave the facility, transferred out without proper protections, or denied return after hospitalization.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ],
+      "authority_level": "official",
+      "where_to_show": ["nors_lookup_C03", "nors_lookup_C04"]
+    },
+    {
+      "tooltip_id": "TT-B15-002",
+      "label": "Related Rights Complaints",
+      "short_help": "Dignity or loss-of-choice concerns may be separate complaints in the same case.",
+      "details": "When a room move or discharge is handled disrespectfully, D03 may be a separate complaint. When the resident frames the problem as loss of choice, privacy, or preferences, D09 may also be relevant in addition to the main C-code.",
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf"
+      ],
+      "authority_level": "official",
+      "where_to_show": ["nors_lookup_C03", "nors_lookup_C04", "nors_lookup_D03", "nors_lookup_D09"]
+    }
+  ],
+  "human_review_flags": [
+    {
+      "flag_id": "HRF-B15-001",
+      "severity": "medium",
+      "issue": "The relationship between C04 room issues and §483.10(e) resident rights is broad and contextual rather than based on a single controlling Appendix PP cross-reference.",
+      "recommended_action": "Keep C04 grounded in NORS Table 2 and use room/roommate federal or Appendix PP references as contextual support only. Avoid implying that one F-tag conclusively controls all room-change complaints unless a specific direct mapping is already confirmed in the catalog.",
+      "affected_codes": ["C04"],
+      "source_urls": [
+        "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-codes-and-definitions.pdf",
+        "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B"
+      ]
+    }
+  ]
+}
