@@ -2,74 +2,96 @@
   'use strict';
 
   /**
-   * @typedef {Object} StaffingMetrics
-   * @property {number} totalNurseHprd
-   * @property {number} rnHprd
-   * @property {number} lpnLvnHprd
-   * @property {number} nurseAideHprd
-   * @property {number} contractStaffPct
+   * @typedef {Object} StaffingSource
+   * @property {string} source_dataset_name
+   * @property {string} source_release
+   * @property {string} freshness_date
    */
 
   /**
-   * @typedef {Object} StaffingQuarter
+   * @typedef {Object} FacilityDirectoryRow
+   * @property {string} facility_id
+   * @property {string} ccn
+   * @property {string} provider_name
+   * @property {string} city
+   * @property {string} state
+   */
+
+  /**
+   * @typedef {Object} QuarterlyStaffingRow
+   * @property {string} ccn
    * @property {string} quarter
-   * @property {number} totalNurseHprd
-   * @property {number} rnHprd
-   * @property {number} lpnLvnHprd
-   * @property {number} nurseAideHprd
-   * @property {number} contractStaffPct
-   * @property {number} averageCensus
+   * @property {string} quarter_label
+   * @property {number|null} average_resident_census
+   * @property {number|null} resident_days
+   * @property {{total_nurse_hprd:number|null,rn_hprd:number|null,lpn_lvn_hprd:number|null,nurse_aide_hprd:number|null,contract_staff_pct:number|null}} metrics
+   * @property {{case_mix_total_nurse_hprd:number|null,case_mix_benchmark_available:boolean}=} benchmarks
+   * @property {{shows:string,suggests:string,cannot_prove:string}=} interpretation
+   * @property {{missing_fields:string[],notes:string[]}=} data_quality
    */
 
   /**
-   * @typedef {Object} StaffingFacility
+   * @typedef {Object} FacilityViewModel
    * @property {string} id
    * @property {string} ccn
    * @property {string} name
    * @property {string} city
    * @property {string} state
-   * @property {string} quarterReviewed
-   * @property {number=} averageCensus
-   * @property {number=} caseMixBenchmarkHprd
-   * @property {StaffingMetrics} metrics
-   * @property {StaffingQuarter[]} quarters
-   * @property {{shows:string,suggests:string,cannotProve:string}} interpretation
+   * @property {string=} address
+   * @property {number|null=} certifiedBeds
+   * @property {string=} ownershipType
+   * @property {boolean=} providerSourceMatched
+   * @property {boolean=} enrollmentSourceMatched
+   * @property {string=} enrollmentOrganizationName
+   * @property {string=} enrollmentDoingBusinessAsName
+   * @property {string=} enrollmentProprietaryNonprofit
+   * @property {string=} enrollmentOrganizationTypeStructure
+   * @property {string=} affiliationEntityName
+   * @property {QuarterlyStaffingRow|null} currentRow
+   * @property {QuarterlyStaffingRow[]} historyRows
    */
 
   const metricDefinitions = [
     {
-      key: 'totalNurseHprd',
+      key: 'total_nurse_hprd',
       label: 'Total nurse HPRD',
       format: formatHprd,
-      help: 'Reported RN, LPN/LVN, and nurse aide hours per resident day.'
+      help: 'Total reported RN, LPN/LVN, and nurse aide hours divided by resident days for the quarter.'
     },
     {
-      key: 'rnHprd',
+      key: 'rn_hprd',
       label: 'RN HPRD',
       format: formatHprd,
-      help: 'Registered nurse hours per resident day.'
+      help: 'Registered nurse hours per resident day. RN time may include direct care and reported RN administrative categories.'
     },
     {
-      key: 'lpnLvnHprd',
+      key: 'lpn_lvn_hprd',
       label: 'LPN/LVN HPRD',
       format: formatHprd,
       help: 'Licensed practical or vocational nurse hours per resident day.'
     },
     {
-      key: 'nurseAideHprd',
+      key: 'nurse_aide_hprd',
       label: 'Nurse aide HPRD',
       format: formatHprd,
-      help: 'Nurse aide hours per resident day.'
+      help: 'Certified nurse aide, aide trainee, and medication aide hours per resident day.'
     },
     {
-      key: 'contractStaffPct',
+      key: 'contract_staff_pct',
       label: 'Contract staff %',
       format: formatPercent,
-      help: 'Share of reported nursing hours supplied by contract staff.'
+      help: 'Percent of reported nursing hours supplied by contract staff. This can suggest reliance on agency or temporary staffing, but it does not measure continuity by itself.'
     }
   ];
 
+  let dataset = null;
+  /** @type {FacilityViewModel[]} */
   let facilities = [];
+  let filteredFacilities = [];
+  const dataPaths = [
+    '../data/nursing_home_staffing_ct.json',
+    '../data/nursing_home_staffing_mock.json'
+  ];
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -80,69 +102,360 @@
       .replace(/'/g, '&#039;');
   }
 
+  function isUsableNumber(value) {
+    return value !== null && value !== '' && Number.isFinite(Number(value));
+  }
+
   function formatHprd(value) {
-    return Number.isFinite(Number(value)) ? Number(value).toFixed(2) : 'Not available';
+    return isUsableNumber(value) ? Number(value).toFixed(2) : 'Not available';
   }
 
   function formatPercent(value) {
-    return Number.isFinite(Number(value)) ? `${Number(value).toFixed(1)}%` : 'Not available';
+    return isUsableNumber(value) ? `${Number(value).toFixed(1)}%` : 'Not available';
   }
 
   function formatCount(value) {
-    return Number.isFinite(Number(value)) ? Number(value).toLocaleString() : 'Not available';
+    return isUsableNumber(value) ? Number(value).toLocaleString() : 'Not available';
+  }
+
+  function formatSignedHprd(value) {
+    if (!isUsableNumber(value)) return 'not available';
+    const number = Number(value);
+    const sign = number > 0 ? '+' : '';
+    return `${sign}${number.toFixed(2)}`;
+  }
+
+  function formatCtComparisonStatus(isBelow, minimum) {
+    if (isBelow === true) return `Below CT ${Number(minimum).toFixed(2)} comparison point`;
+    if (isBelow === false) return `At or above CT ${Number(minimum).toFixed(2)} comparison point`;
+    return 'CT comparison not available';
+  }
+
+  function byQuarter(a, b) {
+    return String(a.quarter || '').localeCompare(String(b.quarter || ''));
+  }
+
+  function getDatasetQuarters() {
+    const rows = Array.isArray(dataset?.facility_quarterly_staffing) ? dataset.facility_quarterly_staffing : [];
+    const byKey = new Map();
+    rows.forEach(row => {
+      if (!row.quarter) return;
+      byKey.set(row.quarter, row.quarter_label || row.quarter);
+    });
+    return [...byKey.entries()]
+      .sort((a, b) => String(a[0]).localeCompare(String(b[0])))
+      .map(([quarter, label]) => ({ quarter, label }));
   }
 
   function getFacilityById(id) {
     return facilities.find(facility => facility.id === id) || facilities[0];
   }
 
-  function populateFacilitySelect() {
+  function getFacilityIdFromUrl() {
+    const params = new URLSearchParams(global.location.search);
+    const ccn = String(params.get('ccn') || '').trim();
+    const facilityId = String(params.get('facility') || '').trim();
+    if (ccn) {
+      const matchedByCcn = facilities.find(facility => facility.ccn === ccn);
+      if (matchedByCcn) return matchedByCcn.id;
+    }
+    if (facilityId && facilities.some(facility => facility.id === facilityId)) {
+      return facilityId;
+    }
+    return facilities[0]?.id || '';
+  }
+
+  function getCurrentRow(rows) {
+    const reportingQuarter = dataset?.reporting_period?.quarter;
+    return rows.find(row => row.quarter === reportingQuarter) || rows[rows.length - 1] || null;
+  }
+
+  function normalizeDataset(data) {
+    const directoryRows = Array.isArray(data.facilities) ? data.facilities : [];
+    const quarterlyRows = Array.isArray(data.facility_quarterly_staffing) ? data.facility_quarterly_staffing : [];
+
+    dataset = data;
+    facilities = directoryRows.map(facility => {
+      const historyRows = quarterlyRows
+        .filter(row => row.ccn === facility.ccn)
+        .sort(byQuarter);
+      return {
+        id: facility.facility_id || facility.ccn,
+        ccn: facility.ccn,
+        name: facility.provider_name || 'Unnamed facility',
+        city: facility.city || 'City unavailable',
+        state: facility.state || 'State unavailable',
+        address: facility.address || '',
+        certifiedBeds: facility.certified_beds,
+        ownershipType: facility.ownership_type || '',
+        providerSourceMatched: Boolean(facility.provider_source_matched),
+        enrollmentSourceMatched: Boolean(facility.enrollment_source_matched),
+        enrollmentOrganizationName: facility.enrollment_organization_name || '',
+        enrollmentDoingBusinessAsName: facility.enrollment_doing_business_as_name || '',
+        enrollmentProprietaryNonprofit: facility.enrollment_proprietary_nonprofit || '',
+        enrollmentOrganizationTypeStructure: facility.enrollment_organization_type_structure || '',
+        affiliationEntityName: facility.affiliation_entity_name || '',
+        currentRow: getCurrentRow(historyRows),
+        historyRows
+      };
+    });
+    filteredFacilities = facilities.slice();
+  }
+
+  function getFacilityOptionLabel(facility) {
+    return `${facility.name} - ${facility.city}, ${facility.state} (${facility.ccn})`;
+  }
+
+  function populateFacilitySelect(list = filteredFacilities, selectedId = null) {
     const select = document.getElementById('facility-select');
-    select.innerHTML = facilities.map(facility => (
-      `<option value="${escapeHtml(facility.id)}">${escapeHtml(facility.name)} - ${escapeHtml(facility.city)}, ${escapeHtml(facility.state)}</option>`
+    if (!list.length) {
+      select.innerHTML = '<option value="">No facilities match this search</option>';
+      select.disabled = true;
+      updateFilterStatus(0);
+      return;
+    }
+    select.disabled = false;
+    select.innerHTML = list.map(facility => (
+      `<option value="${escapeHtml(facility.id)}">${escapeHtml(getFacilityOptionLabel(facility))}</option>`
     )).join('');
+    if (selectedId && list.some(facility => facility.id === selectedId)) {
+      select.value = selectedId;
+    }
+    updateFilterStatus(list.length);
+  }
+
+  function updateFilterStatus(count) {
+    const status = document.getElementById('facility-filter-status');
+    if (!status) return;
+    status.textContent = `${count} of ${facilities.length} facilities shown.`;
+  }
+
+  function filterFacilities() {
+    const filterInput = document.getElementById('facility-filter');
+    const query = String(filterInput.value || '').trim().toLowerCase();
+    const currentId = document.getElementById('facility-select').value;
+    filteredFacilities = facilities.filter(facility => {
+      const haystack = `${facility.name} ${facility.city} ${facility.state} ${facility.ccn}`.toLowerCase();
+      return haystack.includes(query);
+    });
+    populateFacilitySelect(filteredFacilities, currentId);
+    if (filteredFacilities.length) {
+      const next = getFacilityById(document.getElementById('facility-select').value) || filteredFacilities[0];
+      renderFacility(next.id);
+    }
+  }
+
+  function renderSourceStatus() {
+    const status = document.getElementById('staffing-load-status');
+    const sources = Array.isArray(dataset?.sources) ? dataset.sources : [];
+    const sourceNames = sources.map(source => source.source_dataset_name).filter(Boolean);
+    const freshnessDates = sources.map(source => source.freshness_date).filter(Boolean);
+    const reportingLabel = dataset?.reporting_period?.label || dataset?.reporting_period?.quarter || 'selected quarter';
+    const freshness = freshnessDates.length ? ` Freshness date: ${freshnessDates[0]}.` : '';
+
+    status.textContent = `${sourceNames.length ? sourceNames.join(' + ') : 'Staffing data'} loaded for Connecticut ${reportingLabel}.${freshness}`;
+    status.className = 'notice';
+  }
+
+  function renderDatasetSummary() {
+    const output = document.getElementById('dataset-summary');
+    if (!output) return;
+    const reportingLabel = dataset?.reporting_period?.label || 'Current quarter';
+    const quality = dataset?.data_quality || {};
+    const source = Array.isArray(dataset?.sources) ? dataset.sources[0] : null;
+    output.innerHTML = `
+      <div class="dataset-fact">
+        <span class="summary-label">State</span>
+        <strong>Connecticut</strong>
+      </div>
+      <div class="dataset-fact">
+        <span class="summary-label">Quarter</span>
+        <strong>${escapeHtml(reportingLabel)}</strong>
+      </div>
+      <div class="dataset-fact">
+        <span class="summary-label">Facilities</span>
+        <strong>${formatCount(quality.facility_count || facilities.length)}</strong>
+      </div>
+      <div class="dataset-fact">
+        <span class="summary-label">Source</span>
+        <strong>CMS PBJ</strong>
+        <div class="microcopy">${escapeHtml(source?.source_release || 'Static export')}</div>
+      </div>
+    `;
+  }
+
+  function renderExhibitHelp() {
+    const output = document.getElementById('exhibit-help');
+    if (!output) return;
+    const quarters = [...new Set((dataset?.facility_quarterly_staffing || []).map(row => row.quarter_label || row.quarter).filter(Boolean))];
+    if (quarters.length > 1) {
+      output.textContent = `Compare reported staffing across ${quarters.length} quarters in this static export: ${quarters.join(', ')}.`;
+    } else if (quarters.length === 1) {
+      output.textContent = `This export currently includes ${quarters[0]}. Additional quarters will appear after more PBJ files are added.`;
+    }
   }
 
   function renderFacilitySummary(facility) {
+    const current = facility.currentRow;
+    const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
+    const averageCensus = current?.average_resident_census;
+    const residentDays = current?.resident_days;
+    const metadataRows = [
+      `<div><dt>CCN</dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>`,
+      `<div><dt>Quarter reviewed</dt><dd>${escapeHtml(quarterLabel)}</dd></div>`,
+      `<div><dt>Average census</dt><dd>${formatCount(averageCensus)}</dd></div>`,
+      `<div><dt>Resident days</dt><dd>${formatCount(residentDays)}</dd></div>`
+    ];
+    if (isUsableNumber(facility.certifiedBeds)) {
+      metadataRows.push(`<div><dt>Certified beds</dt><dd>${formatCount(facility.certifiedBeds)}</dd></div>`);
+    }
+    if (facility.ownershipType) {
+      metadataRows.push(`<div><dt>Ownership</dt><dd>${escapeHtml(facility.ownershipType)}</dd></div>`);
+    }
+
     document.getElementById('facility-summary').innerHTML = `
       <div>
         <div class="eyebrow">Selected Facility</div>
         <h2>${escapeHtml(facility.name)}</h2>
-        <p class="subtle">${escapeHtml(facility.city)}, ${escapeHtml(facility.state)}</p>
+        <p class="subtle">${facility.address ? `${escapeHtml(facility.address)} - ` : ''}${escapeHtml(facility.city)}, ${escapeHtml(facility.state)} - CMS Certification Number ${escapeHtml(facility.ccn || 'not available')}</p>
+        ${renderOwnershipContext(facility)}
       </div>
       <dl class="staffing-summary-list">
-        <div><dt>CCN</dt><dd>${escapeHtml(facility.ccn)}</dd></div>
-        <div><dt>Quarter reviewed</dt><dd>${escapeHtml(facility.quarterReviewed)}</dd></div>
-        <div><dt>Average census</dt><dd>${formatCount(facility.averageCensus)}</dd></div>
+        ${metadataRows.join('')}
       </dl>
     `;
   }
 
+  function renderOwnershipContext(facility) {
+    const rows = [];
+    if (facility.enrollmentOrganizationName) {
+      rows.push(`<div><dt>Legal organization</dt><dd>${escapeHtml(facility.enrollmentOrganizationName)}</dd></div>`);
+    }
+    if (facility.enrollmentDoingBusinessAsName) {
+      rows.push(`<div><dt>DBA name</dt><dd>${escapeHtml(facility.enrollmentDoingBusinessAsName)}</dd></div>`);
+    }
+    if (facility.affiliationEntityName) {
+      rows.push(`<div><dt>Affiliation entity</dt><dd>${escapeHtml(facility.affiliationEntityName)}</dd></div>`);
+    }
+    const structureParts = [facility.enrollmentProprietaryNonprofit, facility.enrollmentOrganizationTypeStructure].filter(Boolean);
+    if (structureParts.length) {
+      rows.push(`<div><dt>Enrollment type</dt><dd>${escapeHtml(structureParts.join(' - '))}</dd></div>`);
+    }
+    if (!rows.length) return '';
+    return `
+      <div class="ownership-context">
+        <h3>Ownership / affiliation context</h3>
+        <dl>${rows.join('')}</dl>
+        <p class="subtle">Enrollment fields add legal organization and affiliation context; they do not replace Provider Information facility details.</p>
+      </div>
+    `;
+  }
+
   function renderMetricCards(facility) {
+    const current = facility.currentRow;
+    const metrics = current?.metrics || {};
     const metricCards = metricDefinitions.map(metric => `
       <article class="staffing-metric card">
         <div class="summary-label">${escapeHtml(metric.label)}</div>
-        <strong>${escapeHtml(metric.format(facility.metrics[metric.key]))}</strong>
+        <strong>${escapeHtml(metric.format(metrics[metric.key]))}</strong>
         <p class="subtle">${escapeHtml(metric.help)}</p>
       </article>
     `);
-
-    if (Number.isFinite(Number(facility.caseMixBenchmarkHprd))) {
+    const benchmark = current?.benchmarks || {};
+    if (benchmark.case_mix_benchmark_available) {
+      const comparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
       metricCards.push(`
         <article class="staffing-metric card">
-          <div class="summary-label">Case-mix benchmark</div>
-          <strong>${formatHprd(facility.caseMixBenchmarkHprd)}</strong>
-          <p class="subtle">Mock CMS case-mix nursing HPRD comparison value, not a legal minimum.</p>
+          <div class="summary-label">Case-mix comparison point</div>
+          <strong>${formatHprd(benchmark.case_mix_total_nurse_hprd)}</strong>
+          <p class="subtle">CMS Provider Information case-mix total nurse HPRD benchmark. This is an acuity-related comparison point, not actual staffing and not a legal minimum.</p>
+          ${comparison ? `<div class="comparison-note">${escapeHtml(comparison)}</div>` : ''}
         </article>
       `);
     }
+    metricCards.push(renderCtDirectCareComparison(metrics));
 
     document.getElementById('metric-cards').innerHTML = metricCards.join('');
+    renderBenchmarkExplainer(Boolean(benchmark.case_mix_benchmark_available));
+  }
+
+  function renderCtDirectCareComparison(metrics) {
+    const totalMinimum = isUsableNumber(metrics.ct_total_direct_care_minimum_hprd)
+      ? Number(metrics.ct_total_direct_care_minimum_hprd)
+      : 3.00;
+    const licensedMinimum = isUsableNumber(metrics.ct_licensed_direct_care_minimum_hprd)
+      ? Number(metrics.ct_licensed_direct_care_minimum_hprd)
+      : 0.84;
+    return `
+      <article class="staffing-metric ct-comparison-card card">
+        <div>
+          <div class="summary-label">Connecticut Direct-Care Staffing Comparison</div>
+          <h3>PBJ-derived screening estimate</h3>
+          <p class="subtle">Connecticut regulations establish direct-care staffing minimums of 3.00 total HPRD and 0.84 licensed nursing HPRD. This estimate excludes nursing administration / DON-style hours and is not a formal DPH compliance finding.</p>
+        </div>
+        <div class="ct-comparison-grid">
+          <div>
+            <div class="summary-label">CT direct-care total HPRD estimate</div>
+            <strong>${formatHprd(metrics.ct_direct_care_total_hprd_estimate)}</strong>
+            <p class="subtle">Comparison to ${totalMinimum.toFixed(2)} HPRD: ${formatSignedHprd(metrics.ct_total_direct_care_difference_from_minimum)}.</p>
+            <div class="comparison-note">${escapeHtml(formatCtComparisonStatus(metrics.ct_total_direct_care_below_minimum_estimate, totalMinimum))}</div>
+          </div>
+          <div>
+            <div class="summary-label">CT licensed direct-care HPRD estimate</div>
+            <strong>${formatHprd(metrics.ct_direct_care_licensed_nurse_hprd_estimate)}</strong>
+            <p class="subtle">Comparison to ${licensedMinimum.toFixed(2)} HPRD: ${formatSignedHprd(metrics.ct_licensed_direct_care_difference_from_minimum)}.</p>
+            <div class="comparison-note">${escapeHtml(formatCtComparisonStatus(metrics.ct_licensed_direct_care_below_minimum_estimate, licensedMinimum))}</div>
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function renderBenchmarkExplainer(shouldShow) {
+    const output = document.getElementById('benchmark-explainer');
+    if (!output) return;
+    output.style.display = shouldShow ? 'block' : 'none';
+  }
+
+  function getBenchmarkComparison(actualValue, benchmarkValue) {
+    if (!isUsableNumber(actualValue) || !isUsableNumber(benchmarkValue) || Number(benchmarkValue) <= 0) {
+      return '';
+    }
+    const actual = Number(actualValue);
+    const benchmark = Number(benchmarkValue);
+    const difference = actual - benchmark;
+    const percent = (actual / benchmark) * 100;
+    const direction = difference >= 0 ? 'above' : 'below';
+    return `Actual total nurse HPRD is ${formatSignedHprd(difference)} ${direction} this benchmark, or ${percent.toFixed(0)}% of the benchmark.`;
   }
 
   function renderQuarterlyTable(facility) {
     const output = document.getElementById('quarterly-exhibit');
-    const maxHprd = Math.max(...facility.quarters.map(row => row.totalNurseHprd), 1);
+    const datasetQuarters = getDatasetQuarters();
+    if (!facility.historyRows.length && !datasetQuarters.length) {
+      output.innerHTML = '<div class="notice warning">No quarterly history rows are available for this facility in the current static export.</div>';
+      return;
+    }
+
+    const rowsByQuarter = new Map(facility.historyRows.map(row => [row.quarter, row]));
+    const displayRows = datasetQuarters.length
+      ? datasetQuarters.map(quarter => ({
+          quarter: quarter.quarter,
+          quarter_label: quarter.label,
+          sourceRow: rowsByQuarter.get(quarter.quarter) || null
+        }))
+      : facility.historyRows.map(row => ({
+          quarter: row.quarter,
+          quarter_label: row.quarter_label || row.quarter,
+          sourceRow: row
+        }));
+    const missingCount = displayRows.filter(row => !row.sourceRow).length;
+    const hprdValues = facility.historyRows
+      .map(row => row.metrics?.total_nurse_hprd)
+      .filter(isUsableNumber)
+      .map(Number);
+    const maxHprd = Math.max(...hprdValues, 1);
+
     output.innerHTML = `
       <div class="table-scroll" tabindex="0" aria-label="Quarterly staffing comparison table">
         <table>
@@ -158,47 +471,100 @@
             </tr>
           </thead>
           <tbody>
-            ${facility.quarters.map(row => {
-              const width = Math.max(8, Math.round((row.totalNurseHprd / maxHprd) * 100));
+            ${displayRows.map(displayRow => {
+              const row = displayRow.sourceRow;
+              if (!row) {
+                return `
+                  <tr class="missing-quarter-row">
+                    <th scope="row">${escapeHtml(displayRow.quarter_label || displayRow.quarter || 'Quarter unavailable')}</th>
+                    <td colspan="5">No PBJ row available</td>
+                  </tr>
+                `;
+              }
+              const totalHprd = row.metrics?.total_nurse_hprd;
+              const width = isUsableNumber(totalHprd) ? Math.max(8, Math.round((Number(totalHprd) / maxHprd) * 100)) : 0;
               return `
                 <tr>
-                  <th scope="row">${escapeHtml(row.quarter)}</th>
+                  <th scope="row">${escapeHtml(row.quarter_label || row.quarter || 'Quarter unavailable')}</th>
                   <td>
-                    <div class="staffing-bar" aria-hidden="true"><span style="width:${width}%"></span></div>
-                    <span>${formatHprd(row.totalNurseHprd)}</span>
+                    ${width ? `<div class="staffing-bar" aria-hidden="true"><span style="width:${width}%"></span></div>` : ''}
+                    <span>${formatHprd(totalHprd)}</span>
                   </td>
-                  <td>${formatHprd(row.rnHprd)}</td>
-                  <td>${formatHprd(row.nurseAideHprd)}</td>
-                  <td>${formatPercent(row.contractStaffPct)}</td>
-                  <td>${formatCount(row.averageCensus)}</td>
+                  <td>${formatHprd(row.metrics?.rn_hprd)}</td>
+                  <td>${formatHprd(row.metrics?.nurse_aide_hprd)}</td>
+                  <td>${formatPercent(row.metrics?.contract_staff_pct)}</td>
+                  <td>${formatCount(row.average_resident_census)}</td>
                 </tr>
               `;
             }).join('')}
           </tbody>
         </table>
       </div>
+      ${missingCount ? `<div class="notice missing-quarter-note">This facility is missing ${missingCount} quarter${missingCount === 1 ? '' : 's'} in the uploaded PBJ source files. Missing quarters are shown so the trend does not look continuous when a facility-quarter row is absent.</div>` : ''}
     `;
   }
 
   function renderInterpretation(facility) {
+    const interpretation = buildInterpretation(facility);
+
     document.getElementById('interpretation').innerHTML = `
       <article class="card">
         <h3>What this shows</h3>
-        <p>${escapeHtml(facility.interpretation.shows)}</p>
+        <p>${escapeHtml(interpretation.shows || fallback.shows)}</p>
       </article>
       <article class="card">
         <h3>What this may suggest</h3>
-        <p>${escapeHtml(facility.interpretation.suggests)}</p>
+        <p>${escapeHtml(interpretation.suggests || fallback.suggests)}</p>
       </article>
       <article class="card">
         <h3>What this cannot prove</h3>
-        <p>${escapeHtml(facility.interpretation.cannotProve)}</p>
+        <p>${escapeHtml(interpretation.cannot_prove || fallback.cannot_prove)}</p>
       </article>
     `;
   }
 
+  function buildInterpretation(facility) {
+    const current = facility.currentRow;
+    const metrics = current?.metrics || {};
+    const benchmark = current?.benchmarks || {};
+    const total = formatHprd(metrics.total_nurse_hprd);
+    const rn = formatHprd(metrics.rn_hprd);
+    const lpn = formatHprd(metrics.lpn_lvn_hprd);
+    const aide = formatHprd(metrics.nurse_aide_hprd);
+    const contract = formatPercent(metrics.contract_staff_pct);
+    const quarter = current?.quarter_label || dataset?.reporting_period?.label || 'the selected quarter';
+    const contractSentence = isUsableNumber(metrics.contract_staff_pct)
+      ? `Contract staff accounted for ${contract} of reported nursing hours.`
+      : 'Contract staff percentage is not available in this export for the selected facility-quarter.';
+    const benchmarkComparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
+    const benchmarkSentence = benchmark.case_mix_benchmark_available && benchmarkComparison
+      ? ` The CMS case-mix benchmark provides acuity-related context: ${benchmarkComparison.toLowerCase()}`
+      : benchmark.case_mix_benchmark_available
+        ? ' CMS case-mix benchmark values are available for context, but a total-nurse comparison could not be calculated from the current values.'
+        : ' No CMS case-mix benchmark is available in this export for the selected facility-quarter.';
+    const ctBelow = [];
+    if (metrics.ct_total_direct_care_below_minimum_estimate === true) {
+      ctBelow.push('below the CT 3.00 total direct-care comparison point');
+    }
+    if (metrics.ct_licensed_direct_care_below_minimum_estimate === true) {
+      ctBelow.push('below the CT 0.84 licensed-nursing comparison point');
+    }
+    const ctComparisonSentence = ctBelow.length
+      ? ` The separate CT direct-care screening estimate is ${ctBelow.join(' and ')}.`
+      : isUsableNumber(metrics.ct_direct_care_total_hprd_estimate) || isUsableNumber(metrics.ct_direct_care_licensed_nurse_hprd_estimate)
+        ? ' The separate CT direct-care screening estimate is available above and should be read as a comparison indicator, not a compliance finding.'
+        : ' The separate CT direct-care screening estimate is not available for this facility-quarter.';
+
+    return {
+      shows: `${quarter} PBJ data for ${facility.name} reports ${total} total nurse HPRD: ${rn} RN HPRD, ${lpn} LPN/LVN HPRD, and ${aide} nurse aide HPRD. ${contractSentence}${benchmarkSentence}${ctComparisonSentence}`,
+      suggests: 'Use these numbers as screening context for follow-up questions: whether resident experience, call-light response, missed-care concerns, turnover, weekend coverage, acuity changes, or complaint patterns point to a staffing issue worth closer review.',
+      cannot_prove: 'This quarterly PBJ snapshot, CT direct-care comparison estimate, and any case-mix comparison cannot prove poor care, harm, neglect, regulatory violations, or staffing on a specific shift. They should be checked against resident accounts, care records when appropriate, survey findings, complaints, and official CMS Care Compare information.'
+    };
+  }
+
   function renderFacility(facilityId) {
     const facility = getFacilityById(facilityId);
+    if (!facility) return;
     renderFacilitySummary(facility);
     renderMetricCards(facility);
     renderQuarterlyTable(facility);
@@ -211,20 +577,35 @@
 
     try {
       if (!global.DanBeemData) throw new Error('Shared data loader did not load.');
-      const data = await global.DanBeemData.loadJson('../data/nursing_home_staffing_mock.json');
-      facilities = Array.isArray(data.facilities) ? data.facilities : [];
-      if (!facilities.length) throw new Error('No mock facilities were found.');
+      const data = await loadFirstAvailableJson(dataPaths);
+      normalizeDataset(data);
+      if (!facilities.length) throw new Error('No facilities were found in the staffing export.');
 
-      populateFacilitySelect();
+      renderDatasetSummary();
+      renderExhibitHelp();
+      const initialFacilityId = getFacilityIdFromUrl();
+      populateFacilitySelect(filteredFacilities, initialFacilityId);
+      document.getElementById('facility-filter').addEventListener('input', filterFacilities);
       select.addEventListener('change', event => renderFacility(event.target.value));
-      renderFacility(facilities[0].id);
-      status.textContent = 'Mock PBJ staffing data loaded for interface review.';
-      status.className = 'notice';
+      renderFacility(initialFacilityId);
+      renderSourceStatus();
     } catch (err) {
       status.textContent = `Staffing explorer data could not be loaded. Details: ${err.message}`;
       status.className = 'notice error';
       select.disabled = true;
     }
+  }
+
+  async function loadFirstAvailableJson(paths) {
+    const errors = [];
+    for (const path of paths) {
+      try {
+        return await global.DanBeemData.loadJson(path);
+      } catch (err) {
+        errors.push(`${path}: ${err.message}`);
+      }
+    }
+    throw new Error(errors.join('; '));
   }
 
   document.addEventListener('DOMContentLoaded', loadPage);

@@ -1,194 +1,385 @@
 {
-  "meta": {
-    "version": "0.1",
-    "generated_on": "2026-05-18",
-    "source_level": "local mock data",
-    "purpose": "Typed mock staffing data for the first public-facing Nursing Home Staffing Explorer vertical slice.",
-    "limitations": [
-      "Example values are placeholders for interface development.",
-      "Do not use this file for facility comparison, compliance review, or resident-specific conclusions.",
-      "Replace with normalized CMS PBJ and provider data in a later phase."
-    ]
+  "schema_version": "2.0-phase2a",
+  "dataset_type": "nursing_home_staffing_explorer",
+  "generated_at": "2026-05-18",
+  "reporting_period": {
+    "quarter": "2025Q4",
+    "label": "Q4 2025",
+    "start_date": "2025-10-01",
+    "end_date": "2025-12-31"
   },
+  "sources": [
+    {
+      "source_dataset_name": "CMS Payroll-Based Journal Daily Nurse Staffing",
+      "source_release": "mock release shaped for future CMS PBJ export",
+      "freshness_date": "2026-05-18",
+      "source_level": "local mock data",
+      "notes": "Future static exports should be generated server-side or offline from official CMS PBJ files; the browser should only load this normalized JSON."
+    },
+    {
+      "source_dataset_name": "CMS Provider Information",
+      "source_release": "mock release shaped for future CMS Provider Information export",
+      "freshness_date": "2026-05-18",
+      "source_level": "local mock data",
+      "notes": "Facility names, CCNs, city, and state are represented here as example values only."
+    }
+  ],
   "facilities": [
     {
-      "id": "riverbend-care-center",
+      "facility_id": "riverbend-care-center",
       "ccn": "075101",
-      "name": "Riverbend Care Center",
+      "provider_name": "Riverbend Care Center",
       "city": "Hartford",
-      "state": "CT",
-      "quarterReviewed": "Q4 2025",
-      "averageCensus": 118,
-      "caseMixBenchmarkHprd": 4.08,
+      "state": "CT"
+    },
+    {
+      "facility_id": "maple-grove-health",
+      "ccn": "075214",
+      "provider_name": "Maple Grove Health and Rehab",
+      "city": "New Haven",
+      "state": "CT"
+    },
+    {
+      "facility_id": "cedar-hill-nursing",
+      "ccn": "075332",
+      "provider_name": "Cedar Hill Nursing Center",
+      "city": "Waterbury",
+      "state": "CT"
+    }
+  ],
+  "facility_quarterly_staffing": [
+    {
+      "ccn": "075101",
+      "quarter": "2025Q1",
+      "quarter_label": "Q1 2025",
+      "quarter_start_date": "2025-01-01",
+      "quarter_end_date": "2025-03-31",
+      "average_resident_census": 121,
+      "resident_days": 10890,
       "metrics": {
-        "totalNurseHprd": 3.72,
-        "rnHprd": 0.58,
-        "lpnLvnHprd": 0.86,
-        "nurseAideHprd": 2.28,
-        "contractStaffPct": 9.4
+        "total_nurse_hprd": 3.81,
+        "rn_hprd": 0.62,
+        "lpn_lvn_hprd": 0.9,
+        "nurse_aide_hprd": 2.29,
+        "contract_staff_pct": 8.1
       },
-      "quarters": [
-        {
-          "quarter": "Q1 2025",
-          "totalNurseHprd": 3.81,
-          "rnHprd": 0.62,
-          "lpnLvnHprd": 0.9,
-          "nurseAideHprd": 2.29,
-          "contractStaffPct": 8.1,
-          "averageCensus": 121
-        },
-        {
-          "quarter": "Q2 2025",
-          "totalNurseHprd": 3.68,
-          "rnHprd": 0.55,
-          "lpnLvnHprd": 0.84,
-          "nurseAideHprd": 2.29,
-          "contractStaffPct": 10.7,
-          "averageCensus": 119
-        },
-        {
-          "quarter": "Q3 2025",
-          "totalNurseHprd": 3.76,
-          "rnHprd": 0.6,
-          "lpnLvnHprd": 0.87,
-          "nurseAideHprd": 2.29,
-          "contractStaffPct": 9.9,
-          "averageCensus": 116
-        },
-        {
-          "quarter": "Q4 2025",
-          "totalNurseHprd": 3.72,
-          "rnHprd": 0.58,
-          "lpnLvnHprd": 0.86,
-          "nurseAideHprd": 2.28,
-          "contractStaffPct": 9.4,
-          "averageCensus": 118
-        }
-      ],
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 4.08,
+        "case_mix_benchmark_available": true
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075101",
+      "quarter": "2025Q2",
+      "quarter_label": "Q2 2025",
+      "quarter_start_date": "2025-04-01",
+      "quarter_end_date": "2025-06-30",
+      "average_resident_census": 119,
+      "resident_days": 10829,
+      "metrics": {
+        "total_nurse_hprd": 3.68,
+        "rn_hprd": 0.55,
+        "lpn_lvn_hprd": 0.84,
+        "nurse_aide_hprd": 2.29,
+        "contract_staff_pct": 10.7
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 4.08,
+        "case_mix_benchmark_available": true
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075101",
+      "quarter": "2025Q3",
+      "quarter_label": "Q3 2025",
+      "quarter_start_date": "2025-07-01",
+      "quarter_end_date": "2025-09-30",
+      "average_resident_census": 116,
+      "resident_days": 10672,
+      "metrics": {
+        "total_nurse_hprd": 3.76,
+        "rn_hprd": 0.6,
+        "lpn_lvn_hprd": 0.87,
+        "nurse_aide_hprd": 2.29,
+        "contract_staff_pct": 9.9
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 4.08,
+        "case_mix_benchmark_available": true
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075101",
+      "quarter": "2025Q4",
+      "quarter_label": "Q4 2025",
+      "quarter_start_date": "2025-10-01",
+      "quarter_end_date": "2025-12-31",
+      "average_resident_census": 118,
+      "resident_days": 10856,
+      "metrics": {
+        "total_nurse_hprd": 3.72,
+        "rn_hprd": 0.58,
+        "lpn_lvn_hprd": 0.86,
+        "nurse_aide_hprd": 2.28,
+        "contract_staff_pct": 9.4
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 4.08,
+        "case_mix_benchmark_available": true
+      },
       "interpretation": {
         "shows": "The selected quarter reports 3.72 total nurse hours per resident day, with nurse aide hours making up the largest share of reported nursing time.",
         "suggests": "A review conversation could ask how staffing is planned across evenings, nights, weekends, and higher-acuity units, especially when contract labor is part of the mix.",
-        "cannotProve": "Quarterly HPRD does not prove a staffing violation, neglect, causation, or what staffing looked like for a specific resident, unit, day, or shift."
+        "cannot_prove": "Quarterly HPRD does not prove a staffing violation, neglect, causation, or what staffing looked like for a specific resident, unit, day, or shift."
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
       }
     },
     {
-      "id": "maple-grove-health",
       "ccn": "075214",
-      "name": "Maple Grove Health and Rehab",
-      "city": "New Haven",
-      "state": "CT",
-      "quarterReviewed": "Q4 2025",
-      "averageCensus": 86,
-      "caseMixBenchmarkHprd": 3.94,
+      "quarter": "2025Q1",
+      "quarter_label": "Q1 2025",
+      "quarter_start_date": "2025-01-01",
+      "quarter_end_date": "2025-03-31",
+      "average_resident_census": 88,
+      "resident_days": 7920,
       "metrics": {
-        "totalNurseHprd": 4.11,
-        "rnHprd": 0.74,
-        "lpnLvnHprd": 0.92,
-        "nurseAideHprd": 2.45,
-        "contractStaffPct": 4.8
+        "total_nurse_hprd": 4.02,
+        "rn_hprd": 0.7,
+        "lpn_lvn_hprd": 0.89,
+        "nurse_aide_hprd": 2.43,
+        "contract_staff_pct": 5.6
       },
-      "quarters": [
-        {
-          "quarter": "Q1 2025",
-          "totalNurseHprd": 4.02,
-          "rnHprd": 0.7,
-          "lpnLvnHprd": 0.89,
-          "nurseAideHprd": 2.43,
-          "contractStaffPct": 5.6,
-          "averageCensus": 88
-        },
-        {
-          "quarter": "Q2 2025",
-          "totalNurseHprd": 4.08,
-          "rnHprd": 0.72,
-          "lpnLvnHprd": 0.91,
-          "nurseAideHprd": 2.45,
-          "contractStaffPct": 5.1,
-          "averageCensus": 87
-        },
-        {
-          "quarter": "Q3 2025",
-          "totalNurseHprd": 4.15,
-          "rnHprd": 0.76,
-          "lpnLvnHprd": 0.93,
-          "nurseAideHprd": 2.46,
-          "contractStaffPct": 4.6,
-          "averageCensus": 85
-        },
-        {
-          "quarter": "Q4 2025",
-          "totalNurseHprd": 4.11,
-          "rnHprd": 0.74,
-          "lpnLvnHprd": 0.92,
-          "nurseAideHprd": 2.45,
-          "contractStaffPct": 4.8,
-          "averageCensus": 86
-        }
-      ],
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 3.94,
+        "case_mix_benchmark_available": true
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075214",
+      "quarter": "2025Q2",
+      "quarter_label": "Q2 2025",
+      "quarter_start_date": "2025-04-01",
+      "quarter_end_date": "2025-06-30",
+      "average_resident_census": 87,
+      "resident_days": 7917,
+      "metrics": {
+        "total_nurse_hprd": 4.08,
+        "rn_hprd": 0.72,
+        "lpn_lvn_hprd": 0.91,
+        "nurse_aide_hprd": 2.45,
+        "contract_staff_pct": null
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 3.94,
+        "case_mix_benchmark_available": true
+      },
+      "data_quality": {
+        "missing_fields": [
+          "contract_staff_pct"
+        ],
+        "notes": [
+          "Mock row demonstrates graceful handling when contract percentage is unavailable."
+        ]
+      }
+    },
+    {
+      "ccn": "075214",
+      "quarter": "2025Q3",
+      "quarter_label": "Q3 2025",
+      "quarter_start_date": "2025-07-01",
+      "quarter_end_date": "2025-09-30",
+      "average_resident_census": 85,
+      "resident_days": 7820,
+      "metrics": {
+        "total_nurse_hprd": 4.15,
+        "rn_hprd": 0.76,
+        "lpn_lvn_hprd": 0.93,
+        "nurse_aide_hprd": 2.46,
+        "contract_staff_pct": 4.6
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 3.94,
+        "case_mix_benchmark_available": true
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075214",
+      "quarter": "2025Q4",
+      "quarter_label": "Q4 2025",
+      "quarter_start_date": "2025-10-01",
+      "quarter_end_date": "2025-12-31",
+      "average_resident_census": 86,
+      "resident_days": 7912,
+      "metrics": {
+        "total_nurse_hprd": 4.11,
+        "rn_hprd": 0.74,
+        "lpn_lvn_hprd": 0.92,
+        "nurse_aide_hprd": 2.45,
+        "contract_staff_pct": 4.8
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": 3.94,
+        "case_mix_benchmark_available": true
+      },
       "interpretation": {
         "shows": "The selected quarter reports total nurse HPRD slightly above the mock case-mix benchmark, with RN HPRD holding near three-quarters of an hour per resident day.",
         "suggests": "Follow-up could focus on whether the reported quarterly pattern matches resident and family reports about response times, care planning, and weekend coverage.",
-        "cannotProve": "A favorable quarterly comparison does not prove staffing was sufficient for every resident or that care outcomes were adequate."
+        "cannot_prove": "A favorable quarterly comparison does not prove staffing was sufficient for every resident or that care outcomes were adequate."
+      },
+      "data_quality": {
+        "missing_fields": [],
+        "notes": []
       }
     },
     {
-      "id": "cedar-hill-nursing",
       "ccn": "075332",
-      "name": "Cedar Hill Nursing Center",
-      "city": "Waterbury",
-      "state": "CT",
-      "quarterReviewed": "Q4 2025",
-      "averageCensus": 142,
+      "quarter": "2025Q1",
+      "quarter_label": "Q1 2025",
+      "quarter_start_date": "2025-01-01",
+      "quarter_end_date": "2025-03-31",
+      "average_resident_census": 139,
+      "resident_days": 12510,
       "metrics": {
-        "totalNurseHprd": 3.39,
-        "rnHprd": 0.47,
-        "lpnLvnHprd": 0.79,
-        "nurseAideHprd": 2.13,
-        "contractStaffPct": 16.2
+        "total_nurse_hprd": 3.55,
+        "rn_hprd": 0.52,
+        "lpn_lvn_hprd": 0.82,
+        "nurse_aide_hprd": 2.21,
+        "contract_staff_pct": 12.4
       },
-      "quarters": [
-        {
-          "quarter": "Q1 2025",
-          "totalNurseHprd": 3.55,
-          "rnHprd": 0.52,
-          "lpnLvnHprd": 0.82,
-          "nurseAideHprd": 2.21,
-          "contractStaffPct": 12.4,
-          "averageCensus": 139
-        },
-        {
-          "quarter": "Q2 2025",
-          "totalNurseHprd": 3.48,
-          "rnHprd": 0.5,
-          "lpnLvnHprd": 0.81,
-          "nurseAideHprd": 2.17,
-          "contractStaffPct": 14.9,
-          "averageCensus": 141
-        },
-        {
-          "quarter": "Q3 2025",
-          "totalNurseHprd": 3.44,
-          "rnHprd": 0.49,
-          "lpnLvnHprd": 0.8,
-          "nurseAideHprd": 2.15,
-          "contractStaffPct": 15.7,
-          "averageCensus": 143
-        },
-        {
-          "quarter": "Q4 2025",
-          "totalNurseHprd": 3.39,
-          "rnHprd": 0.47,
-          "lpnLvnHprd": 0.79,
-          "nurseAideHprd": 2.13,
-          "contractStaffPct": 16.2,
-          "averageCensus": 142
-        }
-      ],
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": null,
+        "case_mix_benchmark_available": false
+      },
+      "data_quality": {
+        "missing_fields": [
+          "case_mix_total_nurse_hprd"
+        ],
+        "notes": [
+          "Mock row demonstrates unavailable benchmark handling."
+        ]
+      }
+    },
+    {
+      "ccn": "075332",
+      "quarter": "2025Q2",
+      "quarter_label": "Q2 2025",
+      "quarter_start_date": "2025-04-01",
+      "quarter_end_date": "2025-06-30",
+      "average_resident_census": 141,
+      "resident_days": 12831,
+      "metrics": {
+        "total_nurse_hprd": 3.48,
+        "rn_hprd": 0.5,
+        "lpn_lvn_hprd": 0.81,
+        "nurse_aide_hprd": 2.17,
+        "contract_staff_pct": 14.9
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": null,
+        "case_mix_benchmark_available": false
+      },
+      "data_quality": {
+        "missing_fields": [
+          "case_mix_total_nurse_hprd"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075332",
+      "quarter": "2025Q3",
+      "quarter_label": "Q3 2025",
+      "quarter_start_date": "2025-07-01",
+      "quarter_end_date": "2025-09-30",
+      "average_resident_census": 143,
+      "resident_days": 13156,
+      "metrics": {
+        "total_nurse_hprd": 3.44,
+        "rn_hprd": 0.49,
+        "lpn_lvn_hprd": 0.8,
+        "nurse_aide_hprd": 2.15,
+        "contract_staff_pct": 15.7
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": null,
+        "case_mix_benchmark_available": false
+      },
+      "data_quality": {
+        "missing_fields": [
+          "case_mix_total_nurse_hprd"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "ccn": "075332",
+      "quarter": "2025Q4",
+      "quarter_label": "Q4 2025",
+      "quarter_start_date": "2025-10-01",
+      "quarter_end_date": "2025-12-31",
+      "average_resident_census": 142,
+      "resident_days": 13064,
+      "metrics": {
+        "total_nurse_hprd": 3.39,
+        "rn_hprd": 0.47,
+        "lpn_lvn_hprd": 0.79,
+        "nurse_aide_hprd": 2.13,
+        "contract_staff_pct": 16.2
+      },
+      "benchmarks": {
+        "case_mix_total_nurse_hprd": null,
+        "case_mix_benchmark_available": false
+      },
       "interpretation": {
         "shows": "The mock quarterly series shows total nurse HPRD declining across 2025 while contract staff percentage rises.",
         "suggests": "This pattern may justify resident-centered questions about continuity, response times, call lights, missed care concerns, and whether changes were temporary or ongoing.",
-        "cannotProve": "The trend does not establish noncompliance, harm, neglect, or the reason staffing changed."
+        "cannot_prove": "The trend does not establish noncompliance, harm, neglect, or the reason staffing changed."
+      },
+      "data_quality": {
+        "missing_fields": [
+          "case_mix_total_nurse_hprd"
+        ],
+        "notes": []
       }
     }
-  ]
+  ],
+  "field_map": {
+    "ccn": "Provider CCN from CMS Provider Information and PBJ staffing files.",
+    "provider_name": "Provider name from CMS Provider Information.",
+    "city": "Provider city from CMS Provider Information.",
+    "state": "Provider state abbreviation from CMS Provider Information.",
+    "quarter": "Normalized year-quarter derived from PBJ reporting period.",
+    "average_resident_census": "Resident days divided by days in the quarter when resident days are available.",
+    "resident_days": "Resident census day sum from PBJ staffing source, when available.",
+    "total_nurse_hprd": "Total nurse hours divided by resident days; expected to combine RN, LPN/LVN, and nurse aide hours using the chosen CMS role definitions.",
+    "rn_hprd": "Registered nurse hours divided by resident days.",
+    "lpn_lvn_hprd": "Licensed practical/vocational nurse hours divided by resident days.",
+    "nurse_aide_hprd": "Nurse aide hours divided by resident days.",
+    "contract_staff_pct": "Contract nurse hours divided by total nurse hours, expressed as a percentage, when contract/employee flags are available.",
+    "case_mix_total_nurse_hprd": "Optional CMS case-mix adjusted total nurse HPRD benchmark when included in the generated static export.",
+    "interpretation": "Plain-language UI text generated from normalized metrics and guardrail templates, not from browser-side CMS processing."
+  }
 }

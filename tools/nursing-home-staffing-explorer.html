@@ -10,6 +10,7 @@
   <script defer src="../Assets/nursing-home-staffing.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
+    input,
     select {
       width:100%;
       padding:10px 12px;
@@ -45,6 +46,29 @@
     .staffing-hero .panel {
       display:grid;
       gap:12px;
+    }
+    .dataset-facts {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:10px;
+      margin-top:4px;
+    }
+    .dataset-fact {
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .dataset-fact strong {
+      display:block;
+      margin-top:4px;
+      font-size:18px;
+    }
+    .field-row {
+      display:grid;
+      grid-template-columns:minmax(0,0.72fr) minmax(0,1fr);
+      gap:12px;
+      align-items:end;
     }
     .staffing-summary {
       display:grid;
@@ -89,6 +113,33 @@
       display:block;
       font-size:26px;
       line-height:1.1;
+    }
+    .ct-comparison-card {
+      grid-column:1 / -1;
+      min-height:auto;
+    }
+    .ct-comparison-card h3 {
+      margin:4px 0 6px;
+      font-size:18px;
+    }
+    .ct-comparison-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:12px;
+    }
+    .comparison-note {
+      padding:8px 10px;
+      border-radius:8px;
+      border:1px solid rgba(56,189,248,0.16);
+      background:rgba(56,189,248,0.055);
+      color:var(--text);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .microcopy {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
     }
     .summary-label {
       color:var(--muted);
@@ -142,6 +193,40 @@
       border-radius:999px;
       background:linear-gradient(90deg,var(--accent),#34d399);
     }
+    .missing-quarter-row th,
+    .missing-quarter-row td {
+      color:var(--muted);
+      background:rgba(255,255,255,0.012);
+    }
+    .missing-quarter-note {
+      margin-top:12px;
+    }
+    .ownership-context {
+      margin-top:12px;
+      padding:12px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.02);
+    }
+    .ownership-context h3 {
+      margin:0 0 8px;
+      font-size:16px;
+    }
+    .ownership-context dl {
+      margin:0;
+      display:grid;
+      gap:8px;
+    }
+    .ownership-context dt {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .ownership-context dd {
+      margin:3px 0 0;
+    }
     .interpretation-grid {
       grid-template-columns:repeat(3,minmax(0,1fr));
     }
@@ -151,6 +236,7 @@
     }
     .question-list li { margin:8px 0; }
     @media (max-width:840px) {
+      .field-row,
       .staffing-summary,
       .interpretation-grid {
         grid-template-columns:1fr;
@@ -180,11 +266,12 @@
   <main id="main-content">
     <section class="hero wrap staffing-hero" aria-labelledby="staffing-title">
       <div class="panel">
-        <div class="pill">Public-facing Prototype</div>
+        <div class="pill">Connecticut PBJ - CY2025 Q4</div>
         <h1 id="staffing-title">Nursing Home Staffing Explorer</h1>
-        <p>Review a facility-level snapshot of quarterly Payroll-Based Journal staffing metrics in plain language, with enough context to decide what deserves a closer look.</p>
-        <div class="notice warning">Quarterly PBJ staffing data is a screening tool. It can help frame questions, but it is not proof of harm, neglect, violations, or what happened for a particular resident on a particular shift.</div>
-        <div id="staffing-load-status" class="notice" role="status">Loading mock PBJ staffing data...</div>
+        <p>Review Connecticut nursing home staffing metrics from CMS Payroll-Based Journal daily nurse staffing data for CY2025 Q4. The explorer summarizes facility-level hours per resident day and contract staff share in plain language.</p>
+        <div id="dataset-summary" class="dataset-facts" aria-label="Dataset summary"></div>
+        <div class="notice warning">PBJ staffing is quarterly screening data. It can help frame follow-up questions, but it does not by itself prove poor care, harm, neglect, regulatory violations, or what happened for a particular resident on a particular shift. Pair it with resident experience, complaint patterns, survey findings, and other evidence.</div>
+        <div id="staffing-load-status" class="notice" role="status">Loading normalized staffing explorer data...</div>
       </div>
     </section>
 
@@ -194,14 +281,22 @@
           <div>
             <div class="eyebrow">Facility Search</div>
             <h2 id="search-title">Choose a facility</h2>
-            <p class="subtle">This first pass uses local mock data for a small set of example nursing homes.</p>
+            <p class="subtle">Search by facility name, city, or CCN, then choose a Connecticut nursing home from the list.</p>
           </div>
         </div>
-        <label for="facility-select">Facility</label>
-        <select id="facility-select" aria-describedby="facility-select-help">
-          <option>Loading facilities...</option>
-        </select>
-        <p id="facility-select-help" class="subtle">Select a facility to update the summary, metrics, exhibit, and interpretation.</p>
+        <div class="field-row">
+          <div>
+            <label for="facility-filter">Search facilities</label>
+            <input id="facility-filter" type="search" placeholder="Example: Windsor, Apple Rehab, 075011" autocomplete="off" aria-describedby="facility-select-help">
+          </div>
+          <div>
+            <label for="facility-select">Facility</label>
+            <select id="facility-select" aria-describedby="facility-select-help">
+              <option>Loading facilities...</option>
+            </select>
+          </div>
+        </div>
+        <p id="facility-select-help" class="subtle">Select a facility to update the summary, metrics, exhibit, and interpretation. <span id="facility-filter-status">Loading facility list...</span></p>
       </div>
     </section>
 
@@ -223,6 +318,8 @@
           <div>
             <div class="eyebrow">Quarterly Metrics</div>
             <h2 id="metrics-title">Staffing Snapshot</h2>
+            <p class="subtle"><abbr title="Hours per resident day">HPRD</abbr> means reported nursing hours divided by resident days for the quarter. Higher HPRD means more reported staff time per resident day, but it does not show shift-level coverage or care quality by itself.</p>
+            <p id="benchmark-explainer" class="subtle" style="display:none;">CMS case-mix staffing benchmarks are contextual comparison points tied to resident acuity. They are not legal minimums and do not by themselves prove poor care, neglect, or violations.</p>
           </div>
         </div>
         <div id="metric-cards" class="grid staffing-metrics" aria-live="polite"></div>
@@ -235,7 +332,7 @@
           <div>
             <div class="eyebrow">Exhibit</div>
             <h2 id="exhibit-title">Quarterly Comparison</h2>
-            <p class="subtle">Use the table to see whether the selected quarter appears steady, rising, or falling relative to nearby quarters.</p>
+            <p id="exhibit-help" class="subtle">Use the table to compare reported staffing across the quarters included in this static export.</p>
           </div>
         </div>
         <div id="quarterly-exhibit" aria-live="polite"></div>
@@ -278,6 +375,6 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Nursing Home Staffing Explorer - mock PBJ data for prototype review only.</footer>
+  <footer class="wrap subtle" style="margin-top:18px;">Nursing Home Staffing Explorer - Connecticut CMS PBJ CY2025 Q4 static data export.</footer>
 </body>
 </html>

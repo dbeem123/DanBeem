@@ -14,6 +14,7 @@
     "tools/drafting-assistant.html",
     "tools/nors-crosswalk.html",
     "tools/nursing-home-staffing-explorer.html",
+    "tools/nursing-home-ownership-staffing-explorer.html",
     "tools/responsible-use.html"
   ],
   "secondary_workflow_html_paths": [
@@ -34,6 +35,7 @@
         "tools/drafting-assistant.html",
         "tools/nors-crosswalk.html",
         "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-ownership-staffing-explorer.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [],
@@ -47,6 +49,7 @@
       "linked_from": [
         "index.html",
         "tools/nors-crosswalk.html",
+        "tools/nursing-home-ownership-staffing-explorer.html",
         "tools/responsible-use.html"
       ],
       "links_to": [
@@ -98,10 +101,35 @@
       ],
       "data_dependencies": [
         "data/nursing_home_staffing_mock.json",
+        "data/nursing_home_staffing_ct.json (generated, optional)",
+        "docs/nursing_home_staffing_data_contract.md",
+        "scripts/build_nursing_home_staffing_ct.py",
+        "source_data/snf_enrollments/*.csv (local ignored input, optional)",
         "Assets/shared.js",
         "Assets/nursing-home-staffing.js"
       ],
-      "notes": "First vertical slice only. Uses mock data and does not ingest live CMS PBJ files or determine compliance, harm, or violations."
+      "notes": "Phase 2A static data contract plus generated Connecticut export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations."
+    },
+    {
+      "path": "tools/nursing-home-ownership-staffing-explorer.html",
+      "title": "Connecticut Nursing Home Ownership & Staffing Explorer",
+      "status": "active_primary",
+      "role": "Public-facing affiliation-level staffing explorer grouped by CMS SNF Enrollment affiliation entity using the generated Connecticut staffing export.",
+      "linked_from": [
+        "index.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nursing-home-staffing-explorer.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "data/nursing_home_staffing_ct.json",
+        "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/shared.js",
+        "Assets/nursing-home-ownership-staffing.js"
+      ],
+      "notes": "Phase 4B static derived view. Calculates affiliation-group staffing summaries and Connecticut direct-care comparison summaries in front-end JavaScript from the normalized Connecticut export and does not make legal, harm, neglect, or compliance findings."
     },
     {
       "path": "tools/responsible-use.html",
