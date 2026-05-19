@@ -19,6 +19,7 @@ Then open:
 - **Landing Page:** http://localhost:8000/index.html
 - **Drafting Assistant:** http://localhost:8000/tools/drafting-assistant.html
 - **NORS Crosswalk:** http://localhost:8000/tools/nors-crosswalk.html
+- **Nursing Home Staffing Explorer:** http://localhost:8000/tools/nursing-home-staffing-explorer.html
 - **Responsible Use:** http://localhost:8000/tools/responsible-use.html
 - **Impact Dashboard:** http://localhost:8000/dashboards/impact-2024.html
 
@@ -48,6 +49,12 @@ Then open:
 - keyword / concern lookup
 - authority trail grouped by topic
 - review support, trace output, and human-review flags
+
+### Nursing Home Staffing Explorer
+
+- public-facing PBJ staffing prototype
+- local mock facility data from `data/nursing_home_staffing_mock.json`
+- screening-level metrics, quarterly comparison table, and ombudsman follow-up questions
 
 ### Responsible Use & Sources
 

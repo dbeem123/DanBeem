@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nursing Home Staffing Explorer</title>
+  <meta name="description" content="A screening-level nursing home staffing explorer for reviewing quarterly PBJ staffing metrics with ombudsman-centered follow-up questions." />
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-staffing.js"></script>
+  <style>
+    label { display:block; font-weight:800; margin-bottom:6px; }
+    select {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-family:inherit;
+    }
+    select option { color:#06121b; }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+    .warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .error {
+      border-color:rgba(251,113,133,0.3);
+      background:rgba(251,113,133,0.08);
+    }
+    .staffing-hero {
+      min-height:auto;
+      display:block;
+      padding-top:26px;
+      padding-bottom:8px;
+    }
+    .staffing-hero .panel {
+      display:grid;
+      gap:12px;
+    }
+    .staffing-summary {
+      display:grid;
+      gap:14px;
+      grid-template-columns:minmax(0,1fr) minmax(220px,0.52fr);
+      align-items:start;
+    }
+    .staffing-summary h2 { margin:0; }
+    .staffing-summary-list {
+      margin:0;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+      gap:10px;
+    }
+    .staffing-summary-list div {
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .staffing-summary-list dt {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .staffing-summary-list dd {
+      margin:6px 0 0;
+      font-weight:850;
+      font-size:18px;
+    }
+    .staffing-metrics {
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+    }
+    .staffing-metric {
+      display:grid;
+      gap:7px;
+      min-height:138px;
+    }
+    .staffing-metric strong {
+      display:block;
+      font-size:26px;
+      line-height:1.1;
+    }
+    .summary-label {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .table-scroll {
+      overflow-x:auto;
+      border-radius:10px;
+      border:1px solid var(--border);
+    }
+    table {
+      width:100%;
+      min-width:720px;
+      border-collapse:collapse;
+      background:rgba(255,255,255,0.018);
+    }
+    caption {
+      text-align:left;
+      padding:12px 14px;
+      color:var(--muted);
+      font-weight:800;
+    }
+    th,
+    td {
+      padding:12px 14px;
+      text-align:left;
+      border-top:1px solid var(--border);
+      vertical-align:middle;
+    }
+    thead th {
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    tbody th { font-weight:850; }
+    .staffing-bar {
+      width:min(150px,100%);
+      height:8px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.05);
+      margin-bottom:6px;
+      overflow:hidden;
+    }
+    .staffing-bar span {
+      display:block;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),#34d399);
+    }
+    .interpretation-grid {
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    .question-list {
+      margin:0;
+      padding-left:20px;
+    }
+    .question-list li { margin:8px 0; }
+    @media (max-width:840px) {
+      .staffing-summary,
+      .interpretation-grid {
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DB</div>
+        <div>
+          <div style="font-weight:800">Nursing Home Staffing Explorer</div>
+          <div class="subtle" style="font-size:12px;">PBJ Screening View</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="nors-crosswalk.html">NORS Crosswalk</a>
+        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap staffing-hero" aria-labelledby="staffing-title">
+      <div class="panel">
+        <div class="pill">Public-facing Prototype</div>
+        <h1 id="staffing-title">Nursing Home Staffing Explorer</h1>
+        <p>Review a facility-level snapshot of quarterly Payroll-Based Journal staffing metrics in plain language, with enough context to decide what deserves a closer look.</p>
+        <div class="notice warning">Quarterly PBJ staffing data is a screening tool. It can help frame questions, but it is not proof of harm, neglect, violations, or what happened for a particular resident on a particular shift.</div>
+        <div id="staffing-load-status" class="notice" role="status">Loading mock PBJ staffing data...</div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="search-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Facility Search</div>
+            <h2 id="search-title">Choose a facility</h2>
+            <p class="subtle">This first pass uses local mock data for a small set of example nursing homes.</p>
+          </div>
+        </div>
+        <label for="facility-select">Facility</label>
+        <select id="facility-select" aria-describedby="facility-select-help">
+          <option>Loading facilities...</option>
+        </select>
+        <p id="facility-select-help" class="subtle">Select a facility to update the summary, metrics, exhibit, and interpretation.</p>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="summary-title">
+      <div class="panel">
+        <h2 id="summary-title" class="sr-only">Facility summary</h2>
+        <div id="facility-summary" class="staffing-summary" aria-live="polite">
+          <div>
+            <div class="eyebrow">Selected Facility</div>
+            <h3>Loading summary</h3>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="metrics-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Quarterly Metrics</div>
+            <h2 id="metrics-title">Staffing Snapshot</h2>
+          </div>
+        </div>
+        <div id="metric-cards" class="grid staffing-metrics" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="exhibit-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Exhibit</div>
+            <h2 id="exhibit-title">Quarterly Comparison</h2>
+            <p class="subtle">Use the table to see whether the selected quarter appears steady, rising, or falling relative to nearby quarters.</p>
+          </div>
+        </div>
+        <div id="quarterly-exhibit" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="interpretation-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Interpretation</div>
+            <h2 id="interpretation-title">How to read the numbers</h2>
+          </div>
+        </div>
+        <div id="interpretation" class="grid interpretation-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="ombudsman-lens-title">
+      <div class="panel">
+        <div class="pill">Ombudsman Lens</div>
+        <h2 id="ombudsman-lens-title" style="margin-top:8px;">Resident-centered follow-up questions</h2>
+        <ul class="question-list">
+          <li>What does the resident want help understanding or changing about staffing, response times, or care routines?</li>
+          <li>Do resident, family, or council concerns point to particular shifts, days, units, or care tasks that PBJ quarterly totals cannot isolate?</li>
+          <li>How does the facility explain staffing plans for evenings, nights, weekends, high-acuity residents, admissions, and call-light response?</li>
+          <li>What records or public sources should be checked before drawing conclusions, such as Care Compare staffing history, survey findings, complaint records, or facility staffing plans?</li>
+          <li>Are there retaliation, consent, privacy, or resident-direction considerations before raising the concern with the facility or another agency?</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="source-note-title">
+      <div class="panel">
+        <div class="pill">Verification Note</div>
+        <h2 id="source-note-title" style="margin-top:8px;">Sources and limits</h2>
+        <p>PBJ data is quarterly and screening-level. Confirm any staffing concern against Medicare Care Compare, official CMS PBJ information, state survey or complaint records where relevant, and resident-specific facts gathered with consent.</p>
+        <p class="notice">Do not make compliance, neglect, causation, or harm findings from HPRD alone. HPRD can support better questions; it cannot answer the whole care-quality question by itself.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Nursing Home Staffing Explorer - mock PBJ data for prototype review only.</footer>
+</body>
+</html>

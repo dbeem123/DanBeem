@@ -1,0 +1,194 @@
+{
+  "meta": {
+    "version": "0.1",
+    "generated_on": "2026-05-18",
+    "source_level": "local mock data",
+    "purpose": "Typed mock staffing data for the first public-facing Nursing Home Staffing Explorer vertical slice.",
+    "limitations": [
+      "Example values are placeholders for interface development.",
+      "Do not use this file for facility comparison, compliance review, or resident-specific conclusions.",
+      "Replace with normalized CMS PBJ and provider data in a later phase."
+    ]
+  },
+  "facilities": [
+    {
+      "id": "riverbend-care-center",
+      "ccn": "075101",
+      "name": "Riverbend Care Center",
+      "city": "Hartford",
+      "state": "CT",
+      "quarterReviewed": "Q4 2025",
+      "averageCensus": 118,
+      "caseMixBenchmarkHprd": 4.08,
+      "metrics": {
+        "totalNurseHprd": 3.72,
+        "rnHprd": 0.58,
+        "lpnLvnHprd": 0.86,
+        "nurseAideHprd": 2.28,
+        "contractStaffPct": 9.4
+      },
+      "quarters": [
+        {
+          "quarter": "Q1 2025",
+          "totalNurseHprd": 3.81,
+          "rnHprd": 0.62,
+          "lpnLvnHprd": 0.9,
+          "nurseAideHprd": 2.29,
+          "contractStaffPct": 8.1,
+          "averageCensus": 121
+        },
+        {
+          "quarter": "Q2 2025",
+          "totalNurseHprd": 3.68,
+          "rnHprd": 0.55,
+          "lpnLvnHprd": 0.84,
+          "nurseAideHprd": 2.29,
+          "contractStaffPct": 10.7,
+          "averageCensus": 119
+        },
+        {
+          "quarter": "Q3 2025",
+          "totalNurseHprd": 3.76,
+          "rnHprd": 0.6,
+          "lpnLvnHprd": 0.87,
+          "nurseAideHprd": 2.29,
+          "contractStaffPct": 9.9,
+          "averageCensus": 116
+        },
+        {
+          "quarter": "Q4 2025",
+          "totalNurseHprd": 3.72,
+          "rnHprd": 0.58,
+          "lpnLvnHprd": 0.86,
+          "nurseAideHprd": 2.28,
+          "contractStaffPct": 9.4,
+          "averageCensus": 118
+        }
+      ],
+      "interpretation": {
+        "shows": "The selected quarter reports 3.72 total nurse hours per resident day, with nurse aide hours making up the largest share of reported nursing time.",
+        "suggests": "A review conversation could ask how staffing is planned across evenings, nights, weekends, and higher-acuity units, especially when contract labor is part of the mix.",
+        "cannotProve": "Quarterly HPRD does not prove a staffing violation, neglect, causation, or what staffing looked like for a specific resident, unit, day, or shift."
+      }
+    },
+    {
+      "id": "maple-grove-health",
+      "ccn": "075214",
+      "name": "Maple Grove Health and Rehab",
+      "city": "New Haven",
+      "state": "CT",
+      "quarterReviewed": "Q4 2025",
+      "averageCensus": 86,
+      "caseMixBenchmarkHprd": 3.94,
+      "metrics": {
+        "totalNurseHprd": 4.11,
+        "rnHprd": 0.74,
+        "lpnLvnHprd": 0.92,
+        "nurseAideHprd": 2.45,
+        "contractStaffPct": 4.8
+      },
+      "quarters": [
+        {
+          "quarter": "Q1 2025",
+          "totalNurseHprd": 4.02,
+          "rnHprd": 0.7,
+          "lpnLvnHprd": 0.89,
+          "nurseAideHprd": 2.43,
+          "contractStaffPct": 5.6,
+          "averageCensus": 88
+        },
+        {
+          "quarter": "Q2 2025",
+          "totalNurseHprd": 4.08,
+          "rnHprd": 0.72,
+          "lpnLvnHprd": 0.91,
+          "nurseAideHprd": 2.45,
+          "contractStaffPct": 5.1,
+          "averageCensus": 87
+        },
+        {
+          "quarter": "Q3 2025",
+          "totalNurseHprd": 4.15,
+          "rnHprd": 0.76,
+          "lpnLvnHprd": 0.93,
+          "nurseAideHprd": 2.46,
+          "contractStaffPct": 4.6,
+          "averageCensus": 85
+        },
+        {
+          "quarter": "Q4 2025",
+          "totalNurseHprd": 4.11,
+          "rnHprd": 0.74,
+          "lpnLvnHprd": 0.92,
+          "nurseAideHprd": 2.45,
+          "contractStaffPct": 4.8,
+          "averageCensus": 86
+        }
+      ],
+      "interpretation": {
+        "shows": "The selected quarter reports total nurse HPRD slightly above the mock case-mix benchmark, with RN HPRD holding near three-quarters of an hour per resident day.",
+        "suggests": "Follow-up could focus on whether the reported quarterly pattern matches resident and family reports about response times, care planning, and weekend coverage.",
+        "cannotProve": "A favorable quarterly comparison does not prove staffing was sufficient for every resident or that care outcomes were adequate."
+      }
+    },
+    {
+      "id": "cedar-hill-nursing",
+      "ccn": "075332",
+      "name": "Cedar Hill Nursing Center",
+      "city": "Waterbury",
+      "state": "CT",
+      "quarterReviewed": "Q4 2025",
+      "averageCensus": 142,
+      "metrics": {
+        "totalNurseHprd": 3.39,
+        "rnHprd": 0.47,
+        "lpnLvnHprd": 0.79,
+        "nurseAideHprd": 2.13,
+        "contractStaffPct": 16.2
+      },
+      "quarters": [
+        {
+          "quarter": "Q1 2025",
+          "totalNurseHprd": 3.55,
+          "rnHprd": 0.52,
+          "lpnLvnHprd": 0.82,
+          "nurseAideHprd": 2.21,
+          "contractStaffPct": 12.4,
+          "averageCensus": 139
+        },
+        {
+          "quarter": "Q2 2025",
+          "totalNurseHprd": 3.48,
+          "rnHprd": 0.5,
+          "lpnLvnHprd": 0.81,
+          "nurseAideHprd": 2.17,
+          "contractStaffPct": 14.9,
+          "averageCensus": 141
+        },
+        {
+          "quarter": "Q3 2025",
+          "totalNurseHprd": 3.44,
+          "rnHprd": 0.49,
+          "lpnLvnHprd": 0.8,
+          "nurseAideHprd": 2.15,
+          "contractStaffPct": 15.7,
+          "averageCensus": 143
+        },
+        {
+          "quarter": "Q4 2025",
+          "totalNurseHprd": 3.39,
+          "rnHprd": 0.47,
+          "lpnLvnHprd": 0.79,
+          "nurseAideHprd": 2.13,
+          "contractStaffPct": 16.2,
+          "averageCensus": 142
+        }
+      ],
+      "interpretation": {
+        "shows": "The mock quarterly series shows total nurse HPRD declining across 2025 while contract staff percentage rises.",
+        "suggests": "This pattern may justify resident-centered questions about continuity, response times, call lights, missed care concerns, and whether changes were temporary or ongoing.",
+        "cannotProve": "The trend does not establish noncompliance, harm, neglect, or the reason staffing changed."
+      }
+    }
+  ]
+}

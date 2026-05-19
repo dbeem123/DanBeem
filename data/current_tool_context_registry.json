@@ -13,6 +13,7 @@
     "index.html",
     "tools/drafting-assistant.html",
     "tools/nors-crosswalk.html",
+    "tools/nursing-home-staffing-explorer.html",
     "tools/responsible-use.html"
   ],
   "secondary_workflow_html_paths": [
@@ -32,6 +33,7 @@
         "dashboards/impact-2024.html",
         "tools/drafting-assistant.html",
         "tools/nors-crosswalk.html",
+        "tools/nursing-home-staffing-explorer.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [],
@@ -80,6 +82,26 @@
         "Assets/nors-help.js"
       ],
       "notes": "Current crosswalk MVP. Closed-loop, local-data driven, no live model calls."
+    },
+    {
+      "path": "tools/nursing-home-staffing-explorer.html",
+      "title": "Nursing Home Staffing Explorer",
+      "status": "active_primary",
+      "role": "Public-facing PBJ staffing prototype with local mock facility data, screening-level interpretation, and ombudsman follow-up questions.",
+      "linked_from": [
+        "index.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nors-crosswalk.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "data/nursing_home_staffing_mock.json",
+        "Assets/shared.js",
+        "Assets/nursing-home-staffing.js"
+      ],
+      "notes": "First vertical slice only. Uses mock data and does not ingest live CMS PBJ files or determine compliance, harm, or violations."
     },
     {
       "path": "tools/responsible-use.html",
