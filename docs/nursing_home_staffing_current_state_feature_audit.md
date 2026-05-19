@@ -49,7 +49,7 @@ The committed history has two major staffing-specific commits. Later phases are 
 | Benchmark explanation / actual-vs-benchmark comparison | Facility explorer `getBenchmarkComparison`, `renderBenchmarkExplainer`; ownership explorer aggregate benchmark comparison | PASS |
 | SNF Enrollments ownership / affiliation merge | Current `load_snf_enrollments`, `merge_snf_enrollment_metadata`; generated `matched_snf_enrollment_facility_count = 186` | PASS |
 | Ownership / affiliation staffing explorer page | Current `tools/nursing-home-ownership-staffing-explorer.html` and `Assets/nursing-home-ownership-staffing.js`; route check returned 200 | PASS |
-| Facility deep links via `'ccn=` | `Assets/nursing-home-staffing.js` `getFacilityIdFromUrl`; ownership facility links use `nursing-home-staffing-explorer.html'ccn=...` | PASS |
+| Facility deep links via `?ccn=` | `Assets/nursing-home-staffing.js` `getFacilityIdFromUrl`; ownership facility links use `nursing-home-staffing-explorer.html?ccn=...` | PASS |
 | Connecticut direct-care comparison metrics and flags | Current generator constants/formulas, generated metric fields, facility/ownership UI sections, data contract docs | PASS |
 | Independent calculation audit script and audit report | Current `scripts/audit_nursing_home_staffing_ct.py`; `docs/nursing_home_staffing_calculation_audit.md`; command run passed with 0 discrepancies | PASS |
 
@@ -80,7 +80,7 @@ Note: 190 facilities have all five quarters represented; 6 facilities have fewer
 | Feature Area | Intended Purpose | Status | Current Evidence | Notes / Risks |
 |---|---|---|---|---|
 | PBJ multi-file support | Read multiple CMS PBJ Daily Nurse Staffing CSVs into one Connecticut export | PASS | `scripts/build_nursing_home_staffing_ct.py` `load_pbj_rows`; generated `data_quality.input_files` lists five PBJ files | Source CSVs are local/manual inputs; refresh process remains manual |
-| Provider Information CSV support | Add standardized facility metadata and case-mix benchmark fields by CCN | PASS | `load_provider_info`, `merge_provider_metadata`; fields in `facilities[]` and `benchmarks` | Provider Info reporting date may not align perfectly with every PBJ quarter; documented as contextual |
+| Provider Information CSV support | Add standardized facility metadata and case-mix benchmark fields by CCN | PASS | `load_provider_info`, `merge_provider_metadata`; fields in `facilities[]` and `benchmarks` | April 2026 Provider Information benchmark values are contextual and reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots |
 | SNF Enrollments CSV support | Add legal organization and affiliation context by CCN | PASS | `load_snf_enrollments`, `merge_snf_enrollment_metadata`; facility fields `enrollment_*`, `affiliation_entity_*` | Affiliation entity is screening context, not proof of common day-to-day control |
 | Source metadata | Preserve source names/releases/freshness in generated output | PASS | `data/nursing_home_staffing_ct.json` `sources[]` contains PBJ, Provider Information, SNF Enrollments | Source freshness currently reflects generated/local file metadata, not live CMS polling |
 | Top-level data contract | Provide stable static JSON for browser tools | PASS | Generated keys: `schema_version`, `dataset_type`, `generated_at`, `reporting_period`, `sources`, `facilities`, `facility_quarterly_staffing`, `data_quality`, `field_map` | Contract is static-file oriented by design |
@@ -98,9 +98,9 @@ Note: 190 facilities have all five quarters represented; 6 facilities have fewer
 | Case-mix benchmark fields | Provide contextual Provider Information benchmark values | PASS | `benchmarks.case_mix_*`, `case_mix_benchmark_available`, source note | Contextual only; not legal minimum and not proof of staffing sufficiency |
 | Facility explorer route | Static facility-level staffing explorer | PASS | `tools/nursing-home-staffing-explorer.html`; HTTP 200 | Manual browser review still recommended |
 | CT JSON before mock fallback | Prefer generated CT export but allow development mock fallback | PASS | `Assets/nursing-home-staffing.js` `dataPaths` lists CT JSON before mock | Mock copy may be stale relative to CT export; acceptable fallback only |
-| Dataset hero / scope copy | Explain screening scope and source | PASS | `renderDatasetSummary`; page warning copy | `index.html` card still says "mock quarterly PBJ" for staffing explorer, which is slightly stale |
-| Facility search/filter | Search facilities by name/city/state/CCN | PASS | `filterFacilities`, `populateFacilitySelect` | Browser interaction not manually exercised during this audit |
-| Facility selection | Update summary, metrics, table, interpretation | PASS | `renderFacility`; select change listener | Browser interaction not manually exercised during this audit |
+| Dataset hero / scope copy | Explain screening scope and source | PASS | `renderDatasetSummary`; page warning copy | Landing-page card copy now describes the current Connecticut PBJ staffing explorer |
+| Facility search/filter | Search facilities by name/city/state/CCN | PASS - implementation present and statically verified | `filterFacilities`, `populateFacilitySelect` | Interactive browser behavior still recommended for smoke test |
+| Facility selection | Update summary, metrics, table, interpretation | PASS - implementation present and statically verified | `renderFacility`; select change listener | Interactive browser behavior still recommended for smoke test |
 | Provider metadata summary | Show CCN, census, resident days, beds, ownership | PASS | `renderFacilitySummary` | Provider fields depend on successful Provider Info match |
 | Ownership / affiliation context block | Show legal organization, DBA, affiliation entity, enrollment type | PASS | `renderOwnershipContext` | Only appears when fields exist |
 | Five-quarter comparison table | Display all dataset quarters for selected facility | PASS | `getDatasetQuarters`, `renderQuarterlyTable` | Some facilities have missing quarters; placeholders are present |
@@ -112,27 +112,27 @@ Note: 190 facilities have all five quarters represented; 6 facilities have fewer
 | CT Direct-Care Staffing Comparison card | Show CT screening estimate and comparison points | PASS | `renderCtDirectCareComparison`; `.ct-comparison-card` styles | Browser layout should be manually reviewed on mobile/wide tables |
 | Below CT comparison wording | Neutral notation, not "violation" | PASS | `formatCtComparisonStatus`; ownership table text | Some ownership compact text says `At/above CT ... point`; acceptable but should remain cautious |
 | Interpretation copy | "Shows / may suggest / cannot prove" framing | PASS | `buildInterpretation`; HTML interpretation sections | No compliance finding language observed |
-| Facility deep links | Allow `'ccn=` from ownership explorer | PASS | `getFacilityIdFromUrl`; ownership links | Route checked, but query-specific browser rendering not manually clicked |
+| Facility deep links | Allow `?ccn=` from ownership explorer | PASS - implementation present and statically verified | `getFacilityIdFromUrl`; ownership links | Route checked, but query-specific browser rendering still recommended for smoke test |
 | Ownership explorer route | Static affiliation-level staffing explorer | PASS | `tools/nursing-home-ownership-staffing-explorer.html`; HTTP 200 | Manual browser review still recommended |
 | Affiliation grouping | Group facilities by nonblank `affiliation_entity_name` | PASS | `normalizeDataset`; 108 facilities with affiliation names, 19 groups | Facilities without affiliation are excluded from selector by design |
-| Affiliation search/selector | Search/select affiliation entities | PASS | `filterAffiliations`, `populateAffiliationSelect` | Browser interaction not manually exercised during this audit |
+| Affiliation search/selector | Search/select affiliation entities | PASS - implementation present and statically verified | `filterAffiliations`, `populateAffiliationSelect` | Interactive browser behavior still recommended for smoke test |
 | Ownership summary facts | Show CT facility counts, affiliation counts, sources | PASS | `renderDatasetSummary`, `renderAffiliationSummary` | None observed |
 | Latest-quarter group cards | Show latest group averages | PASS | `renderGroupMetricCards` | Simple averages across linked facilities with latest-quarter rows |
 | Five-quarter group trend | Multi-quarter affiliation trend table | PASS | `renderTrendTable`; all five quarters in data | Tables are wide; manual responsive review recommended |
 | Facility comparison table | Facility-by-facility latest-quarter comparison | PASS | `renderFacilityComparison` | Wide table; manual browser review recommended |
 | Group-level CT direct-care metrics | Average CT estimates and below counts/shares | PASS | `calculateQuarterAggregate`, group metric cards, trend/facility columns | Uses simple facility-level averages, not resident-day weighted averages |
 | Case-mix context in ownership view | Show aggregate benchmark context where available | PASS | `averageBenchmarkTotalHprd`, `averageActualMinusBenchmark` | Contextual only |
-| Links back to facility explorer | Open selected facility by `'ccn=` | PASS | Facility links in affiliation summary and comparison table | Browser click not manually exercised |
+| Links back to facility explorer | Open selected facility by `?ccn=` | PASS - implementation present and statically verified | Facility links in affiliation summary and comparison table | Interactive browser behavior still recommended for smoke test |
 | CT direct-care total estimate | PBJ-derived direct-care total estimate | PASS | Field `ct_direct_care_total_hprd_estimate`; generator/audit formulas | Excludes DON/admin categories |
 | CT licensed direct-care estimate | PBJ-derived licensed direct-care estimate | PASS | Field `ct_direct_care_licensed_nurse_hprd_estimate`; generator/audit formulas | Excludes DON/admin categories |
 | CT comparison constants | 3.00 total, 0.84 licensed | PASS | Generated fields and field map | Not formal compliance determination |
-| CT difference fields | Store amount above/below comparison point | PASS | `ct_total_direct_care_difference_from_minimum`, `ct_licensed_direct_care_difference_from_minimum` | Computed from rounded CT estimate fields in current implementation |
-| CT below booleans | Flag below-comparison rows | PASS | `ct_total_direct_care_below_minimum_estimate`, `ct_licensed_direct_care_below_minimum_estimate` | Audit confirms counts |
+| CT difference fields | Store amount above/below comparison point | PASS | `ct_total_direct_care_difference_from_minimum`, `ct_licensed_direct_care_difference_from_minimum` | Computed from rounded two-decimal CT estimate fields in current implementation |
+| CT below booleans | Flag below-comparison rows | PASS | `ct_total_direct_care_below_minimum_estimate`, `ct_licensed_direct_care_below_minimum_estimate` | Audit confirms counts; flags are based on rounded display estimates and are PBJ-derived screening indicators, not DPH compliance determinations |
 | Calculation audit script | Independently recompute and compare metrics | PASS | `scripts/audit_nursing_home_staffing_ct.py` ran successfully | Keep independent from generator helpers |
 | Calculation audit report | Persistent calculation audit documentation | PASS | `docs/nursing_home_staffing_calculation_audit.md` | Generated timestamp updates each audit run |
 | Generator tests | Synthetic tests for row logic, merges, CT estimates | PASS | `scripts/test_build_nursing_home_staffing_ct.py`; 13 tests passed | Good coverage for core logic; no browser tests yet |
-| Navigation | Discover both tools from landing page and docs | PARTIAL | `index.html` links both tools; README lists routes; context registry lists both | Landing-page staffing card still says "mock quarterly PBJ," stale relative to CT-first export |
-| Documentation currency | README/data contract/context registry explain workflow | PASS | README commands, data contract CT formulas, context registry references | Minor wording refresh recommended for index card only |
+| Navigation | Discover both tools from landing page and docs | PASS | `index.html` links both tools; README lists routes; context registry lists both | Landing-page staffing card wording has been refreshed for the CT-first export |
+| Documentation currency | README/data contract/context registry explain workflow | PASS | README commands, data contract CT formulas, context registry references | Current audit/data-contract caveats include rounded CT flags and Provider Information benchmark timing |
 
 ## Verification Results
 
@@ -163,7 +163,7 @@ The following areas are fully confirmed by code/data inspection and command chec
 - Five-quarter trend support
 - Missing-quarter display handling
 - Facility explorer CT-first JSON loading with mock fallback
-- Facility search, selection, metric cards, benchmark card, ownership context, interpretation copy, and `'ccn=` deep-link handling in code
+- Facility search, selection, metric cards, benchmark card, ownership context, interpretation copy, and `?ccn=` deep-link handling in code
 - Ownership/affiliation explorer grouping, latest-quarter summaries, trend table, facility comparison, CT direct-care group summaries, and links back to facility pages in code
 - CT direct-care metric fields, differences, and below-comparison booleans
 - Independent calculation audit and generator unit tests
@@ -176,22 +176,19 @@ These are present and appear structurally correct, but should be manually review
 - Facility explorer layout on mobile and wide desktop, especially the CT direct-care comparison card.
 - Ownership explorer wide trend and facility comparison tables on mobile.
 - Keyboard interaction and screen-reader experience for both selectors and wide tables.
-- Actual `'ccn=` navigation by clicking an ownership table link in a browser.
+- Actual `?ccn=` navigation by clicking an ownership table link in a browser.
 - Visual emphasis of "Below CT comparison point" labels to ensure they are clear but not alarmist.
 
 ## Not Found / Incomplete
 
 No previously built major feature was found missing or functionally broken in the current repository state.
 
-One minor documentation/discoverability issue was found:
-
-- `index.html` still describes the facility staffing card as reviewing "mock quarterly PBJ staffing metrics," while the current explorer attempts to load the generated Connecticut export first. This is a wording issue, not a data or calculation bug.
-
 ## Data And UX Risks Before Public Use
 
 - The generated export is static and depends on manually refreshed local CMS source files.
-- Provider Information benchmark fields are contextual and may not align exactly with each PBJ quarter.
+- April 2026 Provider Information benchmark fields are contextual comparison points reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots.
 - CT direct-care comparison fields are PBJ-derived screening estimates, not formal DPH compliance determinations.
+- CT below-comparison flags are currently based on the rounded two-decimal CT estimate fields stored in the export. This matches UI display, but could differ from an unrounded comparison for values extremely close to 3.00 or 0.84.
 - Ownership/affiliation fields come from CMS SNF Enrollments and do not prove common operations or day-to-day control.
 - Group averages in the ownership explorer are simple facility averages, not resident-day weighted averages.
 - Some facilities do not have all five facility-quarter rows; the UI handles this, but users may need plain-language reminders.
@@ -199,9 +196,8 @@ One minor documentation/discoverability issue was found:
 
 ## Recommended Next Development Steps
 
-1. Fix the stale `index.html` staffing card wording so it no longer implies the primary facility explorer is mock-only.
-2. Run manual browser review of both tools across desktop and mobile widths, focusing on wide tables and CT comparison labels.
-3. Add a lightweight browser smoke test with Playwright or similar to verify CT JSON loads, selectors populate, `'ccn=` deep links render the expected facility, and ownership links route correctly.
-4. Consider adding optional resident-day-weighted group averages in the ownership explorer, clearly labeled, while preserving current simple averages if useful.
-5. Add a generated-export freshness note in the UI that displays the source freshness date and generated timestamp more visibly.
-6. Keep `scripts/audit_nursing_home_staffing_ct.py` in the regular release checklist whenever source CSVs or generator formulas change.
+1. Run manual browser review of both tools across desktop and mobile widths, focusing on wide tables and CT comparison labels.
+2. Add a lightweight browser smoke test with Playwright or similar to verify CT JSON loads, selectors populate, `?ccn=` deep links render the expected facility, and ownership links route correctly.
+3. Consider adding optional resident-day-weighted group averages in the ownership explorer, clearly labeled, while preserving current simple averages if useful.
+4. Add a generated-export freshness note in the UI that displays the source freshness date and generated timestamp more visibly.
+5. Keep `scripts/audit_nursing_home_staffing_ct.py` in the regular release checklist whenever source CSVs or generator formulas change.

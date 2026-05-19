@@ -108,13 +108,13 @@
         "Assets/shared.js",
         "Assets/nursing-home-staffing.js"
       ],
-      "notes": "Phase 2A static data contract plus generated Connecticut export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations."
+      "notes": "Phase 2A static data contract plus generated Connecticut export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations. Supports facility deep links with ?ccn= and links to affiliation staffing summaries when CMS SNF Enrollment affiliation fields are present."
     },
     {
       "path": "tools/nursing-home-ownership-staffing-explorer.html",
       "title": "Connecticut Nursing Home Ownership & Staffing Explorer",
       "status": "active_primary",
-      "role": "Public-facing affiliation-level staffing explorer grouped by CMS SNF Enrollment affiliation entity using the generated Connecticut staffing export.",
+      "role": "Public-facing affiliation-level staffing explorer with statewide affiliation comparison tables grouped by CMS SNF Enrollment affiliation entity using the generated Connecticut staffing export.",
       "linked_from": [
         "index.html"
       ],
@@ -129,7 +129,7 @@
         "Assets/shared.js",
         "Assets/nursing-home-ownership-staffing.js"
       ],
-      "notes": "Phase 4B static derived view. Calculates affiliation-group staffing summaries and Connecticut direct-care comparison summaries in front-end JavaScript from the normalized Connecticut export and does not make legal, harm, neglect, or compliance findings."
+      "notes": "Phase 4G static derived view. Calculates statewide affiliation comparison tables, selected affiliation-group staffing summaries, Connecticut direct-care comparison summaries, and selected-affiliation print/CSV reporting actions in front-end JavaScript from the normalized Connecticut export. Supports ?affiliation= deep links, preferring CMS SNF Enrollment affiliation entity IDs and falling back to names. Uses simple facility averages and does not make chain quality, legal, harm, neglect, or compliance findings."
     },
     {
       "path": "tools/responsible-use.html",

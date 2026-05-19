@@ -92,6 +92,8 @@ Use `null` when a value is unavailable. Do not omit expected metric keys when th
 
 The Connecticut direct-care fields are PBJ-derived screening estimates for comparison to Connecticut Title 19 Sec. 19-13-D8t(m)(6). They are not formal Department of Public Health compliance determinations.
 
+The below-comparison flags are currently based on the rounded two-decimal CT estimate fields stored in the export. This matches the UI display, but may differ from an unrounded comparison for values extremely close to 3.00 or 0.84.
+
 ## Benchmarks
 
 `benchmarks` should contain:
@@ -106,7 +108,7 @@ The Connecticut direct-care fields are PBJ-derived screening estimates for compa
 
 Use `null` and `false` when no benchmark is included in the static export.
 
-When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file benchmarks. They are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`.
+When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file benchmarks. They are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots for each PBJ quarter.
 
 ## Interpretation Blocks
 
@@ -240,6 +242,8 @@ The regulation also states that the director of nurses or assistant director of 
 - `ct_licensed_direct_care_below_minimum_estimate = true` when the PBJ-derived licensed direct-care estimate is below 0.84
 
 These fields are screening estimates derived from quarterly PBJ reporting. They do not determine legal compliance, do not establish whether a facility met staffing on any specific shift, and should not be labeled as violations.
+
+Implementation note: `ct_total_direct_care_below_minimum_estimate` and `ct_licensed_direct_care_below_minimum_estimate` are evaluated against the rounded two-decimal CT estimate fields stored in the export. This keeps the flags aligned with the displayed values, but an unrounded comparison could differ for values extremely close to 3.00 or 0.84.
 
 ### Daily Inclusion Logic
 
@@ -428,7 +432,7 @@ When Provider Information is supplied and matched by CCN, the generator copies C
 
 These fields are contextual benchmark values from the Provider Information file. They should be displayed as comparison context only. They are not PBJ actual staffing calculations, not legal minimums, and not proof of sufficiency, compliance, harm, or noncompliance.
 
-Reporting-period caveat: the Provider Information file may not align exactly with the PBJ quarter being aggregated. The export records the benchmark source as Provider Information and includes a source note so the UI and future analysis do not imply precise quarter alignment unless a later ETL step verifies it.
+Reporting-period caveat: the Provider Information file may not align exactly with the PBJ quarter being aggregated. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are copied into each historical PBJ facility-quarter row where the CCN matches. These are contextual comparison points only, not verified quarter-specific benchmark snapshots for each PBJ quarter. The export records the benchmark source as Provider Information and includes a source note so the UI and future analysis do not imply precise quarter alignment unless a later ETL step verifies it.
 
 ## Phase 2C Source Needs
 

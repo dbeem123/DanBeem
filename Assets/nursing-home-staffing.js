@@ -195,6 +195,7 @@
         enrollmentProprietaryNonprofit: facility.enrollment_proprietary_nonprofit || '',
         enrollmentOrganizationTypeStructure: facility.enrollment_organization_type_structure || '',
         affiliationEntityName: facility.affiliation_entity_name || '',
+        affiliationEntityId: facility.affiliation_entity_id || '',
         currentRow: getCurrentRow(historyRows),
         historyRows
       };
@@ -328,6 +329,7 @@
 
   function renderOwnershipContext(facility) {
     const rows = [];
+    const affiliationUrl = getAffiliationExplorerUrl(facility);
     if (facility.enrollmentOrganizationName) {
       rows.push(`<div><dt>Legal organization</dt><dd>${escapeHtml(facility.enrollmentOrganizationName)}</dd></div>`);
     }
@@ -347,8 +349,15 @@
         <h3>Ownership / affiliation context</h3>
         <dl>${rows.join('')}</dl>
         <p class="subtle">Enrollment fields add legal organization and affiliation context; they do not replace Provider Information facility details.</p>
+        ${affiliationUrl ? `<p><a class="linkBtn" href="${escapeHtml(affiliationUrl)}">View affiliation staffing summary</a></p>` : ''}
       </div>
     `;
+  }
+
+  function getAffiliationExplorerUrl(facility) {
+    const affiliationValue = facility.affiliationEntityId || facility.affiliationEntityName;
+    if (!affiliationValue) return '';
+    return `nursing-home-ownership-staffing-explorer.html?affiliation=${encodeURIComponent(affiliationValue)}`;
   }
 
   function renderMetricCards(facility) {

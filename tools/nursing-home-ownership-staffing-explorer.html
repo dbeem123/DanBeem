@@ -21,7 +21,9 @@
       font-family:inherit;
     }
     select option { color:#06121b; }
-    button.sort-button {
+    button.sort-button,
+    button.statewide-sort-button,
+    button.action-button {
       border:1px solid var(--glass-strong);
       border-radius:8px;
       padding:7px 9px;
@@ -31,9 +33,21 @@
       font-weight:800;
       cursor:pointer;
     }
-    button.sort-button[aria-pressed="true"] {
+    button.sort-button[aria-pressed="true"],
+    button.statewide-sort-button[aria-pressed="true"] {
       border-color:rgba(56,189,248,0.32);
       background:rgba(56,189,248,0.1);
+    }
+    button.link-button {
+      display:inline;
+      padding:0;
+      border:0;
+      background:transparent;
+      color:var(--accent);
+      font:inherit;
+      font-weight:850;
+      text-align:left;
+      cursor:pointer;
     }
     .ownership-hero {
       min-height:auto;
@@ -165,6 +179,32 @@
       font-size:12px;
       line-height:1.45;
     }
+    .small-group-label {
+      display:inline-block;
+      margin-top:6px;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid rgba(251,191,36,0.26);
+      background:rgba(251,191,36,0.08);
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+    }
+    .compact-table table { min-width:820px; }
+    .report-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin:10px 0 0;
+    }
+    .report-actions button:disabled {
+      opacity:0.52;
+      cursor:not-allowed;
+    }
+    .print-only { display:none; }
     .microcopy {
       color:var(--muted);
       font-size:12px;
@@ -177,6 +217,83 @@
       .field-row,
       .interpretation-grid {
         grid-template-columns:1fr;
+      }
+    }
+    @media print {
+      body {
+        color:#111827;
+        background:#fff;
+      }
+      .topbar,
+      .ownership-hero,
+      section[aria-labelledby="statewide-comparison-title"],
+      section[aria-labelledby="selector-title"],
+      section[aria-labelledby="ranking-disclosure-title"],
+      section[aria-labelledby="interpretation-title"],
+      section[aria-labelledby="source-note-title"],
+      footer,
+      .sort-row,
+      .report-actions,
+      .view-group-button {
+        display:none !important;
+      }
+      .wrap {
+        max-width:none;
+        margin:0;
+        padding:0 0 14px;
+      }
+      .panel,
+      .card,
+      .summary-cell,
+      .dataset-fact {
+        color:#111827;
+        background:#fff;
+        border-color:#d1d5db;
+        box-shadow:none;
+      }
+      .panel {
+        border:0;
+        padding:0 0 14px;
+      }
+      .print-only {
+        display:block;
+      }
+      .notice,
+      .comparison-note {
+        color:#111827;
+        background:#f8fafc;
+        border-color:#cbd5e1;
+      }
+      a {
+        color:#111827;
+        text-decoration:none;
+      }
+      table {
+        min-width:0;
+        font-size:10px;
+        background:#fff;
+      }
+      th,
+      td {
+        padding:6px 7px;
+        border-color:#d1d5db;
+      }
+      .metric-grid {
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+      }
+      .facility-list {
+        columns:1;
+      }
+      .table-scroll {
+        overflow:visible;
+        border-color:#d1d5db;
+      }
+      .card,
+      .metric-card,
+      table {
+        break-inside:avoid;
       }
     }
   </style>
@@ -212,6 +329,38 @@
       </div>
     </section>
 
+    <section class="wrap" aria-labelledby="statewide-comparison-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Statewide Comparison</div>
+            <h2 id="statewide-comparison-title">Statewide Affiliation Staffing Comparison</h2>
+            <p class="subtle">Rows are grouped by CMS SNF Enrollment affiliation entity. Metrics are simple averages across Connecticut facilities in that affiliation group unless otherwise stated. "Below CT comparison point" values use PBJ-derived Connecticut direct-care screening estimates, not formal DPH compliance findings.</p>
+            <p class="subtle">Shared affiliation does not prove identical operations, ownership control, or decision-making across facilities. Use this table to identify patterns and questions for review, not as a definitive chain quality ranking.</p>
+            <p id="statewide-ranking-note" class="comparison-note">Loading statewide affiliation comparison...</p>
+          </div>
+        </div>
+        <div class="sort-row" role="group" aria-label="Statewide affiliation comparison sort">
+          <button class="statewide-sort-button" type="button" data-statewide-sort-key="ct_total_below_share" aria-pressed="true">Below CT 3.00 comparison share</button>
+          <button class="statewide-sort-button" type="button" data-statewide-sort-key="name" aria-pressed="false">Affiliation name</button>
+          <button class="statewide-sort-button" type="button" data-statewide-sort-key="facility_count" aria-pressed="false">CT facility count</button>
+          <button class="statewide-sort-button" type="button" data-statewide-sort-key="average_ct_direct_care_total" aria-pressed="false">Avg CT direct-care HPRD</button>
+          <button class="statewide-sort-button" type="button" data-statewide-sort-key="average_rn_hprd" aria-pressed="false">Avg RN HPRD</button>
+          <button class="statewide-sort-button" type="button" data-statewide-sort-key="average_contract_staff_pct" aria-pressed="false">Avg contract %</button>
+        </div>
+        <p class="subtle">Rows labeled "Small CT group" have only 1 or 2 linked Connecticut facilities, so percentage comparisons can be unstable and less generalizable.</p>
+        <div id="statewide-comparison" aria-live="polite"></div>
+        <div class="sectionHeader" style="margin-top:18px;">
+          <div>
+            <div class="eyebrow">Five-Quarter Pattern</div>
+            <h3 id="five-quarter-summary-title">Five-Quarter Affiliation Pattern Summary</h3>
+            <p class="subtle">This compact summary covers facility-quarter patterns from 2024Q4 through 2025Q4. Missing facility-quarter rows are not treated as zero. It is a longitudinal screening summary, not a finding of cause, responsibility, or compliance.</p>
+          </div>
+        </div>
+        <div id="five-quarter-affiliation-summary" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="wrap" aria-labelledby="selector-title">
       <div class="panel">
         <div class="sectionHeader">
@@ -237,6 +386,15 @@
       </div>
     </section>
 
+    <section class="wrap" aria-labelledby="ranking-disclosure-title">
+      <div class="panel">
+        <div class="pill">Ranking Guardrails</div>
+        <h2 id="ranking-disclosure-title" style="margin-top:8px;">How to read this affiliation comparison</h2>
+        <p>Compare entities with similar Connecticut facility counts cautiously, especially when one group has only 1 or 2 facilities. Use "View group" to inspect within-group variation before treating an affiliation-level average as meaningful.</p>
+        <p class="subtle">For any individual nursing home, use the facility-level explorer and source context before drawing conclusions. The statewide table is designed to surface review questions, not to prove chainwide operational decisions or care quality.</p>
+      </div>
+    </section>
+
     <section class="wrap" aria-labelledby="selected-summary-title">
       <div class="panel">
         <div class="sectionHeader">
@@ -244,6 +402,13 @@
             <div class="eyebrow">Selected Group</div>
             <h2 id="selected-summary-title">Affiliation summary</h2>
           </div>
+        </div>
+        <div id="print-report-context" class="print-only"></div>
+        <div class="report-actions" aria-label="Selected affiliation report actions">
+          <button id="print-affiliation-summary" class="action-button" type="button" disabled>Print affiliation summary</button>
+          <button id="download-facility-comparison-csv" class="action-button" type="button" disabled>Download facility comparison CSV</button>
+          <button id="download-trend-csv" class="action-button" type="button" disabled>Download five-quarter trend CSV</button>
+          <span id="report-action-status" class="subtle" role="status">Select an affiliation entity to use reporting actions.</span>
         </div>
         <div id="affiliation-summary" aria-live="polite"></div>
       </div>
@@ -302,21 +467,21 @@
         <div class="sectionHeader">
           <div>
             <div class="eyebrow">Interpretation</div>
-            <h2 id="interpretation-title">How to read the group view</h2>
+            <h2 id="interpretation-title">How to read the affiliation views</h2>
           </div>
         </div>
         <div class="grid interpretation-grid">
           <article class="card">
-            <h3>What this group-level view shows</h3>
-            <p>It shows staffing patterns for Connecticut facilities linked to the same CMS SNF Enrollment affiliation entity, including quarterly group averages and facility-by-facility variation.</p>
+            <h3>What these screening views show</h3>
+            <p>They show statewide and selected-group staffing patterns for Connecticut facilities linked to the same CMS SNF Enrollment affiliation entity, including quarterly group averages and facility-by-facility variation.</p>
           </article>
           <article class="card">
             <h3>What it may suggest</h3>
-            <p>It may identify patterns worth closer review, such as consistently lower or higher staffing, reliance on contract staff, or differences among facilities connected to the same affiliation name.</p>
+            <p>They may identify patterns worth closer review, such as lower or higher staffing estimates, reliance on contract staff, repeated below-comparison screening indicators, or differences among facilities connected to the same affiliation name.</p>
           </article>
           <article class="card">
             <h3>What it cannot prove</h3>
-            <p>It cannot prove common control, uniform operations, poor care, neglect, harm, or violations. These data points are best used to identify questions, then paired with resident experience, survey findings, complaints, ownership records, and other evidence.</p>
+            <p>They cannot prove chainwide operational decisions, common control, uniform operations, poor care, neglect, harm, or violations. These data points are best used to identify questions, then paired with resident experience, survey findings, complaints, ownership records, and other evidence.</p>
           </article>
         </div>
       </div>

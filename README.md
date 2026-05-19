@@ -63,6 +63,7 @@ Then open:
 - public-facing affiliation-level staffing view
 - groups Connecticut facilities by CMS SNF Enrollment affiliation entity when available
 - derives group averages and facility comparisons from `data/nursing_home_staffing_ct.json`
+- includes a latest-quarter statewide affiliation comparison table and compact five-quarter affiliation pattern summary
 - summarizes latest-quarter Connecticut direct-care comparison estimates at the affiliation level
 - frames ownership and staffing patterns as screening context, not legal or care-quality findings
 
@@ -144,6 +145,12 @@ The explorer loads `data/nursing_home_staffing_ct.json` when present, then falls
 The affiliation-level ownership view uses the same generated Connecticut export:
 
 `http://localhost:8000/tools/nursing-home-ownership-staffing-explorer.html`
+
+The ownership view computes statewide affiliation comparisons in the browser from the generated export. Rankings use simple facility averages, keep small Connecticut groups visible, and are intended as staffing screening tables rather than chain quality or compliance determinations.
+
+The two nursing home explorers support reciprocal drill-down links. Facility pages can link to an affiliation staffing summary with `?affiliation=` using the CMS SNF Enrollment affiliation entity ID when available, and ownership/affiliation rows link back to facility staffing details with `?ccn=`.
+
+The ownership view also provides selected-affiliation reporting actions: a print-friendly affiliation staffing summary, a latest-quarter facility comparison CSV, and a five-quarter trend CSV. These exports are generated client-side from the same static JSON and carry the same screening-use caveats.
 
 ## Deployment Notes
 
