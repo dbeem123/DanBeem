@@ -20,6 +20,7 @@ Then open:
 - **Drafting Assistant:** http://localhost:8000/tools/drafting-assistant.html
 - **NORS Crosswalk:** http://localhost:8000/tools/nors-crosswalk.html
 - **Nursing Home Staffing Explorer:** http://localhost:8000/tools/nursing-home-staffing-explorer.html
+- **Statewide Staffing Comparison:** http://localhost:8000/tools/nursing-home-statewide-staffing-comparison.html
 - **Ownership & Staffing Explorer:** http://localhost:8000/tools/nursing-home-ownership-staffing-explorer.html
 - **Responsible Use:** http://localhost:8000/tools/responsible-use.html
 - **Impact Dashboard:** http://localhost:8000/dashboards/impact-2024.html
@@ -57,6 +58,14 @@ Then open:
 - normalized local mock facility data from `data/nursing_home_staffing_mock.json`
 - screening-level metrics, quarterly comparison table, and ombudsman follow-up questions
 - includes Connecticut direct-care staffing comparison fields as PBJ-derived screening estimates, not compliance determinations
+- supports selected-facility print summaries and five-quarter facility trend CSV exports
+
+### Statewide Staffing Comparison
+
+- public-facing latest-quarter Connecticut facility comparison table
+- supports search, filters, sorting, facility drill-down links, filtered-view summary analytics, print reporting, and filtered CSV export
+- uses PBJ-derived screening metrics and CT direct-care comparison estimates from `data/nursing_home_staffing_ct.json`
+- frames statewide rankings as review questions, not care-quality or compliance conclusions
 
 ### Ownership & Staffing Explorer
 

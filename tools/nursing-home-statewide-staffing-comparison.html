@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connecticut Nursing Home Statewide Staffing Comparison</title>
+  <meta name="description" content="A screening-level statewide Connecticut nursing home staffing comparison using latest-quarter CMS PBJ staffing data." />
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-statewide-staffing-comparison.js"></script>
+  <style>
+    label { display:block; font-weight:800; margin-bottom:6px; }
+    input,
+    select {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-family:inherit;
+    }
+    select option { color:#06121b; }
+    .statewide-hero {
+      min-height:auto;
+      display:block;
+      padding-top:26px;
+      padding-bottom:8px;
+    }
+    .statewide-hero .panel { display:grid; gap:12px; }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+    .warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .error {
+      border-color:rgba(251,113,133,0.3);
+      background:rgba(251,113,133,0.08);
+    }
+    .summary-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:10px;
+      margin-top:4px;
+    }
+    .summary-card {
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .summary-card strong {
+      display:block;
+      margin-top:4px;
+      font-size:22px;
+      font-weight:850;
+    }
+    .summary-label {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .filter-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      align-items:end;
+    }
+    .sort-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:12px 0;
+    }
+    button.sort-button,
+    button.action-button {
+      border:1px solid var(--glass-strong);
+      border-radius:8px;
+      padding:7px 9px;
+      color:var(--text);
+      background:rgba(255,255,255,0.025);
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button.sort-button[aria-pressed="true"] {
+      border-color:rgba(56,189,248,0.32);
+      background:rgba(56,189,248,0.1);
+    }
+    button.action-button:disabled {
+      cursor:not-allowed;
+      opacity:0.5;
+    }
+    .print-only { display:none; }
+    .filter-summary-copy {
+      margin-top:8px;
+      max-width:920px;
+    }
+    .table-scroll {
+      overflow-x:auto;
+      border-radius:10px;
+      border:1px solid var(--border);
+    }
+    table {
+      width:100%;
+      min-width:1320px;
+      border-collapse:collapse;
+      background:rgba(255,255,255,0.018);
+    }
+    caption {
+      text-align:left;
+      padding:12px 14px;
+      color:var(--muted);
+      font-weight:800;
+    }
+    th,
+    td {
+      padding:12px 14px;
+      text-align:left;
+      border-top:1px solid var(--border);
+      vertical-align:middle;
+    }
+    thead th {
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    tbody th { font-weight:850; }
+    .microcopy,
+    .subtle-note {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .status-pill {
+      display:inline-block;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.06);
+      font-size:12px;
+      font-weight:800;
+    }
+    .status-pill.warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .interpretation-grid {
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    @media (max-width:980px) {
+      .filter-grid,
+      .interpretation-grid {
+        grid-template-columns:1fr;
+      }
+    }
+    @media print {
+      body {
+        background:#fff;
+        color:#111827;
+      }
+      .topbar,
+      .no-print,
+      .statewide-hero,
+      #filters-title,
+      #filters-title + p,
+      .filter-grid,
+      .sort-row,
+      .interpretation-grid,
+      footer,
+      .linkBtn,
+      .action-button,
+      .sort-button {
+        display:none !important;
+      }
+      .wrap {
+        width:100%;
+        max-width:none;
+        margin:0;
+        padding:0;
+      }
+      .panel,
+      .card,
+      .summary-card,
+      .notice {
+        box-shadow:none;
+        background:#fff;
+        color:#111827;
+        border-color:#d1d5db;
+      }
+      .panel {
+        padding:0 0 14px;
+        border:0;
+      }
+      .print-only {
+        display:block;
+      }
+      .sectionHeader {
+        margin-bottom:8px;
+      }
+      .summary-grid {
+        grid-template-columns:repeat(4,1fr);
+        gap:8px;
+      }
+      .summary-card strong {
+        color:#111827;
+      }
+      .summary-label,
+      .subtle,
+      .subtle-note,
+      .microcopy,
+      thead th {
+        color:#374151;
+      }
+      .table-scroll {
+        overflow:visible;
+        border:0;
+      }
+      table {
+        min-width:0;
+        font-size:10px;
+        background:#fff;
+      }
+      th,
+      td {
+        padding:5px 6px;
+        border-color:#d1d5db;
+      }
+      th:last-child,
+      td:last-child {
+        display:none;
+      }
+      .status-pill {
+        border:0;
+        background:transparent;
+        padding:0;
+        color:#111827;
+      }
+      a {
+        color:#111827;
+        text-decoration:none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DB</div>
+        <div>
+          <div style="font-weight:800">Statewide Staffing Comparison</div>
+          <div class="subtle" style="font-size:12px;">Connecticut PBJ Screening View</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
+        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
+        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap statewide-hero" aria-labelledby="statewide-title">
+      <div class="panel">
+        <div class="pill">Connecticut Statewide Facility View</div>
+        <h1 id="statewide-title">Connecticut Nursing Home Statewide Staffing Comparison</h1>
+        <p>This page compares Connecticut nursing homes using the latest available CMS Payroll-Based Journal quarter in the generated staffing export. Use search, sort, and filters to scan facilities, then open the facility explorer for trend and context before drawing conclusions.</p>
+        <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
+        <div class="notice warning">PBJ staffing data are quarterly screening metrics. Connecticut comparison points are PBJ-derived screening estimates, not formal DPH compliance findings. This table can identify patterns and questions for review, but it does not establish legal conclusions or determine care quality by itself.</div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="summary-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Latest Quarter Summary</div>
+            <h2 id="summary-title">Statewide screening snapshot</h2>
+            <p id="summary-note" class="subtle">Latest-quarter rows are loaded from the generated Connecticut staffing export.</p>
+          </div>
+        </div>
+        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="filters-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Search And Filters</div>
+            <h2 id="filters-title">Find facilities</h2>
+            <p class="subtle">Search by facility name, CCN, city, or affiliation entity. Facilities without the latest-quarter PBJ row are not included in this latest-quarter comparison table.</p>
+          </div>
+        </div>
+        <div class="filter-grid">
+          <div>
+            <label for="facility-search">Search facilities</label>
+            <input id="facility-search" type="search" placeholder="Example: Glen Hill, 075031, National Health" autocomplete="off">
+          </div>
+          <div>
+            <label for="ct-filter">CT comparison filter</label>
+            <select id="ct-filter">
+              <option value="all">Show all</option>
+              <option value="below-total">Below CT 3.00 comparison point only</option>
+              <option value="below-licensed">Below CT 0.84 comparison point only</option>
+            </select>
+          </div>
+          <div>
+            <label for="affiliation-filter">Affiliation entity</label>
+            <select id="affiliation-filter">
+              <option value="all">All affiliations</option>
+            </select>
+          </div>
+          <div>
+            <label for="ownership-filter">Ownership type</label>
+            <select id="ownership-filter">
+              <option value="all">All ownership types</option>
+            </select>
+          </div>
+          <div>
+            <label for="contract-filter">Contract staff</label>
+            <select id="contract-filter">
+              <option value="all">All contract levels</option>
+              <option value="10">10% or more</option>
+              <option value="20">20% or more</option>
+            </select>
+          </div>
+        </div>
+        <div class="sort-row" role="group" aria-label="Statewide facility table sort">
+          <button class="sort-button" type="button" data-sort-key="name" aria-pressed="false">Facility name</button>
+          <button class="sort-button" type="button" data-sort-key="ct_direct_care_total" aria-pressed="true">CT direct-care HPRD</button>
+          <button class="sort-button" type="button" data-sort-key="ct_licensed" aria-pressed="false">CT licensed HPRD</button>
+          <button class="sort-button" type="button" data-sort-key="total_nurse" aria-pressed="false">Total nurse HPRD</button>
+          <button class="sort-button" type="button" data-sort-key="rn" aria-pressed="false">RN HPRD</button>
+          <button class="sort-button" type="button" data-sort-key="contract" aria-pressed="false">Contract %</button>
+          <button class="sort-button" type="button" data-sort-key="benchmark_difference" aria-pressed="false">Actual minus benchmark</button>
+        </div>
+        <div class="sort-row">
+          <button id="reset-filters" class="action-button" type="button">Reset filters</button>
+          <button id="print-current-view" class="action-button" type="button" disabled>Print current statewide view</button>
+          <button id="download-statewide-csv" class="action-button" type="button" disabled>Download filtered statewide comparison CSV</button>
+          <span id="filter-status" class="subtle-note" role="status">Loading table...</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="filtered-summary-title">
+      <div class="panel">
+        <div id="print-report-context" class="print-only"></div>
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Current Filtered View</div>
+            <h2 id="filtered-summary-title">Filtered facility summary</h2>
+            <p class="subtle filter-summary-copy">These figures summarize the facilities currently shown in the table. They change when search terms or filters change. They are screening summaries, not findings of violations or care quality.</p>
+          </div>
+        </div>
+        <div id="filtered-summary-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="table-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Facility Comparison</div>
+            <h2 id="table-title">Latest-quarter facility table</h2>
+            <p class="subtle">Default sort is lowest CT direct-care HPRD estimate first, then facility name. Missing benchmark values are shown as unavailable.</p>
+          </div>
+        </div>
+        <div id="facility-table" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="interpretation-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Interpretation</div>
+            <h2 id="interpretation-title">How to read this table</h2>
+          </div>
+        </div>
+        <div class="grid interpretation-grid">
+          <article class="card">
+            <h3>What lower estimates may suggest</h3>
+            <p>Lower staffing estimates may warrant closer review, especially when they repeat across quarters or appear alongside resident concerns, complaint patterns, survey findings, or high-acuity needs.</p>
+          </article>
+          <article class="card">
+            <h3>What below-comparison flags mean</h3>
+            <p>Below-comparison flags are PBJ-derived screening indicators against the Connecticut direct-care comparison points. They are not formal DPH compliance findings.</p>
+          </article>
+          <article class="card">
+            <h3>What to do next</h3>
+            <p>Use "View facility details" to inspect the facility's trend, ownership/affiliation context, case-mix comparison, and reporting caveats before drawing conclusions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Statewide Staffing Comparison - static screening view.</footer>
+</body>
+</html>

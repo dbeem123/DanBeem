@@ -14,6 +14,7 @@
     "tools/drafting-assistant.html",
     "tools/nors-crosswalk.html",
     "tools/nursing-home-staffing-explorer.html",
+    "tools/nursing-home-statewide-staffing-comparison.html",
     "tools/nursing-home-ownership-staffing-explorer.html",
     "tools/responsible-use.html"
   ],
@@ -35,6 +36,7 @@
         "tools/drafting-assistant.html",
         "tools/nors-crosswalk.html",
         "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-statewide-staffing-comparison.html",
         "tools/nursing-home-ownership-staffing-explorer.html",
         "tools/responsible-use.html"
       ],
@@ -108,7 +110,29 @@
         "Assets/shared.js",
         "Assets/nursing-home-staffing.js"
       ],
-      "notes": "Phase 2A static data contract plus generated Connecticut export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations. Supports facility deep links with ?ccn= and links to affiliation staffing summaries when CMS SNF Enrollment affiliation fields are present."
+      "notes": "Phase 4H facility-level view using the static Connecticut staffing export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations. Supports facility deep links with ?ccn=, links to affiliation staffing summaries when CMS SNF Enrollment affiliation fields are present, and provides selected-facility print summaries plus five-quarter facility trend CSV exports."
+    },
+    {
+      "path": "tools/nursing-home-statewide-staffing-comparison.html",
+      "title": "Connecticut Nursing Home Statewide Staffing Comparison",
+      "status": "active_primary",
+      "role": "Public-facing latest-quarter statewide Connecticut nursing home staffing comparison with search, filters, sorting, filtered-view summary analytics, print reporting, facility drill-down links, and filtered CSV export.",
+      "linked_from": [
+        "index.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "data/nursing_home_staffing_ct.json",
+        "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/shared.js",
+        "Assets/nursing-home-statewide-staffing-comparison.js"
+      ],
+      "notes": "Phase 5B static latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, facility drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-ownership-staffing-explorer.html",

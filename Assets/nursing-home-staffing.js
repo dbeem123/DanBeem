@@ -125,6 +125,53 @@
     return `${sign}${number.toFixed(2)}`;
   }
 
+  function csvValue(value) {
+    if (value === null || value === undefined || value === '') return '';
+    if (typeof value === 'boolean') return value ? 'true' : 'false';
+    return String(value);
+  }
+
+  function csvNumber(value) {
+    return isUsableNumber(value) ? Number(value).toFixed(2) : '';
+  }
+
+  function csvOneDecimal(value) {
+    return isUsableNumber(value) ? Number(value).toFixed(1) : '';
+  }
+
+  function quoteCsvCell(value) {
+    const text = csvValue(value);
+    return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  }
+
+  function buildCsv(headers, rows) {
+    return [
+      headers.map(quoteCsvCell).join(','),
+      ...rows.map(row => headers.map(header => quoteCsvCell(row[header])).join(','))
+    ].join('\r\n') + '\r\n';
+  }
+
+  function safeFilenamePart(value) {
+    return String(value || 'facility')
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .slice(0, 90) || 'facility';
+  }
+
+  function downloadTextFile(filename, content, mimeType = 'text/csv;charset=utf-8') {
+    const blob = new Blob([content], { type: mimeType });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
   function formatCtComparisonStatus(isBelow, minimum) {
     if (isBelow === true) return `Below CT ${Number(minimum).toFixed(2)} comparison point`;
     if (isBelow === false) return `At or above CT ${Number(minimum).toFixed(2)} comparison point`;
@@ -149,6 +196,12 @@
 
   function getFacilityById(id) {
     return facilities.find(facility => facility.id === id) || facilities[0];
+  }
+
+  function getSelectedFacility() {
+    const select = document.getElementById('facility-select');
+    const id = select?.value || '';
+    return facilities.find(facility => facility.id === id) || null;
   }
 
   function getFacilityIdFromUrl() {
@@ -243,6 +296,8 @@
     if (filteredFacilities.length) {
       const next = getFacilityById(document.getElementById('facility-select').value) || filteredFacilities[0];
       renderFacility(next.id);
+    } else {
+      updateReportActions(null);
     }
   }
 
@@ -281,6 +336,48 @@
         <span class="summary-label">Source</span>
         <strong>CMS PBJ</strong>
         <div class="microcopy">${escapeHtml(source?.source_release || 'Static export')}</div>
+      </div>
+    `;
+  }
+
+  function setReportActionStatus(message) {
+    const status = document.getElementById('report-action-status');
+    if (status) status.textContent = message;
+  }
+
+  function updateReportActions(facility) {
+    const hasFacility = Boolean(facility);
+    ['print-facility-summary', 'download-facility-trend-csv'].forEach(id => {
+      const button = document.getElementById(id);
+      if (button) button.disabled = !hasFacility;
+    });
+    setReportActionStatus(hasFacility ? 'Reporting actions use the selected facility.' : 'Select a facility to use reporting actions.');
+  }
+
+  function renderPrintReportContext(facility) {
+    const output = document.getElementById('print-report-context');
+    if (!output || !facility) return;
+    const current = facility.currentRow;
+    const metrics = current?.metrics || {};
+    const benchmark = current?.benchmarks || {};
+    const generatedAt = dataset?.generated_at || 'Not available';
+    const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
+    const benchmarkComparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
+    output.innerHTML = `
+      <h1>Connecticut Facility Staffing Summary</h1>
+      <dl class="staffing-summary-list">
+        <div><dt>Facility</dt><dd>${escapeHtml(facility.name)}</dd></div>
+        <div><dt>CCN</dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>
+        <div><dt>City/state</dt><dd>${escapeHtml(facility.city)}, ${escapeHtml(facility.state)}</dd></div>
+        <div><dt>Latest quarter</dt><dd>${escapeHtml(quarterLabel)}</dd></div>
+        <div><dt>Export generated</dt><dd>${escapeHtml(generatedAt)}</dd></div>
+      </dl>
+      <div class="notice">
+        Latest-quarter snapshot: total nurse HPRD ${formatHprd(metrics.total_nurse_hprd)}, RN HPRD ${formatHprd(metrics.rn_hprd)}, LPN/LVN HPRD ${formatHprd(metrics.lpn_lvn_hprd)}, nurse aide HPRD ${formatHprd(metrics.nurse_aide_hprd)}, contract staff ${formatPercent(metrics.contract_staff_pct)}.
+        ${benchmarkComparison ? escapeHtml(benchmarkComparison) : 'Case-mix comparison is not available for this facility-quarter.'}
+      </div>
+      <div class="notice">
+        PBJ staffing metrics are screening-level quarterly data. Connecticut direct-care comparison values are PBJ-derived estimates, not formal DPH compliance findings. Case-mix benchmarks are contextual Provider Information comparison points and may not align exactly with every historical PBJ quarter. Staffing data alone do not prove care quality, neglect, harm, or regulatory violations. Ownership and affiliation context is informational and does not itself prove common day-to-day control.
       </div>
     `;
   }
@@ -513,6 +610,108 @@
     `;
   }
 
+  function getDisplayedQuarterRows(facility) {
+    const datasetQuarters = getDatasetQuarters();
+    const rowsByQuarter = new Map(facility.historyRows.map(row => [row.quarter, row]));
+    return datasetQuarters.length
+      ? datasetQuarters.map(quarter => ({
+          quarter: quarter.quarter,
+          quarter_label: quarter.label,
+          sourceRow: rowsByQuarter.get(quarter.quarter) || null
+        }))
+      : facility.historyRows.map(row => ({
+          quarter: row.quarter,
+          quarter_label: row.quarter_label || row.quarter,
+          sourceRow: row
+        }));
+  }
+
+  function buildFacilityTrendCsv(facility) {
+    const headers = [
+      'facility_name',
+      'ccn',
+      'city',
+      'quarter',
+      'row_status',
+      'resident_days',
+      'average_resident_census',
+      'total_nurse_hprd',
+      'rn_hprd',
+      'lpn_lvn_hprd',
+      'nurse_aide_hprd',
+      'contract_staff_pct',
+      'case_mix_total_nurse_benchmark',
+      'actual_minus_case_mix_benchmark',
+      'ct_direct_care_total_hprd_estimate',
+      'below_ct_3_00_comparison_flag',
+      'ct_direct_care_licensed_nurse_hprd_estimate',
+      'below_ct_0_84_comparison_flag',
+      'input_daily_row_count',
+      'included_daily_row_count',
+      'excluded_zero_census_day_count',
+      'included_zero_nursing_hours_day_count'
+    ];
+    const rows = getDisplayedQuarterRows(facility).map(displayRow => {
+      const row = displayRow.sourceRow;
+      const metrics = row?.metrics || {};
+      const benchmark = row?.benchmarks || {};
+      const quality = row?.data_quality || {};
+      const actual = metrics.total_nurse_hprd;
+      const benchmarkValue = benchmark.case_mix_total_nurse_hprd;
+      const difference = isUsableNumber(actual) && isUsableNumber(benchmarkValue) ? Number(actual) - Number(benchmarkValue) : null;
+      return {
+        facility_name: facility.name,
+        ccn: facility.ccn || '',
+        city: facility.city || '',
+        quarter: displayRow.quarter || '',
+        row_status: row ? 'PBJ row available' : 'No PBJ row available',
+        resident_days: row ? csvOneDecimal(row.resident_days) : '',
+        average_resident_census: row ? csvOneDecimal(row.average_resident_census) : '',
+        total_nurse_hprd: csvNumber(metrics.total_nurse_hprd),
+        rn_hprd: csvNumber(metrics.rn_hprd),
+        lpn_lvn_hprd: csvNumber(metrics.lpn_lvn_hprd),
+        nurse_aide_hprd: csvNumber(metrics.nurse_aide_hprd),
+        contract_staff_pct: csvOneDecimal(metrics.contract_staff_pct),
+        case_mix_total_nurse_benchmark: csvNumber(benchmarkValue),
+        actual_minus_case_mix_benchmark: csvNumber(difference),
+        ct_direct_care_total_hprd_estimate: csvNumber(metrics.ct_direct_care_total_hprd_estimate),
+        below_ct_3_00_comparison_flag: metrics.ct_total_direct_care_below_minimum_estimate,
+        ct_direct_care_licensed_nurse_hprd_estimate: csvNumber(metrics.ct_direct_care_licensed_nurse_hprd_estimate),
+        below_ct_0_84_comparison_flag: metrics.ct_licensed_direct_care_below_minimum_estimate,
+        input_daily_row_count: row ? quality.input_daily_row_count : '',
+        included_daily_row_count: row ? quality.included_daily_row_count : '',
+        excluded_zero_census_day_count: row ? quality.excluded_zero_census_day_count : '',
+        included_zero_nursing_hours_day_count: row ? quality.included_zero_nursing_hours_day_count : ''
+      };
+    });
+    return buildCsv(headers, rows);
+  }
+
+  function getFacilityTrendCsvFilename(facility) {
+    const latest = dataset?.reporting_period?.quarter || facility.currentRow?.quarter || 'latest';
+    return `facility-staffing-trend-${safeFilenamePart(facility.name)}-${safeFilenamePart(facility.ccn)}-${safeFilenamePart(latest)}.csv`;
+  }
+
+  function handlePrintFacilitySummary() {
+    const facility = getSelectedFacility();
+    if (!facility) {
+      setReportActionStatus('Select a valid facility before printing.');
+      return;
+    }
+    renderPrintReportContext(facility);
+    global.print();
+  }
+
+  function handleDownloadFacilityTrendCsv() {
+    const facility = getSelectedFacility();
+    if (!facility) {
+      setReportActionStatus('Select a valid facility before downloading.');
+      return;
+    }
+    downloadTextFile(getFacilityTrendCsvFilename(facility), buildFacilityTrendCsv(facility));
+    setReportActionStatus('Facility five-quarter trend CSV prepared for the selected facility.');
+  }
+
   function renderInterpretation(facility) {
     const interpretation = buildInterpretation(facility);
 
@@ -574,6 +773,8 @@
   function renderFacility(facilityId) {
     const facility = getFacilityById(facilityId);
     if (!facility) return;
+    updateReportActions(facility);
+    renderPrintReportContext(facility);
     renderFacilitySummary(facility);
     renderMetricCards(facility);
     renderQuarterlyTable(facility);
@@ -596,6 +797,8 @@
       populateFacilitySelect(filteredFacilities, initialFacilityId);
       document.getElementById('facility-filter').addEventListener('input', filterFacilities);
       select.addEventListener('change', event => renderFacility(event.target.value));
+      document.getElementById('print-facility-summary')?.addEventListener('click', handlePrintFacilitySummary);
+      document.getElementById('download-facility-trend-csv')?.addEventListener('click', handleDownloadFacilityTrendCsv);
       renderFacility(initialFacilityId);
       renderSourceStatus();
     } catch (err) {

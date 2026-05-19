@@ -227,6 +227,28 @@
     .ownership-context dd {
       margin:3px 0 0;
     }
+    .report-actions {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin:0 0 14px;
+    }
+    button.action-button {
+      border:1px solid var(--glass-strong);
+      border-radius:8px;
+      padding:7px 9px;
+      color:var(--text);
+      background:rgba(255,255,255,0.025);
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button.action-button:disabled {
+      opacity:0.52;
+      cursor:not-allowed;
+    }
+    .print-only { display:none; }
     .interpretation-grid {
       grid-template-columns:repeat(3,minmax(0,1fr));
     }
@@ -240,6 +262,83 @@
       .staffing-summary,
       .interpretation-grid {
         grid-template-columns:1fr;
+      }
+    }
+    @media print {
+      body {
+        color:#111827;
+        background:#fff;
+      }
+      .topbar,
+      .staffing-hero,
+      section[aria-labelledby="search-title"],
+      section[aria-labelledby="interpretation-title"],
+      section[aria-labelledby="ombudsman-lens-title"],
+      section[aria-labelledby="source-note-title"],
+      footer,
+      .report-actions,
+      .linkBtn,
+      .staffing-bar {
+        display:none !important;
+      }
+      .wrap {
+        max-width:none;
+        margin:0;
+        padding:0 0 14px;
+      }
+      .panel,
+      .card,
+      .staffing-summary-list div,
+      .ownership-context {
+        color:#111827;
+        background:#fff;
+        border-color:#d1d5db;
+        box-shadow:none;
+      }
+      .panel {
+        border:0;
+        padding:0 0 14px;
+      }
+      .print-only {
+        display:block;
+      }
+      .notice,
+      .comparison-note {
+        color:#111827;
+        background:#f8fafc;
+        border-color:#cbd5e1;
+      }
+      a {
+        color:#111827;
+        text-decoration:none;
+      }
+      table {
+        min-width:0;
+        font-size:10px;
+        background:#fff;
+      }
+      th,
+      td {
+        padding:6px 7px;
+        border-color:#d1d5db;
+      }
+      .staffing-summary,
+      .staffing-metrics {
+        display:grid;
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+        gap:8px;
+      }
+      .ct-comparison-card {
+        grid-column:1 / -1;
+      }
+      .table-scroll {
+        overflow:visible;
+        border-color:#d1d5db;
+      }
+      .card,
+      .staffing-metric,
+      table {
+        break-inside:avoid;
       }
     }
   </style>
@@ -303,6 +402,12 @@
     <section class="wrap" aria-labelledby="summary-title">
       <div class="panel">
         <h2 id="summary-title" class="sr-only">Facility summary</h2>
+        <div id="print-report-context" class="print-only"></div>
+        <div class="report-actions" aria-label="Selected facility report actions">
+          <button id="print-facility-summary" class="action-button" type="button" disabled>Print facility staffing summary</button>
+          <button id="download-facility-trend-csv" class="action-button" type="button" disabled>Download facility five-quarter trend CSV</button>
+          <span id="report-action-status" class="subtle" role="status">Select a facility to use reporting actions.</span>
+        </div>
         <div id="facility-summary" class="staffing-summary" aria-live="polite">
           <div>
             <div class="eyebrow">Selected Facility</div>
