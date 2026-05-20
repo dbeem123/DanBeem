@@ -92,6 +92,7 @@
     '../data/nursing_home_staffing_ct.json',
     '../data/nursing_home_staffing_mock.json'
   ];
+  const caseMixBenchmarkExplanation = 'How this comparison is built: the case-mix comparison point value itself is not calculated by this tool. It is imported directly from the CMS Nursing Home Provider Information field "Case-Mix Total Nurse Staffing Hours per Resident per Day." CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. This tool compares the facility\'s PBJ-reported actual total nurse HPRD against that CMS-published comparison point. The actual-minus-benchmark difference and percent-of-benchmark text are calculated by this tool. The comparison point is contextual, not actual staffing, not a legal minimum, and not proof of poor care, neglect, harm, or violations.';
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -377,7 +378,7 @@
         ${benchmarkComparison ? escapeHtml(benchmarkComparison) : 'Case-mix comparison is not available for this facility-quarter.'}
       </div>
       <div class="notice">
-        PBJ staffing metrics are screening-level quarterly data. Connecticut direct-care comparison values are PBJ-derived estimates, not formal DPH compliance findings. Case-mix benchmarks are contextual Provider Information comparison points and may not align exactly with every historical PBJ quarter. Staffing data alone do not prove care quality, neglect, harm, or regulatory violations. Ownership and affiliation context is informational and does not itself prove common day-to-day control.
+        PBJ staffing metrics are screening-level quarterly data. Connecticut direct-care comparison values are PBJ-derived estimates, not formal DPH compliance findings. ${escapeHtml(caseMixBenchmarkExplanation)} Provider Information benchmark timing may not align exactly with every historical PBJ quarter. Staffing data alone do not prove care quality, neglect, harm, or regulatory violations. Ownership and affiliation context is informational and does not itself prove common day-to-day control.
       </div>
     `;
   }
@@ -474,7 +475,7 @@
         <article class="staffing-metric card">
           <div class="summary-label">Case-mix comparison point</div>
           <strong>${formatHprd(benchmark.case_mix_total_nurse_hprd)}</strong>
-          <p class="subtle">CMS Provider Information case-mix total nurse HPRD benchmark. This is an acuity-related comparison point, not actual staffing and not a legal minimum.</p>
+          <p class="subtle">${escapeHtml(caseMixBenchmarkExplanation)}</p>
           ${comparison ? `<div class="comparison-note">${escapeHtml(comparison)}</div>` : ''}
         </article>
       `);
@@ -746,9 +747,9 @@
       : 'Contract staff percentage is not available in this export for the selected facility-quarter.';
     const benchmarkComparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
     const benchmarkSentence = benchmark.case_mix_benchmark_available && benchmarkComparison
-      ? ` The CMS case-mix benchmark provides acuity-related context: ${benchmarkComparison.toLowerCase()}`
+      ? ` The CMS Provider Information case-mix total nurse HPRD comparison point is imported from CMS, not calculated by this tool; the comparison is calculated here: ${benchmarkComparison.toLowerCase()}`
       : benchmark.case_mix_benchmark_available
-        ? ' CMS case-mix benchmark values are available for context, but a total-nurse comparison could not be calculated from the current values.'
+        ? ' The CMS Provider Information case-mix total nurse HPRD comparison point is available for context, but a total-nurse comparison could not be calculated from the current values.'
         : ' No CMS case-mix benchmark is available in this export for the selected facility-quarter.';
     const ctBelow = [];
     if (metrics.ct_total_direct_care_below_minimum_estimate === true) {

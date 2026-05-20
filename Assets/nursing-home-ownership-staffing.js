@@ -13,6 +13,43 @@
   let filteredAffiliations = [];
   let selectedSortKey = 'name';
   let statewideSortKey = 'ct_total_below_share';
+  let affiliationPatternMode = 'ct-total';
+  let affiliationPatternThreshold = 2;
+  let currentAffiliationPersistenceRows = [];
+  const caseMixBenchmarkExplanation = 'How this comparison is built: the case-mix comparison point value itself is not calculated by this tool. It is imported directly from the CMS Nursing Home Provider Information field "Case-Mix Total Nurse Staffing Hours per Resident per Day." CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. This tool compares PBJ-reported actual total nurse HPRD against that CMS-published comparison point; in affiliation views, it averages available facility comparison points and calculates actual-minus-benchmark group comparisons. These difference values are calculated by this tool. The comparison point is contextual, not actual staffing, not a legal minimum, and not proof of poor care, neglect, harm, or violations.';
+
+  const persistentPatternConfig = {
+    'ct-total': {
+      label: 'Below CT 3.00 direct-care comparison point',
+      countLabel: 'Facilities below CT 3.00 in threshold quarters',
+      eligible: row => typeof getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === 'boolean',
+      matches: row => getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === true
+    },
+    'ct-licensed': {
+      label: 'Below CT 0.84 licensed comparison point',
+      countLabel: 'Facilities below CT 0.84 in threshold quarters',
+      eligible: row => typeof getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === 'boolean',
+      matches: row => getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === true
+    },
+    'case-mix': {
+      label: 'Below CMS case-mix total nurse comparison point',
+      countLabel: 'Facilities below case-mix point in threshold quarters',
+      eligible: row => isUsableNumber(getMetric(row, 'total_nurse_hprd')) && isUsableNumber(getBenchmark(row, 'case_mix_total_nurse_hprd')),
+      matches: row => Number(getMetric(row, 'total_nurse_hprd')) < Number(getBenchmark(row, 'case_mix_total_nurse_hprd'))
+    },
+    'contract-10': {
+      label: 'Contract staff at or above 10%',
+      countLabel: 'Facilities with contract staff 10%+ in threshold quarters',
+      eligible: row => isUsableNumber(getMetric(row, 'contract_staff_pct')),
+      matches: row => Number(getMetric(row, 'contract_staff_pct')) >= 10
+    },
+    'contract-20': {
+      label: 'Contract staff at or above 20%',
+      countLabel: 'Facilities with contract staff 20%+ in threshold quarters',
+      eligible: row => isUsableNumber(getMetric(row, 'contract_staff_pct')),
+      matches: row => Number(getMetric(row, 'contract_staff_pct')) >= 20
+    }
+  };
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -284,6 +321,51 @@
     };
   }
 
+  function evaluateFacilityPersistentPattern(facility, mode = affiliationPatternMode, threshold = affiliationPatternThreshold) {
+    const config = persistentPatternConfig[mode] || persistentPatternConfig['ct-total'];
+    const rows = Array.isArray(facility.rows) ? facility.rows : [];
+    const eligibleRows = rows.filter(row => config.eligible(row));
+    const matchingRows = eligibleRows.filter(row => config.matches(row));
+    const latest = getLatestQuarter();
+    const latestRow = latest ? getFacilityQuarterRow(facility, latest.quarter) : null;
+    const latestMatches = latestRow && config.eligible(latestRow) && config.matches(latestRow);
+    return {
+      facility,
+      eligibleCount: eligibleRows.length,
+      matchCount: matchingRows.length,
+      matchingQuarters: matchingRows.map(row => row.quarter_label || row.quarter),
+      meetsThreshold: matchingRows.length >= threshold,
+      latestMatches: Boolean(latestMatches)
+    };
+  }
+
+  function calculateGroupPersistentPattern(group, mode = affiliationPatternMode, threshold = affiliationPatternThreshold) {
+    const facilityResults = group.facilities.map(facility => evaluateFacilityPersistentPattern(facility, mode, threshold));
+    const matchingFacilities = facilityResults.filter(result => result.meetsThreshold);
+    return {
+      group,
+      facilityResults,
+      matchingFacilities,
+      matchingFacilityCount: matchingFacilities.length,
+      groupFacilityCount: group.facilities.length,
+      matchingShare: shareValue(matchingFacilities.length, group.facilities.length),
+      latestMatchingFacilityCount: facilityResults.filter(result => result.latestMatches).length
+    };
+  }
+
+  function buildAffiliationPersistenceRows() {
+    return affiliations
+      .map(group => calculateGroupPersistentPattern(group))
+      .sort(sortAffiliationPersistenceRows);
+  }
+
+  function sortAffiliationPersistenceRows(a, b) {
+    return compareNullableNumbers(a.matchingShare, b.matchingShare, 'desc')
+      || b.matchingFacilityCount - a.matchingFacilityCount
+      || b.groupFacilityCount - a.groupFacilityCount
+      || a.group.name.localeCompare(b.group.name);
+  }
+
   function buildStatewideRows() {
     const latest = getLatestQuarter();
     if (!latest) return [];
@@ -412,6 +494,8 @@
     const latest = getLatestQuarter();
     const latestAggregate = latest ? calculateQuarterAggregate(group, latest.quarter) : null;
     const patternAggregate = calculateFiveQuarterAggregate(group);
+    const persistentConfig = persistentPatternConfig[affiliationPatternMode] || persistentPatternConfig['ct-total'];
+    const persistentAggregate = calculateGroupPersistentPattern(group);
     const generatedAt = dataset?.generated_at || 'Not available';
     const reportingLabel = dataset?.reporting_period?.label || latest?.label || 'latest quarter';
     output.innerHTML = `
@@ -430,10 +514,11 @@
           ${escapeHtml(formatShare(latestAggregate.ctTotalBelowCount, latestAggregate.ctTotalComparisonCount))} below the CT 3.00 comparison point;
           ${escapeHtml(formatShare(latestAggregate.ctLicensedBelowCount, latestAggregate.ctLicensedComparisonCount))} below the CT 0.84 licensed nursing comparison point.
           Five-quarter pattern: ${escapeHtml(formatShare(patternAggregate.ctTotalBelowCount, patternAggregate.ctTotalComparisonCount))} facility-quarter rows below the CT 3.00 comparison point.
+          Selected persistent pattern: ${escapeHtml(formatShare(persistentAggregate.matchingFacilityCount, persistentAggregate.groupFacilityCount))} linked facilities meet "${escapeHtml(persistentConfig.label)}" in ${affiliationPatternThreshold}+ quarters.
         </div>
       ` : ''}
       <div class="notice">
-        Grouped by CMS SNF Enrollment affiliation entity. Staffing measures are CMS PBJ-derived screening metrics. Connecticut comparison points are screening estimates, not formal DPH compliance findings. Case-mix benchmarks are contextual CMS Provider Information comparison points. Shared affiliation does not prove identical operations or decision-making across facilities.
+        Grouped by CMS SNF Enrollment affiliation entity. Staffing measures are CMS PBJ-derived screening metrics. Connecticut comparison points are screening estimates, not formal DPH compliance findings. ${escapeHtml(caseMixBenchmarkExplanation)} Shared affiliation does not prove identical operations or decision-making across facilities.
       </div>
     `;
   }
@@ -532,6 +617,254 @@
     bindViewGroupButtons();
   }
 
+  function renderAffiliationPersistenceComparison() {
+    const output = document.getElementById('affiliation-persistence-comparison');
+    const note = document.getElementById('affiliation-persistence-note');
+    if (!output || !note) return;
+    const config = persistentPatternConfig[affiliationPatternMode] || persistentPatternConfig['ct-total'];
+    const rows = buildAffiliationPersistenceRows();
+    currentAffiliationPersistenceRows = rows;
+    hideAffiliationPersistenceSummaryFallback();
+    note.textContent = `${config.label}; showing affiliation entities sorted by the share of linked Connecticut facilities meeting the ${affiliationPatternThreshold}+ quarter persistence threshold. Small CT groups remain visible but should be read cautiously.`;
+    output.innerHTML = `
+      <div class="table-scroll" tabindex="0" aria-label="Affiliation persistent staffing pattern table">
+        <table>
+          <caption>Affiliation persistence summary: ${escapeHtml(config.label)}, ${affiliationPatternThreshold}+ quarters</caption>
+          <thead>
+            <tr>
+              <th scope="col">Affiliation entity</th>
+              <th scope="col">Affiliation ID</th>
+              <th scope="col">CT facilities in group</th>
+              <th scope="col">${escapeHtml(config.countLabel)}</th>
+              <th scope="col">Share of group</th>
+              <th scope="col">Matching facilities</th>
+              <th scope="col">Latest-quarter matching facilities</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(row => renderAffiliationPersistenceRow(row)).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    bindViewGroupButtons();
+    renderAffiliationPersistencePrintContext();
+    updateAffiliationPersistenceActions();
+  }
+
+  function renderAffiliationPersistenceRow(row) {
+    const matchingLinks = row.matchingFacilities.length
+      ? row.matchingFacilities.slice(0, 4).map(result => (
+          `<a href="nursing-home-staffing-explorer.html?ccn=${encodeURIComponent(result.facility.ccn)}">${escapeHtml(result.facility.provider_name || result.facility.ccn)}</a>`
+        )).join('<br>')
+      : '<span class="subtle">None at this threshold</span>';
+    const extraCount = row.matchingFacilities.length > 4
+      ? `<br><span class="subtle">+ ${formatCount(row.matchingFacilities.length - 4)} more</span>`
+      : '';
+    const persistentUrl = getPersistentPatternsUrl(row.group);
+    return `
+      <tr>
+        <th scope="row">
+          <button class="link-button view-group-button" type="button" data-group-key="${escapeHtml(row.group.key)}">${escapeHtml(row.group.name)}</button>
+          ${getSmallGroupLabel(row.group)}
+        </th>
+        <td><span class="subtle">${escapeHtml(row.group.affiliationId || 'Not available')}</span></td>
+        <td>${formatCount(row.groupFacilityCount)}</td>
+        <td>${formatCount(row.matchingFacilityCount)}</td>
+        <td>${formatCompactPercent(isUsableNumber(row.matchingShare) ? Number(row.matchingShare) * 100 : null)}</td>
+        <td>${matchingLinks}${extraCount}</td>
+        <td>${formatCount(row.latestMatchingFacilityCount)}</td>
+        <td>
+          <button class="action-button view-group-button" type="button" data-group-key="${escapeHtml(row.group.key)}">View group</button>
+          <br><a href="${escapeHtml(persistentUrl)}">View matching facilities</a>
+        </td>
+      </tr>
+    `;
+  }
+
+  function getPersistentPatternsUrl(group) {
+    const params = new URLSearchParams({
+      mode: affiliationPatternMode,
+      threshold: String(affiliationPatternThreshold),
+      affiliation: group.name
+    });
+    return `nursing-home-persistent-staffing-patterns.html?${params.toString()}`;
+  }
+
+  function getQuarterWindowText() {
+    const quarters = getDatasetQuarters();
+    if (!quarters.length) return 'Not available';
+    return `${quarters[0].label} through ${quarters[quarters.length - 1].label}`;
+  }
+
+  function getThresholdPhrase(threshold = affiliationPatternThreshold) {
+    const number = Number(threshold);
+    return number >= 5 ? '5' : `${formatCount(number)} or more`;
+  }
+
+  function getAffiliationPersistenceBriefingPhrase(mode = affiliationPatternMode, threshold = affiliationPatternThreshold) {
+    const thresholdPhrase = getThresholdPhrase(threshold);
+    switch (mode) {
+      case 'ct-licensed':
+        return `below the CT 0.84 licensed comparison point in ${thresholdPhrase} quarters`;
+      case 'case-mix':
+        return `below the CMS case-mix total nurse comparison point in ${thresholdPhrase} eligible quarters`;
+      case 'contract-10':
+        return `with contract staffing at or above 10% in ${thresholdPhrase} quarters`;
+      case 'contract-20':
+        return `with contract staffing at or above 20% in ${thresholdPhrase} quarters`;
+      case 'ct-total':
+      default:
+        return `below the CT 3.00 direct-care comparison point in ${thresholdPhrase} quarters`;
+    }
+  }
+
+  function joinWithAnd(items) {
+    if (items.length <= 1) return items.join('');
+    if (items.length === 2) return `${items[0]} and ${items[1]}`;
+    return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+  }
+
+  function buildAffiliationPersistenceBriefingSummary() {
+    const rowCount = currentAffiliationPersistenceRows.length;
+    if (!rowCount) return '';
+    const topRows = currentAffiliationPersistenceRows.slice(0, Math.min(5, rowCount));
+    const leadingEntities = topRows.map(row => (
+      `${row.group.name} (${formatCount(row.matchingFacilityCount)}/${formatCount(row.groupFacilityCount)} CT facilities, ${formatCompactPercent(Number(row.matchingShare) * 100)})`
+    ));
+    const entityNoun = rowCount === 1 ? 'affiliation entity' : 'affiliation entities';
+    const appearVerb = rowCount === 1 ? 'appears' : 'appear';
+    const leadingNoun = topRows.length === 1 ? 'entity' : 'entities';
+    const includeVerb = topRows.length === 1 ? 'includes' : 'include';
+    return `Using CMS PBJ staffing data from ${getQuarterWindowText()}, ${formatCount(rowCount)} ${entityNoun} currently ${appearVerb} in the screening view for facilities ${getAffiliationPersistenceBriefingPhrase()}. The leading ${leadingNoun} under the current table sort ${includeVerb} ${joinWithAnd(leadingEntities)}. These are PBJ-derived screening patterns grouped by CMS SNF Enrollment affiliation entity and are intended to identify questions for closer review, not establish legal violations, common operational control, or care-quality conclusions.`;
+  }
+
+  function hideAffiliationPersistenceSummaryFallback() {
+    const fallback = document.getElementById('affiliation-persistence-summary-fallback');
+    const textarea = document.getElementById('affiliation-persistence-summary-text');
+    if (fallback) fallback.hidden = true;
+    if (textarea) textarea.value = '';
+  }
+
+  function showAffiliationPersistenceSummaryFallback(summary) {
+    const fallback = document.getElementById('affiliation-persistence-summary-fallback');
+    const textarea = document.getElementById('affiliation-persistence-summary-text');
+    if (!fallback || !textarea) return;
+    textarea.value = summary;
+    fallback.hidden = false;
+    textarea.focus();
+    textarea.select();
+  }
+
+  function updateAffiliationPersistenceActions() {
+    const hasRows = currentAffiliationPersistenceRows.length > 0;
+    ['download-affiliation-persistence-csv', 'print-affiliation-persistence-view', 'copy-affiliation-persistence-summary'].forEach(id => {
+      const button = document.getElementById(id);
+      if (button) button.disabled = !hasRows;
+    });
+    if (!hasRows) hideAffiliationPersistenceSummaryFallback();
+    const status = document.getElementById('affiliation-persistence-action-status');
+    if (status) {
+      status.textContent = hasRows
+        ? `Reporting actions use ${formatCount(currentAffiliationPersistenceRows.length)} affiliation rows in the current persistence view.`
+        : 'No affiliation persistence rows are available to export, print, or summarize.';
+    }
+  }
+
+  function renderAffiliationPersistencePrintContext() {
+    const output = document.getElementById('affiliation-persistence-print-context');
+    if (!output) return;
+    const config = persistentPatternConfig[affiliationPatternMode] || persistentPatternConfig['ct-total'];
+    output.innerHTML = `
+      <h1>Connecticut Affiliation Persistent Staffing Screening Patterns</h1>
+      <div class="summary-grid">
+        <div class="summary-cell"><dl><dt>Pattern mode</dt><dd>${escapeHtml(config.label)}</dd></dl></div>
+        <div class="summary-cell"><dl><dt>Minimum quarters</dt><dd>${formatCount(affiliationPatternThreshold)}+</dd></dl></div>
+        <div class="summary-cell"><dl><dt>Affiliation rows</dt><dd>${formatCount(currentAffiliationPersistenceRows.length)}</dd></dl></div>
+        <div class="summary-cell"><dl><dt>Data window</dt><dd>${escapeHtml(getQuarterWindowText())}</dd></dl></div>
+        <div class="summary-cell"><dl><dt>Export generated</dt><dd>${escapeHtml(dataset?.generated_at || 'Not available')}</dd></dl></div>
+      </div>
+      <div class="notice">
+        This view groups Connecticut facilities by CMS SNF Enrollment affiliation entity. Persistent patterns reflect repeated screening indicators across available PBJ quarters. Missing PBJ rows and benchmark-ineligible quarters are not treated as adverse findings. CT comparison patterns are PBJ-derived screening estimates, not formal DPH compliance findings. Shared affiliation does not prove identical day-to-day operations, management decisions, or legal responsibility across facilities. Use the linked persistent-pattern and facility-level tools for drill-down review.
+      </div>
+    `;
+  }
+
+  function buildAffiliationPersistenceCsv() {
+    const config = persistentPatternConfig[affiliationPatternMode] || persistentPatternConfig['ct-total'];
+    const headers = [
+      'pattern_mode',
+      'minimum_matching_quarters_threshold',
+      'affiliation_entity_name',
+      'affiliation_entity_id',
+      'ct_facilities_in_affiliation_group',
+      'facilities_meeting_selected_persistent_pattern_threshold',
+      'share_of_affiliation_facilities_meeting_threshold_pct',
+      'latest_quarter_matching_facility_count',
+      'matching_facility_names',
+      'persistent_patterns_deep_link_url'
+    ];
+    const rows = currentAffiliationPersistenceRows.map(row => ({
+      pattern_mode: config.label,
+      minimum_matching_quarters_threshold: `${affiliationPatternThreshold}+`,
+      affiliation_entity_name: row.group.name,
+      affiliation_entity_id: row.group.affiliationId || '',
+      ct_facilities_in_affiliation_group: row.groupFacilityCount,
+      facilities_meeting_selected_persistent_pattern_threshold: row.matchingFacilityCount,
+      share_of_affiliation_facilities_meeting_threshold_pct: isUsableNumber(row.matchingShare) ? (Number(row.matchingShare) * 100).toFixed(1) : '',
+      latest_quarter_matching_facility_count: row.latestMatchingFacilityCount,
+      matching_facility_names: row.matchingFacilities.map(result => result.facility.provider_name || result.facility.ccn).join('; '),
+      persistent_patterns_deep_link_url: getPersistentPatternsUrl(row.group)
+    }));
+    return buildCsv(headers, rows);
+  }
+
+  function handleDownloadAffiliationPersistenceCsv() {
+    if (!currentAffiliationPersistenceRows.length) {
+      updateAffiliationPersistenceActions();
+      return;
+    }
+    const filename = `affiliation-persistence-${safeFilenamePart(affiliationPatternMode)}-${affiliationPatternThreshold}-plus.csv`;
+    downloadTextFile(filename, buildAffiliationPersistenceCsv());
+    const status = document.getElementById('affiliation-persistence-action-status');
+    if (status) status.textContent = `Affiliation persistence CSV prepared: ${filename}`;
+  }
+
+  function handlePrintAffiliationPersistence() {
+    if (!currentAffiliationPersistenceRows.length) {
+      updateAffiliationPersistenceActions();
+      return;
+    }
+    renderAffiliationPersistencePrintContext();
+    document.body.classList.add('print-affiliation-persistence');
+    global.print();
+  }
+
+  async function handleCopyAffiliationPersistenceSummary() {
+    const status = document.getElementById('affiliation-persistence-action-status');
+    if (!currentAffiliationPersistenceRows.length) {
+      updateAffiliationPersistenceActions();
+      return;
+    }
+    const summary = buildAffiliationPersistenceBriefingSummary();
+    if (!summary) {
+      if (status) status.textContent = 'No affiliation persistence rows are available to summarize.';
+      return;
+    }
+    try {
+      if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(summary);
+      hideAffiliationPersistenceSummaryFallback();
+      if (status) status.textContent = 'Briefing summary copied.';
+    } catch (err) {
+      showAffiliationPersistenceSummaryFallback(summary);
+      if (status) status.textContent = 'Clipboard copy was unavailable; the generated briefing summary is shown below.';
+    }
+  }
+
   function selectAffiliationGroup(groupKey, shouldScroll = true) {
     const group = getGroupByKey(groupKey);
     const select = document.getElementById('affiliation-select');
@@ -616,7 +949,34 @@
         <div class="summary-cell"><dl><dt>Affiliation entity ID</dt><dd>${escapeHtml(group.affiliationId || 'Not available')}</dd></dl></div>
       </div>
       <p class="subtle">Affiliation entity names come from CMS SNF Enrollments. Select a facility name for facility staffing details. These fields provide organizational context and may not describe every operational relationship among facilities.</p>
+      ${renderSelectedPersistenceSummary(group)}
       <ol class="facility-list">${linkedFacilities}</ol>
+    `;
+  }
+
+  function renderSelectedPersistenceSummary(group) {
+    const config = persistentPatternConfig[affiliationPatternMode] || persistentPatternConfig['ct-total'];
+    const aggregate = calculateGroupPersistentPattern(group);
+    const matching = aggregate.matchingFacilities;
+    const matchingList = matching.length
+      ? `<ul>${matching.map(result => `
+          <li>
+            <a href="nursing-home-staffing-explorer.html?ccn=${encodeURIComponent(result.facility.ccn)}">${escapeHtml(result.facility.provider_name || result.facility.ccn)}</a>
+            <span class="subtle"> - ${formatCount(result.matchCount)} matching quarter${result.matchCount === 1 ? '' : 's'}${result.matchingQuarters.length ? ` (${escapeHtml(result.matchingQuarters.join(', '))})` : ''}</span>
+          </li>
+        `).join('')}</ul>`
+      : '<p class="subtle">No linked Connecticut facilities meet this persistent-pattern threshold.</p>';
+    return `
+      <div class="notice">
+        <strong>Selected persistent pattern:</strong> ${escapeHtml(config.label)} in ${affiliationPatternThreshold}+ quarters.
+        <div class="summary-grid">
+          <div class="summary-cell"><dl><dt>Facilities meeting threshold</dt><dd>${formatCount(aggregate.matchingFacilityCount)}</dd></dl></div>
+          <div class="summary-cell"><dl><dt>Share of CT group</dt><dd>${formatCompactPercent(isUsableNumber(aggregate.matchingShare) ? Number(aggregate.matchingShare) * 100 : null)}</dd></dl></div>
+          <div class="summary-cell"><dl><dt>Latest-quarter matches</dt><dd>${formatCount(aggregate.latestMatchingFacilityCount)}</dd></dl></div>
+        </div>
+        ${matchingList}
+        <p><a href="${escapeHtml(getPersistentPatternsUrl(group))}">View matching facilities in Persistent Staffing Patterns</a></p>
+      </div>
     `;
   }
 
@@ -632,7 +992,7 @@
       ? `${aggregate.missingFacilityCount} linked facility${aggregate.missingFacilityCount === 1 ? ' is' : 'ies are'} missing ${latest.label}.`
       : `All linked facilities have a ${latest.label} PBJ row.`;
     const benchmarkText = isUsableNumber(aggregate.averageBenchmarkTotalHprd)
-      ? `${formatHprd(aggregate.averageBenchmarkTotalHprd)} benchmark average; actual minus benchmark ${formatSignedHprd(aggregate.averageActualMinusBenchmark)}.`
+      ? `${formatHprd(aggregate.averageBenchmarkTotalHprd)} average of available CMS Provider Information case-mix comparison points; actual minus benchmark ${formatSignedHprd(aggregate.averageActualMinusBenchmark)}. The imported facility comparison point values are not calculated by this tool; this tool calculates the group average and actual-minus-benchmark comparison.`
       : 'Case-mix benchmark average is not available for this group-quarter.';
 
     document.getElementById('latest-quarter-note').textContent = `${latest.label} averages use ${aggregate.facilityCount} of ${group.facilities.length} linked facilities. ${missingNote}`;
@@ -656,6 +1016,7 @@
         <div class="summary-label">Actual vs case-mix benchmark</div>
         <strong>${isUsableNumber(aggregate.averageActualMinusBenchmark) ? formatSignedHprd(aggregate.averageActualMinusBenchmark) : 'Not available'}</strong>
         <p class="subtle">${escapeHtml(benchmarkText)}</p>
+        <p class="subtle">${escapeHtml(caseMixBenchmarkExplanation)}</p>
       </article>
       <article class="metric-card card">
         <div class="summary-label">Avg CT direct-care total HPRD estimate</div>
@@ -957,6 +1318,7 @@
 
       renderDatasetSummary();
       renderStatewideComparison();
+      renderAffiliationPersistenceComparison();
       populateAffiliationSelect();
       document.getElementById('affiliation-filter').addEventListener('input', filterAffiliations);
       select.addEventListener('change', event => renderGroup(event.target.value));
@@ -974,6 +1336,19 @@
           updateStatewideSortButtons(statewideSortKey);
           renderStatewideComparison();
         });
+      });
+      document.querySelectorAll('.affiliation-pattern-mode-button').forEach(button => {
+        button.addEventListener('click', () => {
+          affiliationPatternMode = button.dataset.affiliationPatternMode || 'ct-total';
+          refreshAffiliationPersistenceViews();
+        });
+      });
+      document.getElementById('affiliation-pattern-threshold')?.addEventListener('change', refreshAffiliationPersistenceViews);
+      document.getElementById('download-affiliation-persistence-csv')?.addEventListener('click', handleDownloadAffiliationPersistenceCsv);
+      document.getElementById('print-affiliation-persistence-view')?.addEventListener('click', handlePrintAffiliationPersistence);
+      document.getElementById('copy-affiliation-persistence-summary')?.addEventListener('click', handleCopyAffiliationPersistenceSummary);
+      global.addEventListener('afterprint', () => {
+        document.body.classList.remove('print-affiliation-persistence');
       });
       document.getElementById('print-affiliation-summary')?.addEventListener('click', handlePrintSummary);
       document.getElementById('download-facility-comparison-csv')?.addEventListener('click', handleDownloadFacilityCsv);
@@ -999,6 +1374,20 @@
     document.querySelectorAll('.statewide-sort-button').forEach(button => {
       button.setAttribute('aria-pressed', String(button.dataset.statewideSortKey === activeKey));
     });
+  }
+
+  function updateAffiliationPatternModeButtons(activeMode) {
+    document.querySelectorAll('.affiliation-pattern-mode-button').forEach(button => {
+      button.setAttribute('aria-pressed', String(button.dataset.affiliationPatternMode === activeMode));
+    });
+  }
+
+  function refreshAffiliationPersistenceViews() {
+    affiliationPatternThreshold = Number(document.getElementById('affiliation-pattern-threshold')?.value || 2);
+    updateAffiliationPatternModeButtons(affiliationPatternMode);
+    renderAffiliationPersistenceComparison();
+    const selected = getSelectedGroup();
+    if (selected) renderAffiliationSummary(selected);
   }
 
   document.addEventListener('DOMContentLoaded', loadPage);

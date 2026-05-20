@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connecticut Nursing Home Staffing Change Over Time</title>
+  <meta name="description" content="A screening-level Connecticut nursing home staffing change-over-time explorer using CMS PBJ staffing data." />
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-staffing-change-over-time.js"></script>
+  <style>
+    label { display:block; font-weight:800; margin-bottom:6px; }
+    input,
+    select {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-family:inherit;
+    }
+    select option { color:#06121b; }
+    .change-hero {
+      min-height:auto;
+      display:block;
+      padding-top:26px;
+      padding-bottom:8px;
+    }
+    .change-hero .panel { display:grid; gap:12px; }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+    .warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .error {
+      border-color:rgba(251,113,133,0.3);
+      background:rgba(251,113,133,0.08);
+    }
+    .summary-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:10px;
+      margin-top:4px;
+    }
+    .summary-card {
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .summary-card strong {
+      display:block;
+      margin-top:4px;
+      font-size:22px;
+      font-weight:850;
+    }
+    .summary-label {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .filter-grid {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:12px;
+      align-items:end;
+    }
+    .mode-row,
+    .action-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:12px 0;
+    }
+    button.mode-button,
+    button.action-button {
+      border:1px solid var(--glass-strong);
+      border-radius:8px;
+      padding:7px 9px;
+      color:var(--text);
+      background:rgba(255,255,255,0.025);
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button.mode-button[aria-pressed="true"] {
+      border-color:rgba(56,189,248,0.32);
+      background:rgba(56,189,248,0.1);
+    }
+    button.action-button:disabled {
+      cursor:not-allowed;
+      opacity:0.5;
+    }
+    .print-only { display:none; }
+    .table-scroll {
+      overflow-x:auto;
+      border-radius:10px;
+      border:1px solid var(--border);
+    }
+    table {
+      width:100%;
+      min-width:1120px;
+      border-collapse:collapse;
+      background:rgba(255,255,255,0.018);
+    }
+    caption {
+      text-align:left;
+      padding:12px 14px;
+      color:var(--muted);
+      font-weight:800;
+    }
+    th,
+    td {
+      padding:12px 14px;
+      text-align:left;
+      border-top:1px solid var(--border);
+      vertical-align:middle;
+    }
+    thead th {
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    tbody th { font-weight:850; }
+    .microcopy,
+    .subtle-note {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .status-pill {
+      display:inline-block;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.06);
+      font-size:12px;
+      font-weight:800;
+    }
+    .status-pill.warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .positive { color:#86efac; font-weight:850; }
+    .negative { color:#fca5a5; font-weight:850; }
+    .interpretation-grid {
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    @media (max-width:980px) {
+      .filter-grid,
+      .interpretation-grid {
+        grid-template-columns:1fr;
+      }
+    }
+    @media print {
+      body {
+        background:#fff;
+        color:#111827;
+      }
+      .topbar,
+      .no-print,
+      .change-hero,
+      .action-row,
+      .mode-row,
+      .filter-grid,
+      .interpretation-grid,
+      footer,
+      .linkBtn,
+      .action-button,
+      .mode-button {
+        display:none !important;
+      }
+      .wrap {
+        width:100%;
+        max-width:none;
+        margin:0;
+        padding:0;
+      }
+      .panel,
+      .card,
+      .summary-card,
+      .notice {
+        box-shadow:none;
+        background:#fff;
+        color:#111827;
+        border-color:#d1d5db;
+      }
+      .panel {
+        padding:0 0 14px;
+        border:0;
+      }
+      .print-only {
+        display:block;
+      }
+      .sectionHeader {
+        margin-bottom:8px;
+      }
+      .summary-grid {
+        grid-template-columns:repeat(3,1fr);
+        gap:8px;
+      }
+      .summary-card strong {
+        color:#111827;
+      }
+      .summary-label,
+      .subtle,
+      .subtle-note,
+      .microcopy,
+      thead th {
+        color:#374151;
+      }
+      .positive,
+      .negative {
+        color:#111827;
+      }
+      .table-scroll {
+        overflow:visible;
+        border:0;
+      }
+      table {
+        min-width:0;
+        font-size:10px;
+        background:#fff;
+      }
+      th,
+      td {
+        padding:5px 6px;
+        border-color:#d1d5db;
+      }
+      th:last-child,
+      td:last-child {
+        display:none;
+      }
+      .status-pill {
+        border:0;
+        background:transparent;
+        padding:0;
+        color:#111827;
+      }
+      a {
+        color:#111827;
+        text-decoration:none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DB</div>
+        <div>
+          <div style="font-weight:800">Staffing Change Over Time</div>
+          <div class="subtle" style="font-size:12px;">Connecticut PBJ Screening View</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
+        <a class="navLink linkBtn" href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
+        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap change-hero" aria-labelledby="change-title">
+      <div class="panel">
+        <div class="pill">Connecticut Statewide Change View</div>
+        <h1 id="change-title">Connecticut Nursing Home Staffing Change Over Time</h1>
+        <p>This tool compares available Connecticut nursing home PBJ facility-quarter rows from the earliest to latest quarter in the current staffing export. Use it to review declines, improvements, comparison-point crossings, and contract staffing changes across the five-quarter window.</p>
+        <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
+        <div class="notice warning">Missing quarter rows are not treated as zero. Change rankings include only facilities with both the earliest and latest quarter rows for the primary comparison window. Staffing changes are screening signals for review, not proof of cause, care quality, harm, neglect, or formal compliance findings.</div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="summary-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Window Summary</div>
+            <h2 id="summary-title">Earliest-to-latest staffing change snapshot</h2>
+            <p id="summary-note" class="subtle">The comparison window is derived from the generated Connecticut staffing export.</p>
+          </div>
+        </div>
+        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="controls-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Ranking Mode And Filters</div>
+            <h2 id="controls-title">Choose a change view</h2>
+            <p class="subtle">One mode is shown at a time. Search and filters apply to the selected change table.</p>
+          </div>
+        </div>
+        <div class="mode-row" role="group" aria-label="Statewide staffing change ranking mode">
+          <button class="mode-button" type="button" data-mode="direct-decline" aria-pressed="true">Largest decline in CT direct-care HPRD</button>
+          <button class="mode-button" type="button" data-mode="direct-improvement" aria-pressed="false">Largest improvement in CT direct-care HPRD</button>
+          <button class="mode-button" type="button" data-mode="crossed-below" aria-pressed="false">Crossed below CT 3.00 point</button>
+          <button class="mode-button" type="button" data-mode="crossed-above" aria-pressed="false">Crossed above CT 3.00 point</button>
+          <button class="mode-button" type="button" data-mode="contract-increase" aria-pressed="false">Largest increase in contract staff %</button>
+          <button class="mode-button" type="button" data-mode="rn-decrease" aria-pressed="false">Largest decrease in RN HPRD</button>
+        </div>
+        <div class="filter-grid">
+          <div>
+            <label for="facility-search">Search facilities</label>
+            <input id="facility-search" type="search" placeholder="Example: Mystic, 075031, ICARE" autocomplete="off">
+          </div>
+          <div>
+            <label for="affiliation-filter">Affiliation entity</label>
+            <select id="affiliation-filter">
+              <option value="all">All affiliations</option>
+            </select>
+          </div>
+          <div>
+            <label for="ownership-filter">Ownership type</label>
+            <select id="ownership-filter">
+              <option value="all">All ownership types</option>
+            </select>
+          </div>
+          <div>
+            <label for="affiliation-presence-filter">Affiliation data</label>
+            <select id="affiliation-presence-filter">
+              <option value="all">Show all</option>
+              <option value="with-affiliation">Only facilities with affiliation entity data</option>
+            </select>
+          </div>
+        </div>
+        <div class="action-row">
+          <button id="reset-filters" class="action-button" type="button">Reset filters</button>
+          <button id="print-change-view" class="action-button" type="button" disabled>Print current change view</button>
+          <button id="download-change-csv" class="action-button" type="button" disabled>Download current change table CSV</button>
+          <span id="filter-status" class="subtle-note" role="status">Loading change table...</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="current-summary-title">
+      <div class="panel">
+        <div id="print-report-context" class="print-only"></div>
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Current View Summary</div>
+            <h2 id="current-summary-title">Filtered change summary</h2>
+            <p id="mode-note" class="subtle">These figures summarize the rows currently shown in the selected change table.</p>
+          </div>
+        </div>
+        <div id="current-summary-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="table-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Change Table</div>
+            <h2 id="table-title">Statewide staffing change ranking</h2>
+            <p class="subtle">Default mode is largest decline in CT direct-care HPRD, sorted most negative change first.</p>
+          </div>
+        </div>
+        <div id="change-table" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="interpretation-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Interpretation</div>
+            <h2 id="interpretation-title">How to read this change view</h2>
+          </div>
+        </div>
+        <div class="grid interpretation-grid">
+          <article class="card">
+            <h3>Changes are not causes</h3>
+            <p>A decline or improvement is a change in PBJ-reported staffing metrics. This tool does not explain why staffing changed.</p>
+          </article>
+          <article class="card">
+            <h3>Crossings are screening indicators</h3>
+            <p>Threshold crossings use the PBJ-derived Connecticut direct-care comparison estimate. They are not formal DPH compliance findings.</p>
+          </article>
+          <article class="card">
+            <h3>Review full facility context</h3>
+            <p>Use "View facility trend" to inspect all five quarters, ownership/affiliation context, case-mix comparison, and caveats before drawing conclusions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Staffing Change Over Time - static screening view.</footer>
+</body>
+</html>

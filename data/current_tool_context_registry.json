@@ -15,6 +15,8 @@
     "tools/nors-crosswalk.html",
     "tools/nursing-home-staffing-explorer.html",
     "tools/nursing-home-statewide-staffing-comparison.html",
+    "tools/nursing-home-staffing-change-over-time.html",
+    "tools/nursing-home-persistent-staffing-patterns.html",
     "tools/nursing-home-ownership-staffing-explorer.html",
     "tools/responsible-use.html"
   ],
@@ -37,6 +39,8 @@
         "tools/nors-crosswalk.html",
         "tools/nursing-home-staffing-explorer.html",
         "tools/nursing-home-statewide-staffing-comparison.html",
+        "tools/nursing-home-staffing-change-over-time.html",
+        "tools/nursing-home-persistent-staffing-patterns.html",
         "tools/nursing-home-ownership-staffing-explorer.html",
         "tools/responsible-use.html"
       ],
@@ -135,16 +139,64 @@
       "notes": "Phase 5B static latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, facility drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, or care-quality findings."
     },
     {
-      "path": "tools/nursing-home-ownership-staffing-explorer.html",
-      "title": "Connecticut Nursing Home Ownership & Staffing Explorer",
+      "path": "tools/nursing-home-staffing-change-over-time.html",
+      "title": "Connecticut Nursing Home Staffing Change Over Time",
       "status": "active_primary",
-      "role": "Public-facing affiliation-level staffing explorer with statewide affiliation comparison tables grouped by CMS SNF Enrollment affiliation entity using the generated Connecticut staffing export.",
+      "role": "Public-facing earliest-to-latest Connecticut nursing home staffing change explorer with ranking modes, search, filters, printable current change views, facility trend drill-down links, and current change table CSV export.",
       "linked_from": [
         "index.html"
       ],
       "links_to": [
         "index.html",
         "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-statewide-staffing-comparison.html",
+        "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "data/nursing_home_staffing_ct.json",
+        "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/shared.js",
+        "Assets/nursing-home-staffing-change-over-time.js"
+      ],
+      "notes": "Phase 5D static change-over-time view. Computes earliest-to-latest facility staffing changes in front-end JavaScript from the generated Connecticut staffing export, excluding facilities missing either endpoint quarter from primary change ranking tables. Includes direct-care HPRD decline/improvement modes, CT 3.00 comparison-point crossing modes, contract staff percentage increase mode, RN HPRD decrease mode, printable current-view reporting, facility trend drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
+    },
+    {
+      "path": "tools/nursing-home-persistent-staffing-patterns.html",
+      "title": "Connecticut Nursing Home Persistent Staffing Patterns",
+      "status": "active_primary",
+      "role": "Public-facing multi-quarter Connecticut nursing home staffing screening explorer with persistence modes, threshold control, quarter-by-quarter pattern strips, query-filter support, search, filters, print reporting, facility trend drill-down links, and current table CSV export.",
+      "linked_from": [
+        "index.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-statewide-staffing-comparison.html",
+        "tools/nursing-home-staffing-change-over-time.html",
+        "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "data/nursing_home_staffing_ct.json",
+        "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/shared.js",
+        "Assets/nursing-home-persistent-staffing-patterns.js"
+      ],
+      "notes": "Phase 6C static persistent-patterns view. Computes repeated staffing screening patterns across available PBJ quarters in front-end JavaScript from the generated Connecticut staffing export. Includes CT 3.00 direct-care, CT 0.84 licensed, CMS case-mix comparison, contract staff 10%+, and contract staff 20%+ persistence modes with minimum-quarter thresholds, quarter-by-quarter visual pattern strips, query parameters for mode/threshold/affiliation, live current-view summaries, print-friendly current-view reporting, facility trend drill-down links, and filtered CSV export. Missing PBJ rows and missing case-mix benchmark values are not counted as adverse findings. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
+    },
+    {
+      "path": "tools/nursing-home-ownership-staffing-explorer.html",
+      "title": "Connecticut Nursing Home Ownership & Staffing Explorer",
+      "status": "active_primary",
+      "role": "Public-facing affiliation-level staffing explorer with statewide affiliation comparison tables, persistent-pattern summaries, CSV export, print reporting, and copyable briefing summaries grouped by CMS SNF Enrollment affiliation entity using the generated Connecticut staffing export.",
+      "linked_from": [
+        "index.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-persistent-staffing-patterns.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [
@@ -153,7 +205,7 @@
         "Assets/shared.js",
         "Assets/nursing-home-ownership-staffing.js"
       ],
-      "notes": "Phase 4G static derived view. Calculates statewide affiliation comparison tables, selected affiliation-group staffing summaries, Connecticut direct-care comparison summaries, and selected-affiliation print/CSV reporting actions in front-end JavaScript from the normalized Connecticut export. Supports ?affiliation= deep links, preferring CMS SNF Enrollment affiliation entity IDs and falling back to names. Uses simple facility averages and does not make chain quality, legal, harm, neglect, or compliance findings."
+      "notes": "Phase 6E static derived view. Calculates statewide affiliation comparison tables, selected affiliation-group staffing summaries, persistent multi-quarter affiliation screening pattern summaries with current-view CSV export, focused print reporting, copyable briefing summaries, Connecticut direct-care comparison summaries, and selected-affiliation print/CSV reporting actions in front-end JavaScript from the normalized Connecticut export. Supports ?affiliation= deep links, preferring CMS SNF Enrollment affiliation entity IDs and falling back to names, plus cross-links to the Persistent Staffing Patterns tool filtered by mode, threshold, and affiliation. Uses simple facility averages and does not make chain quality, legal, harm, neglect, or compliance findings."
     },
     {
       "path": "tools/responsible-use.html",

@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connecticut Nursing Home Persistent Staffing Patterns</title>
+  <meta name="description" content="A screening-level Connecticut nursing home persistent staffing patterns explorer using multi-quarter CMS PBJ staffing data." />
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-persistent-staffing-patterns.js"></script>
+  <style>
+    label { display:block; font-weight:800; margin-bottom:6px; }
+    input,
+    select {
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,0.02);
+      color:var(--text);
+      font-family:inherit;
+    }
+    select option { color:#06121b; }
+    .patterns-hero {
+      min-height:auto;
+      display:block;
+      padding-top:26px;
+      padding-bottom:8px;
+    }
+    .patterns-hero .panel { display:grid; gap:12px; }
+    .notice {
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.08);
+      color:var(--text);
+      margin-top:12px;
+    }
+    .warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .error {
+      border-color:rgba(251,113,133,0.3);
+      background:rgba(251,113,133,0.08);
+    }
+    .summary-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(170px,1fr));
+      gap:10px;
+      margin-top:4px;
+    }
+    .summary-card {
+      padding:10px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .summary-card strong {
+      display:block;
+      margin-top:4px;
+      font-size:22px;
+      font-weight:850;
+    }
+    .summary-label {
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    .filter-grid {
+      display:grid;
+      grid-template-columns:repeat(5,minmax(0,1fr));
+      gap:12px;
+      align-items:end;
+    }
+    .mode-row,
+    .action-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin:12px 0;
+    }
+    button.mode-button,
+    button.action-button {
+      border:1px solid var(--glass-strong);
+      border-radius:8px;
+      padding:7px 9px;
+      color:var(--text);
+      background:rgba(255,255,255,0.025);
+      font:inherit;
+      font-weight:800;
+      cursor:pointer;
+    }
+    button.mode-button[aria-pressed="true"] {
+      border-color:rgba(56,189,248,0.32);
+      background:rgba(56,189,248,0.1);
+    }
+    button.action-button:disabled {
+      cursor:not-allowed;
+      opacity:0.5;
+    }
+    .print-only { display:none; }
+    .table-scroll {
+      overflow-x:auto;
+      border-radius:10px;
+      border:1px solid var(--border);
+    }
+    table {
+      width:100%;
+      min-width:1320px;
+      border-collapse:collapse;
+      background:rgba(255,255,255,0.018);
+    }
+    caption {
+      text-align:left;
+      padding:12px 14px;
+      color:var(--muted);
+      font-weight:800;
+    }
+    th,
+    td {
+      padding:12px 14px;
+      text-align:left;
+      border-top:1px solid var(--border);
+      vertical-align:middle;
+    }
+    thead th {
+      color:var(--muted);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:0.08em;
+    }
+    tbody th { font-weight:850; }
+    .microcopy,
+    .subtle-note {
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+    .status-pill {
+      display:inline-block;
+      padding:3px 7px;
+      border-radius:999px;
+      border:1px solid rgba(56,189,248,0.18);
+      background:rgba(56,189,248,0.06);
+      font-size:12px;
+      font-weight:800;
+    }
+    .status-pill.warning {
+      border-color:rgba(251,191,36,0.28);
+      background:rgba(251,191,36,0.08);
+    }
+    .pattern-legend {
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      align-items:center;
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
+    }
+    .quarter-pattern {
+      display:flex;
+      gap:5px;
+      align-items:center;
+      min-width:max-content;
+    }
+    .pattern-marker,
+    .legend-marker {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:3px;
+      min-width:42px;
+      min-height:28px;
+      padding:3px 5px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+      color:var(--text);
+      font-size:11px;
+      font-weight:850;
+      line-height:1;
+    }
+    .legend-marker {
+      min-width:auto;
+      min-height:22px;
+    }
+    .pattern-marker.match,
+    .legend-marker.match {
+      border-color:rgba(251,191,36,0.38);
+      background:rgba(251,191,36,0.12);
+    }
+    .pattern-marker.nonmatch,
+    .legend-marker.nonmatch {
+      border-color:rgba(34,197,94,0.28);
+      background:rgba(34,197,94,0.08);
+    }
+    .pattern-marker.unavailable,
+    .legend-marker.unavailable {
+      border-color:rgba(148,163,184,0.2);
+      background:rgba(148,163,184,0.07);
+      color:var(--muted);
+    }
+    .marker-symbol {
+      font-size:10px;
+    }
+    .marker-quarter {
+      white-space:nowrap;
+    }
+    .interpretation-grid {
+      grid-template-columns:repeat(3,minmax(0,1fr));
+    }
+    @media (max-width:980px) {
+      .filter-grid,
+      .interpretation-grid {
+        grid-template-columns:1fr;
+      }
+    }
+    @media print {
+      body {
+        background:#fff;
+        color:#111827;
+      }
+      .topbar,
+      .no-print,
+      .patterns-hero,
+      .action-row,
+      .mode-row,
+      .filter-grid,
+      .interpretation-grid,
+      footer,
+      .linkBtn,
+      .action-button,
+      .mode-button {
+        display:none !important;
+      }
+      .wrap {
+        width:100%;
+        max-width:none;
+        margin:0;
+        padding:0;
+      }
+      .panel,
+      .card,
+      .summary-card,
+      .notice {
+        box-shadow:none;
+        background:#fff;
+        color:#111827;
+        border-color:#d1d5db;
+      }
+      .panel {
+        padding:0 0 14px;
+        border:0;
+      }
+      .print-only {
+        display:block;
+      }
+      .sectionHeader {
+        margin-bottom:8px;
+      }
+      .summary-grid {
+        grid-template-columns:repeat(4,1fr);
+        gap:8px;
+      }
+      .summary-card strong {
+        color:#111827;
+      }
+      .summary-label,
+      .subtle,
+      .subtle-note,
+      .microcopy,
+      thead th {
+        color:#374151;
+      }
+      .table-scroll {
+        overflow:visible;
+        border:0;
+      }
+      table {
+        min-width:0;
+        font-size:10px;
+        background:#fff;
+      }
+      th,
+      td {
+        padding:5px 6px;
+        border-color:#d1d5db;
+      }
+      th:last-child,
+      td:last-child {
+        display:none;
+      }
+      .status-pill {
+        border:0;
+        background:transparent;
+        padding:0;
+        color:#111827;
+      }
+      .pattern-legend {
+        color:#374151;
+      }
+      .pattern-marker,
+      .legend-marker {
+        border-color:#9ca3af;
+        background:#fff;
+        color:#111827;
+      }
+      .pattern-marker.match,
+      .legend-marker.match {
+        border-color:#92400e;
+      }
+      .pattern-marker.nonmatch,
+      .legend-marker.nonmatch {
+        border-color:#166534;
+      }
+      .pattern-marker.unavailable,
+      .legend-marker.unavailable {
+        border-color:#9ca3af;
+        color:#6b7280;
+      }
+      a {
+        color:#111827;
+        text-decoration:none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DB</div>
+        <div>
+          <div style="font-weight:800">Persistent Staffing Patterns</div>
+          <div class="subtle" style="font-size:12px;">Connecticut PBJ Screening View</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
+        <a class="navLink linkBtn" href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a class="navLink linkBtn" href="nursing-home-staffing-change-over-time.html">Staffing Change</a>
+        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
+        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap patterns-hero" aria-labelledby="patterns-title">
+      <div class="panel">
+        <div class="pill">Connecticut Multi-Quarter Pattern View</div>
+        <h1 id="patterns-title">Connecticut Nursing Home Persistent Staffing Patterns</h1>
+        <p>This page identifies facilities with staffing screening patterns observed across multiple CMS Payroll-Based Journal quarters in the current Connecticut export. It is designed to surface repeated questions for review, not to label facilities as violations or quality ratings.</p>
+        <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
+        <div class="notice warning">Facility quarter histories may be incomplete. Missing PBJ rows are not treated as zero staffing and are not counted as adverse findings. Persistent patterns should be reviewed with resident experience, complaints, survey findings, care records when appropriate, and other context.</div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="summary-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Pattern Summary</div>
+            <h2 id="summary-title">Two-or-more quarter persistence snapshot</h2>
+            <p id="summary-note" class="subtle">The quarter window is derived from the generated Connecticut staffing export.</p>
+          </div>
+        </div>
+        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="controls-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Pattern Mode And Filters</div>
+            <h2 id="controls-title">Choose a persistent screening pattern</h2>
+            <p class="subtle">Default threshold is two or more matching quarters. For case-mix patterns, only quarters with CMS benchmark values are eligible.</p>
+          </div>
+        </div>
+        <div class="mode-row" role="group" aria-label="Persistent staffing pattern mode">
+          <button class="mode-button" type="button" data-mode="ct-total" aria-pressed="true">Below CT 3.00 in multiple quarters</button>
+          <button class="mode-button" type="button" data-mode="ct-licensed" aria-pressed="false">Below CT 0.84 in multiple quarters</button>
+          <button class="mode-button" type="button" data-mode="case-mix" aria-pressed="false">Below case-mix comparison in multiple quarters</button>
+          <button class="mode-button" type="button" data-mode="contract-10" aria-pressed="false">Contract staff at/above 10%</button>
+          <button class="mode-button" type="button" data-mode="contract-20" aria-pressed="false">Contract staff at/above 20%</button>
+        </div>
+        <div class="filter-grid">
+          <div>
+            <label for="minimum-quarter-threshold">Minimum quarters meeting pattern</label>
+            <select id="minimum-quarter-threshold">
+              <option value="2">2+</option>
+              <option value="3">3+</option>
+              <option value="4">4+</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div>
+            <label for="facility-search">Search facilities</label>
+            <input id="facility-search" type="search" placeholder="Example: Mystic, 075031, ICARE" autocomplete="off">
+          </div>
+          <div>
+            <label for="affiliation-filter">Affiliation entity</label>
+            <select id="affiliation-filter">
+              <option value="all">All affiliations</option>
+            </select>
+          </div>
+          <div>
+            <label for="ownership-filter">Ownership type</label>
+            <select id="ownership-filter">
+              <option value="all">All ownership types</option>
+            </select>
+          </div>
+          <div>
+            <label for="complete-history-filter">Quarter history</label>
+            <select id="complete-history-filter">
+              <option value="all">Show all histories</option>
+              <option value="complete">Complete five-quarter history only</option>
+            </select>
+          </div>
+        </div>
+        <div class="action-row">
+          <button id="reset-filters" class="action-button" type="button">Reset filters</button>
+          <button id="print-pattern-view" class="action-button" type="button" disabled>Print current persistent-pattern view</button>
+          <button id="download-pattern-csv" class="action-button" type="button" disabled>Download current persistent-pattern table CSV</button>
+          <span id="filter-status" class="subtle-note" role="status">Loading persistent-pattern table...</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="current-summary-title">
+      <div class="panel">
+        <div id="print-report-context" class="print-only"></div>
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Current View Summary</div>
+            <h2 id="current-summary-title">Filtered persistent-pattern summary</h2>
+            <p id="mode-note" class="subtle">These figures summarize the rows currently shown for the selected pattern and threshold.</p>
+          </div>
+        </div>
+        <div id="current-summary-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="table-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Persistent Pattern Table</div>
+            <h2 id="table-title">Facilities matching the selected persistent pattern</h2>
+            <p class="subtle">Default sort is matching-quarter count descending, then the latest relevant metric, then facility name.</p>
+          </div>
+        </div>
+        <div id="patterns-table" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="interpretation-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Interpretation</div>
+            <h2 id="interpretation-title">How to read persistent patterns</h2>
+          </div>
+        </div>
+        <div class="grid interpretation-grid">
+          <article class="card">
+            <h3>Repeated patterns can sharpen review</h3>
+            <p>Repetition across quarters may be more useful than a single-quarter snapshot, but it still remains a screening signal.</p>
+          </article>
+          <article class="card">
+            <h3>Missing data are not adverse findings</h3>
+            <p>Missing PBJ rows are not counted as zero staffing. Case-mix persistence uses only quarters where CMS comparison points are available.</p>
+          </article>
+          <article class="card">
+            <h3>Use facility-level context</h3>
+            <p>CT comparison patterns are PBJ-derived screening estimates, not formal DPH findings. Contract staffing shares are descriptive indicators and do not independently prove staffing instability or poor care. Use the facility explorer to review full quarter-by-quarter context.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Persistent Staffing Patterns - static screening view.</footer>
+</body>
+</html>

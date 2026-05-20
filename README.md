@@ -21,6 +21,8 @@ Then open:
 - **NORS Crosswalk:** http://localhost:8000/tools/nors-crosswalk.html
 - **Nursing Home Staffing Explorer:** http://localhost:8000/tools/nursing-home-staffing-explorer.html
 - **Statewide Staffing Comparison:** http://localhost:8000/tools/nursing-home-statewide-staffing-comparison.html
+- **Staffing Change Over Time:** http://localhost:8000/tools/nursing-home-staffing-change-over-time.html
+- **Persistent Staffing Patterns:** http://localhost:8000/tools/nursing-home-persistent-staffing-patterns.html
 - **Ownership & Staffing Explorer:** http://localhost:8000/tools/nursing-home-ownership-staffing-explorer.html
 - **Responsible Use:** http://localhost:8000/tools/responsible-use.html
 - **Impact Dashboard:** http://localhost:8000/dashboards/impact-2024.html
@@ -67,12 +69,27 @@ Then open:
 - uses PBJ-derived screening metrics and CT direct-care comparison estimates from `data/nursing_home_staffing_ct.json`
 - frames statewide rankings as review questions, not care-quality or compliance conclusions
 
+### Staffing Change Over Time
+
+- public-facing earliest-to-latest Connecticut PBJ staffing change explorer
+- identifies direct-care HPRD declines and improvements, CT 3.00 comparison-point crossings, contract staffing increases, and RN HPRD decreases
+- supports search, affiliation and ownership filters, facility trend drill-down links, printable current change views, and current change table CSV export
+- treats missing endpoint-quarter rows as incomplete data rather than zero staffing values
+
+### Persistent Staffing Patterns
+
+- public-facing multi-quarter Connecticut PBJ staffing screening explorer
+- identifies facilities repeatedly below CT comparison points, below CMS case-mix comparison points, or at/above contract staffing thresholds
+- supports minimum-quarter thresholds, quarter-by-quarter pattern strips, search, affiliation and ownership filters, complete-history filtering, facility trend drill-down links, printable current views, and current persistent-pattern CSV export
+- treats missing PBJ rows and unavailable case-mix benchmark values as unavailable context rather than adverse findings
+
 ### Ownership & Staffing Explorer
 
 - public-facing affiliation-level staffing view
 - groups Connecticut facilities by CMS SNF Enrollment affiliation entity when available
 - derives group averages and facility comparisons from `data/nursing_home_staffing_ct.json`
 - includes a latest-quarter statewide affiliation comparison table and compact five-quarter affiliation pattern summary
+- includes affiliation-level persistent staffing pattern summaries using the same modes and thresholds as the Persistent Staffing Patterns tool, with current-view CSV export, print reporting, and a copyable briefing summary
 - summarizes latest-quarter Connecticut direct-care comparison estimates at the affiliation level
 - frames ownership and staffing patterns as screening context, not legal or care-quality findings
 
@@ -130,7 +147,7 @@ Optionally enrich facility metadata with a manually downloaded CMS Nursing Home 
 python scripts/build_nursing_home_staffing_ct.py --input-dir source_data/pbj --provider-info source_data/provider_info/NH_ProviderInfo_MonYYYY.csv --output data/nursing_home_staffing_ct.json
 ```
 
-When Provider Information is supplied, the generator also copies CMS case-mix staffing HPRD fields into the explorer's `benchmarks` object when available. These benchmark fields are contextual comparisons only; PBJ-calculated HPRD remains the actual staffing metric shown by the explorer.
+When Provider Information is supplied, the generator also copies CMS case-mix staffing HPRD fields into the explorer's `benchmarks` object when available. The case-mix total nurse comparison point is imported from CMS Nursing Home Provider Information, not calculated by this project; the UI-calculated comparisons are the actual-minus-benchmark and percent-of-benchmark displays. These benchmark fields are contextual comparisons only; PBJ-calculated HPRD remains the actual staffing metric shown by the explorer.
 
 The generator also emits Connecticut direct-care staffing comparison fields. Connecticut Title 19 Sec. 19-13-D8t(m)(6) establishes direct-care staffing minimums of 3.00 total nursing and nurse's aide HPRD and 0.84 licensed nursing HPRD. The PBJ-derived screening formulas are:
 
@@ -159,7 +176,7 @@ The ownership view computes statewide affiliation comparisons in the browser fro
 
 The two nursing home explorers support reciprocal drill-down links. Facility pages can link to an affiliation staffing summary with `?affiliation=` using the CMS SNF Enrollment affiliation entity ID when available, and ownership/affiliation rows link back to facility staffing details with `?ccn=`.
 
-The ownership view also provides selected-affiliation reporting actions: a print-friendly affiliation staffing summary, a latest-quarter facility comparison CSV, and a five-quarter trend CSV. These exports are generated client-side from the same static JSON and carry the same screening-use caveats.
+The ownership view also provides selected-affiliation reporting actions: a print-friendly affiliation staffing summary, a latest-quarter facility comparison CSV, and a five-quarter trend CSV. The affiliation persistence section adds current-view CSV export, focused print reporting, and a copyable briefing summary based on the selected pattern mode, threshold, data window, and current table sort. These outputs are generated client-side from the same static JSON and carry the same screening-use caveats.
 
 ## Deployment Notes
 

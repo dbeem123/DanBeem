@@ -69,6 +69,32 @@ The compact five-quarter summary uses all available facility-quarter rows in the
 - count/share of facility-quarter rows below the CT 3.00 direct-care comparison point
 - five-quarter average contract staff percentage
 
+## Persistent Affiliation Pattern Summary
+
+Phase 6C adds a statewide affiliation persistence table. It uses the same facility-level persistence concepts as `tools/nursing-home-persistent-staffing-patterns.html`, then summarizes results by CMS SNF Enrollment affiliation entity.
+
+Supported modes are:
+
+- below CT 3.00 direct-care comparison point
+- below CT 0.84 licensed comparison point
+- below CMS case-mix total nurse comparison point
+- contract staff at or above 10%
+- contract staff at or above 20%
+
+The table supports minimum-quarter thresholds of 2+, 3+, 4+, and 5. It shows one row per affiliation entity with at least one linked Connecticut facility, the number and share of linked facilities meeting the selected persistence threshold, selected matching facility links, latest-quarter matching counts, and actions to view the selected group or open the Persistent Staffing Patterns tool filtered to that affiliation.
+
+The persistence table includes client-side reporting actions:
+
+- download affiliation persistence table CSV
+- print affiliation persistence view
+- copy briefing summary
+
+These actions reflect the currently selected persistence mode and minimum-quarter threshold. The CSV preserves the displayed sort order and includes matching facility names plus a deep link into the Persistent Staffing Patterns tool. The print action focuses on the affiliation persistence section rather than printing the full ownership explorer page. The briefing summary is a short neutral paragraph based on the current table sort, data window, row count, and leading affiliation entities.
+
+Default sorting is highest share of linked Connecticut facilities meeting the selected persistence threshold, then highest matching facility count, then larger Connecticut group count, then affiliation name. Small CT groups remain visible and should be interpreted cautiously because one facility can drive a large share.
+
+The selected-affiliation detail section also shows a compact summary for the current persistence mode and threshold. These summaries are screening views only. Shared affiliation does not prove common day-to-day management decisions, operational causation, poor care, harm, neglect, or regulatory violations.
+
 ## Aggregation Choice
 
 Phase 4D uses simple facility averages, consistent with the existing ownership explorer. It does not resident-day weight affiliation averages.

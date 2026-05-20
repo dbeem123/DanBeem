@@ -108,7 +108,7 @@ The below-comparison flags are currently based on the rounded two-decimal CT est
 
 Use `null` and `false` when no benchmark is included in the static export.
 
-When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file benchmarks. They are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots for each PBJ quarter.
+When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file comparison points. The value for `case_mix_total_nurse_hprd` is copied from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; it is not calculated by this project. CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. The browser may compare PBJ-reported actual total nurse HPRD in `metrics.total_nurse_hprd` against that CMS-published comparison point; actual-minus-benchmark and percent-of-benchmark display text are project-calculated comparisons. These fields are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots for each PBJ quarter.
 
 ## Interpretation Blocks
 
@@ -142,7 +142,7 @@ The exact column names may vary by CMS release, so Phase 2B should confirm names
 | `ct_direct_care_licensed_nurse_hprd_estimate` | PBJ-derived CT screening estimate: `(Hrs_RN + Hrs_LPN) / resident_days` |
 | `ct_total_direct_care_minimum_hprd` | Connecticut Title 19 Sec. 19-13-D8t(m)(6) total nursing and nurse's aide personnel comparison point: 3.00 HPRD |
 | `ct_licensed_direct_care_minimum_hprd` | Connecticut Title 19 Sec. 19-13-D8t(m)(6) licensed nursing personnel comparison point: 0.84 HPRD |
-| `case_mix_total_nurse_hprd` | CMS case-mix adjusted nursing benchmark source, when included |
+| `case_mix_total_nurse_hprd` | Imported CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; contextual comparison point, not calculated by this project |
 | `source_release` | CMS file release label or publication date captured by the offline generator |
 | `freshness_date` | date the generator verified or exported the source file |
 
@@ -430,7 +430,7 @@ When Provider Information is supplied and matched by CCN, the generator copies C
 - `benchmark_source`
 - `benchmark_source_note`
 
-These fields are contextual benchmark values from the Provider Information file. They should be displayed as comparison context only. They are not PBJ actual staffing calculations, not legal minimums, and not proof of sufficiency, compliance, harm, or noncompliance.
+These fields are contextual comparison values from the Provider Information file. The benchmark value itself is imported from CMS, not calculated by this project. The `case_mix_total_nurse_hprd` value comes from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`, which CMS describes as case-mix total nurse staffing HPRD combining Aide + LPN + RN. Project UI code may calculate differences or percent-of-benchmark text by comparing PBJ actual total nurse HPRD against the CMS-published case-mix total nurse HPRD comparison point. They should be displayed as comparison context only. They are not PBJ actual staffing calculations, not legal minimums, and not proof of sufficiency, compliance, harm, neglect, poor care, or noncompliance.
 
 Reporting-period caveat: the Provider Information file may not align exactly with the PBJ quarter being aggregated. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are copied into each historical PBJ facility-quarter row where the CCN matches. These are contextual comparison points only, not verified quarter-specific benchmark snapshots for each PBJ quarter. The export records the benchmark source as Provider Information and includes a source note so the UI and future analysis do not imply precise quarter alignment unless a later ETL step verifies it.
 
