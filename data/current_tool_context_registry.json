@@ -18,6 +18,7 @@
     "tools/nursing-home-staffing-change-over-time.html",
     "tools/nursing-home-persistent-staffing-patterns.html",
     "tools/nursing-home-ownership-staffing-explorer.html",
+    "tools/nursing-home-staffing-methodology.html",
     "tools/responsible-use.html"
   ],
   "secondary_workflow_html_paths": [
@@ -31,7 +32,7 @@
       "path": "index.html",
       "title": "DanBeem Ombudsman Tools and Resource Lab (Test Environment)",
       "status": "active_primary",
-      "role": "Primary landing page for the current tool surface.",
+      "role": "Primary landing page for the current tool surface, including a Connecticut nursing home staffing transparency suite overview.",
       "linked_from": [],
       "links_to": [
         "dashboards/impact-2024.html",
@@ -42,10 +43,11 @@
         "tools/nursing-home-staffing-change-over-time.html",
         "tools/nursing-home-persistent-staffing-patterns.html",
         "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/nursing-home-staffing-methodology.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [],
-      "notes": "This is the main entry point. It does not perform live AI calls."
+      "notes": "This is the main entry point. It includes a concise guide to the five Connecticut nursing home staffing transparency tools and does not perform live AI calls."
     },
     {
       "path": "tools/drafting-assistant.html",
@@ -94,14 +96,15 @@
     },
     {
       "path": "tools/nursing-home-staffing-explorer.html",
-      "title": "Nursing Home Staffing Explorer",
+      "title": "Connecticut Nursing Home Staffing Explorer",
       "status": "active_primary",
-      "role": "Public-facing PBJ staffing prototype with local mock facility data, screening-level interpretation, and ombudsman follow-up questions.",
+      "role": "Public-facing Connecticut facility-level PBJ staffing explorer with screening-level interpretation, facility trend context, selected-facility reporting, and ombudsman follow-up questions.",
       "linked_from": [
         "index.html"
       ],
       "links_to": [
         "index.html",
+        "tools/nursing-home-staffing-methodology.html",
         "tools/nors-crosswalk.html",
         "tools/responsible-use.html"
       ],
@@ -120,7 +123,7 @@
       "path": "tools/nursing-home-statewide-staffing-comparison.html",
       "title": "Connecticut Nursing Home Statewide Staffing Comparison",
       "status": "active_primary",
-      "role": "Public-facing latest-quarter statewide Connecticut nursing home staffing comparison with search, filters, sorting, filtered-view summary analytics, print reporting, facility drill-down links, and filtered CSV export.",
+      "role": "Public-facing latest-quarter statewide Connecticut nursing home staffing comparison with search, filters, sorting, filtered-view summary analytics, print reporting, facility drill-down links, filtered CSV export, and copyable briefing summaries.",
       "linked_from": [
         "index.html"
       ],
@@ -128,6 +131,7 @@
         "index.html",
         "tools/nursing-home-staffing-explorer.html",
         "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/nursing-home-staffing-methodology.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [
@@ -136,13 +140,13 @@
         "Assets/shared.js",
         "Assets/nursing-home-statewide-staffing-comparison.js"
       ],
-      "notes": "Phase 5B static latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, facility drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, or care-quality findings."
+      "notes": "Phase 7C static latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, copyable current-view briefing summaries, facility drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-staffing-change-over-time.html",
       "title": "Connecticut Nursing Home Staffing Change Over Time",
       "status": "active_primary",
-      "role": "Public-facing earliest-to-latest Connecticut nursing home staffing change explorer with ranking modes, search, filters, printable current change views, facility trend drill-down links, and current change table CSV export.",
+      "role": "Public-facing earliest-to-latest Connecticut nursing home staffing change explorer with ranking modes, search, filters, printable current change views, copyable briefing summaries, facility trend drill-down links, and current change table CSV export.",
       "linked_from": [
         "index.html"
       ],
@@ -151,6 +155,7 @@
         "tools/nursing-home-staffing-explorer.html",
         "tools/nursing-home-statewide-staffing-comparison.html",
         "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/nursing-home-staffing-methodology.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [
@@ -159,13 +164,13 @@
         "Assets/shared.js",
         "Assets/nursing-home-staffing-change-over-time.js"
       ],
-      "notes": "Phase 5D static change-over-time view. Computes earliest-to-latest facility staffing changes in front-end JavaScript from the generated Connecticut staffing export, excluding facilities missing either endpoint quarter from primary change ranking tables. Includes direct-care HPRD decline/improvement modes, CT 3.00 comparison-point crossing modes, contract staff percentage increase mode, RN HPRD decrease mode, printable current-view reporting, facility trend drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
+      "notes": "Phase 7C static change-over-time view. Computes earliest-to-latest facility staffing changes in front-end JavaScript from the generated Connecticut staffing export, excluding facilities missing either endpoint quarter from primary change ranking tables. Includes CT direct-care HPRD estimate decline/improvement modes, CT 3.00 direct-care comparison point crossing modes, contract staff percentage increase mode, RN HPRD decrease mode, printable current-view reporting, copyable current-view briefing summaries, facility trend drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-persistent-staffing-patterns.html",
       "title": "Connecticut Nursing Home Persistent Staffing Patterns",
       "status": "active_primary",
-      "role": "Public-facing multi-quarter Connecticut nursing home staffing screening explorer with persistence modes, threshold control, quarter-by-quarter pattern strips, query-filter support, search, filters, print reporting, facility trend drill-down links, and current table CSV export.",
+      "role": "Public-facing multi-quarter Connecticut nursing home staffing screening explorer with persistence modes, threshold control, quarter-by-quarter pattern strips, query-filter support, search, filters, print reporting, copyable briefing summaries, facility trend drill-down links, and current table CSV export.",
       "linked_from": [
         "index.html"
       ],
@@ -175,6 +180,7 @@
         "tools/nursing-home-statewide-staffing-comparison.html",
         "tools/nursing-home-staffing-change-over-time.html",
         "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/nursing-home-staffing-methodology.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [
@@ -183,7 +189,7 @@
         "Assets/shared.js",
         "Assets/nursing-home-persistent-staffing-patterns.js"
       ],
-      "notes": "Phase 6C static persistent-patterns view. Computes repeated staffing screening patterns across available PBJ quarters in front-end JavaScript from the generated Connecticut staffing export. Includes CT 3.00 direct-care, CT 0.84 licensed, CMS case-mix comparison, contract staff 10%+, and contract staff 20%+ persistence modes with minimum-quarter thresholds, quarter-by-quarter visual pattern strips, query parameters for mode/threshold/affiliation, live current-view summaries, print-friendly current-view reporting, facility trend drill-down links, and filtered CSV export. Missing PBJ rows and missing case-mix benchmark values are not counted as adverse findings. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
+      "notes": "Phase 7C static persistent-patterns view. Computes repeated staffing screening patterns across available PBJ quarters in front-end JavaScript from the generated Connecticut staffing export. Includes CT 3.00 direct-care comparison point, CT 0.84 licensed comparison point, CMS case-mix comparison point, contract staff 10%+, and contract staff 20%+ persistence modes with minimum-quarter thresholds, quarter-by-quarter visual pattern strips, query parameters for mode/threshold/affiliation, live current-view summaries, print-friendly current-view reporting, copyable current-view briefing summaries, facility trend drill-down links, and filtered CSV export. Missing PBJ rows and missing case-mix benchmark values are not counted as adverse findings. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-ownership-staffing-explorer.html",
@@ -197,6 +203,7 @@
         "index.html",
         "tools/nursing-home-staffing-explorer.html",
         "tools/nursing-home-persistent-staffing-patterns.html",
+        "tools/nursing-home-staffing-methodology.html",
         "tools/responsible-use.html"
       ],
       "data_dependencies": [
@@ -206,6 +213,34 @@
         "Assets/nursing-home-ownership-staffing.js"
       ],
       "notes": "Phase 6E static derived view. Calculates statewide affiliation comparison tables, selected affiliation-group staffing summaries, persistent multi-quarter affiliation screening pattern summaries with current-view CSV export, focused print reporting, copyable briefing summaries, Connecticut direct-care comparison summaries, and selected-affiliation print/CSV reporting actions in front-end JavaScript from the normalized Connecticut export. Supports ?affiliation= deep links, preferring CMS SNF Enrollment affiliation entity IDs and falling back to names, plus cross-links to the Persistent Staffing Patterns tool filtered by mode, threshold, and affiliation. Uses simple facility averages and does not make chain quality, legal, harm, neglect, or compliance findings."
+    },
+    {
+      "path": "tools/nursing-home-staffing-methodology.html",
+      "title": "About the Nursing Home Staffing Data",
+      "status": "active_primary",
+      "role": "Public-facing methodology page for the Connecticut Nursing Home Staffing Transparency Tools, explaining source datasets, HPRD formulas, PBJ row inclusion rules, CT direct-care comparison estimates, case-mix comparison points, affiliation context, source references, limitations, and audit validation.",
+      "linked_from": [
+        "index.html",
+        "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-statewide-staffing-comparison.html",
+        "tools/nursing-home-staffing-change-over-time.html",
+        "tools/nursing-home-persistent-staffing-patterns.html",
+        "tools/nursing-home-ownership-staffing-explorer.html"
+      ],
+      "links_to": [
+        "index.html",
+        "tools/nursing-home-staffing-explorer.html",
+        "tools/nursing-home-statewide-staffing-comparison.html",
+        "tools/nursing-home-staffing-change-over-time.html",
+        "tools/nursing-home-persistent-staffing-patterns.html",
+        "tools/nursing-home-ownership-staffing-explorer.html",
+        "tools/responsible-use.html"
+      ],
+      "data_dependencies": [
+        "docs/nursing_home_staffing_calculation_audit.md",
+        "docs/nursing_home_staffing_data_contract.md"
+      ],
+      "notes": "Phase 7E public explanation page. It documents that the staffing suite is designed for screening, comparison, and question-building, not formal compliance findings or stand-alone care-quality conclusions. Includes public links to CMS PBJ Daily Nurse Staffing, CMS Provider Information, CMS Nursing Home Data Dictionary, CMS SNF Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and Connecticut DPH's amended 3.0 staffing implementation notice."
     },
     {
       "path": "tools/responsible-use.html",
@@ -510,12 +545,26 @@
       ]
     },
     {
+      "group_id": "nursing_home_staffing_data_sources",
+      "title": "Nursing Home Staffing Data Sources",
+      "urls": [
+        "https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing",
+        "https://www.cms.gov/medicare/quality/nursing-home-improvement/staffing-data-submission",
+        "https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf",
+        "https://data.cms.gov/provider-data/dataset/4pq5-n9py",
+        "https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf",
+        "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments",
+        "https://data.cms.gov/sites/default/files/2022-08/SNF_Enrollments_Methodology.pdf"
+      ]
+    },
+    {
       "group_id": "connecticut_overlay_and_program",
       "title": "Connecticut Overlay And Program Resources",
       "urls": [
         "https://www.cga.ct.gov/current/pub/chap_368v.htm",
         "https://www.cga.ct.gov/current/pub/chap_319l.htm",
         "https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/",
+        "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf",
         "https://portal.ct.gov/ltcop",
         "https://portal.ct.gov/ltcop/regulations",
         "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility"

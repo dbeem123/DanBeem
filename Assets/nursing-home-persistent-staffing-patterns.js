@@ -19,11 +19,11 @@
       matches: row => getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === true,
       latestValue: row => getMetric(row, 'ct_direct_care_total_hprd_estimate'),
       latestStatus: row => statusFromBoolean(getMetric(row, 'ct_total_direct_care_below_minimum_estimate'), 'Below CT 3.00', 'At/above CT 3.00'),
-      patternMatchText: 'below CT 3.00 comparison point',
-      patternNonMatchText: 'at/above CT 3.00 comparison point'
+      patternMatchText: 'below CT 3.00 direct-care comparison point',
+      patternNonMatchText: 'at/above CT 3.00 direct-care comparison point'
     },
     'ct-licensed': {
-      label: 'Below CT 0.84 licensed direct-care comparison point in multiple quarters',
+      label: 'Below CT 0.84 licensed comparison point in multiple quarters',
       shortLabel: 'Below CT 0.84 licensed point',
       countLabel: 'Quarters below CT 0.84',
       latestMetricLabel: 'Latest CT licensed HPRD estimate',
@@ -34,14 +34,14 @@
       matches: row => getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === true,
       latestValue: row => getMetric(row, 'ct_direct_care_licensed_nurse_hprd_estimate'),
       latestStatus: row => statusFromBoolean(getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate'), 'Below CT 0.84', 'At/above CT 0.84'),
-      patternMatchText: 'below CT 0.84 comparison point',
-      patternNonMatchText: 'at/above CT 0.84 comparison point'
+      patternMatchText: 'below CT 0.84 licensed comparison point',
+      patternNonMatchText: 'at/above CT 0.84 licensed comparison point'
     },
     'case-mix': {
       label: 'Below CMS case-mix total nurse comparison point in multiple quarters',
       shortLabel: 'Below case-mix comparison point',
-      countLabel: 'Quarters below case-mix point',
-      latestMetricLabel: 'Latest actual minus case-mix point',
+      countLabel: 'Quarters below case-mix comparison point',
+      latestMetricLabel: 'Latest actual minus case-mix comparison point',
       latestStatusLabel: 'Latest case-mix status',
       valueKind: 'signedHprd',
       sortLatest: 'asc',
@@ -54,8 +54,8 @@
       latestStatus: row => {
         if (!modeConfig['case-mix'].eligible(row)) return { text: 'Benchmark unavailable', warning: false };
         return modeConfig['case-mix'].matches(row)
-          ? { text: 'Below case-mix point', warning: true }
-          : { text: 'At/above case-mix point', warning: false };
+          ? { text: 'Below case-mix comparison point', warning: true }
+          : { text: 'At/above case-mix comparison point', warning: false };
       },
       patternMatchText: 'below case-mix comparison point',
       patternNonMatchText: 'at/above case-mix comparison point'
@@ -291,17 +291,17 @@
         <div class="microcopy">${formatCount(allQuarters.length)} quarter history</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below CT 3.00 in 2+ quarters</span>
+        <span class="summary-label">Below CT 3.00 direct-care point in 2+ quarters</span>
         <strong>${formatCount(counts.ctTotal)}</strong>
         <div class="microcopy">PBJ-derived CT direct-care estimate</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below CT 0.84 in 2+ quarters</span>
+        <span class="summary-label">Below CT 0.84 licensed point in 2+ quarters</span>
         <strong>${formatCount(counts.ctLicensed)}</strong>
         <div class="microcopy">PBJ-derived licensed estimate</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below case-mix point in 2+ quarters</span>
+        <span class="summary-label">Below case-mix comparison point in 2+ quarters</span>
         <strong>${formatCount(counts.caseMix)}</strong>
         <div class="microcopy">Only benchmark-eligible quarters</div>
       </div>
@@ -348,7 +348,48 @@
     return parts.length ? parts : ['No active filters'];
   }
 
+  function getMaterialFilterSummary() {
+    return getActiveFilterSummary().filter(item => item !== 'No active filters');
+  }
+
+  function joinWithAnd(items) {
+    if (items.length <= 1) return items.join('');
+    if (items.length === 2) return `${items[0]} and ${items[1]}`;
+    return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+  }
+
+  function getThresholdPhrase() {
+    return currentThreshold === 5 ? '5 quarters' : `${currentThreshold} or more quarters`;
+  }
+
+  function getPatternBriefingPhrase() {
+    if (currentMode === 'ct-total') return 'below the CT 3.00 direct-care comparison point';
+    if (currentMode === 'ct-licensed') return 'below the CT 0.84 licensed comparison point';
+    if (currentMode === 'case-mix') return 'below the CMS case-mix total nurse comparison point';
+    if (currentMode === 'contract-10') return 'contract staffing at or above 10%';
+    if (currentMode === 'contract-20') return 'contract staffing at or above 20%';
+    return modeConfig[currentMode]?.shortLabel || 'the selected screening pattern';
+  }
+
+  function hidePatternSummaryFallback() {
+    const fallback = document.getElementById('pattern-summary-fallback');
+    const textarea = document.getElementById('pattern-summary-text');
+    if (fallback) fallback.hidden = true;
+    if (textarea) textarea.value = '';
+  }
+
+  function showPatternSummaryFallback(summary) {
+    const fallback = document.getElementById('pattern-summary-fallback');
+    const textarea = document.getElementById('pattern-summary-text');
+    if (!fallback || !textarea) return;
+    textarea.value = summary;
+    fallback.hidden = false;
+    textarea.focus();
+    textarea.select();
+  }
+
   function applyFilters() {
+    hidePatternSummaryFallback();
     currentThreshold = Number(document.getElementById('minimum-quarter-threshold').value || 2);
     const config = modeConfig[currentMode];
     const filters = getActiveFilters();
@@ -430,6 +471,22 @@
       ${caseMixExtra}
     `;
     document.getElementById('filter-status').textContent = `${formatCount(shown)} facilities shown for ${config.shortLabel} at ${currentThreshold}+ quarters.`;
+  }
+
+  function buildPersistentPatternBriefingSummary() {
+    if (!filteredRecords.length) return '';
+    const averageMatchCount = average(filteredRecords.map(record => record.matchCount));
+    const latestMatches = filteredRecords.filter(record => record.latestMatches).length;
+    const filters = getMaterialFilterSummary();
+    const filterSentence = filters.length
+      ? ` Active filters narrowing the view include ${joinWithAnd(filters)}.`
+      : '';
+    const leadingRows = filteredRecords.slice(0, Math.min(5, filteredRecords.length))
+      .map(record => `${getFacilityName(record)} (${formatCount(record.matchCount)} matching quarters)`);
+    const leadingSentence = leadingRows.length
+      ? ` Leading rows under the current sort include ${joinWithAnd(leadingRows)}.`
+      : '';
+    return `Using CMS PBJ staffing data from ${getQuarterWindowText()}, this persistent-pattern view shows ${formatCount(filteredRecords.length)} Connecticut nursing homes that meet the selected screening pattern: ${getPatternBriefingPhrase()} in ${getThresholdPhrase()}.${filterSentence} Facilities in the current view average ${isUsableNumber(averageMatchCount) ? Number(averageMatchCount).toFixed(1) : 'not available'} matching quarters, and ${formatCount(latestMatches)} also match the selected pattern in the latest quarter.${leadingSentence} Missing PBJ rows or benchmark-ineligible quarters are not counted as adverse findings. These are screening patterns intended to support closer review, not formal violations or stand-alone care-quality conclusions.`;
   }
 
   function renderTable() {
@@ -548,6 +605,7 @@
     const hasRows = filteredRecords.length > 0;
     document.getElementById('download-pattern-csv').disabled = !hasRows;
     document.getElementById('print-pattern-view').disabled = !hasRows;
+    document.getElementById('copy-pattern-summary').disabled = !hasRows;
   }
 
   function resetFilters() {
@@ -623,6 +681,27 @@
     URL.revokeObjectURL(url);
   }
 
+  async function handleCopyBriefingSummary() {
+    const status = document.getElementById('filter-status');
+    if (!filteredRecords.length) {
+      updateActionState();
+      if (status) status.textContent = 'No facilities match the current persistent-pattern mode, threshold, and filters, so there is no briefing summary to copy.';
+      return;
+    }
+    const summary = buildPersistentPatternBriefingSummary();
+    try {
+      if (!global.navigator?.clipboard || typeof global.navigator.clipboard.writeText !== 'function') {
+        throw new Error('Clipboard API unavailable');
+      }
+      await global.navigator.clipboard.writeText(summary);
+      hidePatternSummaryFallback();
+      if (status) status.textContent = 'Briefing summary copied.';
+    } catch (err) {
+      showPatternSummaryFallback(summary);
+      if (status) status.textContent = 'Clipboard copy was unavailable; the generated briefing summary is shown below.';
+    }
+  }
+
   function toCsv(rows) {
     if (!rows.length) return '';
     const headers = Object.keys(rows[0]);
@@ -657,6 +736,7 @@
     });
     document.getElementById('reset-filters').addEventListener('click', resetFilters);
     document.getElementById('download-pattern-csv').addEventListener('click', downloadCsv);
+    document.getElementById('copy-pattern-summary').addEventListener('click', handleCopyBriefingSummary);
     document.getElementById('print-pattern-view').addEventListener('click', () => {
       if (filteredRecords.length) window.print();
     });

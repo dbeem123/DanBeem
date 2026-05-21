@@ -90,7 +90,7 @@ One row per facility per quarter.
 
 Use `null` when a value is unavailable. Do not omit expected metric keys when the absence has meaning.
 
-The Connecticut direct-care fields are PBJ-derived screening estimates for comparison to Connecticut Title 19 Sec. 19-13-D8t(m)(6). They are not formal Department of Public Health compliance determinations.
+The Connecticut direct-care fields are PBJ-derived screening estimates for comparison to Connecticut Title 19 Sec. 19-13-D8t nursing-staff requirements and Connecticut Department of Public Health's amended 3.0 staffing implementation notice. They are not formal Department of Public Health compliance determinations.
 
 The below-comparison flags are currently based on the rounded two-decimal CT estimate fields stored in the export. This matches the UI display, but may differ from an unrounded comparison for values extremely close to 3.00 or 0.84.
 
@@ -140,11 +140,23 @@ The exact column names may vary by CMS release, so Phase 2B should confirm names
 | `contract_staff_pct` | contract nursing hours / total nursing hours * 100, when employee/contract indicators are available |
 | `ct_direct_care_total_hprd_estimate` | PBJ-derived CT screening estimate: `(Hrs_RN + Hrs_LPN + Hrs_CNA + Hrs_NAtrn + Hrs_MedAide) / resident_days` |
 | `ct_direct_care_licensed_nurse_hprd_estimate` | PBJ-derived CT screening estimate: `(Hrs_RN + Hrs_LPN) / resident_days` |
-| `ct_total_direct_care_minimum_hprd` | Connecticut Title 19 Sec. 19-13-D8t(m)(6) total nursing and nurse's aide personnel comparison point: 3.00 HPRD |
-| `ct_licensed_direct_care_minimum_hprd` | Connecticut Title 19 Sec. 19-13-D8t(m)(6) licensed nursing personnel comparison point: 0.84 HPRD |
+| `ct_total_direct_care_minimum_hprd` | Connecticut total nursing and nurse's aide personnel comparison point: 3.00 HPRD |
+| `ct_licensed_direct_care_minimum_hprd` | Connecticut licensed nursing personnel comparison point: 0.84 HPRD |
 | `case_mix_total_nurse_hprd` | Imported CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; contextual comparison point, not calculated by this project |
 | `source_release` | CMS file release label or publication date captured by the offline generator |
 | `freshness_date` | date the generator verified or exported the source file |
+
+## Public Source References
+
+Public methodology links are maintained in `tools/nursing-home-staffing-methodology.html`. Core references include:
+
+- CMS Payroll-Based Journal Daily Nurse Staffing dataset: `https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing`
+- CMS Payroll-Based Journal Daily Nursing Staffing Data Dictionary: `https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf`
+- CMS Nursing Home Provider Information dataset: `https://data.cms.gov/provider-data/dataset/4pq5-n9py`
+- CMS Nursing Home Data Dictionary: `https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf`
+- CMS Skilled Nursing Facility Enrollments dataset: `https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments`
+- Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t: `https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/`
+- Connecticut DPH amended 3.0 staffing implementation notice: `https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf`
 
 ## Missing Data Rules
 
@@ -228,7 +240,7 @@ If contract columns are unavailable or total nursing hours are zero, `contract_s
 
 ### Connecticut Direct-Care Screening Comparison
 
-Connecticut nursing home regulations, Title 19 Sec. 19-13-D8t(m)(6), establish direct-care staffing minimums of 2.17 total nursing and nurse's aide personnel HPRD from 7 a.m. to 9 p.m. plus 0.83 HPRD from 9 p.m. to 7 a.m., for a total of 3.00 HPRD. The same section establishes licensed nursing personnel minimums of 0.57 HPRD from 7 a.m. to 9 p.m. plus 0.27 HPRD from 9 p.m. to 7 a.m., for a total of 0.84 HPRD.
+Connecticut Title 19 Sec. 19-13-D8t establishes nursing-staff requirements in subsection (m). Connecticut DPH's amended 3.0 staffing implementation notice describes the current comparison points used here: 2.17 total nursing and nurse's aide personnel HPRD from 7 a.m. to 9 p.m. plus 0.83 HPRD from 9 p.m. to 7 a.m., for a total of 3.00 HPRD. The same notice describes licensed nursing personnel minimums of 0.57 HPRD from 7 a.m. to 9 p.m. plus 0.27 HPRD from 9 p.m. to 7 a.m., for a total of 0.84 HPRD.
 
 The regulation also states that the director of nurses or assistant director of nurses shall not be included in satisfying these minimum requirements. For PBJ screening purposes, the generator therefore excludes `Hrs_RNDON`, `Hrs_RNadmin`, and `Hrs_LPNadmin` from the Connecticut comparison fields while leaving the existing PBJ total nurse HPRD metric unchanged.
 
@@ -239,7 +251,7 @@ The regulation also states that the director of nurses or assistant director of 
 - `ct_total_direct_care_difference_from_minimum = ct_direct_care_total_hprd_estimate - 3.00`
 - `ct_licensed_direct_care_difference_from_minimum = ct_direct_care_licensed_nurse_hprd_estimate - 0.84`
 - `ct_total_direct_care_below_minimum_estimate = true` when the PBJ-derived total direct-care estimate is below 3.00
-- `ct_licensed_direct_care_below_minimum_estimate = true` when the PBJ-derived licensed direct-care estimate is below 0.84
+- `ct_licensed_direct_care_below_minimum_estimate = true` when the PBJ-derived CT licensed HPRD estimate is below 0.84
 
 These fields are screening estimates derived from quarterly PBJ reporting. They do not determine legal compliance, do not establish whether a facility met staffing on any specific shift, and should not be labeled as violations.
 

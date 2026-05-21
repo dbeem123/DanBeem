@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About the Nursing Home Staffing Data</title>
+  <meta name="description" content="Plain-language methodology for the Connecticut Nursing Home Staffing Transparency Tools, including data sources, formulas, caveats, and audit notes." />
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <style>
+    .methodology-hero {
+      min-height:auto;
+      display:block;
+      padding-top:26px;
+      padding-bottom:8px;
+    }
+    .methodology-hero .panel {
+      display:grid;
+      gap:12px;
+    }
+    .content-section {
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+    .content-section h2 {
+      margin-bottom:2px;
+    }
+    .content-section h3 {
+      margin:8px 0 4px;
+    }
+    .method-list {
+      margin:0;
+      padding-left:20px;
+    }
+    .method-list li {
+      margin:0 0 8px;
+    }
+    .formula-list {
+      display:grid;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .formula-list li {
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .tool-link-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:10px;
+    }
+    .tool-link-grid .card {
+      display:grid;
+      gap:8px;
+    }
+  </style>
+</head>
+<body>
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="topbar">
+    <div class="wrap space-between">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">DB</div>
+        <div>
+          <div style="font-weight:800">About the Staffing Data</div>
+          <div class="subtle" style="font-size:12px;">Connecticut PBJ Methodology</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
+        <a class="navLink linkBtn" href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
+        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap methodology-hero" aria-labelledby="methodology-title">
+      <div class="panel">
+        <div class="pill">Methodology</div>
+        <h1 id="methodology-title">About the Nursing Home Staffing Data</h1>
+        <p>These tools use public CMS datasets to help users explore Connecticut nursing home staffing patterns. They are designed for screening, comparison, and question-building.</p>
+        <div class="notice warning">The staffing tools are not a substitute for regulatory review, resident experience, complaint investigation, survey findings, or formal compliance determinations. Use them to identify questions for closer review, not as stand-alone findings.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="sources-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Data Sources</div>
+            <h2 id="sources-title">Public CMS datasets used</h2>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>CMS Payroll-Based Journal Daily Nurse Staffing</h3>
+            <p><a href="https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing">CMS Payroll-Based Journal Daily Nurse Staffing dataset</a> files are used for staffing hours, census and resident-day denominators, and quarter-by-quarter staffing trends. PBJ is quarterly public staffing data, not real-time staffing information.</p>
+          </article>
+          <article class="card">
+            <h3>CMS Nursing Home Provider Information</h3>
+            <p><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a> supplies facility metadata such as name, address, certified beds, ownership type, and CMS case-mix staffing comparison fields. These values are contextual and may not align exactly with every historical PBJ quarter.</p>
+          </article>
+          <article class="card">
+            <h3>CMS SNF Enrollments</h3>
+            <p><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a> records provide legal organization, doing-business-as name, NPI, proprietary/nonprofit status, organization structure, and affiliation entity context. Shared affiliation entity data does not by itself prove common day-to-day control or legal responsibility.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="hprd-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">HPRD</div>
+            <h2 id="hprd-title">What hours per resident day means</h2>
+          </div>
+        </div>
+        <p>HPRD means hours per resident day. It divides reported staffing hours by resident days for the same time period.</p>
+        <p>For example, if a facility reported 300 nursing hours across 100 resident days, the result would be 3.00 HPRD. Higher or lower HPRD can be meaningful, but it should always be interpreted with context such as resident acuity, facility size, missing data, survey findings, complaints, and resident experience.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="metrics-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Core Metrics</div>
+            <h2 id="metrics-title">PBJ staffing metrics calculated in the export</h2>
+          </div>
+        </div>
+        <ul class="formula-list">
+          <li><strong>RN HPRD:</strong> PBJ RN Director of Nursing hours, RN administration hours, and RN hours divided by resident days.</li>
+          <li><strong>LPN/LVN HPRD:</strong> PBJ LPN administration hours and LPN hours divided by resident days.</li>
+          <li><strong>Nurse aide HPRD:</strong> PBJ CNA, nurse aide trainee, and medication aide hours divided by resident days.</li>
+          <li><strong>Total nurse HPRD:</strong> RN, LPN/LVN, and nurse aide category hours combined and divided by resident days.</li>
+          <li><strong>Contract staff %:</strong> contract nursing hours divided by total nursing hours, expressed as a percentage.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="row-rules-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Row Rules</div>
+            <h2 id="row-rules-title">PBJ row inclusion rules</h2>
+          </div>
+        </div>
+        <ul class="method-list">
+          <li>Days with missing or nonpositive census are excluded from denominator and numerator totals.</li>
+          <li>Days with positive census and zero nursing hours are included as zero-hour days.</li>
+          <li>Missing facility-quarter rows are not treated as zero staffing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="ct-comparison-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Connecticut Comparison</div>
+            <h2 id="ct-comparison-title">Connecticut direct-care comparison estimates</h2>
+          </div>
+        </div>
+        <p><a href="https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/">Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t</a>, set nursing-staff requirements in subsection (m). The current 3.00 total nursing and nurse's aide direct-care hours per resident day and 0.84 licensed nursing hours per resident day comparison points used here are described in Connecticut Department of Public Health's <a href="https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf">amended 3.0 staffing implementation notice</a>.</p>
+        <p>The Connecticut materials also explain that director of nursing and assistant director of nursing hours are not counted toward those minimum requirements. The staffing tools create PBJ-derived screening estimates to compare against those points.</p>
+        <ul class="formula-list">
+          <li><strong>CT direct-care total HPRD estimate:</strong> RN + LPN + CNA + nurse aide trainee + medication aide hours divided by resident days.</li>
+          <li><strong>CT licensed HPRD estimate:</strong> RN + LPN hours divided by resident days.</li>
+        </ul>
+        <p>These estimates exclude PBJ DON and administrative categories: <code>Hrs_RNDON</code>, <code>Hrs_RNadmin</code>, and <code>Hrs_LPNadmin</code>.</p>
+        <div class="notice warning">The Connecticut comparison is a PBJ-derived screening estimate, not a formal Connecticut Department of Public Health compliance finding.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="case-mix-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Case-Mix Context</div>
+            <h2 id="case-mix-title">Case-mix comparison points</h2>
+          </div>
+        </div>
+        <p>The case-mix comparison point value is imported from CMS Nursing Home Provider Information. The field used is <strong>Case-Mix Total Nurse Staffing Hours per Resident per Day</strong>. The <a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf">CMS Nursing Home Data Dictionary</a> describes that value as case-mix total nurse staffing HPRD combining aide, LPN, and RN staffing.</p>
+        <p>The app compares PBJ-reported actual total nurse HPRD to that CMS-published point. The actual-minus-benchmark and percent-of-benchmark text are calculated by the app.</p>
+        <div class="notice">Case-mix comparison points are contextual. They are not actual staffing, not a legal minimum, and not proof of poor care.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="affiliation-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Affiliation Context</div>
+            <h2 id="affiliation-title">Ownership and affiliation context</h2>
+          </div>
+        </div>
+        <p>Affiliation entities come from the <a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a>. They are useful for grouping facilities and reviewing patterns across connected records.</p>
+        <p>Affiliation entity data does not by itself prove shared management decisions, day-to-day operational control, or legal responsibility. Small affiliation groups should be interpreted carefully because one facility can strongly affect the group summary.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="limitations-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Use And Limits</div>
+            <h2 id="limitations-title">Screening use and limitations</h2>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>These tools can help identify</h3>
+            <ul class="method-list">
+              <li>staffing patterns</li>
+              <li>repeated screening concerns</li>
+              <li>large changes over time</li>
+              <li>possible questions for follow-up</li>
+              <li>affiliation-level patterns for review</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>These tools cannot prove by themselves</h3>
+            <ul class="method-list">
+              <li>poor care</li>
+              <li>neglect or harm</li>
+              <li>regulatory violations</li>
+              <li>why staffing changed</li>
+              <li>that all facilities in an affiliation are operated the same way</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="audit-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Validation</div>
+            <h2 id="audit-title">Audit and validation</h2>
+          </div>
+        </div>
+        <p>The project includes an independent calculation audit script. The audit re-read raw PBJ files, recomputed the staffing metrics, and compared the results to the current generated export.</p>
+        <p>The current calculation audit found zero unexplained discrepancies. Technical users can review the audit report at <code>docs/nursing_home_staffing_calculation_audit.md</code> and the audit script at <code>scripts/audit_nursing_home_staffing_ct.py</code>.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="references-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">References</div>
+            <h2 id="references-title">Source references</h2>
+          </div>
+        </div>
+        <ul class="method-list">
+          <li><a href="https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing">CMS Payroll-Based Journal Daily Nurse Staffing dataset</a></li>
+          <li><a href="https://www.cms.gov/medicare/quality/nursing-home-improvement/staffing-data-submission">CMS Payroll-Based Journal staffing data submission information</a></li>
+          <li><a href="https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf">CMS Payroll-Based Journal Daily Nursing Staffing Data Dictionary</a></li>
+          <li><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a></li>
+          <li><a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf">CMS Nursing Home Data Dictionary</a></li>
+          <li><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a></li>
+          <li><a href="https://data.cms.gov/sites/default/files/2022-08/SNF_Enrollments_Methodology.pdf">CMS Skilled Nursing Facility Enrollments methodology</a></li>
+          <li><a href="https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/">Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t</a></li>
+          <li><a href="https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf">Connecticut DPH amended 3.0 staffing implementation notice</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="tools-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Explore</div>
+            <h2 id="tools-title">Explore the tools</h2>
+          </div>
+        </div>
+        <div class="tool-link-grid">
+          <article class="card">
+            <h3>Connecticut Nursing Home Staffing Explorer</h3>
+            <p>Review one facility over time.</p>
+            <p><a class="linkBtn" href="nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a></p>
+          </article>
+          <article class="card">
+            <h3>Statewide Facility Staffing Comparison</h3>
+            <p>Compare latest-quarter facility rows.</p>
+            <p><a class="linkBtn" href="nursing-home-statewide-staffing-comparison.html">Open Statewide Comparison</a></p>
+          </article>
+          <article class="card">
+            <h3>Staffing Change Over Time Explorer</h3>
+            <p>Review endpoint-to-endpoint changes.</p>
+            <p><a class="linkBtn" href="nursing-home-staffing-change-over-time.html">Open Change Explorer</a></p>
+          </article>
+          <article class="card">
+            <h3>Persistent Multi-Quarter Staffing Patterns</h3>
+            <p>Find repeated screening patterns.</p>
+            <p><a class="linkBtn" href="nursing-home-persistent-staffing-patterns.html">Open Persistent Patterns</a></p>
+          </article>
+          <article class="card">
+            <h3>Ownership / Affiliation Staffing Explorer</h3>
+            <p>Review CMS affiliation entity groupings.</p>
+            <p><a class="linkBtn" href="nursing-home-ownership-staffing-explorer.html">Open Ownership / Affiliation Explorer</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Staffing Transparency Tools - public methodology page.</footer>
+</body>
+</html>

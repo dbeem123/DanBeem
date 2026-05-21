@@ -49,15 +49,15 @@ Columns include:
 - facilities with latest-quarter PBJ data
 - average total nurse HPRD
 - average RN HPRD
-- average CT direct-care total HPRD estimate
+- average CT direct-care HPRD estimate
 - count/share below the CT 3.00 direct-care comparison point
-- average CT licensed direct-care HPRD estimate
-- count/share below the CT 0.84 licensed nursing comparison point
+- average CT licensed HPRD estimate
+- count/share below the CT 0.84 licensed comparison point
 - average contract staff percentage
 - average case-mix total nurse benchmark when available
 - average actual total nurse HPRD minus case-mix benchmark when available
 
-The default sort shows the highest share of linked facilities below the CT 3.00 direct-care comparison point first, then larger Connecticut groups, then lower average CT direct-care total HPRD. This ordering is intended to surface potential staffing screening questions quickly. It should not be read as a definitive chain quality ranking.
+The default sort shows the highest share of linked facilities below the CT 3.00 direct-care comparison point first, then larger Connecticut groups, then lower average CT direct-care HPRD estimate. This ordering is intended to surface potential staffing screening questions quickly. It should not be read as a definitive chain quality ranking.
 
 Groups with only 1 or 2 linked Connecticut facilities remain visible and are labeled as small CT groups in the page. Their percentages can be unstable and less generalizable than larger groups.
 
@@ -65,7 +65,7 @@ Groups with only 1 or 2 linked Connecticut facilities remain visible and are lab
 
 The compact five-quarter summary uses all available facility-quarter rows in the generated Connecticut export, currently 2024Q4 through 2025Q4. Missing facility-quarter rows are not treated as zero. It shows:
 
-- five-quarter average CT direct-care total HPRD estimate
+- five-quarter average CT direct-care HPRD estimate
 - count/share of facility-quarter rows below the CT 3.00 direct-care comparison point
 - five-quarter average contract staff percentage
 

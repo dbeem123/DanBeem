@@ -502,13 +502,13 @@
         </div>
         <div class="ct-comparison-grid">
           <div>
-            <div class="summary-label">CT direct-care total HPRD estimate</div>
+            <div class="summary-label">CT direct-care HPRD estimate</div>
             <strong>${formatHprd(metrics.ct_direct_care_total_hprd_estimate)}</strong>
             <p class="subtle">Comparison to ${totalMinimum.toFixed(2)} HPRD: ${formatSignedHprd(metrics.ct_total_direct_care_difference_from_minimum)}.</p>
             <div class="comparison-note">${escapeHtml(formatCtComparisonStatus(metrics.ct_total_direct_care_below_minimum_estimate, totalMinimum))}</div>
           </div>
           <div>
-            <div class="summary-label">CT licensed direct-care HPRD estimate</div>
+            <div class="summary-label">CT licensed HPRD estimate</div>
             <strong>${formatHprd(metrics.ct_direct_care_licensed_nurse_hprd_estimate)}</strong>
             <p class="subtle">Comparison to ${licensedMinimum.toFixed(2)} HPRD: ${formatSignedHprd(metrics.ct_licensed_direct_care_difference_from_minimum)}.</p>
             <div class="comparison-note">${escapeHtml(formatCtComparisonStatus(metrics.ct_licensed_direct_care_below_minimum_estimate, licensedMinimum))}</div>
@@ -756,7 +756,7 @@
       ctBelow.push('below the CT 3.00 total direct-care comparison point');
     }
     if (metrics.ct_licensed_direct_care_below_minimum_estimate === true) {
-      ctBelow.push('below the CT 0.84 licensed-nursing comparison point');
+      ctBelow.push('below the CT 0.84 licensed comparison point');
     }
     const ctComparisonSentence = ctBelow.length
       ? ` The separate CT direct-care screening estimate is ${ctBelow.join(' and ')}.`

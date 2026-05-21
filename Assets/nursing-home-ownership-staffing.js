@@ -33,7 +33,7 @@
     },
     'case-mix': {
       label: 'Below CMS case-mix total nurse comparison point',
-      countLabel: 'Facilities below case-mix point in threshold quarters',
+      countLabel: 'Facilities below case-mix comparison point in threshold quarters',
       eligible: row => isUsableNumber(getMetric(row, 'total_nurse_hprd')) && isUsableNumber(getBenchmark(row, 'case_mix_total_nurse_hprd')),
       matches: row => Number(getMetric(row, 'total_nurse_hprd')) < Number(getBenchmark(row, 'case_mix_total_nurse_hprd'))
     },
@@ -511,9 +511,9 @@
         <div class="notice">
           Latest-quarter screening snapshot: average total nurse HPRD ${formatHprd(latestAggregate.averageTotalHprd)};
           average CT direct-care total estimate ${formatHprd(latestAggregate.averageCtDirectCareTotalHprd)};
-          ${escapeHtml(formatShare(latestAggregate.ctTotalBelowCount, latestAggregate.ctTotalComparisonCount))} below the CT 3.00 comparison point;
-          ${escapeHtml(formatShare(latestAggregate.ctLicensedBelowCount, latestAggregate.ctLicensedComparisonCount))} below the CT 0.84 licensed nursing comparison point.
-          Five-quarter pattern: ${escapeHtml(formatShare(patternAggregate.ctTotalBelowCount, patternAggregate.ctTotalComparisonCount))} facility-quarter rows below the CT 3.00 comparison point.
+          ${escapeHtml(formatShare(latestAggregate.ctTotalBelowCount, latestAggregate.ctTotalComparisonCount))} below the CT 3.00 direct-care comparison point;
+          ${escapeHtml(formatShare(latestAggregate.ctLicensedBelowCount, latestAggregate.ctLicensedComparisonCount))} below the CT 0.84 licensed comparison point.
+          Five-quarter pattern: ${escapeHtml(formatShare(patternAggregate.ctTotalBelowCount, patternAggregate.ctTotalComparisonCount))} facility-quarter rows below the CT 3.00 direct-care comparison point.
           Selected persistent pattern: ${escapeHtml(formatShare(persistentAggregate.matchingFacilityCount, persistentAggregate.groupFacilityCount))} linked facilities meet "${escapeHtml(persistentConfig.label)}" in ${affiliationPatternThreshold}+ quarters.
         </div>
       ` : ''}
@@ -548,9 +548,9 @@
               <th scope="col">Avg total nurse HPRD</th>
               <th scope="col">Avg RN HPRD</th>
               <th scope="col">Avg CT direct-care HPRD estimate</th>
-              <th scope="col">Below CT 3.00 comparison point</th>
+              <th scope="col">Below CT 3.00 direct-care comparison point</th>
               <th scope="col">Avg CT licensed estimate</th>
-              <th scope="col">Below CT 0.84 comparison point</th>
+              <th scope="col">Below CT 0.84 licensed comparison point</th>
               <th scope="col">Avg contract staff %</th>
               <th scope="col">Avg case-mix benchmark</th>
               <th scope="col">Actual minus case-mix benchmark</th>
@@ -593,7 +593,7 @@
               <th scope="col">CT facilities</th>
               <th scope="col">Facility-quarter rows</th>
               <th scope="col">5-quarter avg CT direct-care HPRD estimate</th>
-              <th scope="col">Below CT 3.00 comparison point across five quarters</th>
+              <th scope="col">Below CT 3.00 direct-care comparison point across five quarters</th>
               <th scope="col">5-quarter avg contract staff %</th>
               <th scope="col">Action</th>
             </tr>
@@ -1019,14 +1019,14 @@
         <p class="subtle">${escapeHtml(caseMixBenchmarkExplanation)}</p>
       </article>
       <article class="metric-card card">
-        <div class="summary-label">Avg CT direct-care total HPRD estimate</div>
+        <div class="summary-label">Avg CT direct-care HPRD estimate</div>
         <strong>${formatHprd(aggregate.averageCtDirectCareTotalHprd)}</strong>
-        <p class="subtle">${escapeHtml(formatShare(aggregate.ctTotalBelowCount, aggregate.ctTotalComparisonCount))} below the CT 3.00 comparison point. PBJ-derived screening estimate only.</p>
+        <p class="subtle">${escapeHtml(formatShare(aggregate.ctTotalBelowCount, aggregate.ctTotalComparisonCount))} below the CT 3.00 direct-care comparison point. PBJ-derived screening estimate only.</p>
       </article>
       <article class="metric-card card">
-        <div class="summary-label">Avg CT licensed direct-care HPRD estimate</div>
+        <div class="summary-label">Avg CT licensed HPRD estimate</div>
         <strong>${formatHprd(aggregate.averageCtLicensedDirectCareHprd)}</strong>
-        <p class="subtle">${escapeHtml(formatShare(aggregate.ctLicensedBelowCount, aggregate.ctLicensedComparisonCount))} below the CT 0.84 licensed nursing comparison point. PBJ-derived screening estimate only.</p>
+        <p class="subtle">${escapeHtml(formatShare(aggregate.ctLicensedBelowCount, aggregate.ctLicensedComparisonCount))} below the CT 0.84 licensed comparison point. PBJ-derived screening estimate only.</p>
       </article>
     `;
   }
@@ -1053,10 +1053,10 @@
               <th scope="col">Average total nurse HPRD</th>
               <th scope="col">Average RN HPRD</th>
               <th scope="col">Average contract staff %</th>
-              <th scope="col">Avg CT direct-care total estimate</th>
-              <th scope="col">Below CT 3.00 point</th>
+              <th scope="col">Avg CT direct-care HPRD estimate</th>
+              <th scope="col">Below CT 3.00 direct-care point</th>
               <th scope="col">Avg CT licensed estimate</th>
-              <th scope="col">Below CT 0.84 point</th>
+              <th scope="col">Below CT 0.84 licensed point</th>
               <th scope="col">Average case-mix benchmark</th>
               <th scope="col">Actual minus benchmark</th>
             </tr>
@@ -1138,8 +1138,8 @@
                   <td>${escapeHtml(item.facility.city || '-')}</td>
                   <td>${item.row ? formatCompactHprd(actual) : 'No PBJ row'}</td>
                   <td>${item.row ? formatCompactHprd(getMetric(item.row, 'rn_hprd')) : '-'}</td>
-                  <td>${item.row ? `${formatCompactHprd(getMetric(item.row, 'ct_direct_care_total_hprd_estimate'))}<br><span class="subtle">${getMetric(item.row, 'ct_total_direct_care_below_minimum_estimate') === true ? 'Below CT 3.00 comparison point' : 'At/above CT 3.00 point'}</span>` : '-'}</td>
-                  <td>${item.row ? `${formatCompactHprd(getMetric(item.row, 'ct_direct_care_licensed_nurse_hprd_estimate'))}<br><span class="subtle">${getMetric(item.row, 'ct_licensed_direct_care_below_minimum_estimate') === true ? 'Below CT 0.84 comparison point' : 'At/above CT 0.84 point'}</span>` : '-'}</td>
+                  <td>${item.row ? `${formatCompactHprd(getMetric(item.row, 'ct_direct_care_total_hprd_estimate'))}<br><span class="subtle">${getMetric(item.row, 'ct_total_direct_care_below_minimum_estimate') === true ? 'Below CT 3.00 direct-care point' : 'At/above CT 3.00 direct-care point'}</span>` : '-'}</td>
+                  <td>${item.row ? `${formatCompactHprd(getMetric(item.row, 'ct_direct_care_licensed_nurse_hprd_estimate'))}<br><span class="subtle">${getMetric(item.row, 'ct_licensed_direct_care_below_minimum_estimate') === true ? 'Below CT 0.84 licensed point' : 'At/above CT 0.84 licensed point'}</span>` : '-'}</td>
                   <td>${item.row ? formatCompactPercent(getMetric(item.row, 'contract_staff_pct')) : '-'}</td>
                   <td>${item.row ? formatCompactHprd(benchmark) : '-'}</td>
                   <td>${item.row ? formatSignedHprd(difference) : '-'}</td>

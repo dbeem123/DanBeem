@@ -11,7 +11,8 @@
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
     input,
-    select {
+    select,
+    textarea {
       width:100%;
       padding:10px 12px;
       border-radius:8px;
@@ -151,6 +152,14 @@
     .status-pill.warning {
       border-color:rgba(251,191,36,0.28);
       background:rgba(251,191,36,0.08);
+    }
+    .briefing-summary-fallback {
+      margin:10px 0 0;
+    }
+    .briefing-summary-fallback textarea {
+      min-height:120px;
+      resize:vertical;
+      font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
     }
     .positive { color:#86efac; font-weight:850; }
     .negative { color:#fca5a5; font-weight:850; }
@@ -312,8 +321,8 @@
         <div class="mode-row" role="group" aria-label="Statewide staffing change ranking mode">
           <button class="mode-button" type="button" data-mode="direct-decline" aria-pressed="true">Largest decline in CT direct-care HPRD</button>
           <button class="mode-button" type="button" data-mode="direct-improvement" aria-pressed="false">Largest improvement in CT direct-care HPRD</button>
-          <button class="mode-button" type="button" data-mode="crossed-below" aria-pressed="false">Crossed below CT 3.00 point</button>
-          <button class="mode-button" type="button" data-mode="crossed-above" aria-pressed="false">Crossed above CT 3.00 point</button>
+          <button class="mode-button" type="button" data-mode="crossed-below" aria-pressed="false" title="Crossed below the CT 3.00 direct-care comparison point">Crossed below CT 3.00 direct-care point</button>
+          <button class="mode-button" type="button" data-mode="crossed-above" aria-pressed="false" title="Crossed above the CT 3.00 direct-care comparison point">Crossed above CT 3.00 direct-care point</button>
           <button class="mode-button" type="button" data-mode="contract-increase" aria-pressed="false">Largest increase in contract staff %</button>
           <button class="mode-button" type="button" data-mode="rn-decrease" aria-pressed="false">Largest decrease in RN HPRD</button>
         </div>
@@ -346,7 +355,13 @@
           <button id="reset-filters" class="action-button" type="button">Reset filters</button>
           <button id="print-change-view" class="action-button" type="button" disabled>Print current change view</button>
           <button id="download-change-csv" class="action-button" type="button" disabled>Download current change table CSV</button>
+          <button id="copy-change-summary" class="action-button" type="button" disabled>Copy briefing summary</button>
           <span id="filter-status" class="subtle-note" role="status">Loading change table...</span>
+        </div>
+        <div id="change-summary-fallback" class="notice briefing-summary-fallback" hidden>
+          <label for="change-summary-text">Generated briefing summary</label>
+          <textarea id="change-summary-text" readonly></textarea>
+          <p class="microcopy">Clipboard copy was unavailable, so the generated summary is shown here for manual copying.</p>
         </div>
       </div>
     </section>
@@ -404,6 +419,6 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Staffing Change Over Time - static screening view.</footer>
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Staffing Change Over Time - static screening view. <a href="nursing-home-staffing-methodology.html">About the data / methodology</a></footer>
 </body>
 </html>

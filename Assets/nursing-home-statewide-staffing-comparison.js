@@ -132,12 +132,12 @@
         <div class="microcopy">${escapeHtml(latestLabel)}</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below CT 3.00 point</span>
+        <span class="summary-label">Below CT 3.00 direct-care point</span>
         <strong>${formatCount(belowTotal)}</strong>
         <div class="microcopy">PBJ-derived direct-care estimate</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below CT 0.84 point</span>
+        <span class="summary-label">Below CT 0.84 licensed point</span>
         <strong>${formatCount(belowLicensed)}</strong>
         <div class="microcopy">PBJ-derived licensed nursing estimate</div>
       </div>
@@ -231,12 +231,12 @@
         <div class="microcopy">Current filtered table</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below CT 3.00 point</span>
+        <span class="summary-label">Below CT 3.00 direct-care point</span>
         <strong>${formatCount(summary.belowTotal)}</strong>
         <div class="microcopy">Filtered screening count</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below CT 0.84 point</span>
+        <span class="summary-label">Below CT 0.84 licensed point</span>
         <strong>${formatCount(summary.belowLicensed)}</strong>
         <div class="microcopy">Filtered screening count</div>
       </div>
@@ -295,6 +295,52 @@
     return filters.length ? filters : ['No filters active; full latest-quarter comparison shown.'];
   }
 
+  function getMaterialFilterSummary() {
+    return getActiveFilterSummary().filter(item => !item.startsWith('No filters active'));
+  }
+
+  function joinWithAnd(items) {
+    if (items.length <= 1) return items.join('');
+    if (items.length === 2) return `${items[0]} and ${items[1]}`;
+    return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+  }
+
+  function hideStatewideSummaryFallback() {
+    const fallback = document.getElementById('statewide-summary-fallback');
+    const textarea = document.getElementById('statewide-summary-text');
+    if (fallback) fallback.hidden = true;
+    if (textarea) textarea.value = '';
+  }
+
+  function showStatewideSummaryFallback(summary) {
+    const fallback = document.getElementById('statewide-summary-fallback');
+    const textarea = document.getElementById('statewide-summary-text');
+    if (!fallback || !textarea) return;
+    textarea.value = summary;
+    fallback.hidden = false;
+    textarea.focus();
+    textarea.select();
+  }
+
+  function buildStatewideBriefingSummary(rows) {
+    if (!rows.length) return '';
+    const latestLabel = dataset?.reporting_period?.label || getLatestQuarter() || 'the latest available quarter';
+    const summary = getFilteredSummary(rows);
+    const filters = getMaterialFilterSummary();
+    const filterSentence = filters.length
+      ? ` Active filters narrowing the view include ${joinWithAnd(filters)}.`
+      : '';
+    const benchmarkSentence = isUsableNumber(summary.avgBenchmarkDifference)
+      ? ` Average actual-minus-case-mix benchmark is ${formatSignedHprd(summary.avgBenchmarkDifference)} where available.`
+      : '';
+    const leadingRows = rows.slice(0, Math.min(5, rows.length))
+      .map(row => row.facility?.provider_name || row.ccn || 'Unnamed facility');
+    const leadingSentence = leadingRows.length
+      ? ` Under the current sort, leading rows include ${joinWithAnd(leadingRows)}.`
+      : '';
+    return `Using CMS PBJ staffing data for ${latestLabel}, this filtered statewide view shows ${formatCount(summary.facilityCount)} Connecticut nursing homes. Within the current view, ${formatCount(summary.belowTotal)} facilities are below the CT 3.00 direct-care comparison point and ${formatCount(summary.belowLicensed)} are below the CT 0.84 licensed comparison point. The displayed facilities average ${formatCompactHprd(summary.avgCtDirect)} CT direct-care HPRD, ${formatCompactHprd(summary.avgRn)} RN HPRD, and ${formatPercent(summary.avgContract)} contract staffing.${benchmarkSentence}${filterSentence}${leadingSentence} These are PBJ-derived screening measures intended to identify patterns and questions for closer review, not formal DPH compliance findings or stand-alone care-quality conclusions.`;
+  }
+
   function renderPrintReportContext(rows) {
     const output = document.getElementById('print-report-context');
     if (!output) return;
@@ -313,7 +359,7 @@
       </div>
       <div class="notice">
         <strong>Filtered-view summary:</strong>
-        ${formatCount(summary.facilityCount)} facilities shown; ${formatCount(summary.belowTotal)} below the CT 3.00 comparison point; ${formatCount(summary.belowLicensed)} below the CT 0.84 comparison point; average CT direct-care HPRD ${formatCompactHprd(summary.avgCtDirect)}; average CT licensed HPRD ${formatCompactHprd(summary.avgCtLicensed)}; average RN HPRD ${formatCompactHprd(summary.avgRn)}; average contract staff ${formatPercent(summary.avgContract)}; ${formatCount(summary.benchmarkCount)} with case-mix benchmark context.
+        ${formatCount(summary.facilityCount)} facilities shown; ${formatCount(summary.belowTotal)} below the CT 3.00 direct-care comparison point; ${formatCount(summary.belowLicensed)} below the CT 0.84 licensed comparison point; average CT direct-care HPRD ${formatCompactHprd(summary.avgCtDirect)}; average CT licensed HPRD ${formatCompactHprd(summary.avgCtLicensed)}; average RN HPRD ${formatCompactHprd(summary.avgRn)}; average contract staff ${formatPercent(summary.avgContract)}; ${formatCount(summary.benchmarkCount)} with case-mix benchmark context.
       </div>
       <div class="notice warning">
         PBJ staffing metrics are quarterly screening data. CT comparison flags are PBJ-derived estimates, not formal DPH compliance findings. Case-mix benchmark fields are contextual Provider Information comparison points. Staffing data alone do not prove poor care, neglect, harm, or violations. Facility rows should be reviewed in context using the facility explorer.
@@ -355,11 +401,13 @@
     const output = document.getElementById('facility-table');
     const rows = sortRows(filteredRows);
     const latestLabel = dataset?.reporting_period?.label || getLatestQuarter();
+    hideStatewideSummaryFallback();
     renderFilteredSummary(rows);
     renderPrintReportContext(rows);
     document.getElementById('filter-status').textContent = `${formatCount(rows.length)} of ${formatCount(latestRows.length)} latest-quarter facility rows shown.`;
     document.getElementById('download-statewide-csv').disabled = !rows.length;
     document.getElementById('print-current-view').disabled = !rows.length;
+    document.getElementById('copy-statewide-summary').disabled = !rows.length;
     if (!rows.length) {
       output.innerHTML = '<div class="notice warning">No facilities match the current filters.</div>';
       return;
@@ -508,6 +556,28 @@
     global.print();
   }
 
+  async function handleCopyBriefingSummary() {
+    const rows = sortRows(filteredRows);
+    const status = document.getElementById('filter-status');
+    if (!rows.length) {
+      renderTable();
+      if (status) status.textContent = 'No facilities match the current filters, so there is no briefing summary to copy.';
+      return;
+    }
+    const summary = buildStatewideBriefingSummary(rows);
+    try {
+      if (!global.navigator?.clipboard || typeof global.navigator.clipboard.writeText !== 'function') {
+        throw new Error('Clipboard API unavailable');
+      }
+      await global.navigator.clipboard.writeText(summary);
+      hideStatewideSummaryFallback();
+      if (status) status.textContent = 'Briefing summary copied.';
+    } catch (err) {
+      showStatewideSummaryFallback(summary);
+      if (status) status.textContent = 'Clipboard copy was unavailable; the generated briefing summary is shown below.';
+    }
+  }
+
   async function loadPage() {
     const status = document.getElementById('load-status');
     try {
@@ -532,6 +602,7 @@
       document.getElementById('download-statewide-csv').addEventListener('click', handleDownloadCsv);
       document.getElementById('reset-filters').addEventListener('click', resetFilters);
       document.getElementById('print-current-view').addEventListener('click', handlePrintCurrentView);
+      document.getElementById('copy-statewide-summary').addEventListener('click', handleCopyBriefingSummary);
       updateSortButtons();
       renderTable();
     } catch (err) {

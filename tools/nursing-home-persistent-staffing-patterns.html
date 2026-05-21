@@ -11,7 +11,8 @@
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
     input,
-    select {
+    select,
+    textarea {
       width:100%;
       padding:10px 12px;
       border-radius:8px;
@@ -151,6 +152,14 @@
     .status-pill.warning {
       border-color:rgba(251,191,36,0.28);
       background:rgba(251,191,36,0.08);
+    }
+    .briefing-summary-fallback {
+      margin:10px 0 0;
+    }
+    .briefing-summary-fallback textarea {
+      min-height:120px;
+      resize:vertical;
+      font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
     }
     .pattern-legend {
       display:flex;
@@ -386,9 +395,9 @@
           </div>
         </div>
         <div class="mode-row" role="group" aria-label="Persistent staffing pattern mode">
-          <button class="mode-button" type="button" data-mode="ct-total" aria-pressed="true">Below CT 3.00 in multiple quarters</button>
-          <button class="mode-button" type="button" data-mode="ct-licensed" aria-pressed="false">Below CT 0.84 in multiple quarters</button>
-          <button class="mode-button" type="button" data-mode="case-mix" aria-pressed="false">Below case-mix comparison in multiple quarters</button>
+          <button class="mode-button" type="button" data-mode="ct-total" aria-pressed="true" title="Below the CT 3.00 direct-care comparison point in multiple quarters">Below CT 3.00 direct-care point in multiple quarters</button>
+          <button class="mode-button" type="button" data-mode="ct-licensed" aria-pressed="false" title="Below the CT 0.84 licensed comparison point in multiple quarters">Below CT 0.84 licensed point in multiple quarters</button>
+          <button class="mode-button" type="button" data-mode="case-mix" aria-pressed="false" title="Below the CMS case-mix total nurse comparison point in multiple quarters">Below case-mix comparison in multiple quarters</button>
           <button class="mode-button" type="button" data-mode="contract-10" aria-pressed="false">Contract staff at/above 10%</button>
           <button class="mode-button" type="button" data-mode="contract-20" aria-pressed="false">Contract staff at/above 20%</button>
         </div>
@@ -430,7 +439,13 @@
           <button id="reset-filters" class="action-button" type="button">Reset filters</button>
           <button id="print-pattern-view" class="action-button" type="button" disabled>Print current persistent-pattern view</button>
           <button id="download-pattern-csv" class="action-button" type="button" disabled>Download current persistent-pattern table CSV</button>
+          <button id="copy-pattern-summary" class="action-button" type="button" disabled>Copy briefing summary</button>
           <span id="filter-status" class="subtle-note" role="status">Loading persistent-pattern table...</span>
+        </div>
+        <div id="pattern-summary-fallback" class="notice briefing-summary-fallback" hidden>
+          <label for="pattern-summary-text">Generated briefing summary</label>
+          <textarea id="pattern-summary-text" readonly></textarea>
+          <p class="microcopy">Clipboard copy was unavailable, so the generated summary is shown here for manual copying.</p>
         </div>
       </div>
     </section>
@@ -488,6 +503,6 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Persistent Staffing Patterns - static screening view.</footer>
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Persistent Staffing Patterns - static screening view. <a href="nursing-home-staffing-methodology.html">About the data / methodology</a></footer>
 </body>
 </html>

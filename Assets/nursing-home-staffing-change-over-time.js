@@ -28,7 +28,7 @@
       sortDirection: 'desc'
     },
     'crossed-below': {
-      label: 'Crossed below CT 3.00 comparison point',
+      label: 'Crossed below CT 3.00 direct-care comparison point',
       metricLabel: 'CT direct-care HPRD estimate',
       earliestHeader: 'Earliest CT direct-care HPRD',
       latestHeader: 'Latest CT direct-care HPRD',
@@ -38,7 +38,7 @@
       sortDirection: 'asc'
     },
     'crossed-above': {
-      label: 'Crossed above CT 3.00 comparison point',
+      label: 'Crossed above CT 3.00 direct-care comparison point',
       metricLabel: 'CT direct-care HPRD estimate',
       earliestHeader: 'Earliest CT direct-care HPRD',
       latestHeader: 'Latest CT direct-care HPRD',
@@ -349,6 +349,33 @@
     return filters.length ? filters : ['No filters active; full selected change mode shown.'];
   }
 
+  function getMaterialFilterSummary() {
+    return getActiveFilterSummary().filter(item => !item.startsWith('No filters active'));
+  }
+
+  function joinWithAnd(items) {
+    if (items.length <= 1) return items.join('');
+    if (items.length === 2) return `${items[0]} and ${items[1]}`;
+    return `${items.slice(0, -1).join(', ')}, and ${items[items.length - 1]}`;
+  }
+
+  function hideChangeSummaryFallback() {
+    const fallback = document.getElementById('change-summary-fallback');
+    const textarea = document.getElementById('change-summary-text');
+    if (fallback) fallback.hidden = true;
+    if (textarea) textarea.value = '';
+  }
+
+  function showChangeSummaryFallback(summary) {
+    const fallback = document.getElementById('change-summary-fallback');
+    const textarea = document.getElementById('change-summary-text');
+    if (!fallback || !textarea) return;
+    textarea.value = summary;
+    fallback.hidden = false;
+    textarea.focus();
+    textarea.select();
+  }
+
   function getCurrentSummary(rows) {
     const config = modeConfig[currentMode] || modeConfig['direct-decline'];
     return {
@@ -356,6 +383,25 @@
       averageChange: average(rows.map(record => record[config.metricKey])),
       crossingShown: rows.filter(record => record.crossedBelowTotal || record.crossedAboveTotal).length
     };
+  }
+
+  function buildChangeBriefingSummary(rows) {
+    if (!rows.length) return '';
+    const config = modeConfig[currentMode] || modeConfig['direct-decline'];
+    const summary = getCurrentSummary(rows);
+    const filters = getMaterialFilterSummary();
+    const filterSentence = filters.length
+      ? ` Active filters narrowing the view include ${joinWithAnd(filters)}.`
+      : '';
+    const averageSentence = currentMode === 'crossed-below' || currentMode === 'crossed-above'
+      ? ' The current rows are facilities that crossed the CT 3.00 direct-care comparison point between the endpoint quarters.'
+      : ` The current filtered set has an average change of ${formatSigned(summary.averageChange, config.formatter)} in ${config.metricLabel}.`;
+    const leadingRows = rows.slice(0, Math.min(5, rows.length))
+      .map(record => `${getFacilityName(record)} (${formatSigned(record[config.metricKey], config.formatter)})`);
+    const leadingSentence = leadingRows.length
+      ? ` The leading facilities under the current sort include ${joinWithAnd(leadingRows)}.`
+      : '';
+    return `Using CMS PBJ staffing data from ${earliestQuarter || 'the earliest available quarter'} through ${latestQuarter || 'the latest available quarter'}, this change-over-time view shows ${formatCount(rows.length)} Connecticut nursing homes under the selected mode: ${config.label}.${filterSentence}${averageSentence}${leadingSentence} These figures describe changes in PBJ-reported staffing screening measures and do not explain why staffing changed or establish legal or care-quality conclusions.`;
   }
 
   function renderPrintReportContext(rows) {
@@ -377,7 +423,7 @@
       </div>
       <div class="notice">
         <strong>Current-view summary:</strong>
-        ${formatCount(summary.rowsShown)} rows shown; average change ${formatSigned(summary.averageChange, config.formatter)}; ${formatCount(summary.crossingShown)} CT 3.00 comparison-point crossings shown.
+        ${formatCount(summary.rowsShown)} rows shown; average change ${formatSigned(summary.averageChange, config.formatter)}; ${formatCount(summary.crossingShown)} CT 3.00 direct-care comparison point crossings shown.
       </div>
       <div class="notice warning">
         This report compares available PBJ staffing rows across the displayed quarter window. Missing endpoint quarter rows are excluded from endpoint-to-endpoint change tables. Changes reflect PBJ-reported staffing measures and do not explain why staffing changed. CT comparison point crossings are PBJ-derived screening indicators, not formal DPH compliance findings. Staffing changes alone do not prove poor care, neglect, harm, or regulatory violations. Use the facility-level Staffing Explorer to review the full five-quarter context for any individual nursing home.
@@ -405,7 +451,7 @@
       <div class="summary-card">
         <span class="summary-label">Threshold crossings shown</span>
         <strong>${formatCount(summary.crossingShown)}</strong>
-        <div class="microcopy">CT 3.00 comparison point</div>
+        <div class="microcopy">CT 3.00 direct-care comparison point</div>
       </div>
     `;
   }
@@ -415,10 +461,12 @@
     const config = modeConfig[currentMode] || modeConfig['direct-decline'];
     const metricKind = getModeMetricKind(currentMode);
     const formatMetric = metricFormatter(config);
+    hideChangeSummaryFallback();
     document.getElementById('filter-status').textContent =
       `${formatCount(rows.length)} rows shown for "${config.label}".`;
     document.getElementById('download-change-csv').disabled = !rows.length;
     document.getElementById('print-change-view').disabled = !rows.length;
+    document.getElementById('copy-change-summary').disabled = !rows.length;
     if (!rows.length) {
       output.innerHTML = '<div class="notice warning">No facilities match the selected change mode and filters.</div>';
       return;
@@ -562,6 +610,28 @@
     global.print();
   }
 
+  async function handleCopyBriefingSummary() {
+    const rows = sortRecords(filteredRecords);
+    const status = document.getElementById('filter-status');
+    if (!rows.length) {
+      renderCurrentView();
+      if (status) status.textContent = 'No facilities match the selected change mode and filters, so there is no briefing summary to copy.';
+      return;
+    }
+    const summary = buildChangeBriefingSummary(rows);
+    try {
+      if (!global.navigator?.clipboard || typeof global.navigator.clipboard.writeText !== 'function') {
+        throw new Error('Clipboard API unavailable');
+      }
+      await global.navigator.clipboard.writeText(summary);
+      hideChangeSummaryFallback();
+      if (status) status.textContent = 'Briefing summary copied.';
+    } catch (err) {
+      showChangeSummaryFallback(summary);
+      if (status) status.textContent = 'Clipboard copy was unavailable; the generated briefing summary is shown below.';
+    }
+  }
+
   function resetFilters() {
     document.getElementById('facility-search').value = '';
     document.getElementById('affiliation-filter').value = 'all';
@@ -597,6 +667,7 @@
       });
       document.getElementById('download-change-csv').addEventListener('click', handleDownloadCsv);
       document.getElementById('print-change-view').addEventListener('click', handlePrintCurrentView);
+      document.getElementById('copy-change-summary').addEventListener('click', handleCopyBriefingSummary);
       document.getElementById('reset-filters').addEventListener('click', resetFilters);
       updateModeButtons();
       applyFilters();

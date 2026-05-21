@@ -11,7 +11,8 @@
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
     input,
-    select {
+    select,
+    textarea {
       width:100%;
       padding:10px 12px;
       border-radius:8px;
@@ -154,6 +155,14 @@
     .status-pill.warning {
       border-color:rgba(251,191,36,0.28);
       background:rgba(251,191,36,0.08);
+    }
+    .briefing-summary-fallback {
+      margin:10px 0 0;
+    }
+    .briefing-summary-fallback textarea {
+      min-height:120px;
+      resize:vertical;
+      font:13px/1.45 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
     }
     .interpretation-grid {
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -315,8 +324,8 @@
             <label for="ct-filter">CT comparison filter</label>
             <select id="ct-filter">
               <option value="all">Show all</option>
-              <option value="below-total">Below CT 3.00 comparison point only</option>
-              <option value="below-licensed">Below CT 0.84 comparison point only</option>
+              <option value="below-total">Below CT 3.00 direct-care comparison point only</option>
+              <option value="below-licensed">Below CT 0.84 licensed comparison point only</option>
             </select>
           </div>
           <div>
@@ -353,7 +362,13 @@
           <button id="reset-filters" class="action-button" type="button">Reset filters</button>
           <button id="print-current-view" class="action-button" type="button" disabled>Print current statewide view</button>
           <button id="download-statewide-csv" class="action-button" type="button" disabled>Download filtered statewide comparison CSV</button>
+          <button id="copy-statewide-summary" class="action-button" type="button" disabled>Copy briefing summary</button>
           <span id="filter-status" class="subtle-note" role="status">Loading table...</span>
+        </div>
+        <div id="statewide-summary-fallback" class="notice briefing-summary-fallback" hidden>
+          <label for="statewide-summary-text">Generated briefing summary</label>
+          <textarea id="statewide-summary-text" readonly></textarea>
+          <p class="microcopy">Clipboard copy was unavailable, so the generated summary is shown here for manual copying.</p>
         </div>
       </div>
     </section>
@@ -411,6 +426,6 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Statewide Staffing Comparison - static screening view.</footer>
+  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Statewide Staffing Comparison - static screening view. <a href="nursing-home-staffing-methodology.html">About the data / methodology</a></footer>
 </body>
 </html>
