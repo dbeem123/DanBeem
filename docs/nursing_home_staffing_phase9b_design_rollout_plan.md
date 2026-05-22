@@ -2,6 +2,10 @@
 
 Phase 9A established the Connecticut LTCOP dashboard design system on the staffing-suite homepage and the facility-level Nursing Home Staffing Explorer. Phase 9B should apply the same branded pattern to the remaining staffing tools without changing calculations, data contracts, filters, exports, print behavior, or caveat logic.
 
+## Completion Note
+
+Phase 9B has been implemented across the remaining staffing tools and the methodology page. The rollout added the shared Connecticut LTCOP masthead, navy suite navigation, light dashboard shell, compact table treatment, branded action controls, and public-service footer pattern while preserving the existing JavaScript IDs, data dependencies, filters, exports, print actions, copy briefing summaries, deep links, and screening caveats.
+
 ## Rollout Targets
 
 1. `tools/nursing-home-statewide-staffing-comparison.html`

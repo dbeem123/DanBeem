@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Connecticut Nursing Home Ownership &amp; Staffing Explorer</title>
+  <title>Ownership / Affiliation Staffing Explorer | Connecticut LTCOP</title>
   <meta name="description" content="A screening-level Connecticut nursing home ownership and staffing explorer grouped by CMS SNF Enrollment affiliation entity." />
   <link rel="stylesheet" href="../Assets/shared.css">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
   <script defer src="../Assets/nursing-home-ownership-staffing.js"></script>
   <style>
@@ -250,6 +251,7 @@
         background:#fff;
       }
       .topbar,
+      .ltcop-masthead,
       .ownership-hero,
       section[aria-labelledby="statewide-comparison-title"],
       section[aria-labelledby="affiliation-persistence-title"],
@@ -270,6 +272,7 @@
       }
       body.print-affiliation-persistence section:not([aria-labelledby="affiliation-persistence-title"]),
       body.print-affiliation-persistence .topbar,
+      body.print-affiliation-persistence .ltcop-masthead,
       body.print-affiliation-persistence footer,
       body.print-affiliation-persistence .pattern-control-grid,
       body.print-affiliation-persistence .report-actions,
@@ -337,33 +340,37 @@
     }
   </style>
 </head>
-<body>
+<body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
-  <header class="topbar">
-    <div class="wrap space-between">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DB</div>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="../Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
         <div>
-          <div style="font-weight:800">Ownership &amp; Staffing Explorer</div>
-          <div class="subtle" style="font-size:12px;">Affiliation Screening View</div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
         </div>
       </div>
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="navLink linkBtn" href="../index.html">Home</a>
-        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
-        <a class="navLink linkBtn" href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
-        <a class="navLink linkBtn" href="nursing-home-staffing-change-over-time.html">Staffing Change</a>
-        <a class="navLink linkBtn" href="nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
-        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
-      </nav>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
     </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="../index.html">Tools Home</a>
+        <a href="nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="nursing-home-ownership-staffing-explorer.html" aria-current="page">Ownership / Affiliation</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
   </header>
 
   <main id="main-content">
     <section class="hero wrap ownership-hero" aria-labelledby="ownership-title">
       <div class="panel">
         <div class="pill">Connecticut Affiliation View</div>
-        <h1 id="ownership-title">Connecticut Nursing Home Ownership &amp; Staffing Explorer</h1>
+        <h1 id="ownership-title">Ownership / Affiliation Staffing Explorer</h1>
         <p>This tool groups Connecticut nursing homes by CMS SNF Enrollment affiliation entity where available, then summarizes PBJ staffing patterns across facilities connected to the same affiliation name.</p>
         <div id="dataset-summary" class="dataset-facts" aria-label="Dataset summary"></div>
         <div class="notice warning">Staffing, Provider Information, and SNF Enrollment affiliation fields are screening and context data. A shared affiliation entity does not by itself prove common day-to-day operations, poor care, harm, neglect, or regulatory violations.</div>
@@ -589,6 +596,17 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Ownership &amp; Staffing Explorer - static screening view. <a href="nursing-home-staffing-methodology.html">Methodology</a></footer>
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Ownership / Affiliation Staffing Explorer - static screening view.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

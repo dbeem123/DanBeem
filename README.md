@@ -103,11 +103,11 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 - linked from the staffing-suite homepage overview and each staffing tool page
 - emphasizes screening, comparison, and question-building use rather than formal compliance or care-quality conclusions
 
-### Phase 9A LTCOP Dashboard Design
+### Phase 9A-9B LTCOP Dashboard Design
 
 - adds reusable Connecticut LTCOP dashboard styling in `Assets/ltcop-dashboard.css`
 - uses the transparent color Connecticut LTCOP horizontal logo in `Assets/branding/ct-ltcop-logo-horizontal-color.png` as the primary masthead identity
-- applies the branded white masthead, navy navigation, light dashboard background, analytic cards, screening badges, accessible star cards, disclosures, and print-safe styling to the staffing-suite homepage and facility-level explorer
+- applies the branded white masthead, navy navigation, light dashboard background, analytic cards, screening badges, accessible star cards, disclosures, compact tables, and print-safe styling across the staffing-suite homepage, all five staffing tools, and the public methodology page
 - keeps the design separate from CT.gov global masthead conventions while linking to the official CT LTCOP website
 
 ### Responsible Use & Sources

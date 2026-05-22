@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Connecticut Nursing Home Statewide Staffing Comparison</title>
+  <title>Statewide Facility Staffing Comparison | Connecticut LTCOP</title>
   <meta name="description" content="A screening-level statewide Connecticut nursing home staffing comparison using latest-quarter CMS PBJ staffing data." />
   <link rel="stylesheet" href="../Assets/shared.css">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
   <script defer src="../Assets/nursing-home-statewide-staffing-comparison.js"></script>
   <style>
@@ -179,6 +180,7 @@
         color:#111827;
       }
       .topbar,
+      .ltcop-masthead,
       .no-print,
       .statewide-hero,
       #filters-title,
@@ -262,31 +264,37 @@
     }
   </style>
 </head>
-<body>
+<body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
-  <header class="topbar">
-    <div class="wrap space-between">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DB</div>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="../Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
         <div>
-          <div style="font-weight:800">Statewide Staffing Comparison</div>
-          <div class="subtle" style="font-size:12px;">Connecticut PBJ Screening View</div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
         </div>
       </div>
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="navLink linkBtn" href="../index.html">Home</a>
-        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
-        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
-        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
-      </nav>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
     </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="../index.html">Tools Home</a>
+        <a href="nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="nursing-home-statewide-staffing-comparison.html" aria-current="page">Statewide Comparison</a>
+        <a href="nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
   </header>
 
   <main id="main-content">
     <section class="hero wrap statewide-hero" aria-labelledby="statewide-title">
       <div class="panel">
         <div class="pill">Connecticut Statewide Facility View</div>
-        <h1 id="statewide-title">Connecticut Nursing Home Statewide Staffing Comparison</h1>
+        <h1 id="statewide-title">Statewide Facility Staffing Comparison</h1>
         <p>This page compares Connecticut nursing homes using the latest available CMS Payroll-Based Journal quarter in the generated staffing export. Use search, sort, and filters to scan facilities, then open the facility explorer for trend and context before drawing conclusions.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">PBJ staffing data are quarterly screening metrics. Connecticut comparison points are PBJ-derived screening estimates, not formal DPH compliance findings. This table can identify patterns and questions for review, but it does not establish legal conclusions or determine care quality by itself.</div>
@@ -426,6 +434,17 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Statewide Staffing Comparison - static screening view. <a href="nursing-home-staffing-methodology.html">About the data / methodology</a></footer>
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Statewide Facility Staffing Comparison - static screening view.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

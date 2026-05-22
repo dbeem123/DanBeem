@@ -142,10 +142,12 @@
       "data_dependencies": [
         "data/nursing_home_staffing_ct.json",
         "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/shared.js",
         "Assets/nursing-home-statewide-staffing-comparison.js"
       ],
-      "notes": "Phase 7C static latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, copyable current-view briefing summaries, facility drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, or care-quality findings."
+      "notes": "Phase 9B Connecticut LTCOP-branded latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, copyable current-view briefing summaries, facility drill-down links, and filtered CSV export. The branded layout preserves all screening caveats and does not make legal, compliance, harm, neglect, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-staffing-change-over-time.html",
@@ -166,10 +168,12 @@
       "data_dependencies": [
         "data/nursing_home_staffing_ct.json",
         "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/shared.js",
         "Assets/nursing-home-staffing-change-over-time.js"
       ],
-      "notes": "Phase 7C static change-over-time view. Computes earliest-to-latest facility staffing changes in front-end JavaScript from the generated Connecticut staffing export, excluding facilities missing either endpoint quarter from primary change ranking tables. Includes CT direct-care HPRD estimate decline/improvement modes, CT 3.00 direct-care comparison point crossing modes, contract staff percentage increase mode, RN HPRD decrease mode, printable current-view reporting, copyable current-view briefing summaries, facility trend drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
+      "notes": "Phase 9B Connecticut LTCOP-branded change-over-time view. Computes earliest-to-latest facility staffing changes in front-end JavaScript from the generated Connecticut staffing export, excluding facilities missing either endpoint quarter from primary change ranking tables. Includes CT direct-care HPRD estimate decline/improvement modes, CT 3.00 direct-care comparison point crossing modes, contract staff percentage increase mode, RN HPRD decrease mode, printable current-view reporting, copyable current-view briefing summaries, facility trend drill-down links, and filtered CSV export. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-persistent-staffing-patterns.html",
@@ -191,10 +195,12 @@
       "data_dependencies": [
         "data/nursing_home_staffing_ct.json",
         "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/shared.js",
         "Assets/nursing-home-persistent-staffing-patterns.js"
       ],
-      "notes": "Phase 7C static persistent-patterns view. Computes repeated staffing screening patterns across available PBJ quarters in front-end JavaScript from the generated Connecticut staffing export. Includes CT 3.00 direct-care comparison point, CT 0.84 licensed comparison point, CMS case-mix comparison point, contract staff 10%+, and contract staff 20%+ persistence modes with minimum-quarter thresholds, quarter-by-quarter visual pattern strips, query parameters for mode/threshold/affiliation, live current-view summaries, print-friendly current-view reporting, copyable current-view briefing summaries, facility trend drill-down links, and filtered CSV export. Missing PBJ rows and missing case-mix benchmark values are not counted as adverse findings. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
+      "notes": "Phase 9B Connecticut LTCOP-branded persistent-patterns view. Computes repeated staffing screening patterns across available PBJ quarters in front-end JavaScript from the generated Connecticut staffing export. Includes CT 3.00 direct-care comparison point, CT 0.84 licensed comparison point, CMS case-mix comparison point, contract staff 10%+, and contract staff 20%+ persistence modes with minimum-quarter thresholds, quarter-by-quarter visual pattern strips, query parameters for mode/threshold/affiliation, live current-view summaries, print-friendly current-view reporting, copyable current-view briefing summaries, facility trend drill-down links, and filtered CSV export. Missing PBJ rows and missing case-mix benchmark values are not counted as adverse findings. Does not make legal, compliance, harm, neglect, causation, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-ownership-staffing-explorer.html",
@@ -214,10 +220,12 @@
       "data_dependencies": [
         "data/nursing_home_staffing_ct.json",
         "data/nursing_home_staffing_mock.json (development fallback)",
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/shared.js",
         "Assets/nursing-home-ownership-staffing.js"
       ],
-      "notes": "Phase 6E static derived view. Calculates statewide affiliation comparison tables, selected affiliation-group staffing summaries, persistent multi-quarter affiliation screening pattern summaries with current-view CSV export, focused print reporting, copyable briefing summaries, Connecticut direct-care comparison summaries, and selected-affiliation print/CSV reporting actions in front-end JavaScript from the normalized Connecticut export. Supports ?affiliation= deep links, preferring CMS SNF Enrollment affiliation entity IDs and falling back to names, plus cross-links to the Persistent Staffing Patterns tool filtered by mode, threshold, and affiliation. Uses simple facility averages and does not make chain quality, legal, harm, neglect, or compliance findings."
+      "notes": "Phase 9B Connecticut LTCOP-branded affiliation-level staffing view. Calculates statewide affiliation comparison tables, selected affiliation-group staffing summaries, persistent multi-quarter affiliation screening pattern summaries with current-view CSV export, focused print reporting, copyable briefing summaries, Connecticut direct-care comparison summaries, and selected-affiliation print/CSV reporting actions in front-end JavaScript from the normalized Connecticut export. Supports ?affiliation= deep links, preferring CMS SNF Enrollment affiliation entity IDs and falling back to names, plus cross-links to the Persistent Staffing Patterns tool filtered by mode, threshold, and affiliation. Uses simple facility averages and does not make chain quality, legal, harm, neglect, or compliance findings."
     },
     {
       "path": "tools/nursing-home-staffing-methodology.html",
@@ -242,10 +250,12 @@
         "tools/responsible-use.html"
       ],
       "data_dependencies": [
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "docs/nursing_home_staffing_calculation_audit.md",
         "docs/nursing_home_staffing_data_contract.md"
       ],
-      "notes": "Phase 8B public explanation page. It documents that the staffing suite is designed for screening, comparison, and question-building, not formal compliance findings or stand-alone care-quality conclusions. Includes public links to CMS PBJ Daily Nurse Staffing, CMS Provider Information, CMS nursing home quality-measure data, CMS Nursing Home Data Dictionary, CMS SNF Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and Connecticut DPH's amended 3.0 staffing implementation notice. Explains that CMS Care Compare ratings are imported context from Provider Information and individual claims-based quality measures are imported from the Quality Measures Claims file, not calculated by this tool."
+      "notes": "Phase 9B Connecticut LTCOP-branded public explanation page. It documents that the staffing suite is designed for screening, comparison, and question-building, not formal compliance findings or stand-alone care-quality conclusions. Includes public links to CMS PBJ Daily Nurse Staffing, CMS Provider Information, CMS nursing home quality-measure data, CMS Nursing Home Data Dictionary, CMS SNF Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and Connecticut DPH's amended 3.0 staffing implementation notice. Explains that CMS Care Compare ratings are imported context from Provider Information and individual claims-based quality measures are imported from the Quality Measures Claims file, not calculated by this tool."
     },
     {
       "path": "tools/responsible-use.html",

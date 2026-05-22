@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Connecticut Nursing Home Persistent Staffing Patterns</title>
+  <title>Persistent Multi-Quarter Staffing Patterns | Connecticut LTCOP</title>
   <meta name="description" content="A screening-level Connecticut nursing home persistent staffing patterns explorer using multi-quarter CMS PBJ staffing data." />
   <link rel="stylesheet" href="../Assets/shared.css">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
   <script defer src="../Assets/nursing-home-persistent-staffing-patterns.js"></script>
   <style>
@@ -235,6 +236,7 @@
         color:#111827;
       }
       .topbar,
+      .ltcop-masthead,
       .no-print,
       .patterns-hero,
       .action-row,
@@ -339,33 +341,37 @@
     }
   </style>
 </head>
-<body>
+<body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
-  <header class="topbar">
-    <div class="wrap space-between">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DB</div>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="../Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
         <div>
-          <div style="font-weight:800">Persistent Staffing Patterns</div>
-          <div class="subtle" style="font-size:12px;">Connecticut PBJ Screening View</div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
         </div>
       </div>
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="navLink linkBtn" href="../index.html">Home</a>
-        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
-        <a class="navLink linkBtn" href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
-        <a class="navLink linkBtn" href="nursing-home-staffing-change-over-time.html">Staffing Change</a>
-        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
-        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
-      </nav>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
     </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="../index.html">Tools Home</a>
+        <a href="nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="nursing-home-persistent-staffing-patterns.html" aria-current="page">Persistent Patterns</a>
+        <a href="nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
   </header>
 
   <main id="main-content">
     <section class="hero wrap patterns-hero" aria-labelledby="patterns-title">
       <div class="panel">
         <div class="pill">Connecticut Multi-Quarter Pattern View</div>
-        <h1 id="patterns-title">Connecticut Nursing Home Persistent Staffing Patterns</h1>
+        <h1 id="patterns-title">Persistent Multi-Quarter Staffing Patterns</h1>
         <p>This page identifies facilities with staffing screening patterns observed across multiple CMS Payroll-Based Journal quarters in the current Connecticut export. It is designed to surface repeated questions for review, not to label facilities as violations or quality ratings.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">Facility quarter histories may be incomplete. Missing PBJ rows are not treated as zero staffing and are not counted as adverse findings. Persistent patterns should be reviewed with resident experience, complaints, survey findings, care records when appropriate, and other context.</div>
@@ -503,6 +509,17 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Persistent Staffing Patterns - static screening view. <a href="nursing-home-staffing-methodology.html">About the data / methodology</a></footer>
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Persistent Multi-Quarter Staffing Patterns - static screening view.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

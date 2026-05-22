@@ -27,7 +27,7 @@ body.ltcop-dashboard button:focus,
 body.ltcop-dashboard input:focus,
 body.ltcop-dashboard select:focus,
 body.ltcop-dashboard summary:focus {
-  outline: 3px solid rgba(47,111,237,0.32);
+  outline: 3px solid var(--ltcop-focus);
   outline-offset: 3px;
 }
 
@@ -97,18 +97,34 @@ body.ltcop-dashboard .skipLink {
   padding-bottom: 8px;
 }
 
-.ltcop-suite-nav a {
-  color: #fff;
+body.ltcop-dashboard .ltcop-suite-nav a {
+  color: #f8fbff;
   text-decoration: none;
   padding: 8px 10px;
   border-radius: 6px;
   font-weight: 800;
   font-size: 13px;
+  border: 1px solid transparent;
 }
 
-.ltcop-suite-nav a:hover,
-.ltcop-suite-nav a[aria-current="page"] {
-  background: rgba(255,255,255,0.14);
+body.ltcop-dashboard .ltcop-suite-nav a:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.34);
+}
+
+body.ltcop-dashboard .ltcop-suite-nav a:focus {
+  color: #fff;
+  background: rgba(255,255,255,0.16);
+  border-color: #fff;
+  outline-color: #fff;
+}
+
+body.ltcop-dashboard .ltcop-suite-nav a[aria-current="page"] {
+  color: #fff;
+  background: #244b7b;
+  border-color: rgba(255,255,255,0.72);
+  box-shadow: inset 0 -3px 0 var(--ltcop-red);
 }
 
 body.ltcop-dashboard .wrap {
@@ -168,6 +184,12 @@ body.ltcop-dashboard select {
   color: var(--ltcop-navy-deep);
   background: #fff;
   border: 1px solid #b9c7d8;
+}
+
+body.ltcop-dashboard input::placeholder,
+body.ltcop-dashboard textarea::placeholder {
+  color: #65768c;
+  opacity: 1;
 }
 
 .ltcop-dashboard-hero .panel {
@@ -388,6 +410,168 @@ body.ltcop-dashboard thead th {
 body.ltcop-dashboard tbody th,
 body.ltcop-dashboard td {
   color: var(--ltcop-navy-deep);
+}
+
+body.ltcop-dashboard .statewide-hero,
+body.ltcop-dashboard .change-hero,
+body.ltcop-dashboard .patterns-hero,
+body.ltcop-dashboard .ownership-hero,
+body.ltcop-dashboard .methodology-hero {
+  padding-top: 26px;
+}
+
+body.ltcop-dashboard .statewide-hero .panel,
+body.ltcop-dashboard .change-hero .panel,
+body.ltcop-dashboard .patterns-hero .panel,
+body.ltcop-dashboard .ownership-hero .panel,
+body.ltcop-dashboard .methodology-hero .panel {
+  border-top: 5px solid var(--ltcop-red);
+}
+
+body.ltcop-dashboard .summary-card,
+body.ltcop-dashboard .dataset-fact,
+body.ltcop-dashboard .summary-cell,
+body.ltcop-dashboard .metric-card {
+  color: var(--ltcop-navy-deep);
+  background: #fff;
+  border: 1px solid var(--ltcop-border);
+  box-shadow: 0 6px 16px rgba(16,39,68,0.05);
+}
+
+body.ltcop-dashboard .summary-card strong,
+body.ltcop-dashboard .dataset-fact strong,
+body.ltcop-dashboard .summary-cell dd,
+body.ltcop-dashboard .metric-card strong {
+  color: var(--ltcop-navy);
+}
+
+body.ltcop-dashboard .summary-label,
+body.ltcop-dashboard .summary-cell dt {
+  color: var(--ltcop-muted);
+  letter-spacing: 0.06em;
+}
+
+body.ltcop-dashboard .filter-grid,
+body.ltcop-dashboard .field-row,
+body.ltcop-dashboard .pattern-control-grid {
+  align-items: end;
+}
+
+body.ltcop-dashboard .sort-row,
+body.ltcop-dashboard .mode-row,
+body.ltcop-dashboard .action-row,
+body.ltcop-dashboard .report-actions,
+body.ltcop-dashboard .pattern-mode-row {
+  gap: 9px;
+}
+
+body.ltcop-dashboard button.sort-button,
+body.ltcop-dashboard button.statewide-sort-button,
+body.ltcop-dashboard button.mode-button,
+body.ltcop-dashboard button.affiliation-pattern-mode-button,
+body.ltcop-dashboard button.action-button {
+  color: var(--ltcop-navy);
+  background: #fff;
+  border: 1px solid #9fb3cb;
+  border-radius: 7px;
+  box-shadow: none;
+}
+
+body.ltcop-dashboard button.sort-button[aria-pressed="true"],
+body.ltcop-dashboard button.statewide-sort-button[aria-pressed="true"],
+body.ltcop-dashboard button.mode-button[aria-pressed="true"],
+body.ltcop-dashboard button.affiliation-pattern-mode-button[aria-pressed="true"] {
+  color: #fff;
+  background: var(--ltcop-navy);
+  border-color: var(--ltcop-navy);
+}
+
+body.ltcop-dashboard button.action-button {
+  color: #fff;
+  background: var(--ltcop-navy);
+  border-color: var(--ltcop-navy);
+}
+
+body.ltcop-dashboard button.action-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+body.ltcop-dashboard button.link-button {
+  color: var(--ltcop-navy);
+}
+
+body.ltcop-dashboard .table-scroll {
+  background: #fff;
+  border-color: var(--ltcop-border);
+  box-shadow: 0 8px 20px rgba(16,39,68,0.04);
+}
+
+body.ltcop-dashboard caption {
+  color: var(--ltcop-muted);
+  background: #f8fbff;
+}
+
+body.ltcop-dashboard .status-pill,
+body.ltcop-dashboard .small-group-label {
+  color: var(--ltcop-navy);
+  background: var(--ltcop-info);
+  border: 1px solid #c9def4;
+}
+
+body.ltcop-dashboard .status-pill.warning,
+body.ltcop-dashboard .small-group-label {
+  color: #6b4a00;
+  background: #fffbeb;
+  border-color: #ead083;
+}
+
+body.ltcop-dashboard .positive {
+  color: #0f6b3d;
+}
+
+body.ltcop-dashboard .negative {
+  color: #9f1d2d;
+}
+
+body.ltcop-dashboard .briefing-summary-fallback textarea {
+  background: #fff;
+}
+
+body.ltcop-dashboard .pattern-legend {
+  color: var(--ltcop-muted);
+}
+
+body.ltcop-dashboard .pattern-marker,
+body.ltcop-dashboard .legend-marker {
+  color: var(--ltcop-navy-deep);
+  background: #fff;
+  border-color: var(--ltcop-border);
+}
+
+body.ltcop-dashboard .pattern-marker.match,
+body.ltcop-dashboard .legend-marker.match {
+  background: #fffbeb;
+  border-color: #ead083;
+}
+
+body.ltcop-dashboard .pattern-marker.nonmatch,
+body.ltcop-dashboard .legend-marker.nonmatch {
+  background: #f0f8f4;
+  border-color: #b8d9c5;
+}
+
+body.ltcop-dashboard .pattern-marker.unavailable,
+body.ltcop-dashboard .legend-marker.unavailable {
+  color: var(--ltcop-muted);
+  background: #f7f8fa;
+  border-color: #d7dde6;
+}
+
+body.ltcop-dashboard .formula-list li {
+  color: var(--ltcop-navy-deep);
+  background: #fff;
+  border-color: var(--ltcop-border);
 }
 
 .ltcop-trend-chart {

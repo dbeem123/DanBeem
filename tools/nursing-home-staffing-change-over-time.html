@@ -3,9 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Connecticut Nursing Home Staffing Change Over Time</title>
+  <title>Staffing Change Over Time | Connecticut LTCOP</title>
   <meta name="description" content="A screening-level Connecticut nursing home staffing change-over-time explorer using CMS PBJ staffing data." />
   <link rel="stylesheet" href="../Assets/shared.css">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
   <script defer src="../Assets/nursing-home-staffing-change-over-time.js"></script>
   <style>
@@ -178,6 +179,7 @@
         color:#111827;
       }
       .topbar,
+      .ltcop-masthead,
       .no-print,
       .change-hero,
       .action-row,
@@ -264,32 +266,37 @@
     }
   </style>
 </head>
-<body>
+<body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
-  <header class="topbar">
-    <div class="wrap space-between">
-      <div class="brand">
-        <div class="logo" aria-hidden="true">DB</div>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="../Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
         <div>
-          <div style="font-weight:800">Staffing Change Over Time</div>
-          <div class="subtle" style="font-size:12px;">Connecticut PBJ Screening View</div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
         </div>
       </div>
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="navLink linkBtn" href="../index.html">Home</a>
-        <a class="navLink linkBtn" href="nursing-home-staffing-explorer.html">Facility Staffing</a>
-        <a class="navLink linkBtn" href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
-        <a class="navLink linkBtn" href="nursing-home-ownership-staffing-explorer.html">Ownership Staffing</a>
-        <a class="navLink linkBtn" href="responsible-use.html">Responsible Use</a>
-      </nav>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
     </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="../index.html">Tools Home</a>
+        <a href="nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="nursing-home-staffing-change-over-time.html" aria-current="page">Change Over Time</a>
+        <a href="nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
   </header>
 
   <main id="main-content">
     <section class="hero wrap change-hero" aria-labelledby="change-title">
       <div class="panel">
         <div class="pill">Connecticut Statewide Change View</div>
-        <h1 id="change-title">Connecticut Nursing Home Staffing Change Over Time</h1>
+        <h1 id="change-title">Staffing Change Over Time</h1>
         <p>This tool compares available Connecticut nursing home PBJ facility-quarter rows from the earliest to latest quarter in the current staffing export. Use it to review declines, improvements, comparison-point crossings, and contract staffing changes across the five-quarter window.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">Missing quarter rows are not treated as zero. Change rankings include only facilities with both the earliest and latest quarter rows for the primary comparison window. Staffing changes are screening signals for review, not proof of cause, care quality, harm, neglect, or formal compliance findings.</div>
@@ -419,6 +426,17 @@
     </section>
   </main>
 
-  <footer class="wrap subtle" style="margin-top:18px;">Connecticut Nursing Home Staffing Change Over Time - static screening view. <a href="nursing-home-staffing-methodology.html">About the data / methodology</a></footer>
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Staffing Change Over Time - static screening view.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
