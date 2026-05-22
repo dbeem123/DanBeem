@@ -49,6 +49,13 @@ PROVIDER_COLUMNS = [
     "Case-Mix LPN Staffing Hours per Resident per Day",
     "Case-Mix RN Staffing Hours per Resident per Day",
     "Case-Mix Total Nurse Staffing Hours per Resident per Day",
+    "Overall Rating",
+    "Health Inspection Rating",
+    "Staffing Rating",
+    "RN Staffing Rating",
+    "QM Rating",
+    "Long-Stay QM Rating",
+    "Short-Stay QM Rating",
 ]
 
 SNF_ENROLLMENT_COLUMNS = [
@@ -67,9 +74,25 @@ SNF_ENROLLMENT_COLUMNS = [
     "STATE",
 ]
 
+QUALITY_MEASURES_CLAIMS_COLUMNS = [
+    "CMS Certification Number (CCN)",
+    "Provider Name",
+    "State",
+    "Measure Code",
+    "Measure Description",
+    "Resident type",
+    "Adjusted Score",
+    "Observed Score",
+    "Expected Score",
+    "Footnote for Score",
+    "Used in Quality Measure Five Star Rating",
+    "Measure Period",
+    "Processing Date",
+]
+
 
 class NursingHomeStaffingGeneratorTests(unittest.TestCase):
-    def build_from_rows(self, rows, provider_rows=None, snf_rows=None):
+    def build_from_rows(self, rows, provider_rows=None, snf_rows=None, quality_measure_rows=None):
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
             input_dir = temp_path / "pbj"
@@ -102,6 +125,18 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
                     writer.writerows(snf_rows)
                 snf_by_ccn, snf_quality = generator.load_snf_enrollments(snf_path)
 
+            quality_measures_by_ccn = {}
+            quality_measures_quality = None
+            if quality_measure_rows is not None:
+                quality_measures_path = temp_path / "quality_measures_claims.csv"
+                with quality_measures_path.open("w", encoding="utf-8", newline="") as handle:
+                    writer = csv.DictWriter(handle, fieldnames=QUALITY_MEASURES_CLAIMS_COLUMNS)
+                    writer.writeheader()
+                    writer.writerows(quality_measure_rows)
+                quality_measures_by_ccn, quality_measures_quality = generator.load_quality_measures_claims(
+                    quality_measures_path
+                )
+
             groups, facilities, quality = generator.load_pbj_rows(input_dir)
             data = generator.build_output(
                 groups,
@@ -114,6 +149,8 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
                 provider_quality,
                 snf_by_ccn,
                 snf_quality,
+                quality_measures_by_ccn,
+                quality_measures_quality,
             )
             errors = generator.validate_output(data)
             self.assertEqual(errors, [])
@@ -162,6 +199,13 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
             "Case-Mix LPN Staffing Hours per Resident per Day": "0.80",
             "Case-Mix RN Staffing Hours per Resident per Day": "0.70",
             "Case-Mix Total Nurse Staffing Hours per Resident per Day": "4.00",
+            "Overall Rating": "4",
+            "Health Inspection Rating": "3",
+            "Staffing Rating": "5",
+            "RN Staffing Rating": "4",
+            "QM Rating": "2",
+            "Long-Stay QM Rating": "3",
+            "Short-Stay QM Rating": "5",
         }
         row.update(overrides)
         return row
@@ -181,6 +225,25 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
             "AFFILIATION ENTITY NAME": "TEST AFFILIATION",
             "AFFILIATION ENTITY ID": "A123",
             "STATE": "CT",
+        }
+        row.update(overrides)
+        return row
+
+    def quality_measure_row(self, **overrides):
+        row = {
+            "CMS Certification Number (CCN)": "075999",
+            "Provider Name": "Standardized Test Home",
+            "State": "CT",
+            "Measure Code": "521",
+            "Measure Description": "Percentage of short-stay residents who were rehospitalized after a nursing home admission",
+            "Resident type": "Short Stay",
+            "Adjusted Score": "18.2",
+            "Observed Score": "20.1",
+            "Expected Score": "19.3",
+            "Footnote for Score": "",
+            "Used in Quality Measure Five Star Rating": "Y",
+            "Measure Period": "2024Q4-2025Q3",
+            "Processing Date": "04/01/2026",
         }
         row.update(overrides)
         return row
@@ -327,8 +390,21 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
         self.assertEqual(facility["phone_number"], "860-555-0100")
         self.assertEqual(facility["certified_beds"], 120)
         self.assertEqual(facility["ownership_type"], "For profit - Corporation")
+        self.assertEqual(facility["cms_overall_rating"], 4)
+        self.assertEqual(facility["cms_health_inspection_rating"], 3)
+        self.assertEqual(facility["cms_staffing_rating"], 5)
+        self.assertEqual(facility["cms_rn_staffing_rating"], 4)
+        self.assertEqual(facility["cms_qm_rating"], 2)
+        self.assertEqual(facility["cms_long_stay_qm_rating"], 3)
+        self.assertEqual(facility["cms_short_stay_qm_rating"], 5)
+        self.assertEqual(facility["cms_rating_source"], "CMS Nursing Home Provider Information")
         self.assertEqual(data["data_quality"]["matched_facility_count"], 1)
         self.assertEqual(data["data_quality"]["unmatched_pbj_facility_count"], 0)
+        self.assertTrue(data["data_quality"]["provider_rating_fields_available"])
+        self.assertEqual(data["data_quality"]["provider_rating_missing_columns"], [])
+        self.assertEqual(data["data_quality"]["facilities_with_overall_rating_count"], 1)
+        self.assertEqual(data["data_quality"]["facilities_with_qm_rating_count"], 1)
+        self.assertEqual(data["data_quality"]["facilities_with_staffing_rating_count"], 1)
         row = data["facility_quarterly_staffing"][0]
         self.assertTrue(row["benchmarks"]["case_mix_benchmark_available"])
         self.assertEqual(row["benchmarks"]["case_mix_total_nurse_hprd"], 4.0)
@@ -336,6 +412,106 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
         self.assertEqual(row["benchmarks"]["case_mix_lpn_lvn_hprd"], 0.8)
         self.assertEqual(row["benchmarks"]["case_mix_nurse_aide_hprd"], 2.5)
         self.assertEqual(row["benchmarks"]["benchmark_source"], "CMS Nursing Home Provider Information")
+
+    def test_provider_info_missing_rating_columns_does_not_break_generation(self):
+        minimal_provider_columns = [column for column in PROVIDER_COLUMNS if "Rating" not in column]
+        with tempfile.TemporaryDirectory() as temp_dir:
+            provider_path = Path(temp_dir) / "provider_info.csv"
+            with provider_path.open("w", encoding="utf-8", newline="") as handle:
+                writer = csv.DictWriter(handle, fieldnames=minimal_provider_columns)
+                writer.writeheader()
+                writer.writerow({key: value for key, value in self.provider_row().items() if key in minimal_provider_columns})
+
+            provider_by_ccn, provider_quality = generator.load_provider_info(provider_path)
+
+        self.assertFalse(provider_quality["provider_rating_fields_available"])
+        self.assertEqual(set(provider_quality["provider_rating_missing_columns"]), set(generator.PROVIDER_RATING_FIELDS))
+        self.assertIsNone(provider_by_ccn["075999"]["cms_overall_rating"])
+
+        data = self.build_from_rows([self.base_row()], [self.provider_row(**{
+            "Overall Rating": "",
+            "Health Inspection Rating": "",
+            "Staffing Rating": "",
+            "RN Staffing Rating": "",
+            "QM Rating": "",
+            "Long-Stay QM Rating": "",
+            "Short-Stay QM Rating": "",
+        })])
+        self.assertIsNone(data["facilities"][0]["cms_overall_rating"])
+        self.assertEqual(data["data_quality"]["facilities_with_overall_rating_count"], 0)
+
+    def test_quality_measures_claims_merge_multiple_rows_by_ccn(self):
+        data = self.build_from_rows(
+            [self.base_row()],
+            quality_measure_rows=[
+                self.quality_measure_row(),
+                self.quality_measure_row(**{
+                    "Measure Code": "552",
+                    "Measure Description": "Number of outpatient emergency department visits per 1000 long-stay resident days",
+                    "Resident type": "Long Stay",
+                    "Adjusted Score": "1.5",
+                    "Observed Score": "1.6",
+                    "Expected Score": "1.4",
+                    "Footnote for Score": "Small denominator",
+                    "Used in Quality Measure Five Star Rating": "N",
+                }),
+            ],
+        )
+        facility = data["facilities"][0]
+        self.assertEqual(len(facility["quality_measures_claims"]), 2)
+        measures = {row["measure_code"]: row for row in facility["quality_measures_claims"]}
+        self.assertEqual(measures["521"]["adjusted_score"], 18.2)
+        self.assertTrue(measures["521"]["used_in_qm_five_star_rating"])
+        self.assertEqual(measures["552"]["footnote_for_score"], "Small denominator")
+        self.assertFalse(measures["552"]["used_in_qm_five_star_rating"])
+        self.assertEqual(data["data_quality"]["quality_measures_claims_row_count"], 2)
+        self.assertEqual(data["data_quality"]["quality_measures_claims_ct_row_count"], 2)
+        self.assertEqual(data["data_quality"]["facilities_with_quality_measures_claims_count"], 1)
+        self.assertEqual(data["data_quality"]["quality_measures_claims_measure_count"], 2)
+        self.assertEqual(data["data_quality"]["unmatched_quality_measure_ccn_count"], 0)
+
+    def test_quality_measures_claims_ignores_non_ct_and_parses_blank_scores(self):
+        data = self.build_from_rows(
+            [self.base_row()],
+            quality_measure_rows=[
+                self.quality_measure_row(**{
+                    "Adjusted Score": "",
+                    "Observed Score": "not available",
+                    "Expected Score": "",
+                }),
+                self.quality_measure_row(**{
+                    "CMS Certification Number (CCN)": "395999",
+                    "State": "PA",
+                    "Measure Code": "522",
+                }),
+            ],
+        )
+        measures = data["facilities"][0]["quality_measures_claims"]
+        self.assertEqual(len(measures), 1)
+        self.assertIsNone(measures[0]["adjusted_score"])
+        self.assertIsNone(measures[0]["observed_score"])
+        self.assertIsNone(measures[0]["expected_score"])
+        self.assertEqual(data["data_quality"]["quality_measures_claims_row_count"], 2)
+        self.assertEqual(data["data_quality"]["quality_measures_claims_ct_row_count"], 1)
+
+    def test_quality_measures_claims_unmatched_ccn_is_counted(self):
+        data = self.build_from_rows(
+            [self.base_row()],
+            quality_measure_rows=[
+                self.quality_measure_row(**{
+                    "CMS Certification Number (CCN)": "075111",
+                }),
+            ],
+        )
+        self.assertEqual(data["facilities"][0]["quality_measures_claims"], [])
+        self.assertEqual(data["data_quality"]["facilities_with_quality_measures_claims_count"], 0)
+        self.assertEqual(data["data_quality"]["unmatched_quality_measure_ccn_count"], 1)
+
+    def test_missing_quality_measures_file_does_not_break_existing_generation(self):
+        data = self.build_from_rows([self.base_row()])
+        self.assertEqual(data["facilities"][0]["quality_measures_claims"], [])
+        self.assertFalse(data["data_quality"]["quality_measures_claims_file_supplied"])
+        self.assertEqual(data["data_quality"]["quality_measures_claims_ct_row_count"], 0)
 
     def test_pbj_facility_without_provider_match_is_retained(self):
         data = self.build_from_rows([self.base_row()], [self.provider_row(**{

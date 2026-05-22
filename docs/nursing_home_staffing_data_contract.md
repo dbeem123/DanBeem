@@ -53,6 +53,9 @@ Facility directory rows keyed by CCN.
 - `provider_name`: facility name from provider data
 - `city`: provider city
 - `state`: two-letter state abbreviation
+- `cms_overall_rating`, `cms_health_inspection_rating`, `cms_staffing_rating`, `cms_rn_staffing_rating`, `cms_qm_rating`, `cms_long_stay_qm_rating`, `cms_short_stay_qm_rating`: optional CMS Care Compare rating context imported from Provider Information when available
+- `cms_rating_source`, `cms_rating_source_note`: source and caveat text for imported CMS Care Compare ratings
+- `quality_measures_claims`: optional facility-level array of CMS Nursing Home Quality Measures Claims rows merged by CCN
 
 ### `facility_quarterly_staffing`
 
@@ -143,6 +146,23 @@ The exact column names may vary by CMS release, so Phase 2B should confirm names
 | `ct_total_direct_care_minimum_hprd` | Connecticut total nursing and nurse's aide personnel comparison point: 3.00 HPRD |
 | `ct_licensed_direct_care_minimum_hprd` | Connecticut licensed nursing personnel comparison point: 0.84 HPRD |
 | `case_mix_total_nurse_hprd` | Imported CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; contextual comparison point, not calculated by this project |
+| `cms_overall_rating` | Imported CMS Nursing Home Provider Information `Overall Rating`; contextual CMS Care Compare rating, not calculated by this project |
+| `cms_health_inspection_rating` | Imported CMS Nursing Home Provider Information `Health Inspection Rating`; contextual CMS Care Compare rating, not calculated by this project |
+| `cms_staffing_rating` | Imported CMS Nursing Home Provider Information `Staffing Rating`; contextual CMS Care Compare rating, not a replacement for PBJ HPRD metrics |
+| `cms_rn_staffing_rating` | Imported CMS Nursing Home Provider Information `RN Staffing Rating` when present; optional contextual CMS Care Compare rating |
+| `cms_qm_rating` | Imported CMS Nursing Home Provider Information `QM Rating`; contextual CMS Care Compare rating, not calculated by this project |
+| `cms_long_stay_qm_rating` | Imported CMS Nursing Home Provider Information `Long-Stay QM Rating`; contextual CMS Care Compare rating, not calculated by this project |
+| `cms_short_stay_qm_rating` | Imported CMS Nursing Home Provider Information `Short-Stay QM Rating`; contextual CMS Care Compare rating, not calculated by this project |
+| `quality_measures_claims` | Facility-level CMS Nursing Home Quality Measures Claims rows; contextual Care Compare quality-measure data, not calculated by this project |
+| `measure_code` | CMS Quality Measures Claims measure code |
+| `measure_description` | CMS Quality Measures Claims measure description |
+| `resident_type` | CMS Quality Measures Claims resident type |
+| `adjusted_score` | CMS Quality Measures Claims adjusted score, parsed as numeric when available |
+| `observed_score` | CMS Quality Measures Claims observed score, parsed as numeric when available |
+| `expected_score` | CMS Quality Measures Claims expected score, parsed as numeric when available |
+| `footnote_for_score` | CMS Quality Measures Claims score footnote |
+| `used_in_qm_five_star_rating` | Whether CMS marks the measure as used in the Quality Measure Five-Star Rating |
+| `measure_period` | CMS Quality Measures Claims measure period |
 | `source_release` | CMS file release label or publication date captured by the offline generator |
 | `freshness_date` | date the generator verified or exported the source file |
 
@@ -153,6 +173,7 @@ Public methodology links are maintained in `tools/nursing-home-staffing-methodol
 - CMS Payroll-Based Journal Daily Nurse Staffing dataset: `https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing`
 - CMS Payroll-Based Journal Daily Nursing Staffing Data Dictionary: `https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf`
 - CMS Nursing Home Provider Information dataset: `https://data.cms.gov/provider-data/dataset/4pq5-n9py`
+- CMS nursing home quality-measure data: `https://data.cms.gov/provider-data/topics/nursing-homes/quality-measures`
 - CMS Nursing Home Data Dictionary: `https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf`
 - CMS Skilled Nursing Facility Enrollments dataset: `https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments`
 - Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t: `https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/`
@@ -298,7 +319,7 @@ The generator emits dataset-level and row-level quality notes:
 
 - The generator does not download CMS files.
 - The browser never processes raw CMS CSV files.
-- Provider Information and Care Compare staffing fields are not yet merged.
+- Provider Information and CMS Care Compare rating context were outside the original Phase 2B scope; Phase 8A merges available rating fields from the local Provider Information file.
 - Case-mix adjusted benchmark HPRD is left as `null` with `case_mix_benchmark_available: false`.
 - Daily PBJ rows are aggregated to quarter-level screening metrics; the output should not be used to infer a specific resident's care, a specific shift, harm, neglect, or compliance findings.
 
@@ -332,6 +353,13 @@ The generator uses tolerant column-name matching for these fields:
 - `Case-Mix LPN Staffing Hours per Resident per Day`
 - `Case-Mix RN Staffing Hours per Resident per Day`
 - `Case-Mix Total Nurse Staffing Hours per Resident per Day`
+- `Overall Rating`
+- `Health Inspection Rating`
+- `Staffing Rating`
+- `RN Staffing Rating`, when present in the Provider Information release
+- `QM Rating`
+- `Long-Stay QM Rating`
+- `Short-Stay QM Rating`
 - optional date/status-like fields when present, such as participation or processing date
 
 Column names should be verified against the first live CMS Provider Information file before production use.
@@ -344,6 +372,7 @@ When a Provider Information row matches by CCN:
 - `city`: Provider Information city when nonblank; otherwise PBJ `CITY`
 - `state`: Provider Information state when nonblank; otherwise PBJ `STATE`
 - `address`, `zip_code`, `phone_number`, `certified_beds`, `ownership_type`: Provider Information only
+- CMS Care Compare rating fields are copied from Provider Information when present. They are facility-level contextual ratings and do not overwrite PBJ staffing metrics, CT direct-care estimates, or case-mix comparison fields.
 
 When no Provider Information row matches, the facility remains in the export with PBJ-derived name, city, and state.
 
@@ -364,6 +393,11 @@ Dataset-level merge diagnostics in `data_quality` include:
 - `unmatched_provider_info_row_count`
 - `provider_info_missing_columns`
 - `provider_info_duplicate_ccn_count`
+- `provider_rating_fields_available`
+- `provider_rating_missing_columns`
+- `facilities_with_overall_rating_count`
+- `facilities_with_qm_rating_count`
+- `facilities_with_staffing_rating_count`
 
 The merge matters because PBJ files are staffing submissions, while Provider Information is a better source for standardized facility directory metadata and stable public-facing facility descriptors.
 
@@ -445,6 +479,68 @@ When Provider Information is supplied and matched by CCN, the generator copies C
 These fields are contextual comparison values from the Provider Information file. The benchmark value itself is imported from CMS, not calculated by this project. The `case_mix_total_nurse_hprd` value comes from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`, which CMS describes as case-mix total nurse staffing HPRD combining Aide + LPN + RN. Project UI code may calculate differences or percent-of-benchmark text by comparing PBJ actual total nurse HPRD against the CMS-published case-mix total nurse HPRD comparison point. They should be displayed as comparison context only. They are not PBJ actual staffing calculations, not legal minimums, and not proof of sufficiency, compliance, harm, neglect, poor care, or noncompliance.
 
 Reporting-period caveat: the Provider Information file may not align exactly with the PBJ quarter being aggregated. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are copied into each historical PBJ facility-quarter row where the CCN matches. These are contextual comparison points only, not verified quarter-specific benchmark snapshots for each PBJ quarter. The export records the benchmark source as Provider Information and includes a source note so the UI and future analysis do not imply precise quarter alignment unless a later ETL step verifies it.
+
+### CMS Care Compare Rating Context
+
+When Provider Information is supplied and matched by CCN, the generator copies available CMS Care Compare rating fields into each matched `facilities[]` row:
+
+- `cms_overall_rating`
+- `cms_health_inspection_rating`
+- `cms_staffing_rating`
+- `cms_rn_staffing_rating`
+- `cms_qm_rating`
+- `cms_long_stay_qm_rating`
+- `cms_short_stay_qm_rating`
+- `cms_rating_source`
+- `cms_rating_source_note`
+
+These fields are imported from CMS Nursing Home Provider Information. They are not calculated by this project and do not replace PBJ-calculated HPRD metrics, CT direct-care screening estimates, case-mix comparison points, survey records, complaint records, or resident experience. Missing rating columns are reported in `data_quality.provider_rating_missing_columns`; a missing rating value should remain `null`, not zero.
+
+### CMS Quality Measures Claims Enrichment
+
+Phase 8B adds optional enrichment from the CMS Nursing Home Quality Measures Claims file while preserving the staffing-focused export. The merge key is CCN. Only Connecticut rows are retained.
+
+Supported source fields:
+
+- `CMS Certification Number (CCN)`
+- `Provider Name`
+- `State`
+- `Measure Code`
+- `Measure Description`
+- `Resident type`
+- `Adjusted Score`
+- `Observed Score`
+- `Expected Score`
+- `Footnote for Score`
+- `Used in Quality Measure Five Star Rating`
+- `Measure Period`
+- `Processing Date`
+
+When a Quality Measures Claims row matches a facility by CCN, the generator appends a normalized object to `facilities[].quality_measures_claims[]`:
+
+- `measure_code`
+- `measure_description`
+- `resident_type`
+- `adjusted_score`
+- `observed_score`
+- `expected_score`
+- `footnote_for_score`
+- `used_in_qm_five_star_rating`
+- `measure_period`
+- `processing_date`
+- `quality_measure_source`
+
+These rows are imported CMS Care Compare quality-measure context. They are not calculated by this project, are not staffing measures, and do not replace PBJ staffing metrics, CT direct-care screening estimates, CMS rating summaries, survey findings, complaints, resident experience, or formal review. Missing or nonnumeric scores should remain `null`, not zero.
+
+Dataset-level diagnostics include:
+
+- `quality_measures_claims_file_supplied`
+- `quality_measures_claims_row_count`
+- `quality_measures_claims_ct_row_count`
+- `facilities_with_quality_measures_claims_count`
+- `quality_measures_claims_measure_count`
+- `quality_measures_claims_missing_columns`
+- `unmatched_quality_measure_ccn_count`
 
 ## Phase 2C Source Needs
 

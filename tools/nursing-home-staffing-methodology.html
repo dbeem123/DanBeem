@@ -105,7 +105,11 @@
           </article>
           <article class="card">
             <h3>CMS Nursing Home Provider Information</h3>
-            <p><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a> supplies facility metadata such as name, address, certified beds, ownership type, and CMS case-mix staffing comparison fields. These values are contextual and may not align exactly with every historical PBJ quarter.</p>
+            <p><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a> supplies facility metadata such as name, address, certified beds, ownership type, CMS case-mix staffing comparison fields, and CMS Care Compare rating context when available. These values are contextual and may not align exactly with every historical PBJ quarter.</p>
+          </article>
+          <article class="card">
+            <h3>CMS Nursing Home Quality Measures Claims</h3>
+            <p><a href="https://data.cms.gov/provider-data/topics/nursing-homes/quality-measures">CMS nursing home quality-measure data</a> supplies facility-level claims-based quality-measure rows, including measure descriptions, scores, footnotes, rating-use flags, and measure periods. These measures are contextual Care Compare quality-measure data and are not calculated by this staffing tool.</p>
           </article>
           <article class="card">
             <h3>CMS SNF Enrollments</h3>
@@ -195,6 +199,34 @@
       </div>
     </section>
 
+    <section class="wrap content-section" aria-labelledby="ratings-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Care Compare Context</div>
+            <h2 id="ratings-title">CMS ratings imported from Provider Information</h2>
+          </div>
+        </div>
+        <p>CMS Care Compare ratings shown in the facility explorer are imported from CMS Nursing Home Provider Information. The tool does not calculate these star ratings and does not use them to replace PBJ-reported staffing metrics, Connecticut direct-care screening estimates, or case-mix comparison points.</p>
+        <p>When available, the export may include overall, health inspection, staffing, RN staffing, quality-measure, long-stay quality-measure, and short-stay quality-measure ratings. These ratings provide contextual CMS summary information and should be interpreted alongside the staffing metrics, source timing, survey findings, complaints, resident experience, and other review materials.</p>
+        <div class="notice">CMS Care Compare ratings are contextual summary ratings from Provider Information. They are not calculated by this tool and are not stand-alone findings about current staffing, care quality, compliance, harm, or legal responsibility.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="individual-qm-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Individual Quality Measures</div>
+            <h2 id="individual-qm-title">CMS claims-based quality measures</h2>
+          </div>
+        </div>
+        <p>Individual claims-based quality measures come from the CMS Nursing Home Quality Measures Claims file. The facility explorer imports measure-level rows by CCN, including measure code, description, resident type, adjusted score, observed score, expected score, footnote, whether CMS marks the measure as used in the Quality Measure Five-Star Rating, measure period, and processing date.</p>
+        <p>CMS rating summaries and individual quality measures are different. Rating fields are summary values imported from Provider Information; individual quality measures are measure-level rows imported from the Quality Measures Claims file.</p>
+        <div class="notice">Claims-based quality measures provide Care Compare context and should be interpreted with measure definitions, footnotes, and the measure period. They do not replace PBJ staffing metrics, CT direct-care screening estimates, survey findings, complaints, resident experience, or formal review.</div>
+      </div>
+    </section>
+
     <section class="wrap content-section" aria-labelledby="affiliation-title">
       <div class="panel">
         <div class="sectionHeader">
@@ -267,6 +299,7 @@
           <li><a href="https://www.cms.gov/medicare/quality/nursing-home-improvement/staffing-data-submission">CMS Payroll-Based Journal staffing data submission information</a></li>
           <li><a href="https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf">CMS Payroll-Based Journal Daily Nursing Staffing Data Dictionary</a></li>
           <li><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a></li>
+          <li><a href="https://data.cms.gov/provider-data/topics/nursing-homes/quality-measures">CMS nursing home quality-measure data</a></li>
           <li><a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf">CMS Nursing Home Data Dictionary</a></li>
           <li><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a></li>
           <li><a href="https://data.cms.gov/sites/default/files/2022-08/SNF_Enrollments_Methodology.pdf">CMS Skilled Nursing Facility Enrollments methodology</a></li>

@@ -30,9 +30,9 @@
   "html_pages": [
     {
       "path": "index.html",
-      "title": "DanBeem Ombudsman Tools and Resource Lab (Test Environment)",
+      "title": "Connecticut Nursing Home Staffing Transparency Tools",
       "status": "active_primary",
-      "role": "Primary landing page for the current tool surface, including a Connecticut nursing home staffing transparency suite overview.",
+      "role": "Connecticut LTCOP-branded landing page for the nursing home staffing transparency suite, with secondary links to the broader test-environment tools.",
       "linked_from": [],
       "links_to": [
         "dashboards/impact-2024.html",
@@ -46,8 +46,11 @@
         "tools/nursing-home-staffing-methodology.html",
         "tools/responsible-use.html"
       ],
-      "data_dependencies": [],
-      "notes": "This is the main entry point. It includes a concise guide to the five Connecticut nursing home staffing transparency tools and does not perform live AI calls."
+      "data_dependencies": [
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png"
+      ],
+      "notes": "Phase 9A branded staffing-suite homepage. Uses the Connecticut Long Term Care Ombudsman Program logo on a white masthead, navy suite navigation, light dashboard styling, five launch cards, methodology links, and screening-use caveats. Does not perform live AI calls."
     },
     {
       "path": "tools/drafting-assistant.html",
@@ -115,9 +118,11 @@
         "scripts/build_nursing_home_staffing_ct.py",
         "source_data/snf_enrollments/*.csv (local ignored input, optional)",
         "Assets/shared.js",
+        "Assets/ltcop-dashboard.css",
+        "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/nursing-home-staffing.js"
       ],
-      "notes": "Phase 4H facility-level view using the static Connecticut staffing export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations. Supports facility deep links with ?ccn=, links to affiliation staffing summaries when CMS SNF Enrollment affiliation fields are present, and provides selected-facility print summaries plus five-quarter facility trend CSV exports."
+      "notes": "Phase 9A Connecticut LTCOP-branded facility-level view using the static Connecticut staffing export. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations. Adds branded masthead/navigation, selected-facility identity banner, existing-data screening badges, accessible star cards, compact disclosures, and a five-quarter SVG trend chart. Displays imported CMS Care Compare rating context from Provider Information and facility-level CMS Quality Measures Claims context when available, without replacing PBJ HPRD metrics. Supports facility deep links with ?ccn=, links to affiliation staffing summaries when CMS SNF Enrollment affiliation fields are present, and provides selected-facility print summaries plus five-quarter facility trend CSV exports."
     },
     {
       "path": "tools/nursing-home-statewide-staffing-comparison.html",
@@ -218,7 +223,7 @@
       "path": "tools/nursing-home-staffing-methodology.html",
       "title": "About the Nursing Home Staffing Data",
       "status": "active_primary",
-      "role": "Public-facing methodology page for the Connecticut Nursing Home Staffing Transparency Tools, explaining source datasets, HPRD formulas, PBJ row inclusion rules, CT direct-care comparison estimates, case-mix comparison points, affiliation context, source references, limitations, and audit validation.",
+      "role": "Public-facing methodology page for the Connecticut Nursing Home Staffing Transparency Tools, explaining source datasets, HPRD formulas, PBJ row inclusion rules, CT direct-care comparison estimates, case-mix comparison points, CMS Care Compare rating context, claims-based quality measures, affiliation context, source references, limitations, and audit validation.",
       "linked_from": [
         "index.html",
         "tools/nursing-home-staffing-explorer.html",
@@ -240,7 +245,7 @@
         "docs/nursing_home_staffing_calculation_audit.md",
         "docs/nursing_home_staffing_data_contract.md"
       ],
-      "notes": "Phase 7E public explanation page. It documents that the staffing suite is designed for screening, comparison, and question-building, not formal compliance findings or stand-alone care-quality conclusions. Includes public links to CMS PBJ Daily Nurse Staffing, CMS Provider Information, CMS Nursing Home Data Dictionary, CMS SNF Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and Connecticut DPH's amended 3.0 staffing implementation notice."
+      "notes": "Phase 8B public explanation page. It documents that the staffing suite is designed for screening, comparison, and question-building, not formal compliance findings or stand-alone care-quality conclusions. Includes public links to CMS PBJ Daily Nurse Staffing, CMS Provider Information, CMS nursing home quality-measure data, CMS Nursing Home Data Dictionary, CMS SNF Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and Connecticut DPH's amended 3.0 staffing implementation notice. Explains that CMS Care Compare ratings are imported context from Provider Information and individual claims-based quality measures are imported from the Quality Measures Claims file, not calculated by this tool."
     },
     {
       "path": "tools/responsible-use.html",

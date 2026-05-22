@@ -95,9 +95,31 @@ PROVIDER_INFO_ALIASES = {
         "Case Mix Total Nurse Staffing Hours per Resident per Day",
         "Case-Mix Total Nurse HPRD",
     ],
+    "cms_overall_rating": ["Overall Rating", "Overall Star Rating", "CMS Overall Rating"],
+    "cms_health_inspection_rating": [
+        "Health Inspection Rating",
+        "Health Inspection Star Rating",
+        "CMS Health Inspection Rating",
+    ],
+    "cms_staffing_rating": ["Staffing Rating", "Staffing Star Rating", "CMS Staffing Rating"],
+    "cms_rn_staffing_rating": ["RN Staffing Rating", "RN Staffing Star Rating", "CMS RN Staffing Rating"],
+    "cms_qm_rating": ["QM Rating", "Quality Measure Rating", "Quality Measures Rating"],
+    "cms_long_stay_qm_rating": ["Long-Stay QM Rating", "Long Stay QM Rating", "Long-Stay Quality Measure Rating"],
+    "cms_short_stay_qm_rating": ["Short-Stay QM Rating", "Short Stay QM Rating", "Short-Stay Quality Measure Rating"],
     "participation_date": ["Provider SSA County Code", "Participation Date"],
     "processing_date": ["Processing Date", "File Date"],
 }
+
+PROVIDER_RATING_FIELDS = (
+    "cms_overall_rating",
+    "cms_health_inspection_rating",
+    "cms_staffing_rating",
+    "cms_rn_staffing_rating",
+    "cms_qm_rating",
+    "cms_long_stay_qm_rating",
+    "cms_short_stay_qm_rating",
+)
+
 
 SNF_ENROLLMENT_ALIASES = {
     "ccn": ["CCN", "CMS Certification Number (CCN)", "Provider Number", "PROVNUM"],
@@ -114,6 +136,37 @@ SNF_ENROLLMENT_ALIASES = {
     "incorporation_date": ["INCORPORATION DATE", "Incorporation Date"],
     "state": ["STATE", "State"],
 }
+
+QUALITY_MEASURES_CLAIMS_ALIASES = {
+    "ccn": ["CMS Certification Number (CCN)", "CMS Certification Number", "Provider Number", "PROVNUM", "CCN"],
+    "provider_name": ["Provider Name", "PROVNAME", "Facility Name"],
+    "state": ["State", "Provider State", "STATE"],
+    "measure_code": ["Measure Code", "Measure ID"],
+    "measure_description": ["Measure Description", "Measure Name"],
+    "resident_type": ["Resident type", "Resident Type"],
+    "adjusted_score": ["Adjusted Score"],
+    "observed_score": ["Observed Score"],
+    "expected_score": ["Expected Score"],
+    "footnote_for_score": ["Footnote for Score", "Score Footnote"],
+    "used_in_qm_five_star_rating": ["Used in Quality Measure Five Star Rating"],
+    "measure_period": ["Measure Period"],
+    "processing_date": ["Processing Date", "File Date"],
+}
+
+REQUIRED_QUALITY_MEASURES_CLAIMS_FIELDS = (
+    "ccn",
+    "state",
+    "measure_code",
+    "measure_description",
+    "resident_type",
+    "adjusted_score",
+    "observed_score",
+    "expected_score",
+    "footnote_for_score",
+    "used_in_qm_five_star_rating",
+    "measure_period",
+    "processing_date",
+)
 
 
 def normalize_column_name(value: str) -> str:
@@ -160,6 +213,22 @@ def parse_number(value: Any) -> float | None:
     except ValueError:
         return None
     return parsed if math.isfinite(parsed) else None
+
+
+def parse_rating(value: Any) -> int | float | None:
+    parsed = parse_number(value)
+    if parsed is None:
+        return None
+    return int(parsed) if parsed.is_integer() else parsed
+
+
+def parse_yes_no(value: Any) -> bool | None:
+    text = str(value if value is not None else "").strip().upper()
+    if text in {"Y", "YES", "TRUE", "1"}:
+        return True
+    if text in {"N", "NO", "FALSE", "0"}:
+        return False
+    return None
 
 
 def parse_work_date(value: str) -> date | None:
@@ -379,6 +448,8 @@ def load_provider_info(provider_info_path: Path | None) -> tuple[dict[str, dict[
         "provider_info_ct_row_count": 0,
         "provider_info_missing_columns": [],
         "provider_info_duplicate_ccn_count": 0,
+        "provider_rating_fields_available": False,
+        "provider_rating_missing_columns": list(PROVIDER_RATING_FIELDS),
     }
     if not provider_info_path:
         return {}, quality
@@ -392,6 +463,8 @@ def load_provider_info(provider_info_path: Path | None) -> tuple[dict[str, dict[
         lookup = build_alias_lookup(fieldnames, PROVIDER_INFO_ALIASES)
         required = ["ccn"]
         quality["provider_info_missing_columns"] = [key for key in required if key not in lookup]
+        quality["provider_rating_missing_columns"] = [key for key in PROVIDER_RATING_FIELDS if key not in lookup]
+        quality["provider_rating_fields_available"] = any(key in lookup for key in PROVIDER_RATING_FIELDS)
         if "ccn" not in lookup:
             return {}, quality
 
@@ -407,6 +480,8 @@ def load_provider_info(provider_info_path: Path | None) -> tuple[dict[str, dict[
             if ccn in rows_by_ccn:
                 quality["provider_info_duplicate_ccn_count"] += 1
 
+            ratings = {key: parse_rating(get_value(row, lookup, key)) for key in PROVIDER_RATING_FIELDS}
+            has_rating = any(value is not None for value in ratings.values())
             rows_by_ccn[ccn] = {
                 "ccn": ccn,
                 "provider_name": get_value(row, lookup, "provider_name").strip(),
@@ -421,6 +496,13 @@ def load_provider_info(provider_info_path: Path | None) -> tuple[dict[str, dict[
                 "case_mix_lpn_lvn_hprd": parse_number(get_value(row, lookup, "case_mix_lpn_lvn_hprd")),
                 "case_mix_rn_hprd": parse_number(get_value(row, lookup, "case_mix_rn_hprd")),
                 "case_mix_total_nurse_hprd": parse_number(get_value(row, lookup, "case_mix_total_nurse_hprd")),
+                **ratings,
+                "cms_rating_source": "CMS Nursing Home Provider Information" if has_rating else None,
+                "cms_rating_source_note": (
+                    "CMS Care Compare star ratings imported from Provider Information; not calculated by this tool."
+                    if has_rating
+                    else None
+                ),
                 "participation_date": get_value(row, lookup, "participation_date").strip(),
                 "processing_date": get_value(row, lookup, "processing_date").strip(),
             }
@@ -481,6 +563,90 @@ def load_snf_enrollments(snf_enrollments_path: Path | None) -> tuple[dict[str, d
             }
 
     return rows_by_ccn, quality
+
+
+def load_quality_measures_claims(
+    quality_measures_claims_path: Path | None,
+) -> tuple[dict[str, list[dict[str, Any]]], dict[str, Any]]:
+    quality = {
+        "quality_measures_claims_file_supplied": bool(quality_measures_claims_path),
+        "quality_measures_claims_file": str(quality_measures_claims_path) if quality_measures_claims_path else None,
+        "quality_measures_claims_row_count": 0,
+        "quality_measures_claims_ct_row_count": 0,
+        "quality_measures_claims_missing_columns": list(REQUIRED_QUALITY_MEASURES_CLAIMS_FIELDS),
+        "quality_measures_claims_measure_count": 0,
+    }
+    if not quality_measures_claims_path:
+        return {}, quality
+    if not quality_measures_claims_path.exists():
+        raise FileNotFoundError(f"Quality Measures Claims file not found: {quality_measures_claims_path}")
+
+    rows_by_ccn: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    measure_codes: set[str] = set()
+    with quality_measures_claims_path.open("r", encoding="utf-8-sig", errors="replace", newline="") as handle:
+        reader = csv.DictReader(handle)
+        fieldnames = reader.fieldnames or []
+        lookup = build_alias_lookup(fieldnames, QUALITY_MEASURES_CLAIMS_ALIASES)
+        quality["quality_measures_claims_missing_columns"] = [
+            key for key in REQUIRED_QUALITY_MEASURES_CLAIMS_FIELDS if key not in lookup
+        ]
+        if "ccn" not in lookup:
+            return {}, quality
+
+        for row in reader:
+            quality["quality_measures_claims_row_count"] += 1
+            state = get_value(row, lookup, "state").strip().upper()
+            if state and state != "CT":
+                continue
+            ccn = get_value(row, lookup, "ccn").strip()
+            if not ccn:
+                continue
+            quality["quality_measures_claims_ct_row_count"] += 1
+            measure_code = get_value(row, lookup, "measure_code").strip()
+            if measure_code:
+                measure_codes.add(measure_code)
+            rows_by_ccn[ccn].append({
+                "measure_code": measure_code,
+                "measure_description": get_value(row, lookup, "measure_description").strip(),
+                "resident_type": get_value(row, lookup, "resident_type").strip(),
+                "adjusted_score": parse_number(get_value(row, lookup, "adjusted_score")),
+                "observed_score": parse_number(get_value(row, lookup, "observed_score")),
+                "expected_score": parse_number(get_value(row, lookup, "expected_score")),
+                "footnote_for_score": get_value(row, lookup, "footnote_for_score").strip(),
+                "used_in_qm_five_star_rating": parse_yes_no(get_value(row, lookup, "used_in_qm_five_star_rating")),
+                "measure_period": get_value(row, lookup, "measure_period").strip(),
+                "processing_date": get_value(row, lookup, "processing_date").strip(),
+                "quality_measure_source": "CMS Nursing Home Quality Measures Claims",
+            })
+
+    quality["quality_measures_claims_measure_count"] = len(measure_codes)
+    for ccn, rows in rows_by_ccn.items():
+        rows_by_ccn[ccn] = sorted(rows, key=lambda row: (row.get("resident_type") or "", row.get("measure_code") or ""))
+    return dict(rows_by_ccn), quality
+
+
+def merge_quality_measures_claims(
+    facilities_by_ccn: dict[str, dict[str, Any]],
+    quality_measures_by_ccn: dict[str, list[dict[str, Any]]],
+    quality_measures_quality: dict[str, Any],
+) -> tuple[dict[str, dict[str, Any]], dict[str, Any]]:
+    merged: dict[str, dict[str, Any]] = {}
+    facilities_with_measures = 0
+    for ccn, facility in facilities_by_ccn.items():
+        measures = quality_measures_by_ccn.get(ccn, [])
+        if measures:
+            facilities_with_measures += 1
+        merged[ccn] = {
+            **facility,
+            "quality_measures_claims": measures,
+        }
+
+    merge_quality = {
+        **quality_measures_quality,
+        "facilities_with_quality_measures_claims_count": facilities_with_measures,
+        "unmatched_quality_measure_ccn_count": len(set(quality_measures_by_ccn) - set(facilities_by_ccn)),
+    }
+    return merged, merge_quality
 
 
 def merge_snf_enrollment_metadata(
@@ -550,6 +716,15 @@ def merge_provider_metadata(
             "phone_number": first_present(provider.get("phone_number")),
             "certified_beds": provider.get("certified_beds"),
             "ownership_type": first_present(provider.get("ownership_type")),
+            "cms_overall_rating": provider.get("cms_overall_rating"),
+            "cms_health_inspection_rating": provider.get("cms_health_inspection_rating"),
+            "cms_staffing_rating": provider.get("cms_staffing_rating"),
+            "cms_rn_staffing_rating": provider.get("cms_rn_staffing_rating"),
+            "cms_qm_rating": provider.get("cms_qm_rating"),
+            "cms_long_stay_qm_rating": provider.get("cms_long_stay_qm_rating"),
+            "cms_short_stay_qm_rating": provider.get("cms_short_stay_qm_rating"),
+            "cms_rating_source": provider.get("cms_rating_source"),
+            "cms_rating_source_note": provider.get("cms_rating_source_note"),
             "case_mix_benchmarks": {
                 "case_mix_total_nurse_hprd": provider.get("case_mix_total_nurse_hprd"),
                 "case_mix_rn_hprd": provider.get("case_mix_rn_hprd"),
@@ -608,6 +783,8 @@ def build_output(
     provider_quality: dict[str, Any] | None = None,
     snf_rows_by_ccn: dict[str, dict[str, Any]] | None = None,
     snf_quality: dict[str, Any] | None = None,
+    quality_measures_by_ccn: dict[str, list[dict[str, Any]]] | None = None,
+    quality_measures_quality: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     provider_rows_by_ccn = provider_rows_by_ccn or {}
     provider_quality = provider_quality or {
@@ -617,6 +794,8 @@ def build_output(
         "provider_info_ct_row_count": 0,
         "provider_info_missing_columns": [],
         "provider_info_duplicate_ccn_count": 0,
+        "provider_rating_fields_available": False,
+        "provider_rating_missing_columns": list(PROVIDER_RATING_FIELDS),
     }
     snf_rows_by_ccn = snf_rows_by_ccn or {}
     snf_quality = snf_quality or {
@@ -627,8 +806,22 @@ def build_output(
         "snf_enrollments_missing_columns": [],
         "snf_enrollments_duplicate_ccn_count": 0,
     }
+    quality_measures_by_ccn = quality_measures_by_ccn or {}
+    quality_measures_quality = quality_measures_quality or {
+        "quality_measures_claims_file_supplied": False,
+        "quality_measures_claims_file": None,
+        "quality_measures_claims_row_count": 0,
+        "quality_measures_claims_ct_row_count": 0,
+        "quality_measures_claims_missing_columns": list(REQUIRED_QUALITY_MEASURES_CLAIMS_FIELDS),
+        "quality_measures_claims_measure_count": 0,
+    }
     facilities_by_ccn, merge_quality = merge_provider_metadata(facilities_by_ccn, provider_rows_by_ccn, provider_quality)
     facilities_by_ccn, snf_merge_quality = merge_snf_enrollment_metadata(facilities_by_ccn, snf_rows_by_ccn, snf_quality)
+    facilities_by_ccn, qm_merge_quality = merge_quality_measures_claims(
+        facilities_by_ccn,
+        quality_measures_by_ccn,
+        quality_measures_quality,
+    )
     quarters = sorted({quarter for _, quarter in groups})
     reporting_quarter = quarters[-1] if quarters else ""
     start_date, end_date = quarter_bounds(reporting_quarter) if reporting_quarter else ("", "")
@@ -649,7 +842,7 @@ def build_output(
             "source_release": provider_quality.get("provider_info_file") or "manual local Provider Information CSV",
             "freshness_date": freshness_date,
             "source_level": "official CMS Provider Information local CSV export",
-            "notes": "Optional facility metadata enrichment merged by CCN. PBJ-derived facility values are retained when Provider Information values are blank or unmatched.",
+            "notes": "Optional facility metadata, case-mix comparison, and CMS Care Compare rating context merged by CCN. PBJ-derived facility and staffing values are retained when Provider Information values are blank or unmatched.",
         })
     if snf_quality.get("snf_enrollments_file_supplied"):
         sources.append({
@@ -658,6 +851,14 @@ def build_output(
             "freshness_date": freshness_date,
             "source_level": "official CMS SNF Enrollments local CSV export",
             "notes": "Optional legal organization and affiliation context merged by CCN. These fields do not replace Provider Information display metadata.",
+        })
+    if quality_measures_quality.get("quality_measures_claims_file_supplied"):
+        sources.append({
+            "source_dataset_name": "CMS Nursing Home Quality Measures Claims",
+            "source_release": quality_measures_quality.get("quality_measures_claims_file") or "manual local Quality Measures Claims CSV",
+            "freshness_date": freshness_date,
+            "source_level": "official CMS Quality Measures Claims local CSV export",
+            "notes": "Optional facility-level claims-based quality-measure context merged by CCN. These measures are imported from CMS and are not calculated by this staffing tool.",
         })
 
     for (ccn, quarter), group in sorted(groups.items(), key=lambda item: (item[0][0], item[0][1])):
@@ -810,6 +1011,7 @@ def build_output(
             **quality,
             **merge_quality,
             **snf_merge_quality,
+            **qm_merge_quality,
             "output_path": str(output_path),
             "facility_count": len(facility_rows),
             "quarterly_row_count": len(staffing_rows),
@@ -817,6 +1019,15 @@ def build_output(
                 1
                 for row in staffing_rows
                 if row["benchmarks"].get("case_mix_benchmark_available")
+            ),
+            "facilities_with_overall_rating_count": sum(
+                1 for facility in facility_rows if facility.get("cms_overall_rating") is not None
+            ),
+            "facilities_with_qm_rating_count": sum(
+                1 for facility in facility_rows if facility.get("cms_qm_rating") is not None
+            ),
+            "facilities_with_staffing_rating_count": sum(
+                1 for facility in facility_rows if facility.get("cms_staffing_rating") is not None
             ),
             "ct_total_direct_care_below_minimum_estimate_count": sum(
                 1
@@ -846,6 +1057,26 @@ def build_output(
             "phone_number": "Provider Information phone number when matched",
             "certified_beds": "Provider Information number of certified beds when matched",
             "ownership_type": "Provider Information ownership type when matched",
+            "cms_overall_rating": "CMS Care Compare Overall Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
+            "cms_health_inspection_rating": "CMS Care Compare Health Inspection Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
+            "cms_staffing_rating": "CMS Care Compare Staffing Rating from Nursing Home Provider Information; contextual rating, not a replacement for PBJ HPRD metrics",
+            "cms_rn_staffing_rating": "CMS Care Compare RN Staffing Rating from Nursing Home Provider Information when present; contextual rating, not a replacement for PBJ RN HPRD",
+            "cms_qm_rating": "CMS Care Compare Quality Measures Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
+            "cms_long_stay_qm_rating": "CMS Care Compare Long-Stay Quality Measures Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
+            "cms_short_stay_qm_rating": "CMS Care Compare Short-Stay Quality Measures Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
+            "cms_rating_source": "Source label for imported CMS Care Compare rating context",
+            "cms_rating_source_note": "Caveat for imported CMS Care Compare rating context",
+            "quality_measures_claims": "Facility-level CMS Nursing Home Quality Measures Claims rows merged by CCN; contextual Care Compare quality-measure data, not calculated by this tool",
+            "measure_code": "CMS Quality Measures Claims measure code",
+            "measure_description": "CMS Quality Measures Claims measure description",
+            "resident_type": "CMS Quality Measures Claims resident type",
+            "adjusted_score": "CMS Quality Measures Claims adjusted score, parsed as numeric when available",
+            "observed_score": "CMS Quality Measures Claims observed score, parsed as numeric when available",
+            "expected_score": "CMS Quality Measures Claims expected score, parsed as numeric when available",
+            "footnote_for_score": "CMS Quality Measures Claims score footnote",
+            "used_in_qm_five_star_rating": "Whether CMS marks the quality measure as used in the Quality Measure Five-Star Rating",
+            "measure_period": "CMS Quality Measures Claims measure period",
+            "quality_measure_source": "Source label for imported CMS Quality Measures Claims row",
             "enrollment_npi": "SNF Enrollments NPI when matched by CCN; enrollment context only",
             "enrollment_organization_name": "SNF Enrollments legal organization name when matched by CCN",
             "enrollment_doing_business_as_name": "SNF Enrollments doing-business-as name when matched by CCN",
@@ -931,6 +1162,7 @@ def main() -> int:
     parser.add_argument("--output", default="data/nursing_home_staffing_ct.json", help="Output JSON path.")
     parser.add_argument("--provider-info", default=None, help="Optional CMS Nursing Home Provider Information CSV path.")
     parser.add_argument("--snf-enrollments", default=None, help="Optional CMS Skilled Nursing Facility Enrollments CSV path.")
+    parser.add_argument("--quality-measures-claims", default=None, help="Optional CMS Nursing Home Quality Measures Claims CSV path.")
     parser.add_argument("--source-release", default="manual local PBJ CSV export", help="Source release label to store in output metadata.")
     parser.add_argument("--freshness-date", default=date.today().isoformat(), help="Source freshness/export date to store in output metadata.")
     args = parser.parse_args()
@@ -941,6 +1173,9 @@ def main() -> int:
         groups, facilities, quality = load_pbj_rows(input_dir)
         provider_rows, provider_quality = load_provider_info(Path(args.provider_info) if args.provider_info else None)
         snf_rows, snf_quality = load_snf_enrollments(Path(args.snf_enrollments) if args.snf_enrollments else None)
+        quality_measures_rows, quality_measures_quality = load_quality_measures_claims(
+            Path(args.quality_measures_claims) if args.quality_measures_claims else None
+        )
         data = build_output(
             groups,
             facilities,
@@ -952,6 +1187,8 @@ def main() -> int:
             provider_quality,
             snf_rows,
             snf_quality,
+            quality_measures_rows,
+            quality_measures_quality,
         )
         errors = validate_output(data)
         if errors:

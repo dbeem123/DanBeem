@@ -98,10 +98,17 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 
 ### Staffing Data Methodology
 
-- public-facing explanation of the Connecticut nursing home staffing data sources, HPRD formulas, PBJ row inclusion rules, CT direct-care comparison estimates, case-mix comparison points, affiliation context, limitations, and audit validation
+- public-facing explanation of the Connecticut nursing home staffing data sources, HPRD formulas, PBJ row inclusion rules, CT direct-care comparison estimates, case-mix comparison points, CMS Care Compare rating context, individual claims-based quality measures, affiliation context, limitations, and audit validation
 - includes public source references for CMS PBJ Daily Nurse Staffing, CMS Nursing Home Provider Information, CMS Nursing Home Data Dictionary, CMS Skilled Nursing Facility Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and the Connecticut DPH amended 3.0 staffing implementation notice
 - linked from the staffing-suite homepage overview and each staffing tool page
 - emphasizes screening, comparison, and question-building use rather than formal compliance or care-quality conclusions
+
+### Phase 9A LTCOP Dashboard Design
+
+- adds reusable Connecticut LTCOP dashboard styling in `Assets/ltcop-dashboard.css`
+- uses the transparent color Connecticut LTCOP horizontal logo in `Assets/branding/ct-ltcop-logo-horizontal-color.png` as the primary masthead identity
+- applies the branded white masthead, navy navigation, light dashboard background, analytic cards, screening badges, accessible star cards, disclosures, and print-safe styling to the staffing-suite homepage and facility-level explorer
+- keeps the design separate from CT.gov global masthead conventions while linking to the official CT LTCOP website
 
 ### Responsible Use & Sources
 
@@ -158,6 +165,16 @@ python scripts/build_nursing_home_staffing_ct.py --input-dir source_data/pbj --p
 ```
 
 When Provider Information is supplied, the generator also copies CMS case-mix staffing HPRD fields into the explorer's `benchmarks` object when available. The case-mix total nurse comparison point is imported from CMS Nursing Home Provider Information, not calculated by this project; the UI-calculated comparisons are the actual-minus-benchmark and percent-of-benchmark displays. These benchmark fields are contextual comparisons only; PBJ-calculated HPRD remains the actual staffing metric shown by the explorer.
+
+Provider Information also supplies CMS Care Compare star-rating context when those columns are present, including overall, health inspection, staffing, quality-measure, long-stay QM, and short-stay QM ratings. The April 2026 Provider Information file used here does not include an RN Staffing Rating column, so that optional field is emitted as `null` and reported in `data_quality.provider_rating_missing_columns`. These ratings are imported context, not calculated by this project and not substitutes for PBJ HPRD metrics or Connecticut direct-care screening estimates.
+
+Optionally add CMS Nursing Home Quality Measures Claims rows:
+
+```bash
+python scripts/build_nursing_home_staffing_ct.py --input-dir source_data/pbj --provider-info source_data/provider_info/NH_ProviderInfo_MonYYYY.csv --quality-measures-claims source_data/quality_measures/NH_QualityMsr_Claims_MonYYYY.csv --output data/nursing_home_staffing_ct.json
+```
+
+Quality Measures Claims adds facility-level `quality_measures_claims[]` rows by CCN, including measure code, description, resident type, adjusted/observed/expected scores, score footnotes, rating-use flags, measure period, and processing date. These are imported CMS Care Compare quality-measure context. They are not calculated by this project, are not staffing measures, and do not replace PBJ staffing metrics, CT direct-care screening estimates, survey findings, complaints, resident experience, or formal review.
 
 The generator also emits Connecticut direct-care staffing comparison fields. Connecticut Title 19 Sec. 19-13-D8t sets nursing-staff requirements, and Connecticut DPH's amended 3.0 staffing implementation notice describes the 3.00 total nursing and nurse's aide HPRD and 0.84 licensed nursing HPRD comparison points used by this suite. The PBJ-derived screening formulas are:
 

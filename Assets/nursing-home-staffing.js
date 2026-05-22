@@ -40,6 +40,16 @@
    * @property {string=} address
    * @property {number|null=} certifiedBeds
    * @property {string=} ownershipType
+   * @property {number|null=} cmsOverallRating
+   * @property {number|null=} cmsHealthInspectionRating
+   * @property {number|null=} cmsStaffingRating
+   * @property {number|null=} cmsRnStaffingRating
+   * @property {number|null=} cmsQmRating
+   * @property {number|null=} cmsLongStayQmRating
+   * @property {number|null=} cmsShortStayQmRating
+   * @property {string=} cmsRatingSource
+   * @property {string=} cmsRatingSourceNote
+   * @property {Array<Object>=} qualityMeasuresClaims
    * @property {boolean=} providerSourceMatched
    * @property {boolean=} enrollmentSourceMatched
    * @property {string=} enrollmentOrganizationName
@@ -119,11 +129,27 @@
     return isUsableNumber(value) ? Number(value).toLocaleString() : 'Not available';
   }
 
+  function formatRatingText(value) {
+    return isUsableNumber(value) ? `${Number(value).toLocaleString()} of 5` : 'Not available';
+  }
+
   function formatSignedHprd(value) {
     if (!isUsableNumber(value)) return 'not available';
     const number = Number(value);
     const sign = number > 0 ? '+' : '';
     return `${sign}${number.toFixed(2)}`;
+  }
+
+  function formatScore(value) {
+    return isUsableNumber(value)
+      ? Number(value).toLocaleString(undefined, { maximumFractionDigits: 2 })
+      : 'Not available';
+  }
+
+  function formatYesNo(value) {
+    if (value === true) return 'Yes';
+    if (value === false) return 'No';
+    return 'Not available';
   }
 
   function csvValue(value) {
@@ -177,6 +203,22 @@
     if (isBelow === true) return `Below CT ${Number(minimum).toFixed(2)} comparison point`;
     if (isBelow === false) return `At or above CT ${Number(minimum).toFixed(2)} comparison point`;
     return 'CT comparison not available';
+  }
+
+  function getCtTotalStatus(metrics) {
+    const minimum = isUsableNumber(metrics.ct_total_direct_care_minimum_hprd)
+      ? Number(metrics.ct_total_direct_care_minimum_hprd)
+      : 3.00;
+    return formatCtComparisonStatus(metrics.ct_total_direct_care_below_minimum_estimate, minimum)
+      .replace('CT 3.00 comparison point', 'CT 3.00 direct-care comparison point');
+  }
+
+  function getCtLicensedStatus(metrics) {
+    const minimum = isUsableNumber(metrics.ct_licensed_direct_care_minimum_hprd)
+      ? Number(metrics.ct_licensed_direct_care_minimum_hprd)
+      : 0.84;
+    return formatCtComparisonStatus(metrics.ct_licensed_direct_care_below_minimum_estimate, minimum)
+      .replace('CT 0.84 comparison point', 'CT 0.84 licensed comparison point');
   }
 
   function byQuarter(a, b) {
@@ -242,6 +284,16 @@
         address: facility.address || '',
         certifiedBeds: facility.certified_beds,
         ownershipType: facility.ownership_type || '',
+        cmsOverallRating: facility.cms_overall_rating,
+        cmsHealthInspectionRating: facility.cms_health_inspection_rating,
+        cmsStaffingRating: facility.cms_staffing_rating,
+        cmsRnStaffingRating: facility.cms_rn_staffing_rating,
+        cmsQmRating: facility.cms_qm_rating,
+        cmsLongStayQmRating: facility.cms_long_stay_qm_rating,
+        cmsShortStayQmRating: facility.cms_short_stay_qm_rating,
+        cmsRatingSource: facility.cms_rating_source || '',
+        cmsRatingSourceNote: facility.cms_rating_source_note || '',
+        qualityMeasuresClaims: Array.isArray(facility.quality_measures_claims) ? facility.quality_measures_claims : [],
         providerSourceMatched: Boolean(facility.provider_source_matched),
         enrollmentSourceMatched: Boolean(facility.enrollment_source_matched),
         enrollmentOrganizationName: facility.enrollment_organization_name || '',
@@ -355,6 +407,133 @@
     setReportActionStatus(hasFacility ? 'Reporting actions use the selected facility.' : 'Select a facility to use reporting actions.');
   }
 
+  function getCareCompareRatingRows(facility) {
+    return [
+      ['Overall', facility.cmsOverallRating],
+      ['Health inspection', facility.cmsHealthInspectionRating],
+      ['Staffing', facility.cmsStaffingRating],
+      ['Quality measures', facility.cmsQmRating],
+      ['Long-stay QM', facility.cmsLongStayQmRating],
+      ['Short-stay QM', facility.cmsShortStayQmRating],
+      ['RN staffing', facility.cmsRnStaffingRating]
+    ].filter(([, value]) => isUsableNumber(value));
+  }
+
+  function renderStarRating(value) {
+    if (!isUsableNumber(value)) return '';
+    const rating = Math.max(0, Math.min(5, Math.round(Number(value))));
+    const filled = '★'.repeat(rating);
+    const empty = '☆'.repeat(5 - rating);
+    return `
+      <span class="star-rating" aria-hidden="true">
+        <span class="star-filled">${filled}</span><span class="star-empty">${empty}</span>
+      </span>
+    `;
+  }
+
+  function renderCareCompareRatingItems(facility) {
+    return getCareCompareRatingRows(facility)
+      .map(([label, value]) => `
+        <article class="rating-card" aria-label="${escapeHtml(`${label} rating: ${formatRatingText(value)} stars.`)}">
+          <div class="summary-label">${escapeHtml(label)}</div>
+          <div class="rating-value">${escapeHtml(formatRatingText(value))}</div>
+          ${renderStarRating(value)}
+          <p class="microcopy">CMS Provider Information rating imported into this tool.</p>
+        </article>
+      `)
+      .join('');
+  }
+
+  function renderCareCompareRatingContext(facility) {
+    const rows = renderCareCompareRatingItems(facility);
+    if (!rows) return '';
+    const note = facility.cmsRatingSourceNote || 'CMS Care Compare ratings are contextual summary ratings from Provider Information. They are not calculated by this tool and should be interpreted alongside the staffing metrics and source caveats.';
+    return `
+      <div class="ownership-context care-compare-context">
+        <h3>CMS Care Compare rating context</h3>
+        <div class="care-compare-rating-grid">${rows}</div>
+        <p class="subtle">${escapeHtml(note)}</p>
+      </div>
+    `;
+  }
+
+  function renderCareCompareRatingSection(facility) {
+    const output = document.getElementById('care-compare-context');
+    if (!output) return;
+    const content = renderCareCompareRatingContext(facility);
+    output.innerHTML = content || '<div class="notice warning">CMS Care Compare rating fields are not available for this facility in the current export.</div>';
+  }
+
+  function renderQualityMeasureDescription(measure) {
+    const footnote = String(measure.footnote_for_score || '').trim();
+    return `
+      <strong>${escapeHtml(measure.measure_description || measure.measure_code || 'Quality measure')}</strong>
+      ${footnote ? `<div class="microcopy">Footnote: ${escapeHtml(footnote)}</div>` : ''}
+    `;
+  }
+
+  function renderQualityMeasuresClaimsTable(facility, options = {}) {
+    const measures = Array.isArray(facility.qualityMeasuresClaims) ? facility.qualityMeasuresClaims : [];
+    if (!measures.length) return '';
+    const limit = options.limit || measures.length;
+    const rows = measures.slice(0, limit).map(measure => `
+      <tr>
+        <th scope="row">${renderQualityMeasureDescription(measure)}</th>
+        <td>${escapeHtml(measure.resident_type || 'Not available')}</td>
+        <td>${escapeHtml(formatScore(measure.adjusted_score))}</td>
+        <td>${escapeHtml(formatScore(measure.observed_score))}</td>
+        <td>${escapeHtml(formatScore(measure.expected_score))}</td>
+        <td>${escapeHtml(measure.measure_period || 'Not available')}</td>
+        <td>${escapeHtml(formatYesNo(measure.used_in_qm_five_star_rating))}</td>
+      </tr>
+    `).join('');
+    return `
+      <div class="table-scroll" tabindex="0" aria-label="CMS claims-based quality measures table">
+        <table class="quality-measures-table">
+          <thead>
+            <tr>
+              <th scope="col">Measure</th>
+              <th scope="col">Resident type</th>
+              <th scope="col">Adjusted</th>
+              <th scope="col">Observed</th>
+              <th scope="col">Expected</th>
+              <th scope="col">Period</th>
+              <th scope="col">Used in QM rating</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function renderQualityMeasuresClaimsContext(facility) {
+    const measures = Array.isArray(facility.qualityMeasuresClaims) ? facility.qualityMeasuresClaims : [];
+    if (!measures.length) return '';
+    const periods = [...new Set(measures.map(measure => measure.measure_period).filter(Boolean))];
+    return `
+      <div class="ownership-context quality-measures-context">
+        <h3>CMS claims-based quality measures</h3>
+        <p class="subtle">These facility-level measures are imported from CMS Nursing Home Quality Measures Claims data. They are not calculated by this tool, are not staffing measures, and should be interpreted with measure definitions, footnotes, and measure period context.</p>
+        ${periods.length ? `<p class="microcopy">Measure period${periods.length === 1 ? '' : 's'}: ${escapeHtml(periods.join(', '))}</p>` : ''}
+        ${renderQualityMeasuresClaimsTable(facility)}
+        <p class="subtle">Individual quality measures and summary Care Compare ratings are different CMS fields. Neither replaces PBJ staffing metrics or proves care quality by itself.</p>
+      </div>
+    `;
+  }
+
+  function renderQualityMeasuresClaimsSection(facility) {
+    const output = document.getElementById('quality-measures-detail');
+    if (!output) return;
+    output.innerHTML = renderQualityMeasuresClaimsContext(facility) || '<div class="notice warning">CMS claims-based quality measures are not available for this facility in the current export.</div>';
+  }
+
+  function renderOwnershipContextSection(facility) {
+    const output = document.getElementById('ownership-detail');
+    if (!output) return;
+    output.innerHTML = renderOwnershipContext(facility) || '<div class="notice warning">CMS SNF Enrollment ownership / affiliation fields are not available for this facility in the current export.</div>';
+  }
+
   function renderPrintReportContext(facility) {
     const output = document.getElementById('print-report-context');
     if (!output || !facility) return;
@@ -364,6 +543,9 @@
     const generatedAt = dataset?.generated_at || 'Not available';
     const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
     const benchmarkComparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
+    const ratingRows = renderCareCompareRatingItems(facility);
+    const qualityMeasures = Array.isArray(facility.qualityMeasuresClaims) ? facility.qualityMeasuresClaims : [];
+    const qualityMeasurePeriods = [...new Set(qualityMeasures.map(measure => measure.measure_period).filter(Boolean))];
     output.innerHTML = `
       <h1>Connecticut Facility Staffing Summary</h1>
       <dl class="staffing-summary-list">
@@ -373,6 +555,17 @@
         <div><dt>Latest quarter</dt><dd>${escapeHtml(quarterLabel)}</dd></div>
         <div><dt>Export generated</dt><dd>${escapeHtml(generatedAt)}</dd></div>
       </dl>
+      ${ratingRows ? `
+        <h2>CMS Care Compare Rating Context</h2>
+        <div class="care-compare-rating-grid print-rating-grid">${ratingRows}</div>
+      ` : ''}
+      ${qualityMeasures.length ? `
+        <h2>CMS Claims-Based Quality Measures</h2>
+        <div class="notice">
+          ${qualityMeasures.length} claims-based quality measure${qualityMeasures.length === 1 ? '' : 's'} imported from CMS Quality Measures Claims${qualityMeasurePeriods.length ? ` for ${escapeHtml(qualityMeasurePeriods.join(', '))}` : ''}. These are contextual CMS measures, not calculated by this staffing tool.
+        </div>
+        ${renderQualityMeasuresClaimsTable(facility)}
+      ` : ''}
       <div class="notice">
         Latest-quarter snapshot: total nurse HPRD ${formatHprd(metrics.total_nurse_hprd)}, RN HPRD ${formatHprd(metrics.rn_hprd)}, LPN/LVN HPRD ${formatHprd(metrics.lpn_lvn_hprd)}, nurse aide HPRD ${formatHprd(metrics.nurse_aide_hprd)}, contract staff ${formatPercent(metrics.contract_staff_pct)}.
         ${benchmarkComparison ? escapeHtml(benchmarkComparison) : 'Case-mix comparison is not available for this facility-quarter.'}
@@ -397,13 +590,9 @@
   function renderFacilitySummary(facility) {
     const current = facility.currentRow;
     const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
-    const averageCensus = current?.average_resident_census;
-    const residentDays = current?.resident_days;
     const metadataRows = [
       `<div><dt>CCN</dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>`,
-      `<div><dt>Quarter reviewed</dt><dd>${escapeHtml(quarterLabel)}</dd></div>`,
-      `<div><dt>Average census</dt><dd>${formatCount(averageCensus)}</dd></div>`,
-      `<div><dt>Resident days</dt><dd>${formatCount(residentDays)}</dd></div>`
+      `<div><dt>Latest quarter</dt><dd>${escapeHtml(quarterLabel)}</dd></div>`
     ];
     if (isUsableNumber(facility.certifiedBeds)) {
       metadataRows.push(`<div><dt>Certified beds</dt><dd>${formatCount(facility.certifiedBeds)}</dd></div>`);
@@ -411,17 +600,80 @@
     if (facility.ownershipType) {
       metadataRows.push(`<div><dt>Ownership</dt><dd>${escapeHtml(facility.ownershipType)}</dd></div>`);
     }
+    if (facility.affiliationEntityName) {
+      metadataRows.push(`<div><dt>Affiliation entity</dt><dd>${escapeHtml(facility.affiliationEntityName)}</dd></div>`);
+    }
 
     document.getElementById('facility-summary').innerHTML = `
-      <div>
+      <div class="ltcop-provider-banner">
         <div class="eyebrow">Selected Facility</div>
-        <h2>${escapeHtml(facility.name)}</h2>
-        <p class="subtle">${facility.address ? `${escapeHtml(facility.address)} - ` : ''}${escapeHtml(facility.city)}, ${escapeHtml(facility.state)} - CMS Certification Number ${escapeHtml(facility.ccn || 'not available')}</p>
-        ${renderOwnershipContext(facility)}
+        <div class="ltcop-provider-heading">
+          <h2>${escapeHtml(facility.name)}</h2>
+          <p class="subtle">${facility.address ? `${escapeHtml(facility.address)} - ` : ''}${escapeHtml(facility.city)}, ${escapeHtml(facility.state)}</p>
+        </div>
+        ${renderScreeningIndicators(facility)}
       </div>
-      <dl class="staffing-summary-list">
+      <dl class="staffing-summary-list ltcop-provider-meta">
         ${metadataRows.join('')}
       </dl>
+    `;
+  }
+
+  function renderScreeningIndicators(facility) {
+    const current = facility.currentRow;
+    const metrics = current?.metrics || {};
+    const benchmark = current?.benchmarks || {};
+    const badges = [];
+    if (metrics.ct_total_direct_care_below_minimum_estimate === true) {
+      badges.push({
+        type: 'attention',
+        text: 'Below CT 3.00 direct-care comparison point',
+        label: 'Screening indicator: latest quarter below CT 3.00 direct-care comparison point.'
+      });
+    }
+    if (metrics.ct_licensed_direct_care_below_minimum_estimate === true) {
+      badges.push({
+        type: 'attention',
+        text: 'Below CT 0.84 licensed comparison point',
+        label: 'Screening indicator: latest quarter below CT 0.84 licensed comparison point.'
+      });
+    }
+    const benchmarkValue = benchmark.case_mix_total_nurse_hprd;
+    if (isUsableNumber(metrics.total_nurse_hprd) && isUsableNumber(benchmarkValue) && Number(metrics.total_nurse_hprd) < Number(benchmarkValue)) {
+      badges.push({
+        type: 'context',
+        text: 'Actual below case-mix comparison point',
+        label: 'Screening indicator: PBJ-reported actual total nurse HPRD is below the CMS case-mix comparison point.'
+      });
+    }
+    const availableRows = facility.historyRows.filter(row => row.metrics);
+    const repeatedBelowCount = availableRows.filter(row => row.metrics?.ct_total_direct_care_below_minimum_estimate === true).length;
+    if (repeatedBelowCount >= 2) {
+      badges.push({
+        type: 'attention',
+        text: `Repeated pattern: below CT 3.00 in ${repeatedBelowCount} of ${availableRows.length} quarters`,
+        label: `Screening indicator: below CT 3.00 direct-care comparison point in ${repeatedBelowCount} of ${availableRows.length} available quarters.`
+      });
+    }
+    if (isUsableNumber(metrics.contract_staff_pct) && Number(metrics.contract_staff_pct) >= 10) {
+      badges.push({
+        type: 'context',
+        text: 'Contract staffing at/above 10% in latest quarter',
+        label: 'Descriptive context: contract staffing was at or above 10 percent in the latest quarter.'
+      });
+    }
+    if (!badges.length) {
+      badges.push({
+        type: 'neutral',
+        text: 'No selected screening indicator triggered in latest view',
+        label: 'No selected screening indicator triggered in the latest facility view.'
+      });
+    }
+    return `
+      <div class="screening-badge-row" aria-label="Selected facility screening indicators">
+        ${badges.map(badge => `<span class="screening-badge ${escapeHtml(badge.type)}" aria-label="${escapeHtml(badge.label)}">${escapeHtml(badge.text)}</span>`).join('')}
+      </div>
+      <p class="screening-note">Screening indicators identify questions for review and are not formal compliance findings.</p>
     `;
   }
 
@@ -505,13 +757,13 @@
             <div class="summary-label">CT direct-care HPRD estimate</div>
             <strong>${formatHprd(metrics.ct_direct_care_total_hprd_estimate)}</strong>
             <p class="subtle">Comparison to ${totalMinimum.toFixed(2)} HPRD: ${formatSignedHprd(metrics.ct_total_direct_care_difference_from_minimum)}.</p>
-            <div class="comparison-note">${escapeHtml(formatCtComparisonStatus(metrics.ct_total_direct_care_below_minimum_estimate, totalMinimum))}</div>
+            <div class="comparison-note">${escapeHtml(getCtTotalStatus(metrics))}</div>
           </div>
           <div>
             <div class="summary-label">CT licensed HPRD estimate</div>
             <strong>${formatHprd(metrics.ct_direct_care_licensed_nurse_hprd_estimate)}</strong>
             <p class="subtle">Comparison to ${licensedMinimum.toFixed(2)} HPRD: ${formatSignedHprd(metrics.ct_licensed_direct_care_difference_from_minimum)}.</p>
-            <div class="comparison-note">${escapeHtml(formatCtComparisonStatus(metrics.ct_licensed_direct_care_below_minimum_estimate, licensedMinimum))}</div>
+            <div class="comparison-note">${escapeHtml(getCtLicensedStatus(metrics))}</div>
           </div>
         </div>
       </article>
@@ -534,6 +786,66 @@
     const percent = (actual / benchmark) * 100;
     const direction = difference >= 0 ? 'above' : 'below';
     return `Actual total nurse HPRD is ${formatSignedHprd(difference)} ${direction} this benchmark, or ${percent.toFixed(0)}% of the benchmark.`;
+  }
+
+  function renderTrendChart(displayRows) {
+    const availableRows = displayRows.filter(displayRow => displayRow.sourceRow);
+    if (availableRows.length < 2) return '';
+    const totalValues = availableRows
+      .map(displayRow => Number(displayRow.sourceRow.metrics?.total_nurse_hprd))
+      .filter(Number.isFinite);
+    const directValues = availableRows
+      .map(displayRow => Number(displayRow.sourceRow.metrics?.ct_direct_care_total_hprd_estimate))
+      .filter(Number.isFinite);
+    const values = [...totalValues, ...directValues, 3.00].filter(Number.isFinite);
+    if (!values.length) return '';
+    const width = 760;
+    const height = 260;
+    const left = 46;
+    const right = 22;
+    const top = 18;
+    const bottom = 52;
+    const plotWidth = width - left - right;
+    const plotHeight = height - top - bottom;
+    const maxValue = Math.max(4, Math.ceil(Math.max(...values) * 10) / 10);
+    const minValue = 0;
+    const xForIndex = index => left + (availableRows.length === 1 ? plotWidth / 2 : (plotWidth * index) / (availableRows.length - 1));
+    const yForValue = value => top + plotHeight - ((Number(value) - minValue) / (maxValue - minValue)) * plotHeight;
+    const lineForMetric = metricKey => availableRows
+      .map((displayRow, index) => {
+        const value = displayRow.sourceRow.metrics?.[metricKey];
+        if (!isUsableNumber(value)) return null;
+        return `${xForIndex(index).toFixed(1)},${yForValue(Number(value)).toFixed(1)}`;
+      })
+      .filter(Boolean)
+      .join(' ');
+    const directLine = lineForMetric('ct_direct_care_total_hprd_estimate');
+    const totalLine = lineForMetric('total_nurse_hprd');
+    const referenceY = yForValue(3.00).toFixed(1);
+    const xLabels = availableRows.map((displayRow, index) => `
+      <text x="${xForIndex(index).toFixed(1)}" y="${height - 24}" text-anchor="middle">${escapeHtml(displayRow.quarter_label || displayRow.quarter)}</text>
+    `).join('');
+    return `
+      <div class="ltcop-trend-chart" role="img" aria-label="Line chart showing CT direct-care HPRD estimate and total nurse HPRD across available quarters, with a CT 3.00 comparison reference line. Missing quarters are not plotted as zero.">
+        <svg viewBox="0 0 ${width} ${height}" focusable="false" aria-hidden="true">
+          <line x1="${left}" y1="${referenceY}" x2="${width - right}" y2="${referenceY}" class="chart-line-reference" stroke-width="2"></line>
+          ${totalLine ? `<polyline points="${totalLine}" fill="none" class="chart-line-total" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>` : ''}
+          ${directLine ? `<polyline points="${directLine}" fill="none" class="chart-line-direct" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>` : ''}
+          <line x1="${left}" y1="${top}" x2="${left}" y2="${height - bottom}" stroke="#cbd5e1"></line>
+          <line x1="${left}" y1="${height - bottom}" x2="${width - right}" y2="${height - bottom}" stroke="#cbd5e1"></line>
+          <text x="${left - 10}" y="${yForValue(maxValue).toFixed(1)}" text-anchor="end">${maxValue.toFixed(1)}</text>
+          <text x="${left - 10}" y="${referenceY}" text-anchor="end">3.0</text>
+          <text x="${left - 10}" y="${height - bottom}" text-anchor="end">0</text>
+          ${xLabels}
+        </svg>
+        <div class="chart-legend">
+          <span class="direct">CT direct-care HPRD estimate</span>
+          <span class="total">Total nurse HPRD</span>
+          <span>CT 3.00 comparison point</span>
+        </div>
+        <p class="microcopy">The chart plots only available PBJ facility-quarter rows; missing quarters are not treated as zero.</p>
+      </div>
+    `;
   }
 
   function renderQuarterlyTable(facility) {
@@ -564,6 +876,7 @@
     const maxHprd = Math.max(...hprdValues, 1);
 
     output.innerHTML = `
+      ${renderTrendChart(displayRows)}
       <div class="table-scroll" tabindex="0" aria-label="Quarterly staffing comparison table">
         <table>
           <caption>Quarterly comparison for ${escapeHtml(facility.name)}</caption>
@@ -632,6 +945,14 @@
       'facility_name',
       'ccn',
       'city',
+      'cms_overall_rating',
+      'cms_health_inspection_rating',
+      'cms_staffing_rating',
+      'cms_rn_staffing_rating',
+      'cms_qm_rating',
+      'cms_long_stay_qm_rating',
+      'cms_short_stay_qm_rating',
+      'cms_rating_source',
       'quarter',
       'row_status',
       'resident_days',
@@ -664,6 +985,14 @@
         facility_name: facility.name,
         ccn: facility.ccn || '',
         city: facility.city || '',
+        cms_overall_rating: csvValue(facility.cmsOverallRating),
+        cms_health_inspection_rating: csvValue(facility.cmsHealthInspectionRating),
+        cms_staffing_rating: csvValue(facility.cmsStaffingRating),
+        cms_rn_staffing_rating: csvValue(facility.cmsRnStaffingRating),
+        cms_qm_rating: csvValue(facility.cmsQmRating),
+        cms_long_stay_qm_rating: csvValue(facility.cmsLongStayQmRating),
+        cms_short_stay_qm_rating: csvValue(facility.cmsShortStayQmRating),
+        cms_rating_source: facility.cmsRatingSource || '',
         quarter: displayRow.quarter || '',
         row_status: row ? 'PBJ row available' : 'No PBJ row available',
         resident_days: row ? csvOneDecimal(row.resident_days) : '',
@@ -777,6 +1106,9 @@
     updateReportActions(facility);
     renderPrintReportContext(facility);
     renderFacilitySummary(facility);
+    renderCareCompareRatingSection(facility);
+    renderOwnershipContextSection(facility);
+    renderQualityMeasuresClaimsSection(facility);
     renderMetricCards(facility);
     renderQuarterlyTable(facility);
     renderInterpretation(facility);
