@@ -4,11 +4,22 @@
 
 **Historical PBJ calculations and CT applicability fields validated.**
 
-- History file: `data\nursing_home_staffing_history_ct.json`
+- History file: `data/nursing_home_staffing_history_ct.json`
 - Quarters: 33 (2017Q4 through 2025Q4)
 - Facilities: 216
 - Facility-quarter rows: 6569
 - Raw Connecticut PBJ daily rows re-read: 599930
+
+## Source Discovery
+
+- Source root: `source_data\pbj`
+- Target window: 2017Q4 through 2025Q4
+- Expected target quarters: 33
+- Discovered target quarters: 33
+- Missing target quarters: 0
+- Duplicate target quarters: 0
+- Excluded out-of-window sources: 3
+- Source inventory errors: 0
 
 ## Independent Calculation Comparison
 

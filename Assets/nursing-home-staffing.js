@@ -554,6 +554,9 @@
     const generatedAt = dataset?.generated_at || 'Not available';
     const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
     const sourceCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
+    const historicalCurrency = historyDataset
+      ? global.NursingHomeSourceCurrency?.buildCurrencySummary?.(historyDataset)
+      : '';
     const benchmarkComparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
     const ratingRows = renderCareCompareRatingItems(facility);
     const qualityMeasures = Array.isArray(facility.qualityMeasuresClaims) ? facility.qualityMeasuresClaims : [];
@@ -568,6 +571,7 @@
         <div><dt>Export generated</dt><dd>${escapeHtml(generatedAt)}</dd></div>
       </dl>
       ${sourceCurrency ? `<div class="notice"><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</div>` : ''}
+      ${historicalCurrency ? `<div class="notice"><strong>Historical PBJ data:</strong> ${escapeHtml(historicalCurrency)}</div>` : ''}
       ${ratingRows ? `
         <h2>CMS Care Compare Rating Context</h2>
         <div class="care-compare-rating-grid print-rating-grid">${ratingRows}</div>
@@ -1104,11 +1108,13 @@
       if (status) status.textContent = 'No historical PBJ rows are available for the selected facility.';
       return;
     }
+    const historyCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(historyDataset) || 'Historical CMS PBJ staffing is available from Q4 2017 through Q4 2025. Current contextual CMS snapshots, including ratings, quality measures, case-mix comparison points, and affiliation context, are not historical quarter-specific values.';
     const displayRows = rows.map(row => ({ quarter: row.quarter, quarter_label: row.quarter_label, sourceRow: row }));
     output.innerHTML = `
       <div class="notice">
         Showing ${escapeHtml(rows[0].quarter)} through ${escapeHtml(rows[rows.length - 1].quarter)} for ${escapeHtml(facility.name)}. ${historyWindowMode === 'full' ? 'Full PBJ history is displayed.' : 'Latest 8 available quarters are displayed.'}
       </div>
+      <div class="notice">${escapeHtml(historyCurrency)}</div>
       ${renderTrendChart(displayRows)}
       <div class="table-scroll" tabindex="0" aria-label="Historical PBJ staffing table">
         <table>

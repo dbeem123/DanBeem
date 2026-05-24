@@ -67,7 +67,21 @@
     };
   }
 
+  function formatQuarterLabel(quarter) {
+    const text = String(quarter || '');
+    const match = text.match(/^(20\d{2})Q([1-4])$/);
+    return match ? `Q${match[2]} ${match[1]}` : text;
+  }
+
   function buildCurrencySummary(dataset) {
+    if (dataset?.dataset_type === 'nursing_home_staffing_history_pbj_only' || dataset?.history_window) {
+      const window = dataset?.history_window || {};
+      const first = formatQuarterLabel(window.first_quarter || window.quarters?.[0] || '');
+      const latest = formatQuarterLabel(window.latest_quarter || window.quarters?.[window.quarters.length - 1] || '');
+      const generatedDate = formatGeneratedDate(dataset?.generated_at);
+      const generated = generatedDate ? ` Export generated ${generatedDate}.` : '';
+      return `Historical CMS PBJ staffing is available from ${first || 'the first included quarter'} through ${latest || 'the latest included quarter'}. Current contextual CMS snapshots, including ratings, quality measures, case-mix comparison points, and affiliation context, are not historical quarter-specific values.${generated}`;
+    }
     const parts = buildCurrencyParts(dataset);
     const snapshots = [
       parts.providerSnapshot ? `Provider Information (${parts.providerSnapshot})` : 'Provider Information',

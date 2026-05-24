@@ -82,9 +82,9 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 ### Persistent Staffing Patterns
 
 - public-facing multi-quarter Connecticut PBJ staffing screening explorer
-- identifies facilities repeatedly below the CT 3.00 direct-care comparison point, below the CT 0.84 licensed comparison point, below CMS case-mix comparison points, or at/above contract staffing thresholds
+- identifies facilities repeatedly below the CT 3.00 direct-care comparison point, below the CT 0.84 licensed comparison point, or at/above contract staffing thresholds across selected historical PBJ windows
 - supports minimum-quarter thresholds, quarter-by-quarter pattern strips, search, affiliation and ownership filters, complete-history filtering, facility trend drill-down links, printable current views, current persistent-pattern CSV export, and a copyable briefing summary
-- treats missing PBJ rows and unavailable case-mix benchmark values as unavailable context rather than adverse findings
+- treats missing PBJ rows as unavailable context rather than adverse findings; historical case-mix persistence is not available until historically aligned CMS benchmark snapshots are acquired
 
 ### Ownership & Staffing Explorer
 
@@ -172,7 +172,7 @@ Optionally enrich facility metadata with a manually downloaded CMS Nursing Home 
 python scripts/build_nursing_home_staffing_ct.py --input-dir source_data/pbj --provider-info source_data/provider_info/NH_ProviderInfo_MonYYYY.csv --output data/nursing_home_staffing_ct.json
 ```
 
-When Provider Information is supplied, the generator also copies CMS case-mix staffing HPRD fields into the explorer's `benchmarks` object when available. The case-mix total nurse comparison point is imported from CMS Nursing Home Provider Information, not calculated by this project; the UI-calculated comparisons are the actual-minus-benchmark and percent-of-benchmark displays. These benchmark fields are contextual comparisons only; PBJ-calculated HPRD remains the actual staffing metric shown by the explorer.
+When Provider Information is supplied, the generator also copies CMS case-mix staffing HPRD fields into the current/context explorer's `benchmarks` object when available. The case-mix total nurse comparison point is imported from CMS Nursing Home Provider Information, not calculated by this project; the UI-calculated comparisons are the actual-minus-benchmark and percent-of-benchmark displays. These benchmark fields are contextual comparisons only; PBJ-calculated HPRD remains the actual staffing metric shown by the explorer. Historical PBJ persistent-pattern analysis does not include case-mix comparison patterns unless historically aligned CMS benchmark snapshots are later acquired.
 
 Provider Information also supplies CMS Care Compare star-rating context when those columns are present, including overall, health inspection, staffing, quality-measure, long-stay QM, and short-stay QM ratings. The April 2026 Provider Information file used here does not include an RN Staffing Rating column, so that optional field is emitted as `null` and reported in `data_quality.provider_rating_missing_columns`. These ratings are imported context, not calculated by this project and not substitutes for PBJ HPRD metrics or Connecticut direct-care screening estimates.
 

@@ -14,6 +14,8 @@ Preview data:
 
 This preview is not linked from the homepage or suite navigation and is not a public cutover.
 
+Phase 10C.6 publishes the production PBJ-only history file at `data/nursing_home_staffing_history_ct.json`. The preview route remains a development artifact and should not be used as the public runtime source.
+
 ## What The Preview Exercises
 
 - Facility-level long-history PBJ trend behavior.
