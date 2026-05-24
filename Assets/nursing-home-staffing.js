@@ -805,6 +805,22 @@
     return `Actual total nurse HPRD is ${formatSignedHprd(difference)} ${direction} this benchmark, or ${percent.toFixed(0)}% of the benchmark.`;
   }
 
+  function getVisibleXAxisLabelIndexes(rows) {
+    if (rows.length <= 10) return new Set(rows.map((_row, index) => index));
+    const indexes = new Set([0, rows.length - 1]);
+    rows.forEach((displayRow, index) => {
+      const quarter = String(displayRow.quarter || '');
+      if (quarter.endsWith('Q4')) indexes.add(index);
+    });
+    if (indexes.size <= 2) {
+      const interval = Math.ceil(rows.length / 8);
+      rows.forEach((_row, index) => {
+        if (index % interval === 0) indexes.add(index);
+      });
+    }
+    return indexes;
+  }
+
   function renderTrendChart(displayRows) {
     const availableRows = displayRows.filter(displayRow => displayRow.sourceRow);
     if (availableRows.length < 2) return '';
@@ -839,9 +855,17 @@
     const directLine = lineForMetric('ct_direct_care_total_hprd_estimate');
     const totalLine = lineForMetric('total_nurse_hprd');
     const referenceY = yForValue(3.00).toFixed(1);
-    const xLabels = availableRows.map((displayRow, index) => `
-      <text x="${xForIndex(index).toFixed(1)}" y="${height - 24}" text-anchor="middle">${escapeHtml(displayRow.quarter_label || displayRow.quarter)}</text>
-    `).join('');
+    const visibleLabelIndexes = getVisibleXAxisLabelIndexes(availableRows);
+    const xLabels = availableRows.map((displayRow, index) => {
+      const x = xForIndex(index).toFixed(1);
+      const tick = `<line x1="${x}" y1="${height - bottom}" x2="${x}" y2="${height - bottom + 5}" stroke="#cbd5e1"></line>`;
+      if (!visibleLabelIndexes.has(index)) return tick;
+      const label = escapeHtml(displayRow.quarter_label || displayRow.quarter);
+      return `
+        ${tick}
+        <text x="${x}" y="${height - 24}" text-anchor="middle">${label}</text>
+      `;
+    }).join('');
     return `
       <div class="ltcop-trend-chart" role="img" aria-label="Line chart showing CT direct-care HPRD estimate and total nurse HPRD across available quarters, with a CT 3.00 comparison reference line. Missing quarters are not plotted as zero.">
         <svg viewBox="0 0 ${width} ${height}" focusable="false" aria-hidden="true">
@@ -1076,7 +1100,15 @@
       if (button) button.disabled = false;
     });
     if (status) status.textContent = 'Historical PBJ staffing loaded.';
+    updateHistoryWindowButtons();
     return historyDataset;
+  }
+
+  function updateHistoryWindowButtons() {
+    const latest = document.getElementById('history-latest-8');
+    const full = document.getElementById('history-full');
+    if (latest) latest.setAttribute('aria-pressed', String(historyWindowMode !== 'full'));
+    if (full) full.setAttribute('aria-pressed', String(historyWindowMode === 'full'));
   }
 
   function getHistoricalRowsForFacility(facility) {
@@ -1304,10 +1336,12 @@
       document.getElementById('load-historical-pbj')?.addEventListener('click', handleLoadHistoricalPbj);
       document.getElementById('history-latest-8')?.addEventListener('click', () => {
         historyWindowMode = 'latest8';
+        updateHistoryWindowButtons();
         renderHistoricalPbj(getSelectedFacility());
       });
       document.getElementById('history-full')?.addEventListener('click', () => {
         historyWindowMode = 'full';
+        updateHistoryWindowButtons();
         renderHistoricalPbj(getSelectedFacility());
       });
       document.getElementById('download-history-csv')?.addEventListener('click', handleDownloadHistoricalPbjCsv);

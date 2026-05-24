@@ -282,6 +282,16 @@
       opacity:0.52;
       cursor:not-allowed;
     }
+    button.history-window-button[aria-pressed="true"] {
+      background:var(--ltcop-navy);
+      border-color:var(--ltcop-navy);
+      color:#fff;
+    }
+    button.history-window-button[aria-pressed="false"]:not(:disabled) {
+      background:#fff;
+      border-color:#9fb3cb;
+      color:var(--ltcop-navy);
+    }
     .print-only { display:none; }
     .interpretation-grid {
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -531,8 +541,8 @@
           </div>
           <div class="report-actions" aria-label="Historical PBJ staffing actions">
             <button id="load-historical-pbj" class="action-button" type="button">View historical PBJ staffing</button>
-            <button id="history-latest-8" class="action-button secondary" type="button" disabled>Latest 8 quarters</button>
-            <button id="history-full" class="action-button secondary" type="button" disabled>Full PBJ history</button>
+            <button id="history-latest-8" class="action-button secondary history-window-button" type="button" aria-pressed="true" disabled>Latest 8 quarters</button>
+            <button id="history-full" class="action-button secondary history-window-button" type="button" aria-pressed="false" disabled>Full PBJ history</button>
             <button id="download-history-csv" class="action-button secondary" type="button" disabled>Download historical PBJ CSV</button>
             <span id="historical-pbj-status" class="subtle" role="status">Historical PBJ data has not been loaded.</span>
           </div>
