@@ -1,3 +1,11 @@
 node_modules/
 npm-debug.log*
-source_data/
+source_data/*
+!source_data/README.md
+
+# Local temporary build and audit artifacts
+data/testing/
+
+# Python cache files
+__pycache__/
+*.py[cod]

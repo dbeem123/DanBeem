@@ -2,9 +2,9 @@
   'use strict';
 
   const dataPaths = [
-    '../data/nursing_home_staffing_ct.json',
-    '../data/nursing_home_staffing_mock.json'
+    '../data/nursing_home_staffing_history_ct.json'
   ];
+  const contextPaths = ['../data/nursing_home_staffing_ct.json'];
 
   const modeConfig = {
     'direct-decline': {
@@ -71,6 +71,7 @@
   };
 
   let dataset = null;
+  let contextDataset = null;
   let facilities = [];
   let changeRecords = [];
   let filteredRecords = [];
@@ -79,6 +80,7 @@
   let latestQuarter = '';
   let currentMode = 'direct-decline';
   let summaryCounts = {};
+  let selectedWindowPreset = 'latest8';
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -132,6 +134,14 @@
       .sort((a, b) => a.localeCompare(b));
   }
 
+  function quarterSort(a, b) {
+    const ay = Number(String(a || '').slice(0, 4));
+    const aq = Number(String(a || '').slice(-1));
+    const by = Number(String(b || '').slice(0, 4));
+    const bq = Number(String(b || '').slice(-1));
+    return ay === by ? aq - bq : ay - by;
+  }
+
   function getRowValue(record, metricKind, point) {
     if (metricKind === 'contract') return getMetric(record[point], 'contract_staff_pct');
     if (metricKind === 'rn') return getMetric(record[point], 'rn_hprd');
@@ -142,6 +152,33 @@
     if (mode === 'contract-increase') return 'contract';
     if (mode === 'rn-decrease') return 'rn';
     return 'direct';
+  }
+
+  function setQuarterSelectOptions() {
+    const options = allQuarters.map(quarter => `<option value="${escapeHtml(quarter)}">${escapeHtml(quarter)}</option>`).join('');
+    const start = document.getElementById('start-quarter');
+    const end = document.getElementById('end-quarter');
+    if (start) start.innerHTML = options;
+    if (end) end.innerHTML = options;
+  }
+
+  function applySelectedWindowFromControls() {
+    const preset = document.getElementById('window-preset')?.value || selectedWindowPreset;
+    selectedWindowPreset = preset;
+    let windowQuarters = allQuarters;
+    if (preset === 'latest4') windowQuarters = allQuarters.slice(Math.max(0, allQuarters.length - 4));
+    if (preset === 'latest8') windowQuarters = allQuarters.slice(Math.max(0, allQuarters.length - 8));
+    if (preset === 'custom') {
+      const start = document.getElementById('start-quarter')?.value;
+      const end = document.getElementById('end-quarter')?.value;
+      if (start && end && quarterSort(start, end) <= 0) windowQuarters = allQuarters.filter(q => quarterSort(q, start) >= 0 && quarterSort(q, end) <= 0);
+    }
+    earliestQuarter = windowQuarters[0] || allQuarters[0] || '';
+    latestQuarter = windowQuarters[windowQuarters.length - 1] || allQuarters[allQuarters.length - 1] || '';
+    const startSelect = document.getElementById('start-quarter');
+    const endSelect = document.getElementById('end-quarter');
+    if (startSelect && earliestQuarter) startSelect.value = earliestQuarter;
+    if (endSelect && latestQuarter) endSelect.value = latestQuarter;
   }
 
   async function loadFirstAvailableJson(paths) {
@@ -158,14 +195,30 @@
 
   function normalizeDataset(data) {
     dataset = data;
-    facilities = Array.isArray(data.facilities) ? data.facilities : [];
-    const quarterlyRows = Array.isArray(data.facility_quarterly_staffing) ? data.facility_quarterly_staffing : [];
-    allQuarters = uniqueSorted(quarterlyRows.map(row => row.quarter));
-    earliestQuarter = allQuarters[0] || '';
-    latestQuarter = allQuarters[allQuarters.length - 1] || '';
+    const historyRows = Array.isArray(data.facility_quarterly_staffing_history)
+      ? data.facility_quarterly_staffing_history
+      : (Array.isArray(data.facility_quarterly_staffing) ? data.facility_quarterly_staffing : []);
+    allQuarters = uniqueSorted(historyRows.map(row => row.quarter)).sort(quarterSort);
+    applySelectedWindowFromControls();
+    const contextFacilities = Array.isArray(contextDataset?.facilities) ? contextDataset.facilities : [];
+    const contextByCcn = new Map(contextFacilities.map(facility => [facility.ccn, facility]));
+    const historyFacilityByCcn = new Map((data.facilities || []).map(facility => [facility.ccn, facility]));
+    facilities = [...new Set(historyRows.map(row => row.ccn).filter(Boolean))].map(ccn => {
+      const context = contextByCcn.get(ccn) || {};
+      const historical = historyFacilityByCcn.get(ccn) || {};
+      const firstRow = historyRows.find(row => row.ccn === ccn) || {};
+      return {
+        ...historical,
+        ...context,
+        ccn,
+        provider_name: context.provider_name || historical.latest_pbj_provider_name || firstRow.provider_name_from_pbj || ccn,
+        city: context.city || historical.latest_pbj_city || firstRow.city_from_pbj || '',
+        state: 'CT'
+      };
+    });
 
     const facilityByCcn = new Map(facilities.map(facility => [facility.ccn, facility]));
-    const rowsByCcnQuarter = new Map(quarterlyRows.map(row => [`${row.ccn}:${row.quarter}`, row]));
+    const rowsByCcnQuarter = new Map(historyRows.map(row => [`${row.ccn}:${row.quarter}`, row]));
 
     changeRecords = facilities.map(facility => {
       const earliest = rowsByCcnQuarter.get(`${facility.ccn}:${earliestQuarter}`) || null;
@@ -179,8 +232,9 @@
       const contractLatest = getMetric(latest, 'contract_staff_pct');
       const rnEarly = getMetric(earliest, 'rn_hprd');
       const rnLatest = getMetric(latest, 'rn_hprd');
-      const earlyBelow = getMetric(earliest, 'ct_total_direct_care_below_minimum_estimate');
-      const latestBelow = getMetric(latest, 'ct_total_direct_care_below_minimum_estimate');
+      const endpointsApplicable = earliest.ct_comparison_applicable_for_public_status === true && latest.ct_comparison_applicable_for_public_status === true;
+      const earlyBelow = endpointsApplicable ? earliest.ct_total_direct_care_below_comparison_point : null;
+      const latestBelow = endpointsApplicable ? latest.ct_total_direct_care_below_comparison_point : null;
       return {
         ccn: facility.ccn,
         facility: facilityByCcn.get(facility.ccn) || facility,
@@ -189,6 +243,7 @@
         directChange: isUsableNumber(directEarly) && isUsableNumber(directLatest) ? Number(directLatest) - Number(directEarly) : null,
         contractChange: isUsableNumber(contractEarly) && isUsableNumber(contractLatest) ? Number(contractLatest) - Number(contractEarly) : null,
         rnChange: isUsableNumber(rnEarly) && isUsableNumber(rnLatest) ? Number(rnLatest) - Number(rnEarly) : null,
+        endpointsApplicable,
         crossedBelowTotal: earlyBelow === false && latestBelow === true,
         crossedAboveTotal: earlyBelow === true && latestBelow === false
       };
@@ -325,6 +380,14 @@
     return '<span class="subtle-note">Unavailable</span>';
   }
 
+  function renderEndpointCtStatus(row) {
+    if (!row) return '<span class="subtle-note">Unavailable</span>';
+    if (row.ct_comparison_applicable_for_public_status !== true) {
+      return `<span class="subtle-note">${escapeHtml(row.ct_comparison_period_status || 'Not applicable')}</span>`;
+    }
+    return renderStatus(row.ct_total_direct_care_below_comparison_point);
+  }
+
   function metricFormatter(config) {
     return config.formatter === 'percent' ? formatPercent : formatHprd;
   }
@@ -409,11 +472,13 @@
     if (!output) return;
     const config = modeConfig[currentMode] || modeConfig['direct-decline'];
     const generatedAt = dataset?.generated_at || dataset?.generated_on || dataset?.meta?.generated_on || '';
+    const sourceCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
     const summary = getCurrentSummary(rows);
     output.innerHTML = `
       <h1>Connecticut Nursing Home Staffing Change Over Time</h1>
       <p><strong>Comparison window:</strong> ${escapeHtml(earliestQuarter || 'Unavailable')} to ${escapeHtml(latestQuarter || 'Unavailable')}</p>
       <p><strong>Generated export timestamp:</strong> ${escapeHtml(generatedAt || 'Not listed in export')}</p>
+      ${sourceCurrency ? `<p><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</p>` : ''}
       <p><strong>Selected change mode:</strong> ${escapeHtml(config.label)}</p>
       <div class="notice">
         <strong>Active filters:</strong>
@@ -426,7 +491,7 @@
         ${formatCount(summary.rowsShown)} rows shown; average change ${formatSigned(summary.averageChange, config.formatter)}; ${formatCount(summary.crossingShown)} CT 3.00 direct-care comparison point crossings shown.
       </div>
       <div class="notice warning">
-        This report compares available PBJ staffing rows across the displayed quarter window. Missing endpoint quarter rows are excluded from endpoint-to-endpoint change tables. Changes reflect PBJ-reported staffing measures and do not explain why staffing changed. CT comparison point crossings are PBJ-derived screening indicators, not formal DPH compliance findings. Staffing changes alone do not prove poor care, neglect, harm, or regulatory violations. Use the facility-level Staffing Explorer to review the full five-quarter context for any individual nursing home.
+        This report compares available PBJ staffing rows across the displayed quarter window. Missing endpoint quarter rows are excluded from endpoint-to-endpoint change tables. Changes reflect PBJ-reported staffing measures and do not explain why staffing changed. CT comparison point crossings are PBJ-derived screening indicators, not formal DPH compliance findings. Staffing changes alone do not prove poor care, neglect, harm, or regulatory violations. Use the facility-level Staffing Explorer to review the available-quarter context for any individual nursing home.
       </div>
     `;
   }
@@ -503,8 +568,8 @@
                   <td>${formatMetric(getRowValue(record, metricKind, 'earliest'))}</td>
                   <td>${formatMetric(getRowValue(record, metricKind, 'latest'))}</td>
                   <td class="${changeClass}">${formatSigned(changeValue, config.formatter)}</td>
-                  <td>${renderStatus(getMetric(record.earliest, 'ct_total_direct_care_below_minimum_estimate'))}</td>
-                  <td>${renderStatus(getMetric(record.latest, 'ct_total_direct_care_below_minimum_estimate'))}</td>
+                  <td>${renderEndpointCtStatus(record.earliest)}</td>
+                  <td>${renderEndpointCtStatus(record.latest)}</td>
                   <td><a class="linkBtn" href="nursing-home-staffing-explorer.html?ccn=${encodeURIComponent(record.ccn || '')}">View facility trend</a></td>
                 </tr>
               `;
@@ -587,8 +652,8 @@
         earliest_value: csvNumber(getRowValue(record, metricKind, 'earliest'), valueDigits),
         latest_value: csvNumber(getRowValue(record, metricKind, 'latest'), valueDigits),
         change_amount: csvNumber(record[config.metricKey], valueDigits),
-        earliest_below_ct_3_00_comparison_flag: getMetric(record.earliest, 'ct_total_direct_care_below_minimum_estimate'),
-        latest_below_ct_3_00_comparison_flag: getMetric(record.latest, 'ct_total_direct_care_below_minimum_estimate'),
+        earliest_below_ct_3_00_comparison_flag: record.earliest?.ct_total_direct_care_below_comparison_point,
+        latest_below_ct_3_00_comparison_flag: record.latest?.ct_total_direct_care_below_comparison_point,
         facility_detail_url: `tools/nursing-home-staffing-explorer.html?ccn=${record.ccn || ''}`
       };
     });
@@ -646,7 +711,14 @@
     const status = document.getElementById('load-status');
     try {
       if (!global.DanBeemData) throw new Error('Shared data loader did not load.');
+      try {
+        contextDataset = await loadFirstAvailableJson(contextPaths);
+      } catch (err) {
+        contextDataset = null;
+      }
       const data = await loadFirstAvailableJson(dataPaths);
+      allQuarters = uniqueSorted((data.facility_quarterly_staffing_history || []).map(row => row.quarter)).sort(quarterSort);
+      setQuarterSelectOptions();
       normalizeDataset(data);
       if (!earliestQuarter || !latestQuarter || earliestQuarter === latestQuarter) {
         throw new Error('At least two PBJ quarters are required for change-over-time comparison.');
@@ -657,6 +729,16 @@
       ['facility-search', 'affiliation-filter', 'ownership-filter', 'affiliation-presence-filter'].forEach(id => {
         document.getElementById(id).addEventListener('input', applyFilters);
         document.getElementById(id).addEventListener('change', applyFilters);
+      });
+      ['window-preset', 'start-quarter', 'end-quarter'].forEach(id => {
+        document.getElementById(id)?.addEventListener('change', () => {
+          if (id === 'start-quarter' || id === 'end-quarter') document.getElementById('window-preset').value = 'custom';
+          normalizeDataset(dataset);
+          renderSourceStatus();
+          renderSummaryCards();
+          populateSelectOptions();
+          applyFilters();
+        });
       });
       document.querySelectorAll('.mode-button').forEach(button => {
         button.addEventListener('click', () => {

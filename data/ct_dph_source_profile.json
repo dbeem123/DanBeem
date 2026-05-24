@@ -1,0 +1,320 @@
+{
+  "profile_version": "2026-05-22.phase10b1",
+  "status": "planning_only_not_runtime",
+  "source_files_profiled": [
+    {
+      "source_key": "ct_dph_chronic_convalescent_facility_master",
+      "local_path": "C:/Users/Dan/Downloads/Chronic_and_Convalescent_Nursing_Home.csv",
+      "sha256": "1806cd31cbee4d99b09e6736b4f3bf7c010c71c15a0b80828cae0121bb0aa5b5",
+      "row_count": 189,
+      "columns": [
+        "FACILITY NAME",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "ZIP",
+        "LICENSE NO.",
+        "STATUS",
+        "EFFECTIVE DATE",
+        "EXPIRATION DATE",
+        ""
+      ],
+      "identifier_fields": [
+        "LICENSE NO."
+      ],
+      "date_fields": [
+        "EFFECTIVE DATE",
+        "EXPIRATION DATE"
+      ],
+      "status_fields": [
+        "STATUS"
+      ],
+      "person_or_company_fields": [],
+      "facility_fields": [
+        "FACILITY NAME",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "ZIP"
+      ],
+      "unique_normalized_license_count": 189,
+      "status_counts": {
+        "ACTIVE": 189
+      },
+      "exact_duplicate_row_count": 0,
+      "effective_date_min": "2008-04-01",
+      "effective_date_max": "2026-02-01",
+      "expiration_date_min": "2025-12-31",
+      "expiration_date_max": "2028-06-30",
+      "likely_source_purpose": "Current Connecticut DPH chronic and convalescent nursing home facility license master.",
+      "can_support": [
+        "Connecticut-side facility master keyed by DPH nursing home license number",
+        "Future CT DPH to CMS CCN crosswalk using license, name, address, city, and ZIP",
+        "Facility status and license effective/expiration context"
+      ],
+      "cannot_support": [
+        "CMS CCN matching by itself",
+        "Historical operator/name changes before the current license row",
+        "Leadership tenure or management-company assignments"
+      ]
+    },
+    {
+      "source_key": "ct_dph_nursing_home_management_history",
+      "local_path": "C:/Users/Dan/Downloads/Nursing_Home_Management_History.csv",
+      "sha256": "a999f00417af0753c39dd4b2e15d862c88da90b224a583bd6694adb9f1352637",
+      "row_count": 2538,
+      "columns": [
+        "License No",
+        "Nursing Home Name",
+        "DBA",
+        "Position",
+        "Name",
+        "License",
+        "Start Date",
+        "TerminationDate",
+        "Relationship status",
+        "Status ID",
+        ""
+      ],
+      "identifier_fields": [
+        "License No",
+        "License",
+        "Status ID"
+      ],
+      "date_fields": [
+        "Start Date",
+        "TerminationDate"
+      ],
+      "status_fields": [
+        "Relationship status"
+      ],
+      "person_or_company_fields": [
+        "Name"
+      ],
+      "facility_fields": [
+        "Nursing Home Name",
+        "DBA"
+      ],
+      "unique_normalized_facility_license_count": 189,
+      "position_counts": {
+        "Administrator": 874,
+        "Director of Nurses": 1226,
+        "Medical Director": 431,
+        "President": 1,
+        "Key Employee": 2,
+        "Manager": 1,
+        "Owner": 1,
+        "Director": 2
+      },
+      "relationship_status_counts": {
+        "Inactive": 1942,
+        "active": 596
+      },
+      "earliest_date_found": "1997-01-01",
+      "latest_date_found": "2026-12-31",
+      "start_date_present_count": 2151,
+      "termination_date_present_count": 1597,
+      "both_dates_present_count": 1347,
+      "open_ended_count": 941,
+      "missing_start_with_end_count": 250,
+      "blank_professional_license_count": 315,
+      "temp_license_count": 141,
+      "facilities_by_role": {
+        "Administrator": 189,
+        "Director of Nurses": 189,
+        "Medical Director": 188,
+        "President": 1,
+        "Key Employee": 2,
+        "Manager": 1,
+        "Owner": 1,
+        "Director": 2
+      },
+      "multiple_active_same_facility_role_count": 26,
+      "same_person_or_license_overlap_pair_count": 173,
+      "exact_duplicate_row_count": 0,
+      "likely_source_purpose": "Connecticut DPH nursing home leadership/role relationship history by facility license.",
+      "can_support": [
+        "Future Administrator, Director of Nurses, and Medical Director role-period modeling",
+        "Temporal alignment of role periods to PBJ staffing quarters after CCN crosswalk validation",
+        "Leadership transition and temporary-license screening metrics after cleaning"
+      ],
+      "cannot_support": [
+        "Causation between staffing outcomes and leadership changes",
+        "CMS CCN matching without a DPH license to CCN crosswalk",
+        "Management-company facility assignment periods by itself"
+      ]
+    },
+    {
+      "source_key": "ct_dph_nursing_home_administrator_registry",
+      "local_path": "C:/Users/Dan/Downloads/Nursing_Home_Administrator.csv",
+      "sha256": "b54febbd13a6785a6c72a7bebd290b7afc6acb2f3ad4b4c7940fc191af44677c",
+      "row_count": 581,
+      "columns": [
+        "LICENSE NO.",
+        "FIRST NAME",
+        "LAST NAME",
+        "ADDRESS1",
+        "ADDRESS2",
+        "CITY",
+        "STATE",
+        "ZIP",
+        "COUNTY",
+        "STATUS",
+        "REASON",
+        "ISSUE DATE",
+        "EXPIRATION DATE",
+        ""
+      ],
+      "identifier_fields": [
+        "LICENSE NO."
+      ],
+      "date_fields": [
+        "ISSUE DATE",
+        "EXPIRATION DATE"
+      ],
+      "status_fields": [
+        "STATUS",
+        "REASON"
+      ],
+      "person_or_company_fields": [
+        "FIRST NAME",
+        "LAST NAME"
+      ],
+      "facility_fields": [],
+      "unique_normalized_license_count": 581,
+      "status_counts": {
+        "ACTIVE": 581
+      },
+      "issue_date_min": "1901-01-01",
+      "issue_date_max": "2026-04-14",
+      "expiration_date_min": "2026-02-28",
+      "expiration_date_max": "2029-07-31",
+      "history_administrator_rows": 874,
+      "history_administrator_rows_with_normalized_non_temp_license": 760,
+      "history_administrator_license_match_count": 663,
+      "history_administrator_license_nonmatch_count": 97,
+      "exact_duplicate_row_count": 0,
+      "likely_source_purpose": "Current Connecticut DPH nursing home administrator license registry.",
+      "can_support": [
+        "Validation of current or still-active administrator license numbers",
+        "License-status context for administrator role records"
+      ],
+      "cannot_support": [
+        "Complete historical administrator validation",
+        "Facility role history by itself",
+        "Invalidating management-history rows that are not present in this current registry snapshot"
+      ]
+    },
+    {
+      "source_key": "ct_dph_nursing_home_management_company_registry",
+      "local_path": "C:/Users/Dan/Downloads/Nursing_Home_Management_Company.csv",
+      "duplicate_local_path": "C:/Users/Dan/Downloads/Nursing_Home_Management_Company (1).csv",
+      "sha256": "6f61d7cae7543800878a4afcb3b7daf43bab1caa983790d6f75b6d740d46b85e",
+      "duplicate_sha256": "6f61d7cae7543800878a4afcb3b7daf43bab1caa983790d6f75b6d740d46b85e",
+      "duplicate_file_byte_identical": true,
+      "canonical_file_recommendation": "C:/Users/Dan/Downloads/Nursing_Home_Management_Company.csv",
+      "row_count": 24,
+      "columns": [
+        "FACILITY NAME",
+        "ADDRESS",
+        "CITY",
+        "STATE",
+        "ZIP",
+        "LICENSE NO.",
+        "STATUS",
+        "EFFECTIVE DATE",
+        "EXPIRATION DATE",
+        ""
+      ],
+      "identifier_fields": [
+        "LICENSE NO."
+      ],
+      "date_fields": [
+        "EFFECTIVE DATE",
+        "EXPIRATION DATE"
+      ],
+      "status_fields": [
+        "STATUS"
+      ],
+      "person_or_company_fields": [
+        "FACILITY NAME"
+      ],
+      "facility_fields": [],
+      "unique_normalized_license_count": 24,
+      "status_counts": {
+        "ACTIVE": 24
+      },
+      "state_counts": {
+        "CT": 14,
+        "MA": 4,
+        "NJ": 4,
+        "IA": 1,
+        "NC": 1
+      },
+      "effective_date_min": "2009-09-24",
+      "effective_date_max": "2025-11-26",
+      "expiration_date_min": "2026-09-30",
+      "expiration_date_max": "2029-06-30",
+      "has_explicit_facility_assignment_fields": false,
+      "exact_duplicate_row_count": 0,
+      "likely_source_purpose": "Connecticut DPH licensed nursing home management company registry.",
+      "can_support": [
+        "Registry of licensed management companies",
+        "Company license status and effective/expiration context"
+      ],
+      "cannot_support": [
+        "Which nursing homes each company managed",
+        "Management-company assignment periods",
+        "A management-company explorer without another assignment source"
+      ]
+    }
+  ],
+  "facility_master_to_management_history_join": {
+    "join_key": "Connecticut DPH nursing home license number",
+    "raw_format_examples": {
+      "facility_master": "2525",
+      "management_history": "CCNH.000119C"
+    },
+    "normalization_rule": "Extract digits from the raw license value and remove leading zeroes. Preserve the raw value and store the normalized value as state_facility_license_id.",
+    "facility_master_license_count": 189,
+    "management_history_license_count": 189,
+    "matched_license_count": 189,
+    "facility_master_unmatched_count": 0,
+    "management_history_unmatched_count": 0,
+    "name_difference_examples": [
+      {
+        "state_facility_license_id": "1023",
+        "facility_master_name": "CONNECTICUT BAPTIST HOMES, INC.",
+        "management_history_name": "CONNECTICUT BAPTIST HOME INC."
+      },
+      {
+        "state_facility_license_id": "1057",
+        "facility_master_name": "WEST HARTFORD HEALTH AND REHABILITATION CENTER",
+        "management_history_name": "WEST HARTFORD HEALTH & REHABILITATION CENTER"
+      },
+      {
+        "state_facility_license_id": "2024",
+        "facility_master_name": "GLADEVIEW HEALTH CARE CTR",
+        "management_history_name": "GLADEVIEW HEALTH CARE CENTER"
+      }
+    ]
+  },
+  "crosswalk_strategy_summary": {
+    "primary_state_key": "state_facility_license_id",
+    "future_cms_key": "cms_ccn",
+    "recommended_match_inputs": [
+      "state_facility_license_id",
+      "dph_facility_name",
+      "dph_address",
+      "dph_city",
+      "dph_zip_code",
+      "cms_provider_name",
+      "cms_address",
+      "cms_city",
+      "cms_zip_code",
+      "CT DSS provider identifiers if available"
+    ],
+    "manual_review_required": true,
+    "runtime_crosswalk_created": false
+  }
+}

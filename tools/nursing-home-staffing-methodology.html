@@ -7,6 +7,7 @@
   <meta name="description" content="Plain-language methodology for the Connecticut Nursing Home Staffing Transparency Tools, including data sources, formulas, caveats, and audit notes." />
   <link rel="stylesheet" href="../Assets/shared.css">
   <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
+  <script defer src="../Assets/nursing-home-source-currency.js"></script>
   <style>
     .methodology-hero {
       min-height:auto;
@@ -96,6 +97,10 @@
       </div>
     </section>
 
+    <section class="wrap content-section" aria-label="Current source currency">
+      <div data-source-currency data-source-json="../data/nursing_home_staffing_ct.json" data-methodology-href="nursing-home-staffing-methodology.html"></div>
+    </section>
+
     <section class="wrap content-section" aria-labelledby="sources-title">
       <div class="panel">
         <div class="sectionHeader">
@@ -172,6 +177,20 @@
       </div>
     </section>
 
+    <section class="wrap content-section" aria-labelledby="history-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Historical PBJ Staffing</div>
+            <h2 id="history-title">Longitudinal staffing history</h2>
+          </div>
+        </div>
+        <p>Historical CMS Payroll-Based Journal staffing is available in the public tools from Q4 2017 through Q4 2025. These rows are PBJ-derived staffing measures for each facility-quarter, including total nurse HPRD, RN HPRD, LPN/LVN HPRD, nurse aide HPRD, contract staff percentage, CT direct-care HPRD estimate, and CT licensed HPRD estimate.</p>
+        <p>Current contextual CMS snapshots remain separate. Provider Information, Care Compare ratings, CMS case-mix comparison points, and Quality Measures Claims are April 2026 context. SNF Enrollment affiliation context is from May 2026. Those current values are not historical quarter-specific values for each PBJ staffing quarter.</p>
+        <div class="notice">Facility names, facility participation, and available quarters can change over time. Missing PBJ facility-quarter rows are not treated as zero staffing.</div>
+      </div>
+    </section>
+
     <section class="wrap content-section" aria-labelledby="ct-comparison-title">
       <div class="panel">
         <div class="sectionHeader">
@@ -182,6 +201,7 @@
         </div>
         <p><a href="https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/">Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t</a>, set nursing-staff requirements in subsection (m). The current 3.00 total nursing and nurse's aide direct-care hours per resident day and 0.84 licensed nursing hours per resident day comparison points used here are described in Connecticut Department of Public Health's <a href="https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf">amended 3.0 staffing implementation notice</a>.</p>
         <p>The Connecticut materials also explain that director of nursing and assistant director of nursing hours are not counted toward those minimum requirements. The staffing tools create PBJ-derived screening estimates to compare against those points.</p>
+        <p>For historical PBJ display, the tools use a conservative public-applicability rule: Q4 2017 through Q4 2021 are shown without applicable CT threshold status labels; 2022 quarters are not assigned public CT status under the current method; Q1 2023 is transitional/partial-period context; Q2 2023 through Q4 2025 may show PBJ-derived CT screening-status labels with caveats.</p>
         <ul class="formula-list">
           <li><strong>CT direct-care total HPRD estimate:</strong> RN + LPN + CNA + nurse aide trainee + medication aide hours divided by resident days.</li>
           <li><strong>CT licensed HPRD estimate:</strong> RN + LPN hours divided by resident days.</li>
@@ -288,7 +308,7 @@
           </div>
         </div>
         <p>The project includes an independent calculation audit script. The audit re-read raw PBJ files, recomputed the staffing metrics, and compared the results to the current generated export.</p>
-        <p>The current calculation audit found zero unexplained discrepancies. Technical users can review the audit report at <code>docs/nursing_home_staffing_calculation_audit.md</code> and the audit script at <code>scripts/audit_nursing_home_staffing_ct.py</code>.</p>
+        <p>The current calculation audit found zero unexplained discrepancies. The production historical PBJ staffing file was also independently audited against raw PBJ source files. Technical users can review <code>docs/nursing_home_staffing_calculation_audit.md</code>, <code>docs/nursing_home_staffing_history_calculation_audit.md</code>, <code>scripts/audit_nursing_home_staffing_ct.py</code>, and <code>scripts/audit_nursing_home_staffing_history_ct.py</code>.</p>
       </div>
     </section>
 

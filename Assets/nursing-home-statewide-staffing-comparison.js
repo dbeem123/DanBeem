@@ -346,11 +346,13 @@
     if (!output) return;
     const latestLabel = dataset?.reporting_period?.label || getLatestQuarter();
     const generatedAt = dataset?.generated_at || dataset?.generated_on || dataset?.meta?.generated_on || '';
+    const sourceCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
     const summary = getFilteredSummary(rows);
     output.innerHTML = `
       <h1>Connecticut Nursing Home Statewide Staffing Comparison</h1>
       <p><strong>Latest quarter:</strong> ${escapeHtml(latestLabel || 'Unavailable')}</p>
       <p><strong>Generated export timestamp:</strong> ${escapeHtml(generatedAt || 'Not listed in export')}</p>
+      ${sourceCurrency ? `<p><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</p>` : ''}
       <div class="notice">
         <strong>Active filters:</strong>
         <ul>

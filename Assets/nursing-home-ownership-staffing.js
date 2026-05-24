@@ -498,6 +498,7 @@
     const persistentAggregate = calculateGroupPersistentPattern(group);
     const generatedAt = dataset?.generated_at || 'Not available';
     const reportingLabel = dataset?.reporting_period?.label || latest?.label || 'latest quarter';
+    const sourceCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
     output.innerHTML = `
       <h1>Connecticut Affiliation Staffing Summary</h1>
       <div class="summary-grid">
@@ -507,6 +508,7 @@
         <div class="summary-cell"><dl><dt>CT facilities linked</dt><dd>${formatCount(group.facilities.length)}</dd></dl></div>
         <div class="summary-cell"><dl><dt>Export generated</dt><dd>${escapeHtml(generatedAt)}</dd></dl></div>
       </div>
+      ${sourceCurrency ? `<div class="notice"><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</div>` : ''}
       ${latestAggregate ? `
         <div class="notice">
           Latest-quarter screening snapshot: average total nurse HPRD ${formatHprd(latestAggregate.averageTotalHprd)};
@@ -592,9 +594,9 @@
               <th scope="col">Affiliation entity</th>
               <th scope="col">CT facilities</th>
               <th scope="col">Facility-quarter rows</th>
-              <th scope="col">5-quarter avg CT direct-care HPRD estimate</th>
-              <th scope="col">Below CT 3.00 direct-care comparison point across five quarters</th>
-              <th scope="col">5-quarter avg contract staff %</th>
+              <th scope="col">Available-quarter avg CT direct-care HPRD estimate</th>
+              <th scope="col">Below CT 3.00 direct-care comparison point across available quarters</th>
+              <th scope="col">Available-quarter avg contract staff %</th>
               <th scope="col">Action</th>
             </tr>
           </thead>
@@ -776,6 +778,7 @@
     const output = document.getElementById('affiliation-persistence-print-context');
     if (!output) return;
     const config = persistentPatternConfig[affiliationPatternMode] || persistentPatternConfig['ct-total'];
+    const sourceCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
     output.innerHTML = `
       <h1>Connecticut Affiliation Persistent Staffing Screening Patterns</h1>
       <div class="summary-grid">
@@ -785,6 +788,7 @@
         <div class="summary-cell"><dl><dt>Data window</dt><dd>${escapeHtml(getQuarterWindowText())}</dd></dl></div>
         <div class="summary-cell"><dl><dt>Export generated</dt><dd>${escapeHtml(dataset?.generated_at || 'Not available')}</dd></dl></div>
       </div>
+      ${sourceCurrency ? `<div class="notice"><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</div>` : ''}
       <div class="notice">
         This view groups Connecticut facilities by CMS SNF Enrollment affiliation entity. Persistent patterns reflect repeated screening indicators across available PBJ quarters. Missing PBJ rows and benchmark-ineligible quarters are not treated as adverse findings. CT comparison patterns are PBJ-derived screening estimates, not formal DPH compliance findings. Shared affiliation does not prove identical day-to-day operations, management decisions, or legal responsibility across facilities. Use the linked persistent-pattern and facility-level tools for drill-down review.
       </div>
@@ -1285,8 +1289,8 @@
       setReportActionStatus('Select a valid affiliation entity before downloading.');
       return;
     }
-    downloadTextFile(getSelectedCsvFilename(group, 'five-quarter-trend'), buildTrendCsv(group));
-    setReportActionStatus('Five-quarter trend CSV prepared for the selected affiliation entity.');
+    downloadTextFile(getSelectedCsvFilename(group, 'affiliation-trend'), buildTrendCsv(group));
+    setReportActionStatus('Affiliation staffing trend CSV prepared for the selected affiliation entity.');
   }
 
   function updateSortButtons(activeKey) {

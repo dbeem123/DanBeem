@@ -95,6 +95,9 @@
   ];
 
   let dataset = null;
+  let historyDataset = null;
+  let historyRowsByCcn = new Map();
+  let historyWindowMode = 'latest8';
   /** @type {FacilityViewModel[]} */
   let facilities = [];
   let filteredFacilities = [];
@@ -103,6 +106,14 @@
     '../data/nursing_home_staffing_mock.json'
   ];
   const caseMixBenchmarkExplanation = 'How this comparison is built: the case-mix comparison point value itself is not calculated by this tool. It is imported directly from the CMS Nursing Home Provider Information field "Case-Mix Total Nurse Staffing Hours per Resident per Day." CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. This tool compares the facility\'s PBJ-reported actual total nurse HPRD against that CMS-published comparison point. The actual-minus-benchmark difference and percent-of-benchmark text are calculated by this tool. The comparison point is contextual, not actual staffing, not a legal minimum, and not proof of poor care, neglect, harm, or violations.';
+
+  function quarterSort(a, b) {
+    const ay = Number(String(a || '').slice(0, 4));
+    const aq = Number(String(a || '').slice(-1));
+    const by = Number(String(b || '').slice(0, 4));
+    const bq = Number(String(b || '').slice(-1));
+    return ay === by ? aq - bq : ay - by;
+  }
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -542,6 +553,7 @@
     const benchmark = current?.benchmarks || {};
     const generatedAt = dataset?.generated_at || 'Not available';
     const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
+    const sourceCurrency = global.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
     const benchmarkComparison = getBenchmarkComparison(metrics.total_nurse_hprd, benchmark.case_mix_total_nurse_hprd);
     const ratingRows = renderCareCompareRatingItems(facility);
     const qualityMeasures = Array.isArray(facility.qualityMeasuresClaims) ? facility.qualityMeasuresClaims : [];
@@ -555,6 +567,7 @@
         <div><dt>Latest quarter</dt><dd>${escapeHtml(quarterLabel)}</dd></div>
         <div><dt>Export generated</dt><dd>${escapeHtml(generatedAt)}</dd></div>
       </dl>
+      ${sourceCurrency ? `<div class="notice"><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</div>` : ''}
       ${ratingRows ? `
         <h2>CMS Care Compare Rating Context</h2>
         <div class="care-compare-rating-grid print-rating-grid">${ratingRows}</div>
@@ -1039,7 +1052,156 @@
       return;
     }
     downloadTextFile(getFacilityTrendCsvFilename(facility), buildFacilityTrendCsv(facility));
-    setReportActionStatus('Facility five-quarter trend CSV prepared for the selected facility.');
+    setReportActionStatus('Facility staffing trend CSV prepared for the selected facility.');
+  }
+
+  async function loadHistoricalPbjIfNeeded() {
+    if (historyDataset) return historyDataset;
+    const status = document.getElementById('historical-pbj-status');
+    if (status) status.textContent = 'Loading historical PBJ staffing...';
+    historyDataset = await global.DanBeemData.loadJson('../data/nursing_home_staffing_history_ct.json');
+    historyRowsByCcn = new Map();
+    (historyDataset.facility_quarterly_staffing_history || []).forEach(row => {
+      if (!row.ccn) return;
+      if (!historyRowsByCcn.has(row.ccn)) historyRowsByCcn.set(row.ccn, []);
+      historyRowsByCcn.get(row.ccn).push(row);
+    });
+    historyRowsByCcn.forEach(rows => rows.sort((a, b) => quarterSort(a.quarter, b.quarter)));
+    ['history-latest-8', 'history-full', 'download-history-csv'].forEach(id => {
+      const button = document.getElementById(id);
+      if (button) button.disabled = false;
+    });
+    if (status) status.textContent = 'Historical PBJ staffing loaded.';
+    return historyDataset;
+  }
+
+  function getHistoricalRowsForFacility(facility) {
+    const rows = historyRowsByCcn.get(facility?.ccn) || [];
+    return historyWindowMode === 'full' ? rows : rows.slice(Math.max(0, rows.length - 8));
+  }
+
+  function getCtHistoryStatus(row) {
+    if (!row) return 'No PBJ row available';
+    const value = row.metrics?.ct_direct_care_total_hprd_estimate;
+    if (row.ct_comparison_period_status === 'applicable_full_quarter') {
+      if (row.ct_total_direct_care_below_comparison_point === true) return `Below CT 3.00 (${formatHprd(value)})`;
+      if (row.ct_total_direct_care_below_comparison_point === false) return `At/above CT 3.00 (${formatHprd(value)})`;
+      return 'CT status unavailable';
+    }
+    if (row.ct_comparison_period_status === 'transitional_partial_period') return `Partial-period context (${formatHprd(value)} reference)`;
+    if (row.ct_comparison_period_status === 'unresolved_no_public_status') return `No public CT status (${formatHprd(value)} reference)`;
+    return `Reference only (${formatHprd(value)} vs 3.00)`;
+  }
+
+  function renderHistoricalPbj(facility) {
+    const output = document.getElementById('historical-pbj-output');
+    const status = document.getElementById('historical-pbj-status');
+    if (!output || !facility || !historyDataset) return;
+    const allRows = historyRowsByCcn.get(facility.ccn) || [];
+    const rows = getHistoricalRowsForFacility(facility);
+    if (!allRows.length) {
+      output.innerHTML = '<div class="notice warning">No historical PBJ rows are available for this facility in the historical export.</div>';
+      if (status) status.textContent = 'No historical PBJ rows are available for the selected facility.';
+      return;
+    }
+    const displayRows = rows.map(row => ({ quarter: row.quarter, quarter_label: row.quarter_label, sourceRow: row }));
+    output.innerHTML = `
+      <div class="notice">
+        Showing ${escapeHtml(rows[0].quarter)} through ${escapeHtml(rows[rows.length - 1].quarter)} for ${escapeHtml(facility.name)}. ${historyWindowMode === 'full' ? 'Full PBJ history is displayed.' : 'Latest 8 available quarters are displayed.'}
+      </div>
+      ${renderTrendChart(displayRows)}
+      <div class="table-scroll" tabindex="0" aria-label="Historical PBJ staffing table">
+        <table>
+          <caption>Historical PBJ staffing for ${escapeHtml(facility.name)}</caption>
+          <thead>
+            <tr>
+              <th scope="col">Quarter</th>
+              <th scope="col">Total nurse HPRD</th>
+              <th scope="col">RN HPRD</th>
+              <th scope="col">CT direct-care HPRD</th>
+              <th scope="col">CT status display</th>
+              <th scope="col">Contract staff %</th>
+              <th scope="col">Resident days</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(row => `
+              <tr>
+                <th scope="row">${escapeHtml(row.quarter_label || row.quarter)}</th>
+                <td>${formatHprd(row.metrics?.total_nurse_hprd)}</td>
+                <td>${formatHprd(row.metrics?.rn_hprd)}</td>
+                <td>${formatHprd(row.metrics?.ct_direct_care_total_hprd_estimate)}</td>
+                <td>${escapeHtml(getCtHistoryStatus(row))}</td>
+                <td>${formatPercent(row.metrics?.contract_staff_pct)}</td>
+                <td>${formatCount(row.resident_days)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    if (status) status.textContent = `Historical PBJ rows available for ${allRows.length} quarter${allRows.length === 1 ? '' : 's'}.`;
+  }
+
+  function buildHistoricalPbjCsv(facility) {
+    const headers = [
+      'facility_name',
+      'ccn',
+      'quarter',
+      'resident_days',
+      'average_resident_census',
+      'total_nurse_hprd',
+      'rn_hprd',
+      'lpn_lvn_hprd',
+      'nurse_aide_hprd',
+      'contract_staff_pct',
+      'ct_direct_care_total_hprd_estimate',
+      'ct_direct_care_licensed_nurse_hprd_estimate',
+      'ct_comparison_period_status',
+      'ct_comparison_applicable_for_public_status',
+      'ct_total_direct_care_below_comparison_point',
+      'ct_licensed_below_comparison_point'
+    ];
+    const rows = (historyRowsByCcn.get(facility.ccn) || []).map(row => ({
+      facility_name: facility.name,
+      ccn: facility.ccn,
+      quarter: row.quarter,
+      resident_days: csvOneDecimal(row.resident_days),
+      average_resident_census: csvOneDecimal(row.average_resident_census),
+      total_nurse_hprd: csvNumber(row.metrics?.total_nurse_hprd),
+      rn_hprd: csvNumber(row.metrics?.rn_hprd),
+      lpn_lvn_hprd: csvNumber(row.metrics?.lpn_lvn_hprd),
+      nurse_aide_hprd: csvNumber(row.metrics?.nurse_aide_hprd),
+      contract_staff_pct: csvOneDecimal(row.metrics?.contract_staff_pct),
+      ct_direct_care_total_hprd_estimate: csvNumber(row.metrics?.ct_direct_care_total_hprd_estimate),
+      ct_direct_care_licensed_nurse_hprd_estimate: csvNumber(row.metrics?.ct_direct_care_licensed_nurse_hprd_estimate),
+      ct_comparison_period_status: row.ct_comparison_period_status,
+      ct_comparison_applicable_for_public_status: row.ct_comparison_applicable_for_public_status,
+      ct_total_direct_care_below_comparison_point: row.ct_total_direct_care_below_comparison_point,
+      ct_licensed_below_comparison_point: row.ct_licensed_below_comparison_point
+    }));
+    return buildCsv(headers, rows);
+  }
+
+  async function handleLoadHistoricalPbj() {
+    const facility = getSelectedFacility();
+    if (!facility) return;
+    try {
+      await loadHistoricalPbjIfNeeded();
+      renderHistoricalPbj(facility);
+    } catch (err) {
+      const status = document.getElementById('historical-pbj-status');
+      if (status) status.textContent = `Historical PBJ data could not be loaded: ${err.message}`;
+    }
+  }
+
+  function handleDownloadHistoricalPbjCsv() {
+    const facility = getSelectedFacility();
+    if (!facility || !historyDataset) return;
+    downloadTextFile(
+      `facility-historical-pbj-${safeFilenamePart(facility.name)}-${safeFilenamePart(facility.ccn)}.csv`,
+      buildHistoricalPbjCsv(facility)
+    );
   }
 
   function renderInterpretation(facility) {
@@ -1111,6 +1273,7 @@
     renderQualityMeasuresClaimsSection(facility);
     renderMetricCards(facility);
     renderQuarterlyTable(facility);
+    if (historyDataset) renderHistoricalPbj(facility);
     renderInterpretation(facility);
   }
 
@@ -1132,6 +1295,16 @@
       select.addEventListener('change', event => renderFacility(event.target.value));
       document.getElementById('print-facility-summary')?.addEventListener('click', handlePrintFacilitySummary);
       document.getElementById('download-facility-trend-csv')?.addEventListener('click', handleDownloadFacilityTrendCsv);
+      document.getElementById('load-historical-pbj')?.addEventListener('click', handleLoadHistoricalPbj);
+      document.getElementById('history-latest-8')?.addEventListener('click', () => {
+        historyWindowMode = 'latest8';
+        renderHistoricalPbj(getSelectedFacility());
+      });
+      document.getElementById('history-full')?.addEventListener('click', () => {
+        historyWindowMode = 'full';
+        renderHistoricalPbj(getSelectedFacility());
+      });
+      document.getElementById('download-history-csv')?.addEventListener('click', handleDownloadHistoricalPbjCsv);
       renderFacility(initialFacilityId);
       renderSourceStatus();
     } catch (err) {

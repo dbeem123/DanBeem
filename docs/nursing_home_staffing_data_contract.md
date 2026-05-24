@@ -8,6 +8,8 @@ The browser should load a small normalized JSON export only. Full CMS PBJ, Provi
 
 `data/nursing_home_staffing_mock.json`
 
+Long-history architecture note: Phase 10C.6 keeps the current dashboard export separate from the PBJ-only historical staffing export, `data/nursing_home_staffing_history_ct.json`. The current public export may continue to include recent PBJ rows and current contextual CMS snapshots. The historical file avoids repeating current Provider Information, ratings, Quality Measures Claims, case-mix, or SNF Enrollment affiliation data as though those values were quarter-specific historical facts.
+
 ## Top-Level Shape
 
 ```json
@@ -95,6 +97,8 @@ Use `null` when a value is unavailable. Do not omit expected metric keys when th
 
 The Connecticut direct-care fields are PBJ-derived screening estimates for comparison to Connecticut Title 19 Sec. 19-13-D8t nursing-staff requirements and Connecticut Department of Public Health's amended 3.0 staffing implementation notice. They are not formal Department of Public Health compliance determinations.
 
+For a future long-history public export, CT comparison display fields should account for effective-date applicability. Phase 10C.5 recommends treating pre-2023 periods as reference-only for the current 3.00/0.84 comparison points unless legal/DPH review confirms otherwise, treating 2023Q1 as partial-period context, and beginning full-quarter applicable display no earlier than 2023Q2.
+
 The below-comparison flags are currently based on the rounded two-decimal CT estimate fields stored in the export. This matches the UI display, but may differ from an unrounded comparison for values extremely close to 3.00 or 0.84.
 
 ## Benchmarks
@@ -112,6 +116,8 @@ The below-comparison flags are currently based on the rounded two-decimal CT est
 Use `null` and `false` when no benchmark is included in the static export.
 
 When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file comparison points. The value for `case_mix_total_nurse_hprd` is copied from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; it is not calculated by this project. CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. The browser may compare PBJ-reported actual total nurse HPRD in `metrics.total_nurse_hprd` against that CMS-published comparison point; actual-minus-benchmark and percent-of-benchmark display text are project-calculated comparisons. These fields are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots for each PBJ quarter.
+
+For long-history publication, do not calculate or display historic case-mix persistence unless historically aligned Provider Information snapshots are available or the UI clearly labels the comparison as a current-snapshot reference.
 
 ## Interpretation Blocks
 

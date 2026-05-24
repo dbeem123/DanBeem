@@ -63,7 +63,7 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 - normalized local mock facility data from `data/nursing_home_staffing_mock.json`
 - screening-level metrics, quarterly comparison table, and ombudsman follow-up questions
 - includes Connecticut direct-care staffing comparison fields as PBJ-derived screening estimates, not compliance determinations
-- supports selected-facility print summaries and five-quarter facility trend CSV exports
+- supports selected-facility print summaries and facility staffing trend CSV exports
 
 ### Statewide Staffing Comparison
 
@@ -91,7 +91,7 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 - public-facing affiliation-level staffing view
 - groups Connecticut facilities by CMS SNF Enrollment affiliation entity when available
 - derives group averages and facility comparisons from `data/nursing_home_staffing_ct.json`
-- includes a latest-quarter statewide affiliation comparison table and compact five-quarter affiliation pattern summary
+- includes a latest-quarter statewide affiliation comparison table and compact multi-quarter affiliation pattern summary
 - includes affiliation-level persistent staffing pattern summaries using the same modes and thresholds as the Persistent Staffing Patterns tool, with current-view CSV export, print reporting, and a copyable briefing summary
 - summarizes latest-quarter CT direct-care HPRD estimates at the affiliation level
 - frames ownership and staffing patterns as screening context, not legal or care-quality findings
@@ -109,6 +109,14 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 - uses the transparent color Connecticut LTCOP horizontal logo in `Assets/branding/ct-ltcop-logo-horizontal-color.png` as the primary masthead identity
 - applies the branded white masthead, navy navigation, light dashboard background, analytic cards, screening badges, accessible star cards, disclosures, compact tables, and print-safe styling across the staffing-suite homepage, all five staffing tools, and the public methodology page
 - keeps the design separate from CT.gov global masthead conventions while linking to the official CT LTCOP website
+
+### Phase 10A-10B Source Roadmap And Currency
+
+- adds source-acquisition, historical-backfill, refresh-checklist, download-homework, and workflow roadmap documents under `docs/`
+- adds `data/nursing_home_source_manifest.json` as a planning/maintenance manifest; it is not a runtime dependency for the public staffing tools
+- adds a compact public data-currency display using `data/nursing_home_staffing_ct.json` metadata so users can see the latest PBJ quarter, contextual CMS snapshot months, and export generation date
+- adds `source_data/README.md` with intake/archive guidance for future CMS and Connecticut DSS downloads without moving current integrated files
+- Phase 10C historical PBJ testing validated and published a separate PBJ-only historical staffing file, `data/nursing_home_staffing_history_ct.json`, covering 2017Q4-2025Q4. The current/context file remains separate so April/May 2026 CMS ratings, quality measures, case-mix, and affiliation context are not represented as historical quarter-specific values.
 
 ### Responsible Use & Sources
 
@@ -203,7 +211,7 @@ The ownership view computes statewide affiliation comparisons in the browser fro
 
 The two nursing home explorers support reciprocal drill-down links. Facility pages can link to an affiliation staffing summary with `?affiliation=` using the CMS SNF Enrollment affiliation entity ID when available, and ownership/affiliation rows link back to facility staffing details with `?ccn=`.
 
-The ownership view also provides selected-affiliation reporting actions: a print-friendly affiliation staffing summary, a latest-quarter facility comparison CSV, and a five-quarter trend CSV. The affiliation persistence section adds current-view CSV export, focused print reporting, and a copyable briefing summary based on the selected pattern mode, threshold, data window, and current table sort. These outputs are generated client-side from the same static JSON and carry the same screening-use caveats.
+The ownership view also provides selected-affiliation reporting actions: a print-friendly affiliation staffing summary, a latest-quarter facility comparison CSV, and an affiliation trend CSV. The affiliation persistence section adds current-view CSV export, focused print reporting, and a copyable briefing summary based on the selected pattern mode, threshold, data window, and current table sort. These outputs are generated client-side from the same static JSON and carry the same screening-use caveats.
 
 ## Deployment Notes
 

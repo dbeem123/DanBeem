@@ -179,6 +179,34 @@ body.ltcop-dashboard .notice.error {
   border-color: #f4b7bd;
 }
 
+.source-currency-card {
+  margin-top: 12px;
+  padding: 12px 14px;
+  color: var(--ltcop-navy-deep);
+  background: #f8fbff;
+  border: 1px solid var(--ltcop-border);
+  border-left: 4px solid var(--ltcop-navy);
+  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(16,39,68,0.05);
+}
+
+.source-currency-card p {
+  margin: 4px 0 0;
+}
+
+.source-currency-kicker {
+  color: var(--ltcop-navy);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.source-currency-link {
+  font-size: 13px;
+  font-weight: 800;
+}
+
 body.ltcop-dashboard input,
 body.ltcop-dashboard select {
   color: var(--ltcop-navy-deep);
