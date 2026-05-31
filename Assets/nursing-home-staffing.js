@@ -694,6 +694,41 @@
     `;
   }
 
+  function renderScreeningIndicatorSection(facility) {
+    const output = document.getElementById('screening-indicator-detail');
+    if (!output) return;
+    const current = facility.currentRow;
+    const metrics = current?.metrics || {};
+    const quarter = current?.quarter_label || dataset?.reporting_period?.label || 'the selected quarter';
+    const availableRows = facility.historyRows.filter(row => row.metrics);
+    const repeatedBelowCount = availableRows.filter(row => row.metrics?.ct_total_direct_care_below_minimum_estimate === true).length;
+    const contractContext = isUsableNumber(metrics.contract_staff_pct)
+      ? `${formatPercent(metrics.contract_staff_pct)} contract staff in ${quarter}.`
+      : `Contract staffing percentage is not available for ${quarter}.`;
+    const repeatedContext = availableRows.length
+      ? `${repeatedBelowCount} of ${availableRows.length} current-export quarter${availableRows.length === 1 ? '' : 's'} below the CT 3.00 direct-care comparison point.`
+      : 'No current-export quarter sequence is available for repeated-pattern context.';
+
+    output.innerHTML = `
+      ${renderScreeningIndicators(facility)}
+      <div class="grid interpretation-grid">
+        <article class="card">
+          <h3>Latest quarter context</h3>
+          <p>${escapeHtml(quarter)} PBJ data are summarized in the current staffing snapshot below.</p>
+        </article>
+        <article class="card">
+          <h3>Current-export pattern context</h3>
+          <p>${escapeHtml(repeatedContext)} Missing PBJ rows are unavailable context, not zero staffing.</p>
+        </article>
+        <article class="card">
+          <h3>Contract staffing context</h3>
+          <p>${escapeHtml(contractContext)} Contract use can support follow-up questions about continuity, but it does not prove care quality by itself.</p>
+        </article>
+      </div>
+      <div class="notice">These indicators use existing current/context export fields only. CT comparison indicators are PBJ-derived screening estimates and are not formal DPH compliance findings.</div>
+    `;
+  }
+
   function renderOwnershipContext(facility) {
     const rows = [];
     const affiliationUrl = getAffiliationExplorerUrl(facility);
@@ -1306,6 +1341,7 @@
     updateReportActions(facility);
     renderPrintReportContext(facility);
     renderFacilitySummary(facility);
+    renderScreeningIndicatorSection(facility);
     renderCareCompareRatingSection(facility);
     renderOwnershipContextSection(facility);
     renderQualityMeasuresClaimsSection(facility);
