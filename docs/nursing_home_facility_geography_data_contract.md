@@ -49,6 +49,8 @@ The record universe is the union of:
 
 County values are current CMS Provider Information context from April 2026. They are not historical quarter-specific geography. If a facility moved, closed, reopened, changed CCN, or changed address over time, this crosswalk should not be treated as proof of historical county assignment for every PBJ quarter.
 
+Unmatched current facilities must keep `county_name` and `provider_ssa_county_code` null until manual review or a validated source resolves them. City, ZIP, address, and facility name may support review, but they are not sufficient to assign county in this contract.
+
 ## 6. Manual Review Flags
 
 Records require manual review when they are not found in April 2026 Provider Information. Current unmatched records may reflect facilities in the runtime staffing export that do not appear in the current Provider Information snapshot. Historical-only unmatched records may represent closed, changed, or otherwise non-current facility context.
@@ -58,6 +60,8 @@ Unresolved records should not be assigned a county by guesswork.
 ## 7. Current Snapshot Versus Historical PBJ Separation
 
 Historical PBJ rows remain PBJ-only. This crosswalk can be joined by CCN later for analysis or display, but geography should not be embedded into the historical PBJ file unless a later phase explicitly approves a historically appropriate enrichment method.
+
+County joins for historical analysis are current-context joins unless historical geography snapshots are later added. Any historical PBJ display using this crosswalk must disclose that county is from current April 2026 Provider Information where available, not a validated historical county for each PBJ quarter.
 
 ## 8. Why Regional Fields Remain Null
 
@@ -72,6 +76,7 @@ LTCOP region, AAA region, and DPH region require validated source mappings. The 
 - define refresh rules when Provider Information snapshots change;
 - document how county filters should handle records with missing county;
 - confirm public wording that county is current Provider Information context.
+- require transparent handling of unknown county records in UI summaries, including an `Unknown / needs review` option or equivalent count/disclosure.
 
 ## 10. Future Refresh Process
 
