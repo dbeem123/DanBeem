@@ -448,6 +448,19 @@
     };
   }
 
+  function isCtCrossingMode() {
+    return currentMode === 'crossed-below' || currentMode === 'crossed-above';
+  }
+
+  function selectedEndpointsSupportCtCrossing() {
+    return changeRecords.some(record => record.endpointsApplicable);
+  }
+
+  function getCtCrossingApplicabilityNote() {
+    if (!isCtCrossingMode() || selectedEndpointsSupportCtCrossing()) return '';
+    return ' CT crossing analysis is only available when both selected endpoint quarters fall within full-quarter CT comparison applicability. Numeric HPRD change modes remain available for this window.';
+  }
+
   function buildChangeBriefingSummary(rows) {
     if (!rows.length) return '';
     const config = modeConfig[currentMode] || modeConfig['direct-decline'];
@@ -501,7 +514,7 @@
     const config = modeConfig[currentMode] || modeConfig['direct-decline'];
     const summary = getCurrentSummary(rows);
     document.getElementById('mode-note').textContent =
-      `${config.label}. These figures summarize the rows currently shown after search and filters.`;
+      `${config.label}. These figures summarize the rows currently shown after search and filters.${getCtCrossingApplicabilityNote()}`;
     output.innerHTML = `
       <div class="summary-card">
         <span class="summary-label">Rows shown</span>
@@ -533,7 +546,7 @@
     document.getElementById('print-change-view').disabled = !rows.length;
     document.getElementById('copy-change-summary').disabled = !rows.length;
     if (!rows.length) {
-      output.innerHTML = '<div class="notice warning">No facilities match the selected change mode and filters.</div>';
+      output.innerHTML = `<div class="notice warning">No facilities match the selected change mode and filters.${escapeHtml(getCtCrossingApplicabilityNote())}</div>`;
       return;
     }
     output.innerHTML = `

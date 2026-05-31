@@ -304,7 +304,7 @@
   function renderSourceStatus() {
     const status = document.getElementById('load-status');
     const sourceNames = (dataset?.sources || []).map(source => source.source_dataset_name).filter(Boolean);
-    status.textContent = `${sourceNames.join(' + ') || 'Connecticut staffing data'} loaded. Current data window: ${getQuarterWindowText()}.`;
+    status.textContent = `${sourceNames.join(' + ') || 'Connecticut staffing data'} loaded. ${getAnalysisWindowText()}.`;
     status.className = 'notice';
   }
 
@@ -313,10 +313,16 @@
     return `${selectedQuarters[0]} through ${selectedQuarters[selectedQuarters.length - 1]}`;
   }
 
+  function getAnalysisWindowText() {
+    if (!selectedQuarters.length) return 'Current analysis window: not available';
+    const quarterWord = selectedQuarters.length === 1 ? 'quarter' : 'quarters';
+    return `Current analysis window: ${getQuarterWindowText()}, ${formatCount(selectedQuarters.length)} ${quarterWord}`;
+  }
+
   function renderSummaryCards() {
     const counts = buildSummaryCounts();
     document.getElementById('summary-note').textContent =
-      `The current export covers ${getQuarterWindowText()}. Missing facility-quarter rows are not counted as adverse findings.`;
+      `${getAnalysisWindowText()}. Missing facility-quarter rows are not counted as adverse findings. CT comparison modes count only quarters where public CT comparison status is applicable.`;
     document.getElementById('summary-cards').innerHTML = `
       <div class="summary-card">
         <span class="summary-label">CT facilities in export</span>
@@ -778,7 +784,11 @@
     ].forEach(id => {
       document.getElementById(id).addEventListener('input', applyFilters);
       document.getElementById(id).addEventListener('change', () => {
-        if (id === 'pattern-window') normalizeDataset(dataset);
+        if (id === 'pattern-window') {
+          normalizeDataset(dataset);
+          renderSourceStatus();
+          renderSummaryCards();
+        }
         applyFilters();
       });
     });
