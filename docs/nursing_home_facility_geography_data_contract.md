@@ -1,12 +1,12 @@
 # Nursing Home Facility Geography Data Contract
 
-Phase 11C.2 non-runtime data contract. This contract describes `data/nursing_home_facility_geography_ct.json`, a candidate Connecticut nursing home geography crosswalk for future county and regional comparison features.
+Phase 11C.2 data contract, updated after Phase 11C.4. This contract describes `data/nursing_home_facility_geography_ct.json`, a Connecticut nursing home geography crosswalk used narrowly by the Statewide Comparison county filter and available for future county and regional comparison features.
 
 ## 1. Purpose
 
-The geography crosswalk provides one CCN-keyed place to store current county context and future region assignments for Connecticut nursing home facilities. It is intended to support later county filters, facility-to-county comparison cards, and region-aware analysis after validation.
+The geography crosswalk provides one CCN-keyed place to store current county context and future region assignments for Connecticut nursing home facilities. It currently supports the Statewide Comparison county filter and may later support facility-to-county comparison cards and region-aware analysis after additional validation.
 
-This file is not currently used by public runtime tools.
+This file is a runtime dependency only for the Statewide Comparison county filter. It is not used by staffing formulas, generated staffing exports, historical PBJ calculations, CT applicability logic, or other public tools.
 
 ## 2. Source Files
 

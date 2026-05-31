@@ -1,6 +1,6 @@
 # County Filter Readiness Decision
 
-Phase 11C.3 decision document. This is planning documentation only. It does not add a public county filter, change runtime behavior, modify staffing formulas, or alter generated staffing/PBJ files.
+Phase 11C.3 decision document, updated after Phase 11C.4 implementation. It documents the readiness basis and the narrow county-filter implementation path. It does not modify staffing formulas or generated staffing/PBJ files.
 
 ## Purpose
 
@@ -65,6 +65,8 @@ The crosswalk is not yet ready for more interpretive county summaries because:
 - County values are current Provider Information context, not historical geography.
 - Historical-only unmatched records need classification before historical county pattern analysis.
 
+Phase 11C.4 implementation note: the first public implementation added a county filter to Statewide Comparison only, using this readiness decision. County summary cards, county ranking tables, facility county/state comparison cards, and historical county pattern analysis remain deferred.
+
 ## Recommended First Implementation
 
 Recommended first public implementation: **Option A, add a county filter to Statewide Comparison only.**
@@ -120,7 +122,7 @@ Suggested methodology disclosure:
 ## Out-of-Scope Items
 
 - No public UI change in Phase 11C.3.
-- No county filters added yet.
+- County filter implementation is limited to Statewide Comparison as of Phase 11C.4.
 - No facility county/state comparison cards yet.
 - No county summary cards, county rankings, or county persistent-pattern summaries yet.
 - No changes to `data/nursing_home_staffing_ct.json`.
@@ -148,4 +150,3 @@ Before implementing the county filter:
 13. Confirm historical PBJ data remains PBJ-only.
 14. Run `node --check` on any changed JS.
 15. Run route and browser smoke checks for Statewide Comparison.
-

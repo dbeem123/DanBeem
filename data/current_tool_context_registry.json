@@ -145,12 +145,13 @@
       "data_dependencies": [
         "data/nursing_home_staffing_history_ct.json (PBJ-only historical runtime data)",
         "data/nursing_home_staffing_ct.json (current/context facility metadata for filters only)",
+        "data/nursing_home_facility_geography_ct.json (current Provider Information county crosswalk for county filter only)",
         "Assets/ltcop-dashboard.css",
         "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/shared.js",
         "Assets/nursing-home-statewide-staffing-comparison.js"
       ],
-      "notes": "Phase 9B Connecticut LTCOP-branded latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, filtered-view summary analytics, print-friendly current-view reporting, copyable current-view briefing summaries, facility drill-down links, and filtered CSV export. The branded layout preserves all screening caveats and does not make legal, compliance, harm, neglect, or care-quality findings."
+      "notes": "Phase 11C.4 Connecticut LTCOP-branded latest-quarter facility comparison view. Uses the generated Connecticut staffing export to show one row per facility with latest-quarter PBJ data, CT direct-care screening estimates, case-mix context, affiliation context, and a county filter joined from the candidate geography crosswalk by CCN. County is current April 2026 CMS Provider Information context, not historical quarter-specific geography; unmatched facilities are shown as Unknown / needs review. Includes filtered-view summary analytics, print-friendly current-view reporting, copyable current-view briefing summaries, facility drill-down links, and filtered CSV export. The branded layout preserves all screening caveats and does not make legal, compliance, harm, neglect, or care-quality findings."
     },
     {
       "path": "tools/nursing-home-staffing-change-over-time.html",

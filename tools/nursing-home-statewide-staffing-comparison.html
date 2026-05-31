@@ -74,7 +74,7 @@
     }
     .filter-grid {
       display:grid;
-      grid-template-columns:repeat(4,minmax(0,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
       gap:12px;
       align-items:end;
     }
@@ -157,6 +157,16 @@
     .status-pill.warning {
       border-color:rgba(251,191,36,0.28);
       background:rgba(251,191,36,0.08);
+    }
+    .county-note {
+      margin-top:12px;
+    }
+    .county-secondary {
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.35;
     }
     .briefing-summary-fallback {
       margin:10px 0 0;
@@ -355,6 +365,12 @@
             </select>
           </div>
           <div>
+            <label for="county-filter">County</label>
+            <select id="county-filter">
+              <option value="all">All counties / all facilities</option>
+            </select>
+          </div>
+          <div>
             <label for="contract-filter">Contract staff</label>
             <select id="contract-filter">
               <option value="all">All contract levels</option>
@@ -363,6 +379,7 @@
             </select>
           </div>
         </div>
+        <p id="county-filter-disclosure" class="notice county-note">County is based on the April 2026 CMS Provider Information snapshot. Facilities without a Provider Information county match appear under Unknown / needs review. County is current context and not historical quarter-specific geography.</p>
         <div class="sort-row" role="group" aria-label="Statewide facility table sort">
           <button class="sort-button" type="button" data-sort-key="name" aria-pressed="false">Facility name</button>
           <button class="sort-button" type="button" data-sort-key="ct_direct_care_total" aria-pressed="true">CT direct-care HPRD</button>

@@ -5,8 +5,13 @@
     '../data/nursing_home_staffing_ct.json',
     '../data/nursing_home_staffing_mock.json'
   ];
+  const geographyPath = '../data/nursing_home_facility_geography_ct.json';
+  const unknownCountyValue = '__unknown__';
+  const countyDisclosure = 'County is based on the April 2026 CMS Provider Information snapshot. Facilities without a Provider Information county match appear under Unknown / needs review. County is current context and not historical quarter-specific geography.';
 
   let dataset = null;
+  let geographyDataset = null;
+  let geographyByCcn = new Map();
   let facilities = [];
   let latestRows = [];
   let filteredRows = [];
@@ -74,20 +79,66 @@
     return reportingQuarter || quarters[quarters.length - 1] || '';
   }
 
+  function normalizeGeography(data) {
+    geographyDataset = data;
+    geographyByCcn = new Map();
+    (data?.facilities || []).forEach(row => {
+      if (!row.ccn) return;
+      geographyByCcn.set(String(row.ccn).trim(), row);
+    });
+  }
+
+  function getGeographyForCcn(ccn) {
+    return geographyByCcn.get(String(ccn || '').trim()) || null;
+  }
+
+  function getCountyName(row) {
+    return String(row?.geography?.county_name || '').trim();
+  }
+
+  function hasUnknownCounty(row) {
+    return !getCountyName(row);
+  }
+
+  function getCountyDisplay(row) {
+    return getCountyName(row) || 'County unavailable';
+  }
+
+  function getGeographyMatchStatus(row) {
+    const geography = row?.geography;
+    if (!geography) return 'not_in_geography_crosswalk';
+    if (getCountyName(row)) return 'county_matched_provider_info';
+    if (geography.manual_review_required) return 'county_unavailable_needs_review';
+    return 'county_unavailable';
+  }
+
   function normalizeDataset(data) {
     dataset = data;
     const facilityRows = Array.isArray(data.facilities) ? data.facilities : [];
     const quarterlyRows = Array.isArray(data.facility_quarterly_staffing) ? data.facility_quarterly_staffing : [];
     const facilityByCcn = new Map(facilityRows.map(facility => [facility.ccn, facility]));
     const latestQuarter = getLatestQuarter();
+    const latestRowByCcn = new Map(quarterlyRows
+      .filter(row => row.quarter === latestQuarter && row.ccn)
+      .map(row => [row.ccn, row]));
 
     facilities = facilityRows;
-    latestRows = quarterlyRows
-      .filter(row => row.quarter === latestQuarter)
-      .map(row => ({
-        ...row,
-        facility: facilityByCcn.get(row.ccn) || {}
-      }))
+    latestRows = facilityRows
+      .map(facility => {
+        const row = latestRowByCcn.get(facility.ccn);
+        return {
+          ...(row || {
+            ccn: facility.ccn,
+            quarter: latestQuarter,
+            quarter_label: dataset?.reporting_period?.label || latestQuarter,
+            metrics: {},
+            benchmarks: {},
+            missing_latest_pbj_row: true
+          }),
+          facility: facilityByCcn.get(facility.ccn) || facility,
+          geography: getGeographyForCcn(facility.ccn)
+        };
+      })
       .filter(row => row.ccn);
     filteredRows = latestRows.slice();
   }
@@ -116,14 +167,15 @@
     const output = document.getElementById('summary-cards');
     const latestQuarter = getLatestQuarter();
     const latestLabel = dataset?.reporting_period?.label || latestQuarter;
-    const missingLatest = Math.max(0, facilities.length - latestRows.length);
+    const missingLatest = latestRows.filter(row => row.missing_latest_pbj_row).length;
     const belowTotal = latestRows.filter(row => getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === true).length;
     const belowLicensed = latestRows.filter(row => getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === true).length;
     const benchmarkAvailable = latestRows.filter(row => row.benchmarks?.case_mix_benchmark_available === true).length;
     const withAffiliation = latestRows.filter(row => String(row.facility?.affiliation_entity_name || '').trim()).length;
+    const unknownCounty = latestRows.filter(hasUnknownCounty).length;
 
     document.getElementById('summary-note').textContent =
-      `${latestLabel} comparison includes ${formatCount(latestRows.length)} facilities with latest-quarter PBJ rows. ${formatCount(missingLatest)} Connecticut facilities in the directory do not have a ${latestLabel} PBJ row and are excluded from the table.`;
+      `${latestLabel} comparison includes ${formatCount(latestRows.length)} current runtime facilities. ${formatCount(missingLatest)} current facilities do not have a ${latestLabel} PBJ row and are shown with unavailable staffing metrics rather than being treated as zero.`;
 
     output.innerHTML = `
       <div class="summary-card">
@@ -151,6 +203,11 @@
         <strong>${formatCount(withAffiliation)}</strong>
         <div class="microcopy">CMS SNF Enrollment match</div>
       </div>
+      <div class="summary-card">
+        <span class="summary-label">County unavailable</span>
+        <strong>${formatCount(unknownCounty)}</strong>
+        <div class="microcopy">Needs review in geography crosswalk</div>
+      </div>
     `;
   }
 
@@ -162,8 +219,10 @@
   function populateSelectOptions() {
     const affiliationSelect = document.getElementById('affiliation-filter');
     const ownershipSelect = document.getElementById('ownership-filter');
+    const countySelect = document.getElementById('county-filter');
     const affiliations = uniqueSorted(latestRows.map(row => row.facility?.affiliation_entity_name));
     const ownershipTypes = uniqueSorted(latestRows.map(row => row.facility?.ownership_type));
+    const counties = uniqueSorted(latestRows.map(getCountyName));
 
     affiliationSelect.innerHTML = '<option value="all">All affiliations</option>' + affiliations
       .map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
@@ -171,6 +230,9 @@
     ownershipSelect.innerHTML = '<option value="all">All ownership types</option>' + ownershipTypes
       .map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
       .join('');
+    countySelect.innerHTML = '<option value="all">All counties / all facilities</option>' + counties
+      .map(value => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`)
+      .join('') + `<option value="${unknownCountyValue}">Unknown / needs review</option>`;
   }
 
   function getSortValue(row) {
@@ -283,6 +345,7 @@
     const ctFilter = document.getElementById('ct-filter').value;
     const affiliationFilter = document.getElementById('affiliation-filter').value;
     const ownershipFilter = document.getElementById('ownership-filter').value;
+    const countyFilter = document.getElementById('county-filter').value;
     const contractFilter = document.getElementById('contract-filter').value;
     const filters = [];
 
@@ -290,6 +353,7 @@
     if (ctFilter !== 'all') filters.push(`CT filter: ${getSelectedOptionText('ct-filter')}`);
     if (affiliationFilter !== 'all') filters.push(`Affiliation: ${affiliationFilter}`);
     if (ownershipFilter !== 'all') filters.push(`Ownership type: ${ownershipFilter}`);
+    if (countyFilter !== 'all') filters.push(`County: ${getSelectedOptionText('county-filter')}`);
     if (contractFilter !== 'all') filters.push(`Contract filter: ${getSelectedOptionText('contract-filter')}`);
 
     return filters.length ? filters : ['No filters active; full latest-quarter comparison shown.'];
@@ -353,6 +417,7 @@
       <p><strong>Latest quarter:</strong> ${escapeHtml(latestLabel || 'Unavailable')}</p>
       <p><strong>Generated export timestamp:</strong> ${escapeHtml(generatedAt || 'Not listed in export')}</p>
       ${sourceCurrency ? `<p><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</p>` : ''}
+      <p><strong>County context:</strong> ${escapeHtml(countyDisclosure)}</p>
       <div class="notice">
         <strong>Active filters:</strong>
         <ul>
@@ -374,16 +439,20 @@
     const ctFilter = document.getElementById('ct-filter').value;
     const affiliationFilter = document.getElementById('affiliation-filter').value;
     const ownershipFilter = document.getElementById('ownership-filter').value;
+    const countyFilter = document.getElementById('county-filter').value;
     const contractFilter = document.getElementById('contract-filter').value;
 
     filteredRows = latestRows.filter(row => {
       const facility = row.facility || {};
-      const haystack = `${facility.provider_name || ''} ${row.ccn || ''} ${facility.city || ''} ${facility.affiliation_entity_name || ''}`.toLowerCase();
+      const countyName = getCountyName(row);
+      const haystack = `${facility.provider_name || ''} ${row.ccn || ''} ${facility.city || ''} ${facility.affiliation_entity_name || ''} ${countyName}`.toLowerCase();
       if (query && !haystack.includes(query)) return false;
       if (ctFilter === 'below-total' && getMetric(row, 'ct_total_direct_care_below_minimum_estimate') !== true) return false;
       if (ctFilter === 'below-licensed' && getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') !== true) return false;
       if (affiliationFilter !== 'all' && String(facility.affiliation_entity_name || '') !== affiliationFilter) return false;
       if (ownershipFilter !== 'all' && String(facility.ownership_type || '') !== ownershipFilter) return false;
+      if (countyFilter === unknownCountyValue && !hasUnknownCounty(row)) return false;
+      if (countyFilter !== 'all' && countyFilter !== unknownCountyValue && countyName !== countyFilter) return false;
       if (contractFilter !== 'all') {
         const threshold = Number(contractFilter);
         if (!isUsableNumber(getMetric(row, 'contract_staff_pct')) || Number(getMetric(row, 'contract_staff_pct')) < threshold) return false;
@@ -406,7 +475,7 @@
     hideStatewideSummaryFallback();
     renderFilteredSummary(rows);
     renderPrintReportContext(rows);
-    document.getElementById('filter-status').textContent = `${formatCount(rows.length)} of ${formatCount(latestRows.length)} latest-quarter facility rows shown.`;
+    document.getElementById('filter-status').textContent = `${formatCount(rows.length)} of ${formatCount(latestRows.length)} current facility rows shown.`;
     document.getElementById('download-statewide-csv').disabled = !rows.length;
     document.getElementById('print-current-view').disabled = !rows.length;
     document.getElementById('copy-statewide-summary').disabled = !rows.length;
@@ -423,6 +492,7 @@
               <th scope="col">Facility</th>
               <th scope="col">CCN</th>
               <th scope="col">City</th>
+              <th scope="col">County</th>
               <th scope="col">Affiliation entity</th>
               <th scope="col">Total nurse HPRD</th>
               <th scope="col">RN HPRD</th>
@@ -444,6 +514,10 @@
                   <th scope="row">${escapeHtml(facility.provider_name || row.ccn || 'Unnamed facility')}</th>
                   <td>${escapeHtml(row.ccn || '-')}</td>
                   <td>${escapeHtml(facility.city || '-')}</td>
+                  <td>
+                    ${escapeHtml(getCountyDisplay(row))}
+                    ${hasUnknownCounty(row) ? '<span class="county-secondary">Needs review</span>' : ''}
+                  </td>
                   <td>${escapeHtml(facility.affiliation_entity_name || 'Not listed')}</td>
                   <td>${formatCompactHprd(getMetric(row, 'total_nurse_hprd'))}</td>
                   <td>${formatCompactHprd(getMetric(row, 'rn_hprd'))}</td>
@@ -496,6 +570,9 @@
       'facility_name',
       'ccn',
       'city',
+      'county_name',
+      'geography_match_status',
+      'manual_review_required',
       'affiliation_entity',
       'ownership_type',
       'total_nurse_hprd',
@@ -515,6 +592,9 @@
         facility_name: facility.provider_name || '',
         ccn: row.ccn || '',
         city: facility.city || '',
+        county_name: getCountyName(row),
+        geography_match_status: getGeographyMatchStatus(row),
+        manual_review_required: Boolean(row.geography?.manual_review_required),
         affiliation_entity: facility.affiliation_entity_name || '',
         ownership_type: facility.ownership_type || '',
         total_nurse_hprd: csvNumber(getMetric(row, 'total_nurse_hprd')),
@@ -546,6 +626,7 @@
     document.getElementById('ct-filter').value = 'all';
     document.getElementById('affiliation-filter').value = 'all';
     document.getElementById('ownership-filter').value = 'all';
+    document.getElementById('county-filter').value = 'all';
     document.getElementById('contract-filter').value = 'all';
     sortKey = 'ct_direct_care_total';
     updateSortButtons();
@@ -584,13 +665,17 @@
     const status = document.getElementById('load-status');
     try {
       if (!global.DanBeemData) throw new Error('Shared data loader did not load.');
-      const data = await loadFirstAvailableJson(dataPaths);
+      const [data, geographyData] = await Promise.all([
+        loadFirstAvailableJson(dataPaths),
+        global.DanBeemData.loadJson(geographyPath)
+      ]);
+      normalizeGeography(geographyData);
       normalizeDataset(data);
       if (!latestRows.length) throw new Error('No latest-quarter facility rows were found in the staffing export.');
       renderSourceStatus();
       renderSummaryCards();
       populateSelectOptions();
-      ['facility-search', 'ct-filter', 'affiliation-filter', 'ownership-filter', 'contract-filter'].forEach(id => {
+      ['facility-search', 'ct-filter', 'affiliation-filter', 'ownership-filter', 'county-filter', 'contract-filter'].forEach(id => {
         document.getElementById(id).addEventListener('input', applyFilters);
         document.getElementById(id).addEventListener('change', applyFilters);
       });
