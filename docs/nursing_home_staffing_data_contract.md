@@ -4,9 +4,21 @@ This document defines the static JSON contract used by `tools/nursing-home-staff
 
 The browser should load a small normalized JSON export only. Full CMS PBJ, Provider Information, and benchmark files should be processed offline in a later ETL step, then emitted into this contract.
 
-## File
+## Files
+
+Production current/context file:
+
+`data/nursing_home_staffing_ct.json`
+
+Production PBJ-only longitudinal history file:
+
+`data/nursing_home_staffing_history_ct.json`
+
+Development fallback:
 
 `data/nursing_home_staffing_mock.json`
+
+Long-history architecture note: Phase 10C.6 keeps the current dashboard export separate from the PBJ-only historical staffing export, `data/nursing_home_staffing_history_ct.json`. The current public export may continue to include recent PBJ rows and current contextual CMS snapshots. The historical file avoids repeating current Provider Information, ratings, Quality Measures Claims, case-mix, or SNF Enrollment affiliation data as though those values were quarter-specific historical facts.
 
 ## Top-Level Shape
 
@@ -95,6 +107,8 @@ Use `null` when a value is unavailable. Do not omit expected metric keys when th
 
 The Connecticut direct-care fields are PBJ-derived screening estimates for comparison to Connecticut Title 19 Sec. 19-13-D8t nursing-staff requirements and Connecticut Department of Public Health's amended 3.0 staffing implementation notice. They are not formal Department of Public Health compliance determinations.
 
+The PBJ-only historical file, `data/nursing_home_staffing_history_ct.json`, stores public CT comparison display fields separately from the current/context export. Historical rows use `ct_comparison_period_status` and `ct_comparison_applicable_for_public_status`: 2017Q4 through 2021Q4 are `reference_only` / false; 2022Q1 through 2022Q4 are `unresolved_no_public_status` / false; 2023Q1 is `transitional_partial_period` / false; and 2023Q2 through 2025Q4 are `applicable_full_quarter` / true. The public below-comparison flags are populated only for `applicable_full_quarter` rows.
+
 The below-comparison flags are currently based on the rounded two-decimal CT estimate fields stored in the export. This matches the UI display, but may differ from an unrounded comparison for values extremely close to 3.00 or 0.84.
 
 ## Benchmarks
@@ -111,7 +125,9 @@ The below-comparison flags are currently based on the rounded two-decimal CT est
 
 Use `null` and `false` when no benchmark is included in the static export.
 
-When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file comparison points. The value for `case_mix_total_nurse_hprd` is copied from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; it is not calculated by this project. CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. The browser may compare PBJ-reported actual total nurse HPRD in `metrics.total_nurse_hprd` against that CMS-published comparison point; actual-minus-benchmark and percent-of-benchmark display text are project-calculated comparisons. These fields are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are reused across historical PBJ quarter rows where provider matches exist; they are not verified quarter-specific benchmark snapshots for each PBJ quarter.
+When populated from CMS Nursing Home Provider Information, case-mix fields are contextual provider-file comparison points. The value for `case_mix_total_nurse_hprd` is copied from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`; it is not calculated by this project. CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. The browser may compare PBJ-reported actual total nurse HPRD in `metrics.total_nurse_hprd` against that CMS-published comparison point; actual-minus-benchmark and percent-of-benchmark display text are project-calculated comparisons. These fields are not replacements for the PBJ-calculated actual staffing HPRD values in `metrics`. They belong to the current/context export and must not be treated as historical-quarter attributes in the PBJ-only longitudinal history file.
+
+For long-history publication, do not calculate or display historic case-mix persistence unless historically aligned Provider Information snapshots are available. The current Provider Information snapshot is not a valid substitute for historical case-mix persistence.
 
 ## Interpretation Blocks
 
@@ -478,7 +494,7 @@ When Provider Information is supplied and matched by CCN, the generator copies C
 
 These fields are contextual comparison values from the Provider Information file. The benchmark value itself is imported from CMS, not calculated by this project. The `case_mix_total_nurse_hprd` value comes from the CMS Nursing Home Provider Information field `Case-Mix Total Nurse Staffing Hours per Resident per Day`, which CMS describes as case-mix total nurse staffing HPRD combining Aide + LPN + RN. Project UI code may calculate differences or percent-of-benchmark text by comparing PBJ actual total nurse HPRD against the CMS-published case-mix total nurse HPRD comparison point. They should be displayed as comparison context only. They are not PBJ actual staffing calculations, not legal minimums, and not proof of sufficiency, compliance, harm, neglect, poor care, or noncompliance.
 
-Reporting-period caveat: the Provider Information file may not align exactly with the PBJ quarter being aggregated. In the current generated Connecticut export, April 2026 Provider Information case-mix benchmark values are copied into each historical PBJ facility-quarter row where the CCN matches. These are contextual comparison points only, not verified quarter-specific benchmark snapshots for each PBJ quarter. The export records the benchmark source as Provider Information and includes a source note so the UI and future analysis do not imply precise quarter alignment unless a later ETL step verifies it.
+Reporting-period caveat: the Provider Information file may not align exactly with the PBJ quarter being aggregated. In the current/context Connecticut export, April 2026 Provider Information case-mix benchmark values are contextual comparison points only, not verified quarter-specific benchmark snapshots for each PBJ quarter. The PBJ-only historical export excludes these benchmark fields, so historical persistent-pattern analysis must not calculate case-mix persistence unless a later ETL step acquires historically aligned Provider Information snapshots.
 
 ### CMS Care Compare Rating Context
 

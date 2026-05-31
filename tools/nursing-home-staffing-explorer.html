@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../Assets/shared.css">
   <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-source-currency.js"></script>
   <script defer src="../Assets/nursing-home-staffing.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
@@ -281,6 +282,16 @@
       opacity:0.52;
       cursor:not-allowed;
     }
+    button.history-window-button[aria-pressed="true"] {
+      background:var(--ltcop-navy);
+      border-color:var(--ltcop-navy);
+      color:#fff;
+    }
+    button.history-window-button[aria-pressed="false"]:not(:disabled) {
+      background:#fff;
+      border-color:#9fb3cb;
+      color:var(--ltcop-navy);
+    }
     .print-only { display:none; }
     .interpretation-grid {
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -416,11 +427,15 @@
       <div class="panel">
         <div class="pill">Facility-level screening dashboard</div>
         <h1 id="staffing-title">Connecticut Nursing Home Staffing Explorer</h1>
-        <p>Explore CMS staffing, rating, quality-measure, and affiliation context for Connecticut nursing homes. The explorer summarizes facility-level hours per resident day, Connecticut direct-care comparison estimates, Care Compare context, and five-quarter trends in plain language.</p>
+        <p>Explore CMS staffing, rating, quality-measure, and affiliation context for Connecticut nursing homes. The explorer summarizes facility-level hours per resident day, Connecticut direct-care comparison estimates, Care Compare context, and quarterly staffing trends in plain language.</p>
         <div id="dataset-summary" class="dataset-facts" aria-label="Dataset summary"></div>
         <div class="notice warning">PBJ staffing is quarterly screening data. It can help frame follow-up questions, but it does not by itself prove poor care, harm, neglect, regulatory violations, or what happened for a particular resident on a particular shift. Pair it with resident experience, complaint patterns, survey findings, and other evidence.</div>
         <div id="staffing-load-status" class="notice" role="status">Loading normalized staffing explorer data...</div>
       </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="../data/nursing_home_staffing_ct.json" data-methodology-href="nursing-home-staffing-methodology.html"></div>
     </section>
 
     <section class="wrap" aria-labelledby="search-title">
@@ -454,7 +469,7 @@
         <div id="print-report-context" class="print-only"></div>
         <div class="report-actions" aria-label="Selected facility report actions">
           <button id="print-facility-summary" class="action-button" type="button" disabled>Print facility staffing summary</button>
-          <button id="download-facility-trend-csv" class="action-button" type="button" disabled>Download facility five-quarter trend CSV</button>
+          <button id="download-facility-trend-csv" class="action-button" type="button" disabled>Download facility staffing trend CSV</button>
           <a class="btn secondary" href="nursing-home-staffing-methodology.html">About the data / methodology</a>
           <span id="report-action-status" class="subtle" role="status">Select a facility to use reporting actions.</span>
         </div>
@@ -499,7 +514,7 @@
 
     <section class="wrap" aria-labelledby="exhibit-title">
       <details class="ltcop-disclosure" open>
-        <summary id="exhibit-title">Five-quarter trend</summary>
+        <summary id="exhibit-title">Quarterly staffing trend</summary>
         <div class="ltcop-disclosure-body">
         <div class="sectionHeader">
           <div>
@@ -509,6 +524,29 @@
           </div>
         </div>
         <div id="quarterly-exhibit" aria-live="polite"></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="wrap" aria-labelledby="historical-pbj-title">
+      <details class="ltcop-disclosure">
+        <summary id="historical-pbj-title">Historical PBJ staffing</summary>
+        <div class="ltcop-disclosure-body">
+          <div class="sectionHeader">
+            <div>
+              <div class="eyebrow">Longitudinal PBJ History</div>
+              <h2>Historical PBJ staffing review</h2>
+              <p class="subtle">Historical staffing rows are loaded only when requested. Current CMS ratings, quality measures, affiliation information, and case-mix comparison points are current snapshot context and are not values for each historical PBJ quarter.</p>
+            </div>
+          </div>
+          <div class="report-actions" aria-label="Historical PBJ staffing actions">
+            <button id="load-historical-pbj" class="action-button" type="button">View historical PBJ staffing</button>
+            <button id="history-latest-8" class="action-button secondary history-window-button" type="button" aria-pressed="true" disabled>Latest 8 quarters</button>
+            <button id="history-full" class="action-button secondary history-window-button" type="button" aria-pressed="false" disabled>Full PBJ history</button>
+            <button id="download-history-csv" class="action-button secondary" type="button" disabled>Download historical PBJ CSV</button>
+            <span id="historical-pbj-status" class="subtle" role="status">Historical PBJ data has not been loaded.</span>
+          </div>
+          <div id="historical-pbj-output" aria-live="polite"></div>
         </div>
       </details>
     </section>

@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview: Long-History PBJ Staffing</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="../../Assets/ltcop-dashboard.css" />
+  <script defer src="../../Assets/nursing-home-long-history-preview.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <header class="ltcop-masthead">
+    <div class="ltcop-masthead-inner">
+      <a class="ltcop-logo-link" href="../../index.html">
+        <img src="../../Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program" />
+      </a>
+      <div>
+        <p class="ltcop-kicker">Development Preview</p>
+        <p class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero ltcop-dashboard-hero">
+      <div>
+        <p class="eyebrow">Preview only - not public navigation</p>
+        <h1>Long-History PBJ Staffing Preview</h1>
+        <p>This page tests a PBJ-only historical data shape and proposed long-history interaction patterns. It does not change the current public staffing tools.</p>
+        <div class="notice warning">Historical CT comparison statuses are shown only where the draft effective-date rule treats the quarter as applicable. Earlier quarters are labeled as reference-only or partial-period context pending final legal/methodology review.</div>
+        <div id="preview-status" class="notice" role="status">Loading long-history preview data...</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Facility History Review</h2>
+      <label for="facility-search">Search facility by name, city, or CCN</label>
+      <input id="facility-search" type="search" placeholder="Start typing a facility name or CCN" autocomplete="off" />
+      <label for="facility-select">Matching facility</label>
+      <select id="facility-select"></select>
+      <div class="report-actions" aria-label="Facility history display controls">
+        <button id="show-latest-8" type="button" class="action-button">Latest 8 quarters</button>
+        <button id="show-full-history" type="button" class="action-button secondary">Full PBJ history</button>
+      </div>
+      <p id="facility-window-note" class="subtle"></p>
+      <div id="facility-history-summary" class="metric-grid"></div>
+      <div id="facility-history-chart" class="trend-chart" aria-label="PBJ direct-care staffing trend preview"></div>
+      <div class="table-scroll" tabindex="0" aria-label="Facility PBJ history table">
+        <table>
+          <thead>
+            <tr>
+              <th>Quarter</th>
+              <th>CT direct-care HPRD</th>
+              <th>CT threshold display</th>
+              <th>RN HPRD</th>
+              <th>Total nurse HPRD</th>
+              <th>Contract staff %</th>
+            </tr>
+          </thead>
+          <tbody id="facility-history-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Change Over Time Window Preview</h2>
+      <div class="filters-grid">
+        <label>Preset window
+          <select id="change-preset">
+            <option value="latest4">Latest 4 quarters</option>
+            <option value="latest8" selected>Latest 8 quarters</option>
+            <option value="full">Full available PBJ history</option>
+            <option value="custom">Custom selected quarters</option>
+          </select>
+        </label>
+        <label>Start quarter
+          <select id="change-start"></select>
+        </label>
+        <label>End quarter
+          <select id="change-end"></select>
+        </label>
+      </div>
+      <p id="change-summary" class="notice"></p>
+      <div class="table-scroll" tabindex="0" aria-label="Change over time preview table">
+        <table>
+          <thead>
+            <tr>
+              <th>Facility</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>CT direct-care HPRD change</th>
+            </tr>
+          </thead>
+          <tbody id="change-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Persistent Pattern Window Preview</h2>
+      <div class="filters-grid">
+        <label>Analysis window
+          <select id="pattern-window">
+            <option value="latest4">Latest 4 quarters</option>
+            <option value="latest8" selected>Latest 8 quarters</option>
+            <option value="full">Full available PBJ history</option>
+          </select>
+        </label>
+        <label>Pattern
+          <select id="pattern-mode">
+            <option value="belowTotal">Below CT 3.00 direct-care point where applicable</option>
+            <option value="belowLicensed">Below CT 0.84 licensed point where applicable</option>
+            <option value="contract10">Contract staffing at or above 10%</option>
+            <option value="contract20">Contract staffing at or above 20%</option>
+          </select>
+        </label>
+        <label>Minimum matching quarters
+          <input id="pattern-min-count" type="number" min="1" value="2" />
+        </label>
+        <label>Minimum share of eligible quarters
+          <input id="pattern-min-share" type="number" min="0" max="100" step="5" value="50" />
+        </label>
+      </div>
+      <p id="pattern-summary" class="notice"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Ownership / Affiliation Framing</h2>
+      <div class="notice">If historical PBJ is later shown in the ownership/affiliation tool, label it as historical PBJ staffing among facilities currently associated with a CMS affiliation entity based on the May 2026 SNF Enrollment snapshot, unless historically aligned affiliation snapshots are added.</div>
+    </section>
+  </main>
+</body>
+</html>

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../Assets/shared.css">
   <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-source-currency.js"></script>
   <script defer src="../Assets/nursing-home-statewide-staffing-comparison.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
@@ -296,9 +297,14 @@
         <div class="pill">Connecticut Statewide Facility View</div>
         <h1 id="statewide-title">Statewide Facility Staffing Comparison</h1>
         <p>This page compares Connecticut nursing homes using the latest available CMS Payroll-Based Journal quarter in the generated staffing export. Use search, sort, and filters to scan facilities, then open the facility explorer for trend and context before drawing conclusions.</p>
+        <p class="subtle">For historical PBJ staffing windows, use the Change Over Time and Persistent Patterns tools. This statewide comparison remains focused on latest-quarter data and current contextual CMS snapshots.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">PBJ staffing data are quarterly screening metrics. Connecticut comparison points are PBJ-derived screening estimates, not formal DPH compliance findings. This table can identify patterns and questions for review, but it does not establish legal conclusions or determine care quality by itself.</div>
       </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="../data/nursing_home_staffing_ct.json" data-methodology-href="nursing-home-staffing-methodology.html"></div>
     </section>
 
     <section class="wrap no-print" aria-labelledby="summary-title">

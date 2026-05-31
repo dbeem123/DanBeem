@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../Assets/shared.css">
   <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-source-currency.js"></script>
   <script defer src="../Assets/nursing-home-ownership-staffing.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
@@ -374,8 +375,13 @@
         <p>This tool groups Connecticut nursing homes by CMS SNF Enrollment affiliation entity where available, then summarizes PBJ staffing patterns across facilities connected to the same affiliation name.</p>
         <div id="dataset-summary" class="dataset-facts" aria-label="Dataset summary"></div>
         <div class="notice warning">Staffing, Provider Information, and SNF Enrollment affiliation fields are screening and context data. A shared affiliation entity does not by itself prove common day-to-day operations, poor care, harm, neglect, or regulatory violations.</div>
+        <div class="notice">Historical PBJ staffing among currently affiliated facilities should be interpreted as current-snapshot grouping based on the May 2026 SNF Enrollment file. This page remains focused on current affiliation context until historical affiliation snapshots are integrated.</div>
         <div id="ownership-load-status" class="notice" role="status">Loading Connecticut staffing and affiliation data...</div>
       </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="../data/nursing_home_staffing_ct.json" data-methodology-href="nursing-home-staffing-methodology.html"></div>
     </section>
 
     <section class="wrap" aria-labelledby="statewide-comparison-title">
@@ -402,7 +408,7 @@
         <div class="sectionHeader" style="margin-top:18px;">
           <div>
             <div class="eyebrow">Five-Quarter Pattern</div>
-            <h3 id="five-quarter-summary-title">Five-Quarter Affiliation Pattern Summary</h3>
+            <h3 id="five-quarter-summary-title">Multi-Quarter Affiliation Pattern Summary</h3>
             <p class="subtle">This compact summary covers facility-quarter patterns from 2024Q4 through 2025Q4. Missing facility-quarter rows are not treated as zero. It is a longitudinal screening summary, not a finding of cause, responsibility, or compliance.</p>
           </div>
         </div>
@@ -505,7 +511,7 @@
         <div class="report-actions" aria-label="Selected affiliation report actions">
           <button id="print-affiliation-summary" class="action-button" type="button" disabled>Print affiliation summary</button>
           <button id="download-facility-comparison-csv" class="action-button" type="button" disabled>Download facility comparison CSV</button>
-          <button id="download-trend-csv" class="action-button" type="button" disabled>Download five-quarter trend CSV</button>
+          <button id="download-trend-csv" class="action-button" type="button" disabled>Download affiliation trend CSV</button>
           <span id="report-action-status" class="subtle" role="status">Select an affiliation entity to use reporting actions.</span>
         </div>
         <div id="affiliation-summary" aria-live="polite"></div>

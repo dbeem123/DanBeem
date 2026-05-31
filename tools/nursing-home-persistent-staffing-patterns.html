@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../Assets/shared.css">
   <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
   <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/nursing-home-source-currency.js"></script>
   <script defer src="../Assets/nursing-home-persistent-staffing-patterns.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
@@ -372,10 +373,15 @@
       <div class="panel">
         <div class="pill">Connecticut Multi-Quarter Pattern View</div>
         <h1 id="patterns-title">Persistent Multi-Quarter Staffing Patterns</h1>
-        <p>This page identifies facilities with staffing screening patterns observed across multiple CMS Payroll-Based Journal quarters in the current Connecticut export. It is designed to surface repeated questions for review, not to label facilities as violations or quality ratings.</p>
+        <p>This page identifies facilities with staffing screening patterns observed across selected CMS Payroll-Based Journal historical windows. It is designed to surface repeated questions for review, not to label facilities as violations or quality ratings.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">Facility quarter histories may be incomplete. Missing PBJ rows are not treated as zero staffing and are not counted as adverse findings. Persistent patterns should be reviewed with resident experience, complaints, survey findings, care records when appropriate, and other context.</div>
       </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="../data/nursing_home_staffing_history_ct.json" data-methodology-href="nursing-home-staffing-methodology.html"></div>
+      <div class="notice">CT comparison modes count only full-quarter periods where public CT comparison status is applicable. Historical case-mix pattern analysis is disabled until historically aligned CMS benchmark snapshots are available.</div>
     </section>
 
     <section class="wrap no-print" aria-labelledby="summary-title">
@@ -397,7 +403,7 @@
           <div>
             <div class="eyebrow">Pattern Mode And Filters</div>
             <h2 id="controls-title">Choose a persistent screening pattern</h2>
-            <p class="subtle">Default threshold is two or more matching quarters. For case-mix patterns, only quarters with CMS benchmark values are eligible.</p>
+            <p class="subtle">Default threshold is two or more matching quarters. Historical case-mix pattern analysis is unavailable until historically aligned CMS benchmark snapshots are acquired.</p>
           </div>
         </div>
         <div class="mode-row" role="group" aria-label="Persistent staffing pattern mode">
@@ -409,6 +415,14 @@
         </div>
         <div class="filter-grid">
           <div>
+            <label for="pattern-window">Historical PBJ window</label>
+            <select id="pattern-window">
+              <option value="latest4">Latest 4 quarters</option>
+              <option value="latest8" selected>Latest 8 quarters</option>
+              <option value="full">Full available PBJ history</option>
+            </select>
+          </div>
+          <div>
             <label for="minimum-quarter-threshold">Minimum quarters meeting pattern</label>
             <select id="minimum-quarter-threshold">
               <option value="2">2+</option>
@@ -416,6 +430,10 @@
               <option value="4">4+</option>
               <option value="5">5</option>
             </select>
+          </div>
+          <div>
+            <label for="minimum-share-threshold">Minimum share of eligible quarters</label>
+            <input id="minimum-share-threshold" type="number" min="0" max="100" step="5" value="0">
           </div>
           <div>
             <label for="facility-search">Search facilities</label>
@@ -437,7 +455,7 @@
             <label for="complete-history-filter">Quarter history</label>
             <select id="complete-history-filter">
               <option value="all">Show all histories</option>
-              <option value="complete">Complete five-quarter history only</option>
+              <option value="complete">Complete available-quarter history only</option>
             </select>
           </div>
         </div>

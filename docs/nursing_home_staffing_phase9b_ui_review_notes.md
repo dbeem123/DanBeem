@@ -22,6 +22,12 @@ Phase 9B applied the Connecticut LTCOP dashboard design system to the remaining 
 
 Browser review found that the shared suite navigation inherited the global dashboard link color, creating dark blue text on the deep navy navigation background. Phase 9B.1 corrected the shared navigation selectors so inactive links use near-white text, hover and keyboard-focus states add visible border/background treatment, and the active page uses white text on a lighter navy pill with a restrained red underline accent.
 
+## Phase 10B Quick Readability Check
+
+Phase 10B rechecked the shared navigation contrast before adding the source-currency strip. The prior dark-blue-on-navy issue was no longer present in `Assets/ltcop-dashboard.css`: inactive navigation links use `#f8fbff` on `#102744`, hover/focus states use visible light borders and background changes, and the active page uses white text on a lighter navy background with a restrained red underline. No additional navigation contrast correction was needed in this phase.
+
+The new data-currency component uses navy text on a very light blue/white panel with a navy left border. Deeper manual QA is still recommended for small-screen wrapping, wide tables, and print previews across browsers.
+
 Remaining manual QA should still include dense-table readability, mobile nav wrapping, and print preview checks across all staffing pages.
 
 ## Deferred Ideas

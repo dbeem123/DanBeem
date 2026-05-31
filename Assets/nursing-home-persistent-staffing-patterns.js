@@ -2,9 +2,9 @@
   'use strict';
 
   const dataPaths = [
-    '../data/nursing_home_staffing_ct.json',
-    '../data/nursing_home_staffing_mock.json'
+    '../data/nursing_home_staffing_history_ct.json'
   ];
+  const contextPaths = ['../data/nursing_home_staffing_ct.json'];
 
   const modeConfig = {
     'ct-total': {
@@ -15,10 +15,10 @@
       latestStatusLabel: 'Latest CT 3.00 status',
       valueKind: 'hprd',
       sortLatest: 'asc',
-      eligible: row => typeof getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === 'boolean',
-      matches: row => getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === true,
+      eligible: row => row?.ct_comparison_applicable_for_public_status === true,
+      matches: row => row?.ct_total_direct_care_below_comparison_point === true,
       latestValue: row => getMetric(row, 'ct_direct_care_total_hprd_estimate'),
-      latestStatus: row => statusFromBoolean(getMetric(row, 'ct_total_direct_care_below_minimum_estimate'), 'Below CT 3.00', 'At/above CT 3.00'),
+      latestStatus: row => row?.ct_comparison_applicable_for_public_status === true ? statusFromBoolean(row.ct_total_direct_care_below_comparison_point, 'Below CT 3.00', 'At/above CT 3.00') : { text: 'Not applicable for public CT status', warning: false },
       patternMatchText: 'below CT 3.00 direct-care comparison point',
       patternNonMatchText: 'at/above CT 3.00 direct-care comparison point'
     },
@@ -30,10 +30,10 @@
       latestStatusLabel: 'Latest CT 0.84 status',
       valueKind: 'hprd',
       sortLatest: 'asc',
-      eligible: row => typeof getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === 'boolean',
-      matches: row => getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === true,
+      eligible: row => row?.ct_comparison_applicable_for_public_status === true,
+      matches: row => row?.ct_licensed_below_comparison_point === true,
       latestValue: row => getMetric(row, 'ct_direct_care_licensed_nurse_hprd_estimate'),
-      latestStatus: row => statusFromBoolean(getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate'), 'Below CT 0.84', 'At/above CT 0.84'),
+      latestStatus: row => row?.ct_comparison_applicable_for_public_status === true ? statusFromBoolean(row.ct_licensed_below_comparison_point, 'Below CT 0.84', 'At/above CT 0.84') : { text: 'Not applicable for public CT status', warning: false },
       patternMatchText: 'below CT 0.84 licensed comparison point',
       patternNonMatchText: 'at/above CT 0.84 licensed comparison point'
     },
@@ -93,14 +93,18 @@
   };
 
   let dataset = null;
+  let contextDataset = null;
   let facilities = [];
   let quarterlyRows = [];
+  let sourceRows = [];
   let allQuarters = [];
+  let selectedQuarters = [];
   let facilityRecords = [];
   let evaluatedRecords = [];
   let filteredRecords = [];
   let currentMode = 'ct-total';
   let currentThreshold = 2;
+  let currentShareThreshold = 0;
 
   function escapeHtml(value) {
     return String(value ?? '')
@@ -174,6 +178,21 @@
       .sort((a, b) => a.localeCompare(b));
   }
 
+  function quarterSort(a, b) {
+    const ay = Number(String(a || '').slice(0, 4));
+    const aq = Number(String(a || '').slice(-1));
+    const by = Number(String(b || '').slice(0, 4));
+    const bq = Number(String(b || '').slice(-1));
+    return ay === by ? aq - bq : ay - by;
+  }
+
+  function selectedWindowQuarters() {
+    const mode = document.getElementById('pattern-window')?.value || 'latest8';
+    if (mode === 'latest4') return allQuarters.slice(Math.max(0, allQuarters.length - 4));
+    if (mode === 'full') return allQuarters;
+    return allQuarters.slice(Math.max(0, allQuarters.length - 8));
+  }
+
   function getFacilityName(record) {
     return record.facility.provider_name || record.ccn || 'Unnamed facility';
   }
@@ -200,9 +219,28 @@
 
   function normalizeDataset(data) {
     dataset = data;
-    facilities = Array.isArray(data.facilities) ? data.facilities : [];
-    quarterlyRows = Array.isArray(data.facility_quarterly_staffing) ? data.facility_quarterly_staffing : [];
-    allQuarters = uniqueSorted(quarterlyRows.map(row => row.quarter));
+    sourceRows = Array.isArray(data.facility_quarterly_staffing_history)
+      ? data.facility_quarterly_staffing_history
+      : (Array.isArray(data.facility_quarterly_staffing) ? data.facility_quarterly_staffing : []);
+    allQuarters = uniqueSorted(sourceRows.map(row => row.quarter)).sort(quarterSort);
+    selectedQuarters = selectedWindowQuarters();
+    quarterlyRows = sourceRows.filter(row => selectedQuarters.includes(row.quarter));
+    const contextFacilities = Array.isArray(contextDataset?.facilities) ? contextDataset.facilities : [];
+    const contextByCcn = new Map(contextFacilities.map(facility => [facility.ccn, facility]));
+    const historyFacilityByCcn = new Map((data.facilities || []).map(facility => [facility.ccn, facility]));
+    facilities = [...new Set(sourceRows.map(row => row.ccn).filter(Boolean))].map(ccn => {
+      const context = contextByCcn.get(ccn) || {};
+      const historyFacility = historyFacilityByCcn.get(ccn) || {};
+      const firstRow = sourceRows.find(row => row.ccn === ccn) || {};
+      return {
+        ...historyFacility,
+        ...context,
+        ccn,
+        provider_name: context.provider_name || historyFacility.latest_pbj_provider_name || firstRow.provider_name_from_pbj || ccn,
+        city: context.city || historyFacility.latest_pbj_city || firstRow.city_from_pbj || '',
+        state: 'CT'
+      };
+    });
 
     const facilityByCcn = new Map(facilities.map(facility => [facility.ccn, facility]));
     const rowsByCcn = new Map();
@@ -223,8 +261,8 @@
       };
       const facility = facilityByCcn.get(ccn) || fallbackFacility;
       const rowByQuarter = new Map(rows.map(row => [row.quarter, row]));
-      const latestRow = rowByQuarter.get(allQuarters[allQuarters.length - 1]) || null;
-      const completeHistory = allQuarters.every(quarter => rowByQuarter.has(quarter));
+      const latestRow = rowByQuarter.get(selectedQuarters[selectedQuarters.length - 1]) || null;
+      const completeHistory = selectedQuarters.every(quarter => rowByQuarter.has(quarter));
       return { ccn, facility, rows, rowByQuarter, latestRow, completeHistory };
     }).sort((a, b) => getFacilityName(a).localeCompare(getFacilityName(b)));
   }
@@ -266,19 +304,25 @@
   function renderSourceStatus() {
     const status = document.getElementById('load-status');
     const sourceNames = (dataset?.sources || []).map(source => source.source_dataset_name).filter(Boolean);
-    status.textContent = `${sourceNames.join(' + ') || 'Connecticut staffing data'} loaded. Current data window: ${getQuarterWindowText()}.`;
+    status.textContent = `${sourceNames.join(' + ') || 'Connecticut staffing data'} loaded. ${getAnalysisWindowText()}.`;
     status.className = 'notice';
   }
 
   function getQuarterWindowText() {
-    if (!allQuarters.length) return 'not available';
-    return `${allQuarters[0]} through ${allQuarters[allQuarters.length - 1]}`;
+    if (!selectedQuarters.length) return 'not available';
+    return `${selectedQuarters[0]} through ${selectedQuarters[selectedQuarters.length - 1]}`;
+  }
+
+  function getAnalysisWindowText() {
+    if (!selectedQuarters.length) return 'Current analysis window: not available';
+    const quarterWord = selectedQuarters.length === 1 ? 'quarter' : 'quarters';
+    return `Current analysis window: ${getQuarterWindowText()}, ${formatCount(selectedQuarters.length)} ${quarterWord}`;
   }
 
   function renderSummaryCards() {
     const counts = buildSummaryCounts();
     document.getElementById('summary-note').textContent =
-      `The current export covers ${getQuarterWindowText()}. Missing facility-quarter rows are not counted as adverse findings.`;
+      `${getAnalysisWindowText()}. Missing facility-quarter rows are not counted as adverse findings. CT comparison modes count only quarters where public CT comparison status is applicable.`;
     document.getElementById('summary-cards').innerHTML = `
       <div class="summary-card">
         <span class="summary-label">CT facilities in export</span>
@@ -301,9 +345,9 @@
         <div class="microcopy">PBJ-derived licensed estimate</div>
       </div>
       <div class="summary-card">
-        <span class="summary-label">Below case-mix comparison point in 2+ quarters</span>
-        <strong>${formatCount(counts.caseMix)}</strong>
-        <div class="microcopy">Only benchmark-eligible quarters</div>
+        <span class="summary-label">Historical case-mix patterns</span>
+        <strong>Not available</strong>
+        <div class="microcopy">Requires historical CMS benchmark snapshots</div>
       </div>
       <div class="summary-card">
         <span class="summary-label">Contract staff 10%+ in 2+ quarters</span>
@@ -344,7 +388,7 @@
     if (filters.search) parts.push(`Search term: ${filters.search}`);
     if (filters.affiliation !== 'all') parts.push(`Affiliation: ${filters.affiliation}`);
     if (filters.ownership !== 'all') parts.push(`Ownership: ${filters.ownership}`);
-    if (filters.completeHistory === 'complete') parts.push('Quarter history: complete five-quarter history only');
+    if (filters.completeHistory === 'complete') parts.push('Quarter history: complete available-quarter history only');
     return parts.length ? parts : ['No active filters'];
   }
 
@@ -359,7 +403,7 @@
   }
 
   function getThresholdPhrase() {
-    return currentThreshold === 5 ? '5 quarters' : `${currentThreshold} or more quarters`;
+    return `${currentThreshold} or more quarters and at least ${currentShareThreshold}% of eligible quarters`;
   }
 
   function getPatternBriefingPhrase() {
@@ -391,6 +435,7 @@
   function applyFilters() {
     hidePatternSummaryFallback();
     currentThreshold = Number(document.getElementById('minimum-quarter-threshold').value || 2);
+    currentShareThreshold = Number(document.getElementById('minimum-share-threshold')?.value || 0);
     const config = modeConfig[currentMode];
     const filters = getActiveFilters();
     const searchNeedle = filters.search.toLowerCase();
@@ -398,6 +443,7 @@
     evaluatedRecords = facilityRecords.map(record => evaluateRecord(record, currentMode));
     filteredRecords = evaluatedRecords
       .filter(record => record.matchCount >= currentThreshold)
+      .filter(record => record.eligibleCount > 0 && (record.matchCount / record.eligibleCount) * 100 >= currentShareThreshold)
       .filter(record => {
         if (!searchNeedle) return true;
         const searchable = [
@@ -446,7 +492,7 @@
         </div>`
       : '';
     document.getElementById('mode-note').textContent =
-      `These figures summarize facilities currently shown for "${config.label}" at the ${currentThreshold}+ quarter threshold.`;
+      `These figures summarize facilities currently shown for "${config.label}" at the ${currentThreshold}+ quarter and ${currentShareThreshold}%+ eligible-quarter threshold.`;
     document.getElementById('current-summary-cards').innerHTML = `
       <div class="summary-card">
         <span class="summary-label">Facilities shown</span>
@@ -461,16 +507,16 @@
       <div class="summary-card">
         <span class="summary-label">Currently matching latest quarter</span>
         <strong>${formatCount(latestMatches)}</strong>
-        <div class="microcopy">${escapeHtml(allQuarters[allQuarters.length - 1] || 'Latest quarter')}</div>
+        <div class="microcopy">${escapeHtml(selectedQuarters[selectedQuarters.length - 1] || 'Latest quarter')}</div>
       </div>
       <div class="summary-card">
         <span class="summary-label">Complete histories shown</span>
         <strong>${formatCount(completeHistory)}</strong>
-        <div class="microcopy">${formatCount(allQuarters.length)} quarters available</div>
+        <div class="microcopy">${formatCount(selectedQuarters.length)} quarters in selected window</div>
       </div>
       ${caseMixExtra}
     `;
-    document.getElementById('filter-status').textContent = `${formatCount(shown)} facilities shown for ${config.shortLabel} at ${currentThreshold}+ quarters.`;
+    document.getElementById('filter-status').textContent = `${formatCount(shown)} facilities shown for ${config.shortLabel} at ${currentThreshold}+ quarters and ${currentShareThreshold}%+ of eligible quarters.`;
   }
 
   function buildPersistentPatternBriefingSummary() {
@@ -563,7 +609,7 @@
   }
 
   function renderQuarterPattern(record, config) {
-    const markers = allQuarters.map(quarter => {
+    const markers = selectedQuarters.map(quarter => {
       const row = record.rowByQuarter.get(quarter);
       const state = getQuarterPatternState(row, config);
       const symbol = state.kind === 'match' ? '●' : state.kind === 'nonmatch' ? '○' : '–';
@@ -588,10 +634,12 @@
   function renderPrintContext() {
     const config = modeConfig[currentMode];
     const filters = getActiveFilterSummary();
+    const sourceCurrency = window.NursingHomeSourceCurrency?.buildCurrencySummary?.(dataset);
     document.getElementById('print-report-context').innerHTML = `
       <h1>Connecticut Nursing Home Persistent Staffing Patterns</h1>
       <p><strong>Quarter window:</strong> ${escapeHtml(getQuarterWindowText())}</p>
       <p><strong>Generated export timestamp:</strong> ${escapeHtml(dataset?.generated_at || 'Not available')}</p>
+      ${sourceCurrency ? `<p><strong>Data currency:</strong> ${escapeHtml(sourceCurrency)}</p>` : ''}
       <p><strong>Selected pattern:</strong> ${escapeHtml(config.label)}</p>
       <p><strong>Minimum-quarter threshold:</strong> ${escapeHtml(String(currentThreshold))}+ matching quarters</p>
       <p><strong>Active filters:</strong> ${filters.map(escapeHtml).join('; ')}</p>
@@ -628,7 +676,7 @@
   function applyQueryParameters() {
     const params = new URLSearchParams(global.location.search);
     const requestedMode = String(params.get('mode') || '').trim();
-    if (requestedMode && modeConfig[requestedMode]) {
+    if (requestedMode && modeConfig[requestedMode] && requestedMode !== 'case-mix') {
       currentMode = requestedMode;
     }
     const requestedThreshold = Number(params.get('threshold'));
@@ -653,6 +701,7 @@
     const rows = filteredRecords.map(record => ({
       pattern_mode: config.label,
       minimum_matching_quarters: currentThreshold,
+      minimum_share_of_eligible_quarters: currentShareThreshold,
       facility_name: getFacilityName(record),
       ccn: record.ccn,
       city: record.facility.city || '',
@@ -661,7 +710,7 @@
       matching_quarter_count: record.matchCount,
       eligible_quarter_count: record.eligibleCount,
       available_quarter_count: record.rows.length,
-      complete_five_quarter_history: record.completeHistory ? 'yes' : 'no',
+      complete_selected_window_history: record.completeHistory ? 'yes' : 'no',
       matching_quarters: record.matchingQuarterLabels.join('; '),
       latest_quarter: record.latestRow?.quarter || '',
       latest_status: record.latestStatusText,
@@ -725,14 +774,23 @@
       });
     });
     [
+      'pattern-window',
       'minimum-quarter-threshold',
+      'minimum-share-threshold',
       'facility-search',
       'affiliation-filter',
       'ownership-filter',
       'complete-history-filter'
     ].forEach(id => {
       document.getElementById(id).addEventListener('input', applyFilters);
-      document.getElementById(id).addEventListener('change', applyFilters);
+      document.getElementById(id).addEventListener('change', () => {
+        if (id === 'pattern-window') {
+          normalizeDataset(dataset);
+          renderSourceStatus();
+          renderSummaryCards();
+        }
+        applyFilters();
+      });
     });
     document.getElementById('reset-filters').addEventListener('click', resetFilters);
     document.getElementById('download-pattern-csv').addEventListener('click', downloadCsv);
@@ -744,11 +802,18 @@
 
   async function init() {
     try {
+      try {
+        contextDataset = await loadFirstAvailableJson(contextPaths);
+      } catch (err) {
+        contextDataset = null;
+      }
       const data = await loadFirstAvailableJson(dataPaths);
       normalizeDataset(data);
       renderSourceStatus();
       renderSummaryCards();
       populateFilters();
+      document.querySelector('[data-mode="case-mix"]')?.setAttribute('disabled', 'disabled');
+      document.querySelector('[data-mode="case-mix"]')?.setAttribute('title', 'Historical case-mix comparison patterns require historically aligned CMS benchmark snapshots and are not available in the PBJ history view.');
       bindEvents();
       applyQueryParameters();
       updateModeButtons();

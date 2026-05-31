@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="Assets/shared.css">
   <link rel="stylesheet" href="Assets/ltcop-dashboard.css">
   <script defer src="Assets/shared.js"></script>
+  <script defer src="Assets/nursing-home-source-currency.js"></script>
 </head>
 <body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
@@ -49,6 +50,10 @@
       </div>
     </section>
 
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="data/nursing_home_staffing_ct.json" data-methodology-href="tools/nursing-home-staffing-methodology.html"></div>
+    </section>
+
     <section class="wrap" aria-labelledby="staffing-suite-title">
       <div class="panel">
         <div class="sectionHeader">
@@ -70,17 +75,19 @@
               <span class="statusDot" aria-hidden="true"></span>
               <span class="sr-only">Available</span>
             </div>
-            <p>Review one facility's PBJ staffing metrics, CT direct-care HPRD estimate, case-mix comparison point, Care Compare rating context, claims-based quality measures, affiliation context, and five-quarter trend.</p>
+            <div class="pill">Primary path: Search for a Facility</div>
+            <p>Review one facility's PBJ staffing metrics, CT direct-care HPRD estimate, case-mix comparison point, Care Compare rating context, claims-based quality measures, affiliation context, and quarterly staffing trend.</p>
             <div class="ltcop-question"><strong>Best question:</strong> What does staffing look like at one nursing home over time?</div>
             <p><a class="btn" href="tools/nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a></p>
           </article>
 
-          <article class="card ltcop-tool-card">
+          <article class="card ltcop-tool-card featured">
             <div class="toolHeader">
               <h3>Statewide Facility Staffing Comparison</h3>
               <span class="statusDot" aria-hidden="true"></span>
               <span class="sr-only">Available</span>
             </div>
+            <div class="pill">Primary path: View Connecticut Facilities</div>
             <p>Search, filter, and sort the latest-quarter Connecticut facility table using PBJ-derived screening metrics.</p>
             <div class="ltcop-question"><strong>Best question:</strong> Which Connecticut nursing homes stand out in the latest quarter?</div>
             <p><a class="btn secondary" href="tools/nursing-home-statewide-staffing-comparison.html">Open Statewide Comparison</a></p>
@@ -92,8 +99,8 @@
               <span class="statusDot" aria-hidden="true"></span>
               <span class="sr-only">Available</span>
             </div>
-            <p>Compare earliest-to-latest staffing changes, CT 3.00 direct-care comparison point crossings, RN changes, and contract staffing shifts.</p>
-            <div class="ltcop-question"><strong>Best question:</strong> Which nursing homes changed the most between the earliest and latest quarter?</div>
+            <p>Compare staffing changes, applicable CT 3.00 direct-care comparison point crossings, RN changes, and contract staffing shifts across selected historical PBJ windows.</p>
+            <div class="ltcop-question"><strong>Best question:</strong> Which nursing homes changed the most in the selected historical window?</div>
             <p><a class="btn secondary" href="tools/nursing-home-staffing-change-over-time.html">Open Change Explorer</a></p>
           </article>
 
@@ -103,7 +110,7 @@
               <span class="statusDot" aria-hidden="true"></span>
               <span class="sr-only">Available</span>
             </div>
-            <p>Find facilities with repeated staffing screening patterns across multiple quarters and inspect quarter-by-quarter pattern strips.</p>
+            <p>Find facilities with repeated staffing screening patterns across selected historical PBJ windows and inspect quarter-by-quarter pattern strips.</p>
             <div class="ltcop-question"><strong>Best question:</strong> Which facilities show repeated staffing screening patterns across quarters?</div>
             <p><a class="btn secondary" href="tools/nursing-home-persistent-staffing-patterns.html">Open Persistent Patterns</a></p>
           </article>
@@ -119,6 +126,8 @@
             <p><a class="btn secondary" href="tools/nursing-home-ownership-staffing-explorer.html">Open Ownership / Affiliation Explorer</a></p>
           </article>
         </div>
+
+        <div class="notice" style="margin-top:14px;">Historical CMS PBJ staffing is available from Q4 2017 through Q4 2025 in the facility history, change-over-time, and persistent-pattern views. Current CMS ratings, quality measures, affiliation context, and case-mix comparison points remain current snapshot context.</div>
 
         <div class="ltcop-resource-links" style="margin-top:14px;">
           <a class="btn secondary" href="tools/nursing-home-staffing-methodology.html">About the data and methodology</a>
