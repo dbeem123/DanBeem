@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FFY 2025 Impact Dashboard | Connecticut LTCOP</title>
+  <meta name="description" content="Explore Connecticut Long Term Care Ombudsman Program activity, complaints, outreach, resident engagement, facility visits, and systems advocacy during Federal Fiscal Year 2025.">
+  <link rel="canonical" href="https://dbeem123.github.io/DanBeem/dashboards/impact-2025.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FFY 2025 Impact Dashboard | Connecticut LTCOP">
+  <meta property="og:description" content="A statewide snapshot of Connecticut LTCOP advocacy, complaint resolution, outreach, resident engagement, facility access, and systems work during FFY 2025.">
+  <meta property="og:url" content="https://dbeem123.github.io/DanBeem/dashboards/impact-2025.html">
+  <link rel="stylesheet" href="../Assets/shared.css">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
+  <link rel="stylesheet" href="../Assets/impact-dashboard.css">
+  <script defer src="../Assets/shared.js"></script>
+  <script defer src="../Assets/impact-2025.js"></script>
+</head>
+<body class="ltcop-dashboard impact-dashboard">
+  <a class="skipLink" href="#main-content">Skip to dashboard content</a>
+
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="../Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="impact-masthead-title">Impact Dashboard</div>
+          <div class="impact-masthead-subtitle">FFY 2025 Overview</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop" target="_blank" rel="noopener">Official CT LTCOP website</a>
+    </div>
+    <nav class="impact-section-nav" aria-label="Impact dashboard sections">
+      <div class="wrap">
+        <a href="../index.html">Home</a>
+        <a href="#overview">Overview</a>
+        <a href="#complaints">Complaints</a>
+        <a href="#facility-access">Facility access</a>
+        <a href="#engagement">Resident engagement</a>
+        <a href="#community-ombudsman">Community Ombudsman</a>
+        <a href="#annual-reports">Annual reports</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="impact-main">
+    <div class="wrap">
+      <nav class="impact-breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="../index.html">Home</a></li>
+          <li aria-current="page">FFY 2025 Impact Dashboard</li>
+        </ol>
+      </nav>
+
+      <section class="impact-hero panel" aria-labelledby="impact-title">
+        <div class="impact-hero-copy">
+          <div class="impact-eyebrow">Connecticut LTCOP · FFY 2025 Overview</div>
+          <h1 id="impact-title">Impact Dashboard</h1>
+          <p class="impact-lede">A statewide snapshot of advocacy, complaint resolution, outreach, resident engagement, and systems work completed during Federal Fiscal Year 2025.</p>
+          <div class="btnRow">
+            <a class="btn" href="#source" data-report-link>Open the official 2025 Annual Report (PDF)</a>
+            <a class="btn secondary" href="#overview">Explore the dashboard</a>
+          </div>
+        </div>
+        <aside class="impact-year-panel" aria-labelledby="year-title">
+          <h2 id="year-title">Choose a dashboard year</h2>
+          <nav id="year-navigation" class="impact-year-nav" aria-label="Dashboard years">
+            <span>Loading available years…</span>
+          </nav>
+        </aside>
+      </section>
+
+      <div id="dashboard-status" class="impact-loading" role="status" aria-live="polite">Loading verified FFY 2025 annual report data…</div>
+
+      <section id="overview" class="impact-section" aria-labelledby="overview-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Primary impact metrics</div>
+            <h2 id="overview-title">FFY 2025 at a glance</h2>
+          </div>
+          <p>Complaints received and cases closed are distinct measures. Facility visits show both total activity and the number of facilities reached.</p>
+        </header>
+        <div id="primary-metrics" class="impact-metric-grid"></div>
+      </section>
+
+      <section id="complaints" class="impact-section" aria-labelledby="complaints-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Problems experienced and complaints made</div>
+            <h2 id="complaints-title">Most frequently reported complaint categories</h2>
+          </div>
+          <p id="complaints-intro"></p>
+        </header>
+        <figure aria-labelledby="complaints-title">
+          <div id="complaint-categories" class="impact-complaint-list"></div>
+          <figcaption class="sr-only">Each bar is labeled with the category name, complaint count, and percentage of all complaints received; detailed counts are listed alongside it.</figcaption>
+        </figure>
+      </section>
+
+      <section id="facility-access" class="impact-section" aria-labelledby="facility-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Facility access and program reach</div>
+            <h2 id="facility-title">Service presence and statewide capacity</h2>
+          </div>
+          <p id="facility-access-intro"></p>
+        </header>
+        <div class="impact-split">
+          <article class="impact-subpanel">
+            <h3>Program activity</h3>
+            <p><strong id="total-visits">—</strong> total visits were conducted across nursing facilities and residential care communities.</p>
+            <div class="impact-table-wrap">
+              <table class="impact-table">
+                <caption>Facilities reached and survey participation by setting</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Program activity</th>
+                    <th scope="col">All settings</th>
+                    <th scope="col">Nursing facilities</th>
+                    <th scope="col">Residential care communities</th>
+                  </tr>
+                </thead>
+                <tbody id="facility-activity-table"></tbody>
+              </table>
+            </div>
+          </article>
+          <article class="impact-subpanel accent">
+            <h3>Statewide setting capacity</h3>
+            <p>Settings that exist statewide and the estimated population represented—not the number visited.</p>
+            <dl id="setting-capacity" class="impact-stat-list"></dl>
+          </article>
+        </div>
+      </section>
+
+      <section id="information" class="impact-section" aria-labelledby="information-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Information, education, and training</div>
+            <h2 id="information-title">Service activity increased in the report's year-over-year comparison</h2>
+          </div>
+          <p id="information-intro"></p>
+        </header>
+        <div id="information-comparisons" class="impact-comparison-grid"></div>
+      </section>
+
+      <section id="engagement" class="impact-section" aria-labelledby="engagement-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Resident and family engagement</div>
+            <h2 id="engagement-title">Resident voice at the center</h2>
+          </div>
+          <p>Council participation, resident-led forums, and direct engagement with policymakers supported collective advocacy.</p>
+        </header>
+        <div id="engagement-grid" class="impact-engagement-grid"></div>
+      </section>
+
+      <section id="community-ombudsman" class="impact-section" aria-labelledby="community-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Developing service capacity</div>
+            <h2 id="community-title">Community Ombudsman Program</h2>
+          </div>
+          <p>Education, navigation, warm handoffs, and coordination connected people with supports across settings.</p>
+        </header>
+        <div id="community-metrics" class="impact-narrative-grid"></div>
+        <p id="community-summary" class="impact-summary-note"></p>
+        <p id="community-coordination" class="impact-summary-note"></p>
+      </section>
+
+      <section id="closures" class="impact-section" aria-labelledby="closures-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Closures, evacuations, and transitions</div>
+            <h2 id="closures-title">Resident-centered support during disruption</h2>
+          </div>
+          <p>Multiple facility closures and evacuation events increased demand for informed, coordinated transition support.</p>
+        </header>
+        <div id="closure-metrics" class="impact-narrative-grid"></div>
+        <p id="closures-summary" class="impact-summary-note"></p>
+      </section>
+
+      <section id="funding" class="impact-section" aria-labelledby="funding-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Program funding</div>
+            <h2 id="funding-title">FFY 2025 operating budget</h2>
+          </div>
+          <p>Funding categories are presented without double-counting the federal subcomponents identified in the annual report.</p>
+        </header>
+        <div class="impact-funding-total">
+          <span>Total operating budget</span>
+          <strong id="funding-total">—</strong>
+        </div>
+        <div id="funding-categories" class="impact-funding-list"></div>
+        <p id="funding-note" class="impact-summary-note"></p>
+      </section>
+
+      <section id="highlights" class="impact-section" aria-labelledby="highlights-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Program highlights</div>
+            <h2 id="highlights-title">Advocacy across people, settings, and systems</h2>
+          </div>
+          <p>Concise themes from the annual report; no outcome percentages are inferred.</p>
+        </header>
+        <div id="program-highlights" class="impact-highlight-grid"></div>
+      </section>
+
+      <section id="annual-reports" class="impact-section" aria-labelledby="reports-title">
+        <header class="impact-section-header">
+          <div>
+            <div class="impact-kicker">Annual report library</div>
+            <h2 id="reports-title">Read the source reports</h2>
+          </div>
+          <p>FFY 2025 is the current annual report. The FFY 2024 dashboard remains available as a separate test environment.</p>
+        </header>
+        <div id="annual-report-cards" class="impact-report-grid"></div>
+        <p class="impact-summary-note"><a id="report-archive-link" href="https://portal.ct.gov/ltcop" target="_blank" rel="noopener">Browse the official CT LTCOP annual report archive</a> for earlier reports.</p>
+      </section>
+
+      <aside id="source" class="impact-source" aria-label="Data source">
+        <strong>Source note:</strong>
+        <a id="source-link" href="https://portal.ct.gov/ltcop" target="_blank" rel="noopener">Connecticut Long Term Care Ombudsman Program, 2025 Annual Report, Federal Fiscal Year 2025.</a>
+        All displayed statistics are drawn from the report. Funding bar lengths are calculated from the report's stated amounts; original dollar values remain visible.
+      </aside>
+
+      <noscript>
+        <p class="impact-source impact-error">This dashboard needs JavaScript to load its verified data. You can still use the source link above to read the official annual report.</p>
+      </noscript>
+    </div>
+  </main>
+
+  <footer class="impact-footer wrap">
+    <div class="panel">
+      <p>Connecticut Long Term Care Ombudsman Program · FFY 2025 Impact Dashboard</p>
+      <p><a href="../index.html">Return home</a> · <a href="#source" data-report-link>Open the official annual report</a></p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,185 @@
+{
+  "meta": {
+    "fiscalYear": "FFY 2025",
+    "title": "Impact Dashboard",
+    "subtitle": "FFY 2025 Overview",
+    "description": "A statewide snapshot of advocacy, complaint resolution, outreach, resident engagement, and systems work completed during Federal Fiscal Year 2025.",
+    "canonicalUrl": "https://dbeem123.github.io/DanBeem/dashboards/impact-2025.html"
+  },
+  "source": {
+    "title": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+    "url": "https://portal.ct.gov/-/media/ltcop/pdf/ltcop-2025-state-annual-report-finalpdf.pdf?rev=97a748b3e7fa43368767a054956e7151&hash=C381DAC39BEF97FE54C7C781889095E4",
+    "note": "Source: Connecticut Long Term Care Ombudsman Program, 2025 Annual Report, Federal Fiscal Year 2025."
+  },
+  "dashboardYears": [
+    {
+      "label": "FFY 2025",
+      "href": "impact-2025.html",
+      "current": true
+    },
+    {
+      "label": "FFY 2024",
+      "href": "impact-2024.html",
+      "current": false,
+      "note": "Test environment"
+    }
+  ],
+  "primaryMetrics": [
+    {
+      "label": "Complaints received",
+      "value": 3253,
+      "description": "Concerns reported across all settings served."
+    },
+    {
+      "label": "Cases closed",
+      "value": 1926,
+      "description": "Cases closed during FFY 2025."
+    },
+    {
+      "label": "Information and assistance",
+      "value": 3304,
+      "description": "Instances provided to individuals."
+    },
+    {
+      "label": "Total facility visits",
+      "value": 1721,
+      "description": "Visits across nursing facilities and residential care communities."
+    },
+    {
+      "label": "Facilities visited",
+      "value": 341,
+      "description": "Facilities receiving one or more visits."
+    },
+    {
+      "label": "Certified Volunteer Resident Advocates",
+      "value": 17,
+      "description": "Certified volunteers as of September 30, 2025."
+    }
+  ],
+  "complaints": {
+    "totalReceived": 3253,
+    "intro": "The three most frequently reported categories accounted for 57.12 percent of complaints received. Counts and percentages below are printed in the annual report.",
+    "categories": [
+      {
+        "label": "Care",
+        "count": 913,
+        "percent": 28.07,
+        "details": [
+          { "label": "Medications", "count": 166 },
+          { "label": "Response to requests for assistance", "count": 138 },
+          { "label": "Care planning", "count": 125 }
+        ]
+      },
+      {
+        "label": "Autonomy, Choice, and Rights",
+        "count": 473,
+        "percent": 14.54,
+        "details": [
+          { "label": "Dignity and respect", "count": 119 },
+          { "label": "Living in a less restrictive setting", "count": 109 },
+          { "label": "Other rights and preferences", "count": 78 }
+        ]
+      },
+      {
+        "label": "Admission, Transfer, Discharge, and Eviction",
+        "count": 472,
+        "percent": 14.51,
+        "details": [
+          { "label": "Discharge or eviction", "count": 330 },
+          { "label": "Appeal process", "count": 67 }
+        ]
+      }
+    ]
+  },
+  "facilityAccess": {
+    "intro": "Program reach describes Ombudsman activity. Statewide capacity describes the long-term care settings and estimated population eligible for LTCOP services; it is not a count of facilities visited.",
+    "activity": [
+      { "label": "Facilities receiving one or more visits", "total": 341, "nursing": 183, "residentialCare": 158 },
+      { "label": "Facilities receiving routine access", "total": 215, "nursing": 130, "residentialCare": 85 },
+      { "label": "Facility survey participations", "total": 128, "nursing": 123, "residentialCare": 5 }
+    ],
+    "totalVisits": 1721,
+    "capacity": [
+      { "label": "Skilled nursing facilities", "value": 191 },
+      { "label": "Skilled nursing facility beds", "value": 22118 },
+      { "label": "Residential care homes", "value": 95 },
+      { "label": "Residential care home beds", "value": 2707 },
+      { "label": "Assisted living units or apartments", "displayValue": "Nearly 8,000" },
+      { "label": "Estimated people represented by eligible setting capacity", "displayValue": "Approximately 32,825" }
+    ]
+  },
+  "informationEducation": {
+    "intro": "The annual report provides direct FFY 2024-to-FFY 2025 comparisons for four information, education, and training activities. Original counts remain visible below; no percentage change is inferred.",
+    "comparisons": [
+      { "label": "Information and assistance to individuals", "previousYear": "FFY 2024", "previous": 863, "currentYear": "FFY 2025", "current": 3304 },
+      { "label": "Information and assistance to facility staff", "previousYear": "FFY 2024", "previous": 334, "currentYear": "FFY 2025", "current": 484 },
+      { "label": "Community education activities", "previousYear": "FFY 2024", "previous": 47, "currentYear": "FFY 2025", "current": 65 },
+      { "label": "Facility staff training sessions", "previousYear": "FFY 2024", "previous": 4, "currentYear": "FFY 2025", "current": 15 }
+    ]
+  },
+  "engagement": {
+    "residentCouncils": { "total": 137, "nursing": 130, "residentialCare": 7 },
+    "familyCouncils": { "total": 8, "nursing": 7, "residentialCare": 1 },
+    "residentVoice": {
+      "title": "The 29th Annual VOICES Forum",
+      "date": "October 3, 2025",
+      "theme": "Stand With Me",
+      "summary": "The resident-led forum connected residents with policymakers, regulators, advocates, and state agency leaders. Residents advanced priorities through the Personal Needs Allowance campaign, work to strengthen resident councils, and direct legislative and systems advocacy."
+    }
+  },
+  "communityOmbudsman": {
+    "metrics": [
+      { "label": "Community Ombudsman education sessions", "value": 46 },
+      { "label": "Individuals receiving individualized information and assistance", "value": 194 }
+    ],
+    "summary": "Because staffing and appropriations limited the program's scope, work focused on education, individualized information and assistance, navigation, warm handoffs, and coordination rather than full case intervention in every matter.",
+    "coordination": "Regional and multi-agency work addressed Home and Community Based Services, residential care homes, waiver requirements, discharge planning, and coordination across facility-based and community-based systems."
+  },
+  "closures": {
+    "metrics": [
+      { "label": "Nursing facility closures", "value": 4 },
+      { "label": "Residential care home closure", "value": 1 },
+      { "label": "Evacuation events", "value": 3 }
+    ],
+    "summary": "Closures and evacuations heightened the need for informed choice, resident-centered transition planning, continuity of relationships, proximity to established supports, and coordination intended to reduce transfer trauma."
+  },
+  "funding": {
+    "totalDisplay": "Approximately $2,415,332",
+    "categories": [
+      { "label": "State Funds", "amount": 1847422 },
+      { "label": "Federal Funds", "amount": 477296, "note": "Includes Older Americans Act Title VII and Title III funds." },
+      { "label": "Other Federal Funds, ARP Title VII", "amount": 90613 }
+    ],
+    "note": "Older Americans Act Title VII and Title III amounts are components of Federal Funds and are not added again above. Bar lengths are calculated from the annual report's stated funding amounts."
+  },
+  "highlights": [
+    { "title": "Resident-directed advocacy", "summary": "Complaint work, policy priorities, and public participation remained grounded in resident direction and self-determination." },
+    { "title": "Transfer and discharge education", "summary": "Training addressed updated notice, portal submission, placement, appeal, and discharge-planning responsibilities." },
+    { "title": "Resident legislative participation", "summary": "Residents provided testimony and engaged lawmakers on personal needs, staffing, resident rights, and quality of life." },
+    { "title": "Strengthening resident councils", "summary": "The program supported resident-led councils as platforms for shared problem-solving, education, and advocacy." },
+    { "title": "Community Ombudsman expansion", "summary": "Education, navigation, warm handoffs, and cross-system coordination continued within limited staffing and appropriations." },
+    { "title": "Emergency and closure response", "summary": "Ombudsman representatives supported resident choice, continuity, proximity to known supports, and safer transitions." },
+    { "title": "Home and Community Based Services coordination", "summary": "Regional and multi-agency work connected discharge planning, waiver requirements, community supports, and resident protections." },
+    { "title": "Fear of retaliation", "summary": "Fear of retaliation remained an ongoing barrier to raising concerns and using complaint pathways across long-term care settings." },
+    { "title": "Legislative and systems advocacy", "summary": "The program advanced resident protections, stronger oversight, emergency safeguards, and cross-setting accountability." }
+  ],
+  "annualReports": {
+    "reports": [
+      {
+        "year": "FFY 2025",
+        "status": "Current annual report",
+        "reportUrl": "https://portal.ct.gov/-/media/ltcop/pdf/ltcop-2025-state-annual-report-finalpdf.pdf?rev=97a748b3e7fa43368767a054956e7151&hash=C381DAC39BEF97FE54C7C781889095E4",
+        "dashboardUrl": "impact-2025.html",
+        "current": true
+      },
+      {
+        "year": "FFY 2024",
+        "status": "Historical annual report",
+        "reportUrl": "https://portal.ct.gov/-/media/ltcop/pdf/ltco-annual-reports/ltcop-2024-state-annual-report.pdf?hash=0251ACABA8703CFC26B45D779DFF72D5&rev=1ff269a8f7c3400c93a3d2ff53f1ec84",
+        "dashboardUrl": "impact-2024.html",
+        "dashboardNote": "Test environment"
+      }
+    ],
+    "archiveUrl": "https://portal.ct.gov/LTCOP/Content/Publications/ANNUAL-REPORTS"
+  }
+}

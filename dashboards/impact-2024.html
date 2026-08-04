@@ -12,6 +12,9 @@
     th, td { padding:10px 12px; border-bottom:1px solid var(--border); text-align:left; }
     th { color:var(--muted); font-weight:800; }
     .tag { display:inline-flex; padding:6px 10px; border-radius:999px; background:rgba(56,189,248,0.12); font-weight:700; }
+    .yearNav { display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 4px; }
+    .yearNav a, .yearNav span { display:inline-flex; padding:7px 11px; border-radius:999px; border:1px solid var(--glass-strong); color:var(--text); text-decoration:none; font-weight:800; }
+    .yearNav [aria-current="page"] { color:#06121b; background:var(--accent); border-color:var(--accent); }
   </style>
 </head>
 <body>
@@ -26,6 +29,7 @@
       </div>
       <nav class="nav">
         <a class="navLink linkBtn" href="../index.html">Home</a>
+        <a class="navLink linkBtn" href="impact-2025.html">FFY 2025</a>
         <a class="navLink linkBtn" href="#annual-reports">Annual Reports</a>
       </nav>
     </div>
@@ -34,6 +38,10 @@
   <main class="wrap">
     <div class="panel" style="margin-bottom:18px;">
       <div class="pill">Test Environment</div>
+      <nav class="yearNav" aria-label="Dashboard years">
+        <a href="impact-2025.html">FFY 2025</a>
+        <span aria-current="page">FFY 2024</span>
+      </nav>
       <h1 style="margin-top:8px;">Impact Dashboard</h1>
       <p class="subtle">A robust snapshot of Fiscal Year 2024 outcomes, outreach, and resolution performance.</p>
       <div class="btnRow" role="group">
@@ -165,6 +173,13 @@
       <h2>LTCOP Annual Reports Library</h2>
       <p class="subtle">Download the full statewide Long-Term Care Ombudsman Program annual reports.</p>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+        <div class="card">
+          <div class="tag">Current annual report</div>
+          <h3>FFY 2025</h3>
+          <p class="subtle">Official annual report (PDF) and verified impact dashboard.</p>
+          <p><a class="navLink linkBtn" target="_blank" rel="noopener" href="https://portal.ct.gov/-/media/ltcop/pdf/ltcop-2025-state-annual-report-finalpdf.pdf?rev=97a748b3e7fa43368767a054956e7151&amp;hash=C381DAC39BEF97FE54C7C781889095E4">Open Report</a></p>
+          <p><a class="navLink linkBtn" href="impact-2025.html">View FFY 2025 Dashboard</a></p>
+        </div>
         <div class="card">
           <h3>FFY 2024</h3>
           <p class="subtle">Full annual report (PDF).</p>
