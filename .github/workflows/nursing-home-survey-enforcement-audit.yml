@@ -1,0 +1,106 @@
+name: Nursing Home Survey Enforcement Audit
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/nursing-home-survey-enforcement-audit.yml'
+      - 'scripts/audit_nursing_home_survey_enforcement_release.py'
+      - 'scripts/build_nursing_home_health_deficiencies_ct.py'
+      - 'scripts/build_nursing_home_fire_safety_deficiencies_ct.py'
+      - 'scripts/build_nursing_home_penalties_ct.py'
+      - 'scripts/build_nursing_home_survey_enforcement_summary_ct.py'
+      - 'scripts/build_nursing_home_survey_enforcement_facility_details_ct.py'
+      - 'scripts/build_nursing_home_staffing_ct.py'
+      - 'scripts/test_build_nursing_home_staffing_ct.py'
+      - 'data/nursing_home_staffing_ct.json'
+      - 'data/nursing_home_health_deficiencies_ct.json'
+      - 'data/nursing_home_fire_safety_deficiencies_ct.json'
+      - 'data/nursing_home_penalties_ct.json'
+      - 'data/nursing_home_survey_enforcement_summary_ct.json'
+      - 'data/nursing_home_survey_enforcement_details_ct/**'
+      - 'data/nursing_home_source_manifest.json'
+      - 'data/current_tool_context_registry.json'
+      - 'tools/nursing-home-staffing-explorer.html'
+      - 'tools/nursing-home-staffing-methodology.html'
+      - 'Assets/nursing-home-staffing.js'
+      - 'Assets/ltcop-dashboard.css'
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/nursing-home-survey-enforcement-audit.yml'
+      - 'scripts/audit_nursing_home_survey_enforcement_release.py'
+      - 'scripts/build_nursing_home_health_deficiencies_ct.py'
+      - 'scripts/build_nursing_home_fire_safety_deficiencies_ct.py'
+      - 'scripts/build_nursing_home_penalties_ct.py'
+      - 'scripts/build_nursing_home_survey_enforcement_summary_ct.py'
+      - 'scripts/build_nursing_home_survey_enforcement_facility_details_ct.py'
+      - 'scripts/build_nursing_home_staffing_ct.py'
+      - 'scripts/test_build_nursing_home_staffing_ct.py'
+      - 'data/nursing_home_staffing_ct.json'
+      - 'data/nursing_home_health_deficiencies_ct.json'
+      - 'data/nursing_home_fire_safety_deficiencies_ct.json'
+      - 'data/nursing_home_penalties_ct.json'
+      - 'data/nursing_home_survey_enforcement_summary_ct.json'
+      - 'data/nursing_home_survey_enforcement_details_ct/**'
+      - 'data/nursing_home_source_manifest.json'
+      - 'data/current_tool_context_registry.json'
+      - 'tools/nursing-home-staffing-explorer.html'
+      - 'tools/nursing-home-staffing-methodology.html'
+      - 'Assets/nursing-home-staffing.js'
+      - 'Assets/ltcop-dashboard.css'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nursing-home-survey-enforcement-audit-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-audit:
+    name: Survey enforcement release gate
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Show runtime versions
+        run: |
+          python --version
+          node --version
+
+      - name: Compile release audit
+        run: python -m py_compile scripts/audit_nursing_home_survey_enforcement_release.py
+
+      - name: Run survey and enforcement release audit
+        run: python scripts/audit_nursing_home_survey_enforcement_release.py
+
+      - name: Check Facility Explorer JavaScript syntax
+        run: node --check Assets/nursing-home-staffing.js
+
+      - name: Run staffing regression tests
+        run: python -m unittest scripts.test_build_nursing_home_staffing_ct
+
+      - name: Parse source manifest JSON
+        run: python -m json.tool data/nursing_home_source_manifest.json > /dev/null
+
+      - name: Parse tool-context registry JSON
+        run: python -m json.tool data/current_tool_context_registry.json > /dev/null
