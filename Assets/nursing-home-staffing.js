@@ -98,6 +98,10 @@
   let historyDataset = null;
   let historyRowsByCcn = new Map();
   let historyWindowMode = 'latest8';
+  let surveyEnforcementMetadata = null;
+  let surveyEnforcementByCcn = new Map();
+  let surveyEnforcementLoadState = 'loading';
+  let surveyEnforcementLoadError = '';
   /** @type {FacilityViewModel[]} */
   let facilities = [];
   let filteredFacilities = [];
@@ -105,6 +109,7 @@
     '../data/nursing_home_staffing_ct.json',
     '../data/nursing_home_staffing_mock.json'
   ];
+  const surveyEnforcementSummaryPath = '../data/nursing_home_survey_enforcement_summary_ct.json';
   const caseMixBenchmarkExplanation = 'How this comparison is built: the case-mix comparison point value itself is not calculated by this tool. It is imported directly from the CMS Nursing Home Provider Information field "Case-Mix Total Nurse Staffing Hours per Resident per Day." CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. This tool compares the facility\'s PBJ-reported actual total nurse HPRD against that CMS-published comparison point. The actual-minus-benchmark difference and percent-of-benchmark text are calculated by this tool. The comparison point is contextual, not actual staffing, not a legal minimum, and not proof of poor care, neglect, harm, or violations.';
 
   function quarterSort(a, b) {
@@ -138,6 +143,23 @@
 
   function formatCount(value) {
     return isUsableNumber(value) ? Number(value).toLocaleString() : 'Not available';
+  }
+
+  function formatCurrency(value) {
+    return isUsableNumber(value)
+      ? Number(value).toLocaleString(undefined, { style: 'currency', currency: 'USD' })
+      : 'Not available';
+  }
+
+  function formatSnapshotDate(value) {
+    const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(value || ''));
+    if (!match) return 'Not found in this source';
+    const localDate = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    return localDate.toLocaleDateString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   }
 
   function formatRatingText(value) {
@@ -1335,6 +1357,155 @@
     };
   }
 
+  function renderSnapshotStat(label, value, detail = '') {
+    return `
+      <div class="survey-snapshot-stat">
+        <dt>${escapeHtml(label)}</dt>
+        <dd>${escapeHtml(value)}</dd>
+        ${detail ? `<span>${escapeHtml(detail)}</span>` : ''}
+      </div>
+    `;
+  }
+
+  function renderSurveyEnforcementSnapshot(facility) {
+    const output = document.getElementById('survey-enforcement-snapshot');
+    if (!output) return;
+    output.setAttribute('aria-busy', surveyEnforcementLoadState === 'loading' ? 'true' : 'false');
+
+    if (surveyEnforcementLoadState === 'loading') {
+      output.innerHTML = '<div class="notice">Loading survey and enforcement context...</div>';
+      return;
+    }
+    if (surveyEnforcementLoadState === 'unavailable') {
+      output.innerHTML = `
+        <div class="notice warning" role="status">
+          Survey and enforcement context is temporarily unavailable. The staffing explorer remains available.
+          ${surveyEnforcementLoadError ? `<span class="microcopy"> ${escapeHtml(surveyEnforcementLoadError)}</span>` : ''}
+        </div>
+      `;
+      return;
+    }
+
+    const summary = surveyEnforcementByCcn.get(String(facility?.ccn || ''));
+    if (!summary) {
+      output.innerHTML = '<div class="notice warning" role="status">No compact survey and enforcement summary record was found for this facility. Staffing information remains available.</div>';
+      return;
+    }
+
+    const recentWindow = surveyEnforcementMetadata?.recent_window_definition || {};
+    const sourceRanges = surveyEnforcementMetadata?.source_date_ranges || {};
+    const recentWindowText = recentWindow.start_date && recentWindow.end_date
+      ? `${formatSnapshotDate(recentWindow.start_date)} through ${formatSnapshotDate(recentWindow.end_date)}, inclusive`
+      : 'Recent window unavailable';
+    const hasAnyRecords = summary.has_health_deficiency_records
+      || summary.has_fire_safety_records
+      || summary.has_penalty_records;
+    const cautionFlags = Array.isArray(summary.survey_enforcement_caution_flags)
+      ? summary.survey_enforcement_caution_flags
+      : [];
+    const duplicatePenaltyNote = cautionFlags.includes('duplicate_penalty_source_rows_preserved')
+      ? '<li>The detailed penalties source contains preserved duplicate source rows for this facility.</li>'
+      : '';
+
+    const latestDates = [
+      renderSnapshotStat('Latest health survey', formatSnapshotDate(summary.latest_health_survey_date)),
+      renderSnapshotStat('Latest fire safety survey', formatSnapshotDate(summary.latest_fire_safety_survey_date)),
+      renderSnapshotStat('Latest enforcement event', formatSnapshotDate(summary.latest_penalty_date))
+    ].join('');
+    const recentStats = [
+      renderSnapshotStat('Health deficiencies', formatCount(summary.recent_health_deficiency_count)),
+      renderSnapshotStat('Actual harm findings', formatCount(summary.recent_actual_harm_count)),
+      renderSnapshotStat('Immediate jeopardy findings', formatCount(summary.recent_immediate_jeopardy_count)),
+      renderSnapshotStat('Fire safety citations', formatCount(summary.recent_fire_safety_citation_count)),
+      renderSnapshotStat('Emergency preparedness', formatCount(summary.recent_emergency_preparedness_citation_count), 'citations'),
+      renderSnapshotStat('Enforcement events', formatCount(summary.recent_enforcement_event_count)),
+      renderSnapshotStat('Fines', formatCount(summary.recent_fine_count), formatCurrency(summary.recent_fine_total)),
+      renderSnapshotStat('Payment denials', formatCount(summary.recent_payment_denial_count), `${formatCount(summary.recent_payment_denial_days)} days`)
+    ].join('');
+    const sourceWindowStats = [
+      renderSnapshotStat('Health deficiencies', formatCount(summary.all_time_health_deficiency_count)),
+      renderSnapshotStat('Actual harm findings', formatCount(summary.all_time_actual_harm_count)),
+      renderSnapshotStat('Immediate jeopardy findings', formatCount(summary.all_time_immediate_jeopardy_count)),
+      renderSnapshotStat('Fire safety citations', formatCount(summary.all_time_fire_safety_citation_count)),
+      renderSnapshotStat('Emergency preparedness', formatCount(summary.all_time_emergency_preparedness_citation_count), 'citations'),
+      renderSnapshotStat('Enforcement events', formatCount(summary.all_time_enforcement_event_count)),
+      renderSnapshotStat('Fines', formatCount(summary.all_time_fine_count), formatCurrency(summary.all_time_fine_total)),
+      renderSnapshotStat('Payment denials', formatCount(summary.all_time_payment_denial_count), `${formatCount(summary.all_time_payment_denial_days)} days`)
+    ].join('');
+    const sourceWindowParts = [
+      sourceRanges.health_survey_dates?.min && sourceRanges.health_survey_dates?.max
+        ? `Health surveys: ${formatSnapshotDate(sourceRanges.health_survey_dates.min)} to ${formatSnapshotDate(sourceRanges.health_survey_dates.max)}`
+        : '',
+      sourceRanges.fire_safety_survey_dates?.min && sourceRanges.fire_safety_survey_dates?.max
+        ? `Fire safety surveys: ${formatSnapshotDate(sourceRanges.fire_safety_survey_dates.min)} to ${formatSnapshotDate(sourceRanges.fire_safety_survey_dates.max)}`
+        : '',
+      sourceRanges.penalty_dates?.min && sourceRanges.penalty_dates?.max
+        ? `Enforcement events: ${formatSnapshotDate(sourceRanges.penalty_dates.min)} to ${formatSnapshotDate(sourceRanges.penalty_dates.max)}`
+        : ''
+    ].filter(Boolean);
+
+    output.innerHTML = `
+      <div class="survey-snapshot-shell">
+        <div class="survey-snapshot-intro">
+          <div>
+            <h3>Recent survey and enforcement context for ${escapeHtml(facility.name)}</h3>
+            <p class="subtle">Recent counts use ${escapeHtml(recentWindowText)}. Dates and counts come from CMS survey and enforcement files summarized by CCN.</p>
+          </div>
+          <span class="survey-snapshot-separation">Separate from staffing classification</span>
+        </div>
+        ${hasAnyRecords ? '' : '<div class="notice">No survey or enforcement records were found for this facility in the available source files. Zero counts are shown below.</div>'}
+        <h3 class="survey-snapshot-subheading">Latest dates</h3>
+        <dl class="survey-snapshot-grid survey-snapshot-dates">${latestDates}</dl>
+        <h3 class="survey-snapshot-subheading">Recent counts</h3>
+        <dl class="survey-snapshot-grid">${recentStats}</dl>
+        <details class="survey-snapshot-details">
+          <summary>View totals across the available source windows</summary>
+          <p class="microcopy">${escapeHtml(sourceWindowParts.join(' | ') || 'Source date ranges are unavailable.')}</p>
+          <dl class="survey-snapshot-grid">${sourceWindowStats}</dl>
+        </details>
+        <div class="survey-snapshot-cautions" aria-labelledby="survey-snapshot-cautions-title">
+          <h3 id="survey-snapshot-cautions-title">How to read this snapshot</h3>
+          <ul>
+            <li>These counts are context from CMS survey and enforcement files, not a standalone quality score.</li>
+            <li>Fine amounts are enforcement values and should not be used by themselves to rank facilities.</li>
+            <li>Survey and enforcement data is shown separately from staffing measures.</li>
+            <li>Detailed citation and event rows are not loaded on this page by default.</li>
+            <li>Known CMS citation-description lookup gaps exist for K-0211 and K-0133; source descriptions are preserved in the detailed dataset.</li>
+            ${duplicatePenaltyNote}
+          </ul>
+        </div>
+      </div>
+    `;
+  }
+
+  async function loadSurveyEnforcementSummary() {
+    surveyEnforcementLoadState = 'loading';
+    surveyEnforcementLoadError = '';
+    try {
+      const data = await global.DanBeemData.loadJson(surveyEnforcementSummaryPath);
+      if (!data || !Array.isArray(data.facilities) || !data.metadata) {
+        throw new Error('The compact summary has an unexpected structure.');
+      }
+      const nextByCcn = new Map();
+      data.facilities.forEach(row => {
+        const ccn = String(row?.ccn || '');
+        if (!/^\d{6}$/.test(ccn)) throw new Error(`Invalid CCN in compact summary: ${ccn || 'blank'}`);
+        if (nextByCcn.has(ccn)) throw new Error(`Duplicate CCN in compact summary: ${ccn}`);
+        nextByCcn.set(ccn, row);
+      });
+      surveyEnforcementMetadata = data.metadata;
+      surveyEnforcementByCcn = nextByCcn;
+      surveyEnforcementLoadState = 'ready';
+    } catch (err) {
+      surveyEnforcementMetadata = null;
+      surveyEnforcementByCcn = new Map();
+      surveyEnforcementLoadState = 'unavailable';
+      surveyEnforcementLoadError = err?.message || 'The compact summary could not be loaded.';
+    }
+    const selectedFacility = getSelectedFacility();
+    if (selectedFacility) renderSurveyEnforcementSnapshot(selectedFacility);
+  }
+
   function renderFacility(facilityId) {
     const facility = getFacilityById(facilityId);
     if (!facility) return;
@@ -1347,6 +1518,7 @@
     renderQualityMeasuresClaimsSection(facility);
     renderMetricCards(facility);
     renderQuarterlyTable(facility);
+    renderSurveyEnforcementSnapshot(facility);
     if (historyDataset) renderHistoricalPbj(facility);
     renderInterpretation(facility);
   }
@@ -1357,6 +1529,7 @@
 
     try {
       if (!global.DanBeemData) throw new Error('Shared data loader did not load.');
+      void loadSurveyEnforcementSummary();
       const data = await loadFirstAvailableJson(dataPaths);
       normalizeDataset(data);
       if (!facilities.length) throw new Error('No facilities were found in the staffing export.');

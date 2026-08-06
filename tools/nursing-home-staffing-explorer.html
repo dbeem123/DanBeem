@@ -6,10 +6,10 @@
   <title>Connecticut Nursing Home Staffing Explorer</title>
   <meta name="description" content="A screening-level Connecticut nursing home staffing explorer for reviewing quarterly PBJ staffing metrics with ombudsman-centered follow-up questions." />
   <link rel="stylesheet" href="../Assets/shared.css">
-  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css?v=20260804-11d18b">
   <script defer src="../Assets/shared.js"></script>
   <script defer src="../Assets/nursing-home-source-currency.js"></script>
-  <script defer src="../Assets/nursing-home-staffing.js"></script>
+  <script defer src="../Assets/nursing-home-staffing.js?v=20260804-11d18b"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
     input,
@@ -520,7 +520,7 @@
           <div>
             <div class="eyebrow">Facility Dossier</div>
             <h2 id="dossier-title">Selected facility profile</h2>
-            <p class="subtle">Start with the facility identity and current CMS snapshot, then open deeper sections for staffing, historical PBJ, quality measures, affiliation context, exports, and source limits.</p>
+            <p class="subtle">Start with the facility identity and current CMS snapshot, then open deeper sections for staffing, survey and enforcement context, historical PBJ, quality measures, affiliation context, exports, and source limits.</p>
           </div>
           <a class="btn secondary" href="nursing-home-staffing-methodology.html">About the data / methodology</a>
         </div>
@@ -529,11 +529,12 @@
           <a href="#screening-title"><strong>2. Screening indicators</strong><span class="microcopy">Plain-language indicators for follow-up questions, not findings.</span></a>
           <a href="#ratings-title"><strong>3. Care Compare context</strong><span class="microcopy">Current CMS star-rating context when available.</span></a>
           <a href="#metrics-title"><strong>4. Current staffing</strong><span class="microcopy">Latest/current HPRD metrics and current export trend table.</span></a>
-          <a href="#historical-pbj-title"><strong>5. Historical PBJ</strong><span class="microcopy">On-demand PBJ history with latest-8 and full-history controls.</span></a>
-          <a href="#quality-measures-title"><strong>6. Quality measures</strong><span class="microcopy">Current CMS claims-based quality-measure context.</span></a>
-          <a href="#ownership-detail-title"><strong>7. Ownership / affiliation</strong><span class="microcopy">Current enrollment and affiliation context, kept distinct from ownership findings.</span></a>
-          <a href="#report-actions-title"><strong>8. Reports and exports</strong><span class="microcopy">Print and CSV actions for the selected facility.</span></a>
-          <a href="#source-note-title"><strong>9. Sources and limits</strong><span class="microcopy">Methodology, source caveats, and resident-centered review prompts.</span></a>
+          <a href="#survey-enforcement-title"><strong>5. Survey &amp; enforcement</strong><span class="microcopy">Recent CMS survey and enforcement context, separate from staffing.</span></a>
+          <a href="#historical-pbj-title"><strong>6. Historical PBJ</strong><span class="microcopy">On-demand PBJ history with latest-8 and full-history controls.</span></a>
+          <a href="#quality-measures-title"><strong>7. Quality measures</strong><span class="microcopy">Current CMS claims-based quality-measure context.</span></a>
+          <a href="#ownership-detail-title"><strong>8. Ownership / affiliation</strong><span class="microcopy">Current enrollment and affiliation context, kept distinct from ownership findings.</span></a>
+          <a href="#report-actions-title"><strong>9. Reports and exports</strong><span class="microcopy">Print and CSV actions for the selected facility.</span></a>
+          <a href="#source-note-title"><strong>10. Sources and limits</strong><span class="microcopy">Methodology, source caveats, and resident-centered review prompts.</span></a>
         </nav>
       </div>
     </section>
@@ -613,9 +614,27 @@
       </details>
     </section>
 
+    <section class="wrap" aria-labelledby="survey-enforcement-title">
+      <details class="ltcop-disclosure">
+        <summary id="survey-enforcement-title">5. Survey &amp; Enforcement Snapshot</summary>
+        <div class="ltcop-disclosure-body">
+          <div class="sectionHeader">
+            <div>
+              <div class="eyebrow">CMS Survey and Enforcement Context</div>
+              <h2>Survey &amp; Enforcement Snapshot</h2>
+              <p class="subtle">This context is loaded from a compact facility summary and remains separate from staffing measures and staffing classifications.</p>
+            </div>
+          </div>
+          <div id="survey-enforcement-snapshot" aria-live="polite" aria-busy="true">
+            <div class="notice">Loading survey and enforcement context...</div>
+          </div>
+        </div>
+      </details>
+    </section>
+
     <section class="wrap" aria-labelledby="historical-pbj-title">
       <details class="ltcop-disclosure">
-        <summary id="historical-pbj-title">5. Historical PBJ staffing</summary>
+        <summary id="historical-pbj-title">6. Historical PBJ staffing</summary>
         <div class="ltcop-disclosure-body">
           <div class="sectionHeader">
             <div>
@@ -638,7 +657,7 @@
 
     <section class="wrap" aria-labelledby="quality-measures-title">
       <details class="ltcop-disclosure">
-        <summary id="quality-measures-title">6. Quality measures</summary>
+        <summary id="quality-measures-title">7. Quality measures</summary>
         <div class="ltcop-disclosure-body">
           <div class="sectionHeader">
             <div>
@@ -654,7 +673,7 @@
 
     <section class="wrap" aria-labelledby="ownership-detail-title">
       <details class="ltcop-disclosure">
-        <summary id="ownership-detail-title">7. Ownership / affiliation context</summary>
+        <summary id="ownership-detail-title">8. Ownership / affiliation context</summary>
         <div class="ltcop-disclosure-body">
           <div class="sectionHeader">
             <div>
@@ -670,7 +689,7 @@
 
     <section class="wrap" aria-labelledby="report-actions-title">
       <details class="ltcop-disclosure" open>
-        <summary id="report-actions-title">8. Reports and exports</summary>
+        <summary id="report-actions-title">9. Reports and exports</summary>
         <div class="ltcop-disclosure-body">
           <div class="sectionHeader">
             <div>
@@ -691,7 +710,7 @@
 
     <section class="wrap" aria-labelledby="source-note-title">
       <details class="ltcop-disclosure" open>
-        <summary id="source-note-title">9. Sources, methodology, and limits</summary>
+        <summary id="source-note-title">10. Sources, methodology, and limits</summary>
         <div class="ltcop-disclosure-body">
           <div class="sectionHeader">
             <div>
@@ -714,7 +733,7 @@
             </ul>
           </div>
           <p class="subtle"><a href="nursing-home-staffing-methodology.html">About the data / methodology</a></p>
-          <p class="subtle">Future status indicators such as Special Focus Facility, abuse icon, or facility-level deficiencies should be added only after official source fields are obtained and documented. A future "Prepare ChatGPT Review" helper could generate a copyable review prompt from visible metrics and caveats; no AI API or key is embedded in this static site.</p>
+          <p class="subtle">Future status indicators such as Special Focus Facility or abuse icon should be added only after official source fields are obtained and documented. A future "Prepare ChatGPT Review" helper could generate a copyable review prompt from visible metrics and caveats; no AI API or key is embedded in this static site.</p>
         </div>
       </details>
     </section>

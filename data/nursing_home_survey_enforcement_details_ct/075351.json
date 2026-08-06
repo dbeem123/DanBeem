@@ -1,0 +1,30 @@
+{
+  "metadata": {
+    "ccn": "075351",
+    "provider_name": "ABBOTT TERRACE HEALTH CENTER",
+    "build_date": "2026-08-04",
+    "source_files": [
+      "data/nursing_home_health_deficiencies_ct.json",
+      "data/nursing_home_fire_safety_deficiencies_ct.json",
+      "data/nursing_home_penalties_ct.json"
+    ],
+    "health_record_count": 0,
+    "fire_safety_record_count": 0,
+    "emergency_preparedness_record_count": 0,
+    "penalty_record_count": 0,
+    "fire_lookup_gap_record_count": 0,
+    "duplicate_penalty_record_count": 0,
+    "limitations": [
+      "available_source_windows_only",
+      "citation_counts_are_context_only",
+      "enforcement_values_are_not_quality_scores",
+      "no_composite_quality_score_or_ranking",
+      "health_harm_grouping_not_applied_to_fire_or_emergency_records",
+      "cms_lookup_gaps_documented_for_K-0211_and_K-0133"
+    ]
+  },
+  "health_deficiencies": [],
+  "fire_safety_deficiencies": [],
+  "emergency_preparedness_deficiencies": [],
+  "penalties": []
+}

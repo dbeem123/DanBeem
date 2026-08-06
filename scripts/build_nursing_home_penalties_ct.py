@@ -2,8 +2,8 @@
 
 Default behavior is validation-only: read the CMS Penalties source, validate
 joins and derived fields, and print a summary. Use --write-testing-preview to
-write an ignored preview under data/testing/. This script never writes the
-public runtime file data/nursing_home_penalties_ct.json.
+write an ignored preview under data/testing/, or --write-runtime to explicitly
+write the production runtime JSON.
 """
 
 from __future__ import annotations
@@ -71,7 +71,7 @@ LIMITATIONS = [
     "Penalty date, payment denial start date, and processing date are different fields.",
     "Facility-level totals require a defined time window.",
     "State-level totals require careful denominator labels.",
-    "Duplicate source rows are flagged and preserved in this preview.",
+        "Duplicate source rows are flagged and preserved in generated JSON.",
     "This rolling CMS source is not complete lifetime enforcement history.",
 ]
 
@@ -369,17 +369,20 @@ def build_preview() -> tuple[dict[str, Any], dict[str, Any]]:
 
 
 def write_testing_preview(preview: dict[str, Any]) -> None:
-    if RUNTIME_OUTPUT_PATH.exists():
-        raise RuntimeError(
-            f"Refusing to continue because runtime output exists: {RUNTIME_OUTPUT_PATH.as_posix()}"
-        )
     TESTING_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with TESTING_OUTPUT_PATH.open("w", encoding="utf-8") as handle:
         json.dump(preview, handle, indent=2)
         handle.write("\n")
 
 
-def print_summary(summary: dict[str, Any], *, wrote_preview: bool) -> None:
+def write_runtime(preview: dict[str, Any]) -> None:
+    RUNTIME_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with RUNTIME_OUTPUT_PATH.open("w", encoding="utf-8") as handle:
+        json.dump(preview, handle, indent=2)
+        handle.write("\n")
+
+
+def print_summary(summary: dict[str, Any], *, wrote_preview: bool, wrote_runtime: bool) -> None:
     print(f"Source file: {summary['source_file']}")
     print(f"Source file size bytes: {summary['source_file_size_bytes']}")
     print(f"All source rows: {summary['source_row_count']}")
@@ -409,22 +412,30 @@ def print_summary(summary: dict[str, Any], *, wrote_preview: bool) -> None:
         print(f"Testing preview written: {TESTING_OUTPUT_PATH.as_posix()}")
     else:
         print("Testing preview written: no")
-    print(f"Runtime output written: no ({RUNTIME_OUTPUT_PATH.as_posix()} is never written by this script)")
+    print(f"Runtime output written: {'yes' if wrote_runtime else 'no'} ({RUNTIME_OUTPUT_PATH.as_posix()})")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument(
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument(
         "--write-testing-preview",
         action="store_true",
         help=f"Write ignored testing preview to {TESTING_OUTPUT_PATH.as_posix()}",
+    )
+    output_group.add_argument(
+        "--write-runtime",
+        action="store_true",
+        help=f"Write production runtime JSON to {RUNTIME_OUTPUT_PATH.as_posix()}",
     )
     args = parser.parse_args()
 
     preview, summary = build_preview()
     if args.write_testing_preview:
         write_testing_preview(preview)
-    print_summary(summary, wrote_preview=args.write_testing_preview)
+    elif args.write_runtime:
+        write_runtime(preview)
+    print_summary(summary, wrote_preview=args.write_testing_preview, wrote_runtime=args.write_runtime)
 
 
 if __name__ == "__main__":

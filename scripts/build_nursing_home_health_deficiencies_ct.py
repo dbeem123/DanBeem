@@ -2,8 +2,8 @@
 
 Default behavior is validation-only: read CMS source files, validate joins and
 derived fields, and print a summary. Use --write-testing-preview to write an
-ignored preview under data/testing/. This script never writes the public runtime
-file data/nursing_home_health_deficiencies_ct.json.
+ignored preview under data/testing/, or --write-runtime to explicitly write the
+production runtime JSON.
 """
 
 from __future__ import annotations
@@ -297,7 +297,7 @@ def build_preview() -> tuple[dict[str, Any], dict[str, Any]]:
             "Survey date and processing date are not the same.",
             "Citation descriptions are lookup/reference text, not proof of a facility finding by themselves.",
             "Scope/severity grouping is a derived screening classification, not a legal conclusion.",
-            "This testing preview is non-runtime and should not be committed.",
+            "Generated JSON is not automatically wired into the public UI.",
         ],
     }
 
@@ -323,7 +323,14 @@ def build_preview() -> tuple[dict[str, Any], dict[str, Any]]:
     return {"metadata": metadata, "deficiencies": deficiencies}, summary
 
 
-def print_summary(summary: dict[str, Any], *, wrote_preview: bool) -> None:
+def write_json(output_path: Path, preview: dict[str, Any]) -> None:
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    with output_path.open("w", encoding="utf-8") as handle:
+        json.dump(preview, handle, indent=2)
+        handle.write("\n")
+
+
+def print_summary(summary: dict[str, Any], *, wrote_preview: bool, wrote_runtime: bool) -> None:
     print(f"Source file: {summary['source_file']}")
     print(f"Source file size bytes: {summary['source_file_size_bytes']}")
     print(f"Citation lookup file: {summary['citation_lookup_file']}")
@@ -348,6 +355,8 @@ def print_summary(summary: dict[str, Any], *, wrote_preview: bool) -> None:
         print(f"  {key}: {value}")
     if wrote_preview:
         print(f"Testing preview written: {TESTING_OUTPUT_PATH.as_posix()}")
+    elif wrote_runtime:
+        print(f"Runtime output written: {RUNTIME_OUTPUT_PATH.as_posix()}")
     else:
         print("Dry run only: no output written.")
 
@@ -356,27 +365,29 @@ def main() -> None:
     parser = argparse.ArgumentParser(
         description="Dry-run/build a Connecticut Health Deficiencies testing preview."
     )
-    parser.add_argument(
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument(
         "--write-testing-preview",
         action="store_true",
         help="Write data/testing/nursing_home_health_deficiencies_ct_preview.json",
     )
+    output_group.add_argument(
+        "--write-runtime",
+        action="store_true",
+        help=f"Write production runtime JSON to {RUNTIME_OUTPUT_PATH.as_posix()}",
+    )
     args = parser.parse_args()
-
-    if RUNTIME_OUTPUT_PATH.exists():
-        raise SystemExit(
-            f"Refusing to continue because runtime output exists: {RUNTIME_OUTPUT_PATH.as_posix()}"
-        )
 
     preview, summary = build_preview()
     if args.write_testing_preview:
-        TESTING_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-        with TESTING_OUTPUT_PATH.open("w", encoding="utf-8") as handle:
-            json.dump(preview, handle, indent=2)
-            handle.write("\n")
-        print_summary(summary, wrote_preview=True)
-    else:
-        print_summary(summary, wrote_preview=False)
+        write_json(TESTING_OUTPUT_PATH, preview)
+    elif args.write_runtime:
+        write_json(RUNTIME_OUTPUT_PATH, preview)
+    print_summary(
+        summary,
+        wrote_preview=args.write_testing_preview,
+        wrote_runtime=args.write_runtime,
+    )
 
 
 if __name__ == "__main__":
