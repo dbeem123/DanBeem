@@ -102,6 +102,9 @@
   let surveyEnforcementByCcn = new Map();
   let surveyEnforcementLoadState = 'loading';
   let surveyEnforcementLoadError = '';
+  const surveyEnforcementDetailCache = new Map();
+  let surveyEnforcementDetailRequestToken = 0;
+  let surveyEnforcementDetailState = null;
   /** @type {FacilityViewModel[]} */
   let facilities = [];
   let filteredFacilities = [];
@@ -110,6 +113,9 @@
     '../data/nursing_home_staffing_mock.json'
   ];
   const surveyEnforcementSummaryPath = '../data/nursing_home_survey_enforcement_summary_ct.json';
+  const surveyEnforcementDetailDirectory = '../data/nursing_home_survey_enforcement_details_ct';
+  const surveyEnforcementDetailInitialLimit = 10;
+  surveyEnforcementDetailState = createSurveyEnforcementDetailState('');
   const caseMixBenchmarkExplanation = 'How this comparison is built: the case-mix comparison point value itself is not calculated by this tool. It is imported directly from the CMS Nursing Home Provider Information field "Case-Mix Total Nurse Staffing Hours per Resident per Day." CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. This tool compares the facility\'s PBJ-reported actual total nurse HPRD against that CMS-published comparison point. The actual-minus-benchmark difference and percent-of-benchmark text are calculated by this tool. The comparison point is contextual, not actual staffing, not a legal minimum, and not proof of poor care, neglect, harm, or violations.';
 
   function quarterSort(a, b) {
@@ -587,7 +593,7 @@
       <h1>Connecticut Facility Staffing Summary</h1>
       <dl class="staffing-summary-list">
         <div><dt>Facility</dt><dd>${escapeHtml(facility.name)}</dd></div>
-        <div><dt>CCN</dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>
+        <div><dt><abbr title="CMS Certification Number">CCN</abbr></dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>
         <div><dt>City/state</dt><dd>${escapeHtml(facility.city)}, ${escapeHtml(facility.state)}</dd></div>
         <div><dt>Latest quarter</dt><dd>${escapeHtml(quarterLabel)}</dd></div>
         <div><dt>Export generated</dt><dd>${escapeHtml(generatedAt)}</dd></div>
@@ -630,7 +636,7 @@
     const current = facility.currentRow;
     const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
     const metadataRows = [
-      `<div><dt>CCN</dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>`,
+      `<div><dt><abbr title="CMS Certification Number">CCN</abbr></dt><dd>${escapeHtml(facility.ccn || 'Not available')}</dd></div>`,
       `<div><dt>Latest quarter</dt><dd>${escapeHtml(quarterLabel)}</dd></div>`
     ];
     if (isUsableNumber(facility.certifiedBeds)) {
@@ -1367,6 +1373,350 @@
     `;
   }
 
+  function createSurveyEnforcementDetailState(ccn) {
+    return {
+      ccn: String(ccn || ''),
+      status: 'idle',
+      isOpen: false,
+      data: null,
+      error: '',
+      requestToken: 0,
+      visibleCounts: {
+        health: surveyEnforcementDetailInitialLimit,
+        fire: surveyEnforcementDetailInitialLimit,
+        emergency: surveyEnforcementDetailInitialLimit,
+        penalties: surveyEnforcementDetailInitialLimit
+      },
+      sectionOpen: {
+        health: true,
+        fire: true,
+        emergency: true,
+        penalties: true
+      }
+    };
+  }
+
+  function resetSurveyEnforcementDetailsForFacility(facility) {
+    const ccn = String(facility?.ccn || '');
+    if (surveyEnforcementDetailState.ccn === ccn) return;
+    surveyEnforcementDetailRequestToken += 1;
+    surveyEnforcementDetailState = createSurveyEnforcementDetailState(ccn);
+  }
+
+  function getSurveyEnforcementDetailPath(ccn) {
+    const normalizedCcn = String(ccn || '');
+    if (!/^\d{6}$/.test(normalizedCcn)) {
+      throw new Error('A valid six-character CCN is required to load detailed records.');
+    }
+    return `${surveyEnforcementDetailDirectory}/${normalizedCcn}.json`;
+  }
+
+  function validateSurveyEnforcementDetails(data, ccn) {
+    const arrays = [
+      'health_deficiencies',
+      'fire_safety_deficiencies',
+      'emergency_preparedness_deficiencies',
+      'penalties'
+    ];
+    if (!data || String(data.metadata?.ccn || '') !== ccn || arrays.some(key => !Array.isArray(data[key]))) {
+      throw new Error('The facility detail file has an unexpected structure.');
+    }
+    return data;
+  }
+
+  function renderDetailDate(value) {
+    const raw = String(value || '');
+    return /^\d{4}-\d{2}-\d{2}$/.test(raw)
+      ? `<time datetime="${escapeHtml(raw)}">${escapeHtml(formatSnapshotDate(raw))}</time>`
+      : escapeHtml(formatSnapshotDate(raw));
+  }
+
+  function renderDetailMeta(items) {
+    const rows = items
+      .filter(item => item.value !== null && item.value !== undefined && item.value !== '')
+      .map(item => `
+        <div>
+          <dt>${escapeHtml(item.label)}</dt>
+          <dd>${escapeHtml(item.value)}</dd>
+        </div>
+      `)
+      .join('');
+    return rows ? `<dl class="survey-detail-record-meta">${rows}</dl>` : '';
+  }
+
+  function getFindingIndicators(record) {
+    const indicators = [];
+    if (record.standard_deficiency === true) indicators.push('Standard survey');
+    if (record.complaint_deficiency === true) indicators.push('Complaint');
+    if (record.infection_control_inspection_deficiency === true) indicators.push('Infection control inspection');
+    return indicators.length ? indicators.join(', ') : 'No source indicator marked';
+  }
+
+  function getHealthHarmLabel(value) {
+    const labels = {
+      immediate_jeopardy: 'Immediate jeopardy',
+      actual_harm_not_ij: 'Actual harm, not immediate jeopardy',
+      no_actual_harm_more_than_minimal: 'No actual harm, with potential for more than minimal harm',
+      no_actual_harm_minimal: 'No actual harm, with potential for minimal harm'
+    };
+    return labels[String(value || '')] || 'Not classified';
+  }
+
+  function renderDeficiencyRecord(record, sectionKey) {
+    const isHealth = sectionKey === 'health';
+    const correctionValue = record.correction_date
+      ? formatSnapshotDate(record.correction_date)
+      : (record.deficiency_corrected || 'Not found in this source');
+    const metadata = [
+      { label: 'Category', value: record.deficiency_category || record.citation_description_category || 'Not found in this source' },
+      { label: 'Scope / severity', value: record.scope_severity_code || 'Not found in this source' },
+      ...(isHealth ? [{ label: 'Health harm grouping', value: getHealthHarmLabel(record.harm_ij_group) }] : []),
+      { label: 'Finding indicators', value: getFindingIndicators(record) },
+      { label: 'Correction', value: correctionValue },
+      { label: 'Processing date', value: record.processing_date ? formatSnapshotDate(record.processing_date) : 'Not found in this source' }
+    ];
+    const lookupGap = !isHealth && record.citation_description_lookup_matched === false
+      ? `<p class="survey-detail-record-note"><strong>CMS citation-description lookup gap.</strong> The source description is shown.${record.citation_description_lookup_gap_reason ? ` ${escapeHtml(record.citation_description_lookup_gap_reason)}` : ''}</p>`
+      : '';
+    const reviewFlags = [
+      record.citation_under_idr === true ? 'Informal Dispute Resolution (IDR)' : '',
+      record.citation_under_iidr === true ? 'Independent Informal Dispute Resolution (IIDR)' : ''
+    ].filter(Boolean);
+    return `
+      <article class="survey-detail-record">
+        <header>
+          <span class="survey-detail-code">${escapeHtml(record.deficiency_code || 'Code unavailable')}</span>
+          <span>${renderDetailDate(record.survey_date)}</span>
+        </header>
+        <p class="survey-detail-description">${escapeHtml(record.deficiency_description || 'Description unavailable.')}</p>
+        ${renderDetailMeta(metadata)}
+        ${reviewFlags.length ? `<p class="microcopy">Source indicates review under ${escapeHtml(reviewFlags.join(' and '))}.</p>` : ''}
+        ${lookupGap}
+      </article>
+    `;
+  }
+
+  function renderPenaltyRecord(record) {
+    const category = String(record.enforcement_category || '').toLowerCase();
+    const metadata = [
+      { label: 'Event type', value: record.penalty_type || record.enforcement_category || 'Not found in this source' },
+      ...(category === 'fine' || isUsableNumber(record.fine_amount)
+        ? [{ label: 'Fine amount', value: formatCurrency(record.fine_amount) }]
+        : []),
+      ...(record.payment_denial_start_date
+        ? [{ label: 'Payment-denial start', value: formatSnapshotDate(record.payment_denial_start_date) }]
+        : []),
+      ...(isUsableNumber(record.payment_denial_length_days)
+        ? [{ label: 'Payment-denial duration', value: `${formatCount(record.payment_denial_length_days)} days` }]
+        : []),
+      { label: 'Processing date', value: record.processing_date ? formatSnapshotDate(record.processing_date) : 'Not found in this source' }
+    ];
+    return `
+      <article class="survey-detail-record">
+        <header>
+          <span class="survey-detail-code">${escapeHtml(record.penalty_type || 'Enforcement event')}</span>
+          <span>${renderDetailDate(record.penalty_date)}</span>
+        </header>
+        ${renderDetailMeta(metadata)}
+        ${record.duplicate_full_row_signature === true
+          ? '<p class="survey-detail-record-note"><strong>Duplicate source row preserved.</strong> This record is marked as a full-row duplicate in the CMS source.</p>'
+          : ''}
+      </article>
+    `;
+  }
+
+  function renderSurveyDetailSection(section) {
+    const records = section.records;
+    const total = records.length;
+    const visibleCount = Math.min(surveyEnforcementDetailState.visibleCounts[section.key] || surveyEnforcementDetailInitialLimit, total);
+    const renderedRecords = records.slice(0, visibleCount)
+      .map(record => section.key === 'penalties'
+        ? renderPenaltyRecord(record)
+        : renderDeficiencyRecord(record, section.key))
+      .join('');
+    const remaining = total - visibleCount;
+    const openAttribute = surveyEnforcementDetailState.sectionOpen[section.key] ? ' open' : '';
+    return `
+      <details class="survey-detail-section" data-survey-detail-section="${escapeHtml(section.key)}"${openAttribute}>
+        <summary>
+          <span>${escapeHtml(section.label)}</span>
+          <span>${escapeHtml(formatCount(total))} total</span>
+        </summary>
+        <div class="survey-detail-section-body">
+          ${total
+            ? `<div class="survey-detail-record-list">${renderedRecords}</div>`
+            : `<p class="survey-detail-empty">No ${escapeHtml(section.emptyLabel)} records were found for this facility in the included source files.</p>`}
+          ${total ? `
+            <div class="survey-detail-progress">
+              <span>Showing ${escapeHtml(formatCount(visibleCount))} of ${escapeHtml(formatCount(total))}</span>
+              ${remaining > 0 ? `
+                <button type="button" class="action-button secondary" data-survey-detail-action="show-more" data-section="${escapeHtml(section.key)}">Show ${escapeHtml(formatCount(Math.min(surveyEnforcementDetailInitialLimit, remaining)))} more</button>
+                <button type="button" class="action-button secondary" data-survey-detail-action="show-all" data-section="${escapeHtml(section.key)}">Show all ${escapeHtml(formatCount(total))}</button>
+              ` : ''}
+            </div>
+          ` : ''}
+        </div>
+      </details>
+    `;
+  }
+
+  function renderSurveyEnforcementDetailsArea(facility) {
+    const area = document.getElementById('survey-enforcement-details-area');
+    if (!area || !surveyEnforcementDetailState.isOpen) return;
+    const state = surveyEnforcementDetailState;
+    area.setAttribute('aria-busy', state.status === 'loading' ? 'true' : 'false');
+
+    if (state.status === 'loading') {
+      area.innerHTML = '<div class="notice" role="status">Loading detailed findings for this facility...</div>';
+      return;
+    }
+    if (state.status === 'error') {
+      area.innerHTML = `
+        <div class="notice error" role="alert">
+          Detailed findings could not be loaded. The compact snapshot above remains available.
+          ${state.error ? `<span class="microcopy"> ${escapeHtml(state.error)}</span>` : ''}
+          <div class="survey-detail-retry"><button type="button" class="action-button" data-survey-detail-action="retry">Retry detailed findings</button></div>
+        </div>
+      `;
+      return;
+    }
+    if (state.status !== 'ready' || !state.data) return;
+
+    const data = state.data;
+    const newestFirst = (records, dateKey) => records.slice().sort((a, b) =>
+      String(b?.[dateKey] || '').localeCompare(String(a?.[dateKey] || '')));
+    const sections = [
+      { key: 'health', label: 'Health deficiencies', emptyLabel: 'health deficiency', records: newestFirst(data.health_deficiencies, 'survey_date') },
+      { key: 'fire', label: 'Fire safety deficiencies', emptyLabel: 'fire safety deficiency', records: newestFirst(data.fire_safety_deficiencies, 'survey_date') },
+      { key: 'emergency', label: 'Emergency preparedness deficiencies', emptyLabel: 'emergency preparedness deficiency', records: newestFirst(data.emergency_preparedness_deficiencies, 'survey_date') },
+      { key: 'penalties', label: 'Penalties and payment denials', emptyLabel: 'penalty or payment-denial', records: newestFirst(data.penalties, 'penalty_date') }
+    ];
+    const total = sections.reduce((sum, section) => sum + section.records.length, 0);
+    area.innerHTML = `
+      <div class="survey-detail-panel">
+        <div class="survey-detail-heading">
+          <div>
+            <h3 id="survey-enforcement-details-heading" tabindex="-1">Detailed survey and enforcement records for ${escapeHtml(facility.name)}</h3>
+            <p class="subtle"><abbr title="CMS Certification Number">CCN</abbr> ${escapeHtml(state.ccn)}. Records are displayed newest first as provided by the facility detail dataset.</p>
+          </div>
+          <span class="survey-snapshot-separation">Separate from staffing classification</span>
+        </div>
+        ${total === 0 ? `
+          <div class="notice" role="status">
+            No survey or enforcement records for this facility were found in the included CMS source files. This does not mean the facility has never had a deficiency or enforcement action; available source windows are limited, and the displayed data may not include every state or federal action.
+          </div>
+        ` : ''}
+        <div class="survey-detail-sections">${sections.map(renderSurveyDetailSection).join('')}</div>
+        <div class="survey-detail-caution">
+          <strong>Use as historical context, not as a score.</strong>
+          These CMS records are separate from staffing measures. Citation counts require date and survey context, and facilities should not be ranked solely by citation counts or fine amounts. Available date ranges vary by source, and known CMS Fire Safety K-tag citation-description lookup gaps are annotated where present.
+        </div>
+      </div>
+    `;
+  }
+
+  function focusSurveyDetailHeading() {
+    global.requestAnimationFrame(() => document.getElementById('survey-enforcement-details-heading')?.focus());
+  }
+
+  async function loadSurveyEnforcementDetails(facility) {
+    const ccn = String(facility?.ccn || '');
+    resetSurveyEnforcementDetailsForFacility(facility);
+    const cached = surveyEnforcementDetailCache.get(ccn);
+    if (cached) {
+      surveyEnforcementDetailState.status = 'ready';
+      surveyEnforcementDetailState.data = cached;
+      surveyEnforcementDetailState.error = '';
+      surveyEnforcementDetailState.isOpen = true;
+      renderSurveyEnforcementSnapshot(facility);
+      focusSurveyDetailHeading();
+      return;
+    }
+
+    const requestToken = ++surveyEnforcementDetailRequestToken;
+    surveyEnforcementDetailState.status = 'loading';
+    surveyEnforcementDetailState.data = null;
+    surveyEnforcementDetailState.error = '';
+    surveyEnforcementDetailState.isOpen = true;
+    surveyEnforcementDetailState.requestToken = requestToken;
+    renderSurveyEnforcementSnapshot(facility);
+
+    try {
+      const path = getSurveyEnforcementDetailPath(ccn);
+      const data = validateSurveyEnforcementDetails(await global.DanBeemData.loadJson(path), ccn);
+      surveyEnforcementDetailCache.set(ccn, data);
+      if (requestToken !== surveyEnforcementDetailRequestToken
+        || surveyEnforcementDetailState.ccn !== ccn
+        || surveyEnforcementDetailState.requestToken !== requestToken) return;
+      surveyEnforcementDetailState.status = 'ready';
+      surveyEnforcementDetailState.data = data;
+      renderSurveyEnforcementSnapshot(facility);
+      focusSurveyDetailHeading();
+    } catch (err) {
+      if (requestToken !== surveyEnforcementDetailRequestToken
+        || surveyEnforcementDetailState.ccn !== ccn
+        || surveyEnforcementDetailState.requestToken !== requestToken) return;
+      surveyEnforcementDetailState.status = 'error';
+      surveyEnforcementDetailState.error = err?.message || 'The facility detail file could not be loaded.';
+      renderSurveyEnforcementSnapshot(facility);
+    }
+  }
+
+  function handleSurveyEnforcementDetailAction(event) {
+    const button = event.target.closest('button[data-survey-detail-action]');
+    if (!button) return;
+    const facility = getSelectedFacility();
+    if (!facility) return;
+    resetSurveyEnforcementDetailsForFacility(facility);
+    const action = button.dataset.surveyDetailAction;
+
+    if (action === 'toggle') {
+      if (surveyEnforcementDetailState.isOpen) {
+        surveyEnforcementDetailState.isOpen = false;
+        renderSurveyEnforcementSnapshot(facility);
+        global.requestAnimationFrame(() => document.querySelector('[data-survey-detail-action="toggle"]')?.focus());
+        return;
+      }
+      if (surveyEnforcementDetailState.status === 'ready' && surveyEnforcementDetailState.data) {
+        surveyEnforcementDetailState.isOpen = true;
+        renderSurveyEnforcementSnapshot(facility);
+        focusSurveyDetailHeading();
+        return;
+      }
+      void loadSurveyEnforcementDetails(facility);
+      return;
+    }
+    if (action === 'retry') {
+      void loadSurveyEnforcementDetails(facility);
+      return;
+    }
+    if (action === 'show-more' || action === 'show-all') {
+      const section = String(button.dataset.section || '');
+      const recordsBySection = {
+        health: surveyEnforcementDetailState.data?.health_deficiencies,
+        fire: surveyEnforcementDetailState.data?.fire_safety_deficiencies,
+        emergency: surveyEnforcementDetailState.data?.emergency_preparedness_deficiencies,
+        penalties: surveyEnforcementDetailState.data?.penalties
+      };
+      const records = recordsBySection[section];
+      if (!Array.isArray(records)) return;
+      surveyEnforcementDetailState.visibleCounts[section] = action === 'show-all'
+        ? records.length
+        : Math.min(records.length, surveyEnforcementDetailState.visibleCounts[section] + surveyEnforcementDetailInitialLimit);
+      renderSurveyEnforcementDetailsArea(facility);
+      global.requestAnimationFrame(() => {
+        const nextButton = document.querySelector(`[data-survey-detail-action="show-more"][data-section="${section}"]`);
+        (nextButton || document.querySelector(`[data-survey-detail-section="${section}"] > summary`))?.focus();
+      });
+    }
+  }
+
+  function handleSurveyEnforcementDetailSectionToggle(event) {
+    const section = event.target.closest?.('details[data-survey-detail-section]');
+    if (!section || event.target !== section || surveyEnforcementDetailState.status !== 'ready') return;
+    surveyEnforcementDetailState.sectionOpen[section.dataset.surveyDetailSection] = section.open;
+  }
+
   function renderSurveyEnforcementSnapshot(facility) {
     const output = document.getElementById('survey-enforcement-snapshot');
     if (!output) return;
@@ -1449,11 +1799,11 @@
         <div class="survey-snapshot-intro">
           <div>
             <h3>Recent survey and enforcement context for ${escapeHtml(facility.name)}</h3>
-            <p class="subtle">Recent counts use ${escapeHtml(recentWindowText)}. Dates and counts come from CMS survey and enforcement files summarized by CCN.</p>
+            <p class="subtle">Recent counts use ${escapeHtml(recentWindowText)}. Dates and counts come from CMS survey and enforcement files summarized by <abbr title="CMS Certification Number">CCN</abbr>.</p>
           </div>
           <span class="survey-snapshot-separation">Separate from staffing classification</span>
         </div>
-        ${hasAnyRecords ? '' : '<div class="notice">No survey or enforcement records were found for this facility in the available source files. Zero counts are shown below.</div>'}
+        ${hasAnyRecords ? '' : '<div class="notice">No survey or enforcement records were found for this facility in the included CMS source files. This does not mean the facility has never had a deficiency or enforcement action. Zero counts are shown below.</div>'}
         <h3 class="survey-snapshot-subheading">Latest dates</h3>
         <dl class="survey-snapshot-grid survey-snapshot-dates">${latestDates}</dl>
         <h3 class="survey-snapshot-subheading">Recent counts</h3>
@@ -1467,15 +1817,26 @@
           <h3 id="survey-snapshot-cautions-title">How to read this snapshot</h3>
           <ul>
             <li>These counts are context from CMS survey and enforcement files, not a standalone quality score.</li>
+            <li>Citation counts should be read with survey dates and source-window context and should not be used alone to rank facilities.</li>
             <li>Fine amounts are enforcement values and should not be used by themselves to rank facilities.</li>
             <li>Survey and enforcement data is shown separately from staffing measures.</li>
             <li>Detailed citation and event rows are not loaded on this page by default.</li>
-            <li>Known CMS citation-description lookup gaps exist for K-0211 and K-0133; source descriptions are preserved in the detailed dataset.</li>
+            <li>Known CMS Fire Safety citation-description lookup gaps exist for K-0211 and K-0133; source descriptions are preserved in the detailed dataset.</li>
             ${duplicatePenaltyNote}
           </ul>
         </div>
+        <div class="survey-detail-launch">
+          <button type="button" class="action-button" data-survey-detail-action="toggle" aria-expanded="${surveyEnforcementDetailState.isOpen ? 'true' : 'false'}" aria-controls="survey-enforcement-details-area">
+            ${surveyEnforcementDetailState.isOpen ? 'Hide detailed findings' : 'View detailed findings'}
+          </button>
+          <span class="microcopy">${surveyEnforcementDetailCache.has(String(facility.ccn || ''))
+            ? 'Previously loaded for this facility; reopening does not make another request.'
+            : 'Loads only this facility\'s detail file when requested.'}</span>
+        </div>
+        <div id="survey-enforcement-details-area" class="survey-detail-area" aria-live="polite"${surveyEnforcementDetailState.isOpen ? '' : ' hidden'}></div>
       </div>
     `;
+    if (surveyEnforcementDetailState.isOpen) renderSurveyEnforcementDetailsArea(facility);
   }
 
   async function loadSurveyEnforcementSummary() {
@@ -1509,6 +1870,7 @@
   function renderFacility(facilityId) {
     const facility = getFacilityById(facilityId);
     if (!facility) return;
+    resetSurveyEnforcementDetailsForFacility(facility);
     updateReportActions(facility);
     renderPrintReportContext(facility);
     renderFacilitySummary(facility);
@@ -1554,6 +1916,9 @@
         renderHistoricalPbj(getSelectedFacility());
       });
       document.getElementById('download-history-csv')?.addEventListener('click', handleDownloadHistoricalPbjCsv);
+      const surveyEnforcementOutput = document.getElementById('survey-enforcement-snapshot');
+      surveyEnforcementOutput?.addEventListener('click', handleSurveyEnforcementDetailAction);
+      surveyEnforcementOutput?.addEventListener('toggle', handleSurveyEnforcementDetailSectionToggle, true);
       renderFacility(initialFacilityId);
       renderSourceStatus();
     } catch (err) {

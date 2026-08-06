@@ -1,12 +1,13 @@
 {
   "meta": {
-    "version": "1.0",
-    "generated_on": "2026-04-24",
-    "purpose": "Canonical audit and handoff registry for the current DanBeem tool surface, including all local HTML pages and the external context URLs used to build or explain the NORS crosswalk, drafting assistant, and responsible-use workflow.",
+    "version": "1.1",
+    "generated_on": "2026-08-04",
+    "purpose": "Canonical audit and handoff registry for the current DanBeem tool surface, including local HTML pages, nursing home staffing and survey/enforcement context, and external URLs used to explain the NORS, drafting, and responsible-use workflows.",
     "notes": [
       "Use this file as the single source of truth when sharing the current framework with another AI system or developer.",
       "All local HTML pages in the repository are listed here, even when they are not part of the primary NORS workflow.",
-      "External authority/context documents are not stored as local HTML files; they are captured here so the handoff can remain complete."
+      "External authority/context documents are not stored as local HTML files; they are captured here so the handoff can remain complete.",
+      "Facility Explorer survey and enforcement context is loaded from a compact summary by default; CCN-specific detail records are opt-in and remain separate from staffing classifications."
     ]
   },
   "primary_workflow_html_paths": [
@@ -101,7 +102,7 @@
       "path": "tools/nursing-home-staffing-explorer.html",
       "title": "Connecticut Nursing Home Staffing Explorer",
       "status": "active_primary",
-      "role": "Public-facing Connecticut facility-level PBJ staffing explorer with screening-level interpretation, facility trend context, selected-facility reporting, and ombudsman follow-up questions.",
+      "role": "Public-facing Connecticut facility-level PBJ staffing explorer with screening-level interpretation, facility trend context, opt-in CMS survey and enforcement detail records, selected-facility reporting, and ombudsman follow-up questions.",
       "linked_from": [
         "index.html"
       ],
@@ -114,6 +115,10 @@
       "data_dependencies": [
         "data/nursing_home_staffing_ct.json (generated current/context production data)",
         "data/nursing_home_staffing_history_ct.json (PBJ-only historical data loaded on demand)",
+        "data/nursing_home_survey_enforcement_summary_ct.json (compact one-record-per-facility summary loaded by default)",
+        "data/nursing_home_survey_enforcement_details_ct/{CCN}.json (selected-facility detail loaded only on request)",
+        "data/nursing_home_survey_enforcement_details_ct/index.json (generated detail coverage and integrity index; not loaded by the Facility Explorer)",
+        "data/nursing_home_health_deficiencies_ct.json, data/nursing_home_fire_safety_deficiencies_ct.json, and data/nursing_home_penalties_ct.json (statewide generated build/audit datasets; not loaded by the Facility Explorer)",
         "data/nursing_home_staffing_mock.json (development fallback)",
         "docs/nursing_home_staffing_data_contract.md",
         "scripts/build_nursing_home_staffing_ct.py",
@@ -125,7 +130,7 @@
         "Assets/branding/ct-ltcop-logo-horizontal-color.png",
         "Assets/nursing-home-staffing.js"
       ],
-      "notes": "Phase 10C.6 Connecticut LTCOP-branded facility-level view using the static Connecticut current/context staffing export for current CMS context and loading the separate PBJ-only historical export on demand for facility history. Includes PBJ-derived Connecticut direct-care staffing comparison estimates that exclude nursing administration/DON-style hours and do not determine compliance, harm, or violations. Adds branded masthead/navigation, selected-facility identity banner, existing-data screening badges, accessible star cards, compact disclosures, and an SVG staffing trend chart. Displays imported CMS Care Compare rating context from Provider Information and facility-level CMS Quality Measures Claims context when available, without replacing PBJ HPRD metrics or treating current context as historical. Supports facility deep links with ?ccn=, links to affiliation staffing summaries when CMS SNF Enrollment affiliation fields are present, selected-facility print summaries, current facility staffing trend CSV exports, and historical PBJ CSV exports."
+      "notes": "Current Connecticut LTCOP-branded facility view using the static Connecticut staffing export for current CMS context and loading separate PBJ-only history on demand. The Survey & Enforcement Snapshot loads a compact summary for 196 current facilities and requests only a selected facility's six-character CCN detail file after the user chooses View detailed findings. Health F-tags, Fire Safety K-tags, Emergency Preparedness E-tags, fines, and payment denials remain separately labeled and are not incorporated into staffing classifications or a composite quality score. The current CMS source windows differ; recent summary counts use 2023-03-31 through 2026-03-31 inclusive. Known Citation Descriptions lookup gaps for K-0211 and K-0133 and three preserved duplicate penalty row signatures are publicly disclosed. The full statewide detailed survey/enforcement files are not part of normal Facility Explorer page loading."
     },
     {
       "path": "tools/nursing-home-statewide-staffing-comparison.html",
@@ -233,9 +238,9 @@
     },
     {
       "path": "tools/nursing-home-staffing-methodology.html",
-      "title": "About the Nursing Home Staffing Data",
+      "title": "About the Nursing Home Staffing, Survey, and Enforcement Data",
       "status": "active_primary",
-      "role": "Public-facing methodology page for the Connecticut Nursing Home Staffing Transparency Tools, explaining source datasets, HPRD formulas, PBJ row inclusion rules, CT direct-care comparison estimates, case-mix comparison points, CMS Care Compare rating context, claims-based quality measures, affiliation context, source references, limitations, and audit validation.",
+      "role": "Public-facing methodology page for the Connecticut Nursing Home Staffing Transparency Tools, explaining staffing formulas and sources plus CMS survey/enforcement records, source windows, recent-window logic, health harm groupings, lookup gaps, duplicate penalty rows, limitations, and audit validation.",
       "linked_from": [
         "index.html",
         "tools/nursing-home-staffing-explorer.html",
@@ -259,9 +264,12 @@
         "docs/nursing_home_staffing_calculation_audit.md",
         "docs/nursing_home_staffing_history_calculation_audit.md",
         "docs/nursing_home_staffing_data_contract.md",
-        "data/nursing_home_staffing_history_ct.json"
+        "data/nursing_home_staffing_history_ct.json",
+        "data/nursing_home_survey_enforcement_summary_ct.json",
+        "data/nursing_home_survey_enforcement_details_ct/index.json",
+        "data/nursing_home_source_manifest.json"
       ],
-      "notes": "Phase 10C.6 Connecticut LTCOP-branded public explanation page. It documents that the staffing suite is designed for screening, comparison, and question-building, not formal compliance findings or stand-alone care-quality conclusions. Includes public links to CMS PBJ Daily Nurse Staffing, CMS Provider Information, CMS nursing home quality-measure data, CMS Nursing Home Data Dictionary, CMS SNF Enrollments, Connecticut Title 19 Sec. 19-13-D8t, and Connecticut DPH's amended 3.0 staffing implementation notice. Explains that CMS Care Compare ratings and individual claims-based quality measures are imported current context, not calculated by this tool, and that PBJ-only historical staffing is available separately from Q4 2017 through Q4 2025 with independent audit documentation."
+      "notes": "Public explanation page for staffing plus the Facility Explorer Survey & Enforcement Snapshot. It documents the May 2026 CMS source filenames and differing date windows; the inclusive 2023-03-31 through 2026-03-31 recent window; Health F-tag-only harm groupings; Fire Safety lookup gaps for K-0211 and K-0133; distinct Fine and Payment Denial fields; three preserved duplicate penalty row signatures; facility coverage; and compact-summary versus opt-in per-CCN detail loading. Survey and enforcement records are historical context, not a quality score, facility ranking, or input to staffing classifications."
     },
     {
       "path": "tools/responsible-use.html",
@@ -567,12 +575,13 @@
     },
     {
       "group_id": "nursing_home_staffing_data_sources",
-      "title": "Nursing Home Staffing Data Sources",
+      "title": "Nursing Home Staffing, Survey, and Enforcement Data Sources",
       "urls": [
         "https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing",
         "https://www.cms.gov/medicare/quality/nursing-home-improvement/staffing-data-submission",
         "https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf",
         "https://data.cms.gov/provider-data/dataset/4pq5-n9py",
+        "https://data.cms.gov/provider-data/topics/nursing-homes",
         "https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf",
         "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments",
         "https://data.cms.gov/sites/default/files/2022-08/SNF_Enrollments_Methodology.pdf"

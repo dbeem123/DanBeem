@@ -6,10 +6,10 @@
   <title>Connecticut Nursing Home Staffing Explorer</title>
   <meta name="description" content="A screening-level Connecticut nursing home staffing explorer for reviewing quarterly PBJ staffing metrics with ombudsman-centered follow-up questions." />
   <link rel="stylesheet" href="../Assets/shared.css">
-  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css?v=20260804-11d18b">
+  <link rel="stylesheet" href="../Assets/ltcop-dashboard.css?v=20260804-11d20">
   <script defer src="../Assets/shared.js"></script>
   <script defer src="../Assets/nursing-home-source-currency.js"></script>
-  <script defer src="../Assets/nursing-home-staffing.js?v=20260804-11d18b"></script>
+  <script defer src="../Assets/nursing-home-staffing.js?v=20260804-11d20"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
     input,
@@ -494,7 +494,7 @@
           <div>
             <div class="eyebrow">Facility Search</div>
             <h2 id="search-title">Choose a facility</h2>
-            <p class="subtle">Search by facility name, city, or CCN, then choose a Connecticut nursing home from the list.</p>
+            <p class="subtle">Search by facility name, city, or <abbr title="CMS Certification Number">CCN</abbr>, then choose a Connecticut nursing home from the list.</p>
           </div>
         </div>
         <div class="field-row">
@@ -525,7 +525,7 @@
           <a class="btn secondary" href="nursing-home-staffing-methodology.html">About the data / methodology</a>
         </div>
         <nav class="dossier-guide" aria-label="Facility dossier sections">
-          <a href="#summary-title"><strong>1. Identity and snapshot</strong><span class="microcopy">Facility identity, CCN, current quarter, beds, ownership, and affiliation.</span></a>
+          <a href="#summary-title"><strong>1. Identity and snapshot</strong><span class="microcopy">Facility identity, CMS Certification Number (CCN), current quarter, beds, ownership, and affiliation.</span></a>
           <a href="#screening-title"><strong>2. Screening indicators</strong><span class="microcopy">Plain-language indicators for follow-up questions, not findings.</span></a>
           <a href="#ratings-title"><strong>3. Care Compare context</strong><span class="microcopy">Current CMS star-rating context when available.</span></a>
           <a href="#metrics-title"><strong>4. Current staffing</strong><span class="microcopy">Latest/current HPRD metrics and current export trend table.</span></a>
@@ -622,7 +622,8 @@
             <div>
               <div class="eyebrow">CMS Survey and Enforcement Context</div>
               <h2>Survey &amp; Enforcement Snapshot</h2>
-              <p class="subtle">This context is loaded from a compact facility summary and remains separate from staffing measures and staffing classifications.</p>
+              <p class="subtle">This context is loaded from a compact facility summary and remains separate from staffing measures and staffing classifications. Detailed records load only when requested.</p>
+              <p class="microcopy"><a href="nursing-home-staffing-methodology.html#survey-enforcement-title">How survey and enforcement data is built and limited</a></p>
             </div>
           </div>
           <div id="survey-enforcement-snapshot" aria-live="polite" aria-busy="true">

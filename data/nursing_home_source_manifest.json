@@ -1,12 +1,13 @@
 {
-  "manifest_version": "2026-05-22.phase10a",
-  "generated_for_phase": "Phase 10A data acquisition roadmap",
-  "generated_date": "2026-05-22",
+  "manifest_version": "2026-08-04.phase11d20",
+  "generated_for_phase": "Phase 11D.20 survey and enforcement methodology and source disclosure",
+  "generated_date": "2026-08-04",
   "status": "maintenance_and_runtime_source_planning",
   "notes": [
     "This manifest is not loaded by the public application yet.",
     "It records current source inventory, future acquisition targets, join requirements, and source-currency planning.",
-    "Do not treat planned sources as integrated until generator support, validation, and public caveats are added."
+    "Do not treat planned sources as integrated until generator support, validation, and public caveats are added.",
+    "Integrated survey and enforcement records are contextual measures and remain separate from staffing classifications."
   ],
   "sources": [
     {
@@ -232,23 +233,28 @@
       "official_source_url": "https://data.cms.gov/provider-data/topics/nursing-homes",
       "source_domain": "CMS",
       "source_concept": "Deficiency tag lookup/reference descriptions",
-      "local_directory": "source_data/citations",
+      "local_directory": "source_data/cms_survey",
       "local_files_present": [
-        "available outside repo: C:/Users/Dan/Downloads/NH_CitationDescriptions_Apr2026.csv"
+        "NH_CitationDescriptions_May2026.csv",
+        "data/nursing_home_health_deficiencies_ct.json",
+        "data/nursing_home_fire_safety_deficiencies_ct.json"
       ],
-      "reporting_period_or_snapshot_date": "April 2026 file in Downloads",
-      "integrated_status": "in_hand_not_integrated",
-      "integration_purpose": "None currently",
+      "reporting_period_or_snapshot_date": "May 2026 reference file",
+      "integrated_status": "integrated_reference_lookup",
+      "integration_purpose": "Reference categories and descriptions for CMS Health and Fire Safety citation records",
       "join_key": "Deficiency tag / prefix",
       "crosswalk_required": true,
       "refresh_cadence": "monthly or periodic; confirm each official release",
       "historical_retention_rule": "Archive snapshots if deficiency descriptions change",
-      "tools_currently_affected": [],
-      "proposed_future_use": "Lookup table for facility-level health/fire deficiencies after those files are acquired",
-      "next_action": "Hold for later deficiencies phase; pair with official facility-level deficiency files before display",
+      "tools_currently_affected": [
+        "Facility Explorer",
+        "Methodology"
+      ],
+      "proposed_future_use": "Continue as the official cross-file reference lookup for facility-level citation displays",
+      "next_action": "Refresh with future CMS releases and recheck unmatched citation codes",
       "does_represent": "Citation tag text and category reference information",
       "does_not_establish": "Any facility-level finding by itself",
-      "caveats": "Reference-only file; not useful for facility findings without survey/citation rows."
+      "caveats": "Reference-only file; it does not create facility findings. The current file has no matching lookup entries for K-0211 and K-0133, so source deficiency descriptions are preserved and the official-source gaps are disclosed."
     },
     {
       "source_key": "cms_health_deficiencies",
@@ -257,21 +263,29 @@
       "official_source_url": "https://data.cms.gov/provider-data/topics/nursing-homes",
       "source_domain": "CMS",
       "source_concept": "Facility-level health survey deficiency records",
-      "local_directory": "source_data/deficiencies",
-      "local_files_present": [],
-      "reporting_period_or_snapshot_date": "not downloaded",
-      "integrated_status": "not_integrated_future_candidate",
-      "integration_purpose": "None currently",
+      "local_directory": "source_data/cms_survey",
+      "local_files_present": [
+        "NH_HealthCitations_May2026.csv",
+        "data/nursing_home_health_deficiencies_ct.json",
+        "data/nursing_home_survey_enforcement_summary_ct.json",
+        "data/nursing_home_survey_enforcement_details_ct/{CCN}.json"
+      ],
+      "reporting_period_or_snapshot_date": "May 2026 file; survey dates 2018-11-08 through 2026-03-31",
+      "integrated_status": "integrated_current_facility_context",
+      "integration_purpose": "Compact facility survey summary and opt-in CCN-specific Health F-tag detail records",
       "join_key": "CMS Certification Number (CCN)",
       "crosswalk_required": false,
       "refresh_cadence": "monthly or periodic; confirm each official release",
       "historical_retention_rule": "Archive each snapshot; preserve survey dates and tags",
-      "tools_currently_affected": [],
-      "proposed_future_use": "Facility-level recent survey/citation context and later statewide/affiliation summaries",
-      "next_action": "Download official file with data dictionary; validate survey date, tag, scope/severity, and correction fields",
+      "tools_currently_affected": [
+        "Facility Explorer",
+        "Methodology"
+      ],
+      "proposed_future_use": "Maintain facility-level survey context and evaluate later statewide or affiliation summaries separately",
+      "next_action": "Refresh with future CMS releases and repeat schema, coverage, harm-group, and summary audits",
       "does_represent": "Official CMS health deficiency records",
       "does_not_establish": "Current conditions without date/correction context or causation for staffing patterns",
-      "caveats": "Display must distinguish survey type, date, scope/severity, and correction/resolution context where available."
+      "caveats": "Citation-level historical context only. Health harm groupings translate CMS Scope Severity Codes for F-tags and do not apply to Fire Safety K-tags or Emergency Preparedness E-tags. Recent window is 2023-03-31 through 2026-03-31 inclusive."
     },
     {
       "source_key": "cms_fire_safety_deficiencies",
@@ -280,21 +294,29 @@
       "official_source_url": "https://data.cms.gov/provider-data/topics/nursing-homes",
       "source_domain": "CMS",
       "source_concept": "Facility-level fire safety survey deficiency records",
-      "local_directory": "source_data/deficiencies",
-      "local_files_present": [],
-      "reporting_period_or_snapshot_date": "not downloaded",
-      "integrated_status": "not_integrated_future_candidate",
-      "integration_purpose": "None currently",
+      "local_directory": "source_data/cms_survey",
+      "local_files_present": [
+        "NH_FireSafetyCitations_May2026.csv",
+        "data/nursing_home_fire_safety_deficiencies_ct.json",
+        "data/nursing_home_survey_enforcement_summary_ct.json",
+        "data/nursing_home_survey_enforcement_details_ct/{CCN}.json"
+      ],
+      "reporting_period_or_snapshot_date": "May 2026 file; Fire Safety and Emergency Preparedness survey dates 2018-11-08 through 2026-02-27",
+      "integrated_status": "integrated_current_facility_context",
+      "integration_purpose": "Compact facility survey summary and opt-in CCN-specific Fire Safety K-tag and Emergency Preparedness E-tag detail records",
       "join_key": "CMS Certification Number (CCN)",
       "crosswalk_required": false,
       "refresh_cadence": "monthly or periodic; confirm each official release",
       "historical_retention_rule": "Archive each snapshot; preserve survey dates and tags",
-      "tools_currently_affected": [],
-      "proposed_future_use": "Facility-level fire safety citation context",
-      "next_action": "Download after health deficiencies or together with deficiency phase",
+      "tools_currently_affected": [
+        "Facility Explorer",
+        "Methodology"
+      ],
+      "proposed_future_use": "Maintain separate facility-level Fire Safety and Emergency Preparedness citation context",
+      "next_action": "Refresh with future CMS releases and recheck the K-0211 and K-0133 cross-file lookup gaps",
       "does_represent": "Official CMS fire safety deficiency records",
       "does_not_establish": "Staffing performance or present conditions without date/correction context",
-      "caveats": "Keep separate from health deficiencies unless the UI clearly labels both."
+      "caveats": "Fire Safety and Emergency Preparedness remain separately labeled. Health harm groupings are not applied. K-0211 and K-0133 lack matches in the current CMS Citation Descriptions file; source descriptions are preserved."
     },
     {
       "source_key": "cms_penalties_enforcement",
@@ -303,21 +325,29 @@
       "official_source_url": "https://data.cms.gov/provider-data/topics/nursing-homes",
       "source_domain": "CMS",
       "source_concept": "Facility-level enforcement and penalty records",
-      "local_directory": "source_data/enforcement",
-      "local_files_present": [],
-      "reporting_period_or_snapshot_date": "not downloaded",
-      "integrated_status": "not_integrated_future_candidate",
-      "integration_purpose": "None currently",
+      "local_directory": "source_data/cms_enforcement",
+      "local_files_present": [
+        "NH_Penalties_May2026.csv",
+        "data/nursing_home_penalties_ct.json",
+        "data/nursing_home_survey_enforcement_summary_ct.json",
+        "data/nursing_home_survey_enforcement_details_ct/{CCN}.json"
+      ],
+      "reporting_period_or_snapshot_date": "May 2026 file processed 2026-05-01; penalty dates 2023-05-17 through 2026-03-17; payment-denial start dates 2024-01-17 through 2024-12-03",
+      "integrated_status": "integrated_current_facility_context",
+      "integration_purpose": "Compact facility enforcement summary and opt-in CCN-specific Fine and Payment Denial detail records",
       "join_key": "CMS Certification Number (CCN)",
       "crosswalk_required": false,
       "refresh_cadence": "monthly or periodic; confirm each official release",
       "historical_retention_rule": "Archive each snapshot and retain event dates/amounts",
-      "tools_currently_affected": [],
-      "proposed_future_use": "Facility-level enforcement context, then statewide or affiliation-level summaries",
-      "next_action": "Download official penalties file and inspect CMP, denial-of-payment, dates, amounts, and identifiers",
+      "tools_currently_affected": [
+        "Facility Explorer",
+        "Methodology"
+      ],
+      "proposed_future_use": "Maintain facility-level enforcement context and evaluate later statewide or affiliation summaries separately",
+      "next_action": "Refresh with future CMS releases and repeat duplicate-row and aggregate audits",
       "does_represent": "Official CMS enforcement/penalty records",
       "does_not_establish": "Current conditions or causation for staffing patterns",
-      "caveats": "Historic enforcement must be labeled by date and action type."
+      "caveats": "Historic enforcement is labeled by event type and distinct dates. Three duplicated full-row signatures in the current Connecticut source are preserved and flagged, so aggregates reflect published source rows unless labeled otherwise. Fine amounts are not quality ratings."
     },
     {
       "source_key": "cms_chain_performance",
