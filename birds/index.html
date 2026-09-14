@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dan's Backyard Bird Cam</title>
+  <meta name="description" content="Live backyard bird feeder camera." />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1115;
+      --panel: #121b22;
+      --text: #f2f6f8;
+      --muted: #9fb0bb;
+      --accent: #74c69d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #163025 0, var(--bg) 48%);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    main {
+      width: min(1100px, 100%);
+    }
+    .header {
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 1;
+    }
+    .sub {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .live {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(116, 198, 157, 0.14);
+      color: #b7f5d6;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      font-size: .8rem;
+    }
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .video-shell {
+      overflow: hidden;
+      border-radius: 22px;
+      background: #000;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .video {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+    }
+    iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    footer {
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+    a { color: #b7f5d6; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="header">
+      <h1>Dan's Backyard Bird Cam</h1>
+      <p class="sub">Live from the backyard feeder.</p>
+      <div class="live"><span class="dot"></span>Live</div>
+    </div>
+
+    <div class="video-shell">
+      <div class="video">
+        <iframe
+          src="https://www.youtube.com/embed/B24zOJtGF4w?autoplay=1&mute=1&rel=0"
+          title="Dan's Backyard Bird Cam"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+
+    <footer>
+      If the player does not start automatically, use the controls or <a href="https://youtube.com/live/B24zOJtGF4w?feature=share">watch on YouTube</a>.
+    </footer>
+  </main>
+</body>
+</html>
