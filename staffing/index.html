@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connecticut Nursing Home Staffing Transparency Tools</title>
+  <meta name="description" content="Connecticut Long Term Care Ombudsman Program nursing home staffing transparency tools for PBJ staffing, CMS ratings, quality measures, and affiliation context." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/nursing-home-source-currency.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="#staffing-suite-title" aria-current="page">Tools</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap ltcop-dashboard-hero" aria-labelledby="hero-title">
+      <div class="heroInner panel">
+        <div class="pill">Connecticut public-service dashboard</div>
+        <h1 id="hero-title">Nursing Home Staffing Transparency Tools</h1>
+        <p id="hero-sub">Explore CMS staffing, rating, quality-measure, and affiliation context for Connecticut nursing homes. These tools are designed for screening, comparison, and question-building, not stand-alone findings of violations, poor care, or legal responsibility.</p>
+        <div class="ltcop-hero-actions" role="group" aria-label="Primary staffing links">
+          <a class="btn" href="/staffing/tools/nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a>
+          <a class="btn secondary" href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+          <a class="btn secondary" href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="/data/nursing_home_staffing_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
+    </section>
+
+    <section class="wrap" aria-labelledby="staffing-suite-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Staffing Transparency Suite</div>
+            <h2 id="staffing-suite-title">Choose the right staffing tool</h2>
+            <p class="subtle">The suite uses CMS Payroll-Based Journal staffing data, CMS Provider Information, CMS Quality Measures Claims, and CMS SNF Enrollment affiliation context to help users review Connecticut nursing home staffing patterns with care.</p>
+          </div>
+        </div>
+
+        <div class="notice warning">
+          Read before using: PBJ staffing is quarterly screening data. CT comparison points are PBJ-derived screening estimates, not formal DPH compliance findings. Case-mix comparison points and CMS quality measures are contextual CMS values. Ownership and affiliation context is informational and does not prove common day-to-day control. Use drill-down tools before drawing conclusions.
+        </div>
+
+        <div class="ltcop-launch-grid" aria-label="Connecticut nursing home staffing tool guide">
+          <article class="card ltcop-tool-card featured">
+            <div class="toolHeader">
+              <h3>Connecticut Nursing Home Staffing Explorer</h3>
+              <span class="statusDot" aria-hidden="true"></span>
+              <span class="sr-only">Available</span>
+            </div>
+            <div class="pill">Primary path: Search for a Facility</div>
+            <p>Review one facility's PBJ staffing metrics, CT direct-care HPRD estimate, case-mix comparison point, Care Compare rating context, claims-based quality measures, affiliation context, and quarterly staffing trend.</p>
+            <div class="ltcop-question"><strong>Best question:</strong> What does staffing look like at one nursing home over time?</div>
+            <p><a class="btn" href="/staffing/tools/nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a></p>
+          </article>
+
+          <article class="card ltcop-tool-card featured">
+            <div class="toolHeader">
+              <h3>Statewide Facility Staffing Comparison</h3>
+              <span class="statusDot" aria-hidden="true"></span>
+              <span class="sr-only">Available</span>
+            </div>
+            <div class="pill">Primary path: View Connecticut Facilities</div>
+            <p>Search, filter, and sort the latest-quarter Connecticut facility table using PBJ-derived screening metrics.</p>
+            <div class="ltcop-question"><strong>Best question:</strong> Which Connecticut nursing homes stand out in the latest quarter?</div>
+            <p><a class="btn secondary" href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Open Statewide Comparison</a></p>
+          </article>
+
+          <article class="card ltcop-tool-card">
+            <div class="toolHeader">
+              <h3>Staffing Change Over Time Explorer</h3>
+              <span class="statusDot" aria-hidden="true"></span>
+              <span class="sr-only">Available</span>
+            </div>
+            <p>Compare staffing changes, applicable CT 3.00 direct-care comparison point crossings, RN changes, and contract staffing shifts across selected historical PBJ windows.</p>
+            <div class="ltcop-question"><strong>Best question:</strong> Which nursing homes changed the most in the selected historical window?</div>
+            <p><a class="btn secondary" href="/staffing/tools/nursing-home-staffing-change-over-time.html">Open Change Explorer</a></p>
+          </article>
+
+          <article class="card ltcop-tool-card">
+            <div class="toolHeader">
+              <h3>Persistent Multi-Quarter Staffing Patterns</h3>
+              <span class="statusDot" aria-hidden="true"></span>
+              <span class="sr-only">Available</span>
+            </div>
+            <p>Find facilities with repeated staffing screening patterns across selected historical PBJ windows and inspect quarter-by-quarter pattern strips.</p>
+            <div class="ltcop-question"><strong>Best question:</strong> Which facilities show repeated staffing screening patterns across quarters?</div>
+            <p><a class="btn secondary" href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Open Persistent Patterns</a></p>
+          </article>
+
+          <article class="card ltcop-tool-card">
+            <div class="toolHeader">
+              <h3>Ownership / Affiliation Staffing Explorer</h3>
+              <span class="statusDot" aria-hidden="true"></span>
+              <span class="sr-only">Available</span>
+            </div>
+            <p>Group Connecticut facilities by CMS SNF Enrollment affiliation entity and review statewide, selected-group, and persistent-pattern summaries.</p>
+            <div class="ltcop-question"><strong>Best question:</strong> How do CMS affiliation entities compare across Connecticut facilities?</div>
+            <p><a class="btn secondary" href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Open Ownership / Affiliation Explorer</a></p>
+          </article>
+        </div>
+
+        <div class="notice" style="margin-top:14px;">Historical CMS PBJ staffing is available from Q4 2017 through Q4 2025 in the facility history, change-over-time, and persistent-pattern views. Current CMS ratings, quality measures, affiliation context, and case-mix comparison points remain current snapshot context.</div>
+
+        <div class="ltcop-resource-links" style="margin-top:14px;">
+          <a class="btn secondary" href="/staffing/tools/nursing-home-staffing-methodology.html">About the data and methodology</a>
+          <a class="btn secondary" href="/tools/responsible-use.html">Responsible use and sources</a>
+          <a class="btn secondary" href="https://portal.ct.gov/ltcop/Resident-Rights">Resident Rights</a>
+          <a class="btn secondary" href="https://portal.ct.gov/ltcop/Contact-Us">Contact Us</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured-tools" class="wrap" aria-labelledby="featured-tools-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Additional Workspace</div>
+            <h2 id="featured-tools-title">Other Ombudsman tools in this test environment</h2>
+            <p class="subtle">These links remain available while the staffing suite receives the new Connecticut LTCOP dashboard design.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <article class="card toolCard">
+            <h3>Impact Dashboard <span class="subtle">(FFY 2025)</span></h3>
+            <p>Explore verified annual report data on complaints, facility access, education, resident engagement, and systems advocacy.</p>
+            <p><a class="btn secondary" href="/dashboards/impact-2025.html">Launch FFY 2025 Impact Dashboard</a></p>
+          </article>
+
+          <article class="card toolCard">
+            <h3>Drafting &amp; Reference Assistant</h3>
+            <p>Parse de-identified notes, organize draft sections, review gaps, and surface informational references.</p>
+            <p><a class="btn secondary" href="/tools/drafting-assistant.html">Launch Assistant</a></p>
+          </article>
+
+          <article class="card toolCard">
+            <h3>NORS Crosswalk Tool</h3>
+            <p>Select a NORS code or enter a concern keyword to view likely topics and informational authority references.</p>
+            <p><a class="btn secondary" href="/tools/nors-crosswalk.html">Launch Crosswalk Tool</a></p>
+          </article>
+
+          <article class="card toolCard">
+            <h3>Responsible Use &amp; Sources</h3>
+            <p>Review the source registry, human-review guardrails, privacy reminders, and Connecticut responsible AI alignment notes.</p>
+            <p><a class="btn secondary" href="/tools/responsible-use.html">Open Responsible Use</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Nursing Home Staffing Transparency Tools. Screening data only; use source caveats and resident-centered review.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP website</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+        <a href="/tools/responsible-use.html">Responsible Use</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

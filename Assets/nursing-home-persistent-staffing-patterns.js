@@ -2,9 +2,9 @@
   'use strict';
 
   const dataPaths = [
-    '../data/nursing_home_staffing_history_ct.json'
+    '/data/nursing_home_staffing_history_ct.json'
   ];
-  const contextPaths = ['../data/nursing_home_staffing_ct.json'];
+  const contextPaths = ['/data/nursing_home_staffing_ct.json'];
 
   const modeConfig = {
     'ct-total': {

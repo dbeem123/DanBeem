@@ -1,194 +1,88 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Connecticut Nursing Home Staffing Transparency Tools</title>
-  <meta name="description" content="Connecticut Long Term Care Ombudsman Program nursing home staffing transparency tools for PBJ staffing, CMS ratings, quality measures, and affiliation context." />
-  <link rel="stylesheet" href="Assets/shared.css">
-  <link rel="stylesheet" href="Assets/ltcop-dashboard.css">
-  <script defer src="Assets/shared.js"></script>
-  <script defer src="Assets/nursing-home-source-currency.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DANBEEM.XYZ | Projects, Experiments, Tools, and Assorted Nonsense</title>
+  <meta name="description" content="Projects, experiments, tools, and assorted nonsense by Dan Beem.">
+  <link rel="preload" as="image" href="/Assets/danbeem-hero.webp">
+  <style>
+    :root { color-scheme: dark; --ink: #fff8e8; --muted: #d7d3c8; --panel: rgba(8, 15, 18, .78); --line: rgba(255, 255, 255, .3); --gold: #ffc857; }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-height: 100vh; color: var(--ink); background: #101719; font-family: Georgia, 'Times New Roman', serif; }
+    a { color: inherit; }
+    .skip-link { position: absolute; left: 12px; top: -48px; z-index: 5; padding: 10px 14px; background: #fff; color: #111; }
+    .skip-link:focus { top: 12px; }
+    .danbeem-page { min-height: 100vh; position: relative; overflow: hidden; isolation: isolate; }
+    .danbeem-page::before { content: ''; position: absolute; inset: 0; z-index: -2; background: #101719 url('/Assets/danbeem-hero.webp') center top / cover no-repeat; }
+    .danbeem-page::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(6, 11, 14, .5), rgba(5, 9, 11, .22) 45%, rgba(5, 8, 9, .94) 100%); }
+    .danbeem-header, .danbeem-main, .danbeem-footer { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
+    .danbeem-header { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
+    .danbeem-logo { font-weight: 800; font-size: clamp(1.25rem, 3vw, 2rem); letter-spacing: .08em; text-decoration: none; text-shadow: 0 2px 14px #000; }
+    .danbeem-nav { display: flex; gap: 22px; }
+    .danbeem-nav a { text-decoration: none; font-weight: 700; }
+    .danbeem-nav a:hover, .danbeem-nav a:focus-visible { color: var(--gold); }
+    .danbeem-main { min-height: calc(100vh - 82px); display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(180px, 42vh, 470px) 0 30px; }
+    .danbeem-intro { max-width: 720px; margin-bottom: 24px; }
+    .danbeem-intro h1 { margin: 0 0 12px; max-width: 700px; font-size: clamp(2.6rem, 6vw, 5.7rem); line-height: .95; text-wrap: balance; text-shadow: 0 4px 24px #000; }
+    .danbeem-intro p { margin: 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.35rem); text-shadow: 0 2px 10px #000; }
+    .danbeem-projects { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .danbeem-card { min-height: 146px; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); text-decoration: none; box-shadow: 0 12px 28px rgba(0,0,0,.22); transition: transform .18s ease, border-color .18s ease, background .18s ease; }
+    .danbeem-card[href]:hover, .danbeem-card[href]:focus-visible { transform: translateY(-4px); border-color: var(--gold); background: rgba(8, 15, 18, .92); }
+    .danbeem-card h2 { margin: 0 0 8px; font-size: 1.25rem; }
+    .danbeem-card p { margin: 0; color: var(--muted); line-height: 1.35; }
+    .danbeem-future-url, .danbeem-card-note { color: var(--gold) !important; font: 700 .78rem/1.3 system-ui, sans-serif; }
+    .danbeem-card-meta { display: flex; justify-content: space-between; align-items: end; gap: 8px; margin-top: 16px; }
+    .danbeem-status { display: inline-block; padding: 4px 8px; border-radius: 999px; background: var(--gold); color: #20180a; font: 700 .72rem/1 system-ui, sans-serif; }
+    .danbeem-arrow { color: var(--gold); font: 1.6rem/1 system-ui, sans-serif; }
+    .danbeem-footer { display: flex; justify-content: space-between; gap: 20px; padding: 0 0 22px; color: var(--muted); font-size: .95rem; }
+    .danbeem-footer nav { display: flex; gap: 18px; }
+    .danbeem-footer a:hover, .danbeem-footer a:focus-visible { color: var(--gold); }
+    @media (max-width: 900px) { .danbeem-projects { grid-template-columns: repeat(2, 1fr); } .danbeem-main { padding-top: 28vh; } }
+    @media (max-width: 600px) { .danbeem-header, .danbeem-main, .danbeem-footer { width: min(100% - 28px, 1240px); } .danbeem-header { align-items: flex-start; flex-direction: column; gap: 12px; } .danbeem-nav { gap: 12px; flex-wrap: wrap; font-size: .9rem; } .danbeem-page::before { background-position: 62% top; background-size: auto 62vh; } .danbeem-page::after { background: linear-gradient(180deg, rgba(6, 11, 14, .38), rgba(5, 9, 11, .18) 34%, rgba(5, 8, 9, .98) 62%); } .danbeem-main { min-height: auto; padding: 43vh 0 24px; } .danbeem-projects { grid-template-columns: 1fr; } .danbeem-card { min-height: 118px; } .danbeem-footer { flex-direction: column; } }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .danbeem-card { transition: none; } }
+  </style>
 </head>
-<body class="ltcop-dashboard">
-  <a class="skipLink" href="#main-content">Skip to content</a>
-  <header class="ltcop-masthead" role="banner">
-    <div class="wrap ltcop-masthead-inner">
-      <div class="ltcop-brand">
-        <img class="ltcop-logo" src="Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
-        <div>
-          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
-          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
-        </div>
-      </div>
-      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
-    </div>
-    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
-      <div class="wrap">
-        <a href="#staffing-suite-title" aria-current="page">Tools</a>
-        <a href="tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
-        <a href="tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
-        <a href="tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
-        <a href="tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
-        <a href="tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
-        <a href="tools/nursing-home-staffing-methodology.html">About the Data</a>
-      </div>
-    </nav>
-  </header>
-
-  <main id="main-content">
-    <section class="hero wrap ltcop-dashboard-hero" aria-labelledby="hero-title">
-      <div class="heroInner panel">
-        <div class="pill">Connecticut public-service dashboard</div>
-        <h1 id="hero-title">Nursing Home Staffing Transparency Tools</h1>
-        <p id="hero-sub">Explore CMS staffing, rating, quality-measure, and affiliation context for Connecticut nursing homes. These tools are designed for screening, comparison, and question-building, not stand-alone findings of violations, poor care, or legal responsibility.</p>
-        <div class="ltcop-hero-actions" role="group" aria-label="Primary staffing links">
-          <a class="btn" href="tools/nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a>
-          <a class="btn secondary" href="tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
-          <a class="btn secondary" href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="wrap" aria-label="Current source currency">
-      <div data-source-currency data-source-json="data/nursing_home_staffing_ct.json" data-methodology-href="tools/nursing-home-staffing-methodology.html"></div>
-    </section>
-
-    <section class="wrap" aria-labelledby="staffing-suite-title">
-      <div class="panel">
-        <div class="sectionHeader">
-          <div>
-            <div class="eyebrow">Staffing Transparency Suite</div>
-            <h2 id="staffing-suite-title">Choose the right staffing tool</h2>
-            <p class="subtle">The suite uses CMS Payroll-Based Journal staffing data, CMS Provider Information, CMS Quality Measures Claims, and CMS SNF Enrollment affiliation context to help users review Connecticut nursing home staffing patterns with care.</p>
-          </div>
-        </div>
-
-        <div class="notice warning">
-          Read before using: PBJ staffing is quarterly screening data. CT comparison points are PBJ-derived screening estimates, not formal DPH compliance findings. Case-mix comparison points and CMS quality measures are contextual CMS values. Ownership and affiliation context is informational and does not prove common day-to-day control. Use drill-down tools before drawing conclusions.
-        </div>
-
-        <div class="ltcop-launch-grid" aria-label="Connecticut nursing home staffing tool guide">
-          <article class="card ltcop-tool-card featured">
-            <div class="toolHeader">
-              <h3>Connecticut Nursing Home Staffing Explorer</h3>
-              <span class="statusDot" aria-hidden="true"></span>
-              <span class="sr-only">Available</span>
-            </div>
-            <div class="pill">Primary path: Search for a Facility</div>
-            <p>Review one facility's PBJ staffing metrics, CT direct-care HPRD estimate, case-mix comparison point, Care Compare rating context, claims-based quality measures, affiliation context, and quarterly staffing trend.</p>
-            <div class="ltcop-question"><strong>Best question:</strong> What does staffing look like at one nursing home over time?</div>
-            <p><a class="btn" href="tools/nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a></p>
-          </article>
-
-          <article class="card ltcop-tool-card featured">
-            <div class="toolHeader">
-              <h3>Statewide Facility Staffing Comparison</h3>
-              <span class="statusDot" aria-hidden="true"></span>
-              <span class="sr-only">Available</span>
-            </div>
-            <div class="pill">Primary path: View Connecticut Facilities</div>
-            <p>Search, filter, and sort the latest-quarter Connecticut facility table using PBJ-derived screening metrics.</p>
-            <div class="ltcop-question"><strong>Best question:</strong> Which Connecticut nursing homes stand out in the latest quarter?</div>
-            <p><a class="btn secondary" href="tools/nursing-home-statewide-staffing-comparison.html">Open Statewide Comparison</a></p>
-          </article>
-
-          <article class="card ltcop-tool-card">
-            <div class="toolHeader">
-              <h3>Staffing Change Over Time Explorer</h3>
-              <span class="statusDot" aria-hidden="true"></span>
-              <span class="sr-only">Available</span>
-            </div>
-            <p>Compare staffing changes, applicable CT 3.00 direct-care comparison point crossings, RN changes, and contract staffing shifts across selected historical PBJ windows.</p>
-            <div class="ltcop-question"><strong>Best question:</strong> Which nursing homes changed the most in the selected historical window?</div>
-            <p><a class="btn secondary" href="tools/nursing-home-staffing-change-over-time.html">Open Change Explorer</a></p>
-          </article>
-
-          <article class="card ltcop-tool-card">
-            <div class="toolHeader">
-              <h3>Persistent Multi-Quarter Staffing Patterns</h3>
-              <span class="statusDot" aria-hidden="true"></span>
-              <span class="sr-only">Available</span>
-            </div>
-            <p>Find facilities with repeated staffing screening patterns across selected historical PBJ windows and inspect quarter-by-quarter pattern strips.</p>
-            <div class="ltcop-question"><strong>Best question:</strong> Which facilities show repeated staffing screening patterns across quarters?</div>
-            <p><a class="btn secondary" href="tools/nursing-home-persistent-staffing-patterns.html">Open Persistent Patterns</a></p>
-          </article>
-
-          <article class="card ltcop-tool-card">
-            <div class="toolHeader">
-              <h3>Ownership / Affiliation Staffing Explorer</h3>
-              <span class="statusDot" aria-hidden="true"></span>
-              <span class="sr-only">Available</span>
-            </div>
-            <p>Group Connecticut facilities by CMS SNF Enrollment affiliation entity and review statewide, selected-group, and persistent-pattern summaries.</p>
-            <div class="ltcop-question"><strong>Best question:</strong> How do CMS affiliation entities compare across Connecticut facilities?</div>
-            <p><a class="btn secondary" href="tools/nursing-home-ownership-staffing-explorer.html">Open Ownership / Affiliation Explorer</a></p>
-          </article>
-        </div>
-
-        <div class="notice" style="margin-top:14px;">Historical CMS PBJ staffing is available from Q4 2017 through Q4 2025 in the facility history, change-over-time, and persistent-pattern views. Current CMS ratings, quality measures, affiliation context, and case-mix comparison points remain current snapshot context.</div>
-
-        <div class="ltcop-resource-links" style="margin-top:14px;">
-          <a class="btn secondary" href="tools/nursing-home-staffing-methodology.html">About the data and methodology</a>
-          <a class="btn secondary" href="tools/responsible-use.html">Responsible use and sources</a>
-          <a class="btn secondary" href="https://portal.ct.gov/ltcop/Resident-Rights">Resident Rights</a>
-          <a class="btn secondary" href="https://portal.ct.gov/ltcop/Contact-Us">Contact Us</a>
-        </div>
-      </div>
-    </section>
-
-    <section id="featured-tools" class="wrap" aria-labelledby="featured-tools-title">
-      <div class="panel">
-        <div class="sectionHeader">
-          <div>
-            <div class="eyebrow">Additional Workspace</div>
-            <h2 id="featured-tools-title">Other Ombudsman tools in this test environment</h2>
-            <p class="subtle">These links remain available while the staffing suite receives the new Connecticut LTCOP dashboard design.</p>
-          </div>
-        </div>
-
-        <div class="grid">
-          <article class="card toolCard">
-            <h3>Impact Dashboard <span class="subtle">(FFY 2025)</span></h3>
-            <p>Explore verified annual report data on complaints, facility access, education, resident engagement, and systems advocacy.</p>
-            <p><a class="btn secondary" href="dashboards/impact-2025.html">Launch FFY 2025 Impact Dashboard</a></p>
-          </article>
-
-          <article class="card toolCard">
-            <h3>Drafting &amp; Reference Assistant</h3>
-            <p>Parse de-identified notes, organize draft sections, review gaps, and surface informational references.</p>
-            <p><a class="btn secondary" href="tools/drafting-assistant.html">Launch Assistant</a></p>
-          </article>
-
-          <article class="card toolCard">
-            <h3>NORS Crosswalk Tool</h3>
-            <p>Select a NORS code or enter a concern keyword to view likely topics and informational authority references.</p>
-            <p><a class="btn secondary" href="tools/nors-crosswalk.html">Launch Crosswalk Tool</a></p>
-          </article>
-
-          <article class="card toolCard">
-            <h3>Responsible Use &amp; Sources</h3>
-            <p>Review the source registry, human-review guardrails, privacy reminders, and Connecticut responsible AI alignment notes.</p>
-            <p><a class="btn secondary" href="tools/responsible-use.html">Open Responsible Use</a></p>
-          </article>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="wrap ltcop-footer" role="contentinfo">
-    <div class="panel">
-      <div>
-        <strong>Connecticut Long Term Care Ombudsman Program</strong>
-        <div class="subtle">Nursing Home Staffing Transparency Tools. Screening data only; use source caveats and resident-centered review.</div>
-      </div>
-      <div class="ltcop-footer-links">
-        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP website</a>
-        <a href="tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
-        <a href="tools/responsible-use.html">Responsible Use</a>
-      </div>
-    </div>
-  </footer>
+<body>
+  <a class="skip-link" href="#projects">Skip to projects</a>
+  <div class="danbeem-page">
+    <header class="danbeem-header">
+      <a class="danbeem-logo" href="/" aria-label="DANBEEM.XYZ home">DANBEEM.XYZ</a>
+      <nav class="danbeem-nav" aria-label="Main navigation">
+        <a href="#projects">Projects</a>
+        <a href="/privacy/">Privacy</a>
+        <a href="/terms/">Terms</a>
+      </nav>
+    </header>
+    <main class="danbeem-main">
+      <section class="danbeem-intro" aria-labelledby="page-title">
+        <h1 id="page-title">Projects. Experiments. Tools. And Assorted Nonsense.</h1>
+        <p>A little bit of advocacy. A little bit of tech. A lot of fun.</p>
+      </section>
+      <section id="projects" class="danbeem-projects" aria-label="Primary projects">
+        <a class="danbeem-card" href="/birds/">
+          <div><h2>Backyard Bird Cam</h2><p>Live from the feeder</p></div>
+          <div class="danbeem-card-meta"><span aria-hidden="true"></span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        </a>
+        <article class="danbeem-card">
+          <div><h2>Grade My Glizzy</h2><p>The internet's least necessary hot dog rating platform</p><p class="danbeem-future-url">Future home: glizzy.danbeem.xyz</p></div>
+          <div class="danbeem-card-meta"><span class="danbeem-status">Coming Soon</span><span class="danbeem-card-note">Not yet available</span></div>
+        </article>
+        <a class="danbeem-card" href="/staffing/">
+          <div><h2>Nursing Home Staffing Tools</h2><p>Transparency. Data. Better care.</p></div>
+          <div class="danbeem-card-meta"><span aria-hidden="true"></span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        </a>
+        <a class="danbeem-card" href="#projects" aria-label="BeemOps, coming soon">
+          <div><h2>BeemOps</h2><p>AI, automation, projects, and whatever I'm breaking next.</p></div>
+          <div class="danbeem-card-meta"><span class="danbeem-status">Coming Soon</span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        </a>
+      </section>
+    </main>
+    <footer class="danbeem-footer">
+      <span>Good people. Good food. More fun.</span>
+      <nav aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><span>Built by Dan</span></nav>
+    </footer>
+  </div>
 </body>
 </html>

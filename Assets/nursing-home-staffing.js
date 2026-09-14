@@ -109,11 +109,11 @@
   let facilities = [];
   let filteredFacilities = [];
   const dataPaths = [
-    '../data/nursing_home_staffing_ct.json',
-    '../data/nursing_home_staffing_mock.json'
+    '/data/nursing_home_staffing_ct.json',
+    '/data/nursing_home_staffing_mock.json'
   ];
-  const surveyEnforcementSummaryPath = '../data/nursing_home_survey_enforcement_summary_ct.json';
-  const surveyEnforcementDetailDirectory = '../data/nursing_home_survey_enforcement_details_ct';
+  const surveyEnforcementSummaryPath = '/data/nursing_home_survey_enforcement_summary_ct.json';
+  const surveyEnforcementDetailDirectory = '/data/nursing_home_survey_enforcement_details_ct';
   const surveyEnforcementDetailInitialLimit = 10;
   surveyEnforcementDetailState = createSurveyEnforcementDetailState('');
   const caseMixBenchmarkExplanation = 'How this comparison is built: the case-mix comparison point value itself is not calculated by this tool. It is imported directly from the CMS Nursing Home Provider Information field "Case-Mix Total Nurse Staffing Hours per Resident per Day." CMS describes that field as case-mix total nurse staffing HPRD combining Aide + LPN + RN. This tool compares the facility\'s PBJ-reported actual total nurse HPRD against that CMS-published comparison point. The actual-minus-benchmark difference and percent-of-benchmark text are calculated by this tool. The comparison point is contextual, not actual staffing, not a legal minimum, and not proof of poor care, neglect, harm, or violations.';
@@ -1150,7 +1150,7 @@
     if (historyDataset) return historyDataset;
     const status = document.getElementById('historical-pbj-status');
     if (status) status.textContent = 'Loading historical PBJ staffing...';
-    historyDataset = await global.DanBeemData.loadJson('../data/nursing_home_staffing_history_ct.json');
+    historyDataset = await global.DanBeemData.loadJson('/data/nursing_home_staffing_history_ct.json');
     historyRowsByCcn = new Map();
     (historyDataset.facility_quarterly_staffing_history || []).forEach(row => {
       if (!row.ccn) return;

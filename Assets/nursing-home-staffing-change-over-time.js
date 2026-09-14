@@ -2,9 +2,9 @@
   'use strict';
 
   const dataPaths = [
-    '../data/nursing_home_staffing_history_ct.json'
+    '/data/nursing_home_staffing_history_ct.json'
   ];
-  const contextPaths = ['../data/nursing_home_staffing_ct.json'];
+  const contextPaths = ['/data/nursing_home_staffing_ct.json'];
 
   const modeConfig = {
     'direct-decline': {
@@ -667,7 +667,7 @@
         change_amount: csvNumber(record[config.metricKey], valueDigits),
         earliest_below_ct_3_00_comparison_flag: record.earliest?.ct_total_direct_care_below_comparison_point,
         latest_below_ct_3_00_comparison_flag: record.latest?.ct_total_direct_care_below_comparison_point,
-        facility_detail_url: `tools/nursing-home-staffing-explorer.html?ccn=${record.ccn || ''}`
+        facility_detail_url: `/staffing/tools/nursing-home-staffing-explorer.html?ccn=${record.ccn || ''}`
       };
     });
     return [

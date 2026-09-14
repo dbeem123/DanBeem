@@ -2,8 +2,8 @@
   'use strict';
 
   const dataPaths = [
-    '../data/nursing_home_staffing_ct.json',
-    '../data/nursing_home_staffing_mock.json'
+    '/data/nursing_home_staffing_ct.json',
+    '/data/nursing_home_staffing_mock.json'
   ];
 
   let dataset = null;

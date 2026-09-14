@@ -124,7 +124,7 @@
     if (!elements.length) return;
     const groups = new Map();
     elements.forEach(element => {
-      const path = element.getAttribute('data-source-json') || '../data/nursing_home_staffing_ct.json';
+      const path = element.getAttribute('data-source-json') || '/data/nursing_home_staffing_ct.json';
       if (!groups.has(path)) groups.set(path, []);
       groups.get(path).push(element);
     });

@@ -1,5 +1,5 @@
 (function () {
-  const DATA_URL = "../../data/testing/nursing_home_staffing_history_ct_2017q4_2025q4_preview.json";
+  const DATA_URL = "/data/testing/nursing_home_staffing_history_ct_2017q4_2025q4_preview.json";
   const CT_TOTAL = 3.0;
   const CT_LICENSED = 0.84;
   const FULL_QUARTER_APPLICABLE = "2023Q2";

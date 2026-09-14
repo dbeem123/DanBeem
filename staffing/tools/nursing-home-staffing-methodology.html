@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>About the Nursing Home Staffing, Survey, and Enforcement Data | Connecticut LTCOP</title>
+  <meta name="description" content="Plain-language methodology for the Connecticut Nursing Home Staffing Transparency Tools, including staffing, survey, enforcement, source, and interpretation notes." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/nursing-home-source-currency.js"></script>
+  <style>
+    .methodology-hero {
+      min-height:auto;
+      display:block;
+      padding-top:26px;
+      padding-bottom:8px;
+    }
+    .methodology-hero .panel {
+      display:grid;
+      gap:12px;
+    }
+    .content-section {
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+    .content-section h2 {
+      margin-bottom:2px;
+      scroll-margin-top:250px;
+    }
+    .content-section h3 {
+      margin:8px 0 4px;
+    }
+    .content-section > .panel {
+      min-width:0;
+    }
+    .content-section code {
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
+    .method-list {
+      margin:0;
+      padding-left:20px;
+    }
+    .method-list li {
+      margin:0 0 8px;
+    }
+    .formula-list {
+      display:grid;
+      gap:10px;
+      margin:0;
+      padding:0;
+      list-style:none;
+    }
+    .formula-list li {
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid var(--glass-strong);
+      background:rgba(255,255,255,0.025);
+    }
+    .tool-link-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:10px;
+    }
+    .tool-link-grid .card {
+      display:grid;
+      gap:8px;
+    }
+    @media (max-width:760px) {
+      .content-section h2 {
+        scroll-margin-top:430px;
+      }
+    }
+  </style>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html" aria-current="page">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap methodology-hero" aria-labelledby="methodology-title">
+      <div class="panel">
+        <div class="pill">Methodology</div>
+        <h1 id="methodology-title">About the Nursing Home Staffing, Survey, and Enforcement Data</h1>
+        <p>These tools use public CMS datasets to help users explore Connecticut nursing home staffing patterns and facility-level survey and enforcement context. They are designed for screening, comparison, and question-building.</p>
+        <div class="notice warning">The staffing tools are not a substitute for regulatory review, resident experience, complaint investigation, survey findings, or formal compliance determinations. Use them to identify questions for closer review, not as stand-alone findings.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-label="Current source currency">
+      <div data-source-currency data-source-json="/data/nursing_home_staffing_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="sources-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Data Sources</div>
+            <h2 id="sources-title">Public CMS datasets used</h2>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>CMS Payroll-Based Journal Daily Nurse Staffing</h3>
+            <p><a href="https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing">CMS Payroll-Based Journal Daily Nurse Staffing dataset</a> files are used for staffing hours, census and resident-day denominators, and quarter-by-quarter staffing trends. PBJ is quarterly public staffing data, not real-time staffing information.</p>
+          </article>
+          <article class="card">
+            <h3>CMS Nursing Home Provider Information</h3>
+            <p><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a> supplies facility metadata such as name, address, certified beds, ownership type, CMS case-mix staffing comparison fields, and CMS Care Compare rating context when available. These values are contextual and may not align exactly with every historical PBJ quarter.</p>
+            <p>For the Statewide Comparison county filter, the tool uses a separate CMS Certification Number (CCN)-based geography crosswalk built from the April 2026 Provider Information county fields. County is current Provider Information context, not historical quarter-specific geography. Facilities without a Provider Information county match are labeled as Unknown / needs review.</p>
+          </article>
+          <article class="card">
+            <h3>CMS Nursing Home Quality Measures Claims</h3>
+            <p><a href="https://data.cms.gov/provider-data/topics/nursing-homes/quality-measures">CMS nursing home quality-measure data</a> supplies facility-level claims-based quality-measure rows, including measure descriptions, scores, footnotes, rating-use flags, and measure periods. These measures are contextual Care Compare quality-measure data and are not calculated by this staffing tool.</p>
+          </article>
+          <article class="card">
+            <h3>CMS SNF Enrollments</h3>
+            <p><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a> records provide legal organization, doing-business-as name, NPI, proprietary/nonprofit status, organization structure, and affiliation entity context. Shared affiliation entity data does not by itself prove common day-to-day control or legal responsibility.</p>
+          </article>
+          <article class="card">
+            <h3>CMS survey and enforcement files</h3>
+            <p><a href="https://data.cms.gov/provider-data/topics/nursing-homes">CMS nursing home survey and enforcement data</a> supplies citation-level Health, Fire Safety, and Emergency Preparedness deficiency records plus fine and payment-denial enforcement events. These records are shown as historical context and remain separate from staffing classifications.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="hprd-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">HPRD</div>
+            <h2 id="hprd-title">What hours per resident day means</h2>
+          </div>
+        </div>
+        <p>HPRD means hours per resident day. It divides reported staffing hours by resident days for the same time period.</p>
+        <p>For example, if a facility reported 300 nursing hours across 100 resident days, the result would be 3.00 HPRD. Higher or lower HPRD can be meaningful, but it should always be interpreted with context such as resident acuity, facility size, missing data, survey findings, complaints, and resident experience.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="metrics-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Core Metrics</div>
+            <h2 id="metrics-title">PBJ staffing metrics calculated in the export</h2>
+          </div>
+        </div>
+        <ul class="formula-list">
+          <li><strong>RN HPRD:</strong> PBJ RN Director of Nursing hours, RN administration hours, and RN hours divided by resident days.</li>
+          <li><strong>LPN/LVN HPRD:</strong> PBJ LPN administration hours and LPN hours divided by resident days.</li>
+          <li><strong>Nurse aide HPRD:</strong> PBJ CNA, nurse aide trainee, and medication aide hours divided by resident days.</li>
+          <li><strong>Total nurse HPRD:</strong> RN, LPN/LVN, and nurse aide category hours combined and divided by resident days.</li>
+          <li><strong>Contract staff %:</strong> contract nursing hours divided by total nursing hours, expressed as a percentage.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="row-rules-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Row Rules</div>
+            <h2 id="row-rules-title">PBJ row inclusion rules</h2>
+          </div>
+        </div>
+        <ul class="method-list">
+          <li>Days with missing or nonpositive census are excluded from denominator and numerator totals.</li>
+          <li>Days with positive census and zero nursing hours are included as zero-hour days.</li>
+          <li>Missing facility-quarter rows are not treated as zero staffing.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="history-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Historical PBJ Staffing</div>
+            <h2 id="history-title">Longitudinal staffing history</h2>
+          </div>
+        </div>
+        <p>Historical CMS Payroll-Based Journal staffing is available in the public tools from Q4 2017 through Q4 2025. These rows are PBJ-derived staffing measures for each facility-quarter, including total nurse HPRD, RN HPRD, LPN/LVN HPRD, nurse aide HPRD, contract staff percentage, CT direct-care HPRD estimate, and CT licensed HPRD estimate.</p>
+        <p>Current contextual CMS snapshots remain separate. Provider Information, Care Compare ratings, CMS case-mix comparison points, and Quality Measures Claims are April 2026 context. SNF Enrollment affiliation context is from May 2026. Those current values are not historical quarter-specific values for each PBJ staffing quarter.</p>
+        <div class="notice">Facility names, facility participation, and available quarters can change over time. Missing PBJ facility-quarter rows are not treated as zero staffing.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="ct-comparison-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Connecticut Comparison</div>
+            <h2 id="ct-comparison-title">Connecticut direct-care comparison estimates</h2>
+          </div>
+        </div>
+        <p><a href="https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/">Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t</a>, set nursing-staff requirements in subsection (m). The current 3.00 total nursing and nurse's aide direct-care hours per resident day and 0.84 licensed nursing hours per resident day comparison points used here are described in Connecticut Department of Public Health's <a href="https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf">amended 3.0 staffing implementation notice</a>.</p>
+        <p>The Connecticut materials also explain that director of nursing and assistant director of nursing hours are not counted toward those minimum requirements. The staffing tools create PBJ-derived screening estimates to compare against those points.</p>
+        <p>For historical PBJ display, the tools use a conservative public-applicability rule: Q4 2017 through Q4 2021 are shown without applicable CT threshold status labels; 2022 quarters are not assigned public CT status under the current method; Q1 2023 is transitional/partial-period context; Q2 2023 through Q4 2025 may show PBJ-derived CT screening-status labels with caveats.</p>
+        <ul class="formula-list">
+          <li><strong>CT direct-care total HPRD estimate:</strong> RN + LPN + CNA + nurse aide trainee + medication aide hours divided by resident days.</li>
+          <li><strong>CT licensed HPRD estimate:</strong> RN + LPN hours divided by resident days.</li>
+        </ul>
+        <p>These estimates exclude PBJ DON and administrative categories: <code>Hrs_RNDON</code>, <code>Hrs_RNadmin</code>, and <code>Hrs_LPNadmin</code>.</p>
+        <div class="notice warning">The Connecticut comparison is a PBJ-derived screening estimate, not a formal Connecticut Department of Public Health compliance finding.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="case-mix-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Case-Mix Context</div>
+            <h2 id="case-mix-title">Case-mix comparison points</h2>
+          </div>
+        </div>
+        <p>The case-mix comparison point value is imported from CMS Nursing Home Provider Information. The field used is <strong>Case-Mix Total Nurse Staffing Hours per Resident per Day</strong>. The <a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf">CMS Nursing Home Data Dictionary</a> describes that value as case-mix total nurse staffing HPRD combining aide, LPN, and RN staffing.</p>
+        <p>The app compares PBJ-reported actual total nurse HPRD to that CMS-published point. The actual-minus-benchmark and percent-of-benchmark text are calculated by the app.</p>
+        <p>These current Provider Information comparison points are not historical quarter-specific values. Historical case-mix persistent-pattern analysis is not available unless historically aligned CMS benchmark snapshots are later acquired.</p>
+        <div class="notice">Case-mix comparison points are contextual. They are not actual staffing, not a legal minimum, and not proof of poor care.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="ratings-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Care Compare Context</div>
+            <h2 id="ratings-title">CMS ratings imported from Provider Information</h2>
+          </div>
+        </div>
+        <p>CMS Care Compare ratings shown in the facility explorer are imported from CMS Nursing Home Provider Information. The tool does not calculate these star ratings and does not use them to replace PBJ-reported staffing metrics, Connecticut direct-care screening estimates, or case-mix comparison points.</p>
+        <p>When available, the export may include overall, health inspection, staffing, RN staffing, quality-measure, long-stay quality-measure, and short-stay quality-measure ratings. These ratings provide contextual CMS summary information and should be interpreted alongside the staffing metrics, source timing, survey findings, complaints, resident experience, and other review materials.</p>
+        <div class="notice">CMS Care Compare ratings are contextual summary ratings from Provider Information. They are not calculated by this tool and are not stand-alone findings about current staffing, care quality, compliance, harm, or legal responsibility.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="individual-qm-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Individual Quality Measures</div>
+            <h2 id="individual-qm-title">CMS claims-based quality measures</h2>
+          </div>
+        </div>
+        <p>Individual claims-based quality measures come from the CMS Nursing Home Quality Measures Claims file. The facility explorer imports measure-level rows by CMS Certification Number (CCN), including measure code, description, resident type, adjusted score, observed score, expected score, footnote, whether CMS marks the measure as used in the Quality Measure Five-Star Rating, measure period, and processing date.</p>
+        <p>CMS rating summaries and individual quality measures are different. Rating fields are summary values imported from Provider Information; individual quality measures are measure-level rows imported from the Quality Measures Claims file.</p>
+        <div class="notice">Claims-based quality measures provide Care Compare context and should be interpreted with measure definitions, footnotes, and the measure period. They do not replace PBJ staffing metrics, CT direct-care screening estimates, survey findings, complaints, resident experience, or formal review.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="survey-enforcement-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Survey And Enforcement Context</div>
+            <h2 id="survey-enforcement-title">How the Survey &amp; Enforcement Snapshot is built</h2>
+          </div>
+        </div>
+        <p>The Facility Explorer uses nursing home survey and enforcement files published by the Centers for Medicare &amp; Medicaid Services (CMS). The records are joined to current Facility Explorer facilities by the six-character CMS Certification Number (CCN).</p>
+        <div class="grid">
+          <article class="card">
+            <h3>Records included</h3>
+            <ul class="method-list">
+              <li><strong>Health deficiencies:</strong> citation-level records identified by F-tags.</li>
+              <li><strong>Fire Safety deficiencies:</strong> citation-level records identified by K-tags.</li>
+              <li><strong>Emergency Preparedness deficiencies:</strong> citation-level records identified by E-tags.</li>
+              <li><strong>Enforcement events:</strong> CMS fine and payment-denial rows.</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>What these records do not establish</h3>
+            <ul class="method-list">
+              <li>They are not a standalone quality score and are not incorporated into the staffing classification.</li>
+              <li>Citation counts require survey-date, survey-type, and available-source-window context.</li>
+              <li>Fine amounts are enforcement values, not quality ratings.</li>
+              <li>Facilities should not be ranked solely by citation counts or fine amounts.</li>
+              <li>Absence of records in the included files does not mean a facility has never had a deficiency or enforcement action.</li>
+              <li>The files are not necessarily an exhaustive record of every state or federal action involving a facility.</li>
+            </ul>
+          </article>
+        </div>
+
+        <h3>Current source files and date windows</h3>
+        <p>The current build uses the May 2026 CMS files below. Their available date windows differ, so totals across sources do not represent one uniform observation period.</p>
+        <ul class="method-list">
+          <li><strong>Health Deficiencies:</strong> <code>NH_HealthCitations_May2026.csv</code>; survey dates <time datetime="2018-11-08">November 8, 2018</time> through <time datetime="2026-03-31">March 31, 2026</time>.</li>
+          <li><strong>Fire Safety and Emergency Preparedness Deficiencies:</strong> <code>NH_FireSafetyCitations_May2026.csv</code>; survey dates <time datetime="2018-11-08">November 8, 2018</time> through <time datetime="2026-02-27">February 27, 2026</time>.</li>
+          <li><strong>Citation Descriptions:</strong> <code>NH_CitationDescriptions_May2026.csv</code>; a reference lookup used with citation records.</li>
+          <li><strong>Penalties:</strong> <code>NH_Penalties_May2026.csv</code>; penalty dates <time datetime="2023-05-17">May 17, 2023</time> through <time datetime="2026-03-17">March 17, 2026</time>.</li>
+          <li><strong>Payment-denial start dates:</strong> <time datetime="2024-01-17">January 17, 2024</time> through <time datetime="2024-12-03">December 3, 2024</time>.</li>
+          <li><strong>Current penalties-file processing date:</strong> <time datetime="2026-05-01">May 1, 2026</time>.</li>
+        </ul>
+
+        <h3>What “recent” means</h3>
+        <p>The compact snapshot defines the recent window as <time datetime="2023-03-31">March 31, 2023</time> through <time datetime="2026-03-31">March 31, 2026</time>, inclusive. The end date is the maximum date across the three detailed runtime datasets, and the same three-year period is applied across sources for a consistent summary window.</p>
+        <p>“Recent” does not mean that every record occurred during a facility's latest survey cycle. All current enforcement rows fall inside this window because the penalties source begins after the recent-window start date.</p>
+
+        <h3>Health harm groupings</h3>
+        <p>For Health F-tag deficiencies only, the tool translates CMS Scope Severity Codes into the following plain-language groupings:</p>
+        <ul class="formula-list">
+          <li><strong>J, K, or L:</strong> Immediate jeopardy.</li>
+          <li><strong>G, H, or I:</strong> Actual harm, not immediate jeopardy.</li>
+          <li><strong>D, E, or F:</strong> No actual harm, with potential for more than minimal harm.</li>
+          <li><strong>A, B, or C:</strong> No actual harm, with potential for minimal harm.</li>
+          <li><strong>Missing or unexpected code:</strong> Unknown or unmapped.</li>
+        </ul>
+        <p>This grouping is not applied to Fire Safety K-tags or Emergency Preparedness E-tags.</p>
+
+        <h3>Known Fire Safety description lookup gaps</h3>
+        <p>The Fire Safety source contains citation rows for K-0211 and K-0133, but the current CMS Citation Descriptions file does not contain matching lookup entries for those codes. The application preserves the deficiency descriptions supplied in the Fire Safety source and labels the mismatch as an official-source lookup gap. It does not invent or manually substitute a description.</p>
+
+        <h3>Penalties, dates, and duplicate source rows</h3>
+        <p>Fine and Payment Denial rows are distinct enforcement types. Fine Amount applies to Fine rows; Payment Denial Start Date and Payment Denial Length apply to Payment Denial rows. Penalty Date, payment-denial start date, and processing date are separate fields and should not be treated as interchangeable.</p>
+        <p>Three duplicated full-row signatures exist in the current Connecticut penalties source. The build preserves those published source rows and flags duplicates rather than silently removing them. Aggregate totals therefore reflect the published source rows unless a display is explicitly labeled otherwise.</p>
+
+        <h3>Compact summary, detailed records, and facility coverage</h3>
+        <p>The normal Facility Explorer page load requests a compact one-record-per-facility summary. Detailed citations and enforcement events load only after a user chooses <strong>View detailed findings</strong>, and only the selected facility's CCN-specific file is requested. The full statewide detailed files are not downloaded during the normal page load. This improves performance and avoids unnecessary data transfer.</p>
+        <p>The current Facility Explorer includes 196 facilities. Health records cover 191 current CCNs, Fire Safety or Emergency Preparedness records cover 178 current CCNs, and penalties cover 102 current CCNs. Five current facility records have no records in the included survey or enforcement files; they remain in the Explorer with zero counts and unavailable latest dates.</p>
+        <div class="notice warning">Survey and enforcement records provide dated historical context. They do not change a facility's staffing classification and should be reviewed with resident experience, complaint information, correction context, and official records when appropriate.</div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="affiliation-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Affiliation Context</div>
+            <h2 id="affiliation-title">Ownership and affiliation context</h2>
+          </div>
+        </div>
+        <p>Affiliation entities come from the <a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a>. They are useful for grouping facilities and reviewing patterns across connected records.</p>
+        <p>Affiliation entity data does not by itself prove shared management decisions, day-to-day operational control, or legal responsibility. Small affiliation groups should be interpreted carefully because one facility can strongly affect the group summary.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="limitations-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Use And Limits</div>
+            <h2 id="limitations-title">Screening use and limitations</h2>
+          </div>
+        </div>
+        <div class="grid">
+          <article class="card">
+            <h3>These tools can help identify</h3>
+            <ul class="method-list">
+              <li>staffing patterns</li>
+              <li>repeated screening concerns</li>
+              <li>large changes over time</li>
+              <li>possible questions for follow-up</li>
+              <li>affiliation-level patterns for review</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>These tools cannot prove by themselves</h3>
+            <ul class="method-list">
+              <li>poor care</li>
+              <li>neglect or harm</li>
+              <li>regulatory violations</li>
+              <li>why staffing changed</li>
+              <li>that all facilities in an affiliation are operated the same way</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="audit-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Validation</div>
+            <h2 id="audit-title">Audit and validation</h2>
+          </div>
+        </div>
+        <p>The project includes an independent calculation audit script. The audit re-read raw PBJ files, recomputed the staffing metrics, and compared the results to the current generated export.</p>
+        <p>The current calculation audit found zero unexplained discrepancies. The production historical PBJ staffing file was also independently audited against raw PBJ source files. Technical users can review <code>docs/nursing_home_staffing_calculation_audit.md</code>, <code>docs/nursing_home_staffing_history_calculation_audit.md</code>, <code>scripts/audit_nursing_home_staffing_ct.py</code>, and <code>scripts/audit_nursing_home_staffing_history_ct.py</code>.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="references-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">References</div>
+            <h2 id="references-title">Source references</h2>
+          </div>
+        </div>
+        <ul class="method-list">
+          <li><a href="https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing">CMS Payroll-Based Journal Daily Nurse Staffing dataset</a></li>
+          <li><a href="https://www.cms.gov/medicare/quality/nursing-home-improvement/staffing-data-submission">CMS Payroll-Based Journal staffing data submission information</a></li>
+          <li><a href="https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf">CMS Payroll-Based Journal Daily Nursing Staffing Data Dictionary</a></li>
+          <li><a href="https://data.cms.gov/provider-data/dataset/4pq5-n9py">CMS Nursing Home Provider Information dataset</a></li>
+          <li><a href="https://data.cms.gov/provider-data/topics/nursing-homes/quality-measures">CMS nursing home quality-measure data</a></li>
+          <li><a href="https://data.cms.gov/provider-data/sites/default/files/data_dictionaries/nursing_home/NH_Data_Dictionary.pdf">CMS Nursing Home Data Dictionary</a></li>
+          <li><a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a></li>
+          <li><a href="https://data.cms.gov/sites/default/files/2022-08/SNF_Enrollments_Methodology.pdf">CMS Skilled Nursing Facility Enrollments methodology</a></li>
+          <li><a href="https://data.cms.gov/provider-data/topics/nursing-homes">CMS Nursing Home Health Deficiencies, Fire Safety Deficiencies, Citation Descriptions, and Penalties files</a></li>
+          <li><a href="https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/">Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t</a></li>
+          <li><a href="https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf">Connecticut DPH amended 3.0 staffing implementation notice</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="tools-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Explore</div>
+            <h2 id="tools-title">Explore the tools</h2>
+          </div>
+        </div>
+        <div class="tool-link-grid">
+          <article class="card">
+            <h3>Connecticut Nursing Home Staffing Explorer</h3>
+            <p>Review one facility over time.</p>
+            <p><a class="linkBtn" href="/staffing/tools/nursing-home-staffing-explorer.html">Open Facility Staffing Explorer</a></p>
+          </article>
+          <article class="card">
+            <h3>Statewide Facility Staffing Comparison</h3>
+            <p>Compare latest-quarter facility rows.</p>
+            <p><a class="linkBtn" href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Open Statewide Comparison</a></p>
+          </article>
+          <article class="card">
+            <h3>Staffing Change Over Time Explorer</h3>
+            <p>Review endpoint-to-endpoint changes.</p>
+            <p><a class="linkBtn" href="/staffing/tools/nursing-home-staffing-change-over-time.html">Open Change Explorer</a></p>
+          </article>
+          <article class="card">
+            <h3>Persistent Multi-Quarter Staffing Patterns</h3>
+            <p>Find repeated screening patterns.</p>
+            <p><a class="linkBtn" href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Open Persistent Patterns</a></p>
+          </article>
+          <article class="card">
+            <h3>Ownership / Affiliation Staffing Explorer</h3>
+            <p>Review CMS affiliation entity groupings.</p>
+            <p><a class="linkBtn" href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Open Ownership / Affiliation Explorer</a></p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Nursing Home Staffing Transparency Tools - public methodology page.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/">Staffing Tools Home</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -2,10 +2,10 @@
   'use strict';
 
   const dataPaths = [
-    '../data/nursing_home_staffing_ct.json',
-    '../data/nursing_home_staffing_mock.json'
+    '/data/nursing_home_staffing_ct.json',
+    '/data/nursing_home_staffing_mock.json'
   ];
-  const geographyPath = '../data/nursing_home_facility_geography_ct.json';
+  const geographyPath = '/data/nursing_home_facility_geography_ct.json';
   const unknownCountyValue = '__unknown__';
   const countyDisclosure = 'County is based on the April 2026 CMS Provider Information snapshot. Facilities without a Provider Information county match appear under Unknown / needs review. County is current context and not historical quarter-specific geography.';
 
@@ -606,7 +606,7 @@
         contract_staff_pct: csvNumber(getMetric(row, 'contract_staff_pct'), 1),
         case_mix_total_benchmark: csvNumber(getBenchmark(row, 'case_mix_total_nurse_hprd')),
         actual_minus_case_mix_benchmark: csvNumber(getBenchmarkDifference(row)),
-        facility_detail_url: `tools/nursing-home-staffing-explorer.html?ccn=${row.ccn || ''}`
+        facility_detail_url: `/staffing/tools/nursing-home-staffing-explorer.html?ccn=${row.ccn || ''}`
       };
     });
     return [
