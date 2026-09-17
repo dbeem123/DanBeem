@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DanBot SMS Opt-In | DANBEEM.XYZ</title>
+  <meta name="description" content="Opt in to private DanBot personal assistant SMS messaging.">
+  <style>
+    :root { color-scheme: light; --ink: #1f2937; --muted: #5f6b7a; --line: #d7dde5; --panel: #f7f9fc; --accent: #1d4ed8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #fff; font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; line-height: 1.6; }
+    main, footer { width: min(760px, calc(100% - 40px)); margin: 0 auto; }
+    main { padding: 48px 0 28px; }
+    h1, h2 { line-height: 1.2; }
+    h1 { margin-top: 0; font-size: clamp(2rem, 7vw, 3.25rem); }
+    h2 { margin-top: 2rem; }
+    a { color: var(--accent); }
+    .lede { color: var(--muted); font-size: 1.12rem; }
+    .panel { margin: 28px 0; padding: 24px; border: 1px solid var(--line); border-radius: 12px; background: var(--panel); }
+    .keyword { font-weight: 800; letter-spacing: .06em; }
+    .button { display: inline-block; margin-top: 8px; padding: 12px 18px; border-radius: 8px; background: var(--accent); color: #fff; font-weight: 700; text-decoration: none; }
+    .button:hover, .button:focus-visible { background: #173ea6; }
+    .fine-print { color: var(--muted); font-size: .94rem; }
+    footer { padding: 22px 0 40px; border-top: 1px solid var(--line); }
+    footer nav { display: flex; flex-wrap: wrap; gap: 16px; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>DanBot SMS</h1>
+    <p class="lede">DanBot is a private personal assistant messaging service for Dan and friends or family members who individually choose to opt in. It is not a marketing list or a service for unsolicited messages.</p>
+
+    <section class="panel" aria-labelledby="opt-in-heading">
+      <h2 id="opt-in-heading">How to opt in</h2>
+      <ol>
+        <li>Send your message to <strong>+12135561964</strong>, DanBot’s SMS number.</li>
+        <li>Open your SMS app using the button below. The message <span class="keyword">DANBOT</span> will be prefilled for <strong>+12135561964</strong>.</li>
+        <li>Confirm the destination is the number Dan provided, then press <strong>Send</strong> yourself.</li>
+      </ol>
+      <p><a class="button" href="sms:+12135561964?body=DANBOT">Open SMS with DANBOT</a></p>
+      <p class="fine-print">Opening the composer does not send a message or provide consent. You opt in only when you press Send. The destination number is shown above so you can confirm it before pressing Send.</p>
+    </section>
+
+    <h2>What to expect</h2>
+    <p>Messages support personal assistant conversations and related transactional updates for Dan and individually opted-in friends or family. Message frequency varies with each person's interactions and requested assistant activity. Message and data rates may apply.</p>
+
+    <h2>Help and opting out</h2>
+    <p>Reply <strong>HELP</strong> for help. Reply <strong>STOP</strong> at any time to opt out. After opting out, reply <strong>START</strong> or <strong>UNSTOP</strong> to opt back in through the carrier-supported flow.</p>
+
+    <h2>Your choice</h2>
+    <p>Consent applies only to the mobile number that sends the opt-in keyword. Consent is not a condition of a purchase and is not transferred to another person or number.</p>
+  </main>
+  <footer>
+    <nav aria-label="SMS policy links">
+      <a href="/">DANBEEM.XYZ</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms and Conditions</a>
+    </nav>
+  </footer>
+</body>
+</html>
