@@ -27,13 +27,22 @@ Authenticated JSON response example (illustrative only):
 
 Set `type` to `song` and use an allowed audio MIME such as `audio/mpeg` for music. Set `status` to `queued`, `processing`, `failed`, or `complete`. Incomplete states do not need `media`. Return 401 for unauthenticated, 403 for unauthorized, and 404/410 for unavailable or expired results. Do not leak result details to unauthorized clients. Do not expose provider API keys, private prompts, phone numbers, or internal filesystem paths in responses. Never publish real user media to this public git repository.
 
+## Generation routing requirements (approved architecture; NOT implemented here)
+
+- Every SMS media request is handled by Hermes directly. Hermes invokes ComfyUI workflows via its direct API integration, not by invoking a generation skill.
+- Images: SMS -> Hermes -> ComfyUI image workflow -> protected image result -> authorized SMS link.
+- Songs: SMS -> Hermes -> ComfyUI **HeartMuLa 2** workflow -> protected song result -> authorized SMS link.
+- **HeartMuLa 2 is required, not HeartMuLa 1.** Verify the exact installed local workflow name, identifier, dependencies and model/checkpoint before wiring the worker. The label `HeartMuLa 2` here denotes the requested workflow revision, not an independently verified upstream model release or the official model parameter `--version`. Do not guess the workflow filename or silently use HeartMuLa 1 (or any other workflow) as a fallback. If revision 2 is missing or fails validation, fail closed with an accurate error.
+- Invoke is never called, launched, or used by Hermes for image or song generation. Do not retain an Invoke fallback, even for SMS.
+- A completed job must publish owner-scoped, authenticated metadata and media before sending its link. Failed, pending, or unauthorized jobs must not be described as complete.
+
 ## Hermes / Twilio integration
 
 1. Authorize and record the originating user's request in the trusted backend. SMS consent is separate from permission to use private tools or access another person's result.
-2. Generate the image or song through a provider actually installed, configured, licensed, and authorized for the request. Maintain explicit status and secure media storage. This PR does not select or integrate a generation provider.
+2. Invoke the verified, explicitly configured ComfyUI image workflow or **HeartMuLa 2** song workflow directly from Hermes, without a generation skill or Invoke. Maintain explicit status and secure media storage. This PR specifies routing but does not implement a worker, generation service, or integration.
 3. Associate each result with its owner. Expose metadata and file bytes only through authenticated, owner-scoped routes. Any sharing feature requires an explicit grant with restricted audience and expiry, plus a revocation path. Leave `sharing.enabled` false until implemented.
 4. Only after real end-to-end testing, send the appropriate `/image/?id=...` or `/song/?id=...` link by an approved SMS channel. Do not include API credentials or publicly accessible media URLs in texts. Twilio's A2P registration is separately pending as of the latest email check and is not made approved by deploying these pages.
-5. Test desktop/mobile screen readers, audio controls, image alternative text, expired/invalid IDs, no API, 401/403/404, provider failures, rejected MIME and origin, concurrent users, and download permissions before rollout.
+5. Test desktop/mobile screen readers, audio controls, image alternative text, expired/invalid IDs, no API, 401/403/404, provider failures, rejected MIME and origin, concurrent users, and download permissions before rollout. Verify that HeartMuLa 1 and Invoke are not invoked in the SMS image/song paths, and that missing HeartMuLa 2 produces an explicit failure rather than fallback.
 
 ## Deployment note
 
