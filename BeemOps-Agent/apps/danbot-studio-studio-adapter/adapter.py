@@ -6,7 +6,7 @@ from urllib.parse import unquote, urlsplit
 import re
 
 UPSTREAM_HOST = "127.0.0.1"
-RESULT_PATH = re.compile(r"^/v1/results/([A-Za-z0-9][A-Za-z0-9._~-]{0,127})/(metadata|media|download)$")
+RESULT_PATH = re.compile(r"^/v1/results/([A-Za-z0-9][A-Za-z0-9._~-]{0,127})(?:/(metadata|media|download))?$")
 UPSTREAM_PORT = 8765
 ACCESS_HEADERS = {
     "cf-access-jwt-assertion",
