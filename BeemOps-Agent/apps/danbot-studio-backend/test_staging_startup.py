@@ -14,9 +14,16 @@ class StartupTest(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             db = ":memory:"
             artifacts = os.path.join(d, "artifacts")
+            env = os.environ.copy()
+            env.update({
+                "DANBOT_ACCESS_ISSUER": "https://team.example.cloudflareaccess.com",
+                "DANBOT_ACCESS_AUDIENCE": "test-audience",
+                "DANBOT_ACCESS_JWKS_URL": "https://127.0.0.1.invalid/.well-known/jwks.json",
+            })
             proc = subprocess.Popen(
                 [sys.executable, os.path.join(ROOT, "backend.py"), "--port", "0", "--db", db, "--artifacts", artifacts],
                 cwd=ROOT,
+                env=env,
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 text=True,

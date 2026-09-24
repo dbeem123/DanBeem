@@ -83,4 +83,20 @@ class AccessJWTTests(unittest.TestCase):
         for claims in ({'iss':'wrong','aud':v.audience,'exp':200,'sub':'x'}, {'iss':v.issuer,'aud':'wrong','exp':200,'sub':'x'}, {'iss':v.issuer,'aud':v.audience,'exp':200,'nbf':101,'sub':'x'}):
             with self.assertRaises(AccessAuthError): v.principal(self.token(claims))
 
+    def test_valid_synthetic_token_is_accepted_by_http_handler(self):
+        import tempfile
+        from backend import serve
+        with tempfile.TemporaryDirectory() as d:
+            token = self.token({'iss': self.validator().issuer, 'aud': 'app-aud', 'exp': 200, 'sub': 'owner'})
+            h = serve(os.path.join(d, 'db.sqlite'), os.path.join(d, 'art'), 0, access_validator=self.validator())
+            thread = threading.Thread(target=h.serve_forever, daemon=True); thread.start()
+            try:
+                c = HTTPConnection('127.0.0.1', h.server_address[1])
+                c.request('GET', '/v1/results/missing/metadata', headers={'CF-Access-JWT-Assertion': token})
+                r = c.getresponse(); r.read()
+                self.assertEqual(r.status, 404)
+            finally:
+                h.shutdown(); h.server_close(); h.store.db.close(); thread.join(timeout=2)
+
+
 if __name__=='__main__': unittest.main()

@@ -2,7 +2,7 @@
 setlocal EnableExtensions
 set "BACKEND_ROOT=%~dp0"
 for %%I in ("%BACKEND_ROOT%..\..") do set "REPO_ROOT=%%~fI"
-set "PYTHON=%REPO_ROOT%\.venv\Scripts\python.exe"
+set "PYTHON=%BACKEND_ROOT%.venv\Scripts\python.exe"
 if not exist "%PYTHON%" (
   >&2 echo ERROR: dedicated .venv is missing: "%PYTHON%"
   exit /b 1

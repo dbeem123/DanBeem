@@ -129,4 +129,4 @@ def serve(db_path='danbot_studio.sqlite3',artifact_root='artifacts',port=8765,ac
     httpd=ThreadingHTTPServer(('127.0.0.1',port),Handler); httpd.store=Store(db_path,artifact_root,access_validator=access_validator); httpd.cors_origin=origin; return httpd
 if __name__=='__main__':
     import argparse
-    a=argparse.ArgumentParser(); a.add_argument('--port',type=int,default=8765); a.add_argument('--db',default='danbot_studio.sqlite3'); a.add_argument('--artifacts',default='artifacts'); x=a.parse_args(); h=serve(x.db,x.artifacts,x.port); print(f'STAGING ONLY: http://127.0.0.1:{x.port}',flush=True); h.serve_forever()
+    a=argparse.ArgumentParser(); a.add_argument('--port',type=int,default=8765); a.add_argument('--db',default='danbot_studio.sqlite3'); a.add_argument('--artifacts',default='artifacts'); x=a.parse_args(); validator=AccessJWTValidator.from_env(); h=serve(x.db,x.artifacts,x.port,access_validator=validator); print(f'STAGING ONLY: http://127.0.0.1:{x.port}',flush=True); h.serve_forever()
