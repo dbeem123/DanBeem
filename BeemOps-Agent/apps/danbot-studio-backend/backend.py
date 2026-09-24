@@ -107,6 +107,10 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self._reject_origin(): return self.json(403, {'error':'origin_not_allowed'})
         s=self.server.store; p=s.auth(self.headers); q=self.route()
+        if len(q)==3 and q[:2]==['v1','results']:
+            row=s.row(q[2]); code=s.status(row,p)
+            if code != 200: return self.json(code,{'error':'unavailable'})
+            return self.json(200,s.metadata(row))
         if len(q)==4 and q[:2]==['v1','results'] and q[3] in ('metadata','media','download'):
             row=s.row(q[2]); code=s.status(row,p)
             if code != 200: return self.json(code,{'error':'unavailable'})
