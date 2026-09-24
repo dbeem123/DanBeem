@@ -10,6 +10,9 @@ if not exist "%PYTHON%" (
 if not exist "%BACKEND_ROOT%artifacts" mkdir "%BACKEND_ROOT%artifacts"
 rem Access issuer/audience/JWKS are deployment inputs only; this local CLI does not fetch or print them.
 rem If an authenticated integration later needs them, provide DANBOT_ACCESS_* in the process environment.
+set "DANBOT_ACCESS_ISSUER=https://royal-violet-0a4d.cloudflareaccess.com"
+set "DANBOT_ACCESS_AUDIENCE=71e47ec2f4fded7b885ef27e979bd5aa76892ed36af2fdf3ebcd77d3eb9e8c5d"
+set "DANBOT_ACCESS_JWKS_URL=https://royal-violet-0a4d.cloudflareaccess.com/cdn-cgi/access/certs"
 "%PYTHON%" "%BACKEND_ROOT%backend.py" --port 8765 --db "%BACKEND_ROOT%danbot_studio.sqlite3" --artifacts "%BACKEND_ROOT%artifacts"
 set "EXITCODE=%ERRORLEVEL%"
 endlocal & exit /b %EXITCODE%
