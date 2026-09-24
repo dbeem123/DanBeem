@@ -1,0 +1,22 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const http = require('node:http');
+const { spawn } = require('node:child_process');
+const path = require('node:path');
+const root = __dirname;
+for (const file of ['static/image/index.html','static/song/index.html','static/result.js','static/result.css']) assert.ok(fs.existsSync(path.join(root,file)), file);
+const js = fs.readFileSync(path.join(root,'static/result.js'),'utf8');
+assert.match(js, /credentials:\s*'same-origin'/); assert.doesNotMatch(js, /CF-Access|client-secret/i);
+const upstream = http.createServer((req,res) => { res.writeHead(200, {'content-type':'application/json'}); res.end('{"result_id":"abc","mime":"image/png","size":8}'); });
+const get = (port, target, headers={}) => new Promise((resolve,reject) => { const r=http.request({host:'127.0.0.1',port,path:target,headers}, x=>{let b='';x.on('data',d=>b+=d);x.on('end',()=>resolve({status:x.statusCode,headers:x.headers,body:b}));});r.on('error',reject);r.end(); });
+(async () => {
+  await new Promise(r => upstream.listen(0, '127.0.0.1', r));
+  const up = upstream.address().port, adapterPort = 18787;
+  const code = `import adapter; adapter.UPSTREAM_PORT=${up}; s=adapter.AdapterServer(('127.0.0.1',${adapterPort}), r'${root.replace(/\\/g,'/')}\\static'); s.serve_forever()`;
+  const child = spawn(process.env.PYTHON || 'python', ['-c', code], {cwd: root});
+  await new Promise(r=>setTimeout(r,250));
+  const page = await get(adapterPort, '/image/?id=abc'); assert.equal(page.status,200); assert.match(page.body,/protected result/i);
+  const api = await get(adapterPort, '/v1/results/abc/metadata', {'CF-Access-JWT-Assertion':'fixture'}); assert.equal(api.status,200); assert.match(api.body,/result_id/);
+  const denied = await get(adapterPort, '/v1/results/a%2Fb/media'); assert.equal(denied.status,404);
+  child.kill(); upstream.close(); console.log('synthetic local viewer/API smoke passed');
+})().catch(err => { console.error(err); process.exitCode=1; });
