@@ -22,7 +22,7 @@ import build_nursing_home_staffing_ct as current_builder
 
 
 DEFAULT_HISTORY_START = "2017Q4"
-DEFAULT_HISTORY_END = "2025Q4"
+DEFAULT_HISTORY_END = "2026Q1"
 
 
 def quarter_key(year: int, quarter: int) -> str:
@@ -55,6 +55,11 @@ def source_for_quarter(source_root: Path, quarter: str) -> Path:
     return source_root / f"PBJ_Daily_Nurse_Staffing_Q{q}_{year}.csv"
 
 
+def stable_source_identifier(source_root: Path, source: Path) -> str:
+    relative_source = source.resolve().relative_to(source_root.resolve())
+    return (Path("source_data/pbj") / relative_source).as_posix()
+
+
 def stage_quarter_sources(source_root: Path, temp_input: Path, quarters: list[str]) -> list[dict[str, Any]]:
     inventory = []
     for quarter in quarters:
@@ -74,7 +79,7 @@ def stage_quarter_sources(source_root: Path, temp_input: Path, quarters: list[st
                     shutil.copyfileobj(raw, out)
                 inventory.append({
                     "quarter": quarter,
-                    "source_file": str(source),
+                    "source_file": stable_source_identifier(source_root, source),
                     "zip_entry": entry,
                     "staged_csv": str(target),
                 })
@@ -83,7 +88,7 @@ def stage_quarter_sources(source_root: Path, temp_input: Path, quarters: list[st
             shutil.copy2(source, target)
             inventory.append({
                 "quarter": quarter,
-                "source_file": str(source),
+                "source_file": stable_source_identifier(source_root, source),
                 "zip_entry": None,
                 "staged_csv": str(target),
             })
@@ -132,6 +137,20 @@ def build_history_export(
         source_release,
         freshness_date,
     )
+    staged_to_source = {
+        str(Path(item["staged_csv"]).resolve()): item["source_file"]
+        for item in source_inventory
+    }
+
+    def stable_input_path(path: str) -> str:
+        return staged_to_source.get(str(Path(path).resolve()), path)
+
+    quality = base["data_quality"]
+    quality["input_files"] = [stable_input_path(path) for path in quality.get("input_files", [])]
+    missing_columns = quality.get("missing_required_columns_by_file", {})
+    quality["missing_required_columns_by_file"] = {
+        stable_input_path(path): columns for path, columns in missing_columns.items()
+    }
     rows = []
     for row in base["facility_quarterly_staffing"]:
         status, applicable, note = ct_comparison_status(row["quarter"])
@@ -190,12 +209,15 @@ def build_history_export(
                 "notes": "PBJ-only historical staffing export. Current CMS Provider Information, ratings, Quality Measures Claims, case-mix comparison points, and SNF Enrollment affiliation snapshots are intentionally not embedded as historical quarter values.",
             }
         ],
-        "pbj_source_inventory": source_inventory,
+        "pbj_source_inventory": [
+            {key: value for key, value in item.items() if key != "staged_csv"}
+            for item in source_inventory
+        ],
         "facilities": facilities_out,
         "facility_quarterly_staffing_history": rows,
         "data_quality": {
             **base["data_quality"],
-            "output_path": str(output_path),
+            "output_path": current_builder.stable_output_path(output_path),
             "history_quarter_count": len(quarters),
             "history_facility_count": len(facilities_out),
             "history_facility_quarter_row_count": len(rows),
@@ -229,7 +251,7 @@ def main() -> int:
     parser.add_argument("--output", default="data/nursing_home_staffing_history_ct.json")
     parser.add_argument("--start-quarter", default=DEFAULT_HISTORY_START)
     parser.add_argument("--end-quarter", default=DEFAULT_HISTORY_END)
-    parser.add_argument("--source-release", default="CMS PBJ Daily Nurse Staffing historical archive, 2017Q4-2025Q4")
+    parser.add_argument("--source-release", default="CMS PBJ Daily Nurse Staffing historical archive, 2017Q4-2026Q1")
     parser.add_argument("--freshness-date", default=date.today().isoformat())
     args = parser.parse_args()
 

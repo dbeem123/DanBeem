@@ -92,13 +92,13 @@ QUALITY_MEASURES_CLAIMS_COLUMNS = [
 
 
 class NursingHomeStaffingGeneratorTests(unittest.TestCase):
-    def build_from_rows(self, rows, provider_rows=None, snf_rows=None, quality_measure_rows=None):
+    def build_from_rows(self, rows, provider_rows=None, snf_rows=None, quality_measure_rows=None, output_path=None):
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir)
             input_dir = temp_path / "pbj"
             input_dir.mkdir()
             csv_path = input_dir / "pbj.csv"
-            output_path = temp_path / "out.json"
+            output_path = output_path or (temp_path / "out.json")
 
             with csv_path.open("w", encoding="utf-8", newline="") as handle:
                 writer = csv.DictWriter(handle, fieldnames=PBJ_COLUMNS)
@@ -183,6 +183,15 @@ class NursingHomeStaffingGeneratorTests(unittest.TestCase):
         }
         row.update(overrides)
         return row
+
+    def test_output_path_metadata_uses_preview_and_production_destinations(self):
+        for output_path in (
+            Path("data/testing/nursing_home_staffing_ct_preview.json"),
+            Path("data/nursing_home_staffing_ct.json"),
+        ):
+            with self.subTest(output_path=output_path):
+                result = self.build_from_rows([self.base_row()], output_path=output_path)
+                self.assertEqual(result["data_quality"]["output_path"], output_path.as_posix())
 
     def provider_row(self, **overrides):
         row = {

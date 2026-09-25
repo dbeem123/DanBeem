@@ -5,9 +5,9 @@ This directory holds local public-source files used or planned for the Connectic
 Do not move or rename currently integrated files until the generator paths are intentionally migrated and retested. The current live generator expects:
 
 - `source_data/pbj/*.csv` for the currently integrated PBJ quarters.
-- `source_data/provider_info/NH_ProviderInfo_Apr2026.csv`
+- `source_data/provider_info/NH_ProviderInfo_Aug2026.csv`
 - `source_data/snf_enrollments/SNF_Enrollments_2026.05.01.csv`
-- `source_data/quality_measures/NH_QualityMsr_Claims_Apr2026.csv`
+- `source_data/quality_measures/NH_QualityMsr_Claims_Aug2026.csv`
 
 ## Intake Rules
 

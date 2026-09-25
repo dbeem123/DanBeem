@@ -624,10 +624,10 @@ def summarize_counts(audit_rows: dict[tuple[str, str], dict[str, Any]], generate
         "audit": audit_counts,
         "generated": generated_counts,
         "expected_current_reported": {
-            "below_total_all": 163,
-            "below_licensed_all": 38,
-            "below_total_latest": 27,
-            "below_licensed_latest": 7,
+            "below_total_all": 199,
+            "below_licensed_all": 47,
+            "below_total_latest": 36,
+            "below_licensed_latest": 9,
         },
         "matches_generated": audit_counts == generated_counts,
     }

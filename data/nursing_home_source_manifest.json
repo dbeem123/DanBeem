@@ -1,7 +1,7 @@
 {
-  "manifest_version": "2026-08-04.phase11d20",
-  "generated_for_phase": "Phase 11D.20 survey and enforcement methodology and source disclosure",
-  "generated_date": "2026-08-04",
+  "manifest_version": "2026-09-14.staffing-refresh-2026q1",
+  "generated_for_phase": "Production staffing refresh through 2026Q1 with August 2026 CMS context",
+  "generated_date": "2026-09-14",
   "status": "maintenance_and_runtime_source_planning",
   "notes": [
     "This manifest is not loaded by the public application yet.",
@@ -24,9 +24,10 @@
         "PBJ_Daily_Nurse_Staffing_Q2_2025.csv",
         "PBJ_Daily_Nurse_Staffing_Q3_2025.csv",
         "PBJ_dailynursestaffing_CY2025Q4.csv",
+        "PBJ_Daily_Nurse_Staffing_Q1_2026.csv",
         "data/nursing_home_staffing_history_ct.json"
       ],
-      "reporting_period_or_snapshot_date": "2024Q4 through 2025Q4 current/context export; 2017Q4 through 2025Q4 PBJ-only history export",
+      "reporting_period_or_snapshot_date": "2024Q4 through 2026Q1 current/context export; 2017Q4 through 2026Q1 PBJ-only history export",
       "integrated_status": "integrated_current_and_historical_pbj_only",
       "integration_purpose": "Current staffing dashboard plus PBJ-only historical staffing file for long-range facility, change-over-time, and persistent-pattern views",
       "join_key": "CMS Certification Number / PROVNUM / CCN",
@@ -55,9 +56,10 @@
       "source_concept": "Facility metadata, Care Compare ratings, case-mix staffing comparison fields, and selected CMS status fields",
       "local_directory": "source_data/provider_info",
       "local_files_present": [
-        "NH_ProviderInfo_Apr2026.csv"
+        "NH_ProviderInfo_Apr2026.csv",
+        "NH_ProviderInfo_Aug2026.csv"
       ],
-      "reporting_period_or_snapshot_date": "April 2026 snapshot",
+      "reporting_period_or_snapshot_date": "August 2026 snapshot; processing date 2026-08-01; released 2026-08-26",
       "integrated_status": "partially_integrated_current",
       "integration_purpose": "Facility metadata, certified beds, ownership type, case-mix comparison point, and CMS Care Compare rating context",
       "join_key": "CMS Certification Number (CCN)",
@@ -84,9 +86,10 @@
       "source_concept": "Facility-level claims-based Care Compare quality measure rows",
       "local_directory": "source_data/quality_measures",
       "local_files_present": [
-        "NH_QualityMsr_Claims_Apr2026.csv"
+        "NH_QualityMsr_Claims_Apr2026.csv",
+        "NH_QualityMsr_Claims_Aug2026.csv"
       ],
-      "reporting_period_or_snapshot_date": "April 2026 file; measure periods vary by row",
+      "reporting_period_or_snapshot_date": "August 2026 file; processing date 2026-08-01; released 2026-08-26; measure periods vary by row",
       "integrated_status": "integrated_current",
       "integration_purpose": "Facility-level contextual claims-based quality measures displayed in the facility dossier",
       "join_key": "CMS Certification Number (CCN)",
@@ -624,7 +627,7 @@
       "local_files_present": [
         "nursing_home_staffing_history_ct.json"
       ],
-      "reporting_period_or_snapshot_date": "2017Q4 through 2025Q4",
+      "reporting_period_or_snapshot_date": "2017Q4 through 2026Q1",
       "integrated_status": "integrated_historical_pbj_only",
       "integration_purpose": "Longitudinal PBJ staffing metrics, selected-window change analysis, and persistent-pattern analysis without current contextual CMS snapshot fields",
       "join_key": "CCN",

@@ -25,6 +25,7 @@ LPN_HOUR_COLUMNS = ["Hrs_LPNadmin", "Hrs_LPN"]
 NURSE_AIDE_HOUR_COLUMNS = ["Hrs_CNA", "Hrs_NAtrn", "Hrs_MedAide"]
 NURSE_HOUR_COLUMNS = RN_HOUR_COLUMNS + LPN_HOUR_COLUMNS + NURSE_AIDE_HOUR_COLUMNS
 CONTRACT_HOUR_COLUMNS = [f"{column}_ctr" for column in NURSE_HOUR_COLUMNS]
+REPOSITORY_ROOT = Path(__file__).resolve().parents[1]
 CT_DIRECT_CARE_RN_COLUMNS = ["Hrs_RN"]
 CT_DIRECT_CARE_LPN_COLUMNS = ["Hrs_LPN"]
 CT_DIRECT_CARE_AIDE_COLUMNS = NURSE_AIDE_HOUR_COLUMNS
@@ -32,6 +33,14 @@ CT_DIRECT_CARE_TOTAL_HOUR_COLUMNS = CT_DIRECT_CARE_RN_COLUMNS + CT_DIRECT_CARE_L
 CT_DIRECT_CARE_LICENSED_NURSE_HOUR_COLUMNS = CT_DIRECT_CARE_RN_COLUMNS + CT_DIRECT_CARE_LPN_COLUMNS
 CT_TOTAL_DIRECT_CARE_MINIMUM_HPRD = 3.00
 CT_LICENSED_DIRECT_CARE_MINIMUM_HPRD = 0.84
+
+
+def stable_output_path(output_path: Path) -> str:
+    resolved = output_path.resolve()
+    try:
+        return resolved.relative_to(REPOSITORY_ROOT).as_posix()
+    except ValueError:
+        return output_path.name
 
 REQUIRED_CANONICAL_COLUMNS = [
     "STATE",
@@ -1012,7 +1021,7 @@ def build_output(
             **merge_quality,
             **snf_merge_quality,
             **qm_merge_quality,
-            "output_path": str(output_path),
+            "output_path": stable_output_path(output_path),
             "facility_count": len(facility_rows),
             "quarterly_row_count": len(staffing_rows),
             "case_mix_benchmark_available_count": sum(

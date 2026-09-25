@@ -1,6 +1,6 @@
 # Nursing Home Staffing Explorer Data Contract
 
-This document defines the static JSON contract used by `tools/nursing-home-staffing-explorer.html`.
+This document defines the static JSON contract used by `staffing/tools/nursing-home-staffing-explorer.html`.
 
 The browser should load a small normalized JSON export only. Full CMS PBJ, Provider Information, and benchmark files should be processed offline in a later ETL step, then emitted into this contract.
 
@@ -107,7 +107,7 @@ Use `null` when a value is unavailable. Do not omit expected metric keys when th
 
 The Connecticut direct-care fields are PBJ-derived screening estimates for comparison to Connecticut Title 19 Sec. 19-13-D8t nursing-staff requirements and Connecticut Department of Public Health's amended 3.0 staffing implementation notice. They are not formal Department of Public Health compliance determinations.
 
-The PBJ-only historical file, `data/nursing_home_staffing_history_ct.json`, stores public CT comparison display fields separately from the current/context export. Historical rows use `ct_comparison_period_status` and `ct_comparison_applicable_for_public_status`: 2017Q4 through 2021Q4 are `reference_only` / false; 2022Q1 through 2022Q4 are `unresolved_no_public_status` / false; 2023Q1 is `transitional_partial_period` / false; and 2023Q2 through 2025Q4 are `applicable_full_quarter` / true. The public below-comparison flags are populated only for `applicable_full_quarter` rows.
+The PBJ-only historical file, `data/nursing_home_staffing_history_ct.json`, stores public CT comparison display fields separately from the current/context export and covers 2017Q4 through 2026Q1 (34 quarters). Historical rows use `ct_comparison_period_status` and `ct_comparison_applicable_for_public_status`: 2017Q4 through 2021Q4 are `reference_only` / false; 2022Q1 through 2022Q4 are `unresolved_no_public_status` / false; 2023Q1 is `transitional_partial_period` / false; and 2023Q2 through 2026Q1 are `applicable_full_quarter` / true. The public below-comparison flags are populated only for `applicable_full_quarter` rows.
 
 The below-comparison flags are currently based on the rounded two-decimal CT estimate fields stored in the export. This matches the UI display, but may differ from an unrounded comparison for values extremely close to 3.00 or 0.84.
 
@@ -184,7 +184,7 @@ The exact column names may vary by CMS release, so Phase 2B should confirm names
 
 ## Public Source References
 
-Public methodology links are maintained in `tools/nursing-home-staffing-methodology.html`. Core references include:
+Public methodology links are maintained in `staffing/tools/nursing-home-staffing-methodology.html`. Core references include:
 
 - CMS Payroll-Based Journal Daily Nurse Staffing dataset: `https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing`
 - CMS Payroll-Based Journal Daily Nursing Staffing Data Dictionary: `https://data.cms.gov/sites/default/files/2023-06/Payroll%20Based%20Journal%20Daily%20Nursing%20Staffing%20Data%20Dictionary.pdf`

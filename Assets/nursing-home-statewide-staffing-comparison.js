@@ -79,6 +79,10 @@
     return reportingQuarter || quarters[quarters.length - 1] || '';
   }
 
+  function countRowsWithLatestPbjData(rows) {
+    return rows.filter(row => !row.missing_latest_pbj_row).length;
+  }
+
   function normalizeGeography(data) {
     geographyDataset = data;
     geographyByCcn = new Map();
@@ -167,6 +171,7 @@
     const output = document.getElementById('summary-cards');
     const latestQuarter = getLatestQuarter();
     const latestLabel = dataset?.reporting_period?.label || latestQuarter;
+    const withLatestData = countRowsWithLatestPbjData(latestRows);
     const missingLatest = latestRows.filter(row => row.missing_latest_pbj_row).length;
     const belowTotal = latestRows.filter(row => getMetric(row, 'ct_total_direct_care_below_minimum_estimate') === true).length;
     const belowLicensed = latestRows.filter(row => getMetric(row, 'ct_licensed_direct_care_below_minimum_estimate') === true).length;
@@ -180,7 +185,7 @@
     output.innerHTML = `
       <div class="summary-card">
         <span class="summary-label">Facilities with latest PBJ data</span>
-        <strong>${formatCount(latestRows.length)}</strong>
+        <strong>${formatCount(withLatestData)}</strong>
         <div class="microcopy">${escapeHtml(latestLabel)}</div>
       </div>
       <div class="summary-card">
@@ -696,6 +701,10 @@
       status.textContent = `Statewide staffing comparison could not be loaded. Details: ${err.message}`;
       status.className = 'notice error';
     }
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { countRowsWithLatestPbjData };
   }
 
   document.addEventListener('DOMContentLoaded', loadPage);
