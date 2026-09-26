@@ -1,6 +1,15 @@
-# DanBeem Ombudsman Tools and Resource Lab
+# DanBeem Projects and Connecticut Nursing Home Staffing Tools
 
-Static ombudsman workflow tools focused on drafting support, NORS crosswalk reference lookup, responsible-use transparency, and related internal utilities.
+`danbeem.xyz` is a static personal/project site. The Connecticut Nursing Home Staffing Transparency Tools live under `/staffing/`. Other public routes include `/birds/`, `/privacy/`, `/terms/`, and the annual reports under `/dashboards/`.
+
+## September 2026 release
+
+- `a158f92` refreshes Connecticut PBJ staffing through 2026Q1. The current/context export has 196 facilities; 190 have a 2026Q1 PBJ row and six remain present without an invented latest-quarter value. The separate PBJ-only history covers 34 quarters, 2017Q4 through 2026Q1.
+- The accepted PBJ refresh retains the documented `075312` source-data warning; missing or anomalous source values were not invented or silently corrected.
+- `f4b7240` refines the personal homepage and staffing suite. It keeps the homepage artwork and four project cards, brings staffing search and filters forward, simplifies the dossier sections, adds a mobile staffing menu, and expands disclosures for printing. Glizzy and BeemOps remain noninteractive Coming Soon cards.
+- The redesign changes presentation only. It leaves staffing formulas, JSON data, CT applicability, survey/enforcement data, CNAME, Bird Cam, legal pages, annual dashboards, and legacy `/tools/nursing-home-...` forwarding pages unchanged.
+- Local release checks passed: 21 focused Python tests, statewide PBJ regression, JavaScript syntax, browser interactions and exports, responsive screenshots at 360/390/768/1440px, preserved routes, and `git diff --check`.
+- Both commits were pushed to `origin/main`. GitHub Pages deployment completion and live `https://danbeem.xyz` behavior still need external verification; the push alone does not establish that the site is live.
 
 ## Setup & Running
 
@@ -16,33 +25,35 @@ npx http-server -p 8000
 
 Then open:
 
-- **Landing Page:** http://localhost:8000/index.html
+- **Personal homepage:** http://localhost:8000/
+- **Backyard Bird Cam:** http://localhost:8000/birds/
+- **Staffing suite:** http://localhost:8000/staffing/
 - **Drafting Assistant:** http://localhost:8000/tools/drafting-assistant.html
 - **NORS Crosswalk:** http://localhost:8000/tools/nors-crosswalk.html
-- **Connecticut Nursing Home Staffing Explorer:** http://localhost:8000/tools/nursing-home-staffing-explorer.html
-- **Statewide Staffing Comparison:** http://localhost:8000/tools/nursing-home-statewide-staffing-comparison.html
-- **Staffing Change Over Time:** http://localhost:8000/tools/nursing-home-staffing-change-over-time.html
-- **Persistent Staffing Patterns:** http://localhost:8000/tools/nursing-home-persistent-staffing-patterns.html
-- **Ownership & Staffing Explorer:** http://localhost:8000/tools/nursing-home-ownership-staffing-explorer.html
-- **Staffing Data Methodology:** http://localhost:8000/tools/nursing-home-staffing-methodology.html
+- **Connecticut Nursing Home Staffing Explorer:** http://localhost:8000/staffing/tools/nursing-home-staffing-explorer.html
+- **Statewide Staffing Comparison:** http://localhost:8000/staffing/tools/nursing-home-statewide-staffing-comparison.html
+- **Staffing Change Over Time:** http://localhost:8000/staffing/tools/nursing-home-staffing-change-over-time.html
+- **Persistent Staffing Patterns:** http://localhost:8000/staffing/tools/nursing-home-persistent-staffing-patterns.html
+- **Ownership & Staffing Explorer:** http://localhost:8000/staffing/tools/nursing-home-ownership-staffing-explorer.html
+- **Staffing Data Methodology:** http://localhost:8000/staffing/tools/nursing-home-staffing-methodology.html
 - **Responsible Use:** http://localhost:8000/tools/responsible-use.html
-- **Impact Dashboard:** http://localhost:8000/dashboards/impact-2024.html
+- **Annual Impact Dashboards:** http://localhost:8000/dashboards/impact-2024.html and http://localhost:8000/dashboards/impact-2025.html
 
-The landing page includes a Connecticut Nursing Home Staffing Transparency Tools overview that explains which staffing tool to use for facility detail, latest-quarter statewide comparison, change over time, persistent multi-quarter patterns, and ownership/affiliation grouping. The suite also includes a public methodology page explaining sources, formulas, limitations, and audit coverage.
+The root landing page links to Bird Cam and the staffing suite, with Glizzy and BeemOps marked Coming Soon. The staffing homepage guides visitors to facility detail, statewide comparison, change over time, persistent patterns, ownership/affiliation, and methodology. Older `/tools/nursing-home-...` URLs forward to their matching `/staffing/tools/` pages.
 
 ## Current Architecture
 
 - **Frontend:** Static HTML/CSS/JS
 - **Data model:** Local JSON files, especially under `data/`
 - **Crosswalk logic:** Shared loader and matching logic in `Assets/crosswalk.js`
-- **Theme:** Dark glass UI with accessible focus states and semantic structure
+- **Themes:** Cinematic artwork and real HTML project cards on the root page; restrained CT LTCOP branding and scannable controls in the staffing suite. Other utilities retain their own styles.
 
 ## Current Primary Workflow
 
 ### Landing Page
 
-- entry point for the featured tools
-- links to the current NORS/drafting workflow
+- personal/project entry point with Bird Cam and staffing links
+- four cards total; Glizzy and BeemOps are Coming Soon
 
 ### Drafting & Reference Assistant
 
@@ -59,8 +70,8 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 
 ### Connecticut Nursing Home Staffing Explorer
 
-- public-facing PBJ staffing prototype
-- normalized local mock facility data from `data/nursing_home_staffing_mock.json`
+- public-facing PBJ staffing explorer at `/staffing/tools/nursing-home-staffing-explorer.html`
+- production current/context facility data from `data/nursing_home_staffing_ct.json` and on-demand PBJ-only history from `data/nursing_home_staffing_history_ct.json`; the mock file remains a development fallback
 - screening-level metrics, quarterly comparison table, and ombudsman follow-up questions
 - includes Connecticut direct-care staffing comparison fields as PBJ-derived screening estimates, not compliance determinations
 - supports selected-facility print summaries and facility staffing trend CSV exports
@@ -116,7 +127,7 @@ The landing page includes a Connecticut Nursing Home Staffing Transparency Tools
 - adds `data/nursing_home_source_manifest.json` as a planning/maintenance manifest; it is not a runtime dependency for the public staffing tools
 - adds a compact public data-currency display using `data/nursing_home_staffing_ct.json` metadata so users can see the latest PBJ quarter, contextual CMS snapshot months, and export generation date
 - adds `source_data/README.md` with intake/archive guidance for future CMS and Connecticut DSS downloads without moving current integrated files
-- Phase 10C historical PBJ testing validated and published a separate PBJ-only historical staffing file, `data/nursing_home_staffing_history_ct.json`, covering 2017Q4-2025Q4. The current/context file remains separate so April/May 2026 CMS ratings, quality measures, case-mix, and affiliation context are not represented as historical quarter-specific values.
+- The separate PBJ-only historical staffing file, `data/nursing_home_staffing_history_ct.json`, now covers 2017Q4-2026Q1. The current/context file remains separate so current CMS ratings, quality measures, case-mix, and affiliation context are not represented as historical quarter-specific values.
 
 ### Responsible Use & Sources
 
@@ -142,9 +153,9 @@ Important files include:
 - `data/case_note_validation_rules.json`
 - `data/current_tool_context_registry.json`
 
-## Phase 2 Data Architecture
+## Staffing Data Architecture
 
-The Nursing Home Staffing Explorer remains a static page. It should not fetch, parse, or aggregate full CMS PBJ datasets in the browser. Instead, Phase 2 uses a production-oriented static JSON contract in `data/nursing_home_staffing_mock.json`:
+The Nursing Home Staffing Explorer remains a static page. It does not fetch, parse, or aggregate full CMS PBJ source files in the browser. The production current/context contract is `data/nursing_home_staffing_ct.json`; historical PBJ rows are in `data/nursing_home_staffing_history_ct.json`:
 
 - top-level dataset metadata, reporting period, source dataset names, source releases, and freshness dates
 - facility directory rows keyed by CCN
@@ -152,7 +163,7 @@ The Nursing Home Staffing Explorer remains a static page. It should not fetch, p
 - metrics already precomputed offline, including total nurse HPRD, RN HPRD, LPN/LVN HPRD, nurse aide HPRD, contract staff percentage, CT direct-care HPRD estimates, and optional case-mix benchmark HPRD
 - UI interpretation blocks generated into the static export, not computed from raw CMS files in the browser
 
-The field map is documented in `docs/nursing_home_staffing_data_contract.md`. Phase 2B should generate this JSON from official CMS PBJ and Provider Information source files before deployment.
+The field map is documented in `docs/nursing_home_staffing_data_contract.md`. Offline builders generate and auditors validate the JSON from local CMS source files before publication.
 
 ### Local PBJ Generator
 
@@ -174,7 +185,7 @@ python scripts/build_nursing_home_staffing_ct.py --input-dir source_data/pbj --p
 
 When Provider Information is supplied, the generator also copies CMS case-mix staffing HPRD fields into the current/context explorer's `benchmarks` object when available. The case-mix total nurse comparison point is imported from CMS Nursing Home Provider Information, not calculated by this project; the UI-calculated comparisons are the actual-minus-benchmark and percent-of-benchmark displays. These benchmark fields are contextual comparisons only; PBJ-calculated HPRD remains the actual staffing metric shown by the explorer. Historical PBJ persistent-pattern analysis does not include case-mix comparison patterns unless historically aligned CMS benchmark snapshots are later acquired.
 
-Provider Information also supplies CMS Care Compare star-rating context when those columns are present, including overall, health inspection, staffing, quality-measure, long-stay QM, and short-stay QM ratings. The April 2026 Provider Information file used here does not include an RN Staffing Rating column, so that optional field is emitted as `null` and reported in `data_quality.provider_rating_missing_columns`. These ratings are imported context, not calculated by this project and not substitutes for PBJ HPRD metrics or Connecticut direct-care screening estimates.
+Provider Information also supplies CMS Care Compare star-rating context when those columns are present, including overall, health inspection, staffing, quality-measure, long-stay QM, and short-stay QM ratings. The current integrated Provider Information snapshot is August 2026. Missing optional rating fields remain `null` and are reported in data-quality metadata. These ratings are imported context, not calculated by this project and not substitutes for PBJ HPRD metrics or Connecticut direct-care screening estimates.
 
 Optionally add CMS Nursing Home Quality Measures Claims rows:
 
@@ -201,11 +212,11 @@ SNF Enrollments adds CCN-linked organization, DBA, NPI, proprietary/nonprofit, o
 
 The explorer loads `data/nursing_home_staffing_ct.json` when present, then falls back to `data/nursing_home_staffing_mock.json` for development. Start the static server and open:
 
-`http://localhost:8000/tools/nursing-home-staffing-explorer.html`
+`http://localhost:8000/staffing/tools/nursing-home-staffing-explorer.html`
 
 The affiliation-level ownership view uses the same generated Connecticut export:
 
-`http://localhost:8000/tools/nursing-home-ownership-staffing-explorer.html`
+`http://localhost:8000/staffing/tools/nursing-home-ownership-staffing-explorer.html`
 
 The ownership view computes statewide affiliation comparisons in the browser from the generated export. Rankings use simple facility averages, keep small Connecticut groups visible, and are intended as staffing screening tables rather than chain quality or compliance determinations.
 
@@ -217,7 +228,7 @@ The ownership view also provides selected-affiliation reporting actions: a print
 
 - the current NORS crosswalk and drafting workflow are closed-loop and local-data driven
 - there is no required backend for the current primary workflow
-- production hosting can remain a static-site deployment as long as the app stays in this architecture
+- the public homepage and staffing suite are static GitHub Pages routes under the `danbeem.xyz` custom domain
 
 ## Notes
 
