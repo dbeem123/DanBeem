@@ -274,6 +274,8 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
 </head>
 <body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
@@ -310,23 +312,6 @@
         <p class="subtle">For historical PBJ staffing windows, use the Change Over Time and Persistent Patterns tools. This statewide comparison remains focused on latest-quarter data and current contextual CMS snapshots.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">PBJ staffing data are quarterly screening metrics. Connecticut comparison points are PBJ-derived screening estimates, not formal DPH compliance findings. This table can identify patterns and questions for review, but it does not establish legal conclusions or determine care quality by itself.</div>
-      </div>
-    </section>
-
-    <section class="wrap" aria-label="Current source currency">
-      <div data-source-currency data-source-json="/data/nursing_home_staffing_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
-    </section>
-
-    <section class="wrap no-print" aria-labelledby="summary-title">
-      <div class="panel">
-        <div class="sectionHeader">
-          <div>
-            <div class="eyebrow">Latest Quarter Summary</div>
-            <h2 id="summary-title">Statewide screening snapshot</h2>
-            <p id="summary-note" class="subtle">Latest-quarter rows are loaded from the generated Connecticut staffing export.</p>
-          </div>
-        </div>
-        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
       </div>
     </section>
 
@@ -401,6 +386,23 @@
           <textarea id="statewide-summary-text" readonly></textarea>
           <p class="microcopy">Clipboard copy was unavailable, so the generated summary is shown here for manual copying.</p>
         </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="/data/nursing_home_staffing_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="summary-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Latest Quarter Summary</div>
+            <h2 id="summary-title">Statewide screening snapshot</h2>
+            <p id="summary-note" class="subtle">Latest-quarter rows are loaded from the generated Connecticut staffing export.</p>
+          </div>
+        </div>
+        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
       </div>
     </section>
 

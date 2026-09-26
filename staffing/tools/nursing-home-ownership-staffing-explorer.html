@@ -340,6 +340,8 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
 </head>
 <body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
@@ -373,14 +375,39 @@
         <div class="pill">Connecticut Affiliation View</div>
         <h1 id="ownership-title">Ownership / Affiliation Staffing Explorer</h1>
         <p>This tool groups Connecticut nursing homes by CMS SNF Enrollment affiliation entity where available, then summarizes PBJ staffing patterns across facilities connected to the same affiliation name.</p>
-        <div id="dataset-summary" class="dataset-facts" aria-label="Dataset summary"></div>
         <div class="notice warning">Staffing, Provider Information, and SNF Enrollment affiliation fields are screening and context data. A shared affiliation entity does not by itself prove common day-to-day operations, poor care, harm, neglect, or regulatory violations.</div>
         <div class="notice">Historical PBJ staffing among currently affiliated facilities should be interpreted as current-snapshot grouping based on the May 2026 SNF Enrollment file. This page remains focused on current affiliation context until historical affiliation snapshots are integrated.</div>
-        <div id="ownership-load-status" class="notice" role="status">Loading Connecticut staffing and affiliation data...</div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="selector-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Affiliation Search</div>
+            <h2 id="selector-title">Choose an affiliation entity</h2>
+            <p class="subtle">Search CMS SNF Enrollment affiliation names. Facilities without an affiliation name are excluded from the selector but counted in the dataset summary.</p>
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label for="affiliation-filter">Search affiliation entities</label>
+            <input id="affiliation-filter" type="search" placeholder="Example: Apple Rehab, National Health Care" autocomplete="off" aria-describedby="affiliation-select-help">
+          </div>
+          <div>
+            <label for="affiliation-select">Affiliation entity</label>
+            <select id="affiliation-select" aria-describedby="affiliation-select-help">
+              <option>Loading affiliations...</option>
+            </select>
+          </div>
+        </div>
+        <p id="affiliation-select-help" class="subtle">Select an affiliation entity to update the group summary, trend table, and facility comparison. <span id="affiliation-filter-status">Loading affiliation list...</span></p>
       </div>
     </section>
 
     <section class="wrap" aria-label="Current source currency">
+        <div id="ownership-load-status" class="notice" role="status">Loading Connecticut staffing and affiliation data...</div>
+        <div id="dataset-summary" class="dataset-facts" aria-label="Dataset summary"></div>
       <div data-source-currency data-source-json="/data/nursing_home_staffing_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
     </section>
 
@@ -462,31 +489,6 @@
         <div id="affiliation-persistence-print-context" class="print-only"></div>
         <div id="affiliation-persistence-comparison" aria-live="polite"></div>
         <div class="notice warning">Persistent patterns across multiple facilities within an affiliation may warrant closer review. Shared CMS affiliation does not prove common day-to-day management decisions. Pattern counts are based on available PBJ rows; missing rows and benchmark-ineligible quarters are not treated as adverse findings. Use facility-level and persistent-pattern drill-downs before drawing conclusions.</div>
-      </div>
-    </section>
-
-    <section class="wrap" aria-labelledby="selector-title">
-      <div class="panel">
-        <div class="sectionHeader">
-          <div>
-            <div class="eyebrow">Affiliation Search</div>
-            <h2 id="selector-title">Choose an affiliation entity</h2>
-            <p class="subtle">Search CMS SNF Enrollment affiliation names. Facilities without an affiliation name are excluded from the selector but counted in the dataset summary.</p>
-          </div>
-        </div>
-        <div class="field-row">
-          <div>
-            <label for="affiliation-filter">Search affiliation entities</label>
-            <input id="affiliation-filter" type="search" placeholder="Example: Apple Rehab, National Health Care" autocomplete="off" aria-describedby="affiliation-select-help">
-          </div>
-          <div>
-            <label for="affiliation-select">Affiliation entity</label>
-            <select id="affiliation-select" aria-describedby="affiliation-select-help">
-              <option>Loading affiliations...</option>
-            </select>
-          </div>
-        </div>
-        <p id="affiliation-select-help" class="subtle">Select an affiliation entity to update the group summary, trend table, and facility comparison. <span id="affiliation-filter-status">Loading affiliation list...</span></p>
       </div>
     </section>
 

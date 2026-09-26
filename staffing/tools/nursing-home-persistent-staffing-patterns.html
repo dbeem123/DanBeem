@@ -341,6 +341,8 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
 </head>
 <body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
@@ -376,24 +378,6 @@
         <p>This page identifies facilities with staffing screening patterns observed across selected CMS Payroll-Based Journal historical windows. It is designed to surface repeated questions for review, not to label facilities as violations or quality ratings.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">Facility quarter histories may be incomplete. Missing PBJ rows are not treated as zero staffing and are not counted as adverse findings. Persistent patterns should be reviewed with resident experience, complaints, survey findings, care records when appropriate, and other context.</div>
-      </div>
-    </section>
-
-    <section class="wrap" aria-label="Current source currency">
-      <div data-source-currency data-source-json="/data/nursing_home_staffing_history_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
-      <div class="notice">CT comparison modes count only full-quarter periods where public CT comparison status is applicable. Historical case-mix pattern analysis is disabled until historically aligned CMS benchmark snapshots are available.</div>
-    </section>
-
-    <section class="wrap no-print" aria-labelledby="summary-title">
-      <div class="panel">
-        <div class="sectionHeader">
-          <div>
-            <div class="eyebrow">Pattern Summary</div>
-            <h2 id="summary-title">Two-or-more quarter persistence snapshot</h2>
-            <p id="summary-note" class="subtle">The quarter window is derived from the generated Connecticut staffing export.</p>
-          </div>
-        </div>
-        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
       </div>
     </section>
 
@@ -471,6 +455,24 @@
           <textarea id="pattern-summary-text" readonly></textarea>
           <p class="microcopy">Clipboard copy was unavailable, so the generated summary is shown here for manual copying.</p>
         </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="/data/nursing_home_staffing_history_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
+      <div class="notice">CT comparison modes count only full-quarter periods where public CT comparison status is applicable. Historical case-mix pattern analysis is disabled until historically aligned CMS benchmark snapshots are available.</div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="summary-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Pattern Summary</div>
+            <h2 id="summary-title">Two-or-more quarter persistence snapshot</h2>
+            <p id="summary-note" class="subtle">The quarter window is derived from the generated Connecticut staffing export.</p>
+          </div>
+        </div>
+        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
       </div>
     </section>
 

@@ -266,6 +266,8 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
 </head>
 <body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
@@ -301,23 +303,6 @@
         <p>This tool compares historical Connecticut nursing home PBJ facility-quarter rows across a selected reporting window. Use it to review declines, improvements, comparison-point crossings where applicable, and contract staffing changes across the available PBJ history.</p>
         <div id="load-status" class="notice" role="status">Loading Connecticut nursing home staffing data...</div>
         <div class="notice warning">Missing quarter rows are not treated as zero. Change rankings include only facilities with both the earliest and latest quarter rows for the primary comparison window. Staffing changes are screening signals for review, not proof of cause, care quality, harm, neglect, or formal compliance findings.</div>
-      </div>
-    </section>
-
-    <section class="wrap" aria-label="Current source currency">
-      <div data-source-currency data-source-json="/data/nursing_home_staffing_history_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
-    </section>
-
-    <section class="wrap no-print" aria-labelledby="summary-title">
-      <div class="panel">
-        <div class="sectionHeader">
-          <div>
-            <div class="eyebrow">Window Summary</div>
-            <h2 id="summary-title">Earliest-to-latest staffing change snapshot</h2>
-            <p id="summary-note" class="subtle">The comparison window is derived from the generated Connecticut staffing export.</p>
-          </div>
-        </div>
-        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
       </div>
     </section>
 
@@ -394,6 +379,23 @@
           <textarea id="change-summary-text" readonly></textarea>
           <p class="microcopy">Clipboard copy was unavailable, so the generated summary is shown here for manual copying.</p>
         </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-label="Current source currency">
+      <div data-source-currency data-source-json="/data/nursing_home_staffing_history_ct.json" data-methodology-href="/staffing/tools/nursing-home-staffing-methodology.html"></div>
+    </section>
+
+    <section class="wrap no-print" aria-labelledby="summary-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Window Summary</div>
+            <h2 id="summary-title">Earliest-to-latest staffing change snapshot</h2>
+            <p id="summary-note" class="subtle">The comparison window is derived from the generated Connecticut staffing export.</p>
+          </div>
+        </div>
+        <div id="summary-cards" class="summary-grid" aria-live="polite"></div>
       </div>
     </section>
 
