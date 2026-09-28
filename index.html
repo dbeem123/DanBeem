@@ -7,6 +7,7 @@
   <meta name="description" content="Projects, experiments, tools, and assorted nonsense by Dan Beem.">
   <link rel="preload" as="image" href="/Assets/danbeem-hero.webp">
   <link rel="stylesheet" href="/Assets/danbeem-home.css">
+  <script src="/Assets/danbeem-home.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#projects">Skip to projects</a>
@@ -17,32 +18,33 @@
         <a href="#projects">Projects</a>
       </nav>
     </header>
+    <div class="danbeem-scroll-progress" aria-hidden="true"><span></span></div>
     <main class="danbeem-main">
-      <section class="danbeem-intro" aria-labelledby="page-title">
+      <section class="danbeem-intro" data-reveal aria-labelledby="page-title">
         <h1 id="page-title">DANBEEM.XYZ</h1>
         <p class="danbeem-slogan">Projects. Experiments. Tools. And Assorted Nonsense.</p>
         <p>A little bit of advocacy. A little bit of tech. A lot of fun.</p>
       </section>
       <section id="projects" class="danbeem-projects" aria-label="Primary projects">
-        <a class="danbeem-card" href="/birds/">
+        <a class="danbeem-card" data-reveal href="/birds/">
           <div><h2>Backyard Bird Cam</h2><p>Live from the feeder</p></div>
           <div class="danbeem-card-meta"><span aria-hidden="true"></span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
         </a>
-        <article class="danbeem-card">
+        <article class="danbeem-card" data-reveal>
           <div><h2>Grade My Glizzy</h2><p>The internet's least necessary hot dog rating platform</p></div>
           <div class="danbeem-card-meta"><span class="danbeem-status">Coming Soon</span></div>
         </article>
-        <a class="danbeem-card" href="/staffing/">
+        <a class="danbeem-card" data-reveal href="/staffing/">
           <div><h2>Nursing Home Staffing Tools</h2><p>Transparency. Data. Better care.</p></div>
           <div class="danbeem-card-meta"><span aria-hidden="true"></span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
         </a>
-        <article class="danbeem-card">
+        <article class="danbeem-card" data-reveal>
           <div><h2>BeemOps</h2><p>AI, automation, projects, and whatever I'm breaking next.</p></div>
           <div class="danbeem-card-meta"><span class="danbeem-status">Coming Soon</span></div>
         </article>
       </section>
     </main>
-    <footer class="danbeem-footer">
+    <footer class="danbeem-footer" data-reveal>
       <span>Good people. Good food. More fun.</span>
       <nav aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><span>Built by Dan</span></nav>
     </footer>
