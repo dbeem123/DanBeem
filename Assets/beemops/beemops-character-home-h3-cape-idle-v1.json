@@ -1,0 +1,19 @@
+{
+  "asset_id": "beemops-character-home-h3-cape-idle-v1",
+  "intended_use": "Animated BeemOps home hero foreground",
+  "source": "Local ComfyUI MiniMax H3 Image-to-Video",
+  "model": "minimax_h3_fl2va_pruned_int8_convrot.safetensors",
+  "input": "beemops-character-home-transparent-v1.png",
+  "width": 768,
+  "height": 448,
+  "frames": 124,
+  "fps": 24,
+  "duration_seconds": 5.167,
+  "format": "animated WebP",
+  "mode": "RGBA",
+  "alpha_present": true,
+  "bytes": 4886262,
+  "status": "active",
+  "review": "daniel_approved",
+  "fallback": "beemops-character-home-transparent-v1.png"
+}
