@@ -3,87 +3,186 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fbf6ea">
   <title>DANBEEM.XYZ | Projects, Experiments, Tools, and Assorted Nonsense</title>
   <meta name="description" content="Projects, experiments, tools, and assorted nonsense by Dan Beem.">
   <link rel="icon" type="image/png" href="/Assets/beemops/beemops-favicon-v1.png">
-  <link rel="preload" as="image" href="/Assets/danbeem-hero.webp">
+  <link rel="preload" as="image" href="/Assets/homepage/hero-switchboard.webp" fetchpriority="high">
   <style>
-    :root { color-scheme: dark; --ink: #fff8e8; --muted: #d7d3c8; --panel: rgba(8, 15, 18, .78); --line: rgba(255, 255, 255, .3); --gold: #ffc857; }
-    * { box-sizing: border-box; }
+    :root {
+      color-scheme: light;
+      --cream: #fbf6ea;
+      --paper: #fffdf8;
+      --navy: #082f4f;
+      --navy-soft: #123e5e;
+      --teal: #2f7f83;
+      --teal-soft: #8fbabd;
+      --gold: #f4b51c;
+      --muted: #596a75;
+      --line: rgba(8, 47, 79, .12);
+      --shadow: 0 14px 34px rgba(8, 47, 79, .08);
+      --max-width: 1320px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { margin: 0; min-height: 100vh; color: var(--ink); background: #101719; font-family: Georgia, 'Times New Roman', serif; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--navy);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
     a { color: inherit; }
-    .skip-link { position: absolute; left: 12px; top: -48px; z-index: 5; padding: 10px 14px; background: #fff; color: #111; }
+    a:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
+    .skip-link { position: absolute; top: -60px; left: 16px; z-index: 5; padding: 10px 14px; border-radius: 8px; background: var(--navy); color: white; }
     .skip-link:focus { top: 12px; }
-    .danbeem-page { min-height: 100vh; position: relative; overflow: hidden; isolation: isolate; }
-    .danbeem-page::before { content: ''; position: absolute; inset: 0; z-index: -2; background: #101719 url('/Assets/danbeem-hero.webp') center top / cover no-repeat; }
-    .danbeem-page::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(6, 11, 14, .5), rgba(5, 9, 11, .22) 45%, rgba(5, 8, 9, .94) 100%); }
-    .danbeem-header, .danbeem-main, .danbeem-footer { width: min(1240px, calc(100% - 40px)); margin: 0 auto; }
-    .danbeem-header { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; }
-    .danbeem-logo { font-weight: 800; font-size: clamp(1.25rem, 3vw, 2rem); letter-spacing: .08em; text-decoration: none; text-shadow: 0 2px 14px #000; }
-    .danbeem-nav { display: flex; gap: 22px; }
-    .danbeem-nav a { text-decoration: none; font-weight: 700; }
-    .danbeem-nav a:hover, .danbeem-nav a:focus-visible { color: var(--gold); }
-    .danbeem-main { min-height: calc(100vh - 82px); display: flex; flex-direction: column; justify-content: flex-end; padding: clamp(180px, 42vh, 470px) 0 30px; }
-    .danbeem-intro { max-width: 720px; margin-bottom: 24px; }
-    .danbeem-intro h1 { margin: 0 0 12px; max-width: 700px; font-size: clamp(2.6rem, 6vw, 5.7rem); line-height: .95; text-wrap: balance; text-shadow: 0 4px 24px #000; }
-    .danbeem-intro p { margin: 0; color: var(--muted); font-size: clamp(1rem, 2vw, 1.35rem); text-shadow: 0 2px 10px #000; }
-    .danbeem-projects { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .danbeem-card { min-height: 146px; display: flex; flex-direction: column; justify-content: space-between; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); text-decoration: none; box-shadow: 0 12px 28px rgba(0,0,0,.22); transition: transform .18s ease, border-color .18s ease, background .18s ease; }
-    .danbeem-card[href]:hover, .danbeem-card[href]:focus-visible { transform: translateY(-4px); border-color: var(--gold); background: rgba(8, 15, 18, .92); }
-    .danbeem-card h2 { margin: 0 0 8px; font-size: 1.25rem; }
-    .danbeem-card p { margin: 0; color: var(--muted); line-height: 1.35; }
-    .danbeem-future-url, .danbeem-card-note { color: var(--gold) !important; font: 700 .78rem/1.3 system-ui, sans-serif; }
-    .danbeem-card-meta { display: flex; justify-content: space-between; align-items: end; gap: 8px; margin-top: 16px; }
-    .danbeem-status { display: inline-block; padding: 4px 8px; border-radius: 999px; background: var(--gold); color: #20180a; font: 700 .72rem/1 system-ui, sans-serif; }
-    .danbeem-arrow { color: var(--gold); font: 1.6rem/1 system-ui, sans-serif; }
-    .danbeem-footer { display: flex; justify-content: space-between; gap: 20px; padding: 0 0 22px; color: var(--muted); font-size: .95rem; }
-    .danbeem-footer nav { display: flex; gap: 18px; }
-    .danbeem-footer a:hover, .danbeem-footer a:focus-visible { color: var(--gold); }
-    @media (max-width: 900px) { .danbeem-projects { grid-template-columns: repeat(2, 1fr); } .danbeem-main { padding-top: 28vh; } }
-    @media (max-width: 600px) { .danbeem-header, .danbeem-main, .danbeem-footer { width: min(100% - 28px, 1240px); } .danbeem-header { align-items: flex-start; flex-direction: column; gap: 12px; } .danbeem-nav { gap: 12px; flex-wrap: wrap; font-size: .9rem; } .danbeem-page::before { background-position: 62% top; background-size: auto 62vh; } .danbeem-page::after { background: linear-gradient(180deg, rgba(6, 11, 14, .38), rgba(5, 9, 11, .18) 34%, rgba(5, 8, 9, .98) 62%); } .danbeem-main { min-height: auto; padding: 43vh 0 24px; } .danbeem-projects { grid-template-columns: 1fr; } .danbeem-card { min-height: 118px; } .danbeem-footer { flex-direction: column; } }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .danbeem-card { transition: none; } }
+    .shell { width: min(calc(100% - 48px), var(--max-width)); margin-inline: auto; }
+    .site-header { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 5px; color: var(--navy); font-size: 1.28rem; font-weight: 850; letter-spacing: .055em; text-decoration: none; white-space: nowrap; }
+    .brand-spark { width: 43px; height: 43px; margin-left: -8px; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 3vw, 42px); }
+    .main-nav a, .footer-nav a { color: var(--navy-soft); font-weight: 700; text-decoration: none; }
+    .main-nav a:hover, .footer-nav a:hover { color: var(--teal); }
+    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 21px; border: 0; border-radius: 999px; background: var(--navy); color: white; font-weight: 750; text-decoration: none; box-shadow: 0 8px 18px rgba(8, 47, 79, .12); transition: transform .18s ease, background .18s ease; }
+    .button:hover { transform: translateY(-2px); background: var(--teal); }
+    .button-small { min-height: 42px; padding: 9px 17px; }
+    .hero { min-height: 540px; display: grid; grid-template-columns: minmax(430px, .93fr) minmax(0, 1.15fr); align-items: center; gap: 20px; padding-block: 30px 14px; }
+    .hero-copy { position: relative; z-index: 1; padding: 26px 0 48px 10px; }
+    .hello { display: block; width: min(230px, 62%); height: auto; margin: 0 0 18px -7px; }
+    .hero h1, .section-heading h2, .about h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: -.04em; }
+    .hero h1 { max-width: 680px; margin: 0; font-size: clamp(2.8rem, 3.9vw, 4.3rem); line-height: .99; text-wrap: balance; }
+    .hero-final-line { font-size: .88em; white-space: nowrap; }
+    .hero-copy p { max-width: 470px; margin: 22px 0 28px; color: var(--navy-soft); font-size: clamp(1.08rem, 1.6vw, 1.35rem); line-height: 1.48; }
+    .hero-art { min-width: 0; align-self: stretch; display: flex; align-items: center; }
+    .hero-art img { display: block; width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: 30px; }
+    .section { padding-block: 28px 38px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .section-heading h2 { margin: 0; font-size: clamp(1.9rem, 3.1vw, 2.65rem); line-height: 1.1; }
+    .section-heading p { max-width: 470px; margin: 0; color: var(--muted); }
+    .project-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+    .project-card { min-width: 0; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(8, 47, 79, .07); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(8, 47, 79, .13); }
+    .project-image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #eee5d4; }
+    .project-body { flex: 1; display: flex; flex-direction: column; padding: 16px 17px 17px; }
+    .project-title-row { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+    .project-card h3 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.28rem; line-height: 1.15; }
+    .project-card p { margin: 8px 0 0; color: var(--muted); line-height: 1.4; }
+    .project-meta { min-height: 26px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: auto; padding-top: 15px; }
+    .tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 999px; background: #eaf4f0; color: #246866; font-size: .72rem; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+    .tag-gold { background: #fff2cf; color: #73520a; }
+    .arrow { color: var(--teal); font-size: 1.45rem; font-weight: 750; line-height: 1; }
+    .about { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-block: 26px 42px; padding: clamp(22px, 4vw, 38px); border: 1px solid rgba(47, 127, 131, .18); border-radius: 20px; background: #eef5ee; }
+    .about h2 { margin: 0 0 8px; font-size: clamp(1.65rem, 3vw, 2.2rem); }
+    .about p { max-width: 800px; margin: 0; color: var(--navy-soft); }
+    .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 20px 28px; border-top: 1px solid var(--line); color: var(--muted); }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 20px; }
+    @media (max-width: 1000px) {
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 0; }
+      .hero-copy { max-width: 760px; padding: 26px 0 10px; }
+      .hero h1 { font-size: clamp(2.7rem, 5.2vw, 4rem); }
+      .hero-final-line { white-space: normal; }
+      .hero-art img { max-height: 520px; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(calc(100% - 28px), var(--max-width)); }
+      .site-header { min-height: auto; flex-wrap: wrap; padding-block: 17px; gap: 13px 18px; }
+      .brand { font-size: 1.1rem; }
+      .brand-spark { width: 37px; height: 37px; }
+      .main-nav { order: 3; width: 100%; justify-content: flex-start; gap: 20px; overflow-x: auto; padding: 1px 0 4px; font-size: .92rem; }
+      .header-contact { margin-left: auto; }
+      .button-small { min-height: 39px; padding: 8px 15px; }
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 0; padding-block: 20px 5px; }
+      .hero-copy { padding: 16px 2px 8px; }
+      .hello { width: 174px; margin-bottom: 13px; }
+      .hero h1 { max-width: 590px; font-size: clamp(2.4rem, 10vw, 3.65rem); }
+      .hero-final-line { white-space: normal; }
+      .hero-copy p { margin: 15px 0 19px; font-size: 1.08rem; }
+      .hero-art { margin-inline: -4px; }
+      .hero-art img { max-height: none; border-radius: 18px; }
+      .section { padding-block: 30px 18px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+      .project-grid { gap: 13px; }
+      .project-body { padding: 13px; }
+      .project-card h3 { font-size: 1.08rem; }
+      .project-card p { font-size: .91rem; }
+      .tag { font-size: .64rem; }
+      .about { grid-template-columns: 1fr; margin-block: 27px 28px; }
+      .site-footer { align-items: flex-start; flex-direction: column; gap: 10px; }
+    }
+    @media (max-width: 390px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { display: grid; grid-template-columns: 38% 1fr; }
+      .project-image { height: 100%; min-height: 150px; aspect-ratio: auto; }
+      .project-body { min-height: 150px; }
+      .project-meta { padding-top: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
   </style>
 </head>
 <body>
-  <a class="skip-link" href="#projects">Skip to projects</a>
-  <div class="danbeem-page">
-    <header class="danbeem-header">
-      <a class="danbeem-logo" href="/" aria-label="DANBEEM.XYZ home">DANBEEM.XYZ</a>
-      <nav class="danbeem-nav" aria-label="Main navigation">
-        <a href="#projects">Projects</a>
-        <a href="/privacy/">Privacy</a>
-        <a href="/terms/">Terms</a>
-      </nav>
-    </header>
-    <main class="danbeem-main">
-      <section class="danbeem-intro" aria-labelledby="page-title">
-        <h1 id="page-title">Projects. Experiments. Tools. And Assorted Nonsense.</h1>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header shell">
+    <a class="brand" href="/" aria-label="DANBEEM.XYZ home">DANBEEM.XYZ<img class="brand-spark" src="/Assets/homepage/brand-spark.webp" alt="" width="1254" height="1254"></a>
+    <nav class="main-nav" aria-label="Primary navigation">
+      <a href="#projects">Projects</a>
+      <a href="/staffing/">Tools</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="button button-small header-contact" href="mailto:hello@danbeem.xyz"><span aria-hidden="true">☕</span> Say hi</a>
+  </header>
+
+  <main id="main" class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <img class="hello" src="/Assets/homepage/hey-im-dan.webp" alt="Hey, I'm Dan!" width="2172" height="724">
+        <h1 id="hero-title">Projects.<br>Experiments. Tools.<br><span class="hero-final-line">And Assorted Nonsense.</span></h1>
         <p>A little bit of advocacy. A little bit of tech. A lot of fun.</p>
-      </section>
-      <section id="projects" class="danbeem-projects" aria-label="Primary projects">
-        <a class="danbeem-card" href="/birds/">
-          <div><h2>Backyard Bird Cam</h2><p>Live from the feeder</p></div>
-          <div class="danbeem-card-meta"><span aria-hidden="true"></span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        <a class="button" href="#projects">Explore projects <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-art">
+        <img src="/Assets/homepage/hero-switchboard.webp" alt="Dan at a playful switchboard connecting music, web, server, art, and notebook projects" width="1448" height="1086" fetchpriority="high">
+      </div>
+    </section>
+
+    <section id="projects" class="section" aria-labelledby="projects-title">
+      <div class="section-heading">
+        <h2 id="projects-title">Featured Projects</h2>
+        <p>A handful of things from the many corners of my workbench.</p>
+      </div>
+      <div class="project-grid">
+        <a class="project-card" href="/birds/">
+          <img class="project-image" src="/Assets/homepage/project-backyard-bird-cam.webp" alt="A black-capped chickadee perched near a backyard feeder" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>Backyard Bird Cam</h3></div><p>Live from my backyard. Birds, snacks, and good vibes.</p><div class="project-meta"><span class="tag">● Live</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-        <a class="danbeem-card" href="https://glizzy.danbeem.xyz/" aria-label="Visit Grade My Glizzy">
-          <div><h2>Grade My Glizzy</h2><p>The internet's least necessary hot dog rating platform</p></div>
-          <div class="danbeem-card-meta"><span class="danbeem-status">Under Construction</span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        <a class="project-card" href="https://glizzy.danbeem.xyz/" aria-label="Visit Grade My Glizzy">
+          <img class="project-image" src="/Assets/homepage/project-grade-my-glizzy.webp" alt="A fanciful hot dog wearing sunglasses" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>Grade My Glizzy</h3></div><p>A totally serious hot dog rating system. Obviously.</p><div class="project-meta"><span class="tag tag-gold">Under construction</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-        <a class="danbeem-card" href="/staffing/">
-          <div><h2>Nursing Home Staffing Tools</h2><p>Transparency. Data. Better care.</p></div>
-          <div class="danbeem-card-meta"><span aria-hidden="true"></span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        <a class="project-card" href="/staffing/">
+          <img class="project-image" src="/Assets/homepage/project-nursing-home-staffing.webp" alt="A nurse and an older adult reviewing information together" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>Nursing Home Staffing Tools</h3></div><p>Practical tools for better care and stronger teams.</p><div class="project-meta"><span class="tag">Data &amp; advocacy</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-        <a class="danbeem-card" href="/beemops/" aria-label="Open BeemOps">
-          <div><h2>BeemOps</h2><p>AI, automation, projects, and whatever I'm breaking next.</p></div>
-          <div class="danbeem-card-meta"><span class="danbeem-status">Explore</span><span class="danbeem-arrow" aria-hidden="true">&#8594;</span></div>
+        <a class="project-card" href="/beemops/" aria-label="Open BeemOps">
+          <img class="project-image" src="/Assets/homepage/project-beemops.webp" alt="BeemOps character tending a plant beside a home server rack" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>BeemOps</h3></div><p>My homelab, automation adventures, and random infrastructure things.</p><div class="project-meta"><span class="tag">Explore</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-      </section>
-    </main>
-    <footer class="danbeem-footer">
-      <span>Good people. Good food. More fun.</span>
-      <nav aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><span>Built by Dan</span></nav>
-    </footer>
-  </div>
+      </div>
+    </section>
+
+
+    <section id="about" class="about" aria-labelledby="about-title">
+      <div><h2 id="about-title">A switchboard for whatever I’m curious about.</h2><p>I’m Dan. I work across advocacy, technology, data, and creative experiments. This is where the different wires meet—and where the occasional silly idea gets a very respectable project card.</p></div>
+      <a class="button" href="mailto:hello@danbeem.xyz">Say hello <span aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>DANBEEM.XYZ · Built by Dan <span aria-hidden="true">♥</span></span>
+    <nav class="footer-nav" aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
+  </footer>
 </body>
 </html>
