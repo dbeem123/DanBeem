@@ -4,7 +4,7 @@ This is the current audit snapshot of the repo's HTML tool surface and the conte
 
 The canonical machine-readable registry is:
 
-- [data/current_tool_context_registry.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/current_tool_context_registry.json)
+- [data/current_tool_context_registry.json]([private local path omitted]
 
 That file is now the special place where:
 
@@ -19,32 +19,32 @@ There are `17` HTML files in the repo.
 
 ### Active primary workflow
 
-- [index.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/index.html)
-- [tools/drafting-assistant.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/drafting-assistant.html)
-- [tools/nors-crosswalk.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/nors-crosswalk.html)
-- [tools/responsible-use.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/responsible-use.html)
+- [index.html]([private local path omitted]
+- [tools/drafting-assistant.html]([private local path omitted]
+- [tools/nors-crosswalk.html]([private local path omitted]
+- [tools/responsible-use.html]([private local path omitted]
 
 ### Active secondary page in the current writing workflow
 
-- [tools/outreach-email.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/outreach-email.html)
+- [tools/outreach-email.html]([private local path omitted]
 
 ### Adjacent but separate pages
 
-- [dashboards/impact-2024.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/dashboards/impact-2024.html)
+- [dashboards/impact-2024.html]([private local path omitted]
 
 ### Repo-present pages not linked from the current primary NORS workflow
 
-- [tools/case-timeline.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/case-timeline.html)
-- [tools/complaint-priority.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/complaint-priority.html)
-- [tools/contact-card-builder.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/contact-card-builder.html)
-- [tools/drafting-reference-assistant.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/drafting-reference-assistant.html)
-- [tools/facility-scorecard.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/facility-scorecard.html)
-- [tools/meeting-minutes.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/meeting-minutes.html)
-- [tools/quick-intake.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/quick-intake.html)
-- [tools/resident-checkin.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/resident-checkin.html)
-- [tools/text-to-speech.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/text-to-speech.html)
-- [tools/visit-planner.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/visit-planner.html)
-- [tools/volunteer-shift.html](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/tools/volunteer-shift.html)
+- [tools/case-timeline.html]([private local path omitted]
+- [tools/complaint-priority.html]([private local path omitted]
+- [tools/contact-card-builder.html]([private local path omitted]
+- [tools/drafting-reference-assistant.html]([private local path omitted]
+- [tools/facility-scorecard.html]([private local path omitted]
+- [tools/meeting-minutes.html]([private local path omitted]
+- [tools/quick-intake.html]([private local path omitted]
+- [tools/resident-checkin.html]([private local path omitted]
+- [tools/text-to-speech.html]([private local path omitted]
+- [tools/visit-planner.html]([private local path omitted]
+- [tools/volunteer-shift.html]([private local path omitted]
 
 ## What The Current NORS Workflow Actually Uses
 
@@ -52,30 +52,30 @@ There are `17` HTML files in the repo.
 
 The current NORS workflow is centered on:
 
-- [Assets/crosswalk.js](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/Assets/crosswalk.js)
-- [Assets/nors-help.js](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/Assets/nors-help.js)
-- [Assets/shared.js](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/Assets/shared.js)
+- [Assets/crosswalk.js]([private local path omitted]
+- [Assets/nors-help.js]([private local path omitted]
+- [Assets/shared.js]([private local path omitted]
 
 and the shared JSON/data layer:
 
-- [nors_hierarchy.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/nors_hierarchy.json)
-- [keyword_map.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/keyword_map.json)
-- [nors_to_topic.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/nors_to_topic.json)
-- [topic_to_authority.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/topic_to_authority.json)
-- [crosswalk_catalog.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/crosswalk_catalog.json)
-- [authority_index.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/authority_index.json)
-- [retrieval_rules.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/retrieval_rules.json)
+- [nors_hierarchy.json]([private local path omitted]
+- [keyword_map.json]([private local path omitted]
+- [nors_to_topic.json]([private local path omitted]
+- [topic_to_authority.json]([private local path omitted]
+- [crosswalk_catalog.json]([private local path omitted]
+- [authority_index.json]([private local path omitted]
+- [retrieval_rules.json]([private local path omitted]
 - the `data/nors_knowledge_base_batch*.json` files
-- [data/source_registry.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/source_registry.json)
-- [data/nors_source_pack_lock.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/nors_source_pack_lock.json)
+- [data/source_registry.json]([private local path omitted]
+- [data/nors_source_pack_lock.json]([private local path omitted]
 
 ### Case-note checklist / drafting layer
 
 The drafting/checklist side depends directly on:
 
-- [data/case_note_templates.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/case_note_templates.json)
-- [data/case_note_validation_rules.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/case_note_validation_rules.json)
-- [data/email_templates.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/email_templates.json)
+- [data/case_note_templates.json]([private local path omitted]
+- [data/case_note_validation_rules.json]([private local path omitted]
+- [data/email_templates.json]([private local path omitted]
 
 ## Important Audit Findings
 
@@ -83,8 +83,8 @@ The drafting/checklist side depends directly on:
 2. The active NORS workflow does `not` currently depend on live AI calls.
 3. The most important external context pages are not stored as local HTML, because they are official external PDFs/pages.
 4. Those external context URLs are now captured in:
-   - [data/current_tool_context_registry.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/current_tool_context_registry.json)
-   - [AI_HANDOFF_SOURCE_LINKS.md](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/AI_HANDOFF_SOURCE_LINKS.md)
+   - [data/current_tool_context_registry.json]([private local path omitted]
+   - [AI_HANDOFF_SOURCE_LINKS.md]([private local path omitted]
 5. The repo contains several other HTML tools and prototypes that are real pages, but they are not part of the current primary NORS workflow.
 
 ## Why The New Registry Matters
@@ -93,7 +93,7 @@ You asked for a place where all context URLs are stored so you can always send o
 
 That now exists in:
 
-- [data/current_tool_context_registry.json](C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem/data/current_tool_context_registry.json)
+- [data/current_tool_context_registry.json]([private local path omitted]
 
 Use that file when you need:
 

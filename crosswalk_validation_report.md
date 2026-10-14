@@ -1,14 +1,14 @@
-﻿# Crosswalk Validation Report
+# Crosswalk Validation Report
 
 Generated: 2026-04-21
 
 ## Files reviewed
 
-- C:\Users\Dan\Downloads\nors_hierarchy.json
-- C:\Users\Dan\Downloads\authority_index (1).json
-- C:\Users\Dan\Downloads\crosswalk_catalog.json
-- C:\Users\Dan\Downloads\keyword_map (1).json
-- C:\Users\Dan\Downloads\retrieval_rules (1).json
+- [private local path omitted]
+- [private local path omitted]
+- [private local path omitted]
+- [private local path omitted]
+- [private local path omitted]
 
 ## Source list used
 

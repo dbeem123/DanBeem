@@ -8,7 +8,7 @@ This was a compatibility test only. The public `data/nursing_home_staffing_ct.js
 
 | Item | Value |
 |---|---|
-| Uploaded file | `C:/Users/Dan/Downloads/PBJ_Daily_Nurse_Staffing_Q4_2017.zip` |
+| Uploaded file | `[private local path omitted]` |
 | Historical intake location | `source_data/pbj/historical/2017/PBJ_Daily_Nurse_Staffing_Q4_2017.zip` |
 | ZIP entry | `PBJ_Daily_Nurse_Staffing_Q4_2017.csv` |
 | SHA-256 | `86D89BF76FEC5E169492D7D8C38570F11BF4D4F6392A847486EB3D227B437AFE` |
@@ -103,7 +103,7 @@ Temporary build included:
 
 Temporary output:
 
-- `C:/Users/Dan/AppData/Local/Temp/pbj-2017q4-boundary-12e4924aac9f4faeb997b258e5a83111/nursing_home_staffing_ct_2017q4_boundary_test.json`
+- `[private local path omitted]`
 
 Build result:
 
@@ -183,7 +183,7 @@ Audit result:
 
 Temporary audit report:
 
-- `C:/Users/Dan/AppData/Local/Temp/pbj-2017q4-boundary-12e4924aac9f4faeb997b258e5a83111/pbj_2017q4_boundary_audit.md`
+- `[private local path omitted]`
 
 ## Readiness Decision
 
