@@ -9,3 +9,8 @@ data/testing/
 # Python cache files
 __pycache__/
 *.py[cod]
+
+# Keep private BeemOps operations out of public Git.
+/BeemOps-Agent/
+**/__pycache__/
+*.py[cod]

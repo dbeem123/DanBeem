@@ -8,9 +8,9 @@ This was a compatibility test only. The public `data/nursing_home_staffing_ct.js
 
 | Uploaded file | Historical intake location | ZIP entry | SHA-256 |
 |---|---|---|---|
-| `C:/Users/Dan/Downloads/PBJ_Daily_Nurse_Staffing_Q1_2024.zip` | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q1_2024.zip` | `PBJ_Daily_Nurse_Staffing_Q1_2024.csv` | `F5D...` |
-| `C:/Users/Dan/Downloads/PBJ_Daily_Nurse_Staffing_Q2_2024.zip` | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q2_2024.zip` | `PBJ_Daily_Nurse_Staffing_Q2_2024.csv` | `6B1...` |
-| `C:/Users/Dan/Downloads/PBJ_Daily_Nurse_Staffing_Q3_2024.zip` | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q3_2024.zip` | `PBJ_Daily_Nurse_Staffing_Q3_2024.csv` | `A98...` |
+| `[private local path omitted]` | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q1_2024.zip` | `PBJ_Daily_Nurse_Staffing_Q1_2024.csv` | `F5D...` |
+| `[private local path omitted]` | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q2_2024.zip` | `PBJ_Daily_Nurse_Staffing_Q2_2024.csv` | `6B1...` |
+| `[private local path omitted]` | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q3_2024.zip` | `PBJ_Daily_Nurse_Staffing_Q3_2024.csv` | `A98...` |
 
 ## Schema Compatibility
 
@@ -65,7 +65,7 @@ Temporary build input:
 
 Temporary output:
 
-- `C:/Users/Dan/AppData/Local/Temp/pbj-2024-full-compat-5743fa4003cb41a29f071764518522f5/nursing_home_staffing_ct_2024_full_compat.json`
+- `[private local path omitted]`
 
 Build result:
 
@@ -160,7 +160,7 @@ Audit result:
 
 Temporary audit report:
 
-- `C:/Users/Dan/AppData/Local/Temp/pbj-2024-full-compat-5743fa4003cb41a29f071764518522f5/pbj_2024_full_compat_audit.md`
+- `[private local path omitted]`
 
 ## UI Assumption Review
 
