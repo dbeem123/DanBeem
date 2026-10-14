@@ -8,7 +8,7 @@ This was a compatibility test only. The public `data/nursing_home_staffing_ct.js
 
 | Item | Value |
 |---|---|
-| Uploaded file | `C:/Users/Dan/Downloads/PBJ_Daily_Nurse_Staffing_Q3_2024.zip` |
+| Uploaded file | `[private local path omitted]` |
 | Historical intake location | `source_data/pbj/historical/2024/PBJ_Daily_Nurse_Staffing_Q3_2024.zip` |
 | ZIP entry | `PBJ_Daily_Nurse_Staffing_Q3_2024.csv` |
 | CSV rows | 1,338,416 |
@@ -60,7 +60,7 @@ Temporary build input:
 
 Temporary output:
 
-- `C:/Users/Dan/AppData/Local/Temp/pbj-q3-2024-compat-51633213edfa4bbf8e7d0fb862700ddc/nursing_home_staffing_ct_q3_2024_compat.json`
+- `[private local path omitted]`
 
 Build result:
 
@@ -152,7 +152,7 @@ Audit result:
 
 Temporary audit report:
 
-- `C:/Users/Dan/AppData/Local/Temp/pbj-q3-2024-compat-51633213edfa4bbf8e7d0fb862700ddc/q3_2024_compat_audit.md`
+- `[private local path omitted]`
 
 ## UI Assumption Review
 

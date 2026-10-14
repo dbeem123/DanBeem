@@ -9,3 +9,14 @@ data/testing/
 # Python cache files
 __pycache__/
 *.py[cod]
+
+# Private BeemOps operations belong in the protected X workspace.
+/BeemOps-Agent/
+/PROOF/
+/DIRECTIVES/
+/STATUS/
+**/__pycache__/
+*.py[cod]
+.env
+.env.*
+!*.env.example

@@ -27,9 +27,9 @@ Generated for Phase 10A. This is a planning document only. It does not change ap
 | `NH_ProviderInfo_Apr2026.csv` | `source_data/provider_info` | CMS Nursing Home Provider Information | April 2026 | CSV | `CMS Certification Number (CCN)` | Yes | Facility metadata, beds, ownership type, case-mix comparison point, Care Compare ratings | Archive every monthly/periodic snapshot | Add source freshness display before more display fields |
 | `SNF_Enrollments_2026.05.01.csv` | `source_data/snf_enrollments` | CMS Skilled Nursing Facility Enrollments | 2026-05-01 | CSV | `CCN` | Yes | Legal organization, DBA, NPI, organization structure, proprietary/nonprofit, affiliation entity | Archive every release; high ownership-change value | Keep distinct from ownership and chain data |
 | `NH_QualityMsr_Claims_Apr2026.csv` | `source_data/quality_measures` | CMS Nursing Home Quality Measures Claims | April 2026 | CSV | `CMS Certification Number (CCN)` | Yes | Four claims-based QMs: 521, 522, 551, 552 | Archive every release | Download MDS QM file next; defer statewide QM ranking |
-| `NH_Ownership_Apr2026.csv` | `C:/Users/Dan/Downloads` | CMS Nursing Home Ownership | April 2026 | CSV | `CMS Certification Number (CCN)` | No | Detailed owner/entity and management-role context | Move to `source_data/ownership/cms/2026/` and archive every release | Leading candidate for owner/entity prototype after source freshness |
-| `NH_CitationDescriptions_Apr2026.csv` | `C:/Users/Dan/Downloads` | CMS Citation Code Look-up | April 2026 | CSV | Tag prefix + number | No | Lookup only for deficiencies | Move to `source_data/deficiencies/reference/2026/` | Download facility-level Health and Fire Safety Deficiencies before use |
-| `Chain_performance_20260515.csv` | `C:/Users/Dan/Downloads/Nursing Home Chain Performance Measures...` | CMS Nursing Home Chain Performance Measures | 2026-05-15 file date | CSV | `Chain ID` | No | National chain-level aggregate context | Archive for research; do not merge yet | Validate mapping to ownership/PECOS concepts before any display |
+| `NH_Ownership_Apr2026.csv` | `[private local path omitted]` | CMS Nursing Home Ownership | April 2026 | CSV | `CMS Certification Number (CCN)` | No | Detailed owner/entity and management-role context | Move to `source_data/ownership/cms/2026/` and archive every release | Leading candidate for owner/entity prototype after source freshness |
+| `NH_CitationDescriptions_Apr2026.csv` | `[private local path omitted]` | CMS Citation Code Look-up | April 2026 | CSV | Tag prefix + number | No | Lookup only for deficiencies | Move to `source_data/deficiencies/reference/2026/` | Download facility-level Health and Fire Safety Deficiencies before use |
+| `Chain_performance_20260515.csv` | `[private local path omitted]` | CMS Nursing Home Chain Performance Measures | 2026-05-15 file date | CSV | `Chain ID` | No | National chain-level aggregate context | Archive for research; do not merge yet | Validate mapping to ownership/PECOS concepts before any display |
 
 ## Official CMS Dataset Roadmap
 
@@ -76,7 +76,7 @@ Connecticut DSS reimbursement sources are strategically important but separate f
 
 Phase 10B.1 identified a new Connecticut DPH source domain that should be planned before historical PBJ ingestion expands the staffing time window too far.
 
-Current DPH files discovered in `C:/Users/Dan/Downloads`:
+Current DPH files discovered in `[private local path omitted]`:
 
 | File | Rows | Planning status | Future use |
 |---|---:|---|---|

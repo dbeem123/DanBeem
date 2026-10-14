@@ -18,8 +18,8 @@ Session verification performed before creating this plan:
 
 | Check | Result |
 |---|---|
-| `pwd` | `C:\Users\Dan\OneDrive\Documents\GitHub\DanBeem` |
-| `git rev-parse --show-toplevel` | `C:/Users/Dan/OneDrive/Documents/GitHub/DanBeem` |
+| `pwd` | `[private local path omitted]` |
+| `git rev-parse --show-toplevel` | `[private local path omitted]` |
 | `git remote -v` | `origin https://github.com/dbeem123/DanBeem.git` |
 | `git status --short --branch` | `## main...origin/main` |
 | Recent history | Latest commit includes `f6f8724 Add survey deficiency and penalty source inventory` |
