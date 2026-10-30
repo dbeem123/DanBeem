@@ -1,0 +1,640 @@
+{
+  "schema_version": "ct-statewide-context-1.0",
+  "dataset_type": "nursing_home_ct_statewide_context",
+  "generated_at": "2026-10-30T17:05:33",
+  "source_history_generated_at": "2026-09-24T13:33:12",
+  "history_window": {
+    "first_quarter": "2017Q4",
+    "latest_quarter": "2026Q1",
+    "quarter_count": 34
+  },
+  "screening_note": "PBJ-derived screening estimates, not formal Connecticut DPH compliance findings.",
+  "statewide_quarterly": [
+    {
+      "quarter": "2017Q4",
+      "quarter_label": "Q4 2017",
+      "facilities_reporting": 188,
+      "median_ct_direct_care_total_hprd": 3.42,
+      "median_ct_direct_care_licensed_hprd": 1.22,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2018Q1",
+      "quarter_label": "Q1 2018",
+      "facilities_reporting": 203,
+      "median_ct_direct_care_total_hprd": 3.35,
+      "median_ct_direct_care_licensed_hprd": 1.2,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2018Q2",
+      "quarter_label": "Q2 2018",
+      "facilities_reporting": 181,
+      "median_ct_direct_care_total_hprd": 3.44,
+      "median_ct_direct_care_licensed_hprd": 1.23,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2018Q3",
+      "quarter_label": "Q3 2018",
+      "facilities_reporting": 210,
+      "median_ct_direct_care_total_hprd": 3.33,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2018Q4",
+      "quarter_label": "Q4 2018",
+      "facilities_reporting": 211,
+      "median_ct_direct_care_total_hprd": 3.36,
+      "median_ct_direct_care_licensed_hprd": 1.2,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2019Q1",
+      "quarter_label": "Q1 2019",
+      "facilities_reporting": 211,
+      "median_ct_direct_care_total_hprd": 3.31,
+      "median_ct_direct_care_licensed_hprd": 1.2,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2019Q2",
+      "quarter_label": "Q2 2019",
+      "facilities_reporting": 211,
+      "median_ct_direct_care_total_hprd": 3.32,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2019Q3",
+      "quarter_label": "Q3 2019",
+      "facilities_reporting": 211,
+      "median_ct_direct_care_total_hprd": 3.28,
+      "median_ct_direct_care_licensed_hprd": 1.18,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2019Q4",
+      "quarter_label": "Q4 2019",
+      "facilities_reporting": 210,
+      "median_ct_direct_care_total_hprd": 3.31,
+      "median_ct_direct_care_licensed_hprd": 1.17,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2020Q1",
+      "quarter_label": "Q1 2020",
+      "facilities_reporting": 154,
+      "median_ct_direct_care_total_hprd": 3.37,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2020Q2",
+      "quarter_label": "Q2 2020",
+      "facilities_reporting": 203,
+      "median_ct_direct_care_total_hprd": 3.6,
+      "median_ct_direct_care_licensed_hprd": 1.3,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2020Q3",
+      "quarter_label": "Q3 2020",
+      "facilities_reporting": 204,
+      "median_ct_direct_care_total_hprd": 3.49,
+      "median_ct_direct_care_licensed_hprd": 1.28,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2020Q4",
+      "quarter_label": "Q4 2020",
+      "facilities_reporting": 205,
+      "median_ct_direct_care_total_hprd": 3.52,
+      "median_ct_direct_care_licensed_hprd": 1.3,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2021Q1",
+      "quarter_label": "Q1 2021",
+      "facilities_reporting": 208,
+      "median_ct_direct_care_total_hprd": 3.42,
+      "median_ct_direct_care_licensed_hprd": 1.29,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2021Q2",
+      "quarter_label": "Q2 2021",
+      "facilities_reporting": 204,
+      "median_ct_direct_care_total_hprd": 3.31,
+      "median_ct_direct_care_licensed_hprd": 1.22,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2021Q3",
+      "quarter_label": "Q3 2021",
+      "facilities_reporting": 203,
+      "median_ct_direct_care_total_hprd": 3.23,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2021Q4",
+      "quarter_label": "Q4 2021",
+      "facilities_reporting": 201,
+      "median_ct_direct_care_total_hprd": 3.22,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "reference_only",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2022Q1",
+      "quarter_label": "Q1 2022",
+      "facilities_reporting": 202,
+      "median_ct_direct_care_total_hprd": 3.25,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "unresolved_no_public_status",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2022Q2",
+      "quarter_label": "Q2 2022",
+      "facilities_reporting": 200,
+      "median_ct_direct_care_total_hprd": 3.27,
+      "median_ct_direct_care_licensed_hprd": 1.2,
+      "ct_comparison_period_status": "unresolved_no_public_status",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2022Q3",
+      "quarter_label": "Q3 2022",
+      "facilities_reporting": 200,
+      "median_ct_direct_care_total_hprd": 3.27,
+      "median_ct_direct_care_licensed_hprd": 1.17,
+      "ct_comparison_period_status": "unresolved_no_public_status",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2022Q4",
+      "quarter_label": "Q4 2022",
+      "facilities_reporting": 202,
+      "median_ct_direct_care_total_hprd": 3.3,
+      "median_ct_direct_care_licensed_hprd": 1.2,
+      "ct_comparison_period_status": "unresolved_no_public_status",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2023Q1",
+      "quarter_label": "Q1 2023",
+      "facilities_reporting": 202,
+      "median_ct_direct_care_total_hprd": 3.26,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "transitional_partial_period",
+      "ct_comparison_applicable_for_public_status": false,
+      "below_total_3_00_count": null,
+      "below_licensed_0_84_count": null,
+      "below_total_3_00_share": null
+    },
+    {
+      "quarter": "2023Q2",
+      "quarter_label": "Q2 2023",
+      "facilities_reporting": 198,
+      "median_ct_direct_care_total_hprd": 3.33,
+      "median_ct_direct_care_licensed_hprd": 1.22,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 50,
+      "below_licensed_0_84_count": 16,
+      "below_total_3_00_share": 0.2525
+    },
+    {
+      "quarter": "2023Q3",
+      "quarter_label": "Q3 2023",
+      "facilities_reporting": 197,
+      "median_ct_direct_care_total_hprd": 3.31,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 49,
+      "below_licensed_0_84_count": 14,
+      "below_total_3_00_share": 0.2487
+    },
+    {
+      "quarter": "2023Q4",
+      "quarter_label": "Q4 2023",
+      "facilities_reporting": 198,
+      "median_ct_direct_care_total_hprd": 3.38,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 37,
+      "below_licensed_0_84_count": 8,
+      "below_total_3_00_share": 0.1869
+    },
+    {
+      "quarter": "2024Q1",
+      "quarter_label": "Q1 2024",
+      "facilities_reporting": 196,
+      "median_ct_direct_care_total_hprd": 3.33,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 44,
+      "below_licensed_0_84_count": 14,
+      "below_total_3_00_share": 0.2245
+    },
+    {
+      "quarter": "2024Q2",
+      "quarter_label": "Q2 2024",
+      "facilities_reporting": 196,
+      "median_ct_direct_care_total_hprd": 3.38,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 46,
+      "below_licensed_0_84_count": 9,
+      "below_total_3_00_share": 0.2347
+    },
+    {
+      "quarter": "2024Q3",
+      "quarter_label": "Q3 2024",
+      "facilities_reporting": 194,
+      "median_ct_direct_care_total_hprd": 3.4,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 38,
+      "below_licensed_0_84_count": 10,
+      "below_total_3_00_share": 0.1959
+    },
+    {
+      "quarter": "2024Q4",
+      "quarter_label": "Q4 2024",
+      "facilities_reporting": 196,
+      "median_ct_direct_care_total_hprd": 3.38,
+      "median_ct_direct_care_licensed_hprd": 1.19,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 36,
+      "below_licensed_0_84_count": 10,
+      "below_total_3_00_share": 0.1837
+    },
+    {
+      "quarter": "2025Q1",
+      "quarter_label": "Q1 2025",
+      "facilities_reporting": 195,
+      "median_ct_direct_care_total_hprd": 3.38,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 38,
+      "below_licensed_0_84_count": 7,
+      "below_total_3_00_share": 0.1949
+    },
+    {
+      "quarter": "2025Q2",
+      "quarter_label": "Q2 2025",
+      "facilities_reporting": 191,
+      "median_ct_direct_care_total_hprd": 3.45,
+      "median_ct_direct_care_licensed_hprd": 1.21,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 31,
+      "below_licensed_0_84_count": 9,
+      "below_total_3_00_share": 0.1623
+    },
+    {
+      "quarter": "2025Q3",
+      "quarter_label": "Q3 2025",
+      "facilities_reporting": 192,
+      "median_ct_direct_care_total_hprd": 3.54,
+      "median_ct_direct_care_licensed_hprd": 1.23,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 31,
+      "below_licensed_0_84_count": 5,
+      "below_total_3_00_share": 0.1615
+    },
+    {
+      "quarter": "2025Q4",
+      "quarter_label": "Q4 2025",
+      "facilities_reporting": 192,
+      "median_ct_direct_care_total_hprd": 3.47,
+      "median_ct_direct_care_licensed_hprd": 1.23,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 27,
+      "below_licensed_0_84_count": 7,
+      "below_total_3_00_share": 0.1406
+    },
+    {
+      "quarter": "2026Q1",
+      "quarter_label": "Q1 2026",
+      "facilities_reporting": 190,
+      "median_ct_direct_care_total_hprd": 3.42,
+      "median_ct_direct_care_licensed_hprd": 1.24,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 36,
+      "below_licensed_0_84_count": 9,
+      "below_total_3_00_share": 0.1895
+    }
+  ],
+  "latest_quarter_scenarios": {
+    "quarter": "2026Q1",
+    "levels": [
+      {
+        "hprd": 3.0,
+        "label": "Current CT comparison point (3.00)",
+        "kind": "current",
+        "facilities_below": 36,
+        "facilities_with_estimate": 190,
+        "share_below": 0.1895
+      },
+      {
+        "hprd": 3.3,
+        "label": "Hypothetical 3.30",
+        "kind": "hypothetical",
+        "facilities_below": 73,
+        "facilities_with_estimate": 190,
+        "share_below": 0.3842
+      },
+      {
+        "hprd": 3.6,
+        "label": "Proposed in 2025 SB 1279 (3.60, not enacted)",
+        "kind": "proposed",
+        "facilities_below": 120,
+        "facilities_with_estimate": 190,
+        "share_below": 0.6316
+      },
+      {
+        "hprd": 4.1,
+        "label": "Hypothetical 4.10",
+        "kind": "hypothetical",
+        "facilities_below": 166,
+        "facilities_with_estimate": 190,
+        "share_below": 0.8737
+      }
+    ]
+  },
+  "policy_reference": {
+    "schema_version": "ct-policy-reference-1.0",
+    "dataset_type": "ct_nursing_home_staffing_policy_reference",
+    "maintained_by": "Hand-maintained reference. Every entry cites its public source. Re-verify on each data refresh.",
+    "last_verified": "2026-10-30",
+    "rule_timeline": [
+      {
+        "date": "pre-2022",
+        "label": "Older regulatory baseline",
+        "detail": "Title 19, Sec. 19-13-D8t(m): 1.90 total nursing and aide hours and 0.64 licensed hours per patient day for chronic and convalescent nursing homes. The same subsection excludes director of nurses time in homes of 61+ beds and assistant director time in homes of 121+ beds from counting toward the minimums.",
+        "source_title": "CT regulations, Sec. 19-13-D8t(m)",
+        "source_url": "https://portal.ct.gov/-/media/sots/regulations/title_19/013dpdf.pdf?la=en"
+      },
+      {
+        "date": "2021",
+        "date_label": "2021",
+        "label": "Statute directs a 3-hour standard",
+        "detail": "Public Act 21-185 (CGS Sec. 19a-563h) directed DPH to set minimum staffing of three hours of direct care per resident per day by January 1, 2022. DPH said revised regulations would not be in place by that date.",
+        "source_title": "CGS chapter 368v, Sec. 19a-563h",
+        "source_url": "https://www.cga.ct.gov/2022/sup/chap_368v.htm"
+      },
+      {
+        "date": "2023-03-01",
+        "date_label": "March 1, 2023",
+        "label": "DPH 3.0 policies take effect",
+        "detail": "Former DPH policies: 0.84 hours of nursing care plus 2.16 hours of nurse aide services per resident per day (3.00 total).",
+        "source_title": "DPH Blast Fax 2024-3A",
+        "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"
+      },
+      {
+        "date": "2024-01-05",
+        "date_label": "January 5, 2024",
+        "label": "Amended DPH policies",
+        "detail": "3.0 hours of total nursing and nurse aide care per resident per day, of which 0.84 hours provided by licensed nursing personnel.",
+        "source_title": "DPH Blast Fax 2024-3A",
+        "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"
+      }
+    ],
+    "legislation": [
+      {
+        "session": "2025",
+        "bill": "SB 1279",
+        "title": "An Act Concerning Nursing Home Staffing Ratios",
+        "summary": "Proposed raising the minimum from 3.0 to 3.6 direct-care hours per resident per day and adding fines of up to $10,000 per violation.",
+        "status": "Not enacted. Last action March 18, 2025: favorable report, tabled for the Senate calendar.",
+        "source_title": "CGA bill status, SB 1279 (2025)",
+        "source_url": "https://prdext3.cga.ct.gov/2025/cbs/S/pdf/SB-1279.pdf",
+        "secondary_source_title": "CT Mirror, April 28, 2025",
+        "secondary_source_url": "https://ctmirror.org/2025/04/28/ct-nursing-homes-direct-care-bill/"
+      }
+    ],
+    "scenario_levels": [
+      {
+        "hprd": 3.0,
+        "label": "Current CT comparison point (3.00)",
+        "kind": "current"
+      },
+      {
+        "hprd": 3.3,
+        "label": "Hypothetical 3.30",
+        "kind": "hypothetical"
+      },
+      {
+        "hprd": 3.6,
+        "label": "Proposed in 2025 SB 1279 (3.60, not enacted)",
+        "kind": "proposed"
+      },
+      {
+        "hprd": 4.1,
+        "label": "Hypothetical 4.10",
+        "kind": "hypothetical"
+      }
+    ],
+    "workforce_context": [
+      {
+        "label": "CNA wage pathway",
+        "detail": "A May 2025 agreement between the State and SEIU 1199NE sets a pathway to $26 per hour for nursing home CNAs by January 1, 2028, funded through incremental Medicaid increases.",
+        "source_title": "Office of the Governor, May 23, 2025",
+        "source_url": "https://portal.ct.gov/governor/news/press-releases/2025/05-2025/governor-lamont-announces-for-direct-care-workers-in-nursing-homes-and-group-homes"
+      },
+      {
+        "label": "Temporary nursing services agencies",
+        "detail": "Since January 1, 2023, temporary nursing services agencies must register with DPH and report itemized revenues and costs and average fees by type of nursing personnel. DPH does not publish this data online.",
+        "source_title": "DPH, Temporary Nursing Services Agency",
+        "source_url": "https://portal.ct.gov/DPH/Facility-Licensing--Investigations/Facility-Licensing--Investigations-Section-FLIS/Temporary-Nursing-Services-Agency"
+      }
+    ],
+    "dss_case_mix": {
+      "label": "Connecticut Medicaid case mix index (CMI), statewide quarterly averages",
+      "note": "Published by DSS for its acuity-based Medicaid reimbursement. Higher values mean a higher average resident acuity. This is a different measure from the CMS case-mix staffing comparison points used elsewhere in these tools. Transcribed from the DSS page; verify against the source on refresh.",
+      "source_title": "DSS, CMI Averages",
+      "source_url": "https://portal.ct.gov/dss/health-and-home-care/medicaid-nursing-home-reimbursement/nursing-home-reimbursement-acuity-based-methodology/cmi-averages",
+      "quarters": [
+        {
+          "quarter": "2021Q1",
+          "medicaid_cmi": 0.9591,
+          "total_cmi": 1.0471
+        },
+        {
+          "quarter": "2021Q2",
+          "medicaid_cmi": 0.963,
+          "total_cmi": 1.025
+        },
+        {
+          "quarter": "2021Q3",
+          "medicaid_cmi": 0.9547,
+          "total_cmi": 1.0126
+        },
+        {
+          "quarter": "2021Q4",
+          "medicaid_cmi": 0.952,
+          "total_cmi": 1.0117
+        },
+        {
+          "quarter": "2022Q1",
+          "medicaid_cmi": 0.9971,
+          "total_cmi": 1.0628
+        },
+        {
+          "quarter": "2022Q2",
+          "medicaid_cmi": 1.0277,
+          "total_cmi": 1.0758
+        },
+        {
+          "quarter": "2022Q3",
+          "medicaid_cmi": 1.0286,
+          "total_cmi": 1.0767
+        },
+        {
+          "quarter": "2022Q4",
+          "medicaid_cmi": 1.0456,
+          "total_cmi": 1.1013
+        },
+        {
+          "quarter": "2023Q1",
+          "medicaid_cmi": 1.0616,
+          "total_cmi": 1.1176
+        },
+        {
+          "quarter": "2023Q2",
+          "medicaid_cmi": 1.0475,
+          "total_cmi": 1.0903
+        },
+        {
+          "quarter": "2023Q3",
+          "medicaid_cmi": 1.0527,
+          "total_cmi": 1.0885
+        },
+        {
+          "quarter": "2023Q4",
+          "medicaid_cmi": 1.0707,
+          "total_cmi": 1.1233
+        },
+        {
+          "quarter": "2024Q1",
+          "medicaid_cmi": 1.0854,
+          "total_cmi": 1.1439
+        },
+        {
+          "quarter": "2024Q2",
+          "medicaid_cmi": 1.0924,
+          "total_cmi": 1.1369
+        },
+        {
+          "quarter": "2024Q3",
+          "medicaid_cmi": 1.0975,
+          "total_cmi": 1.1396
+        },
+        {
+          "quarter": "2024Q4",
+          "medicaid_cmi": 1.1129,
+          "total_cmi": 1.1547
+        },
+        {
+          "quarter": "2025Q1",
+          "medicaid_cmi": 1.127,
+          "total_cmi": 1.1725
+        }
+      ]
+    }
+  }
+}

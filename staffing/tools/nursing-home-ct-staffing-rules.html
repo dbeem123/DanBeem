@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connecticut Staffing Rules &amp; Context | Connecticut LTCOP</title>
+  <meta name="description" content="Connecticut nursing home staffing rules, effective dates, statewide PBJ screening trend, policy scenarios, and Connecticut Medicaid acuity context." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/nursing-home-ct-staffing-context.js"></script>
+  <style>
+    .ct-hero { min-height:auto; display:block; padding-top:26px; padding-bottom:8px; }
+    .ct-hero .panel { display:grid; gap:12px; }
+    .summary-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-top:4px; }
+    .summary-card { padding:10px 12px; border-radius:8px; border:1px solid var(--ltcop-border); background:#fff; }
+    .summary-card strong { display:block; margin-top:4px; font-size:24px; font-weight:850; font-variant-numeric:tabular-nums; }
+    .summary-label { color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; }
+    .summary-sub { color:var(--ltcop-muted); font-size:12px; margin-top:2px; }
+    .timeline { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:10px; }
+    .timeline li { display:grid; grid-template-columns:150px 1fr; gap:12px; padding:10px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; }
+    .timeline .when { font-weight:850; color:var(--ltcop-navy); }
+    .timeline .what strong { display:block; }
+    .timeline .what p { margin:4px 0; }
+    .src { font-size:12px; color:var(--ltcop-muted); }
+    .chart-wrap { margin-top:10px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; padding:8px; }
+    .chart-wrap svg { display:block; width:100%; height:auto; }
+    .chart-legend { display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--ltcop-muted); margin:6px 4px 0; }
+    .chart-legend span::before { content:""; display:inline-block; width:14px; height:3px; vertical-align:middle; margin-right:6px; background:currentColor; }
+    .chart-legend .lg-median { color:#173761; }
+    .chart-legend .lg-ref { color:#5f6f85; }
+    .chart-legend .lg-rule { color:#e3212b; }
+    .chart-legend .lg-shade::before { height:10px; background:#eef2f7; border:1px solid #d8e1ee; }
+    .table-scroll { overflow-x:auto; border-radius:8px; border:1px solid var(--ltcop-border); margin-top:10px; }
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    caption { text-align:left; padding:10px 12px; color:var(--ltcop-muted); font-weight:800; }
+    th, td { padding:9px 12px; text-align:left; border-top:1px solid var(--ltcop-border); font-variant-numeric:tabular-nums; }
+    thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; }
+    td.num, th.num { text-align:right; }
+    .bar { position:relative; height:10px; min-width:120px; border-radius:5px; background:#eef2f7; overflow:hidden; }
+    .bar > i { position:absolute; left:0; top:0; bottom:0; background:#173761; border-radius:5px; }
+    tr.kind-proposed .bar > i { background:#c2410c; }
+    tr.kind-hypothetical .bar > i { background:#5f6f85; }
+    .tag { display:inline-block; padding:2px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid var(--ltcop-border); background:#f4f7fb; margin-left:6px; white-space:nowrap; }
+    .context-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin-top:8px; }
+    .context-grid .card p { margin:6px 0; }
+    @media (max-width:640px) {
+      .timeline li { grid-template-columns:1fr; gap:4px; }
+      .summary-card strong { font-size:21px; }
+    }
+    @media print {
+      .ltcop-masthead, footer, .no-print { display:none !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html" aria-current="page">CT Rules &amp; Context</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap ct-hero" aria-labelledby="ct-title">
+      <div class="panel">
+        <div class="pill">Connecticut Context</div>
+        <h1 id="ct-title">Connecticut Staffing Rules &amp; Context</h1>
+        <p>Connecticut's direct-care staffing standard, when it took effect, how the statewide picture has moved since, and Connecticut policy and Medicaid context to read alongside the facility tools.</p>
+        <div class="notice warning">All staffing figures on this page are PBJ-derived screening estimates. They are not formal Connecticut Department of Public Health compliance findings, and they cannot show the reasons staffing changed.</div>
+        <noscript><div class="notice">The statewide figures and charts on this page need JavaScript. The rules timeline below is readable without it.</div></noscript>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="snapshot-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Latest Quarter</div>
+            <h2 id="snapshot-title">Statewide snapshot</h2>
+            <p id="snapshot-note" class="subtle">Loading the Connecticut statewide context export.</p>
+          </div>
+        </div>
+        <div id="snapshot-cards" class="summary-grid" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="rules-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">The Standard</div>
+            <h2 id="rules-title">Connecticut's direct-care staffing rules and when they applied</h2>
+          </div>
+        </div>
+        <p>Connecticut now requires <strong>3.00 hours of total nursing and nurse aide care per resident per day</strong>, of which <strong>0.84 hours</strong> must be provided by licensed nursing personnel. The tools compare PBJ-derived estimates against these two points only for quarters when the standard applied.</p>
+        <ol class="timeline" id="rules-timeline">
+          <li><div class="when">Before 2022</div><div class="what"><strong>Older regulatory baseline</strong><p>1.90 total and 0.64 licensed hours per patient day (Sec. 19-13-D8t(m)).</p></div></li>
+          <li><div class="when">2021</div><div class="what"><strong>Statute directs a 3-hour standard</strong><p>Public Act 21-185 (CGS Sec. 19a-563h).</p></div></li>
+          <li><div class="when">March 1, 2023</div><div class="what"><strong>DPH 3.0 policies take effect</strong><p>0.84 nursing plus 2.16 nurse aide hours (3.00 total).</p></div></li>
+          <li><div class="when">January 5, 2024</div><div class="what"><strong>Amended DPH policies</strong><p>3.00 total, of which 0.84 licensed.</p></div></li>
+        </ol>
+        <div class="table-scroll">
+          <table>
+            <caption>How each PBJ period is treated in these tools</caption>
+            <thead><tr><th scope="col">PBJ quarters</th><th scope="col">CT comparison status shown</th></tr></thead>
+            <tbody>
+              <tr><td>Q4 2017 to Q4 2021</td><td>None. 3.00/0.84 appears only as a reference line, not as a status.</td></tr>
+              <tr><td>Q1 to Q4 2022</td><td>None. The statute set a direction, but DPH said rules were not yet in place.</td></tr>
+              <tr><td>Q1 2023</td><td>Transitional. The policy began March 1, partway through the quarter.</td></tr>
+              <tr><td>Q2 2023 onward</td><td>Below-3.00 and below-0.84 screening estimates are shown, with caveats.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="trend-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Statewide Trend</div>
+            <h2 id="trend-title">Median CT direct-care estimate, Q4 2017 to latest quarter</h2>
+            <p class="subtle">The middle value across reporting Connecticut facilities each quarter. The red markers show when the 3.0 policies took effect. Shading marks quarters with no CT comparison status.</p>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div id="trend-chart" role="img" aria-label="Line chart of the statewide median CT direct-care hours per resident day by quarter."></div>
+          <div class="chart-legend" aria-hidden="true">
+            <span class="lg-median">Statewide median estimate</span>
+            <span class="lg-ref">3.00 comparison point (reference)</span>
+            <span class="lg-rule">Policy took effect</span>
+            <span class="lg-shade">No CT status shown</span>
+          </div>
+        </div>
+        <div id="applicable-table" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="scenario-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Policy Scenarios</div>
+            <h2 id="scenario-title">How many facilities would fall below other staffing levels?</h2>
+            <p class="subtle">Latest quarter only. Counts use the same PBJ-derived CT direct-care estimate as the other tools. Levels other than 3.00 are <strong>scenarios, not law</strong>.</p>
+          </div>
+        </div>
+        <div id="scenario-table" aria-live="polite"></div>
+        <p id="legislation-note" class="microcopy"></p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="acuity-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Medicaid Acuity</div>
+            <h2 id="acuity-title">Connecticut Medicaid case mix index (CMI)</h2>
+            <p id="acuity-note" class="subtle"></p>
+          </div>
+        </div>
+        <div id="acuity-table" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="workforce-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Workforce Context</div>
+            <h2 id="workforce-title">Connecticut workforce and staffing-agency context</h2>
+          </div>
+        </div>
+        <div id="workforce-cards" class="context-grid"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="sources-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Sources</div>
+            <h2 id="sources-title">Sources and limits</h2>
+          </div>
+        </div>
+        <ul id="source-list"></ul>
+        <p class="subtle">Statewide figures come from the public CMS Payroll-Based Journal history used by the other tools. Connecticut policy entries are hand-maintained and cite their public source. See <a href="/staffing/tools/nursing-home-staffing-methodology.html#ct-comparison-title">About the Data</a> for how the estimates are calculated.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Connecticut Staffing Rules &amp; Context - static screening view.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

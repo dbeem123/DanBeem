@@ -135,7 +135,14 @@ async function main() {
     assert.ok((await page.locator('#affiliation-summary').innerText()).length > 20);
     console.log('PASS change/custom windows, persistent windows, affiliation selection');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route)]) {
+    await visit(route('ct-staffing-rules'));
+    await page.locator('#snapshot-cards .summary-card').first().waitFor();
+    assert.match(await page.locator('#snapshot-cards').innerText(), /36/);
+    assert.match(await page.locator('#scenario-table').innerText(), /120 of 190/);
+    assert.equal(await page.locator('#trend-chart svg').count(), 1);
+    console.log('PASS Connecticut rules and context: 36 below 3.00, 120 of 190 below 3.60 scenario, trend chart');
+
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules')]) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 1000 });
