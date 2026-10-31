@@ -70,8 +70,8 @@
       headline = 'Adjourned';
       sub = `The ${s.year} regular session has ended`;
     }
-    const tile = (label, value, subText) => el('div', { className: 'session-tile' }, [
-      el('span', { className: 'tile-label', text: label }), el('strong', { text: value }), subText ? el('div', { className: 'tile-sub', text: subText }) : '']);
+    const tile = (label, value, subText) => el('div', { className: 'summary-card' }, [
+      el('span', { className: 'summary-label', text: label }), el('strong', { text: value }), subText ? el('div', { className: 'microcopy', text: subText }) : '']);
     document.getElementById('session-banner').replaceChildren(
       tile(`${s.year} session`, headline, sub),
       tile('Convenes', niceDate(s.convenes), s.type),
@@ -82,7 +82,7 @@
 
   function statusChip(statuses, id) {
     const st = statuses.find((x) => x.id === id) || { label: id };
-    return el('span', { className: `status status-${id}`, title: st.detail || '', text: st.label });
+    return el('span', { className: `status-pill status-${id}`, title: st.detail || '', text: st.label });
   }
   const topicName = (data, id) => (data.topics.find((t) => t.id === id) || { name: id }).name;
   const allBills = (data) => new Map([...data.bills_past, ...data.bills_current].map((b) => [b.id, b]));
@@ -113,7 +113,7 @@
       el('td', {}, [
         el('strong', { text: b.title }),
         el('div', { className: 'microcopy', text: b.summary }),
-        el('div', {}, b.topics.map((t) => el('span', { className: 'chip', text: topicName(data, t) }))),
+        el('div', {}, b.topics.map((t) => el('span', { className: 'tag', text: topicName(data, t) }))),
         (b.related || []).length ? el('div', { className: 'microcopy' }, [document.createTextNode('Related: '),
           ...b.related.flatMap((id, i) => { const r = lookup.get(id); return r ? [i ? ', ' : '', link(r.bill_status_url, `${r.session} ${r.bill}`)] : []; })]) : '',
       ]),
@@ -134,27 +134,27 @@
     const lookup = allBills(data);
     document.getElementById('topic-nav').replaceChildren(...data.topics.map((t) => link(`#topic-${t.id}`, t.name)));
     document.getElementById('topics').replaceChildren(...data.topics.map((t) => {
-      const cards = t.stat_keys.map((k) => byKey.get(k)).filter(Boolean).map((s) => el('div', { className: 'stat' }, [
-        el('div', { className: 'num', text: s.display }),
-        el('div', { className: 'lbl', text: s.label }),
-        el('div', { className: 'meta' }, [document.createTextNode(`${s.period}. `), s.link ? link(s.link, s.source) : document.createTextNode(s.source)]),
-        el('button', { type: 'button', className: 'copy-btn', 'data-copy': citation(s), text: 'Copy for testimony' }),
+      const cards = t.stat_keys.map((k) => byKey.get(k)).filter(Boolean).map((s) => el('div', { className: 'summary-card stat-card' }, [
+        el('strong', { text: s.display }),
+        el('p', { className: 'stat-label', text: s.label }),
+        el('div', { className: 'microcopy' }, [document.createTextNode(`${s.period}. `), s.link ? link(s.link, s.source) : document.createTextNode(s.source)]),
+        el('button', { type: 'button', className: 'action-button secondary copy-btn', 'data-copy': citation(s), text: 'Copy for testimony' }),
       ]));
       const facts = (t.context_facts || []).map((f) => el('li', {}, [document.createTextNode(`${f.text} `), el('span', { className: 'src' }, [link(f.source_url, f.source_title)])]));
       const related = [...lookup.values()].filter((b) => b.bill && b.topics.includes(t.id))
         .sort((a, b) => String(b.session).localeCompare(String(a.session)));
-      return el('article', { className: 'topic', id: `topic-${t.id}` }, [
+      return el('article', { className: 'card topic', id: `topic-${t.id}` }, [
         el('h3', { text: t.name }),
         el('p', { text: t.why }),
-        cards.length ? el('div', { className: 'stat-grid' }, cards) : '',
-        facts.length ? el('ul', {}, facts) : '',
+        cards.length ? el('div', { className: 'summary-grid' }, cards) : '',
+        facts.length ? el('ul', { className: 'fact-list' }, facts) : '',
         el('div', { className: 'two-col' }, [
-          el('div', {}, [el('h4', { text: 'Questions testimony can address' }), el('ul', {}, t.questions.map((q) => el('li', { text: q })))]),
+          el('div', {}, [el('h4', { className: 'col-heading', text: 'Questions testimony can address' }), el('ul', {}, t.questions.map((q) => el('li', { text: q })))]),
           el('div', {}, [
-            el('h4', { text: 'Related bills' }),
-            related.length ? el('ul', {}, related.slice(0, 8).map((b) => el('li', {}, [link(b.bill_status_url, `${b.session} ${b.bill}`),
-              document.createTextNode(`${b.public_act ? ` (${b.public_act})` : ''}: ${b.title}${b.enacted === false ? ' (not enacted)' : ''}`)]))) : el('p', { className: 'microcopy', text: 'None tracked yet.' }),
-            (t.tool_links || []).length ? el('h4', { text: 'Data tools' }) : '',
+            el('h4', { className: 'col-heading', text: 'Related bills' }),
+            related.length ? el('ul', {}, related.slice(0, 6).map((b) => el('li', {}, [link(b.bill_status_url, `${b.session} ${b.bill}`),
+              document.createTextNode(`${b.public_act ? ` (${b.public_act})` : ''}: ${b.short_title || b.title}${b.enacted === false ? ' (not enacted)' : ''}`)]))) : el('p', { className: 'microcopy', text: 'None tracked yet.' }),
+            (t.tool_links || []).length ? el('h4', { className: 'col-heading', text: 'Data tools' }) : '',
             (t.tool_links || []).length ? el('ul', {}, t.tool_links.map((x) => el('li', {}, [link(x.url, x.title)]))) : '',
           ]),
         ]),
@@ -191,8 +191,8 @@
     if (!rows.length) { box.replaceChildren(el('p', { className: 'empty', text: 'No bills match these filters.' })); return; }
     const body = rows.map((b) => el('tr', {}, [
       el('th', { scope: 'row' }, [el('div', { text: `${b.session} ${b.bill}` }), el('div', { className: 'microcopy', text: b.public_act || '' })]),
-      el('td', {}, [el('strong', { text: b.title }), el('div', { className: 'microcopy', text: b.summary }),
-        el('div', {}, b.topics.map((t) => el('span', { className: 'chip', text: topicName(data, t) })))]),
+      el('td', {}, [el('strong', { text: b.short_title || b.title }), el('div', { className: 'microcopy', text: b.summary }), b.short_title && b.short_title !== b.title ? el('div', { className: 'microcopy official-title', text: `Official title: ${b.title}` }) : '',
+        el('div', {}, b.topics.map((t) => el('span', { className: 'tag', text: topicName(data, t) })))]),
       el('td', {}, [statusChip(data.statuses, b.enacted ? 'signed' : 'failed'), el('div', { className: 'microcopy', text: b.last_action || '' }),
         (b.key_dates || []).filter((k) => !/signed/i.test(k.what)).length ? el('ul', { className: 'microcopy' },
           b.key_dates.filter((k) => !/signed/i.test(k.what)).map((k) => el('li', { text: `${niceDate(k.date)}: ${k.what}` }))) : '']),
@@ -219,7 +219,7 @@
     const head = ['session', 'bill', 'public_act', 'status', 'title', 'topics', 'last_action', 'bill_status_url'];
     const lines = [head.join(',')];
     data.bills_current.forEach((b) => lines.push([b.session, b.bill || 'watch list', b.public_act, b.status, b.title, b.topics.join('; '), b.last_action, b.bill_status_url].map(esc).join(',')));
-    data.bills_past.forEach((b) => lines.push([b.session, b.bill, b.public_act, b.enacted ? 'signed' : 'failed', b.title, b.topics.join('; '), b.last_action, b.bill_status_url].map(esc).join(',')));
+    data.bills_past.forEach((b) => lines.push([b.session, b.bill, b.public_act, b.enacted ? 'signed' : 'failed', b.short_title || b.title, b.topics.join('; '), b.last_action, b.bill_status_url].map(esc).join(',')));
     const url = URL.createObjectURL(new Blob([lines.join('\r\n')], { type: 'text/csv' }));
     const a = el('a', { href: url, download: `ct-ltc-legislative-tracker-${data.last_updated}.csv` });
     document.body.append(a); a.click(); a.remove();

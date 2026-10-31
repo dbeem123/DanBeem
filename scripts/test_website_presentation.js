@@ -55,12 +55,12 @@ async function main() {
     }
 
     await visit('/');
-    assert.equal(await page.locator('.danbeem-card').count(), 4);
-    assert.equal(await page.locator('a.danbeem-card').count(), 2);
-    assert.equal(await page.locator('article.danbeem-card').count(), 2);
-    assert.equal(await page.locator('a[href*="glizzy"]').count(), 0);
+    assert.equal(await page.locator('.project-card').count(), 4);
+    assert.equal(await page.locator('a.feature-strip[href="/legislation/"]').count(), 1);
+    assert.equal(await page.locator('.main-nav a[href="/legislation/"]').count(), 1);
     await page.keyboard.press('Tab');
-    assert.equal(await page.locator(':focus').textContent(), 'Skip to projects');
+    assert.equal(await page.locator(':focus').textContent(), 'Skip to content');
+    console.log('PASS homepage cards, legislative tracker links, skip link');
 
     await visit(route('staffing-explorer') + '?ccn=075442');
     assert.equal(await page.locator('#facility-select').inputValue(), current.facilities.find(f => f.ccn === '075442').facility_id);
