@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Connecticut Long-Term Care Legislative Tracker | Connecticut LTCOP</title>
+  <meta name="description" content="Track Connecticut bills that affect people living in nursing homes, residential care homes and assisted living, with research and statistics to support testimony." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/staffing-layout.js"></script>
+  <script defer src="/Assets/ct-legislative-tracker.js"></script>
+  <style>
+    .lt-hero { min-height:auto; display:block; padding-top:26px; padding-bottom:8px; }
+    .lt-hero .panel { display:grid; gap:12px; }
+    .session-banner { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:10px; }
+    .session-tile { padding:10px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; }
+    .session-tile strong { display:block; font-size:22px; font-weight:850; margin-top:4px; font-variant-numeric:tabular-nums; }
+    .tile-label { color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.08em; }
+    .tile-sub { color:var(--ltcop-muted); font-size:12px; margin-top:2px; }
+    .filter-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; align-items:end; margin:10px 0; }
+    .filter-row label { display:block; font-weight:800; font-size:13px; margin-bottom:4px; }
+    .filter-row input, .filter-row select { width:100%; padding:9px 10px; border:1px solid var(--ltcop-border); border-radius:6px; background:#fff; color:var(--ltcop-navy-deep); font:inherit; }
+    .table-scroll { overflow-x:auto; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; }
+    table { width:100%; border-collapse:collapse; }
+    caption { text-align:left; padding:10px 12px; color:var(--ltcop-muted); font-weight:800; }
+    th, td { padding:10px 12px; text-align:left; vertical-align:top; border-top:1px solid var(--ltcop-border); }
+    thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; white-space:nowrap; }
+    td .microcopy { margin-top:4px; }
+    .chip { display:inline-block; margin:2px 4px 2px 0; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:800; background:#eef2f7; border:1px solid var(--ltcop-border); color:var(--ltcop-navy-deep); white-space:nowrap; }
+    .status { display:inline-block; padding:3px 9px; border-radius:999px; font-size:12px; font-weight:850; white-space:nowrap; border:1px solid transparent; }
+    .status-watch { background:#f4f7fb; border-color:#d8e1ee; color:#3c4b61; }
+    .status-introduced, .status-hearing, .status-committee_passed, .status-calendar { background:#eaf4ff; border-color:#bcd6f5; color:#173761; }
+    .status-passed_one, .status-passed_both { background:#fff7e6; border-color:#f3d39b; color:#7a4b00; }
+    .status-signed { background:#e8f6ee; border-color:#a9d9bd; color:#155e33; }
+    .status-vetoed, .status-failed { background:#fff1f2; border-color:#f3c0c6; color:#9f1239; }
+    .topic-nav { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px; }
+    .topic-nav a { padding:6px 10px; border-radius:999px; border:1px solid var(--ltcop-border); background:#fff; font-size:13px; font-weight:800; text-decoration:none; }
+    .topic { border:1px solid var(--ltcop-border); border-radius:10px; background:#fff; padding:14px; margin-top:14px; scroll-margin-top:140px; }
+    .topic h3 { margin:0 0 6px; }
+    .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; margin:10px 0; }
+    .stat { border:1px solid var(--ltcop-border); border-radius:8px; padding:10px 12px; background:#f9fbfd; display:flex; flex-direction:column; gap:4px; }
+    .stat .num { font-size:26px; font-weight:850; color:var(--ltcop-navy); font-variant-numeric:tabular-nums; line-height:1.1; }
+    .stat .lbl { font-size:14px; line-height:1.4; }
+    .stat .meta { font-size:12px; color:var(--ltcop-muted); line-height:1.4; }
+    .stat .meta a { color:var(--ltcop-muted); }
+    .copy-btn { align-self:flex-start; margin-top:4px; font:inherit; font-size:12px; font-weight:800; padding:4px 8px; border-radius:6px; border:1px solid var(--ltcop-border); background:#fff; color:var(--ltcop-navy); cursor:pointer; }
+    .copy-btn:hover { background:#eaf4ff; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .two-col h4 { margin:8px 0 4px; font-size:14px; text-transform:uppercase; letter-spacing:0.06em; color:var(--ltcop-muted); }
+    .two-col ul { margin:4px 0; padding-left:18px; }
+    .two-col li { margin:4px 0; }
+    .src { font-size:12px; color:var(--ltcop-muted); }
+    .timeline { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:8px; }
+    .timeline li { display:grid; grid-template-columns:140px 1fr; gap:12px; padding:9px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; }
+    .timeline li.is-session { border-color:#bcd6f5; background:#f3f8ff; }
+    .timeline li.is-past { opacity:0.65; }
+    .timeline .when { font-weight:850; color:var(--ltcop-navy); font-variant-numeric:tabular-nums; }
+    .howto-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; }
+    .toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:var(--ltcop-navy-deep); color:#fff; padding:8px 14px; border-radius:8px; font-weight:700; font-size:14px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:500; }
+    .toast.show { opacity:1; }
+    .action-row { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .action-row button { font:inherit; font-weight:800; font-size:13px; padding:7px 10px; border-radius:6px; border:1px solid var(--ltcop-border); background:#fff; color:var(--ltcop-navy); cursor:pointer; }
+    .empty { padding:14px; color:var(--ltcop-muted); }
+    .past-details > summary { cursor:pointer; font-weight:850; color:var(--ltcop-navy); padding:8px 0; }
+    @media print { .past-details > summary { display:none; } }
+    @media (max-width:760px) {
+      .two-col { grid-template-columns:1fr; }
+      .timeline li { grid-template-columns:1fr; gap:2px; }
+      table.stack thead { display:none; }
+      table.stack tr { display:block; border-top:1px solid var(--ltcop-border); padding:8px 0; }
+      table.stack td, table.stack th { display:block; border:0; padding:4px 12px; }
+    }
+    @media print {
+      .ltcop-masthead, footer, .filter-row, .action-row, .copy-btn, .topic-nav { display:none !important; }
+      .topic { break-inside:avoid; }
+    }
+  </style>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Long-Term Care Legislative Tracker</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Legislative tracker navigation">
+      <div class="wrap">
+        <a href="#tracker-title">Bills</a>
+        <a href="#topics-title">Topics &amp; research</a>
+        <a href="#dates-title">Key dates</a>
+        <a href="#past-title">Past sessions</a>
+        <a href="#howto-title">Take part</a>
+        <a href="/staffing/">Staffing tools</a>
+        <a href="/dashboards/impact-2025.html">Impact dashboard</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap lt-hero" aria-labelledby="lt-title">
+      <div class="panel">
+        <div class="pill">Connecticut General Assembly</div>
+        <h1 id="lt-title">Long-Term Care Legislative Tracker</h1>
+        <p>Bills that affect people living in Connecticut nursing homes, residential care homes and assisted living, with their status, plus research and statistics for residents, families and advocates preparing testimony.</p>
+        <div id="session-banner" class="session-banner" aria-live="polite"></div>
+        <div id="disclaimer" class="notice warning">Listing a bill here is not an endorsement or a position of the Long Term Care Ombudsman Program.</div>
+        <noscript><div class="notice">This page needs JavaScript to show the tracker. Bill information is also on the Connecticut General Assembly website, cga.ct.gov.</div></noscript>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="tracker-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Upcoming Session</div>
+            <h2 id="tracker-title">Bills and issues to watch</h2>
+            <p id="tracker-note" class="subtle"></p>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div><label for="bill-search">Search</label><input id="bill-search" type="search" placeholder="Bill number, title or word"></div>
+          <div><label for="bill-topic">Topic</label><select id="bill-topic"><option value="all">All topics</option></select></div>
+          <div><label for="bill-status">Status</label><select id="bill-status"><option value="all">All statuses</option></select></div>
+        </div>
+        <div id="current-bills" aria-live="polite"></div>
+        <div class="action-row"><button type="button" id="download-csv">Download bill list (CSV)</button><button type="button" id="print-page">Print or save as PDF</button></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="topics-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Research for Testimony</div>
+            <h2 id="topics-title">Topics, statistics and questions</h2>
+            <p class="subtle">Each number lists its source and period. Use <strong>Copy for testimony</strong> to copy a number with its citation.</p>
+          </div>
+        </div>
+        <nav class="topic-nav" id="topic-nav" aria-label="Jump to a topic"></nav>
+        <div id="topics"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="dates-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Calendar</div>
+            <h2 id="dates-title">Key dates and report deadlines</h2>
+            <p class="subtle">Session dates plus reports and deadlines created by recent laws that may shape 2027 bills.</p>
+          </div>
+        </div>
+        <ol id="key-dates" class="timeline"></ol>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="past-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">History</div>
+            <h2 id="past-title">Past sessions, 2023 to 2026</h2>
+            <p class="subtle">Long-term care bills from recent sessions and what happened to them.</p>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div><label for="past-session">Session</label><select id="past-session"><option value="all">All sessions</option></select></div>
+          <div><label for="past-topic">Topic</label><select id="past-topic"><option value="all">All topics</option></select></div>
+          <div><label for="past-outcome">Outcome</label><select id="past-outcome"><option value="all">All</option><option value="enacted">Enacted</option><option value="failed">Not enacted</option></select></div>
+        </div>
+        <details id="past-details" class="past-details">
+          <summary>Show past bills</summary>
+          <div id="past-bills" aria-live="polite"></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="howto-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Take Part</div>
+            <h2 id="howto-title">Follow bills and testify</h2>
+          </div>
+        </div>
+        <div id="howto" class="howto-grid"></div>
+        <p id="updated-note" class="subtle"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Long-Term Care Legislative Tracker. Research support; not an official position.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP website</a>
+        <a href="https://portal.ct.gov/ltcop/advocacy-over-the-years">LTCOP advocacy over the years</a>
+        <a href="/staffing/">Staffing Transparency Tools</a>
+      </div>
+    </div>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

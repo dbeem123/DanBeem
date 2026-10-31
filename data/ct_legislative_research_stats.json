@@ -1,0 +1,287 @@
+{
+  "schema_version": "ct-legislative-research-stats-1.0",
+  "generated_at": "2026-10-30T23:05:06",
+  "note": "Computed from data files published on this site. Each stat lists its source, period and caveat.",
+  "stats": [
+    {
+      "key": "homes_below_300",
+      "value": 36,
+      "display": "36",
+      "label": "of 190 Connecticut nursing homes had an estimated direct-care staffing level below the state's 3.00 hours per resident day",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
+      "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+    },
+    {
+      "key": "homes_below_300_first",
+      "value": 50,
+      "display": "50",
+      "label": "homes were below 3.00 in Q2 2023, the first full quarter the standard applied",
+      "period": "Q2 2023",
+      "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
+      "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+    },
+    {
+      "key": "homes_below_084",
+      "value": 9,
+      "display": "9",
+      "label": "homes had an estimated licensed-nurse level below the state's 0.84 hours per resident day",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
+      "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+    },
+    {
+      "key": "median_direct_care",
+      "value": 3.42,
+      "display": "3.42",
+      "label": "hours of direct care per resident per day at the median Connecticut home",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
+      "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+    },
+    {
+      "key": "homes_below_360",
+      "value": 120,
+      "display": "120",
+      "label": "of 190 homes would be below 3.60 hours, the level proposed in 2025 SB 1279 (not enacted)",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
+      "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
+      "caveat": "Scenario only; 3.60 is not law. Screening estimate from payroll data, not a DPH compliance finding."
+    },
+    {
+      "key": "homes_below_410",
+      "value": 166,
+      "display": "166",
+      "label": "of 190 homes would be below 4.10 hours, the level proposed in 2023 SB 1026 (not enacted)",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
+      "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
+      "caveat": "Scenario only; 4.10 is not law. Screening estimate from payroll data, not a DPH compliance finding."
+    },
+    {
+      "key": "median_rn_hprd",
+      "value": 0.6,
+      "display": "0.60",
+      "label": "registered nurse hours per resident per day at the median home",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal",
+      "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
+      "caveat": "Quarterly payroll data."
+    },
+    {
+      "key": "contract_median",
+      "value": 2.8,
+      "display": "2.8%",
+      "label": "percent of nursing hours worked by contract (agency) staff at the median home",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal",
+      "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
+      "caveat": "Quarterly payroll data."
+    },
+    {
+      "key": "contract_10pct_homes",
+      "value": 42,
+      "display": "42",
+      "label": "of 190 homes used contract staff for 10% or more of nursing hours",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal",
+      "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
+      "caveat": "Quarterly payroll data."
+    },
+    {
+      "key": "avg_daily_residents",
+      "value": 19700,
+      "display": "About 19,700",
+      "label": "residents in Connecticut nursing homes on an average day",
+      "period": "Q1 2026",
+      "source": "CMS Payroll-Based Journal resident census",
+      "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
+      "caveat": "Sum of each reporting home's average daily census, rounded to the nearest hundred."
+    },
+    {
+      "key": "for_profit_homes",
+      "value": 153,
+      "display": "153",
+      "label": "of 196 Connecticut nursing homes are for-profit",
+      "period": "CMS Provider Information, Aug 2026",
+      "source": "CMS Nursing Home Provider Information",
+      "link": "/staffing/tools/nursing-home-staffing-explorer.html",
+      "caveat": "Ownership type as reported to CMS."
+    },
+    {
+      "key": "low_star_homes",
+      "value": 83,
+      "display": "83",
+      "label": "of 190 rated homes have a 1- or 2-star CMS overall rating",
+      "period": "CMS Provider Information, Aug 2026",
+      "source": "CMS Care Compare star ratings",
+      "link": "/staffing/tools/nursing-home-staffing-explorer.html",
+      "caveat": "CMS ratings, not calculated by these tools."
+    },
+    {
+      "key": "health_citations_3yr",
+      "value": 4717,
+      "display": "4,717",
+      "label": "federal health inspection citations at Connecticut nursing homes",
+      "period": "Mar 31, 2023 to Mar 31, 2026",
+      "source": "CMS Health Deficiencies",
+      "link": "/staffing/tools/nursing-home-staffing-explorer.html",
+      "caveat": "Citation counts are context, not a quality score."
+    },
+    {
+      "key": "harm_citations_3yr",
+      "value": 141,
+      "display": "141",
+      "label": "citations where inspectors found actual harm to a resident",
+      "period": "Mar 31, 2023 to Mar 31, 2026",
+      "source": "CMS Health Deficiencies",
+      "link": "/staffing/tools/nursing-home-staffing-explorer.html",
+      "caveat": "Scope and severity as recorded by CMS."
+    },
+    {
+      "key": "ij_citations_3yr",
+      "value": 66,
+      "display": "66",
+      "label": "immediate jeopardy citations (risk of serious injury or death)",
+      "period": "Mar 31, 2023 to Mar 31, 2026",
+      "source": "CMS Health Deficiencies",
+      "link": "/staffing/tools/nursing-home-staffing-explorer.html",
+      "caveat": "Scope and severity as recorded by CMS."
+    },
+    {
+      "key": "federal_fines_3yr",
+      "value": 167,
+      "display": "167",
+      "label": "federal fines, totaling $3,925,517, at 101 homes",
+      "period": "May 17, 2023 to Mar 17, 2026",
+      "source": "CMS Penalties",
+      "link": "/staffing/tools/nursing-home-staffing-explorer.html",
+      "caveat": "Fines are enforcement values, not quality scores; files may not be exhaustive."
+    },
+    {
+      "key": "ltcop_complaints",
+      "value": 3253,
+      "display": "3,253",
+      "label": "complaints received by the Long Term Care Ombudsman Program",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_discharge_complaints",
+      "value": 330,
+      "display": "330",
+      "label": "complaints about discharge or eviction",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_transfer_category",
+      "value": 472,
+      "display": "472",
+      "label": "complaints about admission, transfer, discharge and eviction (14.51% of all)",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_rights_category",
+      "value": 473,
+      "display": "473",
+      "label": "complaints about autonomy, choice and rights (14.54% of all)",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_care_category",
+      "value": 913,
+      "display": "913",
+      "label": "complaints about care (28.07% of all), the largest category",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_visits",
+      "value": 1721,
+      "display": "1,721",
+      "label": "Ombudsman facility visits, reaching 341 facilities",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_volunteers",
+      "value": 17,
+      "display": "17",
+      "label": "certified volunteer resident advocates (as of Sept. 30, 2025)",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported counts."
+    },
+    {
+      "key": "ltcop_funding",
+      "value": "Approximately $2,415,332",
+      "display": "About $2,415,332",
+      "label": "total program funding",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "As reported in the annual report."
+    },
+    {
+      "key": "snf_count",
+      "value": 191,
+      "display": "191",
+      "label": "skilled nursing facilities with 22,118 beds",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Statewide capacity as reported."
+    },
+    {
+      "key": "rch_count",
+      "value": 95,
+      "display": "95",
+      "label": "residential care homes with 2,707 beds",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Statewide capacity as reported."
+    },
+    {
+      "key": "al_units",
+      "value": "Nearly 8,000",
+      "display": "Nearly 8,000",
+      "label": "assisted living units or apartments",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Statewide capacity as reported."
+    },
+    {
+      "key": "nf_closures",
+      "value": 4,
+      "display": "4",
+      "label": "nursing facility closures, plus 1 residential care home closure and 3 evacuations",
+      "period": "FFY 2025",
+      "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
+      "link": "/dashboards/impact-2025.html",
+      "caveat": "Program-reported events."
+    }
+  ]
+}

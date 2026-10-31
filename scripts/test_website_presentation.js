@@ -143,7 +143,17 @@ async function main() {
     assert.equal(await page.locator('#legislation-table tbody tr').count(), 3);
     console.log('PASS Connecticut rules and context: 36 below 3.00, 120 of 190 below 3.60 scenario, trend chart');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules')]) {
+    await visit('/legislation/');
+    await page.locator('#topics .topic').first().waitFor();
+    assert.equal(await page.locator('#topics .topic').count(), 8);
+    assert.ok(await page.locator('#past-bills tbody tr').count() >= 30);
+    await page.locator('#past-outcome').selectOption('failed');
+    assert.ok(await page.locator('#past-bills tbody tr').count() >= 5);
+    assert.match(await page.locator('#topic-staffing_workforce').innerText(), /36/);
+    assert.match(await csv('#download-csv'), /SB 1279/);
+    console.log('PASS legislative tracker: topics, stats, filters, CSV');
+
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), '/legislation/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 1000 });
