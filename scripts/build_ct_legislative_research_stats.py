@@ -31,7 +31,8 @@ def stat(key, value, label, period, source, link, caveat, display=None):
 
 
 def nice_date(iso: str) -> str:
-    return datetime.strptime(iso, "%Y-%m-%d").strftime("%b %-d, %Y")
+    d = datetime.strptime(iso, "%Y-%m-%d")
+    return f"{d:%b} {d.day}, {d.year}"  # portable: Windows strftime has no %-d
 
 
 def load(name):

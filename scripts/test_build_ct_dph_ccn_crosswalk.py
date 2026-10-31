@@ -61,7 +61,7 @@ class BuildTests(unittest.TestCase):
     def test_cli_roundtrip_has_no_person_fields(self):
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp) / "dph.csv"
-            with src.open("w", newline="") as handle:
+            with src.open("w", newline="", encoding="utf-8") as handle:
                 w = csv.writer(handle)
                 w.writerow(["FACILITY NAME", "ADDRESS", "CITY", "STATE", "ZIP", "LICENSE NO.", "STATUS",
                             "EFFECTIVE DATE", "EXPIRATION DATE", ""])
