@@ -1,6 +1,6 @@
 {
   "schema_version": "ct-ltcop-legislative-tracker-1.0",
-  "last_updated": "2026-10-30",
+  "last_updated": "2026-10-31",
   "maintained_by": "Hand-maintained. Update bill statuses from the Connecticut General Assembly bill status pages; every entry cites its source.",
   "disclaimer": "Research support for residents, families and advocates. Listing a bill here is not an endorsement or a position of the Connecticut Long Term Care Ombudsman Program; official positions come from the State Long Term Care Ombudsman.",
   "session": {
@@ -94,9 +94,9 @@
           "source_url": "https://portal.ct.gov/governor/news/press-releases/2025/05-2025/governor-lamont-announces-for-direct-care-workers-in-nursing-homes-and-group-homes"
         },
         {
-          "text": "CMS repealed the 2024 federal nursing home minimum staffing rule (3.48 total hours, 0.55 RN hours, 24/7 RN) through an interim final rule released December 2, 2025. The facility assessment requirement remains.",
-          "source_title": "LeadingAge, CMS repeals nursing home minimum staffing standards",
-          "source_url": "https://leadingage.org/cms-repeals-nursing-home-minimum-staffing-standards/"
+          "text": "CMS repealed the 2024 federal nursing home minimum staffing rule (3.48 total hours, 0.55 RN hours, 24/7 RN) by an interim final rule published December 3, 2025 (90 FR 55687), effective February 2, 2026. Federal law (P.L. 119-21) separately blocks its implementation through September 30, 2034. The facility assessment requirement remains.",
+          "source_title": "Federal Register, Repeal of Minimum Staffing Standards for Long-Term Care Facilities",
+          "source_url": "https://www.federalregister.gov/documents/2025/12/03/2025-21792/medicare-and-medicaid-programs-repeal-of-minimum-staffing-standards-for-long-term-care-facilities"
         }
       ],
       "questions": [
@@ -384,6 +384,35 @@
         "2026-sb400"
       ],
       "short_title": "Conservator training"
+    },
+    {
+      "id": "2027-watch-budget",
+      "session": "2027",
+      "bill": null,
+      "status": "watch",
+      "title": "State budget for FY 2028-2029: nursing home and long-term care funding",
+      "topics": [
+        "aging_financing",
+        "ownership_finance"
+      ],
+      "summary": "The 2027 session adopts a two-year budget. The Governor's proposal is due the first session day after February 3, 2027 (after February 14 if a new Governor takes office). Watch nursing home Medicaid rates and the PDPM payment phase-in that began July 1, 2026.",
+      "related": [
+        "2026-sb1"
+      ],
+      "short_title": "State budget FY 2028-2029"
+    },
+    {
+      "id": "2027-watch-federal-medicaid",
+      "session": "2027",
+      "bill": null,
+      "status": "watch",
+      "title": "Federal Medicaid changes affecting long-term care applicants (P.L. 119-21)",
+      "topics": [
+        "aging_financing"
+      ],
+      "summary": "From January 1, 2027, Medicaid retroactive coverage for older adults and people with disabilities drops from three months before application to two. From January 1, 2028, the home equity limit for long-term care eligibility is capped at $1 million. State changes may follow.",
+      "related": [],
+      "short_title": "Federal Medicaid changes (P.L. 119-21)"
     }
   ],
   "deadlines": [
@@ -408,6 +437,16 @@
       "source_url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
     },
     {
+      "date": "2027-01-01",
+      "what": "P.L. 119-21 sec. 71112: Medicaid retroactive coverage limited to two months before the application month for older adults and people with disabilities (one month for expansion adults)",
+      "source_url": "https://justiceinaging.org/hr1-reduces-medicaid-retroactive-eligibility-starting-in-2027/"
+    },
+    {
+      "date": "2027-01-06",
+      "what": "2027 regular session convenes (long session; must adjourn by June 9, 2027)",
+      "source_url": "https://cga.ct.gov/asp/Content/Adjourn.asp"
+    },
+    {
       "date": "2027-01-15",
       "what": "PA 26-71 Medicaid inpatient hospice pilot report due (implementation by Dec 30, 2027)",
       "source_url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
@@ -416,6 +455,11 @@
       "date": "2027-01-31",
       "what": "PA 26-72 section 13 peer support specialist reimbursement report due to Human Services Committee",
       "source_url": "https://prdext3.cga.ct.gov/2026/SUM/PDF/2026SUM00072-R02HB-05562-SUM.PDF"
+    },
+    {
+      "date": "2027-02-04",
+      "what": "Earliest date for the Governor's FY 2028-2029 budget: CGS 4-71 requires it by the first session day after February 3 (after February 14 for a newly elected Governor)",
+      "source_url": "https://www.cga.ct.gov/current/pub/chap_050.htm#sec_4-71"
     },
     {
       "date": "2027-02-15",
@@ -431,6 +475,11 @@
       "date": "2027-07-01",
       "what": "Small-house two-bed-limit waiver authority (PA 26-68 section 451) ends",
       "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0080.pdf"
+    },
+    {
+      "date": "2028-01-01",
+      "what": "P.L. 119-21 sec. 71109: home equity limit for Medicaid long-term care eligibility capped at $1 million, not indexed for inflation",
+      "source_url": "https://www.macpac.gov/wp-content/uploads/2025/09/01_September-Slides_Summary-of-P.L.-119-21-An-Act-to-Provide-for-Reconciliation-Pursuant-to-Title-II-of-H.-Con.-Res.-14.pdf"
     },
     {
       "date": "2029-01-01",

@@ -1,0 +1,103 @@
+{
+ "schema_version": "ct-ltcop-session-tracker-1.0",
+ "session": {
+  "year": 2027,
+  "type": "Long session (odd year)",
+  "convenes": "2027-01-06",
+  "adjourns": "2027-06-09"
+ },
+ "report": {
+  "label": "Pre-session",
+  "final": false,
+  "status_as_of": "2026-10-31",
+  "update_number": null,
+  "basis": "Bill list will follow the Long Term Care Ombudsman Program's posted weekly tracker for the 2027 session.",
+  "ltcop_tracker_url": "https://portal.ct.gov/ltcop/legislative-bill-tracker",
+  "empty_note": "The 2027 session convenes January 6, 2027. Bills are added here once the Program posts its first 2027 list. Until then, see the watch list on the Legislative Tracker page."
+ },
+ "disclaimer": "Research support for residents, families and advocates. Listing a bill here is not an endorsement or a position of the Connecticut Long Term Care Ombudsman Program.",
+ "lists": [
+  {
+   "id": 1,
+   "name": "List 1",
+   "description": "Nursing homes, assisted living, managed residential communities, CCRCs and residential care homes"
+  },
+  {
+   "id": 2,
+   "name": "List 2",
+   "description": "Home care, home and community-based services and hospice"
+  }
+ ],
+ "statuses": [
+  {
+   "id": "signed",
+   "label": "Signed into law",
+   "stage": 5,
+   "detail": "Passed both chambers and signed (public act or special act)"
+  },
+  {
+   "id": "vetoed",
+   "label": "Vetoed",
+   "stage": 5,
+   "detail": "Vetoed by the Governor"
+  },
+  {
+   "id": "passed_both",
+   "label": "Passed both chambers",
+   "stage": 4,
+   "detail": "Awaiting the Governor"
+  },
+  {
+   "id": "passed_one",
+   "label": "Passed one chamber",
+   "stage": 3,
+   "detail": "Passed the House or the Senate"
+  },
+  {
+   "id": "committee_passed",
+   "label": "Passed committee",
+   "stage": 2,
+   "detail": "Joint favorable report; awaiting further action"
+  },
+  {
+   "id": "hearing",
+   "label": "Public hearing",
+   "stage": 1,
+   "detail": "Public hearing scheduled or held; no committee vote yet"
+  },
+  {
+   "id": "introduced",
+   "label": "Introduced",
+   "stage": 0,
+   "detail": "Filed and referred to committee"
+  },
+  {
+   "id": "hearing_only",
+   "label": "Public hearing held",
+   "stage": 1,
+   "detail": "End of session: heard in committee; no favorable vote"
+  },
+  {
+   "id": "no_action",
+   "label": "No action",
+   "stage": 0,
+   "detail": "End of session: no public hearing or vote"
+  }
+ ],
+ "bills": [],
+ "also_enacted": [],
+ "sources": [
+  {
+   "title": "Connecticut General Assembly bill status pages (one per bill, linked in each row)",
+   "url": "https://www.cga.ct.gov/"
+  },
+  {
+   "title": "LTCOP Legislative Bill Tracker by Week",
+   "url": "https://portal.ct.gov/ltcop/legislative-bill-tracker"
+  },
+  {
+   "title": "CGA, session scheduling rules (2027 session dates)",
+   "url": "https://cga.ct.gov/asp/Content/Adjourn.asp"
+  }
+ ]
+}

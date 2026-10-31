@@ -164,7 +164,16 @@ async function main() {
     assert.match(await csv('#download-csv'), /PA 26-103/);
     console.log('PASS 2026 session tracker: 131 bills, filters, CSV');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), '/legislation/', '/legislation/2026/']) {
+    await visit('/legislation/2027/');
+    await page.locator('#bill-lists .empty').waitFor();
+    assert.equal(await page.locator('#bill-lists tbody tr').count(), 0);
+    assert.match(await page.locator('#bill-lists').innerText(), /January 6, 2027/);
+    assert.match(await page.locator('#summary-note').innerText(), /Pre-session/);
+    assert.doesNotMatch(await page.locator('#summary-note').innerText(), /ended without becoming law/);
+    assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
+    console.log('PASS 2027 session tracker: pre-session empty state');
+
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await page.setViewportSize({ width, height: 1000 });

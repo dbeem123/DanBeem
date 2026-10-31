@@ -20,6 +20,7 @@
     return iso ? parseDate(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
   }
   const billNumber = (b) => Number(b.bill.split(' ')[1]);
+  const isFinal = (data) => data.report.final === true || /final/i.test(data.report.label || '');
 
   async function load(url) {
     if (window.DanBeemData && typeof window.DanBeemData.loadJson === 'function') return window.DanBeemData.loadJson(url);
@@ -60,9 +61,10 @@
     ])));
     const s = data.session;
     const vetoed = bills.filter((b) => b.status === 'vetoed').length;
-    document.getElementById('summary-note').textContent =
-      `${s.type}, ${niceDate(s.convenes)} to ${niceDate(s.adjourns)}. ${data.report.label}; statuses as of ${niceDate(data.report.status_as_of)}. ` +
-      `${vetoed ? `${vetoed} vetoed. ` : 'No tracked bill was vetoed. '}Every bill not signed ended without becoming law when the session adjourned.`;
+    const head = `${s.type}, ${niceDate(s.convenes)} to ${niceDate(s.adjourns)}. ${data.report.label}; statuses as of ${niceDate(data.report.status_as_of)}. `;
+    document.getElementById('summary-note').textContent = isFinal(data)
+      ? head + `${vetoed ? `${vetoed} vetoed. ` : 'No tracked bill was vetoed. '}Every bill not signed ended without becoming law when the session adjourned.`
+      : head + (n ? 'Counts change as bills move; check each bill\'s status page for the latest action.' : (data.report.empty_note || 'No bills have been added yet.'));
   }
 
   function filters() {
@@ -86,6 +88,11 @@
       && (f.status === 'all' || b.status === f.status)
       && (f.committee === 'all' || b.committee === f.committee)
       && (!f.q || [b.bill, b.title, b.summary, b.committee, b.public_act].join(' ').toLowerCase().includes(f.q));
+    if (!data.bills.length) {
+      document.getElementById('result-note').textContent = 'No bills yet.';
+      document.getElementById('bill-lists').replaceChildren(el('p', { className: 'empty', text: data.report.empty_note || 'No bills have been added yet.' }));
+      return;
+    }
     const shown = data.bills.filter(match);
     document.getElementById('result-note').textContent = `${shown.length} of ${data.bills.length} bills shown.`;
     const blocks = data.lists.map((list) => {
@@ -110,7 +117,7 @@
   function renderEnacted(data) {
     const items = data.also_enacted || [];
     const box = document.getElementById('also-enacted');
-    if (!items.length) { box.replaceChildren(el('p', { className: 'empty', text: 'Added after the session ends.' })); return; }
+    if (!items.length) { box.replaceChildren(el('p', { className: 'empty', text: isFinal(data) ? 'None identified.' : 'Added after the session ends.' })); return; }
     const table = el('table', { className: 'stack' }, [
       el('thead', {}, [el('tr', {}, ['Act', 'Bill', 'What it means for residents'].map((h) => el('th', { scope: 'col', text: h })))]),
       el('tbody', {}, items.map((x) => el('tr', {}, [

@@ -50,21 +50,33 @@ Open questions are recorded in each entry's `notes`:
 
 A small subset of 2023 to 2025 entries rely on LTCOP's one-line descriptions rather than the act text. Re-read the act before quoting one in testimony.
 
-## Session bill tracker pages (`/legislation/2026/`, next `/legislation/2027/`)
-Each session gets one page that shows every bill on the Program's list, its plain summary and its status. The page reads `data/ct_ltcop_bill_tracker_<year>.json` through `Assets/ct-session-tracker.js`, so a new session needs no new code.
+## Session bill tracker pages (`/legislation/2026/` final, `/legislation/2027/` in progress)
+Each session gets one page that shows every bill on the Program's list, its plain summary and its status. The page reads `data/ct_ltcop_bill_tracker_<year>.json` through `Assets/ct-session-tracker.js`, so a new session needs no new code. `/legislation/2027/` already exists and shows a pre-session message until bills are added.
 
-To start 2027:
-1. Copy `legislation/2026/index.html` to `legislation/2027/index.html` and change `data-session-file` to `/data/ct_ltcop_bill_tracker_2027.json`.
-2. Copy the 2026 data file to `data/ct_ltcop_bill_tracker_2027.json`, then update it:
-   - Set `session` (2027, long session, 2027-01-06 to 2027-06-09).
-   - Set `report.label` to `Week of 1/12/2027 (Update 1)` and set `status_as_of`.
-   - Empty `bills` and `also_enacted`.
-3. Each week:
-   - Add new bills. Each needs: `id` such as `2027-sb123`, `bill`, `list` (1 or 2), `title`, a `summary` of 35 words or fewer, `committee`, `status`, `latest_action`, `latest_action_date` and `bill_status_url` with `which_year=2027`.
-   - Move statuses forward and update `report`.
-   - Run `python scripts/validate_ct_session_tracker.py 2027`.
-4. After the Governor acts on every bill:
-   - Set `report.label` to `Final report`.
+Statuses during the session: `introduced`, `hearing`, `committee_passed`, `passed_one`, `passed_both`, `signed`, `vetoed`. When the session ends, change `introduced` to `no_action` and `hearing` to `hearing_only`. The validator refuses in-progress statuses in a final report.
+
+### Each week during the 2027 session
+1. When the Program posts its weekly list, add any new bills to `data/ct_ltcop_bill_tracker_2027.json`. Each needs:
+   - `id` such as `2027-sb123`, `bill`, `list` (1 or 2), `title` and `committee`.
+   - A neutral `summary` of 35 words or fewer.
+   - `status`, `latest_action` and `latest_action_date`.
+   - `bill_status_url` with `which_year=2027`.
+2. Run `python scripts/ct_session_weekly_report.py 2027`. It lists every bill still moving, oldest recorded action first, with its status-page link. It flags bills with no recorded action in 14 days or more.
+3. Open each listed status page and update `status`, `latest_action` and `latest_action_date`. Add `public_act` when a bill is signed.
+4. Update `report`:
+   - Set `label`, for example `Week of 2/16/2027 (Update 6)`.
+   - Set `status_as_of` and `update_number`.
+   - Remove `empty_note` once bills are listed.
+5. Run `python scripts/validate_ct_session_tracker.py 2027` and `python scripts/test_ct_legislative_tracker.py`.
+6. Run the weekly report again. Its "Changes since the previous report" section, which compares against the last committed version, is the draft for the weekly post.
+
+### After the Governor acts on every bill
+1. Update the report and statuses:
+   - Set `report.label` to `Final report` and `report.final` to `true`.
+   - Convert end-of-session statuses as described above.
    - Add `public_act` numbers.
    - Fill `also_enacted`.
-5. Link the new page from `/legislation/` in place of the 2026 link.
+2. Move the session's key bills into `bills_past` on `/legislation/`.
+3. Set the next session in `session`.
+4. Start `legislation/2028/` by copying the 2027 page and data file. Reset the copied data file: set the 2028 session dates, set `report.label` to `Pre-session` with `final` false, and empty `bills` and `also_enacted`.
+5. Link the new page from `/legislation/`.

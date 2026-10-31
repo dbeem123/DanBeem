@@ -55,6 +55,12 @@ def problems(data: dict) -> list[str]:
         url = b.get("bill_status_url") or ""
         if not url.startswith("https://") or f"which_year={year}" not in url:
             out.append(f"{where}: bill_status_url should be the {year} CGA status link")
+    final = data["report"].get("final") is True or "final" in data["report"].get("label", "").lower()
+    if final:
+        for b in data["bills"]:
+            if b.get("status") in ("introduced", "hearing"):
+                out.append(f"{b.get('bill', '?')}: final report still has in-progress status {b['status']} "
+                           "(use hearing_only or no_action)")
     for x in data.get("also_enacted", []):
         if not ACT.match(x.get("act", "")):
             out.append(f"also_enacted {x.get('bill')}: act must look like 'PA 26-68'")
