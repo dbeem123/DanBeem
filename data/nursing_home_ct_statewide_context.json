@@ -1,7 +1,7 @@
 {
   "schema_version": "ct-statewide-context-1.0",
   "dataset_type": "nursing_home_ct_statewide_context",
-  "generated_at": "2026-10-30T17:05:33",
+  "generated_at": "2026-10-30T22:43:33",
   "source_history_generated_at": "2026-09-24T13:33:12",
   "history_window": {
     "first_quarter": "2017Q4",
@@ -505,6 +505,24 @@
         "source_url": "https://prdext3.cga.ct.gov/2025/cbs/S/pdf/SB-1279.pdf",
         "secondary_source_title": "CT Mirror, April 28, 2025",
         "secondary_source_url": "https://ctmirror.org/2025/04/28/ct-nursing-homes-direct-care-bill/"
+      },
+      {
+        "session": "2026",
+        "bill": "SB 288",
+        "title": "Nursing home bed moratorium exceptions, resident data, and related-party rate caps",
+        "summary": "Aging Committee bill on Department of Social Services recommendations: bed moratorium exceptions, timely resident data for rate setting, and excluding related-party employees from rate cost determinations. Not a staffing-ratio bill.",
+        "status": "Last action March 23, 2026: favorable report, tabled for the Senate calendar. The bill status page lists no public act.",
+        "source_title": "CGA bill status, SB 288 (2026)",
+        "source_url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0288.pdf"
+      },
+      {
+        "session": "2026",
+        "bill": "SB 289",
+        "title": "Funding of the quality metrics program for nursing homes",
+        "summary": "Aging Committee bill to implement the Department of Social Services quality metrics program for nursing homes. Not a staffing-ratio bill.",
+        "status": "Last action April 14, 2026: favorable report, tabled for the Senate calendar after Appropriations. The bill status page lists no public act.",
+        "source_title": "CGA bill status, SB 289 (2026)",
+        "source_url": "https://prdext2.cga.ct.gov/2026/cbs/S/pdf/SB-0289.pdf"
       }
     ],
     "scenario_levels": [
@@ -635,6 +653,7 @@
           "total_cmi": 1.1725
         }
       ]
-    }
+    },
+    "legislation_note": "Bills listed are those found in searches through October 30, 2026. A bill's content can also pass inside a budget or implementer act, so check the Connecticut General Assembly site before relying on this list."
   }
 }

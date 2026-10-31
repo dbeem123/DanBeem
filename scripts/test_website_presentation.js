@@ -140,6 +140,7 @@ async function main() {
     assert.match(await page.locator('#snapshot-cards').innerText(), /36/);
     assert.match(await page.locator('#scenario-table').innerText(), /120 of 190/);
     assert.equal(await page.locator('#trend-chart svg').count(), 1);
+    assert.equal(await page.locator('#legislation-table tbody tr').count(), 3);
     console.log('PASS Connecticut rules and context: 36 below 3.00, 120 of 190 below 3.60 scenario, trend chart');
 
     for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules')]) {

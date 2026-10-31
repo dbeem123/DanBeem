@@ -47,13 +47,47 @@
       "source_url": "https://prdext3.cga.ct.gov/2025/cbs/S/pdf/SB-1279.pdf",
       "secondary_source_title": "CT Mirror, April 28, 2025",
       "secondary_source_url": "https://ctmirror.org/2025/04/28/ct-nursing-homes-direct-care-bill/"
+    },
+    {
+      "session": "2026",
+      "bill": "SB 288",
+      "title": "Nursing home bed moratorium exceptions, resident data, and related-party rate caps",
+      "summary": "Aging Committee bill on Department of Social Services recommendations: bed moratorium exceptions, timely resident data for rate setting, and excluding related-party employees from rate cost determinations. Not a staffing-ratio bill.",
+      "status": "Last action March 23, 2026: favorable report, tabled for the Senate calendar. The bill status page lists no public act.",
+      "source_title": "CGA bill status, SB 288 (2026)",
+      "source_url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0288.pdf"
+    },
+    {
+      "session": "2026",
+      "bill": "SB 289",
+      "title": "Funding of the quality metrics program for nursing homes",
+      "summary": "Aging Committee bill to implement the Department of Social Services quality metrics program for nursing homes. Not a staffing-ratio bill.",
+      "status": "Last action April 14, 2026: favorable report, tabled for the Senate calendar after Appropriations. The bill status page lists no public act.",
+      "source_title": "CGA bill status, SB 289 (2026)",
+      "source_url": "https://prdext2.cga.ct.gov/2026/cbs/S/pdf/SB-0289.pdf"
     }
   ],
   "scenario_levels": [
-    { "hprd": 3.0, "label": "Current CT comparison point (3.00)", "kind": "current" },
-    { "hprd": 3.3, "label": "Hypothetical 3.30", "kind": "hypothetical" },
-    { "hprd": 3.6, "label": "Proposed in 2025 SB 1279 (3.60, not enacted)", "kind": "proposed" },
-    { "hprd": 4.1, "label": "Hypothetical 4.10", "kind": "hypothetical" }
+    {
+      "hprd": 3.0,
+      "label": "Current CT comparison point (3.00)",
+      "kind": "current"
+    },
+    {
+      "hprd": 3.3,
+      "label": "Hypothetical 3.30",
+      "kind": "hypothetical"
+    },
+    {
+      "hprd": 3.6,
+      "label": "Proposed in 2025 SB 1279 (3.60, not enacted)",
+      "kind": "proposed"
+    },
+    {
+      "hprd": 4.1,
+      "label": "Hypothetical 4.10",
+      "kind": "hypothetical"
+    }
   ],
   "workforce_context": [
     {
@@ -75,23 +109,92 @@
     "source_title": "DSS, CMI Averages",
     "source_url": "https://portal.ct.gov/dss/health-and-home-care/medicaid-nursing-home-reimbursement/nursing-home-reimbursement-acuity-based-methodology/cmi-averages",
     "quarters": [
-      { "quarter": "2021Q1", "medicaid_cmi": 0.9591, "total_cmi": 1.0471 },
-      { "quarter": "2021Q2", "medicaid_cmi": 0.9630, "total_cmi": 1.0250 },
-      { "quarter": "2021Q3", "medicaid_cmi": 0.9547, "total_cmi": 1.0126 },
-      { "quarter": "2021Q4", "medicaid_cmi": 0.9520, "total_cmi": 1.0117 },
-      { "quarter": "2022Q1", "medicaid_cmi": 0.9971, "total_cmi": 1.0628 },
-      { "quarter": "2022Q2", "medicaid_cmi": 1.0277, "total_cmi": 1.0758 },
-      { "quarter": "2022Q3", "medicaid_cmi": 1.0286, "total_cmi": 1.0767 },
-      { "quarter": "2022Q4", "medicaid_cmi": 1.0456, "total_cmi": 1.1013 },
-      { "quarter": "2023Q1", "medicaid_cmi": 1.0616, "total_cmi": 1.1176 },
-      { "quarter": "2023Q2", "medicaid_cmi": 1.0475, "total_cmi": 1.0903 },
-      { "quarter": "2023Q3", "medicaid_cmi": 1.0527, "total_cmi": 1.0885 },
-      { "quarter": "2023Q4", "medicaid_cmi": 1.0707, "total_cmi": 1.1233 },
-      { "quarter": "2024Q1", "medicaid_cmi": 1.0854, "total_cmi": 1.1439 },
-      { "quarter": "2024Q2", "medicaid_cmi": 1.0924, "total_cmi": 1.1369 },
-      { "quarter": "2024Q3", "medicaid_cmi": 1.0975, "total_cmi": 1.1396 },
-      { "quarter": "2024Q4", "medicaid_cmi": 1.1129, "total_cmi": 1.1547 },
-      { "quarter": "2025Q1", "medicaid_cmi": 1.1270, "total_cmi": 1.1725 }
+      {
+        "quarter": "2021Q1",
+        "medicaid_cmi": 0.9591,
+        "total_cmi": 1.0471
+      },
+      {
+        "quarter": "2021Q2",
+        "medicaid_cmi": 0.963,
+        "total_cmi": 1.025
+      },
+      {
+        "quarter": "2021Q3",
+        "medicaid_cmi": 0.9547,
+        "total_cmi": 1.0126
+      },
+      {
+        "quarter": "2021Q4",
+        "medicaid_cmi": 0.952,
+        "total_cmi": 1.0117
+      },
+      {
+        "quarter": "2022Q1",
+        "medicaid_cmi": 0.9971,
+        "total_cmi": 1.0628
+      },
+      {
+        "quarter": "2022Q2",
+        "medicaid_cmi": 1.0277,
+        "total_cmi": 1.0758
+      },
+      {
+        "quarter": "2022Q3",
+        "medicaid_cmi": 1.0286,
+        "total_cmi": 1.0767
+      },
+      {
+        "quarter": "2022Q4",
+        "medicaid_cmi": 1.0456,
+        "total_cmi": 1.1013
+      },
+      {
+        "quarter": "2023Q1",
+        "medicaid_cmi": 1.0616,
+        "total_cmi": 1.1176
+      },
+      {
+        "quarter": "2023Q2",
+        "medicaid_cmi": 1.0475,
+        "total_cmi": 1.0903
+      },
+      {
+        "quarter": "2023Q3",
+        "medicaid_cmi": 1.0527,
+        "total_cmi": 1.0885
+      },
+      {
+        "quarter": "2023Q4",
+        "medicaid_cmi": 1.0707,
+        "total_cmi": 1.1233
+      },
+      {
+        "quarter": "2024Q1",
+        "medicaid_cmi": 1.0854,
+        "total_cmi": 1.1439
+      },
+      {
+        "quarter": "2024Q2",
+        "medicaid_cmi": 1.0924,
+        "total_cmi": 1.1369
+      },
+      {
+        "quarter": "2024Q3",
+        "medicaid_cmi": 1.0975,
+        "total_cmi": 1.1396
+      },
+      {
+        "quarter": "2024Q4",
+        "medicaid_cmi": 1.1129,
+        "total_cmi": 1.1547
+      },
+      {
+        "quarter": "2025Q1",
+        "medicaid_cmi": 1.127,
+        "total_cmi": 1.1725
+      }
     ]
-  }
+  },
+  "legislation_note": "Bills listed are those found in searches through October 30, 2026. A bill's content can also pass inside a budget or implementer act, so check the Connecticut General Assembly site before relying on this list."
 }

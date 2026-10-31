@@ -142,14 +142,38 @@
       el('tbody', {}, body),
     ]);
     document.getElementById('scenario-table').replaceChildren(el('div', { className: 'table-scroll' }, [table]));
-    const bills = data.policy_reference.legislation || [];
+    const proposed = (data.policy_reference.legislation || []).find((b) => b.bill === 'SB 1279');
     const note = document.getElementById('legislation-note');
     note.replaceChildren();
-    bills.forEach((b) => {
-      note.append(document.createTextNode(`${b.session} ${b.bill}: ${b.summary} ${b.status} `));
-      note.append(el('a', { href: b.source_url, text: b.source_title }));
-      note.append(document.createTextNode('. '));
-    });
+    if (proposed) {
+      note.append(document.createTextNode(`${proposed.session} ${proposed.bill}: ${proposed.summary} ${proposed.status} `));
+      note.append(el('a', { href: proposed.source_url, text: proposed.source_title }));
+      note.append(document.createTextNode('. See the legislation list below for other bills.'));
+    }
+  }
+
+  function renderLegislation(data) {
+    const bills = (data.policy_reference.legislation || []).slice()
+      .sort((a, b) => String(b.session).localeCompare(String(a.session)));
+    const rows = bills.map((b) => el('tr', {}, [
+      el('th', { scope: 'row', text: `${b.session} ${b.bill}` }),
+      el('td', {}, [el('strong', { text: b.title }), el('div', { className: 'microcopy', text: b.summary })]),
+      el('td', {}, [document.createTextNode(`${b.status} `), el('a', { href: b.source_url, text: 'Bill status' })]),
+    ]));
+    const table = el('table', {}, [
+      el('caption', { text: 'Connecticut nursing home staffing and finance bills tracked here' }),
+      el('thead', {}, [el('tr', {}, [
+        el('th', { scope: 'col', text: 'Bill' }),
+        el('th', { scope: 'col', text: 'What it would do' }),
+        el('th', { scope: 'col', text: 'Status' }),
+      ])]),
+      el('tbody', {}, rows),
+    ]);
+    const box = document.getElementById('legislation-table');
+    box.replaceChildren(el('div', { className: 'table-scroll' }, [table]));
+    if (data.policy_reference.legislation_note) {
+      box.append(el('p', { className: 'microcopy', text: data.policy_reference.legislation_note }));
+    }
   }
 
   function renderAcuity(data) {
@@ -217,14 +241,18 @@
   async function init() {
     let data;
     try {
-      const response = await fetch(DATA_URL, { cache: 'no-cache' });
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      data = await response.json();
+      if (window.DanBeemData && typeof window.DanBeemData.loadJson === 'function') {
+        data = await window.DanBeemData.loadJson(DATA_URL);
+      } else {
+        const response = await fetch(DATA_URL, { cache: 'no-cache' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        data = await response.json();
+      }
     } catch (error) {
       fail(`The Connecticut statewide context export could not be loaded (${error.message}).`);
       return;
     }
-    const steps = [renderSnapshot, renderTimeline, renderChart, renderApplicableTable, renderScenarios, renderAcuity, renderWorkforce, renderSources];
+    const steps = [renderSnapshot, renderTimeline, renderChart, renderApplicableTable, renderScenarios, renderLegislation, renderAcuity, renderWorkforce, renderSources];
     steps.forEach((step) => {
       try { step(data); } catch (error) { console.error(`CT context: ${step.name} failed`, error); }
     });
