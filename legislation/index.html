@@ -33,10 +33,10 @@
     td .microcopy { margin-top:4px; font-size:13px; }
     .tag { display:inline-block; margin:6px 6px 0 0; padding:2px 8px; border-radius:999px; border:1px solid #c9def4; font-size:12px; font-weight:700; }
     .status-pill { display:inline-block; padding:3px 8px; border-radius:999px; font-size:12px; font-weight:800; white-space:nowrap; }
-    .status-pill.status-watch { color:var(--ltcop-muted); background:#f4f6f8; border-color:var(--ltcop-border); }
-    .status-pill.status-passed_one, .status-pill.status-passed_both { background:var(--ltcop-warning); border-color:#f1d398; }
-    .status-pill.status-signed { color:#155e33; background:#edf7f1; border-color:#b9dec8; }
-    .status-pill.status-failed, .status-pill.status-vetoed { color:#6b4650; background:var(--ltcop-danger-soft); border-color:#f4b7bd; }
+    body.ltcop-dashboard .status-pill.status-watch { color:var(--ltcop-muted); background:#f4f6f8; border-color:var(--ltcop-border); }
+    body.ltcop-dashboard .status-pill.status-passed_one, body.ltcop-dashboard .status-pill.status-passed_both { background:var(--ltcop-warning); border-color:#f1d398; }
+    body.ltcop-dashboard .status-pill.status-signed { color:#155e33; background:#edf7f1; border-color:#b9dec8; }
+    body.ltcop-dashboard .status-pill.status-failed, body.ltcop-dashboard .status-pill.status-vetoed { color:#6b4650; background:var(--ltcop-danger-soft); border-color:#f4b7bd; }
     .topic { padding:20px; margin-top:16px; }
     .topic h3 { margin:0 0 6px; }
     .topic > p { margin:0 0 4px; max-width:88ch; }
@@ -115,6 +115,7 @@
           <a href="#dates-title">Key dates</a>
           <a href="#past-title">Past sessions</a>
           <a href="#howto-title">Take part</a>
+          <a href="/legislation/2026/">2026 bill tracker (final)</a>
         </nav>
         <div id="disclaimer" class="notice warning">Listing a bill here is not an endorsement or a position of the Long Term Care Ombudsman Program.</div>
         <noscript><div class="notice">This page needs JavaScript to show the tracker. Bill information is also on the Connecticut General Assembly website, cga.ct.gov.</div></noscript>
@@ -140,6 +141,7 @@
             <div class="eyebrow">Upcoming Session</div>
             <h2 id="tracker-title">Bills and issues to watch</h2>
             <p id="tracker-note" class="subtle"></p>
+            <p class="subtle"><a href="/legislation/2026/">See the completed 2026 tracker</a>: every priority bill on the Program's 2026 list and where it ended up. The 2027 tracker will use the same layout.</p>
           </div>
         </div>
         <div class="filter-grid">
@@ -185,7 +187,7 @@
           <div>
             <div class="eyebrow">History</div>
             <h2 id="past-title">Past sessions, 2023 to 2026</h2>
-            <p class="subtle">Long-term care bills from recent sessions and what happened to them.</p>
+            <p class="subtle">Long-term care bills from recent sessions and what happened to them. For all 131 bills on the Program's 2026 list, see the <a href="/legislation/2026/">2026 bill tracker</a>.</p>
           </div>
         </div>
         <div class="filter-grid">

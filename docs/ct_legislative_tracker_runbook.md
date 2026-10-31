@@ -49,3 +49,22 @@ Open questions are recorded in each entry's `notes`:
 - PA 26-50 training hours, which sources state differently.
 
 A small subset of 2023 to 2025 entries rely on LTCOP's one-line descriptions rather than the act text. Re-read the act before quoting one in testimony.
+
+## Session bill tracker pages (`/legislation/2026/`, next `/legislation/2027/`)
+Each session gets one page that shows every bill on the Program's list, its plain summary and its status. The page reads `data/ct_ltcop_bill_tracker_<year>.json` through `Assets/ct-session-tracker.js`, so a new session needs no new code.
+
+To start 2027:
+1. Copy `legislation/2026/index.html` to `legislation/2027/index.html` and change `data-session-file` to `/data/ct_ltcop_bill_tracker_2027.json`.
+2. Copy the 2026 data file to `data/ct_ltcop_bill_tracker_2027.json`, then update it:
+   - Set `session` (2027, long session, 2027-01-06 to 2027-06-09).
+   - Set `report.label` to `Week of 1/12/2027 (Update 1)` and set `status_as_of`.
+   - Empty `bills` and `also_enacted`.
+3. Each week:
+   - Add new bills. Each needs: `id` such as `2027-sb123`, `bill`, `list` (1 or 2), `title`, a `summary` of 35 words or fewer, `committee`, `status`, `latest_action`, `latest_action_date` and `bill_status_url` with `which_year=2027`.
+   - Move statuses forward and update `report`.
+   - Run `python scripts/validate_ct_session_tracker.py 2027`.
+4. After the Governor acts on every bill:
+   - Set `report.label` to `Final report`.
+   - Add `public_act` numbers.
+   - Fill `also_enacted`.
+5. Link the new page from `/legislation/` in place of the 2026 link.
