@@ -38,6 +38,13 @@ async function main() {
     page.on('pageerror', e => errors.push(e.message));
     page.on('request', r => requests.push(r.url()));
     page.on('response', r => { if (r.url().startsWith(base) && r.status() >= 400 && !r.url().endsWith('/favicon.ico')) missing.push(r.url()); });
+    // Some browsers (seen in Edge 156 on Windows) report the new innerWidth before
+    // viewport-dependent styles are applied. Wait two animation frames after a resize
+    // so measurements see the settled layout.
+    async function resize(viewport) {
+      await page.setViewportSize(viewport);
+      await page.evaluate(() => new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    }
     async function visit(url) {
       const response = await page.goto(base + url);
       assert.equal(response.status(), 200, url);
@@ -176,7 +183,7 @@ async function main() {
     for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
-        await page.setViewportSize({ width, height: 1000 });
+        await resize({ width, height: 1000 });
         assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), `overflow ${url} at ${width}`);
         if (url.startsWith('/staffing/') && width < 900) {
           const toggle = page.locator('.staffing-nav-toggle');
@@ -193,7 +200,7 @@ async function main() {
       }
     }
     // A half-width viewport exercises the reflow expected at 200% desktop zoom.
-    await page.setViewportSize({ width: 720, height: 500 });
+    await resize({ width: 720, height: 500 });
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
     for (const name of tools) {
       await visit('/tools/nursing-home-' + name + '.html?ccn=075442#source-note-title');
