@@ -76,7 +76,7 @@
     {
       "id": "staffing_workforce",
       "name": "Staffing and workforce",
-      "why": "Staffing levels shape how quickly residents get help, how care is planned and whether residents are treated with dignity. Connecticut's standard is 3.00 direct-care hours per resident per day, of which 0.84 licensed. Proposals to raise it to 4.10 (2023 SB 1026) and 3.60 (2025 SB 1279) did not pass. The federal minimum staffing rule was repealed by CMS in December 2025, so the state standard is the main numeric floor.",
+      "why": "Staffing levels shape how quickly residents get help, how care is planned and whether residents are treated with dignity. Connecticut's standard is 3.00 direct-care hours per resident per day, of which 0.84 licensed, set by DPH policy. Proposals to raise it to 4.10 (2023 SB 1026) and 3.60 (2025 SB 1279, whose original text also reached 4.10 by 2028) did not pass. The federal minimum staffing rule was repealed by CMS in December 2025, so the state standard is the main numeric floor.",
       "stat_keys": [
         "homes_below_300",
         "homes_below_300_first",
@@ -100,7 +100,10 @@
         }
       ],
       "questions": [
-        "How many residents live in homes below the current standard, and for how many quarters in a row?",
+        {
+          "text": "How many residents live in homes below the current standard, and for how many quarters in a row?",
+          "link": "/staffing/tools/nursing-home-persistent-staffing-patterns.html"
+        },
         "What would a higher standard cost, and how would it be paid for through Medicaid rates?",
         "How are temporary agency staff counted, and do they cover the shortfall?",
         "What happens to residents when a home misses the standard: who checks, and how often?"
@@ -123,7 +126,7 @@
     {
       "id": "quality_oversight",
       "name": "Quality, inspections and oversight",
-      "why": "Inspections and penalties are how the state and CMS respond when care falls short. Recent laws raised DPH civil penalties (PA 25-96) and added training and monitoring rights (PA 26-28, PA 26-44).",
+      "why": "Inspections and penalties are how the state and CMS respond when care falls short. Recent laws revised DPH grounds for disciplining health care institutions, with penalties up to $25,000 (PA 25-96) and added training and monitoring rights (PA 26-28, PA 26-44).",
       "stat_keys": [
         "health_citations_3yr",
         "harm_citations_3yr",
@@ -182,7 +185,7 @@
       ],
       "context_facts": [
         {
-          "text": "The Ombudsman program's FFY 2025 report names fear of retaliation as an ongoing barrier to raising concerns in every long-term care setting.",
+          "text": "The Ombudsman program's FFY 2025 report names fear of retaliation as an ongoing barrier to raising concerns across long-term care settings.",
           "source_title": "CT LTCOP 2025 Annual Report",
           "source_url": "https://portal.ct.gov/-/media/ltcop/pdf/ltcop-2025-state-annual-report-finalpdf.pdf?rev=97a748b3e7fa43368767a054956e7151&hash=C381DAC39BEF97FE54C7C781889095E4"
         }
@@ -202,7 +205,7 @@
     {
       "id": "closures_capacity",
       "name": "Closures, capacity and emergencies",
-      "why": "Closures and evacuations uproot residents. The two-bed room limit for new placements began July 1, 2026 (PA 24-141), and 2026 laws changed the bed moratorium and certificate-of-need rules (PA 26-74).",
+      "why": "Closures and evacuations uproot residents. The two-bed room limit for new placements began July 1, 2026 (PA 24-141), and PA 26-74 lets DSS approve new Medicaid beds where occupancy tops 96% for two consecutive quarters.",
       "stat_keys": [
         "snf_count",
         "nf_closures",
@@ -224,7 +227,7 @@
     {
       "id": "community_settings",
       "name": "Residential care homes and assisted living",
-      "why": "Thousands of people live in residential care homes and assisted living, settings with fewer federal protections than nursing homes. 2026 laws added virtual monitoring in residential care homes (PA 26-28), fear-of-retaliation training in assisted living (PA 26-44), hearings on large assisted living fee increases (PA 26-74) and a working group on licensing managed residential communities (PA 26-13).",
+      "why": "Thousands of people live in residential care homes and assisted living, settings with fewer federal protections than nursing homes. 2026 laws added virtual monitoring in residential care homes (PA 26-28), fear-of-retaliation training in assisted living (PA 26-44), hearings before assisted living fee increases over 10% (PA 26-74) and a working group on licensing managed residential communities (PA 26-13).",
       "stat_keys": [
         "rch_count",
         "al_units"
@@ -268,16 +271,16 @@
     {
       "id": "aging_financing",
       "name": "Aging, long-term care financing and conservatorship",
-      "why": "Connecticut is aging, and how people pay for long-term care shapes where they can live. 2026 laws added long-term care insurance safeguards (PA 26-93) and conservatorship changes (PA 26-87).",
+      "why": "Connecticut is aging, and how people pay for long-term care shapes where they can live. 2026 laws added long-term care insurance safeguards (PA 26-93) and probate court changes, including conservatorship audits (PA 26-87).",
       "stat_keys": [],
       "context_facts": [
         {
-          "text": "About one in five Connecticut residents (20.4%) is 65 or older.",
+          "text": "About one in five Connecticut residents (20.4%) is 65 or older (Census estimates for July 1, 2025).",
           "source_title": "U.S. Census Bureau QuickFacts, Connecticut",
           "source_url": "https://www.census.gov/quickfacts/fact/table/CT,VT/PST045225"
         },
         {
-          "text": "Nearly 100,000 people in Connecticut have long-term care insurance; a CT Mirror review found more than 17,000 faced rate increases of 50% or more between January 2019 and October 2024.",
+          "text": "Per CT Mirror, nearly 100,000 people in Connecticut have long-term care insurance; a CT Mirror review found more than 17,000 faced rate increases of 50% or more between January 2019 and October 2024.",
           "source_title": "CT Mirror, May 6, 2026",
           "source_url": "https://ctmirror.org/2026/05/06/long-term-care-insurance-legislation-passed/"
         }
@@ -1879,5 +1882,8 @@
       "title": "Using these numbers",
       "text": "Quote the number with its period and source, as shown on each card. Staffing figures are screening estimates from payroll data, not DPH findings. A resident's own story, shared with their consent, is often the most persuasive testimony."
     }
-  ]
+  ],
+  "notes": {
+    "denominators": "Home counts differ by source: 190 homes reported Q1 2026 payroll data; 196 are in the CMS provider file; the Ombudsman program counts 191 licensed skilled nursing facilities."
+  }
 }

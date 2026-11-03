@@ -1,6 +1,6 @@
 {
   "schema_version": "ct-legislative-research-stats-1.0",
-  "generated_at": "2026-10-30T23:05:06",
+  "generated_at": "2026-11-03T15:37:58",
   "note": "Computed from data files published on this site. Each stat lists its source, period and caveat.",
   "stats": [
     {
@@ -17,7 +17,7 @@
       "key": "homes_below_300_first",
       "value": 50,
       "display": "50",
-      "label": "homes were below 3.00 in Q2 2023, the first full quarter the standard applied",
+      "label": "of 198 homes were below 3.00 in Q2 2023, the first full quarter the standard applied",
       "period": "Q2 2023",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
@@ -27,7 +27,7 @@
       "key": "homes_below_084",
       "value": 9,
       "display": "9",
-      "label": "homes had an estimated licensed-nurse level below the state's 0.84 hours per resident day",
+      "label": "of 190 homes had an estimated licensed-nurse level below the state's 0.84 hours per resident day",
       "period": "Q1 2026",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
@@ -236,8 +236,8 @@
     {
       "key": "ltcop_funding",
       "value": "Approximately $2,415,332",
-      "display": "About $2,415,332",
-      "label": "total program funding",
+      "display": "$2.42 million",
+      "label": "total operating budget",
       "period": "FFY 2025",
       "source": "Connecticut Long Term Care Ombudsman Program, 2025 Annual Report",
       "link": "/dashboards/impact-2025.html",

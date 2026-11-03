@@ -45,6 +45,10 @@ class TrackerTests(unittest.TestCase):
         self.assertEqual(s["homes_below_300"]["value"], 36)
         self.assertEqual(s["homes_below_360"]["value"], 120)
         self.assertEqual(s["ltcop_complaints"]["value"], 3253)
+        self.assertEqual(s["ltcop_funding"]["display"], "$2.42 million")
+        topics = {topic["id"]: topic for topic in self.tracker["topics"]}
+        self.assertNotIn("raised DPH civil penalties", topics["quality_oversight"]["why"])
+        self.assertNotIn("every", topics["discharge_rights"]["context_facts"][0]["text"].lower())
         for x in self.stats["stats"]:
             self.assertTrue(x["source"] and x["period"] and x["caveat"], x["key"])
 

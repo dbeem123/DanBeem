@@ -149,7 +149,7 @@
         cards.length ? el('div', { className: 'summary-grid' }, cards) : '',
         facts.length ? el('ul', { className: 'fact-list' }, facts) : '',
         el('div', { className: 'two-col' }, [
-          el('div', {}, [el('h4', { className: 'col-heading', text: 'Questions testimony can address' }), el('ul', {}, t.questions.map((q) => el('li', { text: q })))]),
+          el('div', {}, [el('h4', { className: 'col-heading', text: 'Questions testimony can address' }), el('ul', {}, t.questions.map((q) => typeof q === 'string' ? el('li', { text: q }) : el('li', {}, [link(q.link, q.text)])))]),
           el('div', {}, [
             el('h4', { className: 'col-heading', text: 'Related bills' }),
             related.length ? el('ul', {}, related.slice(0, 6).map((b) => el('li', {}, [link(b.bill_status_url, `${b.session} ${b.bill}`),
@@ -160,6 +160,7 @@
         ]),
       ]);
     }));
+    if (data.notes && data.notes.denominators) document.getElementById('topics').append(el('p', { className: 'microcopy', text: data.notes.denominators }));
     document.getElementById('topics').addEventListener('click', (e) => {
       const btn = e.target.closest('[data-copy]');
       if (btn) copyText(btn.getAttribute('data-copy'));

@@ -80,6 +80,14 @@ def problems(tracker: dict, stats: dict) -> list[str]:
                     out.append(f"{group}:{b['id']}: related id {rel} not found")
 
     for t in tracker["topics"]:
+        for question in t.get("questions", []):
+            if isinstance(question, str):
+                if not question.strip():
+                    out.append(f"topic {t['id']}: empty question")
+            elif isinstance(question, dict) and isinstance(question.get("text"), str) and question["text"].strip() and isinstance(question.get("link"), str) and question["link"]:
+                url_ok(f"topic {t['id']} question", question["link"])
+            else:
+                out.append(f"topic {t['id']}: invalid question")
         for k in t.get("stat_keys", []):
             if k not in stat_keys:
                 out.append(f"topic {t['id']}: stat key {k} not in research stats")
