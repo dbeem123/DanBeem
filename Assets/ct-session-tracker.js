@@ -29,6 +29,25 @@
     return r.json();
   }
 
+  /* Storylines (threads -> bills). Bills carry no thread field; this map is computed from the threads file. */
+  let byRef = new Map();
+  function indexThreads(threads) {
+    const map = new Map();
+    (threads ? threads.threads : []).forEach((th) => {
+      new Set(th.events.map((e) => e.ref).filter(Boolean).concat(th.watch || [])).forEach((id) => {
+        if (!map.has(id)) map.set(id, []);
+        map.get(id).push(th);
+      });
+    });
+    return map;
+  }
+  function partOf(id) {
+    const list = byRef.get(id) || [];
+    return list.length ? el('div', { className: 'part-of microcopy' }, [document.createTextNode('Part of: '),
+      ...list.flatMap((th, i) => [i ? ' ' : '', el('a', { className: 'tag thread-chip', href: `/legislation/#thread-${th.id}`, text: th.title })])]) : '';
+  }
+  const threadText = (id) => (byRef.get(id) || []).map((th) => `${th.title} ${th.summary}`).join(' ');
+
   function stageOf(data, id) { return (data.statuses.find((s) => s.id === id) || { stage: -1 }).stage; }
   function statusPill(data, id) {
     const st = data.statuses.find((s) => s.id === id) || { label: id };
@@ -87,7 +106,7 @@
     const match = (b) => (f.list === 'all' || String(b.list) === f.list)
       && (f.status === 'all' || b.status === f.status)
       && (f.committee === 'all' || b.committee === f.committee)
-      && (!f.q || [b.bill, b.title, b.summary, b.committee, b.public_act].join(' ').toLowerCase().includes(f.q));
+      && (!f.q || [b.bill, b.title, b.summary, b.committee, b.public_act, threadText(b.id)].join(' ').toLowerCase().includes(f.q));
     if (!data.bills.length) {
       document.getElementById('result-note').textContent = 'No bills yet.';
       document.getElementById('bill-lists').replaceChildren(el('p', { className: 'empty', text: data.report.empty_note || 'No bills have been added yet.' }));
@@ -100,7 +119,7 @@
       if (!rows.length) return null;
       const body = rows.map((b) => el('tr', {}, [
         el('th', { scope: 'row' }, [link(b.bill_status_url, b.bill), b.public_act ? el('span', { className: 'act', text: b.public_act }) : '']),
-        el('td', {}, [el('div', { text: b.summary }), el('span', { className: 'tag', text: b.committee })]),
+        el('td', {}, [el('div', { text: b.summary }), el('span', { className: 'tag', text: b.committee }), partOf(b.id)]),
         el('td', {}, [statusPill(data, b.status)]),
         el('td', {}, [el('div', { text: b.latest_action }), b.latest_action_date ? el('div', { className: 'microcopy', text: niceDate(b.latest_action_date) }) : '']),
       ]));
@@ -162,6 +181,7 @@
       document.getElementById('summary-note').replaceChildren(el('span', { className: 'notice error', text: `The tracker data could not be loaded (${error.message}).` }));
       return;
     }
+    try { byRef = indexThreads(await load('/data/ct_ltcop_legislative_threads.json')); } catch (error) { console.error('Storylines failed to load', error); }
     const fill = (id, opts) => opts.forEach(([v, t]) => document.getElementById(id).append(el('option', { value: v, text: t })));
     fill('f-list', data.lists.map((l) => [String(l.id), `${l.name}: ${l.description}`]));
     fill('f-status', data.statuses.filter((s) => data.bills.some((b) => b.status === s.id)).map((s) => [s.id, s.label]));

@@ -1,0 +1,820 @@
+{
+  "schema_version": "ct-ltcop-act-reference-1.0",
+  "last_updated": "2026-11-03",
+  "scope": "Connecticut public and special acts, 2021-2026, touching nursing homes, residential care homes, assisted living and managed residential communities, home and community-based long-term care, the Long Term Care Ombudsman Program, conservatorship or long-term care financing. Minor provisions of large acts are omitted.",
+  "disclaimer": "Summaries are neutral descriptions, not positions of the Long Term Care Ombudsman Program. Read the public act for exact provisions and effective dates.",
+  "sources": [
+    {
+      "session": 2021,
+      "title": "OLR 2021 Acts Affecting Seniors (2021-R-0109)",
+      "url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+    },
+    {
+      "session": 2022,
+      "title": "OLR 2022 Acts Affecting Seniors (2022-R-0118)",
+      "url": "https://www.cga.ct.gov/olr/Documents/year/AA/2022AA-0118_2022%20Acts%20Affecting%20Seniors.pdf"
+    },
+    {
+      "session": 2023,
+      "title": "OLR 2023 Acts Affecting Seniors (2023-R-0149)",
+      "url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+    },
+    {
+      "session": 2024,
+      "title": "OLR 2024 Acts Affecting Seniors (2024-R-0108)",
+      "url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+    },
+    {
+      "session": 2025,
+      "title": "OLR 2025 Acts Affecting Seniors (2025-R-0098)",
+      "url": "https://www.cga.ct.gov/olr/Documents/year/AA/2025AA-0098_2025%20Acts%20Affecting%20Seniors.pdf"
+    },
+    {
+      "session": 2026,
+      "title": "OLR 2026 Acts Affecting Seniors (2026-R-0085)",
+      "url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+    },
+    {
+      "session": null,
+      "title": "Long Term Care Ombudsman Program, Advocacy over the years",
+      "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
+    }
+  ],
+  "acts": [
+    {
+      "id": "2021-sb1202",
+      "session": 2021,
+      "bill": "SB 1202",
+      "public_act": "PA 21-2 (June Special Session)",
+      "title": "An Act Concerning Provisions Related to Revenue and Other Items to Implement the State Budget for the Biennium Ending June 30, 2023",
+      "summary": "Budget implementer: raises the monthly personal needs allowance for Medicaid long-term care residents from $60 to $75 and cuts state-funded home care cost sharing from 9% to 4.5%.",
+      "topics": [
+        "aging_financing",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00002-R00SB-01202SS1-PA.PDF"
+    },
+    {
+      "id": "2021-hb6100",
+      "session": 2021,
+      "bill": "HB 6100",
+      "public_act": "PA 21-37",
+      "title": "An Act Concerning Department of Consumer Protection Licensing and Enforcement, Antitrust Issues and the Palliative Use of Marijuana and Revisions to the Liquor Control Act",
+      "summary": "Requires homemaker-companion agencies to run national criminal background checks on prospective employees and bars hiring people with certain recent convictions.",
+      "topics": [
+        "community_settings",
+        "staffing_workforce"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00037-R00HB-06100-PA.PDF"
+    },
+    {
+      "id": "2021-sb975",
+      "session": 2021,
+      "bill": "SB 975",
+      "public_act": "PA 21-55",
+      "title": "An Act Strengthening the Bills of Rights for Long-Term Care Residents and Authorizing the Use of Resident Technology for Virtual Visitation and Virtual Monitoring",
+      "summary": "Adds the right to treat one's living quarters as home, including private communication and virtual visitation and monitoring technology, for nursing home and assisted living residents.",
+      "topics": [
+        "discharge_rights",
+        "quality_oversight",
+        "community_settings"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00055-R00SB-00975-PA.PDF"
+    },
+    {
+      "id": "2021-hb6634",
+      "session": 2021,
+      "bill": "HB 6634",
+      "public_act": "PA 21-71",
+      "title": "An Act Concerning Essential Support Persons and a State-Wide Visitation Policy for Residents of Long-Term Care Facilities",
+      "summary": "Lets residents designate an essential support person who may visit during restrictions, requires a statewide DPH visitation policy and adds Ombudsman duties on socialization and visitation.",
+      "topics": [
+        "discharge_rights",
+        "quality_oversight",
+        "ombudsman_program"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00071-R00HB-06634-PA.PDF"
+    },
+    {
+      "id": "2021-hb6666",
+      "session": 2021,
+      "bill": "HB 6666",
+      "public_act": "PA 21-121",
+      "title": "An Act Concerning the Department of Public Health's Recommendations Regarding Various Revisions to the Public Health Statutes",
+      "summary": "DPH revisions: assisted living licensing for managed residential communities, dementia unit approval, bed positioning, emergency bed capacity, electronic citations and nursing home IV care.",
+      "topics": [
+        "community_settings",
+        "quality_oversight",
+        "closures_capacity"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00121-R00HB-06666-PA.PDF"
+    },
+    {
+      "id": "2021-sb1046",
+      "session": 2021,
+      "bill": "SB 1046",
+      "public_act": "PA 21-150",
+      "title": "An Act Concerning Long-Term Care Insurance",
+      "summary": "Bars new long-term care insurance rate filings during a phased increase of 20% or more and requires affordable benefit options when such increases are filed.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00150-R00SB-01046-PA.PDF"
+    },
+    {
+      "id": "2021-hb6457",
+      "session": 2021,
+      "bill": "HB 6457",
+      "public_act": "PA 21-160",
+      "title": "An Act Concerning Access to Recordings and Images from Technology Used by Nursing Home Residents for Virtual Visitation and Virtual Monitoring",
+      "summary": "Requires nursing homes to let an employee facing discipline based on a resident's virtual monitoring recording access that recording to respond.",
+      "topics": [
+        "quality_oversight",
+        "staffing_workforce"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00160-R00HB-06457-PA.PDF"
+    },
+    {
+      "id": "2021-sb1030",
+      "session": 2021,
+      "bill": "SB 1030",
+      "public_act": "PA 21-185",
+      "title": "An Act Concerning Nursing Homes and Dementia Special Care Units",
+      "summary": "Requires DPH to set at least three hours of direct care per resident day, up from 1.9, plus infection-control specialists, PPE supplies, family councils and social-connection care plans.",
+      "topics": [
+        "staffing_workforce",
+        "quality_oversight",
+        "closures_capacity"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00185-R00SB-01030-PA.PDF"
+    },
+    {
+      "id": "2021-sb895",
+      "session": 2021,
+      "bill": "SB 895",
+      "public_act": "PA 21-192",
+      "title": "An Act Concerning Changes to Various Pharmacy Statutes",
+      "summary": "Allows licensed long-term care pharmacies to use automated prescription dispensing machines in nursing homes, with nurses administering the dispensed medications.",
+      "topics": [
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00192-R00SB-00895-PA.PDF"
+    },
+    {
+      "id": "2021-sb973",
+      "session": 2021,
+      "bill": "SB 973",
+      "public_act": "PA 21-194",
+      "title": "An Act Strengthening the Voice of Residents and Family Councils",
+      "summary": "Requires agencies to tell the Ombudsman about long-term care proposals and regulations, and requires state long-term care task forces to include resident and family council representatives.",
+      "topics": [
+        "ombudsman_program",
+        "discharge_rights"
+      ],
+      "source_url": "https://www.cga.ct.gov/2021/ACT/PA/PDF/2021PA-00194-R00SB-00973-PA.PDF"
+    },
+    {
+      "id": "2022-sb262",
+      "session": 2022,
+      "bill": "SB 262",
+      "public_act": "SA 22-12",
+      "title": "An Act Concerning a Study of Homemaker-Companion Agency Issues",
+      "summary": "Creates a task force to study homemaker-companion agency qualifications, complaint resolution and advertising.",
+      "topics": [
+        "community_settings",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/SA/PDF/2022SA-00012-R00SB-00262-SA.PDF"
+    },
+    {
+      "id": "2022-hb5313",
+      "session": 2022,
+      "bill": "HB 5313",
+      "public_act": "PA 22-57",
+      "title": "An Act Concerning Temporary Nursing Services Agencies, Reporting of Involuntary Transfers and Discharges from Nursing Homes and Residential Care Homes, Elder Abuse Training, Legal Rights of Long-Term Care Applicants and a Study of Managed Residential Community Issues",
+      "summary": "Creates registration and cost reporting for temporary nursing agencies, electronic reporting of involuntary discharges to the Ombudsman, elder abuse training, a Medicaid legal-rights advisory and an MRC working group.",
+      "topics": [
+        "staffing_workforce",
+        "discharge_rights",
+        "ombudsman_program",
+        "community_settings",
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00057-R00HB-05313-PA.PDF"
+    },
+    {
+      "id": "2022-hb5500",
+      "session": 2022,
+      "bill": "HB 5500",
+      "public_act": "PA 22-58",
+      "title": "An Act Concerning the Department of Public Health's Recommendations Regarding Various Revisions to the Public Health Statutes",
+      "summary": "DPH revisions: infection-prevention specialist rules, residential care home discharge notice contacts, administrator infection-control training, strike staffing plans and an assisted living dementia-care task force.",
+      "topics": [
+        "quality_oversight",
+        "discharge_rights",
+        "community_settings",
+        "staffing_workforce"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00058-R00HB-05500-PA.PDF"
+    },
+    {
+      "id": "2022-hb5330",
+      "session": 2022,
+      "bill": "HB 5330",
+      "public_act": "PA 22-104",
+      "title": "An Act Concerning Cannabis Advertising and the Department of Consumer Protection's Recommendations Regarding Various Revisions to the Consumer Protection Statutes",
+      "summary": "Bars homemaker-companion agency owners and staff, other than immediate family, from acting as a client's agent under a power of attorney, unless exempted for good cause.",
+      "topics": [
+        "community_settings",
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00104-R00HB-05330-PA.PDF"
+    },
+    {
+      "id": "2022-hb5506",
+      "session": 2022,
+      "bill": "HB 5506",
+      "public_act": "PA 22-118",
+      "title": "An Act Adjusting the State Budget for the Biennium Ending June 30, 2023, Concerning Provisions Related to Revenue, School Construction and Other Items to Implement the State Budget and Authorizing and Adjusting Bonds of the State",
+      "summary": "Budget adjustments: creates the Community Ombudsman program for home care, lowers state home care cost sharing to 3%, raises the community spouse asset minimum to $50,000.",
+      "topics": [
+        "ombudsman_program",
+        "aging_financing",
+        "community_settings",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00118-R00HB-05506-PA.PDF"
+    },
+    {
+      "id": "2022-sb173",
+      "session": 2022,
+      "bill": "SB 173",
+      "public_act": "PA 22-121",
+      "title": "An Act Concerning a Study of the Cost and Feasibility of Permitting the Community Spouse of an Institutionalized Medicaid Recipient to Retain the Maximum Amount of Allowable Assets",
+      "summary": "Requires a DSS study of letting the community spouse of an institutionalized Medicaid recipient keep combined assets up to the federal maximum.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00121-R00SB-00173-PA.PDF"
+    },
+    {
+      "id": "2022-sb286",
+      "session": 2022,
+      "bill": "SB 286",
+      "public_act": "PA 22-145",
+      "title": "An Act Concerning Elder Abuse Reporting Deadlines, Temporary Family Assistance, Certificates of Need for Long-Term Care Facilities and Civil Penalties for Nursing Homes That Fail to Use Rate Increases for Employee Wage Enhancements",
+      "summary": "Shortens elder abuse reporting to 24 hours, lets DSS penalize nursing homes that do not use wage rate increases for staff wages, and allows small-house nursing home approvals.",
+      "topics": [
+        "staffing_workforce",
+        "closures_capacity",
+        "ownership_finance"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00145-R00SB-00286-PA.PDF"
+    },
+    {
+      "id": "2022-sb9",
+      "session": 2022,
+      "bill": "SB 9",
+      "public_act": "PA 22-146",
+      "title": "An Act Concerning Additional Adjustments to the State Budget for the Biennium Ending June 30, 2023, a Community Ombudsman Program, Certain Municipal-Related Provisions, School Building Project Grants and High-Deductible Health Plans",
+      "summary": "Budget adjustments, including Community Ombudsman program provisions; bars state agencies from recovering or offsetting federal ARPA funds provided for home- and community-based services.",
+      "topics": [
+        "aging_financing",
+        "ombudsman_program",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2022/ACT/PA/PDF/2022PA-00146-R00SB-00009-PA.PDF"
+    },
+    {
+      "id": "2023-hb6677",
+      "session": 2023,
+      "bill": "HB 6677",
+      "public_act": "PA 23-30",
+      "title": "An Act Concerning Adult Day Centers",
+      "summary": "Requires DSS to plan wider adult day eligibility under the home care program for elders and allows a Medicaid state plan amendment covering PACE.",
+      "topics": [
+        "aging_financing",
+        "community_settings",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00030-R00HB-06677-PA.PDF"
+    },
+    {
+      "id": "2023-hb6733",
+      "session": 2023,
+      "bill": "HB 6733",
+      "public_act": "PA 23-31",
+      "title": "An Act Concerning the Department of Public Health's Recommendations Regarding Various Revisions to the Public Health Statutes",
+      "summary": "Allows assisted living services agencies to serve people who are not chronic and stable when a home health or hospice agency is involved or ancillary services are arranged.",
+      "topics": [
+        "community_settings"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00031-R00HB-06733-PA.PDF"
+    },
+    {
+      "id": "2023-sb956",
+      "session": 2023,
+      "bill": "SB 956",
+      "public_act": "PA 23-39",
+      "title": "An Act Requiring Discharge Standards Regarding Follow-Up Appointments and Prescription Medications for Patients Being Discharged from a Hospital or Nursing Home Facility",
+      "summary": "Requires hospital and nursing home discharge plans to list follow-up appointments and medications, and electronic prescription transmission for patients discharged home.",
+      "topics": [
+        "discharge_rights"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00039-R00SB-00956-PA.PDF"
+    },
+    {
+      "id": "2023-hb5781",
+      "session": 2023,
+      "bill": "HB 5781",
+      "public_act": "PA 23-48",
+      "title": "An Act Concerning Notice of a Proposed Involuntary Transfer or Discharge of a Nursing Facility Resident, Family Councils in Managed Residential Communities, Coordination of Dementia Services, Nursing Home Transparency and Homemaker-Companion Agencies",
+      "summary": "Requires same-day Ombudsman notice of involuntary transfers or discharges, family councils in assisted living, a dementia services coordinator, a Medicaid rate guidebook and homemaker-companion agency rules.",
+      "topics": [
+        "discharge_rights",
+        "community_settings",
+        "ownership_finance",
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00048-R00HB-05781-PA.PDF"
+    },
+    {
+      "id": "2023-sb9",
+      "session": 2023,
+      "bill": "SB 9",
+      "public_act": "PA 23-97",
+      "title": "An Act Concerning Health and Wellness for Connecticut Residents",
+      "summary": "Requires DSS to establish a personal care attendant career pathways program to improve care quality and recruitment.",
+      "topics": [
+        "staffing_workforce",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00097-R00SB-00009-PA.PDF"
+    },
+    {
+      "id": "2023-hb6767",
+      "session": 2023,
+      "bill": "HB 6767",
+      "public_act": "PA 23-99",
+      "title": "An Act Concerning the Department of Consumer Protection's Recommendations Regarding Licensing and Enforcement",
+      "summary": "Requires homemaker-companion agencies to give 60 days' notice of rate changes and notice before stopping services, and increases DCP oversight of ownership changes and closures.",
+      "topics": [
+        "community_settings",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00099-R00HB-06767-PA.PDF"
+    },
+    {
+      "id": "2023-hb6731",
+      "session": 2023,
+      "bill": "HB 6731",
+      "public_act": "PA 23-122",
+      "title": "An Act Concerning the Department of Public Health's Recommendations Regarding Change in Ownership of Health Care Facilities",
+      "summary": "Expands when health care institutions, including nursing homes, need DPH approval for ownership changes and lowers the license-applicant ownership disclosure threshold to 5%.",
+      "topics": [
+        "ownership_finance"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00122-R00HB-06731-PA.PDF"
+    },
+    {
+      "id": "2023-sb989",
+      "session": 2023,
+      "bill": "SB 989",
+      "public_act": "PA 23-186",
+      "title": "An Act Concerning Nonprofit Provider Retention of Contract Savings, Community Health Worker Medicaid Reimbursement and Studies of Medicaid Rates of Reimbursement, Nursing Home Transportation and Nursing Home Waiting Lists",
+      "summary": "Lets nursing homes transport nonambulatory residents to nearby family homes and creates an Ombudsman-convened working group on nursing home waiting lists.",
+      "topics": [
+        "closures_capacity",
+        "ombudsman_program"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00186-R00SB-00989-PA.PDF"
+    },
+    {
+      "id": "2023-hb6941",
+      "session": 2023,
+      "bill": "HB 6941",
+      "public_act": "PA 23-204",
+      "title": "An Act Concerning the State Budget for the Biennium Ending June 30, 2025, and Making Appropriations Therefor, and Provisions Related to Revenue and Other Items Implementing the State Budget",
+      "summary": "Budget: schedules a HUSKY C eligibility expansion, aligns state supplement start dates for residential care home residents and allows PACE coverage under Medicaid.",
+      "topics": [
+        "aging_financing",
+        "community_settings",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2023/ACT/PA/PDF/2023PA-00204-R00HB-06941-PA.PDF"
+    },
+    {
+      "id": "2024-hb5457",
+      "session": 2024,
+      "bill": "HB 5457",
+      "public_act": "PA 24-17",
+      "title": "An Act Concerning Nursing Home Waiting Lists",
+      "summary": "Changes Medicaid-certified nursing home waiting list rules, including admitting applicants in order once an application is substantially completed.",
+      "topics": [
+        "closures_capacity",
+        "ombudsman_program"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00017-R00HB-05457-PA.PDF"
+    },
+    {
+      "id": "2024-sb1",
+      "session": 2024,
+      "bill": "SB 1",
+      "public_act": "PA 24-19",
+      "title": "An Act Concerning the Health and Safety of Connecticut Residents",
+      "summary": "Defines direct care for the three-hour staffing minimum, requires workplace violence standards and home health worker safety rules, and bars refusing admission for past mental health services.",
+      "topics": [
+        "staffing_workforce",
+        "quality_oversight",
+        "discharge_rights"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00019-R00SB-00001-PA.PDF"
+    },
+    {
+      "id": "2024-hb5308",
+      "session": 2024,
+      "bill": "HB 5308",
+      "public_act": "PA 24-34",
+      "title": "An Act Concerning Absentee Voting for Certain Patients of Nursing Homes",
+      "summary": "Lets nursing home residents apply for absentee ballots in the six days before an election and name a designee to deliver them.",
+      "topics": [
+        "discharge_rights"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00034-R00HB-05308-PA.PDF"
+    },
+    {
+      "id": "2024-hb5001",
+      "session": 2024,
+      "bill": "HB 5001",
+      "public_act": "PA 24-39",
+      "title": "An Act Supporting Connecticut Seniors and the Improvement of Nursing and Home-Based Care",
+      "summary": "Home care registry, presumptive Medicaid home care eligibility, photo badges, Care Compare links, a nursing home dashboard, MRC notices and consumer guide, and Ombudsman consent changes.",
+      "topics": [
+        "quality_oversight",
+        "community_settings",
+        "ombudsman_program",
+        "aging_financing",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00039-R00HB-05001-PA.PDF"
+    },
+    {
+      "id": "2024-hb5523",
+      "session": 2024,
+      "bill": "HB 5523",
+      "public_act": "PA 24-81",
+      "title": "An Act Concerning Allocations of Federal American Rescue Plan Act Funds and Provisions Related to General Government, Human Services, Education and the Biennium Ending June 30, 2025",
+      "summary": "Budget adjustments: replaces the scheduled HUSKY C income limit increase with 159% of the TFA benefit and limits estate recovery for state humane institution care.",
+      "topics": [
+        "aging_financing",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00081-R00HB-05523-PA.PDF"
+    },
+    {
+      "id": "2024-sb324",
+      "session": 2024,
+      "bill": "SB 324",
+      "public_act": "PA 24-97",
+      "title": "An Act Concerning Probate Court Operations and Administration",
+      "summary": "Sets procedures for notifying an out-of-state or unlocatable spouse, and certain relatives, of an involuntary conservatorship petition.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00097-R00SB-00324-PA.PDF"
+    },
+    {
+      "id": "2024-hb5046",
+      "session": 2024,
+      "bill": "HB 5046",
+      "public_act": "PA 24-141",
+      "title": "An Act Promoting Nursing Home Resident Quality of Life",
+      "summary": "Bars placing new admissions in rooms of more than two beds from July 2026; adds receivership, plan-of-correction penalties, assisted living fee notices and closure-transfer admission rules.",
+      "topics": [
+        "closures_capacity",
+        "quality_oversight",
+        "ownership_finance",
+        "community_settings"
+      ],
+      "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00141-R00HB-05046-PA.PDF"
+    },
+    {
+      "id": "2025-hb6442",
+      "session": 2025,
+      "bill": "HB 6442",
+      "public_act": "PA 25-15",
+      "title": "An Act Concerning Various Measures Recognizing and Honoring the Military Service of Veterans and Members of the Armed Forces in Connecticut",
+      "summary": "Requires nursing homes with U.S. Department of Veterans Affairs contracts to admit eligible veterans regardless of the waiting list.",
+      "topics": [
+        "closures_capacity"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00015-R00HB-06442-PA.PDF"
+    },
+    {
+      "id": "2025-hb6771",
+      "session": 2025,
+      "bill": "HB 6771",
+      "public_act": "PA 25-16",
+      "title": "An Act Establishing an Alzheimer's Disease and Dementia Task Force (omnibus; also biomarker testing, residential care home transfers and discharges, nursing home tuition waivers, and closures and evacuations)",
+      "summary": "Background checks for all long-term care facility hires, residential care home discharge notices to the Ombudsman portal, placement near family, waiting-list exceptions and an Alzheimer's task force.",
+      "topics": [
+        "community_settings",
+        "discharge_rights",
+        "closures_capacity",
+        "ombudsman_program"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00016-R00HB-06771-PA.PDF"
+    },
+    {
+      "id": "2025-hb6913",
+      "session": 2025,
+      "bill": "HB 6913",
+      "public_act": "PA 25-17",
+      "title": "An Act Prohibiting Long-Term Care Facilities from Discriminating Against Long-Term Care Facility Residents",
+      "summary": "Bars nursing homes and assisted living facilities from discriminating against residents on listed grounds; requires notices, cultural competency training and physical privacy in care.",
+      "topics": [
+        "quality_oversight",
+        "community_settings"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00017-R00HB-06913-PA.PDF"
+    },
+    {
+      "id": "2025-sb1221",
+      "session": 2025,
+      "bill": "SB 1221",
+      "public_act": "PA 25-30",
+      "title": "An Act Making Changes to the Connecticut Retirement Security Program",
+      "summary": "Extends the Connecticut Retirement Security Program to certain personal care attendants in state-funded programs, such as the home care program for elders, from July 1, 2026.",
+      "topics": [
+        "staffing_workforce",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00030-R00SB-01221-PA.PDF"
+    },
+    {
+      "id": "2025-sb1501",
+      "session": 2025,
+      "bill": "SB 1501",
+      "public_act": "PA 25-48",
+      "title": "An Act Concerning Probate Court Operations",
+      "summary": "Creates a probate working group on conservator payment, fees and compensation, and widens certified-mail notice to relatives in involuntary conservatorship cases.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00048-R00SB-01501-PA.PDF"
+    },
+    {
+      "id": "2025-hb6978",
+      "session": 2025,
+      "bill": "HB 6978",
+      "public_act": "PA 25-96",
+      "title": "An Act Concerning the Department of Public Health's Recommendations Regarding Various Revisions to the Public Health Statutes",
+      "summary": "DPH revisions, including revised grounds for disciplining licensed health care institutions, with civil penalties up to $25,000.",
+      "topics": [
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00096-R00HB-06978-PA.PDF"
+    },
+    {
+      "id": "2025-sb1380",
+      "session": 2025,
+      "bill": "SB 1380",
+      "public_act": "PA 25-154",
+      "title": "An Act Prohibiting Discrimination by Health Care Providers in the Provision of Health Care Services in the State",
+      "summary": "Bars health care providers from knowingly discriminating in providing care based on listed characteristics, making it a discriminatory practice under CHRO laws.",
+      "topics": [
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00154-R00SB-01380-PA.PDF"
+    },
+    {
+      "id": "2025-hb7287",
+      "session": 2025,
+      "bill": "HB 7287",
+      "public_act": "PA 25-168",
+      "title": "An Act Concerning the State Budget for the Biennium Ending June 30, 2027, and Making Appropriations Therefor, and Provisions Related to Revenue and Other Items Implementing the State Budget",
+      "summary": "Budget: scheduled a 6% revenue tax to replace the user fee (repealed in 2026 first), funds wage-linked rate increases, a quality metrics program and wider Community Ombudsman scope.",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce",
+        "quality_oversight",
+        "ombudsman_program",
+        "aging_financing",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00168-R00HB-07287-PA.PDF"
+    },
+    {
+      "id": "2026-hb5044",
+      "session": 2026,
+      "bill": "HB 5044",
+      "public_act": "PA 26-3",
+      "title": "An Act Establishing Connecticut Vaccine Standards",
+      "summary": "Sets state immunization standards of care and requires DPH nursing home rules on respiratory virus immunization based on them.",
+      "topics": [
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00003-R00HB-05044-PA.PDF"
+    },
+    {
+      "id": "2026-hb5003",
+      "session": 2026,
+      "bill": "HB 5003",
+      "public_act": "PA 26-12",
+      "title": "An Act Concerning Workforce Development and Working Conditions in the State",
+      "summary": "Lets DDS and DSS give direct care employees facing discipline, or their union, access to virtual monitoring evidence under confidentiality conditions.",
+      "topics": [
+        "staffing_workforce",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00012-R00HB-05003-PA.PDF"
+    },
+    {
+      "id": "2026-hb5485",
+      "session": 2026,
+      "bill": "HB 5485",
+      "public_act": "SA 26-12",
+      "title": "An Act Concerning Supported Decision-Making Study",
+      "summary": "Creates a working group to study supported decision-making for people with disabilities and older adults, reporting by December 31, 2026.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/SA/PDF/2026SA-00012-R00HB-05485-SA.PDF"
+    },
+    {
+      "id": "2026-hb5514",
+      "session": 2026,
+      "bill": "HB 5514",
+      "public_act": "PA 26-13",
+      "title": "An Act Concerning Various Revisions to the Public Health Statutes",
+      "summary": "Public health revisions, including a DPH working group on whether licensing managed residential communities would improve residents' health, safety and well-being.",
+      "topics": [
+        "community_settings",
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00013-R00HB-05514-PA.PDF"
+    },
+    {
+      "id": "2026-hb5142",
+      "session": 2026,
+      "bill": "HB 5142",
+      "public_act": "PA 26-28",
+      "title": "An Act Concerning the Use of Technology for Virtual Monitoring in Residential Care Homes",
+      "summary": "Lets residential care home residents use their own virtual monitoring technology with notice and roommate consent, and narrows nursing home liability immunity while extending it to these homes.",
+      "topics": [
+        "community_settings",
+        "quality_oversight",
+        "ombudsman_program"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00028-R00HB-05142-PA.PDF"
+    },
+    {
+      "id": "2026-hb5406",
+      "session": 2026,
+      "bill": "HB 5406",
+      "public_act": "PA 26-35",
+      "title": "An Act Concerning Assorted Measures Recognizing and Honoring the Heroism of Veterans and Members of the Armed Forces and Making Various Revisions to Statutes Related to Veterans' and Military Affairs",
+      "summary": "Veterans measures, including a task force on encouraging Medicaid-certified nursing homes to contract with the U.S. Department of Veterans Affairs.",
+      "topics": [
+        "closures_capacity"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00035-R00HB-05406-PA.PDF"
+    },
+    {
+      "id": "2026-hb5141",
+      "session": 2026,
+      "bill": "HB 5141",
+      "public_act": "PA 26-44",
+      "title": "An Act Concerning Fear of Retaliation Training for Persons Providing Assisted Living Services in Managed Residential Communities",
+      "summary": "Requires assisted living services agencies serving managed residential communities to give employees annual training on residents' fear of retaliation for complaints.",
+      "topics": [
+        "community_settings",
+        "staffing_workforce",
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00044-R00HB-05141-PA.PDF"
+    },
+    {
+      "id": "2026-hb5143",
+      "session": 2026,
+      "bill": "HB 5143",
+      "public_act": "PA 26-50",
+      "title": "An Act Requiring Training for Homemaker-Companion Agency Employees",
+      "summary": "Requires at least eight hours of annual paid training for homemaker-companion agency employees from January 2027, using DCP-approved programs.",
+      "topics": [
+        "staffing_workforce",
+        "quality_oversight",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00050-R00HB-05143-PA.PDF"
+    },
+    {
+      "id": "2026-sb1",
+      "session": 2026,
+      "bill": "SB 1",
+      "public_act": "PA 26-68",
+      "title": "An Act Making Adjustments to the State Budget for the Biennium Ending June 30, 2027",
+      "summary": "Budget adjustments: repeals the planned 6% nursing home tax, adds performance and high-Medicaid payments, PDPM phase-in, a small-house two-bed waiver, unlicensed facility penalties and a caregiver tax credit.",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce",
+        "closures_capacity",
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00068-R00SB-00001-PA.PDF"
+    },
+    {
+      "id": "2026-hb5562",
+      "session": 2026,
+      "bill": "HB 5562",
+      "public_act": "PA 26-72",
+      "title": "An Act Concerning Various Revisions to Human Services Statutes",
+      "summary": "Adds DSS abuse-reporting contacts to MRC rights postings, adopts two federal nursing home resident-rights rules by reference, and broadens long-term care planning studies.",
+      "topics": [
+        "community_settings",
+        "quality_oversight",
+        "aging_financing",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00072-R00HB-05562-PA.PDF"
+    },
+    {
+      "id": "2026-sb123",
+      "session": 2026,
+      "bill": "SB 123",
+      "public_act": "PA 26-74",
+      "title": "An Act Concerning Assisted Living Rate-Increase Hearings, Municipal Agents for Aging, Generator Requirements, Home Health Aide PPE, the Nursing Home Bed Moratorium, and Nursing Home Data",
+      "summary": "Requires hearings before assisted living fee increases over 10%, free PPE for home health aides, a bed-moratorium exception for new Medicaid beds and new MDS audit procedures.",
+      "topics": [
+        "community_settings",
+        "closures_capacity",
+        "quality_oversight",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00074-R00SB-00123-PA.PDF"
+    },
+    {
+      "id": "2026-sb477",
+      "session": 2026,
+      "bill": "SB 477",
+      "public_act": "PA 26-76",
+      "title": "An Act Concerning the Failure to File for Certain Grand List Exemptions, a Municipal Option to Abate Delinquent Property Taxes, State Fund Allocations, and Budget Implementation (biennium ending June 30, 2027)",
+      "summary": "Lets DSS set bed need at a lower occupancy for relocations to meet the two-bed limit, waives the limit for certain state-established homes and amends wage-increase rules.",
+      "topics": [
+        "closures_capacity",
+        "staffing_workforce"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00076-R00SB-00477-PA.PDF"
+    },
+    {
+      "id": "2026-sb400",
+      "session": 2026,
+      "bill": "SB 400",
+      "public_act": "PA 26-87",
+      "title": "An Act Concerning Probate Court Operations",
+      "summary": "Probate court changes, including general audits of a conservator's financial management and clarified notice for involuntary conservatorship hearings.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00087-R00SB-00400-PA.PDF"
+    },
+    {
+      "id": "2026-sb478",
+      "session": 2026,
+      "bill": "SB 478",
+      "public_act": "PA 26-93",
+      "title": "An Act Concerning Consumer Safeguards for Long-Term Care Policies",
+      "summary": "Long-term care insurance: new loss reporting, Insurance Commissioner investigation and discipline authority, and an optional report on refund and cancellation requirements.",
+      "topics": [
+        "aging_financing"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00093-R00SB-00478-PA.PDF"
+    },
+    {
+      "id": "2026-sb125",
+      "session": 2026,
+      "bill": "SB 125",
+      "public_act": "PA 26-103",
+      "title": "An Act Requiring Nursing Homes to Annually Report Certain Ownership Information Regarding Investment Entities",
+      "summary": "Requires annual nursing home reports on investment-entity owners from 2027, licensee-control attestations from 2028, possible surety bonds and a DSS report on care quality.",
+      "topics": [
+        "ownership_finance",
+        "quality_oversight"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00103-R00SB-00125-PA.PDF"
+    },
+    {
+      "id": "2026-hb5561",
+      "session": 2026,
+      "bill": "HB 5561",
+      "public_act": "PA 26-146",
+      "title": "An Act Concerning a Five-Year Medicaid Rate Review, Dental Representation on a Medical Assistance Oversight Council, Biomarker Testing and Opioid Prescription Coverage Requirements, and a Study Concerning Payment of Spouses for State-Subsidized Home Care",
+      "summary": "Requires a five-year Medicaid rate review process starting by January 2027 and a working group on paying spouses who provide personal care.",
+      "topics": [
+        "aging_financing",
+        "home_community_care"
+      ],
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00146-R00HB-05561-PA.PDF"
+    }
+  ]
+}

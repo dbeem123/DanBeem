@@ -91,20 +91,33 @@
     options.forEach(([value, label]) => select.append(el('option', { value, text: label })));
   }
 
+  let byRef = new Map();
+  let threadList = [];
+  const threadText = (id) => (byRef.get(id) || []).map((th) => `${th.title} ${th.summary}`).join(' ');
+  const chips = (id) => (window.CTLegThreads ? window.CTLegThreads.partOfChips(byRef, id) : '');
+
   function currentRows(data) {
     const q = document.getElementById('bill-search').value.trim().toLowerCase();
     const topic = document.getElementById('bill-topic').value;
     const status = document.getElementById('bill-status').value;
     return data.bills_current.filter((b) => (topic === 'all' || b.topics.includes(topic))
       && (status === 'all' || b.status === status)
-      && (!q || [b.bill, b.title, b.summary, b.public_act].join(' ').toLowerCase().includes(q)));
+      && (!q || [b.bill, b.title, b.summary, b.public_act, threadText(b.id)].join(' ').toLowerCase().includes(q)));
+  }
+
+  function threadMatches(q) {
+    if (!q) return '';
+    const hits = threadList.filter((th) => `${th.title} ${th.summary} ${th.question}`.toLowerCase().includes(q));
+    return hits.length ? el('p', { className: 'microcopy thread-hits' }, [document.createTextNode('Storylines matching your search: '),
+      ...hits.flatMap((th, i) => [i ? ', ' : '', link(`#thread-${th.id}`, th.title)])]) : '';
   }
 
   function renderCurrent(data) {
     const rows = currentRows(data);
     const lookup = allBills(data);
     const box = document.getElementById('current-bills');
-    if (!rows.length) { box.replaceChildren(el('p', { className: 'empty', text: 'No bills match these filters.' })); return; }
+    const hits = threadMatches(document.getElementById('bill-search').value.trim().toLowerCase());
+    if (!rows.length) { box.replaceChildren(el('p', { className: 'empty', text: 'No bills match these filters.' }), hits); return; }
     const body = rows.map((b) => el('tr', {}, [
       el('th', { scope: 'row' }, [
         el('div', { text: b.bill ? b.bill : 'Watch list' }),
@@ -116,6 +129,7 @@
         el('div', {}, b.topics.map((t) => el('span', { className: 'tag', text: topicName(data, t) }))),
         (b.related || []).length ? el('div', { className: 'microcopy' }, [document.createTextNode('Related: '),
           ...b.related.flatMap((id, i) => { const r = lookup.get(id); return r ? [i ? ', ' : '', link(r.bill_status_url, `${r.session} ${r.bill}`)] : []; })]) : '',
+        chips(b.id),
       ]),
       el('td', {}, [statusChip(data.statuses, b.status), b.last_action ? el('div', { className: 'microcopy', text: `${b.last_action}${b.last_action_date ? ` (${niceDate(b.last_action_date)})` : ''}` }) : '']),
       el('td', {}, [b.bill_status_url ? link(b.bill_status_url, 'Bill status') : el('span', { className: 'microcopy', text: 'No bill yet' })]),
@@ -124,16 +138,48 @@
       el('caption', { text: `${rows.length} shown` }),
       el('thead', {}, [el('tr', {}, ['Bill', 'What it would do', 'Status', 'Links'].map((h) => el('th', { scope: 'col', text: h })))]),
       el('tbody', {}, body)]);
-    box.replaceChildren(el('div', { className: 'table-scroll' }, [table]));
+    box.replaceChildren(el('div', { className: 'table-scroll' }, [table]), hits);
   }
 
   function citation(s) { return `${s.display} ${s.label} (${s.period}). Source: ${s.source}. ${s.caveat}`.replace(/\s+/g, ' ').trim(); }
 
-  function renderTopics(data, stats) {
+  /* Topic browser: one topic at a time, tabs with arrow keys, deep links #topic-<id>. */
+  function selectTopic(id, opts) {
+    const o = opts || {};
+    const tabs = [...document.querySelectorAll('#topic-nav [role="tab"]')];
+    const tab = tabs.find((t) => t.getAttribute('data-topic') === id);
+    if (!tab) return false;
+    tabs.forEach((t) => {
+      const on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (o.focus) tab.focus();
+    if (o.hash && location.hash !== `#topic-${id}`) history.replaceState(null, '', `#topic-${id}`);
+    if (o.scroll) document.getElementById(`topic-${id}`).scrollIntoView({ block: 'start' });
+    return true;
+  }
+
+  function renderTopics(data, stats, ctx) {
+    const T = window.CTLegThreads;
     const byKey = new Map(stats.stats.map((s) => [s.key, s]));
-    const lookup = allBills(data);
-    document.getElementById('topic-nav').replaceChildren(...data.topics.map((t) => link(`#topic-${t.id}`, t.name)));
-    document.getElementById('topics').replaceChildren(...data.topics.map((t) => {
+    const nav = document.getElementById('topic-nav');
+    nav.replaceChildren(...data.topics.map((t, i) => el('button', {
+      type: 'button', className: 'mode-button topic-tab', role: 'tab', id: `tab-${t.id}`, 'data-topic': t.id,
+      'aria-controls': `topic-${t.id}`, 'aria-selected': i ? 'false' : 'true', tabindex: i ? '-1' : '0', text: t.name })));
+    nav.addEventListener('click', (e) => { const b = e.target.closest('[role="tab"]'); if (b) selectTopic(b.getAttribute('data-topic'), { hash: true }); });
+    nav.addEventListener('keydown', (e) => {
+      const tabs = [...nav.querySelectorAll('[role="tab"]')];
+      const i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      const next = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      selectTopic(tabs[(next + tabs.length) % tabs.length].getAttribute('data-topic'), { focus: true, hash: true });
+    });
+    const heading = (text) => el('h4', { className: 'col-heading', text });
+    document.getElementById('topics').replaceChildren(...data.topics.map((t, i) => {
       const cards = t.stat_keys.map((k) => byKey.get(k)).filter(Boolean).map((s) => el('div', { className: 'summary-card stat-card' }, [
         el('strong', { text: s.display }),
         el('p', { className: 'stat-label', text: s.label }),
@@ -141,20 +187,22 @@
         el('button', { type: 'button', className: 'action-button secondary copy-btn', 'data-copy': citation(s), text: 'Copy for testimony' }),
       ]));
       const facts = (t.context_facts || []).map((f) => el('li', {}, [document.createTextNode(`${f.text} `), el('span', { className: 'src' }, [link(f.source_url, f.source_title)])]));
-      const related = [...lookup.values()].filter((b) => b.bill && b.topics.includes(t.id))
-        .sort((a, b) => String(b.session).localeCompare(String(a.session)));
-      return el('article', { className: 'card topic', id: `topic-${t.id}` }, [
+      const background = (t.background || []).map((b) => el('li', {}, [el('strong', { className: 'bg-year', text: String(b.year) }),
+        document.createTextNode(` ${b.label}. ${b.summary} `), el('span', { className: 'src' }, [link(b.source_url, 'Source')])]));
+      return el('article', { className: 'card topic', id: `topic-${t.id}`, role: 'tabpanel', 'aria-labelledby': `tab-${t.id}`, tabindex: '0', hidden: i ? 'hidden' : null }, [
         el('h3', { text: t.name }),
         el('p', { text: t.why }),
         cards.length ? el('div', { className: 'summary-grid' }, cards) : '',
         facts.length ? el('ul', { className: 'fact-list' }, facts) : '',
+        ((cmp) => (cmp ? el('div', { className: 'topic-block' }, [cmp]) : ''))(T ? T.comparisonFor(t.id, ctx) : ''),
+        el('div', { className: 'topic-block' }, [heading('Background before 2021'),
+          background.length ? el('ul', { className: 'fact-list background-list' }, background) : el('p', { className: 'microcopy', text: 'None recorded yet.' })]),
+        el('div', { className: 'topic-block' }, [heading('History 2021–2027'), T ? T.historyFor(t.id, ctx) : '']),
+        el('div', { className: 'topic-block' }, [heading('Storylines in this topic'), T ? T.threadsForTopic(t.id, ctx) : '']),
         el('div', { className: 'two-col' }, [
-          el('div', {}, [el('h4', { className: 'col-heading', text: 'Questions testimony can address' }), el('ul', {}, t.questions.map((q) => typeof q === 'string' ? el('li', { text: q }) : el('li', {}, [link(q.link, q.text)])))]),
+          el('div', {}, [heading('Questions testimony can address'), el('ul', {}, t.questions.map((q) => typeof q === 'string' ? el('li', { text: q }) : el('li', {}, [link(q.link, q.text)])))]),
           el('div', {}, [
-            el('h4', { className: 'col-heading', text: 'Related bills' }),
-            related.length ? el('ul', {}, related.slice(0, 6).map((b) => el('li', {}, [link(b.bill_status_url, `${b.session} ${b.bill}`),
-              document.createTextNode(`${b.public_act ? ` (${b.public_act})` : ''}: ${b.short_title || b.title}${b.enacted === false ? ' (not enacted)' : ''}`)]))) : el('p', { className: 'microcopy', text: 'None tracked yet.' }),
-            (t.tool_links || []).length ? el('h4', { className: 'col-heading', text: 'Data tools' }) : '',
+            (t.tool_links || []).length ? heading('Data tools') : '',
             (t.tool_links || []).length ? el('ul', {}, t.tool_links.map((x) => el('li', {}, [link(x.url, x.title)]))) : '',
           ]),
         ]),
@@ -165,6 +213,13 @@
       const btn = e.target.closest('[data-copy]');
       if (btn) copyText(btn.getAttribute('data-copy'));
     });
+  }
+
+  function followHash() {
+    const h = decodeURIComponent(location.hash.slice(1));
+    if (h.startsWith('topic-')) { selectTopic(h.slice(6), { scroll: true }); return; }
+    const target = h && document.getElementById(h);
+    if (target && h.startsWith('thread-')) target.scrollIntoView({ block: 'start' });
   }
 
   function renderDates(data) {
@@ -193,7 +248,7 @@
     const body = rows.map((b) => el('tr', {}, [
       el('th', { scope: 'row' }, [el('div', { text: `${b.session} ${b.bill}` }), el('div', { className: 'microcopy', text: b.public_act || '' })]),
       el('td', {}, [el('strong', { text: b.short_title || b.title }), el('div', { className: 'microcopy', text: b.summary }), b.short_title && b.short_title !== b.title ? el('div', { className: 'microcopy official-title', text: `Official title: ${b.title}` }) : '',
-        el('div', {}, b.topics.map((t) => el('span', { className: 'tag', text: topicName(data, t) })))]),
+        el('div', {}, b.topics.map((t) => el('span', { className: 'tag', text: topicName(data, t) }))), chips(b.id)]),
       el('td', {}, [statusChip(data.statuses, b.enacted ? 'signed' : 'failed'), el('div', { className: 'microcopy', text: b.last_action || '' }),
         (b.key_dates || []).filter((k) => !/signed/i.test(k.what)).length ? el('ul', { className: 'microcopy' },
           b.key_dates.filter((k) => !/signed/i.test(k.what)).map((k) => el('li', { text: `${niceDate(k.date)}: ${k.what}` }))) : '']),
@@ -244,10 +299,19 @@
     document.getElementById('tracker-note').textContent = billCount
       ? `${billCount} ${data.session.year} bills tracked, plus issues on the watch list.`
       : `No ${data.session.year} bills have been filed yet. Bills are introduced once the session convenes; until then, the watch list shows issues likely to return.`;
+    const T = window.CTLegThreads;
+    const ctx = Object.assign({ tracker: data }, T ? await T.loadAll() : {});
+    if (T && ctx.threads && ctx.threads.threads.some((th) => th.data_series)) {
+      try { ctx.statewide = await T.load('/data/nursing_home_ct_statewide_context.json'); } catch (error) { console.error('Statewide data failed to load', error); }
+    }
+    if (T) { byRef = T.threadsByRef(ctx.threads); threadList = ctx.threads ? ctx.threads.threads : []; }
     const steps = [
-      () => renderSession(data), () => renderCurrent(data), () => renderTopics(data, stats),
+      () => renderSession(data), () => renderCurrent(data), () => renderTopics(data, stats, ctx),
+      () => T && T.renderThreads(ctx, copyText), () => T && T.renderActs(ctx), () => T && T.renderBuilder(ctx, stats, copyText),
       () => renderDates(data), () => renderPast(data), () => renderHowTo(data, stats)];
     steps.forEach((step) => { try { step(); } catch (error) { console.error('Legislative tracker render failed', error); } });
+    followHash();
+    window.addEventListener('hashchange', followHash);
     ['bill-search', 'bill-topic', 'bill-status'].forEach((id) => document.getElementById(id).addEventListener('input', () => renderCurrent(data)));
     ['past-session', 'past-topic', 'past-outcome'].forEach((id) => document.getElementById(id).addEventListener('input', () => renderPast(data)));
     document.getElementById('download-csv').addEventListener('click', () => csvDownload(data));

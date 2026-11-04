@@ -152,13 +152,96 @@ async function main() {
 
     await visit('/legislation/');
     await page.locator('#topics .topic').first().waitFor();
-    assert.equal(await page.locator('#topics .topic').count(), 8);
+    assert.equal(await page.locator('#topics .topic').count(), 9);
     assert.ok(await page.locator('#past-bills tbody tr').count() >= 30);
     await page.locator('#past-outcome').selectOption('failed');
     assert.ok(await page.locator('#past-bills tbody tr').count() >= 5);
+    assert.ok(await page.locator('#past-bills .thread-chip').count() >= 3, '"Part of" chips in past sessions');
     assert.match(await page.locator('#topic-staffing_workforce').innerText(), /36/);
     assert.match(await csv('#download-csv'), /SB 1279/);
     console.log('PASS legislative tracker: topics, stats, filters, CSV');
+
+    // Topic browser: one panel at a time, click and keyboard, deep links.
+    assert.equal(await page.locator('#topic-nav [role="tab"]').count(), 9);
+    assert.equal(await page.locator('#topics .topic:visible').count(), 1);
+    await page.locator('#tab-discharge_rights').click();
+    assert.equal(await page.locator('#tab-discharge_rights').getAttribute('aria-selected'), 'true');
+    assert.ok(await page.locator('#topic-discharge_rights').isVisible());
+    assert.equal(new URL(page.url()).hash, '#topic-discharge_rights');
+    await page.keyboard.press('ArrowRight');
+    assert.equal(await page.locator('#tab-closures_capacity').getAttribute('aria-selected'), 'true');
+    assert.equal(await page.evaluate(() => document.activeElement.id), 'tab-closures_capacity');
+    await page.keyboard.press('Home');
+    assert.equal(await page.locator('#tab-staffing_workforce').getAttribute('aria-selected'), 'true');
+    await page.goto('about:blank'); // a fresh load, not a same-document hash change
+    await visit('/legislation/#topic-community_settings');
+    await page.locator('#topics .topic').first().waitFor({ state: 'attached' });
+    assert.equal(await page.locator('#tab-community_settings').getAttribute('aria-selected'), 'true');
+    assert.ok(await page.locator('#topic-community_settings').isVisible());
+    assert.match(await page.locator('#topic-community_settings').innerText(), /Background before 2021[\s\S]*2012/i);
+    await page.locator('#tab-staffing_workforce').click();
+    const staffingHistory = page.locator('#topic-staffing_workforce .history-list li');
+    assert.ok(await staffingHistory.count() > 6, 'staffing history lists more than 6 bills');
+    await page.locator('#hist-enacted-staffing_workforce').check();
+    assert.equal(await page.locator('#topic-staffing_workforce .history-list .outline-pill').count(), 0);
+    assert.equal(await page.locator('#topic-staffing_workforce .compare-table tbody tr').count(), 3);
+    assert.match(await page.locator('#compare-staffing-approaches').innerText(), /Minimum spending on direct care[\s\S]*SB 328/);
+    console.log('PASS topic browser: tabs, arrow keys, deep link, background, history over 6, staffing comparison');
+
+    // Act reference table: filters and CSV.
+    await page.locator('#acts-details > summary').click();
+    const allActs = await page.locator('#acts-table tbody tr').count();
+    assert.ok(allActs >= 50, `acts listed: ${allActs}`);
+    await page.locator('#acts-year').selectOption('2021');
+    const acts2021 = await page.locator('#acts-table tbody tr').count();
+    assert.ok(acts2021 > 0 && acts2021 < allActs);
+    await page.locator('#acts-search').fill('21-185');
+    assert.equal(await page.locator('#acts-table tbody tr').count(), 1);
+    assert.match(await csv('#acts-csv'), /PA 21-185/);
+    await page.locator('#acts-search').fill('');
+    await page.locator('#acts-year').selectOption('all');
+    console.log('PASS act reference: filters, search, CSV');
+
+    // Storylines: timeline, data strip, copy text, deep link.
+    assert.equal(await page.locator('#threads .thread').count(), 12);
+    assert.match(await page.locator('#thread-cfc-and-waivers').innerText(), /Final budget keeps CFC as a state plan option/);
+    assert.ok(await page.locator('#thread-staffing-floor .thread-event').count() >= 8);
+    assert.equal(await page.locator('#thread-staffing-floor .data-strip svg polyline').count(), 1);
+    assert.ok(await page.locator('#thread-staffing-floor .thread-event.not-enacted').count() >= 2);
+    await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: base });
+    await page.locator('#thread-staffing-floor [data-copy-thread]').click();
+    const copied = await page.evaluate(() => navigator.clipboard.readText());
+    assert.match(copied, /^Raising the staffing floor/);
+    assert.match(copied, /2021-10-01 — PA 21-185/);
+    assert.ok(copied.includes('Listing is not a position of the Long Term Care Ombudsman Program.'));
+    await page.locator('#bill-search').fill('room size');
+    assert.match(await page.locator('#current-bills').innerText(), /Room size and capacity/);
+    await page.locator('#bill-search').fill('');
+    console.log('PASS storylines: 12 cards, timeline, data strip, copy text, search');
+
+    // Testimony builder: renders, placeholder with zero positions, cap of 5 stats, download, no storage.
+    const storageBefore = await page.evaluate(() => JSON.stringify(Object.entries(localStorage)));
+    await page.locator('#builder-start').selectOption('thread:staffing-floor');
+    let draft = await page.locator('#builder-output').inputValue();
+    assert.match(draft, /^Storyline: Raising the staffing floor/);
+    assert.ok(draft.includes('[No approved Program position for this topic. Add one only with State Ombudsman approval.]'));
+    assert.match(draft, /Draft generated from danbeem\.xyz research data on .+\. Verify before submitting\.$/);
+    const statBoxes = page.locator('#builder-stats input');
+    for (let i = 0; i < await statBoxes.count(); i += 1) if (!(await statBoxes.nth(i).isDisabled())) await statBoxes.nth(i).check();
+    assert.equal(await page.locator('#builder-stats input:checked').count(), 5);
+    draft = await page.locator('#builder-output').inputValue();
+    assert.equal((draft.match(/^- .*\(Q\d \d{4}|^- .*\(FFY/gm) || []).length, 5);
+    const dl = page.waitForEvent('download');
+    await page.locator('#builder-download').click();
+    const file = await dl;
+    assert.match(file.suggestedFilename(), /^testimony-draft-\d{4}-\d{2}-\d{2}\.txt$/);
+    assert.equal(await page.evaluate(() => JSON.stringify(Object.entries(localStorage))), storageBefore);
+    console.log('PASS testimony builder: placeholder, five-stat cap, download, nothing stored');
+
+    await page.goto('about:blank');
+    await visit('/legislation/#thread-paying-for-care');
+    await page.locator('#thread-paying-for-care').waitFor();
+    assert.ok(await page.locator('#thread-paying-for-care').isVisible());
 
     await visit('/legislation/2026/');
     await page.locator('#bill-lists tbody tr').first().waitFor();
@@ -169,7 +252,13 @@ async function main() {
     await page.locator('#f-list').selectOption('2');
     assert.equal(await page.locator('#bill-lists tbody tr').count(), 20);
     assert.match(await csv('#download-csv'), /PA 26-103/);
-    console.log('PASS 2026 session tracker: 131 bills, filters, CSV');
+    await page.locator('#f-list').selectOption('all');
+    assert.ok(await page.locator('#bill-lists .thread-chip').count() >= 5, '"Part of" chips on 2026 bills');
+    assert.equal(await page.locator('#bill-lists a.thread-chip[href="/legislation/#thread-ownership-transparency"]').count() >= 1, true);
+    await page.locator('#f-search').fill('financial transparency');
+    assert.ok(await page.locator('#bill-lists tbody tr').count() >= 1, 'search matches storyline titles');
+    await page.locator('#f-search').fill('');
+    console.log('PASS 2026 session tracker: 131 bills, filters, CSV, storyline chips and search');
 
     await visit('/legislation/2027/');
     await page.locator('#bill-lists .empty').waitFor();

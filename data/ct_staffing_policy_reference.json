@@ -2,7 +2,7 @@
   "schema_version": "ct-policy-reference-1.0",
   "dataset_type": "ct_nursing_home_staffing_policy_reference",
   "maintained_by": "Hand-maintained reference. Every entry cites its public source. Re-verify on each data refresh.",
-  "last_verified": "2026-10-30",
+  "last_verified": "2026-11-04",
   "rule_timeline": [
     {
       "date": "pre-2022",
@@ -34,6 +34,22 @@
       "detail": "3.0 hours of total nursing and nurse aide care per resident per day, of which 0.84 hours provided by licensed nursing personnel.",
       "source_title": "DPH Blast Fax 2024-3A",
       "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"
+    },
+    {
+      "date": "2026-01-27",
+      "date_label": "January 27, 2026",
+      "label": "Staffing regulation approved",
+      "detail": "The Legislative Regulation Review Committee approved DPH's regulation (2024-026A) with technical corrections, 13-0. It sets 3.00 direct-care hours per resident per day, licensed nursing minimums of 0.57 hours (7 a.m. to 9 p.m.) and 0.27 hours (9 p.m. to 7 a.m.), and a registered nurse on duty at all times, and replaces the policies. An earlier version was rejected without prejudice on December 17, 2024.",
+      "source_title": "CGA, Regulation 2024-026A (PR2022-032) record",
+      "source_url": "https://www.cga.ct.gov/aspx/CGARegulations/CGARegulations.aspx?Yr=2026&Reg=2024-026&Amd=A"
+    },
+    {
+      "date": "2026-02-11",
+      "date_label": "February 11, 2026",
+      "label": "Staffing regulation takes effect",
+      "detail": "Filed with the Secretary of the State on February 5, 2026, the regulation amending Sec. 19-13-D8t took effect February 11, 2026, replacing DPH's staffing policies.",
+      "source_title": "CT eRegulations, PR2022-032 final regulation and certification",
+      "source_url": "https://eregulations.ct.gov/eRegsPortal/Search/getDocument?guid=%7BB0E34C9C-0000-C116-88C4-C5FFBA05300B%7D"
     }
   ],
   "legislation": [

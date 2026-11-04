@@ -1,6 +1,6 @@
 {
   "schema_version": "ct-ltcop-legislative-tracker-1.0",
-  "last_updated": "2026-10-31",
+  "last_updated": "2026-11-03",
   "maintained_by": "Hand-maintained. Update bill statuses from the Connecticut General Assembly bill status pages; every entry cites its source.",
   "disclaimer": "Research support for residents, families and advocates. Listing a bill here is not an endorsement or a position of the Connecticut Long Term Care Ombudsman Program; official positions come from the State Long Term Care Ombudsman.",
   "session": {
@@ -76,7 +76,7 @@
     {
       "id": "staffing_workforce",
       "name": "Staffing and workforce",
-      "why": "Staffing levels shape how quickly residents get help, how care is planned and whether residents are treated with dignity. Connecticut's standard is 3.00 direct-care hours per resident per day, of which 0.84 licensed, set by DPH policy. Proposals to raise it to 4.10 (2023 SB 1026) and 3.60 (2025 SB 1279, whose original text also reached 4.10 by 2028) did not pass. The federal minimum staffing rule was repealed by CMS in December 2025, so the state standard is the main numeric floor.",
+      "why": "Staffing levels shape how quickly residents get help, how care is planned and whether residents are treated with dignity. Connecticut's standard is 3.00 direct-care hours per resident per day, of which 0.84 licensed, set by DPH policy in 2023 and by regulation approved in January 2026. Proposals to raise it to 4.10 (2023 SB 1026) and 3.60 (2025 SB 1279, whose original text also reached 4.10 by 2028) did not pass. The federal minimum staffing rule was repealed by CMS in December 2025, so the state standard is the main numeric floor.",
       "stat_keys": [
         "homes_below_300",
         "homes_below_300_first",
@@ -121,6 +121,32 @@
           "title": "Persistent Patterns",
           "url": "/staffing/tools/nursing-home-persistent-staffing-patterns.html"
         }
+      ],
+      "background": [
+        {
+          "year": 2000,
+          "label": "Program Review report urges higher minimums",
+          "summary": "A report by the former Office of Program Review and Investigations recommended higher minimum staffing; DPH draft rules raising 1.9 to 2.48 hours were never adopted.",
+          "source_url": "https://www.cga.ct.gov/2020/rpt/pdf/2020-R-0328.pdf"
+        },
+        {
+          "year": 2016,
+          "label": "SB 278 proposes 2.3 hours",
+          "summary": "SB 278 would have required at least 2.3 hours of daily direct care per resident and Medicaid rate adjustments; the Human Services Committee held a public hearing.",
+          "source_url": "https://www.cga.ct.gov/2020/rpt/pdf/2020-R-0328.pdf"
+        },
+        {
+          "year": 2019,
+          "label": "Daily staffing posting and whistleblower protections",
+          "summary": "PA 19-89 requires nursing homes to calculate and post daily direct care staffing, lets DPH act on substantial noncompliance and expands whistleblower protections. HB 7099 (3 hours) did not pass.",
+          "source_url": "https://www.cga.ct.gov/2020/rpt/pdf/2020-R-0328.pdf"
+        },
+        {
+          "year": 2020,
+          "label": "Regulatory minimum stands at 1.9 hours",
+          "summary": "Before 2021, Sec. 19-13-D8t(m) required 1.90 total nursing and aide hours, and 0.64 licensed hours, per patient day in chronic and convalescent nursing homes.",
+          "source_url": "https://portal.ct.gov/-/media/sots/regulations/title_19/013dpdf.pdf?la=en"
+        }
       ]
     },
     {
@@ -144,6 +170,26 @@
         {
           "title": "Facility Explorer (survey and enforcement)",
           "url": "/staffing/tools/nursing-home-staffing-explorer.html"
+        }
+      ],
+      "background": [
+        {
+          "year": 1975,
+          "label": "Patients' bill of rights enacted",
+          "summary": "Connecticut's nursing home patients' bill of rights, now CGS 19a-550, traces to P.A. 75-468, the same 1975 act that defined nursing home facilities in state law.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550"
+        },
+        {
+          "year": 1987,
+          "label": "Federal Nursing Home Reform Act (OBRA '87)",
+          "summary": "Congress overhauled federal standards of care for nursing homes and the framework for enforcing them, as part of the Omnibus Budget Reconciliation Act of 1987.",
+          "source_url": "https://www.aging.senate.gov/imo/media/doc/hr172tl.pdf"
+        },
+        {
+          "year": 2019,
+          "label": "DPH may act on staffing noncompliance",
+          "summary": "PA 19-89 authorizes DPH to take disciplinary action or issue a citation against a nursing home that substantially fails to meet minimum direct care staffing requirements.",
+          "source_url": "https://www.cga.ct.gov/2020/rpt/pdf/2020-R-0328.pdf"
         }
       ]
     },
@@ -171,6 +217,20 @@
         {
           "title": "Ownership / Affiliation Explorer",
           "url": "/staffing/tools/nursing-home-ownership-staffing-explorer.html"
+        }
+      ],
+      "background": [
+        {
+          "year": 1989,
+          "label": "Prior approval for ownership changes",
+          "summary": "The licensing statute requiring DPH approval before a change in ownership of a health care institution, now CGS 19a-493, traces to P.A. 89-350.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-493"
+        },
+        {
+          "year": 1993,
+          "label": "DSS certificate of need for nursing homes",
+          "summary": "CGS 17b-352, covering certificates of need for nursing home closures, transfers of ownership or control and new functions, traces to P.A. 93-262.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_319y.htm#sec_17b-352"
         }
       ]
     },
@@ -200,6 +260,38 @@
           "title": "FFY 2025 Impact Dashboard",
           "url": "/dashboards/impact-2025.html"
         }
+      ],
+      "background": [
+        {
+          "year": 1975,
+          "label": "Patients' bill of rights enacted",
+          "summary": "Connecticut's nursing home patients' bill of rights, now CGS 19a-550, traces to P.A. 75-468, the same 1975 act that defined nursing home facilities in state law.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550"
+        },
+        {
+          "year": 1976,
+          "label": "Transfer and discharge statute enacted",
+          "summary": "Connecticut's statute on resident transfers and discharges, with notice, plan and appeal requirements, now CGS 19a-535, traces to P.A. 76-331.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535"
+        },
+        {
+          "year": 1987,
+          "label": "Federal Nursing Home Reform Act (OBRA '87)",
+          "summary": "Congress overhauled federal standards of care for nursing homes and the framework for enforcing them, as part of the Omnibus Budget Reconciliation Act of 1987.",
+          "source_url": "https://www.aging.senate.gov/imo/media/doc/hr172tl.pdf"
+        },
+        {
+          "year": 1989,
+          "label": "Residential care home discharge protections enacted",
+          "summary": "PA 89-348 created the transfer and discharge protections for residential care home residents now in CGS 19a-535a, amended several times since, most recently in 2022 and 2025.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-535a"
+        },
+        {
+          "year": 2011,
+          "label": "Hospital readmission rights and appeals added",
+          "summary": "PA 11-236 required nursing homes to readmit hospitalized residents to the first available bed and added a DSS appeal for refusals. CGS 19a-537 also requires a 15-day bed hold for Medicaid residents.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-537"
+        }
       ]
     },
     {
@@ -222,6 +314,26 @@
           "title": "Statewide Comparison",
           "url": "/staffing/tools/nursing-home-statewide-staffing-comparison.html"
         }
+      ],
+      "background": [
+        {
+          "year": 1993,
+          "label": "Certificate of need for closures and transfers",
+          "summary": "CGS 17b-352 requires DSS certificate-of-need review for nursing home closures, transfers of ownership or control and new functions; its history traces to P.A. 93-262.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_319y.htm#sec_17b-352"
+        },
+        {
+          "year": 2011,
+          "label": "Nursing home beds decline",
+          "summary": "Between September 2004 and September 2011, licensed nursing facilities fell from 246 to 236 and beds fell 5.3%, from 29,801 to 28,223, per OPM's annual census.",
+          "source_url": "https://portal.ct.gov/-/media/opm/hhs/ltc/nffactsheet2011pdf.pdf"
+        },
+        {
+          "year": 2016,
+          "label": "Moratorium exemption added for AIDS beds",
+          "summary": "PA 16-47 adds beds for AIDS patients to exemptions from the moratorium, which generally bars DSS from approving certificates of need for new nursing home beds.",
+          "source_url": "https://cga.ct.gov/2016/SUM/2016SUM00047-R01HB-05252-SUM.htm"
+        }
       ]
     },
     {
@@ -242,6 +354,26 @@
         {
           "title": "FFY 2025 Impact Dashboard",
           "url": "/dashboards/impact-2025.html"
+        }
+      ],
+      "background": [
+        {
+          "year": 2006,
+          "label": "Dementia special care unit disclosures",
+          "summary": "CGS 19a-562, which defines dementia special care units or programs and sets disclosure requirements, traces to P.A. 06-195.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-562"
+        },
+        {
+          "year": 2012,
+          "label": "Managed residential community rules put in statute",
+          "summary": "PA 12-6 placed definitions and operating requirements for managed residential communities, including written residency agreements, in CGS 19a-693 to 19a-701.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368bb.htm#sec_19a-694"
+        },
+        {
+          "year": 2020,
+          "label": "Agencies licensed, not facilities",
+          "summary": "OLR notes Connecticut does not license assisted living facilities; DPH licenses and regulates the assisted living services agencies that provide the services.",
+          "source_url": "https://www.cga.ct.gov/2020/rpt/pdf/2020-R-0067.pdf"
         }
       ]
     },
@@ -265,6 +397,69 @@
         {
           "title": "FFY 2025 Impact Dashboard",
           "url": "/dashboards/impact-2025.html"
+        }
+      ],
+      "background": [
+        {
+          "year": 1972,
+          "label": "Ombudsman program begins as a federal demonstration",
+          "summary": "The Long-Term Care Ombudsman Program began in 1972 as a demonstration program and now operates in every state under the Older Americans Act.",
+          "source_url": "https://acl.gov/programs/Protecting-Rights-and-Preventing-Abuse/Long-term-Care-Ombudsman-Program"
+        },
+        {
+          "year": 1977,
+          "label": "Connecticut creates its Ombudsman office in law",
+          "summary": "The statute establishing the Office of the Long-Term Care Ombudsman, now CGS 17a-870 (formerly 17a-405), traces to P.A. 77-575.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_319l.htm#sec_17a-870"
+        }
+      ]
+    },
+    {
+      "id": "home_community_care",
+      "name": "Home care, waivers and Medicaid eligibility",
+      "why": "Connecticut pays for long-term care at home through Medicaid waivers, the Community First Choice (CFC) state plan option and the Connecticut Home Care Program for Elders, while HUSKY C income and asset limits decide who qualifies for Medicaid. A February 2026 proposal to end CFC as a state plan option was not adopted in the final budget. Bills to raise HUSKY C asset limits have not passed. State law has allowed DSS to cover PACE since 2023, and a 2025 DSS study weighed whether to start it.",
+      "stat_keys": [],
+      "context_facts": [
+        {
+          "text": "CFC gross costs rose from about $88.8 million for 2,400 paid cases in FY 2018 to about $371 million for 5,800 cases in FY 2025.",
+          "source_title": "OFA, FY 27 Connecticut Budget Revisions",
+          "source_url": "https://www.cga.ct.gov/ofa/Documents/year/BB/2026BB-20260731_FY%2027%20Connecticut%20Budget%20Revisions.pdf"
+        },
+        {
+          "text": "About 85,000 people are covered by HUSKY C, Medicaid for people who are 65 or older, blind or disabled.",
+          "source_title": "OFA, FY 27 Connecticut Budget Revisions",
+          "source_url": "https://www.cga.ct.gov/ofa/Documents/year/BB/2026BB-20260731_FY%2027%20Connecticut%20Budget%20Revisions.pdf"
+        },
+        {
+          "text": "HUSKY C asset limits are $1,600 for a single person and $2,400 for a married couple.",
+          "source_title": "OLR bill analysis, HB 5302 (2026)",
+          "source_url": "https://www.cga.ct.gov/2026/ba/pdf/2026HB-05302-R000095-BA.pdf"
+        },
+        {
+          "text": "A June 2025 DSS feasibility study found about 9,000 potential PACE participants in the Bridgeport, Hartford, New Haven, Stamford and Waterbury areas.",
+          "source_title": "DSS PACE feasibility study (Myers and Stauffer), June 2025",
+          "source_url": "https://www.cga.ct.gov/ph/med/related/20190104_Complex%20Care%20Committee/20251016/PACE%20Final%20Report.pdf"
+        }
+      ],
+      "questions": [
+        "If CFC participants moved to waivers, what would happen to waiting lists, enrollment caps and self-direction?",
+        "How many people wait for each home care waiver, and for how long?",
+        "How many older adults are denied HUSKY C because of the $1,600 asset limit?",
+        "What would it cost to start PACE, and who would operate it?"
+      ],
+      "tool_links": [],
+      "background": [
+        {
+          "year": 1985,
+          "label": "Connecticut Home Care Program for Elders",
+          "summary": "The statute for the Connecticut Home Care Program for Elders, now CGS 17b-342, traces to P.A. 85-556.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_319y.htm#sec_17b-342"
+        },
+        {
+          "year": 2015,
+          "label": "Community First Choice begins",
+          "summary": "Community First Choice took effect July 1, 2015 as an optional Medicaid state plan service for people who would otherwise need institutional care, with a 6% higher federal match.",
+          "source_url": "https://www.cga.ct.gov/ofa/Documents/year/BB/2026BB-20260731_FY%2027%20Connecticut%20Budget%20Revisions.pdf"
         }
       ]
     },
@@ -290,7 +485,21 @@
         "How are conservators trained and overseen?",
         "What happens to residents who outlive their long-term care insurance or savings?"
       ],
-      "tool_links": []
+      "tool_links": [],
+      "background": [
+        {
+          "year": 1978,
+          "label": "State supplement and long-term care payments",
+          "summary": "CGS 17b-106, the state supplement statute that also covers payments for certain long-term care facility residents, traces to P.A. 78-192.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_319s.htm#sec_17b-106"
+        },
+        {
+          "year": 1985,
+          "label": "Connecticut Home Care Program for Elders",
+          "summary": "The statute for the Connecticut Home Care Program for Elders, now CGS 17b-342, traces to P.A. 85-556.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_319y.htm#sec_17b-342"
+        }
+      ]
     }
   ],
   "bills_current": [
@@ -416,6 +625,71 @@
       "summary": "From January 1, 2027, Medicaid retroactive coverage for older adults and people with disabilities drops from three months before application to two. From January 1, 2028, the home equity limit for long-term care eligibility is capped at $1 million. State changes may follow.",
       "related": [],
       "short_title": "Federal Medicaid changes (P.L. 119-21)"
+    },
+    {
+      "id": "2027-watch-direct-care-spending",
+      "session": "2027",
+      "bill": null,
+      "status": "watch",
+      "title": "Minimum share of nursing home revenue spent on direct care",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "summary": "Bills to require nursing homes to spend 80% of revenue on direct care passed committee in 2025 (SB 805) and 2026 (SB 328) and were not enacted. Watch for a 2027 proposal.",
+      "related": [
+        "2026-sb328",
+        "2025-sb805",
+        "2024-sb156"
+      ],
+      "short_title": "Direct care spending minimum"
+    },
+    {
+      "id": "2027-watch-cfc",
+      "session": "2027",
+      "bill": null,
+      "status": "watch",
+      "title": "Community First Choice and home care waivers",
+      "topics": [
+        "home_community_care"
+      ],
+      "summary": "The Governor's FY 2027 budget proposed ending CFC as a state plan option; the legislature kept it. The proposal projected most savings in FY 2029. Watch the February 2027 budget and DSS waiver changes proposed for April 2027.",
+      "related": [],
+      "short_title": "Community First Choice"
+    },
+    {
+      "id": "2027-watch-husky-c",
+      "session": "2027",
+      "bill": null,
+      "status": "watch",
+      "title": "HUSKY C asset limits",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "summary": "Bills to raise or phase out the $1,600 HUSKY C asset limit were not enacted in 2025 or 2026. DSS's first annual HUSKY C report under PA 26-72 is due October 1, 2027.",
+      "related": [
+        "2026-sb326",
+        "2026-hb5302",
+        "2025-sb807",
+        "2025-sb11"
+      ],
+      "short_title": "HUSKY C asset limits"
+    },
+    {
+      "id": "2027-watch-pace",
+      "session": "2027",
+      "bill": null,
+      "status": "watch",
+      "title": "PACE (Program of All-Inclusive Care for the Elderly)",
+      "topics": [
+        "home_community_care"
+      ],
+      "summary": "State law since 2023 allows DSS to cover PACE through a Medicaid state plan amendment within available appropriations. A June 2025 feasibility study found interest and high start-up costs. Watch for funding in the budget.",
+      "related": [
+        "2022-hb5333"
+      ],
+      "short_title": "PACE"
     }
   ],
   "deadlines": [
@@ -443,6 +717,16 @@
       "date": "2027-01-01",
       "what": "P.L. 119-21 sec. 71112: Medicaid retroactive coverage limited to two months before the application month for older adults and people with disabilities (one month for expansion adults)",
       "source_url": "https://justiceinaging.org/hr1-reduces-medicaid-retroactive-eligibility-starting-in-2027/"
+    },
+    {
+      "date": "2027-01-01",
+      "what": "PA 26-35 section 20: State Long-Term Care Ombudsman report to the Veterans' and Military Affairs Committee with recommendations on an Office of the Veterans' and Military Healthcare Ombudsman",
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00035-R00HB-05406-PA.PDF"
+    },
+    {
+      "date": "2027-01-01",
+      "what": "PA 26-50: homemaker-companion agencies begin at least eight paid hours of initial training for new employees, plus annual continuing education",
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00050-R00HB-05143-PA.PDF"
     },
     {
       "date": "2027-01-06",
@@ -483,6 +767,11 @@
       "date": "2028-01-01",
       "what": "P.L. 119-21 sec. 71109: home equity limit for Medicaid long-term care eligibility capped at $1 million, not indexed for inflation",
       "source_url": "https://www.macpac.gov/wp-content/uploads/2025/09/01_September-Slides_Summary-of-P.L.-119-21-An-Act-to-Provide-for-Reconciliation-Pursuant-to-Title-II-of-H.-Con.-Res.-14.pdf"
+    },
+    {
+      "date": "2028-01-15",
+      "what": "PA 26-146: first annual DSS report to Appropriations and Human Services on the Medicaid rate evaluation process, with recommended appropriations",
+      "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00146-R00HB-05561-PA.PDF"
     },
     {
       "date": "2029-01-01",
@@ -528,10 +817,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Setting named in the bill title and status page is residential care homes only (not assisted living/MRC). Section 2 amends the existing nursing home technology immunity statute (OLR describes the act as covering RCHs and nursing homes). The act itself sets no individual fines; the status page statement of purpose says it 'prescribes a penalty' but the act text summary describes home-initiated action for noncompliance with an appeal process. The Long-Term Care Ombudsman may publish standard forms; the DPH commissioner may adopt regulations. Pre-existing nursing home virtual monitoring law is PA 21-55 (SB 975, 2021) per LTCOP page.",
       "id": "2026-hb5142",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5142",
-      "short_title": "Virtual monitoring (cameras) in residential care homes"
+      "short_title": "Virtual monitoring (cameras) in residential care homes",
+      "notes": "Setting named in the bill title and status page is residential care homes only (not assisted living/MRC). Section 2 amends the existing nursing home technology immunity statute (OLR describes the act as covering RCHs and nursing homes). The act itself sets no individual fines; the status page statement of purpose says it 'prescribes a penalty' but the act text summary describes home-initiated action for noncompliance with an appeal process. The Long-Term Care Ombudsman may publish standard forms; the DPH commissioner may adopt regulations. Pre-existing nursing home virtual monitoring law is PA 21-55 (SB 975, 2021) per LTCOP page."
     },
     {
       "session": "2026",
@@ -593,10 +882,10 @@
           "url": "https://ctmirror.org/2026/05/07/ct-nursing-home-oversight-bill-clears-final-hurdle/"
         }
       ],
-      "notes": "It is Senate Bill 125 (not HB). The surety bond is conditional: it applies only if DSS identifies a feasible security instrument (surety bond, escrow, insurance product), so avoid describing it as an unconditional requirement. Waiver applications must be filed at least six months before the compliance deadline; waivers last one year. R-0080 table lists 'October 1, 2026; reporting requirement upon passage' for effective dates. Senate passed May 4, House passed May 6, 2026.",
       "id": "2026-sb125",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=125",
-      "short_title": "Nursing home investment-entity ownership reporting"
+      "short_title": "Nursing home investment-entity ownership reporting",
+      "notes": "It is Senate Bill 125 (not HB). The surety bond is conditional: it applies only if DSS identifies a feasible security instrument (surety bond, escrow, insurance product), so avoid describing it as an unconditional requirement. Waiver applications must be filed at least six months before the compliance deadline; waivers last one year. R-0080 table lists 'October 1, 2026; reporting requirement upon passage' for effective dates. Senate passed May 4, House passed May 6, 2026."
     },
     {
       "session": "2026",
@@ -635,10 +924,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Bill number HB 5141 confirmed. Trainer need not be a qualified social worker or social worker consultant, per OLR summary (R01 version of the summary).",
       "id": "2026-hb5141",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5141",
-      "short_title": "Fear-of-retaliation training in assisted living"
+      "short_title": "Fear-of-retaliation training in assisted living",
+      "notes": "Bill number HB 5141 confirmed. Trainer need not be a qualified social worker or social worker consultant, per OLR summary (R01 version of the summary)."
     },
     {
       "session": "2026",
@@ -649,7 +938,8 @@
       "topics": [
         "community_settings",
         "quality_oversight",
-        "aging_financing"
+        "aging_financing",
+        "home_community_care"
       ],
       "summary": "Among other provisions, requires managed residential communities to post DSS contact information for reporting suspected elder abuse or neglect with their residents' bill of rights, incorporates two federal nursing home rules on psychotropic drugs and resident participation in treatment, and revises the Long-Term Care Planning Committee and Advisory Council. Also requires annual DSS HUSKY C reports from 2027 through 2032.",
       "key_dates": [
@@ -685,10 +975,10 @@
           "url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0080.pdf"
         }
       ],
-      "notes": "Bill number HB 5562 confirmed. The OLR summary is internally inconsistent on the Long-Term Care Planning Committee report deadline (header says January 1, 2027; body says January 1, 2028); do not publish a deadline for it without checking the act text. Federal rules incorporated as of Jan 1, 2026: 42 CFR 483.45(e) and 483.10(c). Act also covers unrelated items (wheelchair repair council, LGBTQ network, etc.).",
       "id": "2026-hb5562",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5562",
-      "short_title": "Human services revisions (MRC bill of rights, federal resident rights)"
+      "short_title": "Human services revisions (MRC bill of rights, federal resident rights)",
+      "notes": "Bill number HB 5562 confirmed. The OLR summary is internally inconsistent on the Long-Term Care Planning Committee report deadline (header says January 1, 2027; body says January 1, 2028); do not publish a deadline for it without checking the act text. Federal rules incorporated as of Jan 1, 2026: 42 CFR 483.45(e) and 483.10(c). Act also covers unrelated items (wheelchair repair council, LGBTQ network, etc.)."
     },
     {
       "session": "2026",
@@ -739,10 +1029,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Bill number is SB 123 (not SB 288). The bed moratorium and MDS/resident data provisions overlap in subject with SB 288 (not enacted), but no source opened states that SB 288 was formally folded in; SB 288's related-party employee reimbursement cap provision does not appear in the OLR summary of PA 26-74. Bed-need standard changed to occupancy above 96% for two consecutive quarters (previously 97.5% projected over five years), with DSS to consider bed need within 15 miles and the requesting home's CMS five-star rating. The 'upon passage' effective date for sections 5-6 is as stated by OLR; the date shown is the PA issue date, not a separately stated effective date. Section 2 (municipal agents for aging, conflict-of-interest certification) corresponds in subject to SB 124 (2026, not enacted separately). MDS documentation response time is 10 days (vs 30 for other audits).",
       "id": "2026-sb123",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=123",
-      "short_title": "Assisted living fee hearings, bed moratorium, MDS audits"
+      "short_title": "Assisted living fee hearings, bed moratorium, MDS audits",
+      "notes": "Bill number is SB 123 (not SB 288). The bed moratorium and MDS/resident data provisions overlap in subject with SB 288 (not enacted), but no source opened states that SB 288 was formally folded in; SB 288's related-party employee reimbursement cap provision does not appear in the OLR summary of PA 26-74. Bed-need standard changed to occupancy above 96% for two consecutive quarters (previously 97.5% projected over five years), with DSS to consider bed need within 15 miles and the requesting home's CMS five-star rating. The 'upon passage' effective date for sections 5-6 is as stated by OLR; the date shown is the PA issue date, not a separately stated effective date. Section 2 (municipal agents for aging, conflict-of-interest certification) corresponds in subject to SB 124 (2026, not enacted separately). MDS documentation response time is 10 days (vs 30 for other audits)."
     },
     {
       "session": "2026",
@@ -790,10 +1080,10 @@
           "url": "https://www.cga.ct.gov/lco/statutes-actsno.asp"
         }
       ],
-      "notes": "PA 26-68 is the budget adjustment bill SB 1 (not the 'implementer'). The implementer-type bill is SB 477 / PA 26-76 (separate entry), which amends PA 26-68 (sections 42-44 relate to nursing homes). Section cites from OLR: tax repeal sections 60-61; MOLST section 192; wage-increase exclusion section 445 (as amended by PA 26-76 section 42); Medicaid payments sections 446-447; two-bed waiver section 451; family caregiver credit section 271 (starts tax year 2027); aging-in-place grants section 343 (up to $10,000). Section-level effective dates are as stated in OLR report; the 'upon passage' items were not individually dated.",
       "id": "2026-sb1",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=1",
-      "short_title": "Budget adjustments (nursing home rates, PDPM, provider tax repeal)"
+      "short_title": "Budget adjustments (nursing home rates, PDPM, provider tax repeal)",
+      "notes": "PA 26-68 is the budget adjustment bill SB 1 (not the 'implementer'). The implementer-type bill is SB 477 / PA 26-76 (separate entry), which amends PA 26-68 (sections 42-44 relate to nursing homes). Section cites from OLR: tax repeal sections 60-61; MOLST section 192; wage-increase exclusion section 445 (as amended by PA 26-76 section 42); Medicaid payments sections 446-447; two-bed waiver section 451; family caregiver credit section 271 (starts tax year 2027); aging-in-place grants section 343 (up to $10,000). Section-level effective dates are as stated in OLR report; the 'upon passage' items were not individually dated."
     },
     {
       "session": "2026",
@@ -827,10 +1117,10 @@
           "url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0080.pdf"
         }
       ],
-      "notes": "Added because it amends PA 26-68. The OLR reports cite sections 42, 43, 44 and 77-78 (unlicensed facility penalty provisions). Sections 43-44 take effect upon passage per R-0080.",
       "id": "2026-sb477",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=477",
-      "short_title": "Budget implementer (nursing home wage and two-bed limit changes)"
+      "short_title": "Budget implementer (nursing home wage and two-bed limit changes)",
+      "notes": "Added because it amends PA 26-68. The OLR reports cite sections 42, 43, 44 and 77-78 (unlicensed facility penalty provisions). Sections 43-44 take effect upon passage per R-0080."
     },
     {
       "session": "2026",
@@ -876,10 +1166,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Bill number HB 5514 confirmed. Only section 2 is LTC-relevant. The Jan 1, 2027 working group report and Feb 1, 2027 commissioner report are 2027-session-relevant items.",
       "id": "2026-hb5514",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5514",
-      "short_title": "Public health revisions (assisted living licensing working group)"
+      "short_title": "Public health revisions (assisted living licensing working group)",
+      "notes": "Bill number HB 5514 confirmed. Only section 2 is LTC-relevant. The Jan 1, 2027 working group report and Feb 1, 2027 commissioner report are 2027-session-relevant items."
     },
     {
       "session": "2026",
@@ -928,10 +1218,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "CORRECTION to the brief: the task force REPORT is due January 1, 2029, not January 2027. January 1, 2027 is the deadline for initial appointments (R-0080's table shows the 2027 date, which is the appointments date). Both the OLR bill summary and R-0085 state the 2029 report date.",
       "id": "2026-hb5406",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5406",
-      "short_title": "Veterans measures (USDVA nursing home contract task force)"
+      "short_title": "Veterans measures (USDVA nursing home contract task force)",
+      "notes": "CORRECTION to the brief: the task force REPORT is due January 1, 2029, not January 2027. January 1, 2027 is the deadline for initial appointments (R-0080's table shows the 2027 date, which is the appointments date). Both the OLR bill summary and R-0085 state the 2029 report date."
     },
     {
       "session": "2026",
@@ -980,10 +1270,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Bill number SB 478 confirmed. CT Mirror says the state attorney general gets power to investigate insurers; the OLR summary says the Insurance Commissioner investigates and may refer suspected violations to the attorney general. This entry follows OLR. House vote 146-4 on May 5, 2026 per CT Mirror.",
       "id": "2026-sb478",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=478",
-      "short_title": "Long-term care insurance consumer safeguards"
+      "short_title": "Long-term care insurance consumer safeguards",
+      "notes": "Bill number SB 478 confirmed. CT Mirror says the state attorney general gets power to investigate insurers; the OLR summary says the Insurance Commissioner investigates and may refer suspected violations to the attorney general. This entry follows OLR. House vote 146-4 on May 5, 2026 per CT Mirror."
     },
     {
       "session": "2026",
@@ -1020,206 +1310,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Only conservatorship sections 5, 7 (and related fee sections 8-9) are relevant. The effective date of Oct 1, 2026 comes from the pre-final (R01) OLR summary and was not re-confirmed against the final R02 summary or act text (the R02 summary URL failed to load). This is the main 2026 conservatorship act found; no bill specifically on guardianship of adults beyond this and SB 474 was found.",
       "id": "2026-sb400",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=400",
-      "short_title": "Probate court operations (conservatorship notices and audits)"
-    },
-    {
-      "session": "2026",
-      "bill": "SB 288",
-      "public_act": "",
-      "enacted": false,
-      "title": "An Act Concerning the Department of Social Services' Recommendations Regarding Nursing Home Bed Moratorium Exceptions, Resident Data Reporting, and Reimbursement Rate Caps for Related-Party Employees (Substitute for Raised SB 288)",
-      "topics": [
-        "closures_capacity",
-        "ownership_finance",
-        "quality_oversight"
-      ],
-      "summary": "Proposed DSS recommendations: nursing home bed moratorium exceptions, timely resident data submission for rate-setting, and DSS authority to exclude related parties as employers when setting rate costs. Reported favorably by the Aging Committee and tabled on the Senate calendar.",
-      "key_dates": [
-        {
-          "date": "2026-02-24",
-          "what": "Public hearing"
-        },
-        {
-          "date": "2026-03-23",
-          "what": "Favorable report, tabled for the calendar, Senate (Calendar 97)"
-        }
-      ],
-      "last_action": "Tabled for the Senate calendar March 23, 2026; no further action recorded",
-      "sources": [
-        {
-          "title": "SB 288 bill status (2026)",
-          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0288.pdf"
-        },
-        {
-          "title": "Aging Committee Joint Favorable Report, SB 288",
-          "url": "https://prdext3.cga.ct.gov/2026/JFR/S/PDF/2026SB-00288-R00AGE-JFR.PDF"
-        },
-        {
-          "title": "SB 123 / PA 26-74 OLR summary",
-          "url": "https://prdext3.cga.ct.gov/2026/sum/pdf/2026SUM00074-R02SB-00123-SUM.pdf"
-        }
-      ],
-      "notes": "Not enacted as a standalone bill. PA 26-74 (SB 123) sections 5-7 address the bed moratorium exception, CON criteria and MDS audits, which overlap in subject; the related-party cap was not found in PA 26-74. No source opened states PA 26-74 formally incorporated SB 288. The Long-Term Care Ombudsman (Mairead Painter) testified in support, per the JFR.",
-      "id": "2026-sb288",
-      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=288",
-      "short_title": "DSS nursing home recommendations (bed moratorium, data, related-party rates)"
-    },
-    {
-      "session": "2026",
-      "bill": "SB 289",
-      "public_act": "",
-      "enacted": false,
-      "title": "An Act Concerning Funding of the Quality Metrics Program for Nursing Homes",
-      "topics": [
-        "quality_oversight",
-        "ownership_finance"
-      ],
-      "summary": "Proposed funding for the nursing home quality metrics program. Reported favorably by the Aging and Appropriations committees and tabled on the Senate calendar.",
-      "key_dates": [
-        {
-          "date": "2026-04-13",
-          "what": "Appropriations Committee joint favorable"
-        },
-        {
-          "date": "2026-04-14",
-          "what": "Favorable report, tabled for the calendar, Senate"
-        }
-      ],
-      "last_action": "Tabled for the Senate calendar April 14, 2026; no further action recorded",
-      "sources": [
-        {
-          "title": "SB 289 bill status (2026)",
-          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0289.pdf"
-        },
-        {
-          "title": "Appropriations Committee JFR, SB 289",
-          "url": "https://prdext2.cga.ct.gov/2026/JFR/S/PDF/2026SB-00289-R00APP-JFR.PDF"
-        }
-      ],
-      "notes": "Status confirmed. I could not confirm whether quality metrics funding was enacted through the budget (PA 26-68); the OLR report text read lists PA 26-68 sections 446-447 (performance-based payments) but does not mention SB 289 or a quality metrics appropriation, so the relationship is unconfirmed.",
-      "id": "2026-sb289",
-      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=289",
-      "short_title": "Nursing home quality metrics program funding"
-    },
-    {
-      "session": "2026",
-      "bill": "SB 124",
-      "public_act": "",
-      "enacted": false,
-      "title": "An Act Concerning the Department of Aging and Disability Services' Recommendations Regarding Municipal Agents for Aging",
-      "topics": [
-        "aging_financing"
-      ],
-      "summary": "Proposed ADS recommendations on municipal agents for aging. Tabled on the Senate calendar; related provisions appear in PA 26-74 section 2.",
-      "key_dates": [
-        {
-          "date": "2026-03-19",
-          "what": "Favorable report, tabled for the calendar, Senate (Calendar 68)"
-        }
-      ],
-      "last_action": "Tabled for the Senate calendar March 19, 2026",
-      "sources": [
-        {
-          "title": "SB 124 bill status (2026)",
-          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0124.pdf"
-        },
-        {
-          "title": "OLR summary of PA 26-74",
-          "url": "https://prdext3.cga.ct.gov/2026/sum/pdf/2026SUM00074-R02SB-00123-SUM.pdf"
-        }
-      ],
-      "notes": "Status confirmed. The statement that its content went into PA 26-74 section 2 is an inference from matching subject matter (municipal agents for aging, conflict-of-interest provisions), not stated in a source.",
-      "id": "2026-sb124",
-      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=124",
-      "short_title": "Municipal agents for aging"
-    },
-    {
-      "session": "2026",
-      "bill": "HB 5300",
-      "public_act": "",
-      "enacted": false,
-      "title": "An Act Concerning Cost of Living Adjustments to Long-Term Care Facility Residents' Personal Needs Allowance",
-      "topics": [
-        "aging_financing"
-      ],
-      "summary": "Proposed cost-of-living adjustments to the personal needs allowance for residents of long-term care facilities. Tabled on the House calendar.",
-      "key_dates": [
-        {
-          "date": "2026-04-15",
-          "what": "Appropriations Committee no new file; tabled for the calendar, House"
-        }
-      ],
-      "last_action": "Tabled for the House calendar April 15, 2026",
-      "sources": [
-        {
-          "title": "HB 5300 bill status (2026)",
-          "url": "https://prdext3.cga.ct.gov/2026/cbs/H/pdf/HB-5300.pdf"
-        }
-      ],
-      "notes": "Status confirmed. I did not check whether a personal needs allowance change appears in the budget act.",
-      "id": "2026-hb5300",
-      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5300",
-      "short_title": "Personal needs allowance cost-of-living adjustment"
-    },
-    {
-      "session": "2026",
-      "bill": "SB 122",
-      "public_act": "",
-      "enacted": false,
-      "title": "An Act Concerning a Study of Long-Term Care Needs",
-      "topics": [
-        "aging_financing",
-        "closures_capacity"
-      ],
-      "summary": "Proposed study of long-term care needs. Reported favorably, then transmitted to the Judiciary Committee.",
-      "key_dates": [
-        {
-          "date": "2026-04-08",
-          "what": "Immediate transmittal to Judiciary Committee (last recorded action)"
-        }
-      ],
-      "last_action": "Immediate transmittal to Judiciary Committee April 8, 2026; no further action recorded",
-      "sources": [
-        {
-          "title": "SB 122 bill status (2026)",
-          "url": "https://prdext2.cga.ct.gov/2026/cbs/S/pdf/SB-0122.pdf"
-        }
-      ],
-      "notes": "No public act listed. Possible subject overlap with the Long-Term Care Planning Committee changes in PA 26-72, but no source links them.",
-      "id": "2026-sb122",
-      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=122",
-      "short_title": "Study of long-term care needs"
-    },
-    {
-      "session": "2026",
-      "bill": "SB 474",
-      "public_act": "",
-      "enacted": false,
-      "title": "An Act Concerning the Provision of Annual Training to a Person Appointed as a Conservator in a Probate Court Proceeding",
-      "topics": [
-        "aging_financing"
-      ],
-      "summary": "Proposed annual training for court-appointed conservators. Tabled on the Senate calendar.",
-      "key_dates": [
-        {
-          "date": "2026-04-09",
-          "what": "Favorable report, tabled for the calendar, Senate (Calendar 343)"
-        }
-      ],
-      "last_action": "Tabled for the Senate calendar April 9, 2026",
-      "sources": [
-        {
-          "title": "SB 474 bill status (2026)",
-          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0474.pdf"
-        }
-      ],
-      "notes": "Status confirmed. Whether any conservator training language was added to SB 400 / PA 26-87 was not found in the sources read.",
-      "id": "2026-sb474",
-      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=474",
-      "short_title": "Annual training for conservators"
+      "short_title": "Probate court operations (conservatorship notices and audits)",
+      "notes": "Only conservatorship sections 5, 7 (and related fee sections 8-9) are relevant. The effective date of Oct 1, 2026 comes from the pre-final (R01) OLR summary and was not re-confirmed against the final R02 summary or act text (the R02 summary URL failed to load). This is the main 2026 conservatorship act found; no bill specifically on guardianship of adults beyond this and SB 474 was found."
     },
     {
       "session": "2026",
@@ -1261,10 +1355,10 @@
           "url": "https://www.aarp.org/states/connecticut/2026-state-legislative-session-addresses-many-of-aarp-connecticut-priorities/"
         }
       ],
-      "notes": "Home care (not facility) bill; included for completeness. Training hours differ by source: OLR R-0085 says at least eight hours of annual paid training; AARP's article says at least 10 hours of initial training. Verify the hours against the act text before publishing hours.",
       "id": "2026-hb5143",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5143",
-      "short_title": "Training for homemaker-companion agency staff"
+      "short_title": "Training for homemaker-companion agency staff",
+      "notes": "Home care (not facility) bill; included for completeness. Training hours differ by source: OLR R-0085 says at least eight hours of annual paid training; AARP's article says at least 10 hours of initial training. Verify the hours against the act text before publishing hours."
     },
     {
       "session": "2026",
@@ -1293,10 +1387,10 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Marginal to LTC. Effective date not captured.",
       "id": "2026-hb5044",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5044",
-      "short_title": "Connecticut vaccine standards"
+      "short_title": "Connecticut vaccine standards",
+      "notes": "Marginal to LTC. Effective date not captured."
     },
     {
       "session": "2026",
@@ -1305,7 +1399,8 @@
       "enacted": true,
       "title": "An Act Concerning a Five-Year Medicaid Rate Review, Dental Representation on a Medical Assistance Oversight Council, Biomarker Testing and Opioid Prescription Coverage Requirements, and a Study Concerning Payment of Spouses for State-Subsidized Home Care",
       "topics": [
-        "aging_financing"
+        "aging_financing",
+        "home_community_care"
       ],
       "summary": "Section 5 creates a six-member working group to study compensating spouses who provide personal care assistance to Medicaid home care enrollees, with a report due January 1, 2027.",
       "key_dates": [
@@ -1329,10 +1424,310 @@
           "url": "https://prdext3.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
         }
       ],
-      "notes": "Home care financing, marginal to the facility focus. Other sections unrelated.",
       "id": "2026-hb5561",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5561",
-      "short_title": "Medicaid rate review (working group on paying spouses for home care)"
+      "short_title": "Medicaid rate review (working group on paying spouses for home care)",
+      "notes": "Home care financing, marginal to the facility focus. Other sections unrelated."
+    },
+    {
+      "session": "2026",
+      "bill": "SB 288",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning the Department of Social Services' Recommendations Regarding Nursing Home Bed Moratorium Exceptions, Resident Data Reporting, and Reimbursement Rate Caps for Related-Party Employees (Substitute for Raised SB 288)",
+      "topics": [
+        "closures_capacity",
+        "ownership_finance",
+        "quality_oversight"
+      ],
+      "summary": "Proposed DSS recommendations: nursing home bed moratorium exceptions, timely resident data submission for rate-setting, and DSS authority to exclude related parties as employers when setting rate costs. Reported favorably by the Aging Committee and tabled on the Senate calendar.",
+      "key_dates": [
+        {
+          "date": "2026-02-24",
+          "what": "Public hearing"
+        },
+        {
+          "date": "2026-03-23",
+          "what": "Favorable report, tabled for the calendar, Senate (Calendar 97)"
+        }
+      ],
+      "last_action": "Tabled for the Senate calendar March 23, 2026; no further action recorded",
+      "sources": [
+        {
+          "title": "SB 288 bill status (2026)",
+          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0288.pdf"
+        },
+        {
+          "title": "Aging Committee Joint Favorable Report, SB 288",
+          "url": "https://prdext3.cga.ct.gov/2026/JFR/S/PDF/2026SB-00288-R00AGE-JFR.PDF"
+        },
+        {
+          "title": "SB 123 / PA 26-74 OLR summary",
+          "url": "https://prdext3.cga.ct.gov/2026/sum/pdf/2026SUM00074-R02SB-00123-SUM.pdf"
+        }
+      ],
+      "id": "2026-sb288",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=288",
+      "short_title": "DSS nursing home recommendations (bed moratorium, data, related-party rates)",
+      "notes": "Not enacted as a standalone bill. PA 26-74 (SB 123) sections 5-7 address the bed moratorium exception, CON criteria and MDS audits, which overlap in subject; the related-party cap was not found in PA 26-74. No source opened states PA 26-74 formally incorporated SB 288. The Long-Term Care Ombudsman (Mairead Painter) testified in support, per the JFR."
+    },
+    {
+      "session": "2026",
+      "bill": "SB 289",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Funding of the Quality Metrics Program for Nursing Homes",
+      "topics": [
+        "quality_oversight",
+        "ownership_finance"
+      ],
+      "summary": "Proposed funding for the nursing home quality metrics program. Reported favorably by the Aging and Appropriations committees and tabled on the Senate calendar.",
+      "key_dates": [
+        {
+          "date": "2026-04-13",
+          "what": "Appropriations Committee joint favorable"
+        },
+        {
+          "date": "2026-04-14",
+          "what": "Favorable report, tabled for the calendar, Senate"
+        }
+      ],
+      "last_action": "Tabled for the Senate calendar April 14, 2026; no further action recorded",
+      "sources": [
+        {
+          "title": "SB 289 bill status (2026)",
+          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0289.pdf"
+        },
+        {
+          "title": "Appropriations Committee JFR, SB 289",
+          "url": "https://prdext2.cga.ct.gov/2026/JFR/S/PDF/2026SB-00289-R00APP-JFR.PDF"
+        }
+      ],
+      "id": "2026-sb289",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=289",
+      "short_title": "Nursing home quality metrics program funding",
+      "notes": "Status confirmed. I could not confirm whether quality metrics funding was enacted through the budget (PA 26-68); the OLR report text read lists PA 26-68 sections 446-447 (performance-based payments) but does not mention SB 289 or a quality metrics appropriation, so the relationship is unconfirmed."
+    },
+    {
+      "session": "2026",
+      "bill": "SB 124",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning the Department of Aging and Disability Services' Recommendations Regarding Municipal Agents for Aging",
+      "topics": [
+        "aging_financing"
+      ],
+      "summary": "Proposed ADS recommendations on municipal agents for aging. Tabled on the Senate calendar; related provisions appear in PA 26-74 section 2.",
+      "key_dates": [
+        {
+          "date": "2026-03-19",
+          "what": "Favorable report, tabled for the calendar, Senate (Calendar 68)"
+        }
+      ],
+      "last_action": "Tabled for the Senate calendar March 19, 2026",
+      "sources": [
+        {
+          "title": "SB 124 bill status (2026)",
+          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0124.pdf"
+        },
+        {
+          "title": "OLR summary of PA 26-74",
+          "url": "https://prdext3.cga.ct.gov/2026/sum/pdf/2026SUM00074-R02SB-00123-SUM.pdf"
+        }
+      ],
+      "id": "2026-sb124",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=124",
+      "short_title": "Municipal agents for aging",
+      "notes": "Status confirmed. The statement that its content went into PA 26-74 section 2 is an inference from matching subject matter (municipal agents for aging, conflict-of-interest provisions), not stated in a source."
+    },
+    {
+      "session": "2026",
+      "bill": "HB 5300",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Cost of Living Adjustments to Long-Term Care Facility Residents' Personal Needs Allowance",
+      "topics": [
+        "aging_financing"
+      ],
+      "summary": "Proposed cost-of-living adjustments to the personal needs allowance for residents of long-term care facilities. Tabled on the House calendar.",
+      "key_dates": [
+        {
+          "date": "2026-04-15",
+          "what": "Appropriations Committee no new file; tabled for the calendar, House"
+        }
+      ],
+      "last_action": "Tabled for the House calendar April 15, 2026",
+      "sources": [
+        {
+          "title": "HB 5300 bill status (2026)",
+          "url": "https://prdext3.cga.ct.gov/2026/cbs/H/pdf/HB-5300.pdf"
+        }
+      ],
+      "id": "2026-hb5300",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5300",
+      "short_title": "Personal needs allowance cost-of-living adjustment",
+      "notes": "Status confirmed. The budget act (PA 26-68) and PA 26-72 do not change the allowance."
+    },
+    {
+      "session": "2026",
+      "bill": "SB 122",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning a Study of Long-Term Care Needs",
+      "topics": [
+        "aging_financing",
+        "closures_capacity"
+      ],
+      "summary": "Proposed study of long-term care needs. Reported favorably, then transmitted to the Judiciary Committee.",
+      "key_dates": [
+        {
+          "date": "2026-04-08",
+          "what": "Immediate transmittal to Judiciary Committee (last recorded action)"
+        }
+      ],
+      "last_action": "Immediate transmittal to Judiciary Committee April 8, 2026; no further action recorded",
+      "sources": [
+        {
+          "title": "SB 122 bill status (2026)",
+          "url": "https://prdext2.cga.ct.gov/2026/cbs/S/pdf/SB-0122.pdf"
+        }
+      ],
+      "id": "2026-sb122",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=122",
+      "short_title": "Study of long-term care needs",
+      "notes": "No public act listed. Possible subject overlap with the Long-Term Care Planning Committee changes in PA 26-72, but no source links them."
+    },
+    {
+      "session": "2026",
+      "bill": "SB 474",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning the Provision of Annual Training to a Person Appointed as a Conservator in a Probate Court Proceeding",
+      "topics": [
+        "aging_financing"
+      ],
+      "summary": "Proposed annual training for court-appointed conservators. Tabled on the Senate calendar.",
+      "key_dates": [
+        {
+          "date": "2026-04-09",
+          "what": "Favorable report, tabled for the calendar, Senate (Calendar 343)"
+        }
+      ],
+      "last_action": "Tabled for the Senate calendar April 9, 2026",
+      "sources": [
+        {
+          "title": "SB 474 bill status (2026)",
+          "url": "https://prdext3.cga.ct.gov/2026/cbs/S/pdf/SB-0474.pdf"
+        }
+      ],
+      "id": "2026-sb474",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=474",
+      "short_title": "Annual training for conservators",
+      "notes": "Status confirmed. Whether any conservator training language was added to SB 400 / PA 26-87 was not found in the sources read."
+    },
+    {
+      "session": "2026",
+      "bill": "SB 328",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Requiring Nursing Homes to Spend Eighty Per Cent of Revenue on Direct Patient Care",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "summary": "Would have required nursing homes, from FY 2027, to spend at least 80% of Medicaid, Medicare and other revenue on direct care by nursing staff, with possible Medicaid rate cuts from FY 2029.",
+      "key_dates": [
+        {
+          "date": "2026-03-19",
+          "what": "Human Services Committee joint favorable, 16-7"
+        },
+        {
+          "date": "2026-04-07",
+          "what": "Tabled for the Senate calendar"
+        }
+      ],
+      "last_action": "Favorable report, tabled for the Senate calendar (April 7, 2026)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, SB 328 (2026)",
+          "url": "https://www.cga.ct.gov/2026/BA/PDF/2026SB-00328-R000461-BA.PDF"
+        },
+        {
+          "title": "OFA fiscal note addendum, April 15, 2026",
+          "url": "https://www.cga.ct.gov/2026/SFN/PDF/2026SB-00328-R00-ADD.PDF"
+        }
+      ],
+      "id": "2026-sb328",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=328",
+      "short_title": "80% of revenue on direct care"
+    },
+    {
+      "session": "2026",
+      "bill": "SB 326",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning HUSKY C Asset Limits",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "summary": "Would have raised HUSKY C asset limits from $1,600 and $2,400 to $10,000 and $15,000 in FY 2028, rising each year until eliminated in FY 2032, with annual DSS reports.",
+      "key_dates": [
+        {
+          "date": "2026-04-20",
+          "what": "Tabled for the Senate calendar after Appropriations took no new action"
+        }
+      ],
+      "last_action": "Favorable report, tabled for the Senate calendar (April 20, 2026)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, sSB 326 (2026)",
+          "url": "https://www.cga.ct.gov/2026/ba/pdf/2026SB-00326-R000459-BA.pdf"
+        },
+        {
+          "title": "OFA fiscal note, SB 326 (2026)",
+          "url": "https://www.cga.ct.gov/2026/FN/PDF/2026SB-00326-R000459-FN.PDF"
+        }
+      ],
+      "id": "2026-sb326",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=326",
+      "short_title": "Phase out HUSKY C asset limits by FY 2032"
+    },
+    {
+      "session": "2026",
+      "bill": "HB 5302",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Asset Limits for HUSKY C Beneficiaries",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "summary": "Would have raised HUSKY C asset limits to $5,000 for a single person and $7,500 for a married couple, with annual DSS reports. Aging Committee vote 14-0.",
+      "key_dates": [
+        {
+          "date": "2026-03-05",
+          "what": "Aging Committee joint favorable, 14-0"
+        },
+        {
+          "date": "2026-04-07",
+          "what": "Referred to Appropriations"
+        }
+      ],
+      "last_action": "Referred by House to Committee on Appropriations (April 7, 2026)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, HB 5302 (2026)",
+          "url": "https://www.cga.ct.gov/2026/ba/pdf/2026HB-05302-R000095-BA.pdf"
+        },
+        {
+          "title": "OFA fiscal note, HB 5302 (2026)",
+          "url": "https://www.cga.ct.gov/2026/FN/PDF/2026HB-05302-R000095-FN.PDF"
+        }
+      ],
+      "id": "2026-hb5302",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5302",
+      "short_title": "Raise HUSKY C asset limits to $5,000 and $7,500"
     },
     {
       "session": "2025",
@@ -1380,10 +1775,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Task force reports annually starting by January 1, 2027; State Alzheimer's Plan is updated every four years. Closure-related text is limited to the admissions provision (section 9 per OLR); the title refers to closures more broadly.",
       "id": "2025-hb6771",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6771",
-      "short_title": "Dementia task force, RCH discharge protections and other long-term care changes"
+      "short_title": "Dementia task force, RCH discharge protections and other long-term care changes",
+      "notes": "Task force reports annually starting by January 1, 2027; State Alzheimer's Plan is updated every four years. Closure-related text is limited to the admissions provision (section 9 per OLR); the title refers to closures more broadly."
     },
     {
       "session": "2025",
@@ -1413,10 +1808,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Effective date not captured.",
       "id": "2025-hb6913",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6913",
-      "short_title": "Ban on discrimination in long-term care facilities"
+      "short_title": "Ban on discrimination in long-term care facilities",
+      "notes": "Effective date not captured."
     },
     {
       "session": "2025",
@@ -1445,10 +1840,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Provision detail relies on LTCOP's one-line description; the act text was not read.",
       "id": "2025-hb6978",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6978",
-      "short_title": "DPH revisions (stronger enforcement, civil penalties)"
+      "short_title": "DPH revisions (stronger enforcement, civil penalties)",
+      "notes": "Provision detail relies on LTCOP's one-line description; the act text was not read."
     },
     {
       "session": "2025",
@@ -1485,10 +1880,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Working group provisions effective July 1, 2025; most other provisions upon passage.",
       "id": "2025-sb1501",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=1501",
-      "short_title": "Probate court operations (conservatorship working group)"
+      "short_title": "Probate court operations (conservatorship working group)",
+      "notes": "Working group provisions effective July 1, 2025; most other provisions upon passage."
     },
     {
       "session": "2025",
@@ -1517,10 +1912,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Act text not read.",
       "id": "2025-sb1380",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=1380",
-      "short_title": "Ban on discrimination by health care providers"
+      "short_title": "Ban on discrimination by health care providers",
+      "notes": "Act text not read."
     },
     {
       "session": "2025",
@@ -1549,10 +1944,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Nursing home provision relies on LTCOP's description; act text not read.",
       "id": "2025-hb6442",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6442",
-      "short_title": "Veterans measures (priority admission to VA-contracted nursing homes)"
+      "short_title": "Veterans measures (priority admission to VA-contracted nursing homes)",
+      "notes": "Nursing home provision relies on LTCOP's description; act text not read."
     },
     {
       "session": "2025",
@@ -1581,10 +1976,192 @@
           "url": "https://prdext3.cga.ct.gov/2025/JFR/S/PDF/2025SB-01279-R00AGE-JFR.PDF"
         }
       ],
-      "notes": "Not enacted. CT Mirror (Apr 28, 2025) estimated the cost at about $24M (headline: 'Boosting CT nursing home direct care would cost $24M'); that article was not opened.",
       "id": "2025-sb1279",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=1279",
-      "short_title": "Nursing home staffing ratios (3.6 hours)"
+      "short_title": "Nursing home staffing ratios (3.6 hours)",
+      "notes": "Not enacted. CT Mirror (Apr 28, 2025) estimated the cost at about $24M (headline: 'Boosting CT nursing home direct care would cost $24M'); that article was not opened."
+    },
+    {
+      "session": "2025",
+      "bill": "SB 805",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Requiring Nursing Homes to Spend Not Less Than Eighty Per Cent of Revenues on Direct Patient Care",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "summary": "Would have required nursing homes, from FY 2026, to spend at least 80% of Medicaid, Medicare and other revenue on direct care by nursing staff, with possible Medicaid rate cuts from FY 2028. A section of SB 11 (2025) carried the same rule.",
+      "key_dates": [
+        {
+          "date": "2025-04-01",
+          "what": "Tabled for the Senate calendar"
+        }
+      ],
+      "last_action": "Favorable report, tabled for the Senate calendar (April 1, 2025)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, SB 805 (2025)",
+          "url": "https://www.cga.ct.gov/2025/BA/PDF/2025SB-00805-R000371-BA.PDF"
+        },
+        {
+          "title": "OFA fiscal note, SB 805 (2025)",
+          "url": "https://www.cga.ct.gov/2025/FN/PDF/2025SB-00805-R000371-FN.PDF"
+        },
+        {
+          "title": "CT Mirror, March 13, 2025",
+          "url": "https://ctmirror.org/2025/03/13/ct-nursing-homes-direct-care/"
+        }
+      ],
+      "id": "2025-sb805",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=805",
+      "short_title": "80% of revenue on direct care"
+    },
+    {
+      "session": "2025",
+      "bill": "HB 6582",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Nursing Home Staffing Ratios",
+      "topics": [
+        "staffing_workforce"
+      ],
+      "summary": "Proposed bill to set minimum staffing levels for registered nurses, licensed practical nurses and nurse's aides. Referred to the Public Health Committee; no hearing or vote.",
+      "key_dates": [
+        {
+          "date": "2025-01-24",
+          "what": "Referred to the Public Health Committee"
+        }
+      ],
+      "last_action": "Referred to Joint Committee on Public Health (January 24, 2025)",
+      "sources": [
+        {
+          "title": "HB 6582 text (2025)",
+          "url": "https://www.cga.ct.gov/2025/TOB/H/PDF/2025HB-06582-R00-HB.PDF"
+        }
+      ],
+      "id": "2025-hb6582",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6582",
+      "short_title": "Staffing minimums for RNs, LPNs and aides (proposed bill)"
+    },
+    {
+      "session": "2025",
+      "bill": "SB 11",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Prescription Drug Access and Affordability",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "summary": "A Senate priority bill on drug costs whose Section 9 would have raised HUSKY C asset limits each year and eliminated them in FY 2030. Sent to the Finance Committee; no further action.",
+      "key_dates": [
+        {
+          "date": "2025-05-13",
+          "what": "Favorable report, tabled for the Senate calendar"
+        },
+        {
+          "date": "2025-05-21",
+          "what": "Referred by the Senate to the Finance, Revenue and Bonding Committee"
+        }
+      ],
+      "last_action": "Referred to the Finance, Revenue and Bonding Committee (May 21, 2025)",
+      "sources": [
+        {
+          "title": "sSB 11 file copy, 4th revision (2025)",
+          "url": "https://www.cga.ct.gov/2025/TOB/S/PDF/2025SB-00011-R04-SB.PDF"
+        }
+      ],
+      "id": "2025-sb11",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=11",
+      "short_title": "Drug affordability bill with HUSKY C asset phase-out"
+    },
+    {
+      "session": "2025",
+      "bill": "SB 807",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning the Elimination of Asset Limits for HUSKY C Beneficiaries Over a Five-Year Period",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "summary": "Would have raised HUSKY C asset limits each year from $1,600 and $2,400 until eliminating them in FY 2030. SB 11 (2025) carried a similar provision.",
+      "key_dates": [
+        {
+          "date": "2025-05-07",
+          "what": "Tabled for the Senate calendar"
+        }
+      ],
+      "last_action": "Favorable report, tabled for the Senate calendar (May 7, 2025)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, sSB 807 (2025)",
+          "url": "https://www.cga.ct.gov/2025/ba/pdf/2025SB-00807-R000423-BA.pdf"
+        },
+        {
+          "title": "OFA fiscal note, SB 807 (2025)",
+          "url": "https://www.cga.ct.gov/2025/FN/PDF/2025SB-00807-R000423-FN.PDF"
+        }
+      ],
+      "id": "2025-sb807",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=807",
+      "short_title": "Phase out HUSKY C asset limits by FY 2030"
+    },
+    {
+      "session": "2025",
+      "bill": "HB 6911",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Asset Limits for HUSKY C Beneficiaries",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "summary": "Would have raised HUSKY C asset limits each year by at least the change in the consumer price index, with annual DSS reports.",
+      "key_dates": [
+        {
+          "date": "2025-04-29",
+          "what": "Referred to Appropriations"
+        }
+      ],
+      "last_action": "Referred by House to Committee on Appropriations (April 29, 2025)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, sHB 6911 (2025)",
+          "url": "https://www.cga.ct.gov/2025/ba/pdf/2025HB-06911-R000110-BA.pdf"
+        }
+      ],
+      "id": "2025-hb6911",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6911",
+      "short_title": "Index HUSKY C asset limits to inflation"
+    },
+    {
+      "session": "2025",
+      "bill": "HB 6580",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Patient-to-Staff Ratios for Nurse's Aides and Nurses in Long-Term and Acute Inpatient Facilities",
+      "topics": [
+        "staffing_workforce"
+      ],
+      "summary": "Proposed bill to improve patient-to-staff ratios for nurse's aides and nurses in long-term and acute inpatient facilities; it named no specific ratio. Referred to Public Health; no hearing or vote.",
+      "key_dates": [
+        {
+          "date": "2025-01-24",
+          "what": "Referred to the Public Health Committee"
+        }
+      ],
+      "last_action": "Referred to Joint Committee on Public Health (January 24, 2025)",
+      "sources": [
+        {
+          "title": "HB 6580 text (2025)",
+          "url": "https://www.cga.ct.gov/2025/TOB/H/PDF/2025HB-06580-R00-HB.PDF"
+        }
+      ],
+      "id": "2025-hb6580",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6580",
+      "short_title": "Patient-to-staff ratios (proposed bill)"
     },
     {
       "session": "2024",
@@ -1640,10 +2217,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "July 1, 2026 date confirmed by Wiggin summary and CT Mirror (a Vote Smart page title says 2027; not relied on). The Wiggin summary does not itself name HB 5046; the HB 5046 = PA 24-141 mapping comes from the bill status PDF. PA 26-68 section 451 later lets DPH waive the limit for one home per small-house skilled nursing facility through July 1, 2027, and PA 26-76 section 44 waives it for certain homes serving people transitioning from correction or DMHAS services. Existing residents in multi-bed rooms need not move (CT Mirror, describing the bill as passed by the House).",
       "id": "2024-hb5046",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2024&bill_num=5046",
-      "short_title": "Nursing home resident quality of life (two-bed room limit)"
+      "short_title": "Nursing home resident quality of life (two-bed room limit)",
+      "notes": "July 1, 2026 date confirmed by Wiggin summary and CT Mirror (a Vote Smart page title says 2027; not relied on). The Wiggin summary does not itself name HB 5046; the HB 5046 = PA 24-141 mapping comes from the bill status PDF. PA 26-68 section 451 later lets DPH waive the limit for one home per small-house skilled nursing facility through July 1, 2027, and PA 26-76 section 44 waives it for certain homes serving people transitioning from correction or DMHAS services. Existing residents in multi-bed rooms need not move (CT Mirror, describing the bill as passed by the House)."
     },
     {
       "session": "2024",
@@ -1655,7 +2232,8 @@
         "quality_oversight",
         "community_settings",
         "ombudsman_program",
-        "aging_financing"
+        "aging_financing",
+        "home_community_care"
       ],
       "summary": "Omnibus aging act creating a home care provider registry, links to Medicare Care Compare, a DPH nursing home consumer dashboard and Centers of Excellence program, presumptive Medicaid eligibility for home care, ombudsman-related notice and records access changes for ALSAs and MRCs, an MRC consumer guide, and mandatory municipal agents for the elderly.",
       "key_dates": [
@@ -1687,10 +2265,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Wiggin summary does not name bill numbers; mapping from bill status PDF.",
       "id": "2024-hb5001",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2024&bill_num=5001",
-      "short_title": "Supporting seniors and nursing and home-based care"
+      "short_title": "Supporting seniors and nursing and home-based care",
+      "notes": "Wiggin summary does not name bill numbers; mapping from bill status PDF."
     },
     {
       "session": "2024",
@@ -1725,10 +2303,10 @@
           "url": "https://www.wiggin.com/wp-content/uploads/2024/09/2024-Summary-of-Key-Connecticut-Legislation-Relating-to-Providers-of-Services-to-the-Elderly.pdf"
         }
       ],
-      "notes": "The 'direct care' definition (section 31) took effect May 21, 2024 per Wiggin summary.",
       "id": "2024-sb1",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2024&bill_num=1",
-      "short_title": "Health and safety of residents (workplace violence, isolation)"
+      "short_title": "Health and safety of residents (workplace violence, isolation)",
+      "notes": "The 'direct care' definition (section 31) took effect May 21, 2024 per Wiggin summary."
     },
     {
       "session": "2024",
@@ -1762,10 +2340,50 @@
           "url": "https://www.wiggin.com/wp-content/uploads/2024/09/2024-Summary-of-Key-Connecticut-Legislation-Relating-to-Providers-of-Services-to-the-Elderly.pdf"
         }
       ],
-      "notes": "Wiggin summary does not name the bill number; mapping from bill status PDF.",
       "id": "2024-hb5457",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2024&bill_num=5457",
-      "short_title": "Nursing home waiting lists"
+      "short_title": "Nursing home waiting lists",
+      "notes": "Wiggin summary does not name the bill number; mapping from bill status PDF."
+    },
+    {
+      "session": "2024",
+      "bill": "SB 156",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Establishing a Task Force to Study Requiring Nursing Homes to Spend a Percentage of Medicaid Reimbursement or Total Revenue on Direct Care of Nursing Home Residents",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "summary": "Raised as a requirement to spend at least 80% of Medicaid funding on direct care; the Aging Committee substitute instead created a task force to study a direct care spending minimum.",
+      "key_dates": [
+        {
+          "date": "2024-03-12",
+          "what": "Aging Committee joint favorable substitute, 13-2"
+        },
+        {
+          "date": "2024-03-26",
+          "what": "Tabled for the Senate calendar"
+        }
+      ],
+      "last_action": "Favorable report, tabled for the Senate calendar (March 26, 2024)",
+      "sources": [
+        {
+          "title": "SB 156 as raised (2024)",
+          "url": "https://www.cga.ct.gov/2024/TOB/S/PDF/2024SB-00156-R00-SB.PDF"
+        },
+        {
+          "title": "OLR bill analysis, sSB 156 (2024)",
+          "url": "https://www.cga.ct.gov/2024/BA/PDF/2024SB-00156-R000112-BA.PDF"
+        },
+        {
+          "title": "CT Mirror, March 17, 2024",
+          "url": "https://ctmirror.org/2024/03/17/ct-medicaid-nursing-home-spending/"
+        }
+      ],
+      "id": "2024-sb156",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2024&bill_num=156",
+      "short_title": "Direct care spending: study task force (first drafted as 80% of Medicaid)"
     },
     {
       "session": "2023",
@@ -1797,10 +2415,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Effective dates not captured.",
       "id": "2023-hb5781",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2023&bill_num=5781",
-      "short_title": "Involuntary transfer and discharge notices, family councils, transparency"
+      "short_title": "Involuntary transfer and discharge notices, family councils, transparency",
+      "notes": "Effective dates not captured."
     },
     {
       "session": "2023",
@@ -1829,10 +2447,10 @@
           "url": "https://portal.ct.gov/ltcop/advocacy-over-the-years"
         }
       ],
-      "notes": "Act text not read.",
       "id": "2023-hb6731",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2023&bill_num=6731",
-      "short_title": "Change of ownership review for health care facilities"
+      "short_title": "Change of ownership review for health care facilities",
+      "notes": "Act text not read."
     },
     {
       "session": "2023",
@@ -1861,10 +2479,128 @@
           "url": "https://ctmirror.org/2023/05/08/ct-elder-care-nursing-home-reform-bills/"
         }
       ],
-      "notes": "Not enacted. The 4.1-hour figure comes from CT Mirror; the Aging Committee JFR text read does not state hours (it mentions 4.1 only as a 2000 federal study cited by Connecticut Legal Services). CT Mirror reported a working group would study staffing instead.",
       "id": "2023-sb1026",
       "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2023&bill_num=1026",
-      "short_title": "Nursing home staffing ratios (4.1 hours)"
+      "short_title": "Nursing home staffing ratios (4.1 hours)",
+      "notes": "Not enacted. The 4.1-hour figure comes from CT Mirror; the Aging Committee JFR text read does not state hours (it mentions 4.1 only as a 2000 federal study cited by Connecticut Legal Services). CT Mirror reported a working group would study staffing instead."
+    },
+    {
+      "session": "2022",
+      "bill": "HB 5310",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Requiring Nursing Home Facilities to Spend at Least Ninety Per Cent of Medicaid Funding Provided by the State on Direct Care",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "summary": "Would have required nursing homes to spend at least 90% of state Medicaid funding on direct care. The Aging Committee held a public hearing on March 8, 2022 and did not vote it out.",
+      "key_dates": [
+        {
+          "date": "2022-03-08",
+          "what": "Aging Committee public hearing"
+        }
+      ],
+      "last_action": "Public hearing March 8, 2022; no committee vote",
+      "sources": [
+        {
+          "title": "HB 5310 text (2022)",
+          "url": "https://www.cga.ct.gov/2022/TOB/H/PDF/2022HB-05310-R00-HB.PDF"
+        },
+        {
+          "title": "CT Mirror, March 11, 2022",
+          "url": "https://ctmirror.org/2022/03/11/bill-requiring-nursing-homes-to-spend-more-on-direct-care-wont-advance/"
+        }
+      ],
+      "id": "2022-hb5310",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2022&bill_num=5310",
+      "short_title": "90% of Medicaid on direct care"
+    },
+    {
+      "session": "2022",
+      "bill": "HB 5333",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning the Program of All-Inclusive Care for the Elderly",
+      "topics": [
+        "home_community_care"
+      ],
+      "summary": "Would have allowed DSS to submit a Medicaid state plan amendment to cover PACE within available appropriations. Placed on the House calendar; no vote. The same authority passed in 2023 (PA 23-30, PA 23-204).",
+      "key_dates": [
+        {
+          "date": "2022-04-06",
+          "what": "House calendar number 243"
+        }
+      ],
+      "last_action": "House calendar (April 6, 2022)",
+      "sources": [
+        {
+          "title": "OLR bill analysis, sHB 5333 (2022)",
+          "url": "https://www.cga.ct.gov/2022/BA/PDF/2022HB-05333-R000331-BA.PDF"
+        }
+      ],
+      "id": "2022-hb5333",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2022&bill_num=5333",
+      "short_title": "Allow PACE under Medicaid"
+    },
+    {
+      "session": "2021",
+      "bill": "HB 6011",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning a Direct Care Payment Ratio in Nursing Home and Long-Term Care Services",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "summary": "Proposed bill to set a minimum percentage of Medicaid nursing home reimbursement that must be spent on direct care. Referred to the Public Health Committee; no hearing or vote.",
+      "key_dates": [
+        {
+          "date": "2021-01-28",
+          "what": "Referred to the Public Health Committee"
+        }
+      ],
+      "last_action": "Referred to Joint Committee on Public Health (January 28, 2021)",
+      "sources": [
+        {
+          "title": "HB 6011 text (2021)",
+          "url": "https://www.cga.ct.gov/2021/TOB/H/PDF/2021HB-06011-R00-HB.PDF"
+        }
+      ],
+      "id": "2021-hb6011",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2021&bill_num=6011",
+      "short_title": "Direct care payment ratio (proposed bill)"
+    },
+    {
+      "session": "2021",
+      "bill": "SB 1057",
+      "public_act": "",
+      "enacted": false,
+      "title": "An Act Concerning Minimum Staffing Levels in Nursing Homes",
+      "topics": [
+        "staffing_workforce"
+      ],
+      "summary": "Would have required 4.10 direct-care hours per resident per day by January 1, 2022, including 0.75 RN, 0.54 LPN and 2.81 aide hours. PA 21-185 set 3.00 hours that session.",
+      "key_dates": [
+        {
+          "date": "2021-05-26",
+          "what": "Moved to the foot of the Senate calendar"
+        }
+      ],
+      "last_action": "Moved to Foot of the Calendar, Senate (May 26, 2021)",
+      "sources": [
+        {
+          "title": "OFA fiscal note, SB 1057 (2021)",
+          "url": "https://www.cga.ct.gov/2021/FN/PDF/2021SB-01057-R000522-FN.PDF"
+        },
+        {
+          "title": "SB 1057 file copy (2021)",
+          "url": "https://www.cga.ct.gov/2021/TOB/S/PDF/2021SB-01057-R01-SB.PDF"
+        }
+      ],
+      "id": "2021-sb1057",
+      "bill_status_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2021&bill_num=1057",
+      "short_title": "Staffing minimum of 4.10 hours (2021)"
     }
   ],
   "how_to": [

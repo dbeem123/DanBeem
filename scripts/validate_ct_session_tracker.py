@@ -15,6 +15,10 @@ ROOT = Path(__file__).resolve().parents[1]
 ISO = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 BILL = re.compile(r"^(SB|HB) \d{1,4}$")
 ACT = re.compile(r"^(PA|SA) \d{2}-\d{1,3}$")
+try:
+    TOPICS = {t["id"] for t in json.loads((ROOT / "data" / "ct_ltcop_legislative_tracker.json").read_text(encoding="utf-8"))["topics"]}
+except (OSError, KeyError, ValueError):
+    TOPICS = set()
 
 
 def problems(data: dict) -> list[str]:
@@ -52,6 +56,12 @@ def problems(data: dict) -> list[str]:
             out.append(f"{where}: signed bill needs public_act like 'PA {str(year)[2:]}-12'")
         if b.get("status") != "signed" and b.get("public_act"):
             out.append(f"{where}: public_act set but status is not signed")
+        if "topics" in b:
+            topics = b["topics"]
+            if not isinstance(topics, list) or not all(isinstance(t, str) and t for t in topics):
+                out.append(f"{where}: topics must be a list of topic ids")
+            elif TOPICS and any(t not in TOPICS for t in topics):
+                out.append(f"{where}: unknown topic in {topics}")
         url = b.get("bill_status_url") or ""
         if not url.startswith("https://") or f"which_year={year}" not in url:
             out.append(f"{where}: bill_status_url should be the {year} CGA status link")

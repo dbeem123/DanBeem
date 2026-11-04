@@ -5,6 +5,9 @@ Prints Markdown with:
   2. Counts by status.
   3. A checklist of every bill still in progress, with its status page link and the
      days since its last recorded action, so the weekly CGA check goes quickly.
+  4. Untagged bills: bills with no `topics` or in no storyline (once bills carry topics).
+  5. Moves by storyline: this week's status changes grouped by storyline
+     (data/ct_ltcop_legislative_threads.json; storylines point to bills, not the reverse).
 
 Usage:
   python scripts/ct_session_weekly_report.py 2027
@@ -44,6 +47,25 @@ def load_previous(year: int | str, since: str | None) -> dict | None:
     return json.loads(raw.decode("utf-8"))
 
 
+THREADS = ROOT / "data" / "ct_ltcop_legislative_threads.json"
+
+
+def load_threads() -> dict | None:
+    try:
+        return json.loads(THREADS.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+
+
+def threads_by_bill(threads: dict | None) -> dict[str, list[dict]]:
+    out: dict[str, list[dict]] = {}
+    for th in (threads or {}).get("threads", []):
+        ids = {e.get("ref") for e in th.get("events", []) if e.get("ref")} | set(th.get("watch", []))
+        for i in ids:
+            out.setdefault(i, []).append(th)
+    return out
+
+
 def iso(d: str | None) -> date | None:
     return date.fromisoformat(d) if d else None
 
@@ -64,7 +86,7 @@ def changes(prev: dict | None, cur: dict) -> dict:
     return {"added": added, "moved": moved, "new_acts": new_acts, "removed": removed}
 
 
-def render(cur: dict, prev: dict | None, stale_days: int = 14) -> str:
+def render(cur: dict, prev: dict | None, stale_days: int = 14, threads: dict | None = None) -> str:
     labels = {s["id"]: s["label"] for s in cur["statuses"]}
     stage = {s["id"]: s.get("stage", -1) for s in cur["statuses"]}
     lab = lambda sid: labels.get(sid, sid or "none")  # noqa: E731
@@ -121,6 +143,35 @@ def render(cur: dict, prev: dict | None, stale_days: int = 14) -> str:
     else:
         out.append("Final report: the session is over." if final else "Nothing to check.")
     out.append("")
+
+    by_bill = threads_by_bill(threads)
+    out.append("## Untagged bills")
+    if not any("topics" in b for b in cur["bills"]):
+        out.append("No bill carries `topics` yet. Add topic ids to each bill as it is reviewed; this list then shows what still needs tagging." if cur["bills"] else "No bills yet.")
+    else:
+        no_topic = [b for b in cur["bills"] if not b.get("topics")]
+        no_thread = [b for b in cur["bills"] if b.get("topics") and b["id"] not in by_bill]
+        if not no_topic and not no_thread:
+            out.append("Every bill has topics and belongs to a storyline.")
+        for b in no_topic:
+            out.append(f"- **No topic:** {b['bill']}: {b['summary']}")
+        for b in no_thread:
+            out.append(f"- **In no storyline:** {b['bill']} ({', '.join(b['topics'])}): add it to a storyline's events if it belongs to one.")
+    out.append("")
+
+    out.append("## Moves by storyline")
+    if prev is None or not ch["moved"]:
+        out.append("No status changes to group." if prev is not None else "No previous version found to compare against.")
+    else:
+        groups: dict[str, list[str]] = {}
+        for b, old in ch["moved"]:
+            line = f"- {b['bill']}: {lab(old)} → {lab(b['status'])}"
+            for th in by_bill.get(b["id"], []) or [{"title": "Not in a storyline"}]:
+                groups.setdefault(th["title"], []).append(line)
+        for title in sorted(groups, key=lambda t: (t == "Not in a storyline", t)):
+            out.append(f"### {title}")
+            out.extend(groups[title])
+    out.append("")
     out.append("Draft for the person updating the tracker. Listing a bill is not an LTCOP position.")
     return "\n".join(out) + "\n"
 
@@ -133,7 +184,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--stale-days", type=int, default=14)
     args = ap.parse_args(argv)
     cur = json.loads(data_path(args.year).read_text(encoding="utf-8"))
-    text = render(cur, load_previous(args.year, args.since), args.stale_days)
+    text = render(cur, load_previous(args.year, args.since), args.stale_days, load_threads())
     if args.out:
         Path(args.out).write_text(text, encoding="utf-8")
         print(f"Wrote {args.out}")

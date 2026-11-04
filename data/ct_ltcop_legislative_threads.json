@@ -1,0 +1,1255 @@
+{
+  "schema_version": "ct-ltcop-threads-1.0",
+  "last_updated": "2026-11-03",
+  "disclaimer": "Storylines connect related bills, acts and policy actions so they can be followed over several sessions. Listing is not a position of the Long Term Care Ombudsman Program.",
+  "kinds": [
+    "bill",
+    "act",
+    "policy",
+    "federal",
+    "report",
+    "budget",
+    "data"
+  ],
+  "statuses": [
+    "active",
+    "settled",
+    "watching"
+  ],
+  "data_series": {
+    "homes_below_300_by_quarter": {
+      "label": "Homes below 3.00 direct-care hours per resident day",
+      "source": "/data/nursing_home_ct_statewide_context.json",
+      "field": "below_total_3_00_count",
+      "note": "CMS Payroll-Based Journal data, quarters when the 3.00 policy applied for the full quarter (Q2 2023 onward)."
+    }
+  },
+  "threads": [
+    {
+      "id": "staffing-floor",
+      "title": "Raising the staffing floor (total hours)",
+      "question": "How high should Connecticut's minimum nursing home staffing floor be?",
+      "topics": [
+        "staffing_workforce"
+      ],
+      "status": "active",
+      "summary": "A 2021 law replaced the 1.9-hour minimum with three hours of direct care per resident day. DPH applied it by policy from 2023; its regulation was withdrawn in 2023, rejected without prejudice in 2024 and approved in January 2026. Bills for 4.10 hours (2021, 2023) and 3.60 hours (2025) did not pass.",
+      "events": [
+        {
+          "date": "2021-05-26",
+          "kind": "bill",
+          "ref": "2021-sb1057",
+          "label": "SB 1057 (4.10 hours) moved to foot of Senate calendar; not enacted",
+          "what": "Would have required 4.10 direct-care hours per resident day, including 0.75 RN, 0.54 LPN and 2.81 aide hours, by January 1, 2022.",
+          "source_url": "https://www.cga.ct.gov/2021/FN/PDF/2021SB-01057-R000522-FN.PDF"
+        },
+        {
+          "date": "2021-10-01",
+          "kind": "act",
+          "ref": "2021-sb1030",
+          "label": "PA 21-185 sets a three-hour direct care minimum",
+          "what": "Requires DPH to set nursing home staffing of at least three hours of direct care per resident per day by January 1, 2022, instead of 1.9 hours.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2022-02-09",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH says revised rules will miss the January 1 deadline",
+          "what": "DPH Blast Fax 2022-14 states that the regulatory revisions required by the act will not be in place by January 1, 2022.",
+          "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2022/blast-fax-2022-14-nursing-home-staffing-level-requirements.pdf"
+        },
+        {
+          "date": "2023-03-01",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH 3.00-hour policy takes effect",
+          "what": "DPH policies require 0.84 hours of nursing care plus 2.16 hours of nurse aide services per resident per day, 3.00 hours in total.",
+          "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"
+        },
+        {
+          "date": "2023-03-15",
+          "kind": "bill",
+          "ref": "2023-sb1026",
+          "label": "SB 1026 (4.10 hours) tabled; not enacted",
+          "what": "The Aging Committee substitute was reported favorably and tabled for the Senate calendar, its last recorded action.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2023&bill_num=1026"
+        },
+        {
+          "date": "2023-11-21",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH withdraws the 3.00 regulation from legislative review",
+          "what": "DPH withdrew proposed regulation PR2022-032 from the Legislative Regulation Review Committee and posted a new notice of intent on January 5, 2024.",
+          "source_url": "https://www.cga.ct.gov/2024/rrdata/pr/2024REG2024-026-PUB.PDF"
+        },
+        {
+          "date": "2024-01-05",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH amends its 3.00-hour policy",
+          "what": "Amended policies keep 3.00 total hours per resident per day, of which 0.84 hours are provided by licensed nursing personnel.",
+          "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"
+        },
+        {
+          "date": "2024-05-10",
+          "kind": "federal",
+          "ref": null,
+          "label": "CMS publishes a federal minimum staffing rule",
+          "what": "Final rule (89 FR 40876) sets 3.48 total nurse staffing hours per resident day, including 0.55 RN and 2.45 nurse aide hours, and an RN on site around the clock.",
+          "source_url": "https://www.govinfo.gov/content/pkg/FR-2024-05-10/html/2024-08273.htm"
+        },
+        {
+          "date": "2024-05-21",
+          "kind": "act",
+          "ref": "2024-sb1",
+          "label": "PA 24-19 defines direct care for the minimum",
+          "what": "Defines direct care as hands-on care by RNs, LPNs and nurse's aides, excluding food preparation, housekeeping, laundry, maintenance and administrative tasks.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2024-12-17",
+          "kind": "policy",
+          "ref": null,
+          "label": "Review committee rejects the 3.00 regulation without prejudice",
+          "what": "The Legislative Regulation Review Committee voted 10-0 to reject regulation 2024-026 without prejudice, with four members absent.",
+          "source_url": "https://www.cga.ct.gov/2024/RRdata/cm/pdf/2024cm-01217-R001100RR-cm.pdf"
+        },
+        {
+          "date": "2025-03-18",
+          "kind": "bill",
+          "ref": "2025-sb1279",
+          "label": "SB 1279 (3.60 hours) tabled; not enacted",
+          "what": "Reported favorably and tabled for the Senate calendar; the original text also reached 4.10 hours by 2028.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=1279"
+        },
+        {
+          "date": "2025-05-23",
+          "kind": "policy",
+          "ref": null,
+          "label": "Agreement sets a CNA wage pathway to $26",
+          "what": "A state agreement with SEIU 1199NE set a pathway to $26 per hour for nursing home CNAs by January 1, 2028.",
+          "source_url": "https://portal.ct.gov/governor/news/press-releases/2025/05-2025/governor-lamont-announces-for-direct-care-workers-in-nursing-homes-and-group-homes"
+        },
+        {
+          "date": "2025-12-03",
+          "kind": "federal",
+          "ref": null,
+          "label": "CMS repeals the federal staffing minimum",
+          "what": "An interim final rule (90 FR 55687) repeals the 2024 minimum staffing standards, effective February 2, 2026.",
+          "source_url": "https://www.federalregister.gov/documents/2025/12/03/2025-21792/medicare-and-medicaid-programs-repeal-of-minimum-staffing-standards-for-long-term-care-facilities"
+        },
+        {
+          "date": "2026-01-27",
+          "kind": "policy",
+          "ref": null,
+          "label": "Review committee approves the 3.00 staffing regulation",
+          "what": "Regulation 2024-026A was approved 13-0 with technical corrections; once approved, it replaces DPH's policies and procedures.",
+          "source_url": "https://www.cga.ct.gov/aspx/CGARegulations/CGARegulations.aspx?Yr=2026&Reg=2024-026&Amd=A"
+        },
+        {
+          "date": "2026-02-11",
+          "kind": "policy",
+          "ref": null,
+          "label": "Staffing regulation takes effect",
+          "what": "Filed February 5 and effective February 11, 2026, the 3.00-hour regulation replaces DPH's staffing policies.",
+          "source_url": "https://eregulations.ct.gov/eRegsPortal/Search/getDocument?guid=%7BB0E34C9C-0000-C116-88C4-C5FFBA05300B%7D"
+        }
+      ],
+      "data_series": "homes_below_300_by_quarter",
+      "open_questions": [
+        "How many residents live in homes below 3.00 hours, and for how many quarters in a row?",
+        "What would a higher standard cost through Medicaid rates, and how would it be paid for?",
+        "How often does DPH cite homes under the approved staffing regulation?"
+      ],
+      "watch": [
+        "2027-watch-staffing"
+      ]
+    },
+    {
+      "id": "staffing-ratios",
+      "title": "Staffing ratios by role and shift",
+      "question": "Should Connecticut set separate minimums for nurses and aides, or for day and night shifts?",
+      "topics": [
+        "staffing_workforce"
+      ],
+      "status": "active",
+      "summary": "Ratio proposals set minimums for each type of staff or each shift rather than one total. DPH's regulation, approved in January 2026, sets licensed-nurse minimums by day and night and an RN on duty at all times. Bills for separate RN, LPN and aide minimums (2021, 2023, 2025) were not enacted, and federal role minimums were repealed in 2025.",
+      "events": [
+        {
+          "date": "2021-05-26",
+          "kind": "bill",
+          "ref": "2021-sb1057",
+          "label": "SB 1057 sets RN, LPN and aide minimums; not enacted",
+          "what": "Proposed 0.75 RN, 0.54 LPN and 2.81 aide hours per resident day; OFA estimated half of homes fell short on RN hours.",
+          "source_url": "https://www.cga.ct.gov/2021/FN/PDF/2021SB-01057-R000522-FN.PDF"
+        },
+        {
+          "date": "2023-03-01",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH policy sets 0.84 licensed hours within the 3.00 total",
+          "what": "DPH policies require 0.84 hours of nursing care plus 2.16 hours of nurse aide services per resident per day.",
+          "source_url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"
+        },
+        {
+          "date": "2023-03-15",
+          "kind": "bill",
+          "ref": "2023-sb1026",
+          "label": "SB 1026 sets RN, LPN and aide minimums; tabled",
+          "what": "By 2026: 0.75 RN, 0.54 LPN and 2.81 aide hours per resident day. OFA estimated state costs up to $57.7 million in FY 2027.",
+          "source_url": "https://www.cga.ct.gov/2023/FN/PDF/2023SB-01026-R000081-FN.PDF"
+        },
+        {
+          "date": "2023-07-14",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH proposes day and night minimums in regulation",
+          "what": "Proposed regulation PR2022-032 sets licensed hours of 0.57 by day and 0.27 by night, and aide hours of 1.60 and 0.56.",
+          "source_url": "https://eregulations.ct.gov/eRegsPortal/Search/getDocument?guid=%7BF0E85489-0000-C31E-AB3B-2B1B97D8E3C8%7D"
+        },
+        {
+          "date": "2023-08-25",
+          "kind": "policy",
+          "ref": null,
+          "label": "DPH rules it may set separate nurse and aide minimums",
+          "what": "Answering a February 2023 CAHCF petition, DPH ruled that homes must meet the licensed and aide minimums, not only the combined three hours.",
+          "source_url": "https://eregulations.ct.gov/eRegsPortal/Search/getDocument?guid=%7B80C72D8A-0000-C65C-B75B-C1A0B467EA2D%7D"
+        },
+        {
+          "date": "2024-05-10",
+          "kind": "federal",
+          "ref": null,
+          "label": "Federal rule adds RN and aide minimums and 24/7 RN",
+          "what": "Requires 0.55 RN and 2.45 nurse aide hours per resident day, plus a registered nurse on site 24 hours a day, seven days a week.",
+          "source_url": "https://www.govinfo.gov/content/pkg/FR-2024-05-10/html/2024-08273.htm"
+        },
+        {
+          "date": "2025-01-24",
+          "kind": "bill",
+          "ref": "2025-hb6580",
+          "label": "HB 6580 proposes patient-to-staff ratios; no hearing",
+          "what": "Proposed bill to improve patient-to-staff ratios for aides and nurses in long-term and acute care; it named no specific ratio.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6580"
+        },
+        {
+          "date": "2025-01-24",
+          "kind": "bill",
+          "ref": "2025-hb6582",
+          "label": "HB 6582 proposes RN, LPN and aide minimums; no hearing",
+          "what": "Proposed bill to set minimum staffing levels for registered nurses, licensed practical nurses and nurse's aides; referral to Public Health was its last action.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2025&bill_num=6582"
+        },
+        {
+          "date": "2025-03-18",
+          "kind": "bill",
+          "ref": "2025-sb1279",
+          "label": "SB 1279 as raised set role minimums; tabled",
+          "what": "As raised: 0.66 RN, 0.49 LPN and 2.45 aide hours, rising to 4.10 total by 2028. The committee substitute kept a 3.60 total.",
+          "source_url": "https://www.cga.ct.gov/2025/TOB/S/PDF/2025SB-01279-R00-SB.PDF"
+        },
+        {
+          "date": "2025-12-03",
+          "kind": "federal",
+          "ref": null,
+          "label": "CMS repeals the federal RN and aide minimums",
+          "what": "An interim final rule (90 FR 55687) repeals the 2024 standards, including the 24/7 RN requirement, effective February 2, 2026.",
+          "source_url": "https://www.federalregister.gov/documents/2025/12/03/2025-21792/medicare-and-medicaid-programs-repeal-of-minimum-staffing-standards-for-long-term-care-facilities"
+        },
+        {
+          "date": "2026-01-27",
+          "kind": "policy",
+          "ref": null,
+          "label": "Approved regulation sets day and night licensed minimums",
+          "what": "Licensed nurses 0.57 hours per resident from 7 a.m. to 9 p.m. and 0.27 overnight, within 3.00 total, with an RN on duty at all times.",
+          "source_url": "https://www.cga.ct.gov/2026/rrdata/pr/2026REG2024-026A-RC.PDF"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "How many homes meet 0.84 licensed hours but rely on aides for the rest of the 3.00?",
+        "Would day and night minimums change staffing on evening and overnight shifts?"
+      ],
+      "watch": [
+        "2027-watch-staffing"
+      ]
+    },
+    {
+      "id": "direct-care-spending",
+      "title": "Minimum spending on direct care",
+      "question": "Should nursing homes have to spend a minimum share of their revenue on direct care?",
+      "topics": [
+        "ownership_finance",
+        "staffing_workforce"
+      ],
+      "status": "active",
+      "summary": "Bills since 2021 would require nursing homes to spend a set share of Medicaid or total revenue on direct care, from 90% of Medicaid (2022) to 80% of all revenue (2025, 2026). None passed; the 2024 bill became a study. OFA puts direct care at about 54% of allowable costs.",
+      "events": [
+        {
+          "date": "2021-01-28",
+          "kind": "bill",
+          "ref": "2021-hb6011",
+          "label": "HB 6011 proposes a direct care payment ratio; no hearing",
+          "what": "Proposed bill for a minimum share of Medicaid nursing home reimbursement spent on direct care; referral to Public Health was its last action.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2021&bill_num=6011"
+        },
+        {
+          "date": "2022-03-08",
+          "kind": "bill",
+          "ref": "2022-hb5310",
+          "label": "HB 5310 (90% of Medicaid) heard; not voted out",
+          "what": "The Aging Committee heard the bill and did not vote it out; a co-chair cited many unresolved questions in a short session.",
+          "source_url": "https://ctmirror.org/2022/03/11/bill-requiring-nursing-homes-to-spend-more-on-direct-care-wont-advance/"
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "act",
+          "ref": "2022-sb286",
+          "label": "PA 22-145 signed: penalties for unused wage increases",
+          "what": "DSS may assess a civil penalty on a nursing home that receives a rate increase for employee wages but does not use it for that purpose.",
+          "source_url": "https://www.cga.ct.gov/2022/SUM/PDF/2022SUM00145-R02SB-00286-SUM.PDF"
+        },
+        {
+          "date": "2024-03-26",
+          "kind": "bill",
+          "ref": "2024-sb156",
+          "label": "SB 156 becomes a study bill; tabled",
+          "what": "Raised as an 80% of Medicaid requirement, the Aging Committee substituted a task force to study a direct care spending minimum; tabled for the Senate calendar.",
+          "source_url": "https://ctmirror.org/2024/03/17/ct-medicaid-nursing-home-spending/"
+        },
+        {
+          "date": "2024-05-21",
+          "kind": "act",
+          "ref": "2024-sb1",
+          "label": "PA 24-19 defines direct care in statute",
+          "what": "Direct care means hands-on care by RNs, LPNs and nurse's aides, excluding food preparation, housekeeping, laundry, maintenance and administrative tasks.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2025-04-01",
+          "kind": "bill",
+          "ref": "2025-sb805",
+          "label": "SB 805 (80% of all revenue) tabled; not enacted",
+          "what": "Human Services voted 17-5 for 80% of Medicaid, Medicare and other revenue on direct care, with possible rate cuts from FY 2028; tabled for the Senate calendar.",
+          "source_url": "https://www.cga.ct.gov/2025/BA/PDF/2025SB-00805-R000371-BA.PDF"
+        },
+        {
+          "date": "2026-04-07",
+          "kind": "bill",
+          "ref": "2026-sb328",
+          "label": "SB 328 (80% from FY 2027) tabled; not enacted",
+          "what": "Human Services voted 16-7; the bill was tabled for the Senate calendar, its last recorded action.",
+          "source_url": "https://www.cga.ct.gov/2026/BA/PDF/2026SB-00328-R000461-BA.PDF"
+        },
+        {
+          "date": "2026-04-15",
+          "kind": "report",
+          "ref": "2026-sb328",
+          "label": "OFA: direct care is about 54% of allowable costs",
+          "what": "2024 cost reports show $1.15 billion of $2.13 billion on direct care; reaching 80% implies about $279 million in state share for other allowable costs.",
+          "source_url": "https://www.cga.ct.gov/2026/SFN/PDF/2026SB-00328-R00-ADD.PDF"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "Which costs should count as direct care, and should the share apply to Medicaid or all revenue?",
+        "How would a spending minimum interact with Medicaid rates for other allowable costs?"
+      ],
+      "watch": [
+        "2027-watch-direct-care-spending"
+      ]
+    },
+    {
+      "id": "discharge-protections",
+      "title": "Discharge and transfer protections",
+      "question": "How are residents protected from unsafe or improper discharge?",
+      "topics": [
+        "discharge_rights",
+        "community_settings",
+        "ombudsman_program"
+      ],
+      "status": "active",
+      "summary": "Since 2022, Connecticut has required nursing homes and residential care homes to report involuntary transfers and discharges to the Ombudsman, made same-day notice a condition of a nursing home discharge, and added discharge-planning and placement requirements.",
+      "events": [
+        {
+          "date": "2022-07-01",
+          "kind": "act",
+          "ref": "2022-hb5313",
+          "label": "PA 22-57 requires electronic discharge reports to the Ombudsman",
+          "what": "Nursing homes and residential care homes must report involuntary transfers and discharges on the Ombudsman portal: nursing homes from July 1, 2022, residential care homes by November 2022.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2022AA-0118_2022%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2022-10-01",
+          "kind": "act",
+          "ref": "2022-hb5500",
+          "label": "PA 22-58 adds contacts to residential care home discharge notices",
+          "what": "Written discharge notices must include Ombudsman contact information, and Disability Rights Connecticut for residents with mental illness or intellectual disability.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2022AA-0118_2022%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2023-06-13",
+          "kind": "act",
+          "ref": "2023-hb5781",
+          "label": "PA 23-48 requires same-day notice to the Ombudsman",
+          "what": "Nursing homes must notify the Ombudsman of an involuntary transfer or discharge the same day they notify the resident, or it cannot go forward. Effective on passage.",
+          "source_url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+        },
+        {
+          "date": "2023-10-01",
+          "kind": "act",
+          "ref": "2023-sb956",
+          "label": "PA 23-39 sets discharge plan standards",
+          "what": "Hospital and nursing home discharge plans must list follow-up appointments and medications; prescriptions go electronically to the patient's pharmacy for discharges home.",
+          "source_url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+        },
+        {
+          "date": "2025-09-23",
+          "kind": "report",
+          "ref": "2025-hb6771",
+          "label": "RCH evacuation working group begins meeting",
+          "what": "Chaired by the State Ombudsman under PA 25-16, the group on RCH evacuation and a mutual-aid platform met monthly through December 2025; its report was due January 1, 2026.",
+          "source_url": "https://portal.ct.gov/ltcop/rch-evacuation-workgroup"
+        },
+        {
+          "date": "2025-10-01",
+          "kind": "act",
+          "ref": "2025-hb6771",
+          "label": "PA 25-16 strengthens residential care home discharge notices",
+          "what": "Notices must name the destination and attest to same-day portal submission; a changed destination opens a new 10-day appeal, with discharge stayed; homes must consider proximity to family.",
+          "source_url": "https://www.cga.ct.gov/2025/ACT/PA/PDF/2025PA-00016-R00HB-06771-PA.PDF"
+        },
+        {
+          "date": "2025-10-01",
+          "kind": "act",
+          "ref": "2025-hb6913",
+          "label": "PA 25-17 bans discrimination against long-term care residents",
+          "what": "Nursing homes and assisted living facilities may not discriminate against residents on listed grounds, and must post notices and train direct care staff.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2025AA-0098_2025%20Acts%20Affecting%20Seniors.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "How many involuntary discharge notices reach the Ombudsman each year, and how many are appealed?",
+        "Hospital readmission rights under CGS 19a-537 cover nursing homes only; what happens when a residential care home will not take a resident back after a hospital stay?"
+      ],
+      "watch": []
+    },
+    {
+      "id": "ownership-transparency",
+      "title": "Nursing home financial transparency and accountability",
+      "question": "Who owns, manages and profits from Connecticut nursing homes, and what must they disclose?",
+      "topics": [
+        "ownership_finance"
+      ],
+      "status": "active",
+      "summary": "Since 2022, laws have tied wage-rate increases to their use, required private equity and REIT disclosure, related-party reporting and public cost reports, widened review of ownership changes and management companies, and expanded DPH discipline. From 2027, homes must report investment-entity owners and attest that the licensee controls care.",
+      "events": [
+        {
+          "date": "2022-05-31",
+          "kind": "act",
+          "ref": "2022-sb286",
+          "label": "PA 22-145 signed: penalties for unused wage increases",
+          "what": "Allows DSS to assess a civil penalty on a nursing home that receives a rate increase for employee wages but does not use it for that purpose.",
+          "source_url": "https://www.cga.ct.gov/2022/SUM/PDF/2022SUM00145-R02SB-00286-SUM.PDF"
+        },
+        {
+          "date": "2023-07-01",
+          "kind": "act",
+          "ref": "2023-hb5781",
+          "label": "PA 23-48 requires private equity and REIT ownership disclosure",
+          "what": "License applicants must disclose private equity or REIT owners and their audited financial statements; related-party reporting extends to nonprofit homes, with the threshold cut to $30,000.",
+          "source_url": "https://www.cga.ct.gov/2023/SUM/PDF/2023SUM00048-R02HB-05781-SUM.PDF"
+        },
+        {
+          "date": "2023-10-01",
+          "kind": "act",
+          "ref": "2023-hb6731",
+          "label": "PA 23-122 widens change-of-ownership review",
+          "what": "Removes exemptions from DPH prior approval of ownership changes and requires license applicants to name owners of 5% or more, rather than 10%.",
+          "source_url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+        },
+        {
+          "date": "2024-01-01",
+          "kind": "act",
+          "ref": "2023-hb5781",
+          "label": "DSS must start posting cost reports and spending summaries",
+          "what": "Homes file annual narrative summaries (profit and loss, debt, cash flows) with cost reports; DSS posts them yearly from this date. Fines up to $10,000.",
+          "source_url": "https://www.cga.ct.gov/2023/SUM/PDF/2023SUM00048-R02HB-05781-SUM.PDF"
+        },
+        {
+          "date": "2024-06-04",
+          "kind": "act",
+          "ref": "2024-hb5046",
+          "label": "PA 24-141 signed: receivership changes",
+          "what": "Receivers must be appointed on any serious financial loss or failure, entities may serve, and people employed by private equity companies may not.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2024-06-04",
+          "kind": "act",
+          "ref": "2024-hb5046",
+          "label": "PA 24-141 signed: tighter oversight of management companies",
+          "what": "Management certificate applicants disclose 5% owners and compliance history; DPH approval needed before managing a new facility; penalties up to $20,000 and joint correction plans.",
+          "source_url": "https://www.cga.ct.gov/2024/SUM/PDF/2024SUM00141-R03HB-05046-SUM.PDF"
+        },
+        {
+          "date": "2025-06-24",
+          "kind": "act",
+          "ref": "2025-hb6978",
+          "label": "PA 25-96 widens DPH grounds for disciplining institutions",
+          "what": "DPH may discipline health care institutions for substantial noncompliance with public health statutes generally, with civil penalties up to $25,000. Effective on passage.",
+          "source_url": "https://www.cga.ct.gov/2025/SUM/PDF/2025SUM00096-R02HB-06978-SUM.PDF"
+        },
+        {
+          "date": "2026-03-23",
+          "kind": "bill",
+          "ref": "2026-sb288",
+          "label": "SB 288 tabled; not enacted",
+          "what": "DSS recommendations on moratorium exceptions, resident data and related-party costs were reported favorably and tabled for the Senate calendar.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=288"
+        },
+        {
+          "date": "2026-06-04",
+          "kind": "act",
+          "ref": "2026-sb125",
+          "label": "PA 26-103 signed: investment-entity ownership rules",
+          "what": "Requires annual reports on investment-entity owners, licensee control of the home, and possibly a surety bond covering 90 days of operating costs.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-10-01",
+          "kind": "act",
+          "ref": "2026-sb1",
+          "label": "PA 26-68 penalizes unlicensed facility operation",
+          "what": "Civil penalties up to $5,000 a day for operating a facility without a DPH license or management certificate, plus a criminal penalty.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-11-03",
+          "kind": "data",
+          "ref": "2023-hb5781",
+          "label": "DSS posts facility cost reports and spending summaries",
+          "what": "DSS's index links facility cost reports from 2015 to 2025 and summaries for 2023 and 2024; completeness was not audited.",
+          "source_url": "https://portal.ct.gov/dss/health-and-home-care/medicaid-nursing-home-reimbursement/nursing-facility-cost-reports/cost-report"
+        },
+        {
+          "date": "2027-02-15",
+          "kind": "act",
+          "ref": "2026-sb125",
+          "label": "First investment-entity ownership reports due to DSS",
+          "what": "Each Medicaid nursing home reports information on any investment entity with a beneficial ownership interest in it.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2028-02-01",
+          "kind": "act",
+          "ref": "2026-sb125",
+          "label": "Licensee-control attestation to DPH begins",
+          "what": "Unless waived, each home must be fully under its licensee's control and attest that no investment entity controls resident health, safety or care.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2028-02-15",
+          "kind": "report",
+          "ref": "2026-sb125",
+          "label": "DSS report on investment entities and quality of care due",
+          "what": "DSS evaluates ownership disclosures and compares care quality in homes with and without investment-entity owners.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2028-07-01",
+          "kind": "act",
+          "ref": "2026-sb125",
+          "label": "Possible surety bond for investment-entity-owned homes",
+          "what": "If DSS finds a feasible instrument by January 1, 2028, homes with 5% or more investment-entity ownership need security covering 90 days of costs.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "Are the posted cost reports and summaries complete for every home and year, and can they be compared across ownership groups?",
+        "What will the first investment-entity reports show, and how will DSS compare care quality?"
+      ],
+      "watch": [
+        "2027-watch-ownership"
+      ]
+    },
+    {
+      "id": "resident-voice",
+      "title": "Resident voice, visits and monitoring",
+      "question": "How can residents and families stay connected and raise concerns?",
+      "topics": [
+        "discharge_rights",
+        "quality_oversight",
+        "community_settings",
+        "ombudsman_program"
+      ],
+      "status": "settled",
+      "summary": "In 2021, laws created essential support persons, expanded residents' rights to private communication and virtual monitoring, and strengthened resident and family councils. Later laws carried councils and monitoring into assisted living and residential care homes.",
+      "events": [
+        {
+          "date": "2021-06-24",
+          "kind": "act",
+          "ref": "2021-hb6634",
+          "label": "PA 21-71 creates essential support persons",
+          "what": "Residents may designate an essential support person who can visit during restrictions; DPH must set a statewide visitation policy. Effective on passage.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2021-07-01",
+          "kind": "act",
+          "ref": "2021-sb975",
+          "label": "PA 21-55 expands the residents' bill of rights",
+          "what": "Adds the right to treat living quarters as one's home, including private communication and virtual visitation and monitoring technology.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2021-07-13",
+          "kind": "act",
+          "ref": "2021-sb973",
+          "label": "PA 21-194 strengthens resident and family councils",
+          "what": "Agencies must tell the Ombudsman about long-term care proposals, and state long-term care task forces must include council representatives. Effective on passage.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2021-10-01",
+          "kind": "act",
+          "ref": "2021-sb975",
+          "label": "Nursing home virtual monitoring rules take effect",
+          "what": "Residents may use technology of their choosing for virtual monitoring or visitation, with notice, roommate consent and free internet access under conditions.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2023-10-01",
+          "kind": "act",
+          "ref": "2023-hb5781",
+          "label": "PA 23-48 requires family councils in assisted living",
+          "what": "Managed residential communities offering assisted living must encourage and help establish family councils by January 1, 2024.",
+          "source_url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+        },
+        {
+          "date": "2026-10-01",
+          "kind": "act",
+          "ref": "2026-hb5142",
+          "label": "PA 26-28 allows virtual monitoring in residential care homes",
+          "what": "Residential care home residents may use technology of their choosing for virtual monitoring, with 7 days' written notice and roommate consent; the bill's proposed Class B penalty was dropped.",
+          "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00028-R00HB-05142-PA.PDF"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "How often are essential support person designations used, and are they honored during outbreaks?",
+        "How many residents use virtual monitoring, and what disputes arise?"
+      ],
+      "watch": []
+    },
+    {
+      "id": "assisted-living-oversight",
+      "title": "Assisted living oversight",
+      "question": "Should managed residential communities be licensed, and what protections do residents have?",
+      "topics": [
+        "community_settings"
+      ],
+      "status": "watching",
+      "summary": "Connecticut licenses assisted living services agencies rather than the communities where they work. Laws since 2021 added licensing, fee-notice, family council, retaliation-training and fee-hearing rules, and a DPH working group is studying whether to license the communities.",
+      "events": [
+        {
+          "date": "2021-07-01",
+          "kind": "act",
+          "ref": "2021-hb6666",
+          "label": "PA 21-121 ties assisted living to a licensed agency",
+          "what": "A managed residential community providing assisted living must hold a DPH agency license or arrange services with a licensed agency; dementia units need DPH approval.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2022-07-01",
+          "kind": "act",
+          "ref": "2022-hb5313",
+          "label": "PA 22-57 creates an Ombudsman-led MRC working group",
+          "what": "The Ombudsman convenes a working group on notice of large rent and fee increases and on resident health transitions in managed residential communities.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2022AA-0118_2022%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2024-10-01",
+          "kind": "act",
+          "ref": "2024-hb5046",
+          "label": "PA 24-141 requires notice of fee increases",
+          "what": "Assisted living agencies must give 60 days' notice of fee increases and communities 90 days', with refunds if needs cannot be met within 45 days.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "act",
+          "ref": "2026-hb5562",
+          "label": "PA 26-72 adds abuse-reporting contacts to rights postings",
+          "what": "The required posting of residents' rights must include DSS contact information for reporting suspected abuse, neglect, exploitation or abandonment.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-10-01",
+          "kind": "act",
+          "ref": "2026-hb5141",
+          "label": "PA 26-44 requires fear-of-retaliation training",
+          "what": "Assisted living agency employees receive annual in-service training on residents' fear of retaliation for complaints about their care.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-10-01",
+          "kind": "act",
+          "ref": "2026-sb123",
+          "label": "PA 26-74 requires hearings on large fee increases",
+          "what": "Agencies must hold an informational hearing at least 30 days before an existing fee rises by more than 10%, and give three years of fee history on request.",
+          "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00074-R00SB-00123-PA.PDF"
+        },
+        {
+          "date": "2027-01-01",
+          "kind": "report",
+          "ref": "2026-hb5514",
+          "label": "Licensing working group findings due to DPH",
+          "what": "PA 26-13 working group reports on licensing these communities; DPH reports to the Public Health Committee by February 1, 2027.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "What will the DPH working group recommend about licensing managed residential communities?",
+        "How are complaints about assisted living handled when the community itself is not licensed?"
+      ],
+      "watch": [
+        "2027-watch-mrc"
+      ]
+    },
+    {
+      "id": "room-size-capacity",
+      "title": "Room size and capacity",
+      "question": "How many beds and what kind of rooms should Connecticut have?",
+      "topics": [
+        "closures_capacity"
+      ],
+      "status": "active",
+      "summary": "A 2024 law bars placing newly admitted residents in rooms of more than two beds from July 1, 2026. Laws in 2022 and 2026 opened paths for small-house nursing homes and new beds, and 2026 laws eased the two-bed transition.",
+      "events": [
+        {
+          "date": "2022-05-31",
+          "kind": "act",
+          "ref": "2022-sb286",
+          "label": "PA 22-145 signed: small-house nursing home approvals",
+          "what": "Changes the DSS certificate of need process for long-term care facilities, allowing approval of nontraditional, small-house style nursing homes under certain conditions.",
+          "source_url": "https://www.cga.ct.gov/2022/SUM/PDF/2022SUM00145-R02SB-00286-SUM.PDF"
+        },
+        {
+          "date": "2024-06-04",
+          "kind": "act",
+          "ref": "2024-hb5046",
+          "label": "PA 24-141 signed: two-bed room limit set",
+          "what": "Bars placing newly admitted residents in rooms of more than two beds from July 1, 2026, allows Medicaid rate recalculation and creates a working group.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2026-05-27",
+          "kind": "act",
+          "ref": "2026-sb123",
+          "label": "PA 26-74 creates a bed-moratorium exception",
+          "what": "DSS may approve new Medicaid beds in existing or new homes under certain conditions, preferring small-house style homes. Effective on passage.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-05-27",
+          "kind": "budget",
+          "ref": "2026-sb477",
+          "label": "PA 26-76 eases bed relocation for the two-bed limit",
+          "what": "DSS may set bed need at lower occupancy for relocations to meet the limit, which is waived for certain state-established homes. Effective on passage.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "act",
+          "ref": "2024-hb5046",
+          "label": "Two-bed limit takes effect for new admissions",
+          "what": "Nursing homes may not place newly admitted residents in rooms with more than two beds; current residents need not move. The rule does not cover residential care homes.",
+          "source_url": "https://www.cga.ct.gov/2024/ACT/PA/PDF/2024PA-00141-R00HB-05046-PA.PDF"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "budget",
+          "ref": "2026-sb1",
+          "label": "PA 26-68 allows a small-house waiver",
+          "what": "DPH may waive the two-bed limit for a home developing a new small-house style facility, one per project, and not past July 1, 2027.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2027-07-01",
+          "kind": "budget",
+          "ref": "2026-sb1",
+          "label": "Small-house waiver authority ends",
+          "what": "No two-bed-limit waiver under PA 26-68 section 451 may extend past this date.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0080.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "How many three- and four-bed rooms remain, and what happens to them as residents leave?",
+        "Where will new Medicaid beds be approved under the moratorium exception?"
+      ],
+      "watch": []
+    },
+    {
+      "id": "paying-for-care",
+      "title": "Paying for care",
+      "question": "How is long-term care paid for, and what do residents keep?",
+      "topics": [
+        "aging_financing",
+        "ownership_finance"
+      ],
+      "status": "active",
+      "summary": "Budgets since 2021 raised the personal needs allowance and the community spouse asset minimum, changed HUSKY C income limits, tied rate increases to wages and moved nursing home rates toward quality payments, while federal Medicaid changes take effect from 2027.",
+      "events": [
+        {
+          "date": "2021-07-01",
+          "kind": "budget",
+          "ref": "2021-sb1202",
+          "label": "Personal needs allowance rises from $60 to $75",
+          "what": "June Special Session PA 21-2 raises the monthly allowance for Medicaid long-term care residents and cuts state home care cost sharing to 4.5%.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2022-07-01",
+          "kind": "budget",
+          "ref": "2022-hb5506",
+          "label": "Community spouse asset minimum raised to $50,000",
+          "what": "PA 22-118 lets the spouse at home keep the greater of $50,000 or half the couple's assets, up to the federal maximum, and lowers home care cost sharing to 3%.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2022AA-0118_2022%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2024-10-01",
+          "kind": "budget",
+          "ref": "2024-hb5523",
+          "label": "HUSKY C income limit set at 159% of TFA",
+          "what": "PA 24-81 repeals the scheduled move to 105% of the federal poverty level and instead raises the limit to 159% of the TFA cash benefit.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2025-07-01",
+          "kind": "budget",
+          "ref": "2025-hb7287",
+          "label": "Wage-linked nursing home rate increases begin",
+          "what": "PA 25-168 directs rate increases to support employee wage increases: 3% July 2025, 3% July 2026 and 4% January 2027.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2026-04-15",
+          "kind": "bill",
+          "ref": "2026-hb5300",
+          "label": "HB 5300 (allowance cost-of-living adjustment) tabled; not enacted",
+          "what": "The bill was tabled for the House calendar, its last recorded action.",
+          "source_url": "https://www.cga.ct.gov/asp/cgabillstatus/cgabillstatus.asp?selBillType=Bill&which_year=2026&bill_num=5300"
+        },
+        {
+          "date": "2026-05-26",
+          "kind": "budget",
+          "ref": "2026-sb1",
+          "label": "PA 26-68 repeals the planned 6% nursing home tax",
+          "what": "Before it took effect, the act repealed the 6% revenue tax set for July 1, 2026 and kept the quarterly per-resident-day user fee.",
+          "source_url": "https://www.cga.ct.gov/2026/SUM/PDF/2026SUM00068-R02SB-00001-SUM.PDF"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "budget",
+          "ref": "2026-sb1",
+          "label": "PA 26-68 begins PDPM phase-in and new payments",
+          "what": "DSS phases in the federal PDPM resident assessment model and sets enhanced payments for quality improvement and high-Medicaid homes.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        },
+        {
+          "date": "2027-01-01",
+          "kind": "federal",
+          "ref": null,
+          "label": "Federal limit on retroactive Medicaid coverage begins",
+          "what": "P.L. 119-21 limits retroactive coverage to two months before the application month for older adults and people with disabilities.",
+          "source_url": "https://justiceinaging.org/hr1-reduces-medicaid-retroactive-eligibility-starting-in-2027/"
+        },
+        {
+          "date": "2027-01-01",
+          "kind": "budget",
+          "ref": "2026-sb1",
+          "label": "Family caregiver tax credit begins",
+          "what": "PA 26-68 allows half of caregiving costs, up to $2,000, for lower-income caregivers of relatives at home; nonrefundable, capped at $1.8 million yearly.",
+          "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00068-R00SB-00001-PA.PDF"
+        },
+        {
+          "date": "2027-02-04",
+          "kind": "budget",
+          "ref": null,
+          "label": "Earliest date for the Governor's FY 2028-2029 budget",
+          "what": "CGS 4-71 requires the budget by the first session day after February 3, or after February 14 for a newly elected Governor.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_050.htm#sec_4-71"
+        },
+        {
+          "date": "2028-01-01",
+          "kind": "federal",
+          "ref": null,
+          "label": "Federal home equity cap of $1 million",
+          "what": "P.L. 119-21 caps the home equity limit for Medicaid long-term care eligibility at $1 million, not indexed for inflation.",
+          "source_url": "https://www.macpac.gov/wp-content/uploads/2025/09/01_September-Slides_Summary-of-P.L.-119-21-An-Act-to-Provide-for-Reconciliation-Pursuant-to-Title-II-of-H.-Con.-Res.-14.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "Has the personal needs allowance kept pace with costs since 2021?",
+        "How will the federal Medicaid changes affect long-term care applicants in Connecticut?"
+      ],
+      "watch": [
+        "2027-watch-budget",
+        "2027-watch-federal-medicaid",
+        "2027-watch-pna"
+      ]
+    },
+    {
+      "id": "cfc-and-waivers",
+      "title": "Community First Choice and home care waivers",
+      "question": "Should home care through Community First Choice stay an open-enrollment Medicaid benefit, or move to waivers?",
+      "topics": [
+        "home_community_care"
+      ],
+      "status": "watching",
+      "summary": "CFC has been a Medicaid state plan option since 2015, so everyone eligible can enroll; waivers can cap enrollment. The Governor's February 2026 budget proposed ending CFC and moving participants to waivers, citing cost growth. The legislature kept CFC; the proposal had projected most savings in FY 2029.",
+      "events": [
+        {
+          "date": "2015-07-01",
+          "kind": "policy",
+          "ref": null,
+          "label": "Community First Choice begins as a state plan option",
+          "what": "CFC provides home and community-based attendant services to people who would otherwise need institutional care, with a 6% higher federal match.",
+          "source_url": "https://www.cga.ct.gov/ofa/Documents/year/BB/2026BB-20260731_FY%2027%20Connecticut%20Budget%20Revisions.pdf"
+        },
+        {
+          "date": "2021-07-01",
+          "kind": "budget",
+          "ref": "2021-sb1202",
+          "label": "State home care cost sharing cut from 9% to 4.5%",
+          "what": "June Special Session PA 21-2 cuts cost sharing in the state-funded Connecticut Home Care Program for Elders and raises its provider rate.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2021AA-0109_2021%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2022-07-01",
+          "kind": "budget",
+          "ref": "2022-hb5506",
+          "label": "Cost sharing cut to 3%; Community Ombudsman created",
+          "what": "PA 22-118 lowers state home care cost sharing to 3% and creates the Community Ombudsman program for home and community-based services.",
+          "source_url": "https://www.cga.ct.gov/olr/Documents/year/AA/2022AA-0118_2022%20Acts%20Affecting%20Seniors.pdf"
+        },
+        {
+          "date": "2024-07-01",
+          "kind": "act",
+          "ref": "2024-hb5001",
+          "label": "PA 24-39 sets up presumptive Medicaid eligibility for home care",
+          "what": "Applicants may get up to 90 days of home care before a full Medicaid decision, once DSS secures federal reimbursement.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2026-02-18",
+          "kind": "budget",
+          "ref": null,
+          "label": "Governor proposes ending CFC and moving participants to waivers",
+          "what": "DSS cited growth from $88.8 million (FY 2018) to $371 million (FY 2025) and projected significant savings in FY 2029.",
+          "source_url": "https://www.cga.ct.gov/2026/appdata/TMY/2026HB-05032-R000218-Barton%20Reeves,%20Andrea,%20Commissioner-DSS--TMY.PDF"
+        },
+        {
+          "date": "2026-03-03",
+          "kind": "policy",
+          "ref": null,
+          "label": "DSS publishes CFC transition questions and answers",
+          "what": "About 7,200 participants; proposed effective date April 1, 2027. Self-directing participants in DSS waivers would keep employer but lose budget authority.",
+          "source_url": "https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/community-first-choice/cfc-transition-faqs-final_31126.pdf?rev=d71d954eb57047049a21ea5929ae7f9c&hash=AED5EE74D1BBFFB016FE916E0195A81B"
+        },
+        {
+          "date": "2026-04-06",
+          "kind": "budget",
+          "ref": null,
+          "label": "Administration says CFC changes will not move forward",
+          "what": "A spokesperson said the February proposal was not expected in the final budget; the Appropriations Committee had rejected it.",
+          "source_url": "https://www.ctpublic.org/news/2026-04-06/lamont-backs-off-plan-to-sunset-community-first-choice-as-lawmakers-and-advocates-reject-proposal"
+        },
+        {
+          "date": "2026-05-26",
+          "kind": "budget",
+          "ref": "2026-sb1",
+          "label": "Final budget keeps CFC as a state plan option",
+          "what": "The legislature did not provide the $9.2 million for the sunset. The Governor's plan had projected savings of $8.1 million in FY 2028 and $57.8 million in FY 2029.",
+          "source_url": "https://www.cga.ct.gov/ofa/Documents/year/BB/2026BB-20260731_FY%2027%20Connecticut%20Budget%20Revisions.pdf"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "policy",
+          "ref": null,
+          "label": "DSS proposes higher CFC attendant rates",
+          "what": "SPA 26-AA raises self-directed attendant rates under the union contract, effective on or after July 1, 2026; DSS estimates $12.2 million more in FY 2027.",
+          "source_url": "https://portal.ct.gov/dss/-/media/departments-and-agencies/dss/spas/archive-2019/ct-26-aa-cfc-collective-bargaining-updates-6-29-2026-website.pdf"
+        },
+        {
+          "date": "2026-12-03",
+          "kind": "policy",
+          "ref": null,
+          "label": "Comments due on CHCPE and PCA waiver changes",
+          "what": "DSS proposes a fifth assisted living level for higher needs, a second COPE caregiver-support model and clearer Adult Family Living standards.",
+          "source_url": "https://portal.ct.gov/dss/health-and-home-care/medicaid-waiver-applications/medicaid-waiver-applications"
+        },
+        {
+          "date": "2027-02-04",
+          "kind": "budget",
+          "ref": null,
+          "label": "Earliest date for the Governor's FY 2028-2029 budget",
+          "what": "The next two-year budget covers FY 2029, the year the CFC proposal projected its largest savings.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_050.htm#sec_4-71"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "Will the FY 2028-2029 budget propose CFC or waiver changes again?",
+        "How many people wait for each home care waiver, and would waiver caps create new waiting lists?"
+      ],
+      "watch": [
+        "2027-watch-cfc",
+        "2027-watch-budget"
+      ]
+    },
+    {
+      "id": "husky-c-limits",
+      "title": "HUSKY C income and asset limits",
+      "question": "Who qualifies for HUSKY C, and should its income and asset limits rise?",
+      "topics": [
+        "home_community_care",
+        "aging_financing"
+      ],
+      "status": "active",
+      "summary": "HUSKY C covers about 85,000 people who are older, blind or disabled. Its asset limit is $1,600 for a single person. A 2023 income increase was scaled back in 2024, and bills to raise or phase out the asset limit passed committees in 2025 and 2026 but were not enacted.",
+      "events": [
+        {
+          "date": "2023-06-12",
+          "kind": "budget",
+          "ref": "2023-hb6941",
+          "label": "Budget schedules a HUSKY C income increase",
+          "what": "PA 23-204 sets eligibility at 105% of the federal poverty level from October 1, 2024, instead of 143% of the TFA benefit.",
+          "source_url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+        },
+        {
+          "date": "2024-10-01",
+          "kind": "budget",
+          "ref": "2024-hb5523",
+          "label": "Scheduled increase replaced with 159% of the TFA benefit",
+          "what": "PA 24-81 repeals the move to 105% of the poverty level and sets the income limit at 159% of the TFA cash benefit.",
+          "source_url": "https://www.cga.ct.gov/2024/rpt/pdf/2024-R-0108.pdf"
+        },
+        {
+          "date": "2025-04-29",
+          "kind": "bill",
+          "ref": "2025-hb6911",
+          "label": "HB 6911 (inflation-indexed asset limits) sent to Appropriations; not enacted",
+          "what": "Would have raised the asset limits each year by the change in the consumer price index.",
+          "source_url": "https://www.cga.ct.gov/2025/ba/pdf/2025HB-06911-R000110-BA.pdf"
+        },
+        {
+          "date": "2025-05-07",
+          "kind": "bill",
+          "ref": "2025-sb807",
+          "label": "SB 807 (phase out asset limits) tabled; not enacted",
+          "what": "OFA estimated costs of about $42 million in FY 2026 and $150 million in FY 2027; tabled for the Senate calendar.",
+          "source_url": "https://www.cga.ct.gov/2025/FN/PDF/2025SB-00807-R000423-FN.PDF"
+        },
+        {
+          "date": "2025-05-21",
+          "kind": "bill",
+          "ref": "2025-sb11",
+          "label": "SB 11 (drug costs, asset phase-out) sent to Finance; not enacted",
+          "what": "Section 9 would have raised the $1,600 limit to $10,000 in FY 2026 and ended asset limits in FY 2030.",
+          "source_url": "https://www.cga.ct.gov/2025/TOB/S/PDF/2025SB-00011-R04-SB.PDF"
+        },
+        {
+          "date": "2026-04-07",
+          "kind": "bill",
+          "ref": "2026-hb5302",
+          "label": "HB 5302 ($5,000 asset limit) sent to Appropriations; not enacted",
+          "what": "The Aging Committee voted 14-0. OFA put costs at about $14.5 million in FY 2027 if enrollment rose 5%.",
+          "source_url": "https://www.cga.ct.gov/2026/FN/PDF/2026HB-05302-R000095-FN.PDF"
+        },
+        {
+          "date": "2026-04-20",
+          "kind": "bill",
+          "ref": "2026-sb326",
+          "label": "SB 326 (phase out by FY 2032) tabled; not enacted",
+          "what": "OFA estimated about $63.4 million a year at 5% enrollment growth and at least $126.7 million at 10%.",
+          "source_url": "https://www.cga.ct.gov/2026/FN/PDF/2026SB-00326-R000459-FN.PDF"
+        },
+        {
+          "date": "2026-07-01",
+          "kind": "act",
+          "ref": "2026-hb5562",
+          "label": "PA 26-72 requires annual HUSKY C reports",
+          "what": "From October 1, 2027 to 2032, DSS reports eligible counts, people denied for excess assets and by how much, and projected costs of higher limits.",
+          "source_url": "https://www.cga.ct.gov/2026/ACT/PA/PDF/2026PA-00072-R00HB-05562-PA.PDF"
+        },
+        {
+          "date": "2027-10-01",
+          "kind": "report",
+          "ref": "2026-hb5562",
+          "label": "First DSS HUSKY C report due",
+          "what": "The first annual report to the Appropriations and Human Services committees under PA 26-72.",
+          "source_url": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "How many applicants are denied HUSKY C because of the asset limit?",
+        "How will federal Medicaid changes under P.L. 119-21 interact with any HUSKY C expansion?"
+      ],
+      "watch": [
+        "2027-watch-husky-c",
+        "2027-watch-federal-medicaid"
+      ]
+    },
+    {
+      "id": "pace",
+      "title": "PACE: all-inclusive care for the elderly",
+      "question": "Should Connecticut offer PACE, and how would it be paid for?",
+      "topics": [
+        "home_community_care"
+      ],
+      "status": "watching",
+      "summary": "PACE gives people 55 and older who need a nursing home level of care all their services through one organization. 2023 laws let DSS add PACE to Medicaid; a 2025 study found interest and high start-up costs. A 2026 federally funded pilot plans one center in the Northwest Hills region.",
+      "events": [
+        {
+          "date": "2022-04-06",
+          "kind": "bill",
+          "ref": "2022-hb5333",
+          "label": "HB 5333 (PACE state plan amendment) reaches House calendar; no vote",
+          "what": "Would have let DSS seek federal approval to cover PACE under Medicaid within available appropriations.",
+          "source_url": "https://www.cga.ct.gov/2022/BA/PDF/2022HB-05333-R000331-BA.PDF"
+        },
+        {
+          "date": "2023-07-01",
+          "kind": "act",
+          "ref": "2023-hb6677",
+          "label": "PA 23-30 and PA 23-204 authorize PACE under Medicaid",
+          "what": "DSS may submit a Medicaid state plan amendment to cover PACE services, within available appropriations.",
+          "source_url": "https://www.cga.ct.gov/2023/rpt/pdf/2023-R-0149.pdf"
+        },
+        {
+          "date": "2025-10-16",
+          "kind": "report",
+          "ref": null,
+          "label": "DSS PACE feasibility study presented",
+          "what": "The June 2025 study found about 9,000 potential participants in five areas, high start-up costs, mixed stakeholder views and strong provider interest.",
+          "source_url": "https://www.cga.ct.gov/ph/med/related/20190104_Complex%20Care%20Committee/20251016/PACE%20Final%20Report.pdf"
+        },
+        {
+          "date": "2026-09-08",
+          "kind": "report",
+          "ref": null,
+          "label": "DSS plans a PACE pilot in the Northwest Hills",
+          "what": "Funded by the federal Rural Health Transformation Program; tentative steps: an RFP pending CMS approval (late 2026 to early 2027), selection in 2027, enrollment later.",
+          "source_url": "https://portal.ct.gov/opm/-/media/opm/hhs/ltc_planning_committee/september_8_2026/pace-slides_ltc-committee-9-8-26.pdf"
+        }
+      ],
+      "data_series": null,
+      "open_questions": [
+        "Will DSS submit a PACE state plan amendment, and will the budget fund it?",
+        "Which regions would be served first, and by which organizations?"
+      ],
+      "watch": [
+        "2027-watch-pace"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "staffing-approaches",
+      "topic": "staffing_workforce",
+      "title": "Three ways to set staffing, compared",
+      "intro": "Connecticut has considered three related ideas: a total hours floor, minimums by role or shift, and a minimum share of revenue spent on direct care. Each row links to its storyline.",
+      "rows": [
+        {
+          "thread": "staffing-floor",
+          "approach": "Total hours floor",
+          "how": "One minimum of direct-care hours per resident per day, all nursing staff combined.",
+          "proposals": "PA 21-185 (2021, 3.00, enacted); SB 1057 (2021, 4.10); SB 1026 (2023, 4.10); SB 1279 (2025, 3.60).",
+          "outcome": "3.00 enacted in 2021, applied by DPH policy from March 2023 and set in regulation approved January 27, 2026. Higher floors were tabled without a floor vote.",
+          "reasons": [
+            {
+              "text": "OFA estimated SB 1026 would cost the state up to $57.7 million in FY 2027.",
+              "source_url": "https://www.cga.ct.gov/2023/FN/PDF/2023SB-01026-R000081-FN.PDF"
+            },
+            {
+              "text": "OFA estimated SB 1279 at about $24.2 million for nursing homes, with a state cost of $12.1 million in FY 2027.",
+              "source_url": "https://www.cga.ct.gov/2025/FN/PDF/2025SB-01279-R000101-FN.PDF"
+            },
+            {
+              "text": "The nursing home association testified against SB 1279, citing sector-wide noncompliance and Medicaid cost increases.",
+              "source_url": "https://www.cga.ct.gov/2025/agedata/TMY/2025SB-01279-R000220-Barrett,%20Matthew,%20President%20and%20CEO-CAHCF-Opposes-TMY.PDF"
+            },
+            {
+              "text": "Before approving it in January 2026, the Regulation Review Committee rejected the 3.00 regulation in December 2024; members cited costs and worker pay.",
+              "source_url": "https://insideinvestigator.org/changes-to-nursing-home-staffing-ratio-regulations-rejected/"
+            }
+          ],
+          "now": "3.00 hours, including 0.84 licensed, under the regulation approved January 27, 2026, which replaces DPH's policies. No higher floor bill was on the 2026 list.",
+          "now_source": "https://www.cga.ct.gov/aspx/CGARegulations/CGARegulations.aspx?Yr=2026&Reg=2024-026&Amd=A"
+        },
+        {
+          "thread": "staffing-ratios",
+          "approach": "Ratios by role and shift",
+          "how": "Separate minimums for RNs, LPNs and aides, or for day and night shifts, usually written as hours per resident day.",
+          "proposals": "SB 1057 (2021), SB 1026 (2023) and SB 1279 as raised (2025): RN, LPN and aide hours; HB 6580 and HB 6582 (2025); the 2024 federal rule (0.55 RN, 2.45 aide, 24/7 RN).",
+          "outcome": "The 2026 regulation sets licensed minimums by shift and a 24-hour RN; no law sets RN, LPN and aide minimums. HB 6580 and HB 6582 were never heard. Federal role minimums were repealed.",
+          "reasons": [
+            {
+              "text": "SB 1026's role minimums drove OFA's cost estimate, mainly through added aide hours; it was tabled without a floor vote.",
+              "source_url": "https://www.cga.ct.gov/2023/FN/PDF/2023SB-01026-R000081-FN.PDF"
+            },
+            {
+              "text": "CMS repealed the federal minimums, including 24/7 RN, by interim final rule effective February 2, 2026.",
+              "source_url": "https://www.federalregister.gov/documents/2025/12/03/2025-21792/medicare-and-medicaid-programs-repeal-of-minimum-staffing-standards-for-long-term-care-facilities"
+            },
+            {
+              "text": "DPH ruled in 2023 that it may set separate licensed and aide minimums within the three hours, rejecting the nursing home association's petition.",
+              "source_url": "https://eregulations.ct.gov/eRegsPortal/Search/getDocument?guid=%7B80C72D8A-0000-C65C-B75B-C1A0B467EA2D%7D"
+            }
+          ],
+          "now": "Licensed nurses 0.57 hours per resident by day and 0.27 overnight within the 3.00 total, with an RN on duty at all times.",
+          "now_source": "https://www.cga.ct.gov/2026/rrdata/pr/2026REG2024-026A-RC.PDF"
+        },
+        {
+          "thread": "direct-care-spending",
+          "approach": "Minimum spending on direct care",
+          "how": "A minimum share of Medicaid or total revenue that must go to direct care, enforced through Medicaid rates.",
+          "proposals": "HB 6011 (2021); HB 5310 (2022, 90% of Medicaid); SB 156 (2024, study); SB 805 (2025, 80%); SB 328 (2026, 80%).",
+          "outcome": "None enacted. HB 5310 was not voted out of committee; SB 156, SB 805 and SB 328 passed committee and were tabled for the Senate calendar.",
+          "reasons": [
+            {
+              "text": "OFA: direct care was about 54% of allowable costs in 2024; reaching 80% implies about $279 million in state share for other costs.",
+              "source_url": "https://www.cga.ct.gov/2026/SFN/PDF/2026SB-00328-R00-ADD.PDF"
+            },
+            {
+              "text": "In 2025 the DSS commissioner cited adverse consequences, including undercutting the acuity-based rate system, and provider associations called the bill unworkable.",
+              "source_url": "https://ctmirror.org/2025/03/13/ct-nursing-homes-direct-care/"
+            },
+            {
+              "text": "Supporters, including AARP Connecticut and the Senate President Pro Tempore, linked direct-care spending to care quality and transparency.",
+              "source_url": "https://ctmirror.org/2025/03/13/ct-nursing-homes-direct-care/"
+            },
+            {
+              "text": "In 2022 an Aging Committee co-chair cited many unresolved questions in a short session.",
+              "source_url": "https://ctmirror.org/2022/03/11/bill-requiring-nursing-homes-to-spend-more-on-direct-care-wont-advance/"
+            }
+          ],
+          "now": "Not law. Related laws penalize unused wage increases (PA 22-145), define direct care (PA 24-19) and require investment-entity ownership reports (PA 26-103).",
+          "now_source": "https://www.cga.ct.gov/2026/rpt/pdf/2026-R-0085.pdf",
+          "elsewhere": {
+            "text": "HHS OIG (2026) found four states with minimum spending rules: Massachusetts, New Jersey, New York and Pennsylvania, each calculated differently; three reported implementation challenges.",
+            "source_url": "https://www.oig.hhs.gov/reports/all/2026/four-states-implemented-different-nursing-home-minimum-spending-requirements-related-to-resident-care-and-three-of-these-states-and-some-nursing-homes-experienced-challenges/"
+          }
+        }
+      ]
+    }
+  ]
+}

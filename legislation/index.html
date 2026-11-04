@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/Assets/shared.css">
   <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
   <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/ct-legislative-threads.js"></script>
   <script defer src="/Assets/ct-legislative-tracker.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
@@ -60,7 +61,73 @@
     .empty { padding:14px; color:var(--ltcop-muted); }
     .toast { position:fixed; left:50%; bottom:20px; transform:translateX(-50%); background:#173761; color:#fff; padding:8px 14px; border-radius:6px; font-weight:700; font-size:14px; opacity:0; transition:opacity .2s; pointer-events:none; z-index:500; }
     .toast.show { opacity:1; }
+    .topic-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:4px 0 4px; }
+    body.ltcop-dashboard button.mode-button.topic-tab { min-height:36px; padding:6px 12px; font-size:14px; font-weight:800; cursor:pointer; }
+    body.ltcop-dashboard button.mode-button[aria-selected="true"] { color:#fff; background:var(--ltcop-navy); border-color:var(--ltcop-navy); }
+    .topic[hidden] { display:none; }
+    .topic-block { margin-top:14px; padding-top:14px; border-top:1px solid var(--ltcop-border); }
+    .background-list .bg-year { display:inline; font-variant-numeric:tabular-nums; color:var(--ltcop-navy); }
+    .history-filters { display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin-bottom:8px; }
+    body.ltcop-dashboard .history-filters select { width:auto; min-width:140px; }
+    .inline-check { display:flex; gap:8px; align-items:flex-start; font-weight:600; margin:0 0 6px; }
+    body.ltcop-dashboard .inline-check input { width:auto; min-height:0; padding:0; margin-top:4px; flex:0 0 auto; }
+    .history-year-label { font-weight:850; color:var(--ltcop-navy); font-variant-numeric:tabular-nums; }
+    .history-year { display:grid; grid-template-columns:64px 1fr; gap:10px; padding:8px 0; border-top:1px dashed var(--ltcop-border); }
+    .history-list { list-style:none; margin:0; padding:0; display:grid; gap:6px; }
+    .history-list li { overflow-wrap:anywhere; }
+    .status-pill.act-pill { font-variant-numeric:tabular-nums; }
+    body.ltcop-dashboard .status-pill.outline-pill { color:var(--ltcop-muted); background:transparent; border:1px dashed #9fb3cb; }
+    .thread-year-label { font-weight:850; color:var(--ltcop-navy); font-variant-numeric:tabular-nums; }
+    .thread { padding:20px; margin-top:16px; }
+    .thread-head { display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; }
+    .thread-head h3 { margin:0; }
+    .thread-question { margin:6px 0 4px; font-weight:700; }
+    body.ltcop-dashboard .status-pill.thread-status-active { color:#155e33; background:#edf7f1; border-color:#b9dec8; }
+    body.ltcop-dashboard .status-pill.thread-status-watching { background:var(--ltcop-warning); border-color:#f1d398; }
+    body.ltcop-dashboard .status-pill.thread-status-settled { color:var(--ltcop-muted); background:#f4f6f8; border-color:var(--ltcop-border); }
+    .thread-timeline { display:grid; gap:12px; margin-top:14px; }
+    .thread-year { display:grid; grid-template-columns:64px 1fr; gap:10px; }
+    .thread-events { list-style:none; margin:0; padding:0 0 0 16px; border-left:2px solid var(--ltcop-border); display:grid; gap:10px; }
+    .thread-event { position:relative; padding:8px 10px; border:1px solid var(--ltcop-border); border-radius:6px; background:#fff; min-width:0; }
+    .thread-dot { position:absolute; left:-23px; top:14px; width:12px; height:12px; border-radius:50%; background:var(--ltcop-navy); border:2px solid var(--ltcop-navy); }
+    .thread-event.not-enacted { border-style:dashed; }
+    .thread-event.not-enacted .thread-dot { background:#fff; }
+    .thread-event.is-future .thread-dot { background:#fff; border-style:dashed; }
+    .thread-event.kind-federal .thread-dot, .thread-event.kind-policy .thread-dot { border-color:var(--ltcop-red); background:var(--ltcop-red); }
+    .thread-when { font-size:12px; font-weight:800; color:var(--ltcop-muted); font-variant-numeric:tabular-nums; }
+    .thread-label { font-weight:800; overflow-wrap:anywhere; }
+    .thread-meta { display:flex; flex-wrap:wrap; gap:4px 10px; align-items:center; }
+    .thread-meta .tag { margin:4px 0 0; }
+    .data-strip { margin:14px 0 0; }
+    .strip-svg { width:100%; height:auto; max-height:140px; display:block; }
+    .strip-line { fill:none; stroke:var(--ltcop-navy); stroke-width:2; }
+    .strip-dot { fill:var(--ltcop-navy); }
+    .strip-axis { stroke:var(--ltcop-border); }
+    .strip-marker { stroke:var(--ltcop-red); stroke-dasharray:3 3; }
+    .strip-text { font-size:11px; fill:var(--ltcop-muted); }
+    .part-of { margin-top:6px; }
+    .compare-table tbody th { white-space:normal; min-width:150px; }
+    .compare-table tbody th .microcopy { font-weight:400; }
+    .compare-table td, .compare-table th { overflow-wrap:anywhere; }
+    .reason-list { margin:6px 0 0; padding-left:18px; }
+    .reason-list li { margin:4px 0; }
+    a.tag.thread-chip { text-decoration:none; }
+    .builder-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+    .builder-grid fieldset { border:1px solid var(--ltcop-border); border-radius:8px; padding:10px 12px; margin:0; min-width:0; }
+    .builder-grid legend { font-weight:800; padding:0 4px; }
+    .builder-pick { max-height:260px; overflow:auto; }
+    #builder-output { width:100%; min-height:320px; padding:10px 12px; border-radius:8px; border:1px solid var(--ltcop-border); font:14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color:var(--ltcop-navy-deep); }
+    .visually-hidden { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+    @media (min-width:1000px) {
+      .thread-timeline { grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:16px 14px; }
+      .thread-year { display:block; }
+      .thread-year-label { padding:0 0 6px; border-bottom:2px solid var(--ltcop-border); margin-bottom:10px; }
+      .thread-events { border-left:0; padding:0; }
+      .thread-dot { position:static; float:left; width:10px; height:10px; margin:3px 6px 0 0; }
+    }
     @media (max-width:760px) {
+      .history-year { grid-template-columns:1fr; gap:4px; }
+      .thread-year { grid-template-columns:1fr; gap:6px; }
       .two-col { grid-template-columns:1fr; gap:4px; }
       .timeline li { grid-template-columns:1fr; gap:2px; }
       table.stack thead { display:none; }
@@ -68,8 +135,9 @@
       table.stack td, table.stack tbody th { display:block; border:0; padding:4px 14px; white-space:normal; }
     }
     @media print {
-      .ltcop-masthead, footer, .filter-grid, .action-row, .copy-btn, .dossier-guide, .toast { display:none !important; }
-      .topic { break-inside:avoid; }
+      .ltcop-masthead, footer, .filter-grid, .action-row, .copy-btn, .dossier-guide, .toast, .topic-tabs, #testimony-section { display:none !important; }
+      .topic[hidden] { display:block !important; }
+      .topic, .thread { break-inside:avoid; }
     }
   </style>
   <link rel="stylesheet" href="/Assets/staffing-layout.css">
@@ -112,6 +180,9 @@
         <nav class="dossier-guide" aria-label="On this page">
           <a href="#tracker-title">Bills to watch</a>
           <a href="#topics-title">Topics &amp; research</a>
+          <a href="#threads-title">Storylines</a>
+          <a href="#acts-title">All long-term care acts since 2021</a>
+          <a href="#testimony-title">Testimony builder</a>
           <a href="#dates-title">Key dates</a>
           <a href="#past-title">Past sessions</a>
           <a href="#howto-title">Take part</a>
@@ -161,11 +232,69 @@
           <div>
             <div class="eyebrow">Research for Testimony</div>
             <h2 id="topics-title">Topics, statistics and questions</h2>
-            <p class="subtle">Each number lists its source and period. Use <strong>Copy for testimony</strong> to copy a number with its citation.</p>
+            <p class="subtle">Choose a topic. Each number lists its source and period; use <strong>Copy for testimony</strong> to copy a number with its citation. Background, history and storylines follow the numbers.</p>
           </div>
         </div>
-        <nav class="dossier-guide" id="topic-nav" aria-label="Jump to a topic"></nav>
+        <div class="topic-tabs" id="topic-nav" role="tablist" aria-label="Topics"></div>
         <div id="topics"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="threads-title" id="threads-section">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Storylines</div>
+            <h2 id="threads-title">How issues have moved since 2021</h2>
+            <p class="subtle">Each storyline links bills, acts, policies and federal actions on one question over several sessions, with sources. Not-enacted bills and scheduled dates are outlined.</p>
+          </div>
+        </div>
+        <div id="threads" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="acts-title" id="acts-section">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Reference</div>
+            <h2 id="acts-title">All long-term care acts since 2021</h2>
+            <p class="subtle" id="acts-sources"></p>
+          </div>
+        </div>
+        <div class="filter-grid">
+          <div><label for="acts-search">Search</label><input id="acts-search" type="search" placeholder="Act, bill number or word"></div>
+          <div><label for="acts-year">Session</label><select id="acts-year"><option value="all">All sessions</option></select></div>
+          <div><label for="acts-topic">Topic</label><select id="acts-topic"><option value="all">All topics</option></select></div>
+        </div>
+        <details id="acts-details" class="ltcop-disclosure">
+          <summary>Show all acts</summary>
+          <div class="ltcop-disclosure-body"><div id="acts-table" aria-live="polite"></div></div>
+        </details>
+        <div class="action-row"><button type="button" class="action-button secondary" id="acts-csv">Download acts (CSV)</button></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="testimony-title" id="testimony-section">
+      <div class="panel" id="testimony-builder">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Testimony Builder</div>
+            <h2 id="testimony-title">Draft testimony from this research</h2>
+            <p class="subtle">Pick a topic, storyline or 2027 bill, tick the statistics (up to 5), events and questions, then edit the draft. It runs in your browser; nothing is saved or sent.</p>
+          </div>
+        </div>
+        <div id="builder">
+          <div class="filter-grid"><div><label for="builder-start">Start from</label><select id="builder-start"></select></div></div>
+          <div class="builder-grid">
+            <fieldset><legend>Statistics</legend><div id="builder-stats" class="builder-pick"></div></fieldset>
+            <fieldset><legend>Events</legend><div id="builder-events" class="builder-pick"></div></fieldset>
+            <fieldset><legend>Questions</legend><div id="builder-questions" class="builder-pick"></div></fieldset>
+          </div>
+          <label for="builder-output" style="margin-top:14px">Draft (editable)</label>
+          <textarea id="builder-output" spellcheck="true"></textarea>
+          <div class="action-row"><button type="button" class="action-button" id="builder-copy">Copy draft</button><button type="button" class="action-button secondary" id="builder-download">Download draft (.txt)</button></div>
+        </div>
       </div>
     </section>
 
