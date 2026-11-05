@@ -58,6 +58,26 @@ class BuildTests(unittest.TestCase):
         ccns = [r["ccn"] for r in result["rows"] if r["match_tier"] in ("auto_high", "likely")]
         self.assertEqual(len(ccns), len(set(ccns)))
 
+    def test_shared_campus_falls_back_to_next_best_unclaimed_ccn(self):
+        # Real case: two DPH licenses at one Stratford address. "MANOR" is a stopword and
+        # CMS truncates names at 50 characters, so both licenses rank 075339 first.
+        cms = [
+            {"ccn": "075339", "name": "LORD CHAMBERLAIN NURSING & REHABILITATION CENTER",
+             "address": "7003 MAIN STREET", "city": "STRATFORD", "zip": "06614"},
+            {"ccn": "075412", "name": "LORD CHAMBERLAIN MANOR NURSING & REHABILITATION CE",
+             "address": "7003 MAIN STREET", "city": "STRATFORD", "zip": "06614"},
+        ]
+        rows = [
+            dph("968", "LORD CHAMBERLAIN NURSING & REHABILITATION CENTER", "7003 Main Street", "Stratford", "06614"),
+            dph("2197", "LORD CHAMBERLAIN MANOR NURSING & REHABILITATION CENTER", "7003 Main Street",
+                "Stratford", "06614"),
+        ]
+        by_lic = {r["state_facility_license_id"]: r for r in xw.build(rows, cms)["rows"]}
+        self.assertEqual(by_lic["968"]["ccn"], "075339")
+        self.assertEqual(by_lic["2197"]["ccn"], "075412")
+        self.assertEqual(by_lic["2197"]["match_tier"], "likely")  # a person must accept it
+        self.assertIn("next-best candidate", by_lic["2197"]["note"])
+
     def test_cli_roundtrip_has_no_person_fields(self):
         with tempfile.TemporaryDirectory() as tmp:
             src = Path(tmp) / "dph.csv"

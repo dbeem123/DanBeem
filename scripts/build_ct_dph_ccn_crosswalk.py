@@ -161,18 +161,32 @@ def build(dph_rows: list[dict], cms_rows: list[dict]) -> dict:
                         key=lambda pair: (TIER_RANK[pair[0]["tier"]], pair[0]["score"]), reverse=True)
         best, cms = ranked[0] if ranked else ({"score": 0, "tier": "unmatched", "evidence": {}}, None)
         runner = ranked[1][0]["score"] if len(ranked) > 1 else 0
-        proposals.append({"dph": d, "cms": cms, "match": best, "margin": round(best["score"] - runner, 3)})
+        proposals.append({"dph": d, "cms": cms, "match": best, "margin": round(best["score"] - runner, 3),
+                          "ranked": ranked})
 
-    # One CCN per license: keep the strongest claim, demote the rest to review.
+    # One CCN per license: keep the strongest claim. A weaker claim falls back to its
+    # next-best unclaimed candidate (capped at "likely", so a person must accept it), or
+    # drops to review. Two licenses on one campus (e.g. a "Manor" and the main home) can
+    # share an address, and stopwords can hide the one word that tells them apart.
     claims: dict[str, dict] = {}
     for p in sorted(proposals, key=lambda p: (TIER_RANK[p["match"]["tier"]], p["match"]["score"]), reverse=True):
         if p["cms"] is None or p["match"]["tier"] == "unmatched":
             continue
         ccn = p["cms"]["ccn"]
-        if ccn in claims:
-            p["match"] = dict(p["match"], tier="review", note=f"CCN {ccn} already matched to a stronger license")
-        else:
+        if ccn not in claims:
             claims[ccn] = p
+            continue
+        fallback = next(((m, c) for m, c in p["ranked"][1:]
+                         if c["ccn"] not in claims and m["tier"] in ("auto_high", "likely")), None)
+        if fallback:
+            m, c = fallback
+            p["cms"] = c
+            p["match"] = dict(m, tier="likely",
+                              note=f"next-best candidate; CCN {ccn} already matched to a stronger license")
+            p["margin"] = 0.0
+            claims[c["ccn"]] = p
+        else:
+            p["match"] = dict(p["match"], tier="review", note=f"CCN {ccn} already matched to a stronger license")
     # A close runner-up means the pick is not safe to accept without a person.
     for p in proposals:
         if p["match"]["tier"] == "auto_high" and p["margin"] < 0.15:
