@@ -196,6 +196,43 @@ async function main() {
     assert.equal(await page.locator(`table.admin-of-record a[href$="?license=${firstLinked.license_number}"]`).count() >= 1, true);
     console.log('PASS Facility Explorer administrators of record: lazy load, rows, links to the search');
 
+    const mgmt = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_nursing_home_management_companies.json')));
+    const nhca = mgmt.companies.find(c => c.id === 'mc-national-health-care-associates-inc');
+    assert.ok(nhca && nhca.homes.length >= 1, 'fixture company present');
+    await visit(route('management-companies'));
+    await page.locator('#mc-filter:not([disabled])').waitFor();
+    assert.equal(await page.locator('#mc-rows tr').count(), mgmt.companies.length);
+    await page.locator('#mc-current').check();
+    assert.equal(await page.locator('#mc-rows tr').count(), mgmt.companies.filter(c => c.homes_current > 0).length);
+    await page.locator('#mc-filter').fill('national health');
+    assert.equal(await page.locator('#mc-rows tr').count(), 1);
+    await page.locator('#mc-rows button[data-company="mc-national-health-care-associates-inc"]').click();
+    assert.equal(new URL(page.url()).search, '?company=mc-national-health-care-associates-inc');
+    assert.equal(await page.locator('#company-view .tenure li').count(), nhca.homes.length);
+    assert.equal(await page.locator('#company-view table.stack tbody tr').count(), nhca.homes.length);
+    assert.match(await page.locator('#company-view').innerText(), /000033/);
+    assert.ok(await page.locator(`#company-view a[href^="${route('administrator-search')}?license="]`).count() >= 1);
+    const mgmtCsv = await csv('#mc-csv');
+    assert.equal(mgmtCsv.trim().split('\n').length, nhca.homes.length + 1);
+    const mgmtText = await page.locator('main').innerText();
+    assert.match(mgmtText, /not the same as ownership/);
+    assert.match(mgmtText, /not a measure of the management company's performance/);
+    assert.ok(!/\b0[6-9]\d{3}\b/.test(mgmtText), 'no ZIP codes on the management page');
+    await page.goto('about:blank');
+    await visit(route('management-companies') + '?company=mc-the-geer-corporation');
+    await page.locator('#company-name').waitFor();
+    assert.match(await page.locator('#company-view').innerText(), /no CMS ownership record/);
+    console.log('PASS management companies: list, current filter, search, company view, administrators links, CSV, DPH-only company');
+
+    requests.length = 0;
+    await visit(route('staffing-explorer') + '?ccn=075355');
+    assert.ok(!requests.some(u => u.includes('ct_nursing_home_management_companies.json')), 'management data stays lazy');
+    await page.locator('.dossier-guide a[href="#management-title"]').click();
+    await page.locator('#management-output tbody tr').first().waitFor();
+    const mgmtHome = mgmt.facilities.find(f => f.ccn === '075355');
+    assert.equal(await page.locator('#management-output tbody tr').count(), mgmtHome.management.length);
+    console.log('PASS Facility Explorer management companies: lazy load, rows, links');
+
     await visit('/legislation/');
     await page.locator('#topics .topic').first().waitFor();
     assert.equal(await page.locator('#topics .topic').count(), 9);
@@ -315,7 +352,7 @@ async function main() {
     assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
     console.log('PASS 2027 session tracker: pre-session empty state');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await resize({ width, height: 1000 });
