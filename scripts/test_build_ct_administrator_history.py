@@ -51,6 +51,31 @@ def build(rows=None, registry_rows=None, public_data=None, facilities=None, cms_
 
 
 class IdentityAndDates(unittest.TestCase):
+    def test_current_credential_prefix_joins_registry_and_public(self):
+        result = build([role(license_number="36.000050")], public_data=public())
+        person = result["people"][0]
+        self.assertEqual(person["id"], "nha-50")
+        self.assertEqual(person["roles"][0]["license_raw"], "36.000050")
+        self.assertEqual(result["summary"]["missing_registry_roles"], 0)
+        self.assertEqual(person["license_status"], "EXPIRED")
+
+    def test_type_only_and_other_credential_types_stay_unlinked(self):
+        result = build([role(license_number="36"), role(3, "99.000050")])
+        self.assertEqual(result["people"], [])
+        self.assertEqual(len(result["unlinked_roles"]), 2)
+        self.assertIn("ambiguous_type_only_license", result["unlinked_roles"][0]["flags"])
+        self.assertIn("unsupported_credential_type", result["unlinked_roles"][1]["flags"])
+
+    def test_current_compact_dates_are_unambiguous(self):
+        result = build([role(start="20200131", end="20211201", status="Inactive")])
+        r = result["people"][0]["roles"][0]
+        self.assertEqual(r["start"], "2020-01-31")
+        self.assertEqual(r["end"], "2021-12-01")
+
+    def test_invalid_compact_date_is_flagged(self):
+        result = build([role(start="20260230")])
+        self.assertIn("invalid_start_date", result["people"][0]["roles"][0]["flags"])
+
     def test_license_not_name_controls_identity(self):
         result = build([role(), role(3, "00051")], [registry(), registry("00051")])
         self.assertEqual([p["id"] for p in result["people"]], ["nha-50", "nha-51"])

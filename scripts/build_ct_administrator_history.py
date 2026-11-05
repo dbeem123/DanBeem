@@ -102,6 +102,14 @@ def professional_key(raw: str) -> tuple[str, str | None]:
         return "", "blank_license"
     if "temp" in text.lower():
         return normalized_license(text), "temporary_identity_unlinked"
+    # Current eLicense history uses credential-type 36 plus the serial.
+    # The type prefix is not part of the person's professional license number.
+    if "." in text:
+        match = re.fullmatch(r"36\.(\d+)", text)
+        if match:
+            text = match.group(1)
+        elif re.fullmatch(r"\d+\.\d+", text):
+            return "", "unsupported_credential_type"
     number = normalized_license(text)
     if not number or number == "0":
         return "", "unusable_license"
@@ -113,7 +121,7 @@ def parse_date(raw: str, label: str, flags: list[str]) -> str | None:
     value = safe_text(raw)
     if not value:
         return None
-    for fmt in ("%m/%d/%Y", "%m/%d/%Y %H:%M:%S", "%Y-%m-%d",
+    for fmt in ("%m/%d/%Y", "%m/%d/%Y %H:%M:%S", "%Y-%m-%d", "%Y%m%d",
                 "%Y-%m-%dT%H:%M:%S.%f", "%Y-%m-%dT%H:%M:%S"):
         try:
             return datetime.strptime(value, fmt).date().isoformat()
@@ -271,6 +279,10 @@ def build_review(history: list[dict], registry: list[dict], facilities: list[dic
             raise ValueError("Administrator history references a missing facility")
         match = facility_map[facility]
         license_number, unlinked_reason = professional_key(row["License"])
+        if safe_text(row["License"]) == "36":
+            # Seven rows in the new history contain only the credential type.
+            # Preserve them as unlinked; do not create one fictitious person.
+            license_number, unlinked_reason = "", "ambiguous_type_only_license"
         flags = [unlinked_reason] if unlinked_reason else []
         start = parse_date(row["Start Date"], "start_date", flags)
         end = parse_date(row["TerminationDate"], "end_date", flags)

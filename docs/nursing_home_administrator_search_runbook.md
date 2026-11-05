@@ -62,6 +62,15 @@ It does not implement `--publish`: that belongs to Phase B after review.
 
 ## Identity, time and facility rules
 
+The new November 5 intake is a distinct, ignored snapshot with its own profile
+pending Claude's review; the original May source hash pins remain unchanged.
+The history now uses `YYYYMMDD` dates and `36.<serial>` professional identifiers.
+Strip only the known Nursing Home Administrator credential-type prefix `36.`
+before matching serials to registry/public numbers; preserve the raw field.
+Other numeric credential types remain unlinked. A history field containing only
+`36` is ambiguous and remains unlinked pending source review. It is not merged
+into a person with license 36. Do not infer temporary status from a missing serial.
+
 - Only `Position == "Administrator"` is included. Directors of Nurses,
   Medical Directors and all other positions are excluded.
 - Person keys use professional license digits without leading zeroes. Raw
