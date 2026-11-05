@@ -97,6 +97,7 @@
         <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
         <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
         <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
         <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
         <a href="/legislation/">Legislation</a>
         <a href="/staffing/tools/nursing-home-staffing-methodology.html" aria-current="page">About the Data</a>
@@ -359,6 +360,21 @@
         </div>
         <p>Affiliation entities come from the <a href="https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments">CMS Skilled Nursing Facility Enrollments dataset</a>. They are useful for grouping facilities and reviewing patterns across connected records.</p>
         <p>Affiliation entity data does not by itself prove shared management decisions, day-to-day operational control, or legal responsibility. Small affiliation groups should be interpreted carefully because one facility can strongly affect the group summary.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="administrators-method-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Administrator Records</div>
+            <h2 id="administrators-method-title">How the administrator search is built</h2>
+          </div>
+        </div>
+        <p>The <a href="/staffing/tools/nursing-home-administrator-search.html">Administrator Search</a> uses Connecticut Department of Public Health license roster exports: the nursing home management history, which lists the administrator of record for each licensed home with start and end dates, and the chronic and convalescent nursing home roster. License status, issue and expiration dates come from the public <a href="https://data.ct.gov/Business/State-Licenses-and-Credentials/ngch-56tr">State Licenses and Credentials</a> dataset. Only the administrator role and professional license fields are used; directors of nurses, medical directors and any personal contact details are not published.</p>
+        <p>People are matched by license number only, never by name. History rows with no usable license number appear only in the home's list, marked "no license number recorded". Each DPH facility license was matched to its CMS number (CCN) by name and address, and every match was reviewed before publication.</p>
+        <p>Staffing during a tenure is the home's CMS Payroll-Based Journal average for the quarters whose midpoint falls within the tenure, weighted by resident days. PBJ data starts in Q4 2017, so earlier tenures show no staffing figures. Inspection citations are not counted by tenure: the CMS citation file keeps only recent inspection cycles (for Connecticut, surveys from November 2018 on), so counts for older tenures would be incomplete. Use the Facility Explorer for a home's inspection history.</p>
+        <p>Limits: the DPH history covers homes licensed when the data was downloaded, so service at homes that have since closed is not included. Dates are as reported to DPH and can lag actual changes; overlapping dates at two homes are labelled "as reported" when they overlap by more than a day. Facility conditions during a tenure reflect many factors and are not a measure of the administrator's performance. Listing is not an allegation of wrongdoing. To report an error, email <a href="mailto:hello@danbeem.xyz">hello@danbeem.xyz</a>.</p>
       </div>
     </section>
 

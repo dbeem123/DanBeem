@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nursing Home Administrator Search | Connecticut LTCOP</title>
+  <meta name="description" content="Search Connecticut nursing home administrators by name or license number and see the homes where each served as administrator of record, with staffing during each period." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/nursing-home-administrator-search.js"></script>
+  <style>
+    .admin-hero { min-height:auto; display:block; padding-top:26px; padding-bottom:8px; }
+    .admin-hero .panel { display:grid; gap:12px; }
+    .search-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:end; }
+    .search-row input { width:100%; }
+    .result-list { list-style:none; margin:12px 0 0; padding:0; display:grid; gap:6px; }
+    .result-list button { width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 12px; align-items:center; text-align:left; padding:10px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; cursor:pointer; font:inherit; color:inherit; }
+    .result-list button:hover, .result-list button:focus-visible { border-color:var(--ltcop-navy); }
+    .result-list button[aria-current="true"] { border-color:var(--ltcop-navy); box-shadow:inset 3px 0 0 var(--ltcop-navy); }
+    .result-name { font-weight:850; overflow-wrap:anywhere; }
+    .result-meta { color:var(--ltcop-muted); font-size:13px; grid-column:1 / -1; }
+    .status-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:850; letter-spacing:0.04em; border:1px solid var(--ltcop-border); background:#f4f7fb; white-space:nowrap; }
+    .status-pill.st-active { background:#e8f4ec; border-color:#9cc9ab; color:#1d5e33; }
+    .status-pill.st-inactive { background:#f3f4f6; color:#4b5563; }
+    .person-head { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:baseline; }
+    .person-head h2 { margin:0; overflow-wrap:anywhere; }
+    .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin:12px 0; }
+    .fact { padding:10px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; }
+    .fact span { display:block; color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; }
+    .fact strong { display:block; margin-top:3px; font-variant-numeric:tabular-nums; }
+    .tenure { list-style:none; margin:10px 0 0; padding:0; display:grid; gap:10px; }
+    .tenure li { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:6px 14px; align-items:center; }
+    .tenure .lbl { font-size:13px; overflow-wrap:anywhere; }
+    .tenure .lbl strong { display:block; font-size:14px; }
+    .track { position:relative; height:16px; border-radius:8px; background:#eef2f7; }
+    .track i { position:absolute; top:0; bottom:0; min-width:4px; border-radius:8px; background:#173761; }
+    .track i.open { background:linear-gradient(90deg,#173761 70%,#5d7fae); }
+    .track i.partial { background:repeating-linear-gradient(45deg,#8aa0c0 0 4px,#c9d5e6 4px 8px); }
+    .track i.overlap { outline:2px solid #c2410c; outline-offset:1px; }
+    .axis { display:flex; justify-content:space-between; color:var(--ltcop-muted); font-size:12px; margin:6px 0 0; }
+    .axis-row { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:14px; }
+    .tag { display:inline-block; padding:2px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid var(--ltcop-border); background:#f4f7fb; margin:2px 4px 0 0; white-space:nowrap; }
+    .tag.overlap { border-color:#f0b48f; background:#fff4ec; color:#9a3412; }
+    .table-scroll { overflow-x:auto; border-radius:8px; border:1px solid var(--ltcop-border); margin-top:12px; }
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    caption { text-align:left; padding:10px 12px; color:var(--ltcop-muted); font-weight:800; }
+    th, td { padding:9px 12px; text-align:left; border-top:1px solid var(--ltcop-border); vertical-align:top; font-variant-numeric:tabular-nums; }
+    thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; }
+    .ctx { font-size:13px; }
+    .legend { display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--ltcop-muted); margin-top:8px; }
+    .legend span::before { content:""; display:inline-block; width:18px; height:10px; border-radius:5px; vertical-align:middle; margin-right:6px; background:#173761; }
+    .legend .lg-open::before { background:linear-gradient(90deg,#173761 60%,#5d7fae); }
+    .legend .lg-partial::before { background:repeating-linear-gradient(45deg,#8aa0c0 0 4px,#c9d5e6 4px 8px); }
+    .legend .lg-overlap::before { background:#fff; outline:2px solid #c2410c; }
+    @media (max-width:720px) {
+      .tenure li, .axis-row { grid-template-columns:1fr; }
+      .axis-row > :first-child { display:none; }
+      .search-row { grid-template-columns:1fr; }
+      table.stack thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      table.stack tr { display:block; border-top:1px solid var(--ltcop-border); padding:6px 0; }
+      table.stack td { display:grid; grid-template-columns:110px minmax(0,1fr); gap:8px; border-top:0; padding:4px 12px; }
+      table.stack td::before { content:attr(data-label); color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; }
+    }
+    @media print { .ltcop-masthead, footer, .no-print { display:none !important; } }
+  </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html" aria-current="page">Administrators</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap admin-hero" aria-labelledby="admin-title">
+      <div class="panel">
+        <div class="pill">Public license records</div>
+        <h1 id="admin-title">Nursing Home Administrator Search</h1>
+        <p>Search a Connecticut nursing home administrator by name or license number to see each home where they were the administrator of record, with dates, and the home's staffing during that period.</p>
+        <div class="notice warning">Facility conditions during an administrator's tenure reflect many factors and are not a measure of the administrator's performance. Listing is not an allegation of wrongdoing.</div>
+        <noscript><div class="notice">This search needs JavaScript. The underlying records are published as <a href="/data/ct_nursing_home_administrators.json">ct_nursing_home_administrators.json</a>.</div></noscript>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="search-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Search</div>
+            <h2 id="search-title">Find an administrator</h2>
+            <p id="search-note" class="subtle">Loading administrator records.</p>
+          </div>
+        </div>
+        <form id="admin-search-form" class="search-row" role="search" autocomplete="off">
+          <div>
+            <label for="admin-query">Name or license number</label>
+            <input id="admin-query" name="q" type="search" placeholder="For example: Smith, or 1327" disabled>
+          </div>
+          <button class="action-button" type="submit" disabled>Search</button>
+        </form>
+        <p id="result-count" class="subtle" role="status" aria-live="polite"></p>
+        <ul id="admin-results" class="result-list"></ul>
+      </div>
+    </section>
+
+    <section id="person-section" class="wrap content-section" aria-labelledby="person-name" hidden>
+      <div class="panel">
+        <div class="eyebrow">Administrator of record</div>
+        <div id="person-view" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="sources-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Sources</div>
+            <h2 id="sources-title">Sources, coverage and corrections</h2>
+          </div>
+        </div>
+        <ul id="admin-sources"></ul>
+        <div id="admin-coverage"></div>
+        <ul id="admin-caveats" class="subtle"></ul>
+        <p id="admin-corrections" class="notice"></p>
+        <p class="subtle">See <a href="/staffing/tools/nursing-home-staffing-methodology.html#administrators-method-title">About the Data</a> for how records are matched and why inspection counts are not shown by tenure.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Nursing Home Administrator Search - public license records.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

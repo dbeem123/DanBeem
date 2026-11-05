@@ -152,3 +152,42 @@ until the real public-data review is accepted.
 Future source only, not implemented: CT DSS annual cost-report administrator
 sections may provide additional professional-role cross-checks. Compensation
 or other personal information must never be copied into the public dataset.
+
+## Publish the public data (Phase B)
+
+The public search reads `data/ct_nursing_home_administrators.json`, built from the
+reviewed private files. Nothing private is committed: the review, the decisions and
+any corrections stay in ignored `data/testing/`.
+
+1. Rebuild the private review (above) and record a decision for every facility in
+   `data/testing/ct_dph_ccn_crosswalk_decisions_<date>.json`: a list of
+   `{facility_license, ccn, decision, note}`. Review every row below `auto_high`, every
+   `auto_high` row with weaker name or place evidence, and a random sample of the rest.
+2. Optional corrections: `data/testing/ct_administrator_corrections.json`, a list of
+   `{"action": "suppress_person", "person_id": "nha-<license>", "date": "...", "reason": "..."}`.
+   A suppressed person disappears from the search and from every facility list; only the
+   count of applied corrections is published.
+3. Build and validate:
+
+   ```powershell
+   python scripts/build_ct_administrators_public.py --review data/testing/<review_v2>.json --decisions data/testing/<decisions>.json
+   python scripts/validate_ct_administrators.py
+   python scripts/test_ct_administrators_public.py
+   ```
+
+Display rules applied by the build (Claude's Phase A review, November 5, 2026):
+exact duplicate roles collapse; an unlinked row that repeats a linked row at the same
+home (same name, start and end) is dropped; only overlaps longer than one day are
+labelled "overlapping dates as reported"; the 1901-01-01 issue-date placeholder shows
+as "not recorded"; open roles read "open as of" the source date; license status comes
+from data.ct.gov with its date; unlinked roles appear only under their home.
+
+Tenure staffing uses PBJ quarters (Q4 2017 onward) whose midpoint falls within the
+tenure, weighted by resident days. Inspection citations are deliberately not counted
+by tenure: the CMS citation file keeps only recent inspection cycles, so older tenures
+would be undercounted.
+
+Coverage limits shown on the page: the DPH history covers homes licensed at download,
+so closed homes are missing; active CMS homes with no DPH license in the export are
+listed by name (November 2026: Bickford Health Care Center, Greenwich Woods
+Rehabilitation, Meriden Health and Rehab).

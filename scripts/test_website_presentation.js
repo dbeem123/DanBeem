@@ -150,6 +150,52 @@ async function main() {
     assert.equal(await page.locator('#legislation-table tbody tr').count(), 3);
     console.log('PASS Connecticut rules and context: 36 below 3.00, 120 of 190 below 3.60 scenario, trend chart');
 
+    const admins = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_nursing_home_administrators.json')));
+    const sample = admins.people.find(p => p.license_number === '1750');
+    assert.ok(sample && sample.roles.length === 3, 'fixture administrator 1750 has 3 roles');
+    await visit(route('administrator-search'));
+    await page.locator('#admin-query:not([disabled])').waitFor();
+    assert.match(await page.locator('#search-note').innerText(), new RegExp(`${admins.summary.people} administrators`));
+    await page.locator('#admin-query').fill('wagner');
+    assert.ok(await page.locator('#admin-results button').count() >= 1);
+    await page.locator('#admin-results button[data-person="nha-1750"]').click();
+    assert.equal(new URL(page.url()).search, '?license=1750');
+    assert.equal(await page.locator('#person-name').innerText(), sample.name);
+    assert.equal(await page.locator('#person-view .tenure li').count(), 3);
+    assert.equal(await page.locator('#person-view table.stack tbody tr').count(), 3);
+    assert.match(await page.locator('#person-view table.stack').innerText(), /Q4 2017 to Q2 2018 \(3 quarters\)/);
+    assert.match(await page.locator('#person-view table.stack').innerText(), /Before CMS staffing data begins/);
+    assert.equal(await page.locator('#person-view a[href*="nursing-home-staffing-explorer.html?ccn="]').count(), 3);
+    const adminCsv = await csv('#admin-csv');
+    assert.match(adminCsv.split('\n')[0], /^administrator,license_number,license_status/);
+    assert.equal(adminCsv.trim().split('\n').length, 4);
+    const pageText = await page.locator('main').innerText();
+    assert.ok(!/\b0[6-9]\d{3}\b/.test(pageText), 'no ZIP codes on the administrator page');
+    assert.match(pageText, /not a measure of the administrator's performance/);
+    assert.match(pageText, /Listing is not an allegation of wrongdoing/);
+    assert.match(await page.locator('#admin-corrections').innerText(), /hello@danbeem\.xyz/);
+    assert.match(await page.locator('#admin-coverage').innerText(), /BICKFORD HEALTH CARE CENTER/);
+    await page.goto('about:blank');
+    await visit(route('administrator-search') + '?license=1327');
+    await page.locator('#person-name').waitFor();
+    assert.match(await page.locator('#person-view').innerText(), /License number\s*1327/i);
+    await page.locator('#admin-query').fill('');
+    await page.locator('#admin-query').fill('1750');
+    await page.locator('#admin-search-form button[type="submit"]').click();
+    assert.equal(await page.locator('#person-name').innerText(), sample.name);
+    console.log('PASS administrator search: name and license search, deep link, timeline, tenure staffing, CSV, caveats, no ZIPs');
+
+    requests.length = 0;
+    await visit(route('staffing-explorer') + '?ccn=075279');
+    assert.ok(!requests.some(u => u.includes('ct_nursing_home_administrators.json')), 'administrator data stays lazy');
+    await page.locator('.dossier-guide a[href="#administrators-title"]').click();
+    await page.locator('table.admin-of-record tbody tr').first().waitFor();
+    const home = admins.facilities.find(f => f.ccn === '075279');
+    assert.equal(await page.locator('table.admin-of-record tbody tr').count(), home.administrators.length);
+    const firstLinked = home.administrators.find(a => a.person_id);
+    assert.equal(await page.locator(`table.admin-of-record a[href$="?license=${firstLinked.license_number}"]`).count() >= 1, true);
+    console.log('PASS Facility Explorer administrators of record: lazy load, rows, links to the search');
+
     await visit('/legislation/');
     await page.locator('#topics .topic').first().waitFor();
     assert.equal(await page.locator('#topics .topic').count(), 9);
@@ -269,7 +315,7 @@ async function main() {
     assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
     console.log('PASS 2027 session tracker: pre-session empty state');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await resize({ width, height: 1000 });

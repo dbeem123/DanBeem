@@ -10,8 +10,8 @@ body.ltcop-dashboard .ltcop-suite-title { font-size: 16px; max-width: 340px; }
 body.ltcop-dashboard .ltcop-suite-subtitle { font-size: 12px; margin-top: 4px; }
 body.ltcop-dashboard .ltcop-official-link { font-size: 12px; white-space: normal; }
 body.ltcop-dashboard .ltcop-suite-nav { background: #fff; border-top: 1px solid var(--ltcop-border); border-bottom: 1px solid var(--ltcop-border); }
-body.ltcop-dashboard .ltcop-suite-nav .wrap { padding-block: 6px; gap: 4px; }
-body.ltcop-dashboard .ltcop-suite-nav a { color: #334553; background: transparent; border-radius: 4px; padding: 10px 12px; font-size: 13px; }
+body.ltcop-dashboard .ltcop-suite-nav .wrap { padding-block: 6px; gap: 2px; }
+body.ltcop-dashboard .ltcop-suite-nav a { color: #334553; background: transparent; border-radius: 4px; padding: 10px 7px; font-size: 13px; }
 body.ltcop-dashboard .ltcop-suite-nav a[aria-current="page"] { color: #173761; background: #edf2f6; box-shadow: inset 0 -3px #e3212b; }
 body.ltcop-dashboard .ltcop-suite-nav a:hover { background: #edf2f6; }
 .staffing-nav-toggle { display: none; }
@@ -94,4 +94,13 @@ body.ltcop-dashboard :is(h2, h3, summary, section)[id] { scroll-margin-top: 24px
   .staffing-nav-toggle { display: none !important; }
   body.ltcop-dashboard .ltcop-disclosure { break-inside: auto; }
   body.ltcop-dashboard .ltcop-disclosure-body { display: block !important; }
+}
+
+/* Administrators of record (Facility Explorer) */
+.admin-of-record td, .admin-of-record th { vertical-align:top; }
+@media (max-width:720px) {
+  table.admin-of-record thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+  table.admin-of-record tr { display:block; border-top:1px solid var(--ltcop-border); padding:6px 0; }
+  table.admin-of-record td { display:grid; grid-template-columns:110px minmax(0,1fr); gap:8px; border-top:0; padding:4px 12px; }
+  table.admin-of-record td::before { content:attr(data-label); color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; }
 }
