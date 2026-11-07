@@ -3,6 +3,7 @@
 
   const DATA_PATH = '/data/ct_nursing_home_administrators.json';
   const EXPLORER = '/staffing/tools/nursing-home-staffing-explorer.html';
+  const COST_PAGE = '/staffing/tools/nursing-home-cost-reports.html';
   const ELICENSE = 'https://elicense.ct.gov/Lookup/LicenseLookup.aspx';
   const MAX_RESULTS = 50;
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -139,7 +140,7 @@
 
   function roleTable(person) {
     const rows = person.roles.map(role => `<tr>
-      <td data-label="Home">${role.ccn ? `<a href="${EXPLORER}?ccn=${esc(role.ccn)}">${esc(role.facility_name)}</a>` : esc(role.facility_name)}<div class="subtle">DPH license ${esc(role.facility_license)}${role.ccn ? ` · CCN ${esc(role.ccn)}` : ''}</div></td>
+      <td data-label="Home">${role.ccn ? `<a href="${EXPLORER}?ccn=${esc(role.ccn)}">${esc(role.facility_name)}</a>` : esc(role.facility_name)}<div class="subtle">DPH license ${esc(role.facility_license)}${role.ccn ? ` · CCN ${esc(role.ccn)} · <a href="${COST_PAGE}?ccn=${esc(role.ccn)}">Cost reports</a>` : ''}</div></td>
       <td data-label="Start">${esc(startLabel(role))}</td>
       <td data-label="End">${esc(endLabel(role))}${role.overlap ? '<div><span class="tag overlap">Overlapping dates as reported</span></div>' : ''}</td>
       <td data-label="Staffing" class="ctx">${esc(contextText(role))}</td>

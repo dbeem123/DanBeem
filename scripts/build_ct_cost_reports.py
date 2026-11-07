@@ -234,12 +234,26 @@ def year_record(o, idx_row, pbj):
         dc["revenue_per_resident_day"] = round(f["rev_total"] / days, 2)
     if f.get("rev_total") and f.get("expenses_total_ccnh"):
         dc["operating_margin_nh"] = round((f["rev_total"] - f["expenses_total_ccnh"]) / f["rev_total"], 4)
+    # Costs, revenue and margin outside these ranges are almost always a misread total: flag the year
+    # and don't publish the derived figure.
+    money_flags = []
+    for key, label in (("expenses_per_resident_day", "costs per resident day"),
+                       ("revenue_per_resident_day", "revenue per resident day")):
+        v = dc.get(key)
+        if v is not None and not (100 <= v <= 1500):
+            money_flags.append(label)
+            dc.pop(key)
+            dc.pop("operating_margin_nh", None)
+    m = dc.get("operating_margin_nh")
+    if m is not None and not (-1 <= m <= 0.5):
+        money_flags.append("operating margin")
+        dc.pop("operating_margin_nh")
     rec["direct_care"] = dc
     rec["payer_mix"] = d.get("payer_mix")
     rec["pbj_same_period"] = pbj
     if pbj and d.get("nursing_hours_per_resident_day"):
         rec["pbj_same_period"]["cost_report_minus_pbj_hprd"] = round(d["nursing_hours_per_resident_day"] - pbj["total_nurse_hprd"], 2)
-    flags = plausible(f, d)
+    flags = plausible(f, d) + money_flags
     rec["checks"] = {"printed_totals": c, "out_of_range": flags,
                      "validated": bool(c.get("has_core")) and c.get("days_sum", True) and not flags}
     e = o.get("entities") or {}

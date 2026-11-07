@@ -3,6 +3,7 @@
 
   const DATA_PATH = '/data/ct_nursing_home_management_companies.json';
   const EXPLORER = '/staffing/tools/nursing-home-staffing-explorer.html';
+  const COST_PAGE = '/staffing/tools/nursing-home-cost-reports.html';
   const ADMIN = '/staffing/tools/nursing-home-administrator-search.html';
   const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -109,7 +110,7 @@
         <caption>Homes where ${esc(company.name)} was reported with managerial control</caption>
         <thead><tr><th scope="col">Home</th><th scope="col">Period</th><th scope="col">Home's staffing during this period</th><th scope="col">Administrators of record during this period</th></tr></thead>
         <tbody>${company.homes.map(h => `<tr>
-          <td data-label="Home"><a href="${EXPLORER}?ccn=${esc(h.ccn)}">${esc(h.facility_name)}</a><div class="subtle">CCN ${esc(h.ccn)} · ${esc(h.role)}</div></td>
+          <td data-label="Home"><a href="${EXPLORER}?ccn=${esc(h.ccn)}">${esc(h.facility_name)}</a><div class="subtle">CCN ${esc(h.ccn)} · ${esc(h.role)} · <a href="${COST_PAGE}?ccn=${esc(h.ccn)}">Cost reports</a></div></td>
           <td data-label="Period">${esc(startText(h))}<br>${esc(endText(h))}${h.later_association_dates.length ? `<div class="subtle">CMS later reported ${h.later_association_dates.map(fmtDate).map(esc).join(', ')}</div>` : ''}</td>
           <td data-label="Staffing" class="ctx">${esc(contextText(h))}</td>
           <td data-label="Administrators">${adminList(h)}</td>
@@ -123,7 +124,6 @@
 
   // Management fees the homes themselves reported on DSS cost reports (Schedule C-1), by cost year.
   const COST_PATH = '/data/ct_nursing_home_cost_reports.json';
-  const COST_PAGE = '/staffing/tools/nursing-home-cost-reports.html';
   let costPromise = null;
   async function renderDssFees(company) {
     const view = document.getElementById('company-view');
