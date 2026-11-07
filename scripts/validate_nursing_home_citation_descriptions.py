@@ -9,6 +9,10 @@ from __future__ import annotations
 import csv
 from collections import Counter
 from pathlib import Path
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from cms_release_order import release_key  # noqa: E402
 
 
 SOURCE_DIR = Path("source_data/cms_survey")
@@ -22,7 +26,7 @@ REQUIRED_COLUMNS = [
 
 
 def find_source_file() -> Path:
-    matches = sorted(SOURCE_DIR.glob("NH_CitationDescriptions_*.csv"))
+    matches = sorted(SOURCE_DIR.glob("NH_CitationDescriptions_*.csv"), key=release_key)
     if not matches:
         raise FileNotFoundError(
             "No NH_CitationDescriptions_<MonthYear>.csv file found in "

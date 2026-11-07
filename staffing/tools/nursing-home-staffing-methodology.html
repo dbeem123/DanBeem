@@ -210,8 +210,8 @@
             <h2 id="history-title">Longitudinal staffing history</h2>
           </div>
         </div>
-            <p>Historical CMS Payroll-Based Journal staffing is available in the public tools from Q4 2017 through Q1 2026. These rows are PBJ-derived staffing measures for each facility-quarter, including total nurse HPRD, RN HPRD, LPN/LVN HPRD, nurse aide HPRD, contract staff percentage, CT direct-care HPRD estimate, and CT licensed HPRD estimate.</p>
-            <p>Current contextual CMS snapshots remain separate. Provider Information, Care Compare ratings, CMS case-mix comparison points, and Quality Measures Claims are August 2026 context. SNF Enrollment affiliation context is from May 2026. Those current values are not historical quarter-specific values for each PBJ staffing quarter.</p>
+            <p>Historical CMS Payroll-Based Journal staffing is available in the public tools from Q4 2017 through Q2 2026. These rows are PBJ-derived staffing measures for each facility-quarter, including total nurse HPRD, RN HPRD, LPN/LVN HPRD, nurse aide HPRD, contract staff percentage, CT direct-care HPRD estimate, and CT licensed HPRD estimate.</p>
+            <p>Current contextual CMS snapshots remain separate. Provider Information, Care Compare ratings, CMS case-mix comparison points, and Quality Measures Claims are October 2026 context. SNF Enrollment affiliation context is from the September 29, 2026 file. Those current values are not historical quarter-specific values for each PBJ staffing quarter.</p>
         <div class="notice">Facility names, facility participation, and available quarters can change over time. Missing PBJ facility-quarter rows are not treated as zero staffing.</div>
       </div>
     </section>
@@ -227,7 +227,7 @@
         <p><a href="https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/">Connecticut nursing home staffing regulations, Title 19, Sec. 19-13-D8t</a>, set nursing-staff requirements in subsection (m). The current 3.00 total nursing and nurse's aide direct-care hours per resident day and 0.84 licensed nursing hours per resident day comparison points used here are described in Connecticut Department of Public Health's <a href="https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf">amended 3.0 staffing implementation notice</a>.</p>
         <p>The Connecticut materials also explain that director of nursing and assistant director of nursing hours are not counted toward those minimum requirements. The staffing tools create PBJ-derived screening estimates to compare against those points.</p>
         <p><strong>Effective dates.</strong> Public Act 21-185 (CGS Sec. 19a-563h) directed DPH to set a three-hour direct-care minimum by January 1, 2022; DPH said revised regulations would not be in place by that date. DPH's former 3.0 policies took effect <strong>March 1, 2023</strong> (0.84 nursing plus 2.16 nurse aide hours), and the amended policies took effect <strong>January 5, 2024</strong> (3.00 total, of which 0.84 licensed). Before that, Sec. 19-13-D8t(m) set 1.90 total and 0.64 licensed hours. See <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">Connecticut Rules &amp; Context</a> for the timeline and statewide trend.</p>
-        <p>For historical PBJ display, the tools use a conservative public-applicability rule: Q4 2017 through Q4 2021 are shown without applicable CT threshold status labels; 2022 quarters are not assigned public CT status under the current method; Q1 2023 is transitional/partial-period context; Q2 2023 through Q1 2026 may show PBJ-derived CT screening-status labels with caveats.</p>
+        <p>For historical PBJ display, the tools use a conservative public-applicability rule: Q4 2017 through Q4 2021 are shown without applicable CT threshold status labels; 2022 quarters are not assigned public CT status under the current method; Q1 2023 is transitional/partial-period context; Q2 2023 through Q2 2026 may show PBJ-derived CT screening-status labels with caveats.</p>
         <ul class="formula-list">
           <li><strong>CT direct-care total HPRD estimate:</strong> RN + LPN + CNA + nurse aide trainee + medication aide hours divided by resident days.</li>
           <li><strong>CT licensed HPRD estimate:</strong> RN + LPN hours divided by resident days.</li>
@@ -313,18 +313,18 @@
         </div>
 
         <h3>Current source files and date windows</h3>
-        <p>The current build uses the May 2026 CMS files below. Their available date windows differ, so totals across sources do not represent one uniform observation period.</p>
+        <p>The current build uses the October 2026 CMS files below. Their available date windows differ, so totals across sources do not represent one uniform observation period.</p>
         <ul class="method-list">
-          <li><strong>Health Deficiencies:</strong> <code>NH_HealthCitations_May2026.csv</code>; survey dates <time datetime="2018-11-08">November 8, 2018</time> through <time datetime="2026-03-31">March 31, 2026</time>.</li>
-          <li><strong>Fire Safety and Emergency Preparedness Deficiencies:</strong> <code>NH_FireSafetyCitations_May2026.csv</code>; survey dates <time datetime="2018-11-08">November 8, 2018</time> through <time datetime="2026-02-27">February 27, 2026</time>.</li>
-          <li><strong>Citation Descriptions:</strong> <code>NH_CitationDescriptions_May2026.csv</code>; a reference lookup used with citation records.</li>
-          <li><strong>Penalties:</strong> <code>NH_Penalties_May2026.csv</code>; penalty dates <time datetime="2023-05-17">May 17, 2023</time> through <time datetime="2026-03-17">March 17, 2026</time>.</li>
+          <li><strong>Health Deficiencies:</strong> <code>NH_HealthCitations_Oct2026.csv</code>; survey dates <time datetime="2019-01-14">January 14, 2019</time> through <time datetime="2026-09-02">September 2, 2026</time>.</li>
+          <li><strong>Fire Safety and Emergency Preparedness Deficiencies:</strong> <code>NH_FireSafetyCitations_Oct2026.csv</code>; survey dates <time datetime="2019-01-14">January 14, 2019</time> through <time datetime="2026-09-01">September 1, 2026</time>.</li>
+          <li><strong>Citation Descriptions:</strong> <code>NH_CitationDescriptions_Oct2026.csv</code>; a reference lookup used with citation records.</li>
+          <li><strong>Penalties:</strong> <code>NH_Penalties_Oct2026.csv</code>; penalty dates <time datetime="2023-10-17">October 17, 2023</time> through <time datetime="2026-07-09">July 9, 2026</time>.</li>
           <li><strong>Payment-denial start dates:</strong> <time datetime="2024-01-17">January 17, 2024</time> through <time datetime="2024-12-03">December 3, 2024</time>.</li>
           <li><strong>Current penalties-file processing date:</strong> <time datetime="2026-05-01">May 1, 2026</time>.</li>
         </ul>
 
         <h3>What “recent” means</h3>
-        <p>The compact snapshot defines the recent window as <time datetime="2023-03-31">March 31, 2023</time> through <time datetime="2026-03-31">March 31, 2026</time>, inclusive. The end date is the maximum date across the three detailed runtime datasets, and the same three-year period is applied across sources for a consistent summary window.</p>
+        <p>The compact snapshot defines the recent window as <time datetime="2023-09-02">September 2, 2023</time> through <time datetime="2026-09-02">September 2, 2026</time>, inclusive. The end date is the maximum date across the three detailed runtime datasets, and the same three-year period is applied across sources for a consistent summary window.</p>
         <p>“Recent” does not mean that every record occurred during a facility's latest survey cycle. All current enforcement rows fall inside this window because the penalties source begins after the recent-window start date.</p>
 
         <h3>Health harm groupings</h3>
@@ -343,11 +343,11 @@
 
         <h3>Penalties, dates, and duplicate source rows</h3>
         <p>Fine and Payment Denial rows are distinct enforcement types. Fine Amount applies to Fine rows; Payment Denial Start Date and Payment Denial Length apply to Payment Denial rows. Penalty Date, payment-denial start date, and processing date are separate fields and should not be treated as interchangeable.</p>
-        <p>Three duplicated full-row signatures exist in the current Connecticut penalties source. The build preserves those published source rows and flags duplicates rather than silently removing them. Aggregate totals therefore reflect the published source rows unless a display is explicitly labeled otherwise.</p>
+        <p>The current Connecticut penalties source has no duplicated full-row signatures. When a release has them, the build preserves those published source rows and flags duplicates rather than silently removing them. Aggregate totals therefore reflect the published source rows unless a display is explicitly labeled otherwise.</p>
 
         <h3>Compact summary, detailed records, and facility coverage</h3>
         <p>The normal Facility Explorer page load requests a compact one-record-per-facility summary. Detailed citations and enforcement events load only after a user chooses <strong>View detailed findings</strong>, and only the selected facility's CCN-specific file is requested. The full statewide detailed files are not downloaded during the normal page load. This improves performance and avoids unnecessary data transfer.</p>
-        <p>The current Facility Explorer includes 196 facilities. Health records cover 191 current CCNs, Fire Safety or Emergency Preparedness records cover 178 current CCNs, and penalties cover 102 current CCNs. Five current facility records have no records in the included survey or enforcement files; they remain in the Explorer with zero counts and unavailable latest dates.</p>
+        <p>The current Facility Explorer includes 195 facilities. Health records cover 191 current CCNs, Fire Safety or Emergency Preparedness records cover 178 current CCNs, and penalties cover 109 current CCNs. Four current facility records have no records in the included survey or enforcement files; they remain in the Explorer with zero counts and unavailable latest dates.</p>
         <div class="notice warning">Survey and enforcement records provide dated historical context. They do not change a facility's staffing classification and should be reviewed with resident experience, complaint information, correction context, and official records when appropriate.</div>
       </div>
     </section>

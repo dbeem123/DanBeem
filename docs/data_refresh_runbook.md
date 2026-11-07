@@ -49,6 +49,31 @@ bridge, into the folder the builds read:
 writes new files into it, and only new dated files; nothing existing is overwritten or deleted. Codex
 never touches the main checkout.
 
+## What the November 2026 refresh did (use as the pattern)
+
+- Downloads were kept in `X:\DanBeem-Data\CMS_Refresh\YYYY-MM\` with the fetch manifests (URL, size, SHA-256).
+  Large national files (over about 100 MB) don't copy back to the PC through the bridge; their Connecticut copies
+  do, and the manifest records the national file's URL and hash.
+- The PBJ history build needs every quarter since 2017Q4. Connecticut-only copies of the PC's PBJ archive were
+  made on the PC with `X:\DanBeem-Data\_pbj_ct_extract\make_ct.py` (same file names, about 30 MB in all) and
+  staged into the build workspace. The builders filter to Connecticut, so CT-only inputs give identical output
+  (checked: rebuilding with the old inputs reproduced the published files exactly).
+- The current staffing file covers the latest six PBJ quarters: copy those six into `source_data/pbj_window/`
+  and pass `--input-dir source_data/pbj_window`.
+- Inspection builders (health, fire safety, penalties) need the national files, because they record the source's
+  national row count and size. Their `SOURCE_URL` and `ACQUIRED_DATE` constants are updated by hand for each
+  release, and `scripts/audit_nursing_home_survey_enforcement_release.py` has an `EXPECTED` block pinned to the
+  release; update it from the new build's numbers after checking they make sense. Builders and validators now pick
+  the newest file by release month in its name (`scripts/cms_release_order.py`), not alphabetically.
+- Dated text to update with each release: the methodology page (PBJ range, Care Compare month, inspection files,
+  dates and coverage counts), the tools home PBJ range, the Ownership / Affiliation five-quarter range, the source
+  manifest and tool registry, the legislative tracker's denominators note, and the pinned values in
+  `scripts/test_website_presentation.js`, `scripts/test_build_nursing_home_ct_statewide_context.py` and
+  `scripts/test_ct_legislative_tracker.py`.
+- If many homes are missing from the newest PBJ quarter, the site says so: the Facility Explorer shows CMS's
+  staffing footnote (23 = did not submit staffing data), and the CT rules page and legislative stats warn that the
+  quarter's counts aren't comparable with earlier quarters.
+
 ## Builds per source
 
 Run in the build workspace (`/home/claude/site` on branch `cost-reports`, or a fresh worktree from main).

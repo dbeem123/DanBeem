@@ -16,6 +16,10 @@ from collections import Counter
 from datetime import date, datetime
 from pathlib import Path
 from typing import Any
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from cms_release_order import release_key  # noqa: E402
 
 
 SOURCE_DIR = Path("source_data/cms_survey")
@@ -28,12 +32,12 @@ CITATION_LOOKUP_PATTERN = "NH_CitationDescriptions_*.csv"
 
 SOURCE_URL = (
     "https://data.cms.gov/provider-data/sites/default/files/resources/"
-    "a212e8d9a0e8d36ebee28b8334485334_1778861750/"
-    "NH_FireSafetyCitations_May2026.csv"
+    "908176fdfb9dcb11451601593513c639_1792181728/"
+    "NH_FireSafetyCitations_Oct2026.csv"
 )
 CMS_DATASET_ID = "ifjz-ge4w"
 SOURCE_NAME = "CMS Provider Data Catalog Fire Safety Deficiencies"
-ACQUIRED_DATE = "2026-06-22"
+ACQUIRED_DATE = "2026-11-07"
 KNOWN_LOOKUP_GAP_CODES = {"K-0211", "K-0133"}
 
 REQUIRED_COLUMNS = [
@@ -91,7 +95,7 @@ LIMITATIONS = [
 
 
 def find_latest(pattern: str) -> Path:
-    matches = sorted(SOURCE_DIR.glob(pattern))
+    matches = sorted(SOURCE_DIR.glob(pattern), key=release_key)
     if not matches:
         raise FileNotFoundError(f"No {pattern} file found in {SOURCE_DIR.as_posix()}")
     return matches[-1]
@@ -154,7 +158,7 @@ def load_current_staffing_ccns() -> dict[str, str]:
 
 
 def load_citation_lookup() -> tuple[Path | None, dict[str, dict[str, str]]]:
-    matches = sorted(SOURCE_DIR.glob(CITATION_LOOKUP_PATTERN))
+    matches = sorted(SOURCE_DIR.glob(CITATION_LOOKUP_PATTERN), key=release_key)
     if not matches:
         return None, {}
     lookup_path = matches[-1]

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import statistics
 from datetime import datetime
 from pathlib import Path
@@ -88,6 +89,18 @@ def build() -> dict:
              "Sum of each reporting home's average daily census, rounded to the nearest hundred.", display=f"About {int(round(census, -2)):,}"),
     ]
 
+    # A quarter where many homes did not submit PBJ undercounts statewide totals: say so on every stat for it.
+    prev = context["statewide_quarterly"][-2] if len(context["statewide_quarterly"]) > 1 else None
+    missing = [f for f in staffing["facilities"] if f["ccn"] not in {r["ccn"] for r in rows}]
+    not_submitted = sum(1 for f in missing if str(f.get("cms_staffing_rating_footnote") or "") == "23")
+    if prev and latest["facilities_reporting"] < 0.95 * prev["facilities_reporting"]:
+        gap = (f" Only {latest['facilities_reporting']} homes reported PBJ for {qlabel}, against {prev['facilities_reporting']} in {prev['quarter_label']}"
+               + (f"; CMS lists {not_submitted} as not submitting staffing data" if not_submitted else "")
+               + ". Totals for this quarter are not comparable with earlier quarters.")
+        for st in stats:
+            if st["period"] == qlabel:
+                st["caveat"] = (st["caveat"] + gap).strip()
+
     fac = staffing["facilities"]
     owner = {"For profit": 0, "Non profit": 0, "Government": 0}
     for f in fac:
@@ -95,11 +108,14 @@ def build() -> dict:
         if kind in owner:
             owner[kind] += 1
     rated = [f.get("cms_overall_rating") for f in fac if f.get("cms_overall_rating")]
+    prov = next((x for x in staffing["sources"] if "Provider Information" in x.get("source_dataset_name", "")), {})
+    m = re.search(r"_([A-Z][a-z]{2})(\d{4})", prov.get("source_release", ""))
+    prov_label = f"CMS Provider Information, {m.group(1)} {m.group(2)}" if m else "CMS Provider Information"
     stats += [
         stat("for_profit_homes", owner["For profit"], f"of {len(fac)} Connecticut nursing homes are for-profit",
-             "CMS Provider Information, Aug 2026", "CMS Nursing Home Provider Information", EXPLORER, "Ownership type as reported to CMS."),
+             prov_label, "CMS Nursing Home Provider Information", EXPLORER, "Ownership type as reported to CMS."),
         stat("low_star_homes", sum(1 for r in rated if r <= 2), f"of {len(rated)} rated homes have a 1- or 2-star CMS overall rating",
-             "CMS Provider Information, Aug 2026", "CMS Care Compare star ratings", EXPLORER, "CMS ratings, not calculated by these tools."),
+             prov_label, "CMS Care Compare star ratings", EXPLORER, "CMS ratings, not calculated by these tools."),
     ]
 
     sf = survey["facilities"]

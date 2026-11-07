@@ -1,12 +1,12 @@
 {
   "schema_version": "ct-statewide-context-1.0",
   "dataset_type": "nursing_home_ct_statewide_context",
-  "generated_at": "2026-11-04T00:31:22",
-  "source_history_generated_at": "2026-09-24T13:33:12",
+  "generated_at": "2026-11-07T07:03:21",
+  "source_history_generated_at": "2026-11-07T07:01:34",
   "history_window": {
     "first_quarter": "2017Q4",
-    "latest_quarter": "2026Q1",
-    "quarter_count": 34
+    "latest_quarter": "2026Q2",
+    "quarter_count": 35
   },
   "screening_note": "PBJ-derived screening estimates, not formal Connecticut DPH compliance findings.",
   "statewide_quarterly": [
@@ -417,42 +417,54 @@
       "below_total_3_00_count": 36,
       "below_licensed_0_84_count": 9,
       "below_total_3_00_share": 0.1895
+    },
+    {
+      "quarter": "2026Q2",
+      "quarter_label": "Q2 2026",
+      "facilities_reporting": 171,
+      "median_ct_direct_care_total_hprd": 3.54,
+      "median_ct_direct_care_licensed_hprd": 1.27,
+      "ct_comparison_period_status": "applicable_full_quarter",
+      "ct_comparison_applicable_for_public_status": true,
+      "below_total_3_00_count": 18,
+      "below_licensed_0_84_count": 4,
+      "below_total_3_00_share": 0.1053
     }
   ],
   "latest_quarter_scenarios": {
-    "quarter": "2026Q1",
+    "quarter": "2026Q2",
     "levels": [
       {
         "hprd": 3.0,
         "label": "Current CT comparison point (3.00)",
         "kind": "current",
-        "facilities_below": 36,
-        "facilities_with_estimate": 190,
-        "share_below": 0.1895
+        "facilities_below": 18,
+        "facilities_with_estimate": 171,
+        "share_below": 0.1053
       },
       {
         "hprd": 3.3,
         "label": "Hypothetical 3.30",
         "kind": "hypothetical",
-        "facilities_below": 73,
-        "facilities_with_estimate": 190,
-        "share_below": 0.3842
+        "facilities_below": 47,
+        "facilities_with_estimate": 171,
+        "share_below": 0.2749
       },
       {
         "hprd": 3.6,
         "label": "Proposed in 2025 SB 1279 (3.60, not enacted)",
         "kind": "proposed",
-        "facilities_below": 120,
-        "facilities_with_estimate": 190,
-        "share_below": 0.6316
+        "facilities_below": 95,
+        "facilities_with_estimate": 171,
+        "share_below": 0.5556
       },
       {
         "hprd": 4.1,
         "label": "Hypothetical 4.10",
         "kind": "hypothetical",
-        "facilities_below": 166,
-        "facilities_with_estimate": 190,
-        "share_below": 0.8737
+        "facilities_below": 142,
+        "facilities_with_estimate": 171,
+        "share_below": 0.8304
       }
     ]
   },

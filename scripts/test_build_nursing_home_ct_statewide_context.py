@@ -63,15 +63,15 @@ class BuildTests(unittest.TestCase):
         self.assertEqual([lv["facilities_below"] for lv in levels], [1, 2])
         self.assertEqual(levels[1]["facilities_with_estimate"], 3)
 
-    def test_published_export_matches_known_2026q1_values(self):
+    def test_published_export_matches_known_2026q2_values(self):
         path = ROOT / "data" / "nursing_home_ct_statewide_context.json"
         data = json.loads(path.read_text(encoding="utf-8"))
         latest = data["statewide_quarterly"][-1]
-        self.assertEqual(latest["quarter"], "2026Q1")
+        self.assertEqual(latest["quarter"], "2026Q2")
         self.assertEqual((latest["facilities_reporting"], latest["below_total_3_00_count"],
-                          latest["below_licensed_0_84_count"]), (190, 36, 9))
+                          latest["below_licensed_0_84_count"]), (171, 18, 4))
         by_level = {lv["hprd"]: lv["facilities_below"] for lv in data["latest_quarter_scenarios"]["levels"]}
-        self.assertEqual(by_level[3.6], 120)
+        self.assertEqual(by_level[3.6], 95)
         first_applicable = next(r for r in data["statewide_quarterly"] if r["ct_comparison_applicable_for_public_status"])
         self.assertEqual(first_applicable["quarter"], "2023Q2")
 

@@ -2,13 +2,13 @@
   "metadata": {
     "ccn": "075378",
     "provider_name": "LIVEWELL CONNECTICUT",
-    "build_date": "2026-08-04",
+    "build_date": "2026-11-07",
     "source_files": [
       "data/nursing_home_health_deficiencies_ct.json",
       "data/nursing_home_fire_safety_deficiencies_ct.json",
       "data/nursing_home_penalties_ct.json"
     ],
-    "health_record_count": 8,
+    "health_record_count": 9,
     "fire_safety_record_count": 0,
     "emergency_preparedness_record_count": 0,
     "penalty_record_count": 0,
@@ -25,6 +25,27 @@
   },
   "health_deficiencies": [
     {
+      "survey_date": "2026-04-23",
+      "survey_year": 2026,
+      "survey_type": "Health",
+      "deficiency_code": "F-0656",
+      "deficiency_description": "Develop and implement a complete care plan that meets all the resident's needs, with timetables and actions that can be measured.",
+      "deficiency_category": "Resident Assessment and Care Planning Deficiencies",
+      "scope_severity_code": "D",
+      "harm_ij_group": "no_actual_harm_more_than_minimal",
+      "standard_deficiency": false,
+      "complaint_deficiency": true,
+      "infection_control_inspection_deficiency": false,
+      "correction_date": "2026-05-19",
+      "citation_under_idr": false,
+      "citation_under_iidr": false,
+      "processing_date": "2026-10-01",
+      "citation_description_lookup_matched": true,
+      "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
+      "citation_description_text": "Develop and implement a complete care plan that meets all the resident's needs, with timetables and actions that can be measured.",
+      "source_row_hash": "f0e8ef4879d06813c8c7d591b92eb84d45482ffb173a25fb5f9125c655899cc5"
+    },
+    {
       "survey_date": "2025-03-28",
       "survey_year": 2025,
       "survey_type": "Health",
@@ -39,11 +60,11 @@
       "correction_date": "2025-05-02",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Safeguard resident-identifiable information and/or maintain medical records on each resident that are in accordance with accepted professional standards.",
-      "source_row_hash": "a80e264144f21b4bc55a6e935237dc2828d333f29bef8a9a93052ba425559191"
+      "source_row_hash": "cb61789669cb4a7c8612964bcf53b69f7c967c136a653f44b5da5851b58fa61b"
     },
     {
       "survey_date": "2025-03-28",
@@ -60,11 +81,11 @@
       "correction_date": "2025-05-02",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Provide and implement an infection prevention and control program.",
-      "source_row_hash": "7d5b928b6d2ff225a5be1e333a3ba3c3a0162ac9f9efc1a18b8635a63d84b0ba"
+      "source_row_hash": "0f9945d55c9ee911b8cc48a4858d481dbedf4ae4380a659e69615a21dfc1b877"
     },
     {
       "survey_date": "2025-03-28",
@@ -81,11 +102,11 @@
       "correction_date": "2025-05-02",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Develop and implement policies and procedures for flu and pneumonia vaccinations.",
-      "source_row_hash": "e645a02beff2ed9024d1cd16cbec4c4c24a7433f0101acc13f072a00812ffb53"
+      "source_row_hash": "435a8bc79437adf3f4fc473b57643484b0b06fdfb4591bd160cd9dabac37d600"
     },
     {
       "survey_date": "2023-03-30",
@@ -102,11 +123,11 @@
       "correction_date": "2023-05-10",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to a dignified existence, self-determination, communication, and to exercise his or her rights.",
-      "source_row_hash": "743ee64bff831cb56e9a1218f0d487bd00c664c2699b6fb23e8372085aa82252"
+      "source_row_hash": "e13a145b50e9b751a3749edcc0d3589ceaacea438fa6f87c0ee4421cd4baf3f2"
     },
     {
       "survey_date": "2023-03-30",
@@ -123,11 +144,11 @@
       "correction_date": "2023-05-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Ensure each resident receives an accurate assessment.",
-      "source_row_hash": "ddc22a45014105383ee0945aae09b01bc87b16d84711c5b7d195084e7d3fc633"
+      "source_row_hash": "49382ee678859ec3925242c7ffba2ab9b041a65b2c493c55d25e13bc610ba1ad"
     },
     {
       "survey_date": "2023-03-30",
@@ -144,11 +165,11 @@
       "correction_date": "2023-05-10",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate treatment and care according to orders, resident’s preferences and goals.",
-      "source_row_hash": "5e5ab02a4cfb1552e9cc153a80417ab6d9c3554d0cd334899d2a6787f8dcb501"
+      "source_row_hash": "06ff6c3f3b24896289e0c11f03f2014a083992af5c4a4b43734c446623af19dc"
     },
     {
       "survey_date": "2020-03-05",
@@ -165,11 +186,11 @@
       "correction_date": "2020-07-15",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate pressure ulcer care and prevent new ulcers from developing.",
-      "source_row_hash": "3a1f50827e42fd7168251973d4a62189e421153134c26dc52290cb359783c72f"
+      "source_row_hash": "96b8da047122d71e48b592ed516aa70cb5a10141c94707b4a156616618267647"
     },
     {
       "survey_date": "2020-03-05",
@@ -186,11 +207,11 @@
       "correction_date": "2020-07-15",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Pharmacy Service Deficiencies",
       "citation_description_text": "Implement gradual dose reductions(GDR) and non-pharmacological interventions, unless contraindicated, prior to initiating or instead of continuing psychotropic medication; and PRN orders for psychotropic medications are only used when the medication is necessary and PRN use is limited.",
-      "source_row_hash": "6249be63e88b983cf2c69125a5ccf18352f772d011baa5dab753360b34f12505"
+      "source_row_hash": "8123a810a899d6521b22dde00a44481f20644ed061e5c75fc74a5d9d755d5350"
     }
   ],
   "fire_safety_deficiencies": [],

@@ -25,9 +25,10 @@
         "PBJ_Daily_Nurse_Staffing_Q3_2025.csv",
         "PBJ_dailynursestaffing_CY2025Q4.csv",
         "PBJ_Daily_Nurse_Staffing_Q1_2026.csv",
+        "PBJ_dailynursestaffing_CY2026Q2.csv",
         "data/nursing_home_staffing_history_ct.json"
       ],
-      "reporting_period_or_snapshot_date": "2024Q4 through 2026Q1 current/context export; 2017Q4 through 2026Q1 PBJ-only history export",
+      "reporting_period_or_snapshot_date": "2025Q1 through 2026Q2 current/context export; 2017Q4 through 2026Q2 PBJ-only history export",
       "integrated_status": "integrated_current_and_historical_pbj_only",
       "integration_purpose": "Current staffing dashboard plus PBJ-only historical staffing file for long-range facility, change-over-time, and persistent-pattern views",
       "join_key": "CMS Certification Number / PROVNUM / CCN",
@@ -57,9 +58,10 @@
       "local_directory": "source_data/provider_info",
       "local_files_present": [
         "NH_ProviderInfo_Apr2026.csv",
-        "NH_ProviderInfo_Aug2026.csv"
+        "NH_ProviderInfo_Aug2026.csv",
+        "NH_ProviderInfo_Oct2026.csv"
       ],
-      "reporting_period_or_snapshot_date": "August 2026 snapshot; processing date 2026-08-01; released 2026-08-26",
+      "reporting_period_or_snapshot_date": "October 2026 snapshot; processing date 2026-10-01; released 2026-10-28",
       "integrated_status": "partially_integrated_current",
       "integration_purpose": "Facility metadata, certified beds, ownership type, case-mix comparison point, and CMS Care Compare rating context",
       "join_key": "CMS Certification Number (CCN)",
@@ -87,9 +89,10 @@
       "local_directory": "source_data/quality_measures",
       "local_files_present": [
         "NH_QualityMsr_Claims_Apr2026.csv",
-        "NH_QualityMsr_Claims_Aug2026.csv"
+        "NH_QualityMsr_Claims_Aug2026.csv",
+        "NH_QualityMsr_Claims_Oct2026.csv"
       ],
-      "reporting_period_or_snapshot_date": "August 2026 file; processing date 2026-08-01; released 2026-08-26; measure periods vary by row",
+      "reporting_period_or_snapshot_date": "October 2026 file; processing date 2026-10-01; released 2026-10-28; measure periods vary by row",
       "integrated_status": "integrated_current",
       "integration_purpose": "Facility-level contextual claims-based quality measures displayed in the facility dossier",
       "join_key": "CMS Certification Number (CCN)",
@@ -138,9 +141,10 @@
       "source_concept": "CMS SNF Enrollment organization and affiliation entity context",
       "local_directory": "source_data/snf_enrollments",
       "local_files_present": [
-        "SNF_Enrollments_2026.05.01.csv"
+        "SNF_Enrollments_2026.05.01.csv",
+        "SNF_Enrollments_2026.09.29.csv"
       ],
-      "reporting_period_or_snapshot_date": "May 1, 2026 snapshot",
+      "reporting_period_or_snapshot_date": "September 29, 2026 snapshot",
       "integrated_status": "integrated_current",
       "integration_purpose": "Legal organization, DBA, NPI, proprietary/nonprofit context, organization structure, affiliation entity name, and affiliation entity ID",
       "join_key": "CCN",
@@ -238,11 +242,11 @@
       "source_concept": "Deficiency tag lookup/reference descriptions",
       "local_directory": "source_data/cms_survey",
       "local_files_present": [
-        "NH_CitationDescriptions_May2026.csv",
+        "NH_CitationDescriptions_Oct2026.csv",
         "data/nursing_home_health_deficiencies_ct.json",
         "data/nursing_home_fire_safety_deficiencies_ct.json"
       ],
-      "reporting_period_or_snapshot_date": "May 2026 reference file",
+      "reporting_period_or_snapshot_date": "October 2026 reference file",
       "integrated_status": "integrated_reference_lookup",
       "integration_purpose": "Reference categories and descriptions for CMS Health and Fire Safety citation records",
       "join_key": "Deficiency tag / prefix",
@@ -268,12 +272,12 @@
       "source_concept": "Facility-level health survey deficiency records",
       "local_directory": "source_data/cms_survey",
       "local_files_present": [
-        "NH_HealthCitations_May2026.csv",
+        "NH_HealthCitations_Oct2026.csv",
         "data/nursing_home_health_deficiencies_ct.json",
         "data/nursing_home_survey_enforcement_summary_ct.json",
         "data/nursing_home_survey_enforcement_details_ct/{CCN}.json"
       ],
-      "reporting_period_or_snapshot_date": "May 2026 file; survey dates 2018-11-08 through 2026-03-31",
+      "reporting_period_or_snapshot_date": "October 2026 file; survey dates 2019-01-14 through 2026-09-02",
       "integrated_status": "integrated_current_facility_context",
       "integration_purpose": "Compact facility survey summary and opt-in CCN-specific Health F-tag detail records",
       "join_key": "CMS Certification Number (CCN)",
@@ -288,7 +292,7 @@
       "next_action": "Refresh with future CMS releases and repeat schema, coverage, harm-group, and summary audits",
       "does_represent": "Official CMS health deficiency records",
       "does_not_establish": "Current conditions without date/correction context or causation for staffing patterns",
-      "caveats": "Citation-level historical context only. Health harm groupings translate CMS Scope Severity Codes for F-tags and do not apply to Fire Safety K-tags or Emergency Preparedness E-tags. Recent window is 2023-03-31 through 2026-03-31 inclusive."
+      "caveats": "Citation-level historical context only. Health harm groupings translate CMS Scope Severity Codes for F-tags and do not apply to Fire Safety K-tags or Emergency Preparedness E-tags. Recent window is 2023-09-02 through 2026-09-02 inclusive."
     },
     {
       "source_key": "cms_fire_safety_deficiencies",
@@ -299,12 +303,12 @@
       "source_concept": "Facility-level fire safety survey deficiency records",
       "local_directory": "source_data/cms_survey",
       "local_files_present": [
-        "NH_FireSafetyCitations_May2026.csv",
+        "NH_FireSafetyCitations_Oct2026.csv",
         "data/nursing_home_fire_safety_deficiencies_ct.json",
         "data/nursing_home_survey_enforcement_summary_ct.json",
         "data/nursing_home_survey_enforcement_details_ct/{CCN}.json"
       ],
-      "reporting_period_or_snapshot_date": "May 2026 file; Fire Safety and Emergency Preparedness survey dates 2018-11-08 through 2026-02-27",
+      "reporting_period_or_snapshot_date": "October 2026 file; Fire Safety and Emergency Preparedness survey dates 2019-01-14 through 2026-09-01",
       "integrated_status": "integrated_current_facility_context",
       "integration_purpose": "Compact facility survey summary and opt-in CCN-specific Fire Safety K-tag and Emergency Preparedness E-tag detail records",
       "join_key": "CMS Certification Number (CCN)",
@@ -330,12 +334,12 @@
       "source_concept": "Facility-level enforcement and penalty records",
       "local_directory": "source_data/cms_enforcement",
       "local_files_present": [
-        "NH_Penalties_May2026.csv",
+        "NH_Penalties_Oct2026.csv",
         "data/nursing_home_penalties_ct.json",
         "data/nursing_home_survey_enforcement_summary_ct.json",
         "data/nursing_home_survey_enforcement_details_ct/{CCN}.json"
       ],
-      "reporting_period_or_snapshot_date": "May 2026 file processed 2026-05-01; penalty dates 2023-05-17 through 2026-03-17; payment-denial start dates 2024-01-17 through 2024-12-03",
+      "reporting_period_or_snapshot_date": "October 2026 file processed 2026-10-01; penalty dates 2023-10-17 through 2026-07-09; payment-denial start dates 2024-01-17 through 2026-05-27",
       "integrated_status": "integrated_current_facility_context",
       "integration_purpose": "Compact facility enforcement summary and opt-in CCN-specific Fine and Payment Denial detail records",
       "join_key": "CMS Certification Number (CCN)",
@@ -350,7 +354,7 @@
       "next_action": "Refresh with future CMS releases and repeat duplicate-row and aggregate audits",
       "does_represent": "Official CMS enforcement/penalty records",
       "does_not_establish": "Current conditions or causation for staffing patterns",
-      "caveats": "Historic enforcement is labeled by event type and distinct dates. Three duplicated full-row signatures in the current Connecticut source are preserved and flagged, so aggregates reflect published source rows unless labeled otherwise. Fine amounts are not quality ratings."
+      "caveats": "Historic enforcement is labeled by event type and distinct dates. The current Connecticut source has no duplicated full-row signatures; any that appear in a release are preserved and flagged, so aggregates reflect published source rows unless labeled otherwise. Fine amounts are not quality ratings."
     },
     {
       "source_key": "cms_chain_performance",

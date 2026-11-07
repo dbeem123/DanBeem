@@ -400,7 +400,8 @@ def main():
                   # is usually closed or decertified. Stated as what CMS lists, not as a closure.
                   "cms_status": {"in_provider_information": bool((current.get(ccn) or {}).get("provider_source_matched")),
                                  "provider_information_release": prov_release,
-                                 "last_pbj_quarter": last_pbj.get(ccn), "latest_pbj_quarter": latest_pbj},
+                                 "last_pbj_quarter": last_pbj.get(ccn), "latest_pbj_quarter": latest_pbj,
+                                 "staffing_footnote": (current.get(ccn) or {}).get("cms_staffing_rating_footnote")},
                   "caveats": CAVEATS, "corrections_notice": CORRECTIONS}
         if years or owners.get(ccn) or chow.get(ccn):
             (OUT_DIR / f"{ccn}.json").write_text(json.dumps(detail, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")

@@ -1,16 +1,16 @@
 {
-  "build_date": "2026-08-04",
-  "facility_file_count": 196,
-  "expected_current_facility_count": 196,
-  "total_health_records": 6761,
-  "total_fire_safety_records": 2007,
-  "total_emergency_preparedness_records": 128,
-  "total_penalty_records": 179,
-  "facilities_with_no_detail_records": 5,
+  "build_date": "2026-11-07",
+  "facility_file_count": 195,
+  "expected_current_facility_count": 195,
+  "total_health_records": 7210,
+  "total_fire_safety_records": 2234,
+  "total_emergency_preparedness_records": 141,
+  "total_penalty_records": 191,
+  "facilities_with_no_detail_records": 4,
   "source_ccn_coverage": {
     "health_unique_ccn_count": 191,
     "fire_safety_and_emergency_preparedness_unique_ccn_count": 178,
-    "penalties_unique_ccn_count": 102
+    "penalties_unique_ccn_count": 109
   },
   "source_files": [
     "data/nursing_home_staffing_ct.json",
@@ -38,40 +38,29 @@
       "fire_safety_record_count": 2,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 21253
+      "file_size_bytes": 21255
     },
     {
       "ccn": "075410",
       "provider_name": "AARON MANOR NURSING & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075410.json",
-      "total_detail_record_count": 40,
-      "health_record_count": 34,
-      "fire_safety_record_count": 3,
+      "total_detail_record_count": 44,
+      "health_record_count": 36,
+      "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 2,
-      "file_size_bytes": 44025
-    },
-    {
-      "ccn": "075351",
-      "provider_name": "ABBOTT TERRACE HEALTH CENTER",
-      "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075351.json",
-      "total_detail_record_count": 0,
-      "health_record_count": 0,
-      "fire_safety_record_count": 0,
-      "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 1001
+      "file_size_bytes": 47903
     },
     {
       "ccn": "075348",
       "provider_name": "ADVANCED CENTER FOR NURSING & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075348.json",
-      "total_detail_record_count": 95,
-      "health_record_count": 75,
+      "total_detail_record_count": 87,
+      "health_record_count": 67,
       "fire_safety_record_count": 18,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 103122
+      "file_size_bytes": 94118
     },
     {
       "ccn": "075419",
@@ -88,12 +77,12 @@
       "ccn": "075388",
       "provider_name": "APPLE REHAB AVON",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075388.json",
-      "total_detail_record_count": 57,
-      "health_record_count": 46,
+      "total_detail_record_count": 58,
+      "health_record_count": 47,
       "fire_safety_record_count": 9,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 62635
+      "file_size_bytes": 63704
     },
     {
       "ccn": "075345",
@@ -104,7 +93,7 @@
       "fire_safety_record_count": 15,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 1,
-      "file_size_bytes": 68005
+      "file_size_bytes": 68006
     },
     {
       "ccn": "075231",
@@ -121,23 +110,23 @@
       "ccn": "075380",
       "provider_name": "APPLE REHAB CROMWELL",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075380.json",
-      "total_detail_record_count": 43,
-      "health_record_count": 37,
+      "total_detail_record_count": 47,
+      "health_record_count": 41,
       "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 47649
+      "file_size_bytes": 52291
     },
     {
       "ccn": "075044",
       "provider_name": "APPLE REHAB FARMINGTON VALLEY",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075044.json",
-      "total_detail_record_count": 48,
-      "health_record_count": 43,
+      "total_detail_record_count": 41,
+      "health_record_count": 36,
       "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 54288
+      "file_size_bytes": 46531
     },
     {
       "ccn": "075144",
@@ -154,210 +143,210 @@
       "ccn": "075389",
       "provider_name": "APPLE REHAB LAUREL WOODS",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075389.json",
-      "total_detail_record_count": 49,
-      "health_record_count": 39,
-      "fire_safety_record_count": 8,
+      "total_detail_record_count": 56,
+      "health_record_count": 45,
+      "fire_safety_record_count": 9,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 53732
+      "file_size_bytes": 61121
     },
     {
       "ccn": "075089",
       "provider_name": "APPLE REHAB MIDDLETOWN",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075089.json",
-      "total_detail_record_count": 57,
-      "health_record_count": 49,
-      "fire_safety_record_count": 8,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 71,
+      "health_record_count": 60,
+      "fire_safety_record_count": 10,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 64593
+      "file_size_bytes": 79916
     },
     {
       "ccn": "075327",
       "provider_name": "APPLE REHAB MYSTIC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075327.json",
-      "total_detail_record_count": 37,
-      "health_record_count": 28,
+      "total_detail_record_count": 48,
+      "health_record_count": 39,
       "fire_safety_record_count": 8,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 40943
+      "file_size_bytes": 53161
     },
     {
       "ccn": "075211",
       "provider_name": "APPLE REHAB ROCKY HILL",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075211.json",
-      "total_detail_record_count": 61,
-      "health_record_count": 45,
-      "fire_safety_record_count": 11,
-      "emergency_preparedness_record_count": 2,
+      "total_detail_record_count": 70,
+      "health_record_count": 58,
+      "fire_safety_record_count": 9,
+      "emergency_preparedness_record_count": 0,
       "penalty_record_count": 3,
-      "file_size_bytes": 66333
+      "file_size_bytes": 76206
     },
     {
       "ccn": "075070",
       "provider_name": "APPLE REHAB SAYBROOK",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075070.json",
-      "total_detail_record_count": 73,
-      "health_record_count": 50,
-      "fire_safety_record_count": 21,
+      "total_detail_record_count": 74,
+      "health_record_count": 53,
+      "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 2,
       "penalty_record_count": 0,
-      "file_size_bytes": 79818
+      "file_size_bytes": 80997
     },
     {
       "ccn": "075300",
       "provider_name": "APPLE REHAB SHELTON LAKES",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075300.json",
-      "total_detail_record_count": 56,
-      "health_record_count": 53,
-      "fire_safety_record_count": 3,
+      "total_detail_record_count": 50,
+      "health_record_count": 43,
+      "fire_safety_record_count": 7,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 63500
+      "file_size_bytes": 55908
     },
     {
       "ccn": "075438",
       "provider_name": "APPLE REHAB UNCASVILLE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075438.json",
-      "total_detail_record_count": 61,
-      "health_record_count": 43,
-      "fire_safety_record_count": 15,
-      "emergency_preparedness_record_count": 2,
+      "total_detail_record_count": 52,
+      "health_record_count": 31,
+      "fire_safety_record_count": 19,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 1,
-      "file_size_bytes": 67552
+      "file_size_bytes": 57200
     },
     {
       "ccn": "075181",
       "provider_name": "APPLE REHAB WATERTOWN",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075181.json",
-      "total_detail_record_count": 46,
+      "total_detail_record_count": 52,
       "health_record_count": 35,
-      "fire_safety_record_count": 10,
+      "fire_safety_record_count": 16,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 50509
+      "file_size_bytes": 56663
     },
     {
       "ccn": "075403",
       "provider_name": "APPLE REHAB WEST HAVEN",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075403.json",
-      "total_detail_record_count": 86,
-      "health_record_count": 66,
+      "total_detail_record_count": 85,
+      "health_record_count": 65,
       "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 95757
+      "file_size_bytes": 94658
     },
     {
       "ccn": "075228",
       "provider_name": "ARDEN CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075228.json",
-      "total_detail_record_count": 127,
-      "health_record_count": 91,
+      "total_detail_record_count": 121,
+      "health_record_count": 87,
       "fire_safety_record_count": 31,
       "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 4,
-      "file_size_bytes": 136960
+      "penalty_record_count": 2,
+      "file_size_bytes": 131577
     },
     {
       "ccn": "075296",
       "provider_name": "ARK HEALTHCARE & REHABILITATION AT BRANFORD HILLS",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075296.json",
-      "total_detail_record_count": 40,
-      "health_record_count": 30,
-      "fire_safety_record_count": 9,
+      "total_detail_record_count": 55,
+      "health_record_count": 42,
+      "fire_safety_record_count": 12,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 43988
+      "file_size_bytes": 59702
     },
     {
       "ccn": "075338",
-      "provider_name": "ARK HEALTHCARE & REHABILITATION AT GOVERNOR'S HO",
+      "provider_name": "ARK HEALTHCARE & REHABILITATION AT GOVERNORS HOUSE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075338.json",
       "total_detail_record_count": 56,
       "health_record_count": 36,
       "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 61240
+      "file_size_bytes": 61242
     },
     {
       "ccn": "075320",
       "provider_name": "ARK HEALTHCARE & REHABILITATION AT ST. CAMILLUS",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075320.json",
-      "total_detail_record_count": 55,
-      "health_record_count": 25,
-      "fire_safety_record_count": 25,
+      "total_detail_record_count": 57,
+      "health_record_count": 24,
+      "fire_safety_record_count": 27,
       "emergency_preparedness_record_count": 4,
-      "penalty_record_count": 1,
-      "file_size_bytes": 59840
+      "penalty_record_count": 2,
+      "file_size_bytes": 61178
     },
     {
       "ccn": "075418",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT BUCKS HILL",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075418.json",
-      "total_detail_record_count": 32,
-      "health_record_count": 24,
-      "fire_safety_record_count": 6,
-      "emergency_preparedness_record_count": 2,
+      "total_detail_record_count": 42,
+      "health_record_count": 30,
+      "fire_safety_record_count": 12,
+      "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 35375
+      "file_size_bytes": 46313
     },
     {
       "ccn": "075263",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT CROMWELL",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075263.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 26,
-      "fire_safety_record_count": 27,
-      "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 57999
+      "total_detail_record_count": 61,
+      "health_record_count": 31,
+      "fire_safety_record_count": 28,
+      "emergency_preparedness_record_count": 1,
+      "penalty_record_count": 1,
+      "file_size_bytes": 66211
     },
     {
       "ccn": "075031",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT GLEN HILL",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075031.json",
-      "total_detail_record_count": 51,
-      "health_record_count": 31,
+      "total_detail_record_count": 50,
+      "health_record_count": 30,
       "fire_safety_record_count": 20,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 57513
+      "file_size_bytes": 56428
     },
     {
       "ccn": "075405",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT MADISON",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075405.json",
-      "total_detail_record_count": 74,
-      "health_record_count": 49,
+      "total_detail_record_count": 70,
+      "health_record_count": 46,
       "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 5,
-      "penalty_record_count": 1,
-      "file_size_bytes": 82343
+      "penalty_record_count": 0,
+      "file_size_bytes": 78366
     },
     {
       "ccn": "075292",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT NEW BRITAIN",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075292.json",
-      "total_detail_record_count": 39,
-      "health_record_count": 26,
-      "fire_safety_record_count": 12,
+      "total_detail_record_count": 49,
+      "health_record_count": 25,
+      "fire_safety_record_count": 22,
       "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 0,
-      "file_size_bytes": 43323
+      "penalty_record_count": 1,
+      "file_size_bytes": 53009
     },
     {
       "ccn": "075387",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT NORWALK",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075387.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 31,
-      "fire_safety_record_count": 21,
+      "total_detail_record_count": 68,
+      "health_record_count": 41,
+      "fire_safety_record_count": 26,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 58489
+      "file_size_bytes": 74628
     },
     {
       "ccn": "075331",
@@ -374,100 +363,89 @@
       "ccn": "075407",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT WEST HARTFORD",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075407.json",
-      "total_detail_record_count": 86,
-      "health_record_count": 66,
+      "total_detail_record_count": 82,
+      "health_record_count": 63,
       "fire_safety_record_count": 15,
       "emergency_preparedness_record_count": 4,
-      "penalty_record_count": 1,
-      "file_size_bytes": 95203
+      "penalty_record_count": 0,
+      "file_size_bytes": 91606
     },
     {
       "ccn": "075011",
       "provider_name": "AUTUMN LAKE HEALTHCARE AT WINDSOR",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075011.json",
-      "total_detail_record_count": 61,
-      "health_record_count": 31,
-      "fire_safety_record_count": 26,
-      "emergency_preparedness_record_count": 3,
-      "penalty_record_count": 1,
-      "file_size_bytes": 65961
+      "total_detail_record_count": 93,
+      "health_record_count": 51,
+      "fire_safety_record_count": 36,
+      "emergency_preparedness_record_count": 4,
+      "penalty_record_count": 2,
+      "file_size_bytes": 100132
     },
     {
       "ccn": "075437",
       "provider_name": "AVALON HEALTH CARE CENTER AT STONERIDGE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075437.json",
-      "total_detail_record_count": 25,
+      "total_detail_record_count": 22,
       "health_record_count": 7,
-      "fire_safety_record_count": 16,
+      "fire_safety_record_count": 13,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 1,
-      "file_size_bytes": 27044
+      "file_size_bytes": 24185
     },
     {
       "ccn": "075063",
       "provider_name": "AVERY NURSING HOME/NOBLE BUILDING",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075063.json",
-      "total_detail_record_count": 58,
+      "total_detail_record_count": 57,
       "health_record_count": 43,
       "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 4,
-      "file_size_bytes": 61816
+      "penalty_record_count": 3,
+      "file_size_bytes": 61382
     },
     {
       "ccn": "075244",
       "provider_name": "AVON HEALTH CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075244.json",
-      "total_detail_record_count": 35,
-      "health_record_count": 24,
-      "fire_safety_record_count": 9,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 48,
+      "health_record_count": 31,
+      "fire_safety_record_count": 14,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 2,
-      "file_size_bytes": 37669
-    },
-    {
-      "ccn": "075324",
-      "provider_name": "BAYVIEW HEALTH CARE",
-      "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075324.json",
-      "total_detail_record_count": 58,
-      "health_record_count": 36,
-      "fire_safety_record_count": 20,
-      "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 2,
-      "file_size_bytes": 63486
+      "file_size_bytes": 51793
     },
     {
       "ccn": "075390",
       "provider_name": "BEACON BROOK CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075390.json",
-      "total_detail_record_count": 50,
-      "health_record_count": 45,
+      "total_detail_record_count": 57,
+      "health_record_count": 52,
       "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 56027
+      "file_size_bytes": 63961
     },
     {
       "ccn": "075335",
       "provider_name": "BEECHWOOD HEALTH & REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075335.json",
-      "total_detail_record_count": 36,
-      "health_record_count": 26,
+      "total_detail_record_count": 32,
+      "health_record_count": 22,
       "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 40313
+      "file_size_bytes": 35791
     },
     {
       "ccn": "075393",
       "provider_name": "BEL-AIR MANOR NURSING & REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075393.json",
-      "total_detail_record_count": 52,
-      "health_record_count": 40,
+      "total_detail_record_count": 59,
+      "health_record_count": 47,
       "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 57661
+      "file_size_bytes": 65204
     },
     {
       "ccn": "075400",
@@ -478,40 +456,40 @@
       "fire_safety_record_count": 3,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 39891
+      "file_size_bytes": 39892
     },
     {
       "ccn": "075358",
       "provider_name": "BICKFORD HEALTH CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075358.json",
-      "total_detail_record_count": 109,
-      "health_record_count": 83,
-      "fire_safety_record_count": 20,
-      "emergency_preparedness_record_count": 2,
+      "total_detail_record_count": 124,
+      "health_record_count": 100,
+      "fire_safety_record_count": 19,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 4,
-      "file_size_bytes": 119561
+      "file_size_bytes": 136084
     },
     {
       "ccn": "075138",
       "provider_name": "BLOOMFIELD CENTER FOR NURSING & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075138.json",
-      "total_detail_record_count": 57,
-      "health_record_count": 56,
+      "total_detail_record_count": 54,
+      "health_record_count": 53,
       "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 64384
+      "file_size_bytes": 61071
     },
     {
       "ccn": "075439",
       "provider_name": "BRADLEY HOME INFIRMARY/PAVILION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075439.json",
-      "total_detail_record_count": 25,
-      "health_record_count": 18,
+      "total_detail_record_count": 30,
+      "health_record_count": 23,
       "fire_safety_record_count": 6,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 27712
+      "file_size_bytes": 32726
     },
     {
       "ccn": "075375",
@@ -539,155 +517,166 @@
       "ccn": "075323",
       "provider_name": "CAMBRIDGE HEALTH AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075323.json",
-      "total_detail_record_count": 34,
-      "health_record_count": 34,
+      "total_detail_record_count": 36,
+      "health_record_count": 36,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 38214
+      "file_size_bytes": 40118
     },
     {
       "ccn": "075416",
       "provider_name": "CANDLEWOOD REHABILITATION AND HEALTHCARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075416.json",
-      "total_detail_record_count": 30,
-      "health_record_count": 28,
-      "fire_safety_record_count": 2,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 46,
+      "health_record_count": 39,
+      "fire_safety_record_count": 6,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 35144
+      "file_size_bytes": 52003
     },
     {
       "ccn": "075034",
       "provider_name": "CAROLTON CHRONIC & CONVALESCENT HOSPITAL INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075034.json",
-      "total_detail_record_count": 74,
-      "health_record_count": 44,
+      "total_detail_record_count": 75,
+      "health_record_count": 45,
       "fire_safety_record_count": 29,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 81585
+      "file_size_bytes": 82684
     },
     {
       "ccn": "075299",
       "provider_name": "CHELSEA PLACE CARE CENTER LLC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075299.json",
-      "total_detail_record_count": 85,
-      "health_record_count": 62,
-      "fire_safety_record_count": 21,
-      "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 1,
-      "file_size_bytes": 94845
+      "total_detail_record_count": 93,
+      "health_record_count": 55,
+      "fire_safety_record_count": 36,
+      "emergency_preparedness_record_count": 2,
+      "penalty_record_count": 0,
+      "file_size_bytes": 102477
     },
     {
       "ccn": "075396",
       "provider_name": "CHERRY BROOK HEALTH CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075396.json",
-      "total_detail_record_count": 33,
-      "health_record_count": 28,
-      "fire_safety_record_count": 4,
+      "total_detail_record_count": 60,
+      "health_record_count": 51,
+      "fire_safety_record_count": 8,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 37055
+      "file_size_bytes": 66218
     },
     {
       "ccn": "075373",
       "provider_name": "CHESHIRE HOUSE HEALTH CARE FACILITY & REHAB CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075373.json",
-      "total_detail_record_count": 70,
-      "health_record_count": 56,
+      "total_detail_record_count": 68,
+      "health_record_count": 54,
       "fire_safety_record_count": 13,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 78550
+      "file_size_bytes": 76294
     },
     {
       "ccn": "075307",
       "provider_name": "CHESTELM HEALTH AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075307.json",
-      "total_detail_record_count": 19,
-      "health_record_count": 13,
-      "fire_safety_record_count": 4,
-      "emergency_preparedness_record_count": 2,
+      "total_detail_record_count": 31,
+      "health_record_count": 15,
+      "fire_safety_record_count": 16,
+      "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 21192
+      "file_size_bytes": 33920
+    },
+    {
+      "ccn": "075324",
+      "provider_name": "CIVITA CARE BAYVIEW",
+      "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075324.json",
+      "total_detail_record_count": 69,
+      "health_record_count": 47,
+      "fire_safety_record_count": 20,
+      "emergency_preparedness_record_count": 0,
+      "penalty_record_count": 2,
+      "file_size_bytes": 75609
     },
     {
       "ccn": "075222",
       "provider_name": "CIVITA CARE CENTER AT CHESHIRE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075222.json",
-      "total_detail_record_count": 71,
-      "health_record_count": 51,
-      "fire_safety_record_count": 18,
-      "emergency_preparedness_record_count": 2,
+      "total_detail_record_count": 64,
+      "health_record_count": 45,
+      "fire_safety_record_count": 19,
+      "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 79148
+      "file_size_bytes": 71141
     },
     {
       "ccn": "075274",
       "provider_name": "CIVITA CARE CENTER AT DANBURY",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075274.json",
-      "total_detail_record_count": 57,
-      "health_record_count": 47,
+      "total_detail_record_count": 61,
+      "health_record_count": 50,
       "fire_safety_record_count": 9,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 1,
-      "file_size_bytes": 63540
+      "penalty_record_count": 2,
+      "file_size_bytes": 67374
     },
     {
       "ccn": "075394",
       "provider_name": "CIVITA CARE CENTER AT LONG RIDGE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075394.json",
-      "total_detail_record_count": 32,
-      "health_record_count": 27,
+      "total_detail_record_count": 33,
+      "health_record_count": 28,
       "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 37421
+      "file_size_bytes": 38502
     },
     {
       "ccn": "075213",
       "provider_name": "CIVITA CARE CENTER AT MILFORD",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075213.json",
-      "total_detail_record_count": 84,
-      "health_record_count": 59,
-      "fire_safety_record_count": 22,
+      "total_detail_record_count": 89,
+      "health_record_count": 61,
+      "fire_safety_record_count": 24,
       "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 1,
-      "file_size_bytes": 91993
+      "penalty_record_count": 2,
+      "file_size_bytes": 96403
     },
     {
       "ccn": "075286",
       "provider_name": "CIVITA CARE CENTER AT NEWINGTON",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075286.json",
-      "total_detail_record_count": 79,
-      "health_record_count": 54,
+      "total_detail_record_count": 82,
+      "health_record_count": 55,
       "fire_safety_record_count": 21,
       "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 2,
-      "file_size_bytes": 87034
+      "penalty_record_count": 4,
+      "file_size_bytes": 88919
     },
     {
       "ccn": "075060",
       "provider_name": "CIVITA CARE CENTER AT SALMON BROOK",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075060.json",
-      "total_detail_record_count": 106,
-      "health_record_count": 80,
+      "total_detail_record_count": 109,
+      "health_record_count": 83,
       "fire_safety_record_count": 24,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 115101
+      "file_size_bytes": 118251
     },
     {
       "ccn": "075377",
       "provider_name": "CIVITA CARE CENTER AT WEST RIVER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075377.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 26,
-      "fire_safety_record_count": 26,
+      "total_detail_record_count": 62,
+      "health_record_count": 31,
+      "fire_safety_record_count": 30,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 58328
+      "file_size_bytes": 68165
     },
     {
       "ccn": "075367",
@@ -698,161 +687,161 @@
       "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 49054
+      "file_size_bytes": 49062
     },
     {
       "ccn": "075413",
       "provider_name": "CIVITA CARE NORTHBRIDGE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075413.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 38,
-      "fire_safety_record_count": 12,
+      "total_detail_record_count": 66,
+      "health_record_count": 44,
+      "fire_safety_record_count": 18,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 3,
-      "file_size_bytes": 56678
+      "penalty_record_count": 4,
+      "file_size_bytes": 69920
     },
     {
       "ccn": "075350",
-      "provider_name": "CIVITA SHERIDEN WOODS",
+      "provider_name": "CIVITA CARE SHERIDEN WOODS",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075350.json",
-      "total_detail_record_count": 61,
-      "health_record_count": 54,
-      "fire_safety_record_count": 4,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 75,
+      "health_record_count": 58,
+      "fire_safety_record_count": 13,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 3,
-      "file_size_bytes": 67082
+      "file_size_bytes": 82767
     },
     {
       "ccn": "075232",
       "provider_name": "COBALT LODGE HEALTH CARE AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075232.json",
-      "total_detail_record_count": 60,
-      "health_record_count": 50,
-      "fire_safety_record_count": 7,
+      "total_detail_record_count": 73,
+      "health_record_count": 59,
+      "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 2,
       "penalty_record_count": 1,
-      "file_size_bytes": 66937
+      "file_size_bytes": 81191
     },
     {
       "ccn": "075310",
       "provider_name": "COLONIAL HEALTH & REHAB CENTER OF PLAINFIELD, LLC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075310.json",
-      "total_detail_record_count": 29,
-      "health_record_count": 23,
-      "fire_safety_record_count": 6,
+      "total_detail_record_count": 32,
+      "health_record_count": 26,
+      "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 33352
+      "penalty_record_count": 1,
+      "file_size_bytes": 36048
     },
     {
       "ccn": "075183",
       "provider_name": "COMPLETE CARE AT FOX HILL",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075183.json",
-      "total_detail_record_count": 68,
+      "total_detail_record_count": 63,
       "health_record_count": 40,
-      "fire_safety_record_count": 23,
+      "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 3,
-      "penalty_record_count": 2,
-      "file_size_bytes": 73492
+      "penalty_record_count": 1,
+      "file_size_bytes": 68986
     },
     {
       "ccn": "075240",
       "provider_name": "COMPLETE CARE AT GLENDALE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075240.json",
-      "total_detail_record_count": 42,
-      "health_record_count": 30,
-      "fire_safety_record_count": 10,
+      "total_detail_record_count": 39,
+      "health_record_count": 31,
+      "fire_safety_record_count": 7,
       "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 1,
-      "file_size_bytes": 46756
+      "penalty_record_count": 0,
+      "file_size_bytes": 43618
     },
     {
       "ccn": "075270",
       "provider_name": "COMPLETE CARE AT GROTON REGENCY",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075270.json",
-      "total_detail_record_count": 45,
-      "health_record_count": 22,
-      "fire_safety_record_count": 22,
+      "total_detail_record_count": 43,
+      "health_record_count": 21,
+      "fire_safety_record_count": 21,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 50094
+      "file_size_bytes": 47618
     },
     {
       "ccn": "075253",
       "provider_name": "COMPLETE CARE AT HARRINGTON COURT",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075253.json",
-      "total_detail_record_count": 60,
-      "health_record_count": 48,
+      "total_detail_record_count": 59,
+      "health_record_count": 46,
       "fire_safety_record_count": 12,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 67301
+      "penalty_record_count": 1,
+      "file_size_bytes": 65247
     },
     {
       "ccn": "075279",
       "provider_name": "COMPLETE CARE AT KIMBERLY HALL NORTH",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075279.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 34,
-      "fire_safety_record_count": 16,
+      "total_detail_record_count": 60,
+      "health_record_count": 39,
+      "fire_safety_record_count": 17,
       "emergency_preparedness_record_count": 3,
-      "penalty_record_count": 0,
-      "file_size_bytes": 58307
+      "penalty_record_count": 1,
+      "file_size_bytes": 66155
     },
     {
       "ccn": "075237",
       "provider_name": "COMPLETE CARE AT KIMBERLY HALL-SOUTH",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075237.json",
-      "total_detail_record_count": 45,
+      "total_detail_record_count": 48,
       "health_record_count": 37,
-      "fire_safety_record_count": 7,
+      "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 49854
+      "file_size_bytes": 53534
     },
     {
       "ccn": "075192",
       "provider_name": "COMPLETE CARE AT MERIDEN",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075192.json",
-      "total_detail_record_count": 62,
-      "health_record_count": 40,
-      "fire_safety_record_count": 19,
+      "total_detail_record_count": 63,
+      "health_record_count": 42,
+      "fire_safety_record_count": 18,
       "emergency_preparedness_record_count": 2,
       "penalty_record_count": 1,
-      "file_size_bytes": 68537
+      "file_size_bytes": 69688
     },
     {
       "ccn": "075146",
       "provider_name": "COMPLETE CARE AT MIDDLEBURY",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075146.json",
-      "total_detail_record_count": 18,
+      "total_detail_record_count": 19,
       "health_record_count": 14,
       "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 21053
+      "penalty_record_count": 1,
+      "file_size_bytes": 21488
     },
     {
       "ccn": "075352",
-      "provider_name": "Connecticut Baptist Homes, Inc",
+      "provider_name": "CONNECTICUT BAPTIST HOMES, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075352.json",
-      "total_detail_record_count": 13,
-      "health_record_count": 12,
+      "total_detail_record_count": 22,
+      "health_record_count": 20,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 1,
-      "file_size_bytes": 14765
+      "penalty_record_count": 2,
+      "file_size_bytes": 23835
     },
     {
       "ccn": "075349",
       "provider_name": "COOK WILLOW HEALTH & REHABILITATION CENTER, INC.",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075349.json",
-      "total_detail_record_count": 29,
-      "health_record_count": 22,
+      "total_detail_record_count": 30,
+      "health_record_count": 23,
       "fire_safety_record_count": 7,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 32825
+      "file_size_bytes": 33942
     },
     {
       "ccn": "075415",
@@ -880,67 +869,67 @@
       "ccn": "075423",
       "provider_name": "DAVIS PLACE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075423.json",
-      "total_detail_record_count": 52,
-      "health_record_count": 30,
-      "fire_safety_record_count": 20,
+      "total_detail_record_count": 57,
+      "health_record_count": 32,
+      "fire_safety_record_count": 22,
       "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 0,
-      "file_size_bytes": 56963
+      "penalty_record_count": 1,
+      "file_size_bytes": 61779
     },
     {
       "ccn": "075258",
       "provider_name": "DOUGLAS MANOR",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075258.json",
-      "total_detail_record_count": 67,
-      "health_record_count": 55,
+      "total_detail_record_count": 69,
+      "health_record_count": 57,
       "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 72668
+      "file_size_bytes": 74991
     },
     {
       "ccn": "075421",
       "provider_name": "EDGEHILL HEALTH CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075421.json",
-      "total_detail_record_count": 6,
-      "health_record_count": 3,
+      "total_detail_record_count": 8,
+      "health_record_count": 5,
       "fire_safety_record_count": 3,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 7567
+      "file_size_bytes": 9775
     },
     {
       "ccn": "075265",
       "provider_name": "ELIM PARK BAPTIST HOME, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075265.json",
-      "total_detail_record_count": 21,
-      "health_record_count": 20,
+      "total_detail_record_count": 15,
+      "health_record_count": 14,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 23616
+      "file_size_bytes": 17010
     },
     {
       "ccn": "075322",
       "provider_name": "ESSEX MEADOWS HEALTH CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075322.json",
-      "total_detail_record_count": 20,
+      "total_detail_record_count": 22,
       "health_record_count": 17,
-      "fire_safety_record_count": 3,
+      "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 23753
+      "file_size_bytes": 25842
     },
     {
       "ccn": "075326",
       "provider_name": "EVERGREEN CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075326.json",
-      "total_detail_record_count": 46,
-      "health_record_count": 44,
+      "total_detail_record_count": 54,
+      "health_record_count": 52,
       "fire_safety_record_count": 2,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 52129
+      "file_size_bytes": 61185
     },
     {
       "ccn": "075362",
@@ -957,56 +946,56 @@
       "ccn": "075288",
       "provider_name": "FAIRVIEW",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075288.json",
-      "total_detail_record_count": 26,
-      "health_record_count": 16,
+      "total_detail_record_count": 30,
+      "health_record_count": 20,
       "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 29374
+      "file_size_bytes": 33812
     },
     {
       "ccn": "075359",
       "provider_name": "FRESH RIVER HEALTHCARE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075359.json",
-      "total_detail_record_count": 48,
-      "health_record_count": 25,
+      "total_detail_record_count": 47,
+      "health_record_count": 24,
       "fire_safety_record_count": 22,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 53132
+      "file_size_bytes": 51952
     },
     {
       "ccn": "075368",
       "provider_name": "GARDNER HEIGHTS HEALTH CARE CENTER, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075368.json",
-      "total_detail_record_count": 42,
-      "health_record_count": 30,
-      "fire_safety_record_count": 10,
+      "total_detail_record_count": 40,
+      "health_record_count": 31,
+      "fire_safety_record_count": 8,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 2,
-      "file_size_bytes": 46329
+      "penalty_record_count": 1,
+      "file_size_bytes": 44770
     },
     {
       "ccn": "075202",
       "provider_name": "GEER NURSING AND REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075202.json",
-      "total_detail_record_count": 28,
-      "health_record_count": 18,
-      "fire_safety_record_count": 7,
+      "total_detail_record_count": 43,
+      "health_record_count": 25,
+      "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 3,
-      "file_size_bytes": 29729
+      "penalty_record_count": 4,
+      "file_size_bytes": 44961
     },
     {
       "ccn": "075313",
       "provider_name": "GLADEVIEW HEALTH CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075313.json",
-      "total_detail_record_count": 65,
-      "health_record_count": 40,
-      "fire_safety_record_count": 25,
+      "total_detail_record_count": 67,
+      "health_record_count": 41,
+      "fire_safety_record_count": 26,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 72191
+      "file_size_bytes": 74164
     },
     {
       "ccn": "075316",
@@ -1023,23 +1012,23 @@
       "ccn": "075182",
       "provider_name": "GRANDVIEW REHABILITATION AND HEALTHCARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075182.json",
-      "total_detail_record_count": 99,
-      "health_record_count": 70,
-      "fire_safety_record_count": 21,
-      "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 6,
-      "file_size_bytes": 104572
+      "total_detail_record_count": 84,
+      "health_record_count": 69,
+      "fire_safety_record_count": 8,
+      "emergency_preparedness_record_count": 0,
+      "penalty_record_count": 7,
+      "file_size_bytes": 88478
     },
     {
       "ccn": "075113",
       "provider_name": "GREENTREE MANOR NURSING AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075113.json",
-      "total_detail_record_count": 126,
-      "health_record_count": 90,
+      "total_detail_record_count": 121,
+      "health_record_count": 86,
       "fire_safety_record_count": 31,
       "emergency_preparedness_record_count": 4,
-      "penalty_record_count": 1,
-      "file_size_bytes": 138900
+      "penalty_record_count": 0,
+      "file_size_bytes": 134153
     },
     {
       "ccn": "075309",
@@ -1056,23 +1045,23 @@
       "ccn": "075275",
       "provider_name": "GRIMES CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075275.json",
-      "total_detail_record_count": 23,
-      "health_record_count": 23,
-      "fire_safety_record_count": 0,
+      "total_detail_record_count": 26,
+      "health_record_count": 22,
+      "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 27108
+      "file_size_bytes": 29920
     },
     {
       "ccn": "075235",
       "provider_name": "GUILFORD HOUSE, THE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075235.json",
-      "total_detail_record_count": 58,
-      "health_record_count": 35,
+      "total_detail_record_count": 56,
+      "health_record_count": 33,
       "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 3,
       "penalty_record_count": 1,
-      "file_size_bytes": 63005
+      "file_size_bytes": 60839
     },
     {
       "ccn": "075366",
@@ -1089,23 +1078,23 @@
       "ccn": "075196",
       "provider_name": "HARBOR VILLAGE NORTH HEALTH AND REHABILITATION CEN",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075196.json",
-      "total_detail_record_count": 55,
-      "health_record_count": 42,
-      "fire_safety_record_count": 12,
+      "total_detail_record_count": 68,
+      "health_record_count": 48,
+      "fire_safety_record_count": 18,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 1,
-      "file_size_bytes": 60687
+      "penalty_record_count": 2,
+      "file_size_bytes": 73749
     },
     {
       "ccn": "075074",
       "provider_name": "HAVENCARE AT FILOSA",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075074.json",
-      "total_detail_record_count": 21,
-      "health_record_count": 17,
-      "fire_safety_record_count": 3,
+      "total_detail_record_count": 33,
+      "health_record_count": 28,
+      "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 24045
+      "file_size_bytes": 37612
     },
     {
       "ccn": "075414",
@@ -1122,67 +1111,67 @@
       "ccn": "075319",
       "provider_name": "HAVENCARE AT LITCHFIELD WOODS",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075319.json",
-      "total_detail_record_count": 70,
-      "health_record_count": 67,
+      "total_detail_record_count": 69,
+      "health_record_count": 66,
       "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 78929
+      "file_size_bytes": 77592
     },
     {
       "ccn": "075332",
       "provider_name": "HAVENCARE AT VALERIE MANOR",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075332.json",
-      "total_detail_record_count": 54,
-      "health_record_count": 41,
-      "fire_safety_record_count": 13,
+      "total_detail_record_count": 61,
+      "health_record_count": 45,
+      "fire_safety_record_count": 16,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 61250
+      "file_size_bytes": 68194
     },
     {
       "ccn": "075109",
       "provider_name": "Hebrew Center For Health And Rehabilitation",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075109.json",
-      "total_detail_record_count": 55,
-      "health_record_count": 44,
+      "total_detail_record_count": 53,
+      "health_record_count": 42,
       "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 61289
+      "file_size_bytes": 58742
     },
     {
       "ccn": "075047",
       "provider_name": "HEWITT HEALTH & REHABILITATION CENTER, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075047.json",
-      "total_detail_record_count": 74,
-      "health_record_count": 63,
+      "total_detail_record_count": 68,
+      "health_record_count": 57,
       "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 82211
+      "file_size_bytes": 75753
     },
     {
       "ccn": "075329",
       "provider_name": "INGRAHAM MANOR REHAB AND NURSING",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075329.json",
-      "total_detail_record_count": 26,
-      "health_record_count": 17,
-      "fire_safety_record_count": 6,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 58,
+      "health_record_count": 23,
+      "fire_safety_record_count": 16,
+      "emergency_preparedness_record_count": 16,
       "penalty_record_count": 3,
-      "file_size_bytes": 27337
+      "file_size_bytes": 61094
     },
     {
       "ccn": "075293",
       "provider_name": "JEFFERSON HOUSE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075293.json",
-      "total_detail_record_count": 37,
-      "health_record_count": 27,
-      "fire_safety_record_count": 10,
+      "total_detail_record_count": 32,
+      "health_record_count": 24,
+      "fire_safety_record_count": 8,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 41801
+      "file_size_bytes": 36622
     },
     {
       "ccn": "075343",
@@ -1210,177 +1199,177 @@
       "ccn": "075395",
       "provider_name": "LAUREL RIDGE CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075395.json",
-      "total_detail_record_count": 31,
-      "health_record_count": 31,
+      "total_detail_record_count": 32,
+      "health_record_count": 32,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 35422
+      "file_size_bytes": 36501
     },
     {
       "ccn": "075230",
       "provider_name": "LEDGECREST HEALTH CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075230.json",
-      "total_detail_record_count": 29,
-      "health_record_count": 26,
-      "fire_safety_record_count": 3,
+      "total_detail_record_count": 34,
+      "health_record_count": 27,
+      "fire_safety_record_count": 7,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 33331
+      "file_size_bytes": 38387
     },
     {
       "ccn": "075408",
-      "provider_name": "Leeway, Inc",
+      "provider_name": "LEEWAY, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075408.json",
-      "total_detail_record_count": 22,
-      "health_record_count": 21,
-      "fire_safety_record_count": 1,
+      "total_detail_record_count": 26,
+      "health_record_count": 23,
+      "fire_safety_record_count": 3,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 26245
+      "file_size_bytes": 30251
     },
     {
       "ccn": "075378",
       "provider_name": "LIVEWELL CONNECTICUT",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075378.json",
-      "total_detail_record_count": 8,
-      "health_record_count": 8,
+      "total_detail_record_count": 9,
+      "health_record_count": 9,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 9877
+      "file_size_bytes": 11040
     },
     {
       "ccn": "075412",
-      "provider_name": "LORD CHAMBERLAIN MANOR",
+      "provider_name": "LORD CHAMBERLAIN MANOR NURSING & REHABILITATION CE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075412.json",
-      "total_detail_record_count": 48,
-      "health_record_count": 36,
+      "total_detail_record_count": 70,
+      "health_record_count": 58,
       "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 53198
+      "file_size_bytes": 77776
     },
     {
       "ccn": "075339",
       "provider_name": "LORD CHAMBERLAIN NURSING & REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075339.json",
-      "total_detail_record_count": 56,
-      "health_record_count": 46,
-      "fire_safety_record_count": 9,
+      "total_detail_record_count": 78,
+      "health_record_count": 63,
+      "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 62281
+      "file_size_bytes": 86577
     },
     {
       "ccn": "075330",
       "provider_name": "LUDLOWE CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075330.json",
-      "total_detail_record_count": 26,
-      "health_record_count": 24,
+      "total_detail_record_count": 27,
+      "health_record_count": 25,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 29290
+      "file_size_bytes": 30403
     },
     {
       "ccn": "075371",
       "provider_name": "Lutheran Home Of Southbury Inc",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075371.json",
-      "total_detail_record_count": 55,
-      "health_record_count": 33,
+      "total_detail_record_count": 58,
+      "health_record_count": 36,
       "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 3,
       "penalty_record_count": 0,
-      "file_size_bytes": 60463
+      "file_size_bytes": 63744
     },
     {
       "ccn": "075404",
       "provider_name": "MAEFAIR CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075404.json",
-      "total_detail_record_count": 49,
-      "health_record_count": 31,
+      "total_detail_record_count": 48,
+      "health_record_count": 30,
       "fire_safety_record_count": 16,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 53180
+      "file_size_bytes": 52111
     },
     {
       "ccn": "075333",
       "provider_name": "MANCHESTER REHABILITATION AND  HEALTHCARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075333.json",
-      "total_detail_record_count": 27,
-      "health_record_count": 16,
-      "fire_safety_record_count": 11,
+      "total_detail_record_count": 32,
+      "health_record_count": 25,
+      "fire_safety_record_count": 6,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 30560
+      "penalty_record_count": 1,
+      "file_size_bytes": 35726
     },
     {
       "ccn": "075402",
       "provider_name": "MANSFIELD CENTER FOR NURSING AND REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075402.json",
-      "total_detail_record_count": 37,
-      "health_record_count": 30,
+      "total_detail_record_count": 40,
+      "health_record_count": 33,
       "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 2,
-      "file_size_bytes": 40565
+      "file_size_bytes": 44136
     },
     {
       "ccn": "075238",
       "provider_name": "MAPLE VIEW HEALTH & REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075238.json",
-      "total_detail_record_count": 23,
-      "health_record_count": 21,
-      "fire_safety_record_count": 2,
+      "total_detail_record_count": 10,
+      "health_record_count": 9,
+      "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 26348
+      "file_size_bytes": 11999
     },
     {
       "ccn": "075384",
       "provider_name": "MARLBOROUGH HEALTH & REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075384.json",
-      "total_detail_record_count": 48,
-      "health_record_count": 35,
-      "fire_safety_record_count": 10,
+      "total_detail_record_count": 53,
+      "health_record_count": 41,
+      "fire_safety_record_count": 9,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 2,
-      "file_size_bytes": 53915
+      "file_size_bytes": 58799
     },
     {
       "ccn": "075325",
-      "provider_name": "MARY WADE HOME, THE INCORPORATED",
+      "provider_name": "MARY WADE HOME",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075325.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 50,
+      "total_detail_record_count": 54,
+      "health_record_count": 51,
       "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 58546
+      "file_size_bytes": 59609
     },
     {
       "ccn": "075163",
       "provider_name": "MASONICARE AT BISHOP WICKE HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075163.json",
-      "total_detail_record_count": 29,
-      "health_record_count": 23,
+      "total_detail_record_count": 31,
+      "health_record_count": 25,
       "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 32042
+      "file_size_bytes": 34170
     },
     {
       "ccn": "075135",
       "provider_name": "MASONICARE HEALTH CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075135.json",
-      "total_detail_record_count": 58,
-      "health_record_count": 29,
-      "fire_safety_record_count": 26,
+      "total_detail_record_count": 86,
+      "health_record_count": 46,
+      "fire_safety_record_count": 37,
       "emergency_preparedness_record_count": 2,
       "penalty_record_count": 1,
-      "file_size_bytes": 63629
+      "file_size_bytes": 93789
     },
     {
       "ccn": "075432",
@@ -1397,166 +1386,166 @@
       "ccn": "075411",
       "provider_name": "MATULAITIS REHABILITATION & SKILLED CARE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075411.json",
-      "total_detail_record_count": 19,
-      "health_record_count": 14,
-      "fire_safety_record_count": 5,
+      "total_detail_record_count": 24,
+      "health_record_count": 18,
+      "fire_safety_record_count": 6,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 22175
+      "file_size_bytes": 27383
     },
     {
       "ccn": "075216",
       "provider_name": "MCLEAN HEALTH CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075216.json",
-      "total_detail_record_count": 14,
-      "health_record_count": 14,
+      "total_detail_record_count": 16,
+      "health_record_count": 16,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 16400
+      "file_size_bytes": 18660
     },
     {
       "ccn": "075295",
       "provider_name": "MERIDEN HEALTH AND REHAB",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075295.json",
-      "total_detail_record_count": 84,
-      "health_record_count": 47,
-      "fire_safety_record_count": 29,
+      "total_detail_record_count": 111,
+      "health_record_count": 65,
+      "fire_safety_record_count": 38,
       "emergency_preparedness_record_count": 6,
       "penalty_record_count": 2,
-      "file_size_bytes": 90343
+      "file_size_bytes": 120096
     },
     {
       "ccn": "075064",
       "provider_name": "MILFORD HEALTH AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075064.json",
-      "total_detail_record_count": 20,
-      "health_record_count": 20,
+      "total_detail_record_count": 22,
+      "health_record_count": 21,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 22847
+      "penalty_record_count": 1,
+      "file_size_bytes": 24234
     },
     {
       "ccn": "075374",
-      "provider_name": "MONSIGNOR BOJNOWSKI MANOR",
+      "provider_name": "MONSIGNOR BOJNOWSKI MANOR, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075374.json",
-      "total_detail_record_count": 55,
-      "health_record_count": 37,
+      "total_detail_record_count": 58,
+      "health_record_count": 40,
       "fire_safety_record_count": 8,
       "emergency_preparedness_record_count": 5,
       "penalty_record_count": 5,
-      "file_size_bytes": 58264
+      "file_size_bytes": 61638
     },
     {
       "ccn": "075017",
       "provider_name": "MONTOWESE CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075017.json",
-      "total_detail_record_count": 87,
-      "health_record_count": 80,
-      "fire_safety_record_count": 5,
+      "total_detail_record_count": 78,
+      "health_record_count": 76,
+      "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 2,
-      "file_size_bytes": 95433
+      "penalty_record_count": 1,
+      "file_size_bytes": 87371
     },
     {
       "ccn": "075353",
       "provider_name": "MOZAIC SENIOR LIFE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075353.json",
-      "total_detail_record_count": 76,
-      "health_record_count": 43,
+      "total_detail_record_count": 68,
+      "health_record_count": 36,
       "fire_safety_record_count": 28,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 5,
-      "file_size_bytes": 80740
+      "penalty_record_count": 4,
+      "file_size_bytes": 72554
     },
     {
       "ccn": "075271",
       "provider_name": "MYSTIC HEALTHCARE & REHABILITATION CENTER, LLC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075271.json",
-      "total_detail_record_count": 50,
-      "health_record_count": 37,
+      "total_detail_record_count": 56,
+      "health_record_count": 41,
       "fire_safety_record_count": 13,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 56048
+      "penalty_record_count": 2,
+      "file_size_bytes": 61366
     },
     {
       "ccn": "075117",
       "provider_name": "NATHANIEL WITHERELL, THE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075117.json",
-      "total_detail_record_count": 84,
-      "health_record_count": 61,
-      "fire_safety_record_count": 19,
+      "total_detail_record_count": 91,
+      "health_record_count": 66,
+      "fire_safety_record_count": 21,
       "emergency_preparedness_record_count": 3,
       "penalty_record_count": 1,
-      "file_size_bytes": 92800
+      "file_size_bytes": 100001
     },
     {
       "ccn": "075397",
       "provider_name": "NEW HAVEN CENTER FOR NURSING & REHABILITATION LLC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075397.json",
-      "total_detail_record_count": 108,
-      "health_record_count": 79,
+      "total_detail_record_count": 106,
+      "health_record_count": 77,
       "fire_safety_record_count": 24,
       "emergency_preparedness_record_count": 2,
       "penalty_record_count": 3,
-      "file_size_bytes": 117601
+      "file_size_bytes": 115385
     },
     {
       "ccn": "075158",
       "provider_name": "NEW LONDON SUB-ACUTE AND NURSING",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075158.json",
-      "total_detail_record_count": 104,
-      "health_record_count": 73,
+      "total_detail_record_count": 115,
+      "health_record_count": 86,
       "fire_safety_record_count": 23,
       "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 6,
-      "file_size_bytes": 109279
+      "penalty_record_count": 4,
+      "file_size_bytes": 123105
     },
     {
       "ccn": "075236",
       "provider_name": "NOBLE HORIZONS",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075236.json",
-      "total_detail_record_count": 67,
-      "health_record_count": 48,
+      "total_detail_record_count": 70,
+      "health_record_count": 51,
       "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 4,
-      "file_size_bytes": 71240
+      "file_size_bytes": 74778
     },
     {
       "ccn": "075159",
       "provider_name": "NORWALK CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075159.json",
-      "total_detail_record_count": 56,
-      "health_record_count": 42,
-      "fire_safety_record_count": 11,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 77,
+      "health_record_count": 45,
+      "fire_safety_record_count": 28,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 3,
-      "file_size_bytes": 61711
+      "file_size_bytes": 83983
     },
     {
       "ccn": "075079",
       "provider_name": "NORWICH SUB-ACUTE AND NURSING",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075079.json",
-      "total_detail_record_count": 36,
-      "health_record_count": 27,
+      "total_detail_record_count": 32,
+      "health_record_count": 23,
       "fire_safety_record_count": 7,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 38808
+      "file_size_bytes": 34279
     },
     {
       "ccn": "075356",
       "provider_name": "NOTRE DAME HEALTH AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075356.json",
-      "total_detail_record_count": 29,
-      "health_record_count": 15,
+      "total_detail_record_count": 40,
+      "health_record_count": 26,
       "fire_safety_record_count": 13,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 31150
+      "file_size_bytes": 43508
     },
     {
       "ccn": "075434",
@@ -1573,89 +1562,89 @@
       "ccn": "075250",
       "provider_name": "PARKVILLE CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075250.json",
-      "total_detail_record_count": 49,
-      "health_record_count": 35,
+      "total_detail_record_count": 50,
+      "health_record_count": 36,
       "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 54766
+      "file_size_bytes": 55883
     },
     {
       "ccn": "075195",
       "provider_name": "PARKWAY PAVILION HEALTH AND REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075195.json",
-      "total_detail_record_count": 67,
-      "health_record_count": 51,
-      "fire_safety_record_count": 14,
+      "total_detail_record_count": 89,
+      "health_record_count": 69,
+      "fire_safety_record_count": 19,
       "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 1,
-      "file_size_bytes": 75099
+      "penalty_record_count": 0,
+      "file_size_bytes": 99608
     },
     {
       "ccn": "075341",
       "provider_name": "PENDLETON REHABILITATION AND NURSING CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075341.json",
-      "total_detail_record_count": 41,
-      "health_record_count": 32,
-      "fire_safety_record_count": 9,
+      "total_detail_record_count": 45,
+      "health_record_count": 35,
+      "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 46523
+      "file_size_bytes": 51099
     },
     {
       "ccn": "075243",
       "provider_name": "PIERCE MEMORIAL BAPTIST HOME, INC.",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075243.json",
-      "total_detail_record_count": 32,
+      "total_detail_record_count": 34,
       "health_record_count": 27,
-      "fire_safety_record_count": 5,
+      "fire_safety_record_count": 6,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 37090
+      "penalty_record_count": 1,
+      "file_size_bytes": 38057
     },
     {
       "ccn": "075306",
       "provider_name": "PILGRIM MANOR",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075306.json",
-      "total_detail_record_count": 18,
-      "health_record_count": 17,
+      "total_detail_record_count": 19,
+      "health_record_count": 18,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 20239
+      "file_size_bytes": 21304
     },
     {
       "ccn": "075221",
       "provider_name": "PINES AT BRISTOL FOR NURSING & REHABILITATION, THE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075221.json",
-      "total_detail_record_count": 30,
-      "health_record_count": 29,
+      "total_detail_record_count": 28,
+      "health_record_count": 27,
       "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 33221
+      "file_size_bytes": 31048
     },
     {
       "ccn": "075318",
       "provider_name": "POMPERAUG WOODS HEALTH CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075318.json",
-      "total_detail_record_count": 32,
-      "health_record_count": 19,
-      "fire_safety_record_count": 10,
+      "total_detail_record_count": 40,
+      "health_record_count": 25,
+      "fire_safety_record_count": 12,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 2,
-      "file_size_bytes": 34572
+      "file_size_bytes": 43500
     },
     {
       "ccn": "075214",
       "provider_name": "Portland Care & Rehab Centre, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075214.json",
-      "total_detail_record_count": 26,
-      "health_record_count": 12,
-      "fire_safety_record_count": 13,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 37,
+      "health_record_count": 11,
+      "fire_safety_record_count": 24,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 1,
-      "file_size_bytes": 28739
+      "file_size_bytes": 40149
     },
     {
       "ccn": "075261",
@@ -1672,78 +1661,78 @@
       "ccn": "075429",
       "provider_name": "RIDGE CREST AT MEADOW RIDGE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075429.json",
-      "total_detail_record_count": 15,
-      "health_record_count": 15,
+      "total_detail_record_count": 18,
+      "health_record_count": 18,
       "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 17862
+      "file_size_bytes": 21045
     },
     {
       "ccn": "075241",
       "provider_name": "RIVER GLEN HEALTH CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075241.json",
-      "total_detail_record_count": 31,
-      "health_record_count": 27,
+      "total_detail_record_count": 32,
+      "health_record_count": 28,
       "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 35396
+      "file_size_bytes": 36509
     },
     {
       "ccn": "075257",
-      "provider_name": "Riverside Health Care Center, Inc.",
+      "provider_name": "RIVERSIDE HEALTH & REHABILITATION CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075257.json",
-      "total_detail_record_count": 41,
-      "health_record_count": 35,
-      "fire_safety_record_count": 3,
+      "total_detail_record_count": 48,
+      "health_record_count": 44,
+      "fire_safety_record_count": 2,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 3,
-      "file_size_bytes": 44838
+      "penalty_record_count": 2,
+      "file_size_bytes": 53700
     },
     {
       "ccn": "075354",
       "provider_name": "SAINT JOHN PAUL II CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075354.json",
-      "total_detail_record_count": 67,
-      "health_record_count": 51,
-      "fire_safety_record_count": 12,
-      "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 2,
-      "file_size_bytes": 73666
+      "total_detail_record_count": 69,
+      "health_record_count": 53,
+      "fire_safety_record_count": 13,
+      "emergency_preparedness_record_count": 3,
+      "penalty_record_count": 0,
+      "file_size_bytes": 77388
     },
     {
       "ccn": "075321",
-      "provider_name": "Saint Josephs Living Center, Inc.",
+      "provider_name": "SAINT JOSEPHS LIVING CENTER INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075321.json",
-      "total_detail_record_count": 35,
-      "health_record_count": 20,
+      "total_detail_record_count": 38,
+      "health_record_count": 22,
       "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 0,
-      "file_size_bytes": 38385
+      "penalty_record_count": 1,
+      "file_size_bytes": 41062
     },
     {
       "ccn": "075085",
       "provider_name": "SAINT MARY HOME",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075085.json",
-      "total_detail_record_count": 43,
-      "health_record_count": 26,
-      "fire_safety_record_count": 16,
+      "total_detail_record_count": 52,
+      "health_record_count": 30,
+      "fire_safety_record_count": 21,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 48986
+      "file_size_bytes": 57828
     },
     {
       "ccn": "075383",
       "provider_name": "SEABURY",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075383.json",
-      "total_detail_record_count": 18,
-      "health_record_count": 16,
+      "total_detail_record_count": 28,
+      "health_record_count": 25,
       "fire_safety_record_count": 2,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 20731
+      "penalty_record_count": 1,
+      "file_size_bytes": 31162
     },
     {
       "ccn": "075386",
@@ -1760,45 +1749,45 @@
       "ccn": "075379",
       "provider_name": "SHARON CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075379.json",
-      "total_detail_record_count": 44,
-      "health_record_count": 40,
+      "total_detail_record_count": 40,
+      "health_record_count": 35,
       "fire_safety_record_count": 4,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 0,
-      "file_size_bytes": 49181
+      "penalty_record_count": 1,
+      "file_size_bytes": 43922
     },
     {
       "ccn": "075337",
       "provider_name": "SILVER SPRINGS CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075337.json",
-      "total_detail_record_count": 47,
-      "health_record_count": 35,
-      "fire_safety_record_count": 11,
+      "total_detail_record_count": 68,
+      "health_record_count": 46,
+      "fire_safety_record_count": 21,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 52628
+      "file_size_bytes": 74421
     },
     {
       "ccn": "075057",
       "provider_name": "SKYVIEW REHAB AND NURSING",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075057.json",
-      "total_detail_record_count": 79,
-      "health_record_count": 59,
-      "fire_safety_record_count": 19,
+      "total_detail_record_count": 89,
+      "health_record_count": 68,
+      "fire_safety_record_count": 20,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 88291
+      "file_size_bytes": 99025
     },
     {
       "ccn": "075336",
       "provider_name": "SOUTHINGTON CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075336.json",
-      "total_detail_record_count": 18,
-      "health_record_count": 14,
-      "fire_safety_record_count": 4,
+      "total_detail_record_count": 14,
+      "health_record_count": 13,
+      "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 20541
+      "file_size_bytes": 15895
     },
     {
       "ccn": "075200",
@@ -1815,12 +1804,12 @@
       "ccn": "075440",
       "provider_name": "SPRINGS AT 3030 PARK, THE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075440.json",
-      "total_detail_record_count": 18,
-      "health_record_count": 16,
-      "fire_safety_record_count": 1,
+      "total_detail_record_count": 19,
+      "health_record_count": 18,
+      "fire_safety_record_count": 0,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 20171
+      "file_size_bytes": 21087
     },
     {
       "ccn": "075441",
@@ -1859,100 +1848,100 @@
       "ccn": "075061",
       "provider_name": "STAMFORD CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075061.json",
-      "total_detail_record_count": 50,
-      "health_record_count": 32,
-      "fire_safety_record_count": 15,
+      "total_detail_record_count": 64,
+      "health_record_count": 40,
+      "fire_safety_record_count": 20,
       "emergency_preparedness_record_count": 2,
-      "penalty_record_count": 1,
-      "file_size_bytes": 55147
+      "penalty_record_count": 2,
+      "file_size_bytes": 69375
     },
     {
       "ccn": "075355",
       "provider_name": "STONE BRIDGE CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075355.json",
-      "total_detail_record_count": 71,
-      "health_record_count": 56,
+      "total_detail_record_count": 70,
+      "health_record_count": 55,
       "fire_safety_record_count": 13,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 1,
-      "file_size_bytes": 77566
+      "file_size_bytes": 76306
     },
     {
       "ccn": "075347",
       "provider_name": "SUFFIELD HOUSE REHABILITATION AND HEALTHCARE CENTE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075347.json",
-      "total_detail_record_count": 28,
-      "health_record_count": 17,
+      "total_detail_record_count": 34,
+      "health_record_count": 23,
       "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 31688
+      "file_size_bytes": 38156
     },
     {
       "ccn": "075420",
       "provider_name": "SUMMIT AT PLANTSVILLE CENTER FOR HEALTH & REHABILI",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075420.json",
-      "total_detail_record_count": 48,
-      "health_record_count": 41,
-      "fire_safety_record_count": 6,
+      "total_detail_record_count": 46,
+      "health_record_count": 40,
+      "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 54137
+      "file_size_bytes": 51927
     },
     {
       "ccn": "075105",
-      "provider_name": "Torrington Center For Nursing & Rehabilitation LLC",
+      "provider_name": "TORRINGTON CENTER FOR NURSING & REHABILITATION LLC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075105.json",
-      "total_detail_record_count": 41,
-      "health_record_count": 40,
-      "fire_safety_record_count": 1,
+      "total_detail_record_count": 37,
+      "health_record_count": 30,
+      "fire_safety_record_count": 7,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 46863
+      "file_size_bytes": 41656
     },
     {
       "ccn": "075264",
       "provider_name": "TOUCHPOINTS AT BLOOMFIELD",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075264.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 36,
+      "total_detail_record_count": 55,
+      "health_record_count": 38,
       "fire_safety_record_count": 15,
       "emergency_preparedness_record_count": 2,
       "penalty_record_count": 0,
-      "file_size_bytes": 58561
+      "file_size_bytes": 60528
     },
     {
       "ccn": "075436",
       "provider_name": "TOUCHPOINTS AT CHESTNUT",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075436.json",
-      "total_detail_record_count": 48,
-      "health_record_count": 31,
+      "total_detail_record_count": 47,
+      "health_record_count": 30,
       "fire_safety_record_count": 16,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 52939
+      "file_size_bytes": 51806
     },
     {
       "ccn": "075314",
       "provider_name": "TOUCHPOINTS AT MANCHESTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075314.json",
-      "total_detail_record_count": 46,
-      "health_record_count": 29,
+      "total_detail_record_count": 48,
+      "health_record_count": 31,
       "fire_safety_record_count": 17,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 50582
+      "file_size_bytes": 52762
     },
     {
       "ccn": "075268",
       "provider_name": "TRINITY HILL CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075268.json",
-      "total_detail_record_count": 59,
-      "health_record_count": 39,
-      "fire_safety_record_count": 18,
+      "total_detail_record_count": 58,
+      "health_record_count": 30,
+      "fire_safety_record_count": 26,
       "emergency_preparedness_record_count": 1,
       "penalty_record_count": 1,
-      "file_size_bytes": 65438
+      "file_size_bytes": 63736
     },
     {
       "ccn": "075431",
@@ -1974,106 +1963,106 @@
       "fire_safety_record_count": 21,
       "emergency_preparedness_record_count": 4,
       "penalty_record_count": 0,
-      "file_size_bytes": 85698
+      "file_size_bytes": 85701
     },
     {
       "ccn": "075334",
       "provider_name": "VERNON REHABILITATION AND HEALTHCARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075334.json",
-      "total_detail_record_count": 22,
-      "health_record_count": 17,
-      "fire_safety_record_count": 5,
+      "total_detail_record_count": 29,
+      "health_record_count": 20,
+      "fire_safety_record_count": 9,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 25922
+      "file_size_bytes": 32502
     },
     {
       "ccn": "075153",
       "provider_name": "VILLA AT STAMFORD, THE",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075153.json",
-      "total_detail_record_count": 27,
-      "health_record_count": 21,
-      "fire_safety_record_count": 6,
+      "total_detail_record_count": 38,
+      "health_record_count": 27,
+      "fire_safety_record_count": 11,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 31037
+      "file_size_bytes": 43272
     },
     {
       "ccn": "075084",
       "provider_name": "VILLA MARIA NURSING AND REHABILITATION COMMUNITY",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075084.json",
-      "total_detail_record_count": 67,
-      "health_record_count": 56,
+      "total_detail_record_count": 73,
+      "health_record_count": 61,
       "fire_safety_record_count": 9,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 2,
-      "file_size_bytes": 73304
+      "penalty_record_count": 3,
+      "file_size_bytes": 79592
     },
     {
       "ccn": "075208",
       "provider_name": "VILLAGE CREST CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075208.json",
-      "total_detail_record_count": 33,
-      "health_record_count": 26,
+      "total_detail_record_count": 34,
+      "health_record_count": 27,
       "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 36097
+      "file_size_bytes": 37196
     },
     {
       "ccn": "075198",
       "provider_name": "VILLAGE GREEN REHABILITATION AND HEALTHCARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075198.json",
-      "total_detail_record_count": 53,
-      "health_record_count": 43,
+      "total_detail_record_count": 48,
+      "health_record_count": 38,
       "fire_safety_record_count": 8,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 2,
-      "file_size_bytes": 57545
+      "file_size_bytes": 51912
     },
     {
       "ccn": "075312",
       "provider_name": "WADSWORTH GLEN HEALTH CARE AND REHABILITATION CENT",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075312.json",
-      "total_detail_record_count": 50,
-      "health_record_count": 47,
+      "total_detail_record_count": 45,
+      "health_record_count": 43,
       "fire_safety_record_count": 2,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 1,
-      "file_size_bytes": 55960
+      "penalty_record_count": 0,
+      "file_size_bytes": 51237
     },
     {
       "ccn": "075381",
-      "provider_name": "Water's Edge Center For Health & Rehab",
+      "provider_name": "WATER'S EDGE CENTER FOR HEALTH & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075381.json",
-      "total_detail_record_count": 39,
-      "health_record_count": 35,
-      "fire_safety_record_count": 3,
+      "total_detail_record_count": 40,
+      "health_record_count": 36,
+      "fire_safety_record_count": 1,
       "emergency_preparedness_record_count": 0,
-      "penalty_record_count": 1,
-      "file_size_bytes": 42834
+      "penalty_record_count": 3,
+      "file_size_bytes": 43167
     },
     {
       "ccn": "075219",
-      "provider_name": "Waterbury Center For Nursing & Rehabilitation Llc",
+      "provider_name": "WATERBURY CENTER FOR NURSING & REHABILITATION LLC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075219.json",
-      "total_detail_record_count": 56,
-      "health_record_count": 32,
-      "fire_safety_record_count": 23,
+      "total_detail_record_count": 72,
+      "health_record_count": 56,
+      "fire_safety_record_count": 14,
       "emergency_preparedness_record_count": 1,
-      "penalty_record_count": 0,
-      "file_size_bytes": 62081
+      "penalty_record_count": 1,
+      "file_size_bytes": 79818
     },
     {
       "ccn": "075361",
       "provider_name": "WAVENY CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075361.json",
-      "total_detail_record_count": 21,
-      "health_record_count": 12,
-      "fire_safety_record_count": 9,
+      "total_detail_record_count": 25,
+      "health_record_count": 15,
+      "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 23765
+      "file_size_bytes": 28155
     },
     {
       "ccn": "075278",
@@ -2084,29 +2073,29 @@
       "fire_safety_record_count": 10,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 35407
+      "file_size_bytes": 35409
     },
     {
       "ccn": "075201",
       "provider_name": "WEST HAVEN CENTER FOR NURSING & REHABILITATION",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075201.json",
-      "total_detail_record_count": 64,
-      "health_record_count": 59,
+      "total_detail_record_count": 65,
+      "health_record_count": 60,
       "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 72610
+      "file_size_bytes": 73760
     },
     {
       "ccn": "075252",
       "provider_name": "WESTSIDE CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075252.json",
-      "total_detail_record_count": 70,
-      "health_record_count": 41,
-      "fire_safety_record_count": 26,
+      "total_detail_record_count": 77,
+      "health_record_count": 39,
+      "fire_safety_record_count": 35,
       "emergency_preparedness_record_count": 3,
       "penalty_record_count": 0,
-      "file_size_bytes": 77110
+      "file_size_bytes": 84893
     },
     {
       "ccn": "075078",
@@ -2123,67 +2112,67 @@
       "ccn": "075294",
       "provider_name": "WHISPERING PINES REHABILITATION AND NURSING CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075294.json",
-      "total_detail_record_count": 35,
-      "health_record_count": 29,
-      "fire_safety_record_count": 5,
+      "total_detail_record_count": 41,
+      "health_record_count": 34,
+      "fire_safety_record_count": 6,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 39284
+      "file_size_bytes": 45809
     },
     {
       "ccn": "075290",
       "provider_name": "WHITNEY CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075290.json",
-      "total_detail_record_count": 39,
-      "health_record_count": 30,
-      "fire_safety_record_count": 9,
-      "emergency_preparedness_record_count": 0,
+      "total_detail_record_count": 45,
+      "health_record_count": 34,
+      "fire_safety_record_count": 10,
+      "emergency_preparedness_record_count": 1,
       "penalty_record_count": 0,
-      "file_size_bytes": 43988
+      "file_size_bytes": 50208
     },
     {
       "ccn": "075246",
       "provider_name": "WHITNEY REHABILITATION CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075246.json",
-      "total_detail_record_count": 30,
-      "health_record_count": 24,
-      "fire_safety_record_count": 6,
+      "total_detail_record_count": 36,
+      "health_record_count": 31,
+      "fire_safety_record_count": 5,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 0,
-      "file_size_bytes": 34040
+      "file_size_bytes": 40582
     },
     {
       "ccn": "075317",
       "provider_name": "WILTON MEADOWS HEALTH CARE CENTER",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075317.json",
-      "total_detail_record_count": 56,
-      "health_record_count": 39,
-      "fire_safety_record_count": 10,
-      "emergency_preparedness_record_count": 6,
+      "total_detail_record_count": 51,
+      "health_record_count": 43,
+      "fire_safety_record_count": 7,
+      "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 61497
+      "file_size_bytes": 57015
     },
     {
       "ccn": "075111",
-      "provider_name": "WOLCOTT HALL NURSING CENTER INC",
+      "provider_name": "WOLCOTT HALL NURSING CENTER, INC",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075111.json",
-      "total_detail_record_count": 39,
+      "total_detail_record_count": 40,
       "health_record_count": 33,
-      "fire_safety_record_count": 5,
+      "fire_safety_record_count": 6,
       "emergency_preparedness_record_count": 0,
       "penalty_record_count": 1,
-      "file_size_bytes": 43048
+      "file_size_bytes": 44765
     },
     {
       "ccn": "075382",
       "provider_name": "WOODLAKE AT TOLLAND",
       "relative_file_path": "data/nursing_home_survey_enforcement_details_ct/075382.json",
-      "total_detail_record_count": 58,
-      "health_record_count": 47,
-      "fire_safety_record_count": 7,
-      "emergency_preparedness_record_count": 4,
+      "total_detail_record_count": 68,
+      "health_record_count": 50,
+      "fire_safety_record_count": 10,
+      "emergency_preparedness_record_count": 8,
       "penalty_record_count": 0,
-      "file_size_bytes": 66212
+      "file_size_bytes": 77117
     }
   ]
 }

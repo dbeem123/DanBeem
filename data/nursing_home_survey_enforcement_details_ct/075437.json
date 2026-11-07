@@ -2,14 +2,14 @@
   "metadata": {
     "ccn": "075437",
     "provider_name": "AVALON HEALTH CARE CENTER AT STONERIDGE",
-    "build_date": "2026-08-04",
+    "build_date": "2026-11-07",
     "source_files": [
       "data/nursing_home_health_deficiencies_ct.json",
       "data/nursing_home_fire_safety_deficiencies_ct.json",
       "data/nursing_home_penalties_ct.json"
     ],
     "health_record_count": 7,
-    "fire_safety_record_count": 16,
+    "fire_safety_record_count": 13,
     "emergency_preparedness_record_count": 1,
     "penalty_record_count": 1,
     "fire_lookup_gap_record_count": 0,
@@ -25,6 +25,27 @@
   },
   "health_deficiencies": [
     {
+      "survey_date": "2026-05-05",
+      "survey_year": 2026,
+      "survey_type": "Health",
+      "deficiency_code": "F-0580",
+      "deficiency_description": "Immediately tell the resident, the resident's doctor, and a family member of situations (injury/decline/room, etc.)  that affect the resident.",
+      "deficiency_category": "Resident Rights Deficiencies",
+      "scope_severity_code": "D",
+      "harm_ij_group": "no_actual_harm_more_than_minimal",
+      "standard_deficiency": true,
+      "complaint_deficiency": false,
+      "infection_control_inspection_deficiency": false,
+      "correction_date": "2026-06-01",
+      "citation_under_idr": false,
+      "citation_under_iidr": false,
+      "processing_date": "2026-10-01",
+      "citation_description_lookup_matched": true,
+      "citation_description_category": "Resident Rights Deficiencies",
+      "citation_description_text": "Immediately tell the resident, the resident's doctor, and a family member of situations (injury/decline/room, etc.)  that affect the resident.",
+      "source_row_hash": "87b64b80ae00748229391887a8da6c0fde50e20be4e0db354dc8763bf832f82d"
+    },
+    {
       "survey_date": "2025-03-04",
       "survey_year": 2025,
       "survey_type": "Health",
@@ -39,11 +60,11 @@
       "correction_date": "2025-05-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Protect each resident from all types of abuse such as physical, mental, sexual abuse, physical punishment, and neglect by anybody.",
-      "source_row_hash": "bb963b58d613e8cb4b81cf7e2c93fe469d06e6556ef16343b62578e83444b58d"
+      "source_row_hash": "155f498100107a0bd53b7891ce979254cd617aafdf784956665e4172182c08b8"
     },
     {
       "survey_date": "2025-03-04",
@@ -60,11 +81,11 @@
       "correction_date": "2025-05-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Timely report suspected abuse, neglect, or theft and report the results of the investigation to proper authorities.",
-      "source_row_hash": "e6af2d4208cc2afb7f6ab946f41307993ade263ff97f9c88dcb9fb9465e03b7d"
+      "source_row_hash": "88fb019a2f42ac4912bfc427906e450d33494b04ee59523f8881bd2ff9ba2f42"
     },
     {
       "survey_date": "2024-09-27",
@@ -81,11 +102,11 @@
       "correction_date": "2024-10-29",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Develop the complete care plan within 7 days of the comprehensive assessment; and prepared, reviewed, and revised by a team of health professionals.",
-      "source_row_hash": "c786251342369c3a6b5e06033e963531211095d2e18f924094067d174a86223a"
+      "source_row_hash": "10ceadc22370a09df29610ccc326c37a7ed17249031689709aaed967dfe1e8a7"
     },
     {
       "survey_date": "2024-09-27",
@@ -102,11 +123,11 @@
       "correction_date": "2024-10-29",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Ensure services provided by the nursing facility meet professional standards of quality.",
-      "source_row_hash": "1059da8d5bafe952bbba1226f72c63a50ba73e8f9a68c1669c3ce91ede97ff83"
+      "source_row_hash": "68b8234713294109fe7e375cbc703773d2fe6c753793e288325c12db79e67c61"
     },
     {
       "survey_date": "2024-09-27",
@@ -123,11 +144,11 @@
       "correction_date": "2024-10-29",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Ensure that a nursing home area is free from accident hazards and provides adequate supervision to prevent accidents.",
-      "source_row_hash": "9dca2d5ec068b9a0a58143584701e1a09564197de791a0f9516ca5ca9d89c702"
+      "source_row_hash": "e6e75189534dee528fd8bfd6a3581323a97b60804673c1ddfef171e483b753b5"
     },
     {
       "survey_date": "2022-06-23",
@@ -144,32 +165,11 @@
       "correction_date": "2022-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Ensure that a nursing home area is free from accident hazards and provides adequate supervision to prevent accidents.",
-      "source_row_hash": "ca2704e4b4cfc691a3595392ef8155e6fbe0de75b627cb27d2141e04d5fbd87f"
-    },
-    {
-      "survey_date": "2019-10-10",
-      "survey_year": 2019,
-      "survey_type": "Health",
-      "deficiency_code": "F-0883",
-      "deficiency_description": "Develop and implement policies and procedures for flu and pneumonia vaccinations.",
-      "deficiency_category": "Infection Control Deficiencies",
-      "scope_severity_code": "E",
-      "harm_ij_group": "no_actual_harm_more_than_minimal",
-      "standard_deficiency": true,
-      "complaint_deficiency": false,
-      "infection_control_inspection_deficiency": false,
-      "correction_date": "2019-11-21",
-      "citation_under_idr": false,
-      "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
-      "citation_description_lookup_matched": true,
-      "citation_description_category": "Infection Control Deficiencies",
-      "citation_description_text": "Develop and implement policies and procedures for flu and pneumonia vaccinations.",
-      "source_row_hash": "129bcf90b67e260e2dc22b4308c5305bab422e136a4361fe03311e3b54aae03c"
+      "source_row_hash": "eb7aa6f770e81777d79a884707b31467fa8ceed53c52b7b39055323b02b5ad83"
     }
   ],
   "fire_safety_deficiencies": [
@@ -188,12 +188,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Egress Deficiencies",
       "citation_description_text": "Provide exit doors that are held open by devices that will automatically close on the activation of a fire alarm or smoke detector.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "f49d1bda68392906c23440c15c6155b9fa7562fbdb139133235f4d358b014e08"
+      "source_row_hash": "95aee83577d7e7c40d50a4e4c5a5d59a37807eb0257d6fd3ba2b4f965faacde3"
     },
     {
       "survey_date": "2024-09-27",
@@ -210,12 +210,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Egress Deficiencies",
       "citation_description_text": "Install emergency lighting that can last at least 1 1/2 hours.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "c18f00db916b0305c20c10fffb6e7cfdc75504b78f1af8b8f1131065511e6cd0"
+      "source_row_hash": "9fb7f9454602f9e22f984992e747dadc7b962c6fb3f362513e84e2aaa3e886b7"
     },
     {
       "survey_date": "2024-09-27",
@@ -232,12 +232,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Provide properly protected cooking facilities.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "69a0b57294cbe253d81f74095a860734c0b1c7fc29654531b82607a5db081ae4"
+      "source_row_hash": "bd3b1aa966509ddcd1a42ce31e2caa3764ab50839bf132b857e8ec0e65e94c8a"
     },
     {
       "survey_date": "2024-09-27",
@@ -254,12 +254,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Have approved installation, maintenance and testing program for fire alarm systems.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "81aafb4aa8964b6a663c950e5ab03ca163104f532e9a10ed89e570bf2bef2c1a"
+      "source_row_hash": "6524c14d5bc1aa83f9d3b4fe6a31e203731905f377dc81d770aedd7ea7bf7f1d"
     },
     {
       "survey_date": "2024-09-27",
@@ -276,12 +276,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Install an approved automatic sprinkler system.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "f1b5ae9f022957bf22bb1f32f8f60cc916af68803fd9152ec4fe27dd04138c61"
+      "source_row_hash": "dec6385444d4545a79b6aeba2a7b69ace794695abbd3ac77d57ad6e169a4edf8"
     },
     {
       "survey_date": "2024-09-27",
@@ -298,12 +298,12 @@
       "correction_date": "2024-12-13",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Inspect, test, and maintain automatic sprinkler systems.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "77a07d9ed4b4e9bfa15c0d2f4be458d2078a50404450e8582c19d2f22a56c0aa"
+      "source_row_hash": "3806f260c4e44619e6b7e25166485cbf01f3c69445e00a8364f28b841e94d8c2"
     },
     {
       "survey_date": "2024-09-27",
@@ -320,12 +320,12 @@
       "correction_date": "2024-12-13",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Install corridor and hallway doors that block smoke.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "93f8b2d37b16aa6719ab720168544a29f6733ebd9870b391b22055c7ba036a2c"
+      "source_row_hash": "8306b573232672090e44d51a37564940db29f508a8065339df614107311170a4"
     },
     {
       "survey_date": "2024-09-27",
@@ -342,12 +342,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Miscellaneous Deficiencies",
       "citation_description_text": "Provide a written emergency evacuation plan.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "ba1b0720385a0aaef4df420ce4eed43d18e5787c26e43939e9442820809df46b"
+      "source_row_hash": "93e997eca96a4eee7a789668dff37a4eb68f882c6d162144d73baea4bf4190b1"
     },
     {
       "survey_date": "2024-09-27",
@@ -364,12 +364,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Miscellaneous Deficiencies",
       "citation_description_text": "Have simulated fire drills held at unexpected times.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "0ba2b16b3ceb2144bda949bc323b8c669a1920edcd1ca68dadbaddac0b72db62"
+      "source_row_hash": "6bb74cd06676d4ef008491599dd0bf31fac945e3a7957d6f2d529a09e767fef7"
     },
     {
       "survey_date": "2024-09-27",
@@ -386,12 +386,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Miscellaneous Deficiencies",
       "citation_description_text": "To conduct inspection, testing and maintenance of fire doors by qualified individuals.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "cde1d1c1a3b9a6aa0c12983c3b4f2dca14fdc3211f013ad2ed2609e0b90690cb"
+      "source_row_hash": "3d2d901c74f6780eff2f49a5a5c258d5868c30f0ec32b2849b0ffdd4e6dcb6e2"
     },
     {
       "survey_date": "2024-09-27",
@@ -408,12 +408,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Gas, Vacuum, and Electrical Systems Deficiencies",
       "citation_description_text": "Meet requirements for the installation and maintenance of electrical systems.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "d39274a9cb4fe88664f00e52176d1c444f01a2274183d9d022569a91d607a1cd"
+      "source_row_hash": "4931e2bb98dae3638dfd644b400943457ffe3c5948a6f600739c1ab7867b82c7"
     },
     {
       "survey_date": "2024-09-27",
@@ -430,12 +430,12 @@
       "correction_date": "2024-12-13",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Gas, Vacuum, and Electrical Systems Deficiencies",
       "citation_description_text": "Ensure receptacles at patient bed locations and where general anesthesia is administered, are tested after initial installation, replacement or servicing.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "1e5743301a72db069c3cc8747c6567864636c563bac3be89a78164279c8b2de2"
+      "source_row_hash": "d634dd6f6145035dca65f7014519d823e21bba9e0ffd88ff6eb5fae4bdb6d749"
     },
     {
       "survey_date": "2024-09-27",
@@ -452,78 +452,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Gas, Vacuum, and Electrical Systems Deficiencies",
       "citation_description_text": "Have generator or other power source capable of supplying service within 10 seconds.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "c1e518a2862aaaf2e1113689a4773b597af32d762e4c2dc9e391791adbe528ea"
-    },
-    {
-      "survey_date": "2019-10-10",
-      "survey_year": 2019,
-      "survey_type": "Fire Safety",
-      "deficiency_code": "K-0351",
-      "deficiency_description": "Install an approved automatic sprinkler system.",
-      "deficiency_category": "Smoke Deficiencies",
-      "tag_version": "New",
-      "scope_severity_code": "D",
-      "deficiency_corrected": "Deficient, Provider has date of correction",
-      "standard_deficiency": true,
-      "complaint_deficiency": false,
-      "correction_date": "2019-10-21",
-      "citation_under_idr": false,
-      "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
-      "citation_description_lookup_matched": true,
-      "citation_description_category": "Smoke Deficiencies",
-      "citation_description_text": "Install an approved automatic sprinkler system.",
-      "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "be6f50885245d05b888e467207f2858cbb07398f8905fe9dab8e0fc62e5a50eb"
-    },
-    {
-      "survey_date": "2019-10-10",
-      "survey_year": 2019,
-      "survey_type": "Fire Safety",
-      "deficiency_code": "K-0353",
-      "deficiency_description": "Inspect, test, and maintain automatic sprinkler systems.",
-      "deficiency_category": "Smoke Deficiencies",
-      "tag_version": "New",
-      "scope_severity_code": "D",
-      "deficiency_corrected": "Deficient, Provider has date of correction",
-      "standard_deficiency": true,
-      "complaint_deficiency": false,
-      "correction_date": "2019-10-21",
-      "citation_under_idr": false,
-      "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
-      "citation_description_lookup_matched": true,
-      "citation_description_category": "Smoke Deficiencies",
-      "citation_description_text": "Inspect, test, and maintain automatic sprinkler systems.",
-      "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "675f7d6d3b7c06aa2563855743d9ff1c9ea00c2ab19a44e1609210d90ee5da60"
-    },
-    {
-      "survey_date": "2019-10-10",
-      "survey_year": 2019,
-      "survey_type": "Fire Safety",
-      "deficiency_code": "K-0711",
-      "deficiency_description": "Provide a written emergency evacuation plan.",
-      "deficiency_category": "Miscellaneous Deficiencies",
-      "tag_version": "New",
-      "scope_severity_code": "D",
-      "deficiency_corrected": "Deficient, Provider has date of correction",
-      "standard_deficiency": true,
-      "complaint_deficiency": false,
-      "correction_date": "2019-10-21",
-      "citation_under_idr": false,
-      "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
-      "citation_description_lookup_matched": true,
-      "citation_description_category": "Miscellaneous Deficiencies",
-      "citation_description_text": "Provide a written emergency evacuation plan.",
-      "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "8f05550c326ec5a898a92e9f3621c53d7ea6968208dab54ad586fe28e3759edc"
+      "source_row_hash": "51aa68ebfc8add06ff136d56c8b14ae7281c7dbfdaa71748483c3d94b41830c6"
     }
   ],
   "emergency_preparedness_deficiencies": [
@@ -542,12 +476,12 @@
       "correction_date": "2024-11-05",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Emergency Preparedness Deficiencies",
       "citation_description_text": "Establish staff and initial training requirements.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "3a5fd4510a56f4068e238aaeab83b9ede5114a23b766fc5bc090d54946bcecc4"
+      "source_row_hash": "921d6acfe3cc635e2bedca035f26df4e96581e36aeaf73860e65263797e8b8e9"
     }
   ],
   "penalties": [
@@ -557,9 +491,9 @@
       "penalty_type": "Fine",
       "enforcement_category": "fine",
       "payment_denial_start_date": null,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "duplicate_full_row_signature": false,
-      "source_row_hash": "5b72a3a36cd551416649e1b48a6e825900a52ec851712a504ce92226d3e6a4af",
+      "source_row_hash": "3c3e49c85d55160fa966aaefb8595c5e18732a3a453fc6e29ab171d4669f29d4",
       "fine_amount": 8018.0,
       "payment_denial_length_days": null
     }

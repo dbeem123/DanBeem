@@ -2,13 +2,13 @@
   "metadata": {
     "ccn": "075258",
     "provider_name": "DOUGLAS MANOR",
-    "build_date": "2026-08-04",
+    "build_date": "2026-11-07",
     "source_files": [
       "data/nursing_home_health_deficiencies_ct.json",
       "data/nursing_home_fire_safety_deficiencies_ct.json",
       "data/nursing_home_penalties_ct.json"
     ],
-    "health_record_count": 55,
+    "health_record_count": 57,
     "fire_safety_record_count": 11,
     "emergency_preparedness_record_count": 0,
     "penalty_record_count": 1,
@@ -25,6 +25,48 @@
   },
   "health_deficiencies": [
     {
+      "survey_date": "2026-04-08",
+      "survey_year": 2026,
+      "survey_type": "Health",
+      "deficiency_code": "F-0550",
+      "deficiency_description": "Honor the resident's right to a dignified existence, self-determination, communication, and to exercise his or her rights.",
+      "deficiency_category": "Resident Rights Deficiencies",
+      "scope_severity_code": "D",
+      "harm_ij_group": "no_actual_harm_more_than_minimal",
+      "standard_deficiency": false,
+      "complaint_deficiency": true,
+      "infection_control_inspection_deficiency": false,
+      "correction_date": "2026-05-20",
+      "citation_under_idr": false,
+      "citation_under_iidr": false,
+      "processing_date": "2026-10-01",
+      "citation_description_lookup_matched": true,
+      "citation_description_category": "Resident Rights Deficiencies",
+      "citation_description_text": "Honor the resident's right to a dignified existence, self-determination, communication, and to exercise his or her rights.",
+      "source_row_hash": "7dde3292a6ee984a446f7116c2f9fff2ef023124c44dfc82864578d3bb80f117"
+    },
+    {
+      "survey_date": "2026-04-08",
+      "survey_year": 2026,
+      "survey_type": "Health",
+      "deficiency_code": "F-0585",
+      "deficiency_description": "Honor the resident's right to voice grievances without discrimination or reprisal and the facility must establish a grievance policy and make prompt efforts to resolve grievances.",
+      "deficiency_category": "Resident Rights Deficiencies",
+      "scope_severity_code": "D",
+      "harm_ij_group": "no_actual_harm_more_than_minimal",
+      "standard_deficiency": false,
+      "complaint_deficiency": true,
+      "infection_control_inspection_deficiency": false,
+      "correction_date": "2026-05-20",
+      "citation_under_idr": false,
+      "citation_under_iidr": false,
+      "processing_date": "2026-10-01",
+      "citation_description_lookup_matched": true,
+      "citation_description_category": "Resident Rights Deficiencies",
+      "citation_description_text": "Honor the resident's right to voice grievances without discrimination or reprisal and the facility must establish a grievance policy and make prompt efforts to resolve grievances.",
+      "source_row_hash": "5a3ab04053c3f509fb4638b7c3d3a93dcae20e4708f234c577b222f5597f0bf0"
+    },
+    {
       "survey_date": "2025-10-15",
       "survey_year": 2025,
       "survey_type": "Health",
@@ -39,11 +81,11 @@
       "correction_date": "2025-11-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Ensure services provided by the nursing facility meet professional standards of quality.",
-      "source_row_hash": "a472ee3c28e6e3e17ea78a22314591e594200ee05fe335ca6e915abbbeffc161"
+      "source_row_hash": "14d6a4e0bc67584f4018e0d3ad7d0700171b9f074ac440cbd42219132d7e915e"
     },
     {
       "survey_date": "2025-10-15",
@@ -60,11 +102,11 @@
       "correction_date": "2025-11-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Ensure that a nursing home area is free from accident hazards and provides adequate supervision to prevent accidents.",
-      "source_row_hash": "522ab2c6c1b0d6ccdc7c2ab42ebe5dc03f2f53dc227dba54557785deb4d7df0f"
+      "source_row_hash": "f0f5b4c7991306a767eb925ee4231a3f934d2d7b502c749c2eaf1b42250a81d2"
     },
     {
       "survey_date": "2025-08-18",
@@ -81,11 +123,11 @@
       "correction_date": "2025-09-29",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "PASARR screening for Mental disorders or Intellectual Disabilities",
-      "source_row_hash": "fa4baae2a4d4a979996aa1e0e06d29c3fc39933a4e29999e0335cd2888f139b7"
+      "source_row_hash": "b92c0402969d55798fbbff471ba5179a8b86f9fc093861b3480e1ebbe25f7675"
     },
     {
       "survey_date": "2025-08-18",
@@ -102,11 +144,11 @@
       "correction_date": "2025-09-29",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Create and put into place a plan for meeting the resident's most immediate needs within 48 hours of being admitted",
-      "source_row_hash": "63573f789acd003c6d8401d78978b8bdd5006945e87319544c3509b958ba399c"
+      "source_row_hash": "d261e9a049ae187751641b90c06093c7b5324701872ed6cbfe95dc753a76cb72"
     },
     {
       "survey_date": "2025-08-18",
@@ -123,11 +165,11 @@
       "correction_date": "2025-09-29",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate treatment and care according to orders, resident’s preferences and goals.",
-      "source_row_hash": "e2288f7d1766213d397f2620e20cc8156e959cc4dada75118abd26e0c66e3964"
+      "source_row_hash": "06b0f1ea31cdf3a962bc7a893635b1d73bed41bc064f480bdddef7b0d13067cd"
     },
     {
       "survey_date": "2025-04-22",
@@ -144,11 +186,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Allow resident to participate in the development and implementation of his or her person-centered plan of care.",
-      "source_row_hash": "eb3cbabc5da1366f9ba625290fb7a82591cbd59c392b47680ae2515566cc509b"
+      "source_row_hash": "7264dc0a6438d90a0b1b1f422cd21b430836ce6ee8685e16822d0b46ab2fcf51"
     },
     {
       "survey_date": "2025-04-22",
@@ -165,11 +207,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to and the facility must promote and facilitate resident self-determination through support of resident choice.",
-      "source_row_hash": "3e29dda6cb8f03cf8b0ccfed5f07abce53e5a6f933689db9686ae50810e69246"
+      "source_row_hash": "4f7bcc62e78e787819771fceeae460ae74afef1ae698dd7eae4018f3fa1ff1f8"
     },
     {
       "survey_date": "2025-04-22",
@@ -186,11 +228,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to organize and participate in resident/family groups in the facility.",
-      "source_row_hash": "664293a5ae4a7c8b009187a7cdb7e172ba75e75445be63c9ca5e650dbf87119b"
+      "source_row_hash": "d999c41dad1dfced0aac151b583b93862afaa4c289c4449f471bc5d74fa02ad6"
     },
     {
       "survey_date": "2025-04-22",
@@ -207,11 +249,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to manage his or her financial affairs.",
-      "source_row_hash": "7380d1105afd6792e4ef034343e8acdb6e4d8710585ac4dbab3be9f984429f56"
+      "source_row_hash": "9f8dbdffdfe43b928a767d412935b4b33bd3e676fbac1cdfad2bb3959cfeca7f"
     },
     {
       "survey_date": "2025-04-22",
@@ -228,11 +270,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Properly hold, secure, and manage each resident's personal money which is deposited with the nursing home.",
-      "source_row_hash": "b1bffea5d58e34447680ab598bffddace9645e378ea173a0685f89c5de2f8f89"
+      "source_row_hash": "6546530124de2a8acc8756e932c76f447e2f6aaf3e9261396258110d3ca6e7d3"
     },
     {
       "survey_date": "2025-04-22",
@@ -249,11 +291,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Assure the security of all personal funds of residents deposited with the facility.",
-      "source_row_hash": "b873a6cee4cf21b98cf5173f0dadaa27f25834d01a711201f142cc8ba7990510"
+      "source_row_hash": "516a13a37632a65da6a251671723c691e49e32233b19b060ad7444bdd130d94f"
     },
     {
       "survey_date": "2025-04-22",
@@ -270,11 +312,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to request, refuse, and/or discontinue treatment, to participate in or refuse to participate in experimental research, and to formulate an advance directive.",
-      "source_row_hash": "16c090d1e1b555210e7770af30a1e0bab80c9244bda1df76fe8e9185cdaaf3ff"
+      "source_row_hash": "9029ba2522a6f3f25f8d47762e41ffa866f07bd5b4ed8b70e74765768c9b8b37"
     },
     {
       "survey_date": "2025-04-22",
@@ -291,11 +333,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Timely report suspected abuse, neglect, or theft and report the results of the investigation to proper authorities.",
-      "source_row_hash": "c8a85504cd04589560e5b8658b1c110a116fc49a8be28b2f90fcf9179feb4893"
+      "source_row_hash": "d4b1bf20543f182a6ac39679e930ddefdab54304f5629f86987cc2fb71da8feb"
     },
     {
       "survey_date": "2025-04-22",
@@ -312,11 +354,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Respond appropriately to all alleged violations.",
-      "source_row_hash": "ba6c39c18d8f4bf92d1b01b0fbb39f794f0f982dfb2550324e884b4079beaabb"
+      "source_row_hash": "ccf9aeb38059272a6a069f06384119ea0064060f0dc4cd2dd32264f2a0d3af50"
     },
     {
       "survey_date": "2025-04-22",
@@ -333,11 +375,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Develop the complete care plan within 7 days of the comprehensive assessment; and prepared, reviewed, and revised by a team of health professionals.",
-      "source_row_hash": "ea6be84b412738a24447b89fcd28861fd5ad20adda9bb2e26ee4acccc79e019a"
+      "source_row_hash": "c1f5c25f754e8db7bc05c9c5205dbaa4866654901dbf4e89e837157ed8b232c5"
     },
     {
       "survey_date": "2025-04-22",
@@ -354,11 +396,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate treatment and care according to orders, resident’s preferences and goals.",
-      "source_row_hash": "3a1134febcd006784fd9533a9ef7d303273077a47d0b25bd6ebd53adabb1af50"
+      "source_row_hash": "d5b3c7d6b21601f625a1acc3d6555aa261f110f29c5cf13b5547557f4e82db99"
     },
     {
       "survey_date": "2025-04-22",
@@ -375,11 +417,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Ensure that a nursing home area is free from accident hazards and provides adequate supervision to prevent accidents.",
-      "source_row_hash": "120f678bede91d9b977d34c48e4d9a63bccb33008eb9244171a9e6879cd318f2"
+      "source_row_hash": "7140e4afbc42d868a22b1e51d8c00997c8ca6acae6d9f4f4ad762ba1c98e83d8"
     },
     {
       "survey_date": "2025-04-22",
@@ -396,11 +438,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide safe and appropriate respiratory care for a resident when needed.",
-      "source_row_hash": "cc7bb4579d46e9772ae4984fb557d70148666edc63ca23e28ce8346ffe6456c1"
+      "source_row_hash": "4a688e4128fa6905dab1fb5fe7d1a81db8fb8a7922f637abced35d9e7442c5a1"
     },
     {
       "survey_date": "2025-04-22",
@@ -417,11 +459,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide medically-related social services to help each resident achieve the highest possible quality of life.",
-      "source_row_hash": "3a91d9a5cfe278d525b914c4e05943c5cd5a931dbe1553d8b4fbe88623a69015"
+      "source_row_hash": "d47a887d09af8c2dd43db86d32fe2fe0b7b0bf3266d8e61adc51d45bea16c6be"
     },
     {
       "survey_date": "2025-04-22",
@@ -438,11 +480,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Pharmacy Service Deficiencies",
       "citation_description_text": "Ensure drugs and biologicals used in the facility are labeled in accordance with currently accepted professional principles; and all drugs and biologicals must be stored in locked compartments, separately locked, compartments for controlled drugs.",
-      "source_row_hash": "a2e6a5d41a1a37d1d2f862a4f9c3277217108c662672016a38c1f3c3d55d69b7"
+      "source_row_hash": "aeadd8fb10e0686b90e8b85315d5e9eaffff57f445ae9cde984d325e868dfcfe"
     },
     {
       "survey_date": "2025-04-22",
@@ -459,11 +501,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide or obtain dental services for each resident.",
-      "source_row_hash": "382133e38b68397426bd795d20af87ff2ee3ec2b8a9331b94cba9de2fbffd84c"
+      "source_row_hash": "11d252526698f875d390e1d71da568a3be8d43631fb0bc1afacf9d9ad6223c0c"
     },
     {
       "survey_date": "2025-04-22",
@@ -480,11 +522,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Provide and implement an infection prevention and control program.",
-      "source_row_hash": "bdd0e4b01fc1bb81c5d8da84f1773732be80e7fcc454a6bc6bcec628a887671d"
+      "source_row_hash": "2357bea18eb2584ea2ed6a9e10771d644d054e7e286725a709e31b389908e5f6"
     },
     {
       "survey_date": "2025-04-22",
@@ -501,11 +543,11 @@
       "correction_date": "2025-06-28",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Administration Deficiencies",
       "citation_description_text": "Develop, implement, and/or maintain an effective training program for all new and existing staff members.",
-      "source_row_hash": "1acb18e19430dba984fc7c515637fdc764c09873f8b7e2cba96065a3dd2c5897"
+      "source_row_hash": "dabf4587099156e472068e86a4ca53728ddfa1bc548e1b709d1d27d81c87e099"
     },
     {
       "survey_date": "2025-04-07",
@@ -522,11 +564,11 @@
       "correction_date": "2025-05-19",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Timely report suspected abuse, neglect, or theft and report the results of the investigation to proper authorities.",
-      "source_row_hash": "69f5e5d1e37e64929e9de3b3a3f2d99472712ce30c29e9842fe674c9496b18b9"
+      "source_row_hash": "ff2008d33ddeb729d8fb19252e66dda50e6c65753cc4a5cabd9a05ad69d3d03a"
     },
     {
       "survey_date": "2025-04-07",
@@ -543,11 +585,11 @@
       "correction_date": "2025-05-19",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Develop and implement a complete care plan that meets all the resident's needs, with timetables and actions that can be measured.",
-      "source_row_hash": "70191f4d884cbef8b2017a934198f6def12f78c107c5930e1ad45916a52ea14c"
+      "source_row_hash": "b3fbb282a5dbd598d48ee06594be32f117ffc2d4c5570ec0d8f2af5e77b760ac"
     },
     {
       "survey_date": "2024-12-06",
@@ -564,11 +606,11 @@
       "correction_date": "2024-12-23",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Ensure that a nursing home area is free from accident hazards and provides adequate supervision to prevent accidents.",
-      "source_row_hash": "f0d460a98dd6378c52e014ce153092469875c21ab904018eb4591c7ec6ca68bd"
+      "source_row_hash": "e7fad7b57eb3858986f0ffdc89d055a170bd8b6e590554402128596e3dfbd087"
     },
     {
       "survey_date": "2024-07-30",
@@ -585,11 +627,11 @@
       "correction_date": "2024-09-10",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate treatment and care according to orders, resident’s preferences and goals.",
-      "source_row_hash": "0287554d111f6d701a090a36c9a0c24c59719c7f84c6be3a724e6123ea1feabe"
+      "source_row_hash": "bdd8121d3177a4213a0771a05b4e74e366a746f5a656e4053cace3e092767fd3"
     },
     {
       "survey_date": "2024-07-30",
@@ -606,11 +648,11 @@
       "correction_date": "2024-09-10",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Ensure that a nursing home area is free from accident hazards and provides adequate supervision to prevent accidents.",
-      "source_row_hash": "7ae17e8f9937fd2cba2f70b184240e240bb13be33eac4326542848b6d21d9f0e"
+      "source_row_hash": "58ac35ccfcc8ee2c27e70b46eca5f3ac6448d2064afea5c770df6947078897f5"
     },
     {
       "survey_date": "2023-03-13",
@@ -627,11 +669,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to a dignified existence, self-determination, communication, and to exercise his or her rights.",
-      "source_row_hash": "cbca48766cd80d1aeaa005f3e9003e539b3f016decd6e0ac553eb9650f668382"
+      "source_row_hash": "5df149de672c228f5f7d458dfc1fbde3bb7c68d7a3095e1b8b64e46adaa94664"
     },
     {
       "survey_date": "2023-03-13",
@@ -648,11 +690,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Allow resident to participate in the development and implementation of his or her person-centered plan of care.",
-      "source_row_hash": "ab5b52122f690c5f184e3792dbd20d7481dd29a8da7fad23ac7e0172201c90ce"
+      "source_row_hash": "f6b28abb362d764e8718fd9f6080f303ce18dcd9bef3e341201d8b4c79bd0975"
     },
     {
       "survey_date": "2023-03-13",
@@ -669,11 +711,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Immediately tell the resident, the resident's doctor, and a family member of situations (injury/decline/room, etc.)  that affect the resident.",
-      "source_row_hash": "9ef87734e281bca9ef254f1783b2714c5dd5895d03ba03eea0ace9567c1303b0"
+      "source_row_hash": "0f0b4d2630b56666265b13069d5ed35158cc40ec674fffceceabdd7db31a42a5"
     },
     {
       "survey_date": "2023-03-13",
@@ -690,11 +732,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to voice grievances without discrimination or reprisal and the facility must establish a grievance policy and make prompt efforts to resolve grievances.",
-      "source_row_hash": "c5948107accb922dd3f808592affb04c6733c159ba19ba9e99af54ba406d27f1"
+      "source_row_hash": "1cfbf8d7abca896bc247310884b03d017702a6b3e563c4d1c45cedbf9f453647"
     },
     {
       "survey_date": "2023-03-13",
@@ -711,11 +753,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Protect each resident from all types of abuse such as physical, mental, sexual abuse, physical punishment, and neglect by anybody.",
-      "source_row_hash": "ce77f3986b6633f4a8e96a8607ded2b60031e72a710b52d45a890864c7da45d7"
+      "source_row_hash": "c086a3abb9dc6f5393065b5b5d737cb44285c077f49e18709706f45c8cea4550"
     },
     {
       "survey_date": "2023-03-13",
@@ -732,11 +774,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Timely report suspected abuse, neglect, or theft and report the results of the investigation to proper authorities.",
-      "source_row_hash": "bd87f3146257c55a5bcd6fb99459e009cdbee5bdcbe53a61656e6f1d7598ec45"
+      "source_row_hash": "fad399752c7bbc1446012c3446610e5b66c7d3af8aa3202a005dfe11317ac11e"
     },
     {
       "survey_date": "2023-03-13",
@@ -753,11 +795,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Ensure each resident receives an accurate assessment.",
-      "source_row_hash": "e4cb170bac45b90230427ca43eb1363aca77597e5381a47c63af238cc6b8b0c5"
+      "source_row_hash": "2f81378f4e3bc033d1c27e9c65d56979846532b170afa2f71f99737797db5919"
     },
     {
       "survey_date": "2023-03-13",
@@ -774,11 +816,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Coordinate assessments with the pre-admission screening and resident review program; and referring for services as needed.",
-      "source_row_hash": "4fa3db9fb2aff939547170f7bf529d3bf071c0762ab02f01ccaf292e22f6137b"
+      "source_row_hash": "bc1259ddac3abea0243638ae377fdae027878046a1eeee60bcec2ce46a0a8c4c"
     },
     {
       "survey_date": "2023-03-13",
@@ -795,11 +837,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Develop the complete care plan within 7 days of the comprehensive assessment; and prepared, reviewed, and revised by a team of health professionals.",
-      "source_row_hash": "b1ade988403beacc487410cdefc41b70dbea90408198f9e7828a26b9e1c1a911"
+      "source_row_hash": "bd3ca5aec3b494a42c4748ff923421d105b88562d2e6b8fe917535d4fc12aaac"
     },
     {
       "survey_date": "2023-03-13",
@@ -816,11 +858,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Assessment and Care Planning Deficiencies",
       "citation_description_text": "Ensure services provided by the nursing facility meet professional standards of quality.",
-      "source_row_hash": "c9cfb00a5fdff6ee9558b3971e19f36ddda0ca0a10bf94f64a4d523a323ed723"
+      "source_row_hash": "f39ee356d52c248e050c7ac84762432e35fa76e704178daf0026b7ade588c1dc"
     },
     {
       "survey_date": "2023-03-13",
@@ -837,11 +879,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide care and assistance to perform activities of daily living for any resident who is unable.",
-      "source_row_hash": "ba7f62d4e1833ea06f3ea1dcb904170a76d13ce34e53b269ec33217b36535318"
+      "source_row_hash": "3c1773d59ea7da15f203fc9260dac8ec30cb39e163f885596d9345b7fff37d9c"
     },
     {
       "survey_date": "2023-03-13",
@@ -858,11 +900,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate treatment and care according to orders, resident’s preferences and goals.",
-      "source_row_hash": "0f2c20ab9350f6b8813b4e299c0908df8c7a6b9d73ff85bbdb30ba80a0e6599a"
+      "source_row_hash": "7b15ccdfe9ffb83e54684334a8023b64b829647c7f92ef2197c43864d292e54e"
     },
     {
       "survey_date": "2023-03-13",
@@ -879,11 +921,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide appropriate pressure ulcer care and prevent new ulcers from developing.",
-      "source_row_hash": "7ad778f290fe395efad125f7dfc14e35b86973e5e7287bd773b5bbfac64ebf77"
+      "source_row_hash": "e97b55d595f011d8c782be113ecdb893eeb8158c743167520259122e5305c706"
     },
     {
       "survey_date": "2023-03-13",
@@ -900,11 +942,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide enough food/fluids to maintain a resident's health.",
-      "source_row_hash": "4f5e0f921928d0e8332990ef90dbfc4b534eb1ac36a82e86ac700554af2be774"
+      "source_row_hash": "55dfc77346ca10e9d18bff70d7a98e1c4b6b82e7b7a63a1ef538a93f40911dc8"
     },
     {
       "survey_date": "2023-03-13",
@@ -921,11 +963,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Quality of Life and Care Deficiencies",
       "citation_description_text": "Provide safe, appropriate pain management for a resident who requires such services.",
-      "source_row_hash": "290807f12fe5e2ef4ca37274bc920c1fc2f62119b2ded46e86ac5bb4478ea764"
+      "source_row_hash": "573051243dbde79e32c6fe4fb9862def44b2ab2210a81af682fa3a85f88a8110"
     },
     {
       "survey_date": "2023-03-13",
@@ -942,11 +984,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nursing and Physician Services Deficiencies",
       "citation_description_text": "Ensure that nurses and nurse aides have the appropriate competencies to care for every resident in a way that maximizes each resident's well being.",
-      "source_row_hash": "27e2c6d99119fc91d59a824c10613fda006196dc4b06f04b089541b33482472c"
+      "source_row_hash": "807b44c4027df1d92e3113a4b3a8a886f3d68dac00b8498a2951f92640fba8af"
     },
     {
       "survey_date": "2023-03-13",
@@ -963,11 +1005,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nutrition and Dietary Deficiencies",
       "citation_description_text": "Provide special eating equipment and utensils for residents who need them and appropriate assistance.",
-      "source_row_hash": "54d2cb4e9cf207c31c46fb1c0d4bc3a4dfe24ea5881c6db3663f28b3ee1b8545"
+      "source_row_hash": "a4b517cc2481e13ab0c3babfea6a11a20925204499a355f7ae3327b483d2baf9"
     },
     {
       "survey_date": "2023-03-13",
@@ -984,11 +1026,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nutrition and Dietary Deficiencies",
       "citation_description_text": "Procure food from sources approved or considered satisfactory and store, prepare, distribute and serve food in accordance with professional standards.",
-      "source_row_hash": "f0276c5149d124d4936bc38502a3f9413de4f64eb333ed9e6d93b4daf24153c0"
+      "source_row_hash": "27bf34a72f67aca7a8295e934ddf9eb15b687dfc73790bdf4fc20efa23a7dd6b"
     },
     {
       "survey_date": "2023-03-13",
@@ -1005,11 +1047,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Provide and implement an infection prevention and control program.",
-      "source_row_hash": "48b8b0ea20ff4e29fb7bdf7ec2dba9ea0ccab810ca95391944c1c2910c8f008d"
+      "source_row_hash": "76476ca871c4fa71f9e0db0f557f46b48c156b320751ffbbbd3ed2c74f99e44c"
     },
     {
       "survey_date": "2023-03-13",
@@ -1026,11 +1068,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Develop and implement policies and procedures for flu and pneumonia vaccinations.",
-      "source_row_hash": "cab39832a7c760d2124efb17e3c0b4b8db062f1f5bfac8a9bc6b294adce08676"
+      "source_row_hash": "e34d23ec4ccd2a59614a8cb7746afa610f469bbb59a1fa027c10d6a6bccbcba2"
     },
     {
       "survey_date": "2023-03-13",
@@ -1047,11 +1089,11 @@
       "correction_date": "2023-04-24",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Ensure staff are vaccinated for COVID-19",
-      "source_row_hash": "d59cebc7b937a2063740078e78ec2f4cb1372d832363111272a0953ef129aa87"
+      "source_row_hash": "7cbeac9ca801a3b18076a5f7ce663893fa8dc7e64c52e4d672c4a1cf8b967abb"
     },
     {
       "survey_date": "2020-02-05",
@@ -1068,11 +1110,11 @@
       "correction_date": "2020-03-18",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Protect each resident from all types of abuse such as physical, mental, sexual abuse, physical punishment, and neglect by anybody.",
-      "source_row_hash": "691fa601de5b961c56544873d18e3f601a2c37b7f79edfb94e28262c0f3b4f2e"
+      "source_row_hash": "e7fd06d54c80468e1d0564b8137c0276aed08bfd09afeaa7bdddccc8402d0c0f"
     },
     {
       "survey_date": "2020-02-05",
@@ -1089,11 +1131,11 @@
       "correction_date": "2020-03-18",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Timely report suspected abuse, neglect, or theft and report the results of the investigation to proper authorities.",
-      "source_row_hash": "5f6c4b39b9fb815359f3cf83fb1ebd8928c5129449109f44dc692f53e92d2ae1"
+      "source_row_hash": "8ee52c000fc4b0c94c97b7f1de3e5aa46e9d3dfe99f9325f38e589f4e79501ba"
     },
     {
       "survey_date": "2020-02-05",
@@ -1110,11 +1152,11 @@
       "correction_date": "2020-03-18",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Freedom from Abuse, Neglect, and Exploitation Deficiencies",
       "citation_description_text": "Respond appropriately to all alleged violations.",
-      "source_row_hash": "625b5eca6e6ebc5432374032f91a0b054821b511c7085900f1cfb87f2c67149b"
+      "source_row_hash": "b3fbc008b292428b3b75cc90dd84c7575794803bd122c8a0f37ed01b95d473be"
     },
     {
       "survey_date": "2020-02-05",
@@ -1131,11 +1173,11 @@
       "correction_date": "2020-03-18",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nursing and Physician Services Deficiencies",
       "citation_description_text": "Observe each nurse aide's job performance and give regular training.",
-      "source_row_hash": "f24de410df778507d888e5806286d42cf853b6edd77ce0d2b6cf05504e98c3ee"
+      "source_row_hash": "7d93c50e2e395058dc32808048b0f056ea11362f20e21dccc5c30ea03eb466cc"
     },
     {
       "survey_date": "2020-02-05",
@@ -1152,11 +1194,11 @@
       "correction_date": "2020-03-18",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nutrition and Dietary Deficiencies",
       "citation_description_text": "Procure food from sources approved or considered satisfactory and store, prepare, distribute and serve food in accordance with professional standards.",
-      "source_row_hash": "7e334e75b236a54f4bd995f763ac19e9f5c28edc65b4f2c1d5fb49965e32bbf7"
+      "source_row_hash": "e4924b8692cdf4dbbc51b4123f20f22a5f6f2842f323f3ab8bb1ae51b28e8a63"
     },
     {
       "survey_date": "2020-02-05",
@@ -1173,11 +1215,11 @@
       "correction_date": "2020-03-18",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Infection Control Deficiencies",
       "citation_description_text": "Develop and implement policies and procedures for flu and pneumonia vaccinations.",
-      "source_row_hash": "3339536fbf484917fae37d3b5f5d44bba5545da464f3d05a0e6cdecfa2cb64dc"
+      "source_row_hash": "bb48a4fa8c3ad86af90681a85e23be9b0b575b0905e96e45e6e399c403764730"
     }
   ],
   "fire_safety_deficiencies": [
@@ -1196,12 +1238,12 @@
       "correction_date": "2025-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": false,
       "citation_description_category": null,
       "citation_description_text": null,
       "citation_description_lookup_gap_reason": "official_lookup_row_absent",
-      "source_row_hash": "7f0000d06f26a1c47513e5c44c6ba1ac5d52e18bceb95f19e7b78fcae82c2a61"
+      "source_row_hash": "2cf30657a052f84ddd5fee2c69ea4bb6b1a73389f2522477bcfbcf4d2f4171f5"
     },
     {
       "survey_date": "2025-04-22",
@@ -1218,12 +1260,12 @@
       "correction_date": "2025-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Install an approved automatic sprinkler system.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "30eab6634d84a017f51a21e0fa72698a10e386cb48575243147c103aef8e070e"
+      "source_row_hash": "7adcbe06a81f3c93680c29861713ba6caf6b2166fa916c140571886e5522ed82"
     },
     {
       "survey_date": "2025-04-22",
@@ -1240,12 +1282,12 @@
       "correction_date": "2025-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Inspect, test, and maintain automatic sprinkler systems.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "b4c56ac5666dddd2fff8112e2d72196ef751a45975222ff34d85cae84198a9ac"
+      "source_row_hash": "f92d3a4dbea3d63143884069ee9def2ade0c121374cce4da4acaabfbe2ea22f8"
     },
     {
       "survey_date": "2025-04-22",
@@ -1262,12 +1304,12 @@
       "correction_date": "2025-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Services Deficiencies",
       "citation_description_text": "Install properly constructed and protected linen or trash chutes.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "0bae620fe97335d0f791feaf0758dfa82c1d0f423e6bafb8766424201b464b57"
+      "source_row_hash": "2ee2f02177ad167f5827e40da4abfaf734de90325ace1f7ed44a10443d0c0cac"
     },
     {
       "survey_date": "2025-04-22",
@@ -1284,12 +1326,12 @@
       "correction_date": "2025-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Miscellaneous Deficiencies",
       "citation_description_text": "Have simulated fire drills held at unexpected times.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "81493363646e177e1b08f6104109d603a834a434c7606d7d7e800f8b196eacee"
+      "source_row_hash": "d172d6c593caa98fd9f4d7f3363726992b62402b70eb4653817aba17b1be6547"
     },
     {
       "survey_date": "2025-04-22",
@@ -1306,12 +1348,12 @@
       "correction_date": "2025-07-16",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Gas, Vacuum, and Electrical Systems Deficiencies",
       "citation_description_text": "Have proper fire barriers, ventilation and signs for the transfilling of oxygen.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "fc864f4053d7965e96c0e5b5deaa86cdc031edce19b44a964e5f3f305015f01e"
+      "source_row_hash": "45767f5256e2dc7b527b45fe5b56d78759b83dea49bad664202d77c1aa7e8452"
     },
     {
       "survey_date": "2023-03-13",
@@ -1328,12 +1370,12 @@
       "correction_date": "2023-04-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Provide properly protected cooking facilities.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "9255dd69a01df9828eb0f0b60d99a21fddb50f92c4ee556f2f414137bd6b4ae3"
+      "source_row_hash": "29997f0155ea9cbdb0ef8316b0cdac08632ea38c02319d94d6f2cf239ce336dd"
     },
     {
       "survey_date": "2023-03-13",
@@ -1350,12 +1392,12 @@
       "correction_date": "2023-04-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Install corridor and hallway doors that block smoke.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "4a481a7a63fa40bcc2f6e28062ede4ff7ca4e5a66d8e9b226e0a0bc4c0198651"
+      "source_row_hash": "0ca856ad0c03e15ecd92118d16b02ca8bbd9e752d124f45ab681fe837697ce52"
     },
     {
       "survey_date": "2023-03-13",
@@ -1372,12 +1414,12 @@
       "correction_date": "2023-04-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Services Deficiencies",
       "citation_description_text": "Install properly constructed and protected linen or trash chutes.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "070f49b2b7b9cfd4408908e07b133b72498ac2c6e4a420bcbbf907776b4da5a0"
+      "source_row_hash": "0569d52e3a9ee8cb9ccc8a86d6ac9fe0a8a41c593465f17389f3f638c9750b34"
     },
     {
       "survey_date": "2023-03-13",
@@ -1394,12 +1436,12 @@
       "correction_date": "2023-04-21",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Miscellaneous Deficiencies",
       "citation_description_text": "Provide a written emergency evacuation plan.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "6182d85a54ca1802586bd281ec0de5cc3241a448ea2857742387e5e255e4940c"
+      "source_row_hash": "3c1538fd37809377cb2614b0a4ad3065b4052073cbd3e9bea859da2adf1af4f5"
     },
     {
       "survey_date": "2020-02-05",
@@ -1416,12 +1458,12 @@
       "correction_date": "2020-02-11",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": false,
       "citation_description_category": null,
       "citation_description_text": null,
       "citation_description_lookup_gap_reason": "official_lookup_row_absent",
-      "source_row_hash": "9f6775c4e42fdc39c2053bea8b7ebfae3a521ea71b0df98915cf8e9a96b3cb41"
+      "source_row_hash": "ad335e1cb6dee1c395874fd59f861e583ebe6a21d4ff8cada7d5248e55bb79b0"
     }
   ],
   "emergency_preparedness_deficiencies": [],
@@ -1432,10 +1474,10 @@
       "penalty_type": "Fine",
       "enforcement_category": "fine",
       "payment_denial_start_date": null,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "duplicate_full_row_signature": false,
-      "source_row_hash": "102fd898106892fdc43eb9d8652646911edf724a0c3472e17cfe7fce2f937be1",
-      "fine_amount": 12735.0,
+      "source_row_hash": "fd57357eebfb26ec13500fc3fcd4f9392a3e2ed2d8cd051c0dd046df1a91cdaa",
+      "fine_amount": 8278.0,
       "payment_denial_length_days": null
     }
   ]

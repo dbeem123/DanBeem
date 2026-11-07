@@ -15,16 +15,16 @@ const root = path.resolve(__dirname, '..');
 async function main() {
   const current = JSON.parse(fs.readFileSync(path.join(root, 'data/nursing_home_staffing_ct.json')));
   const history = JSON.parse(fs.readFileSync(path.join(root, 'data/nursing_home_staffing_history_ct.json')));
-  assert.equal(current.reporting_period.quarter, '2026Q1');
-  assert.equal(current.facilities.length, 196);
-  const latest = new Set(current.facility_quarterly_staffing.filter(r => r.quarter === '2026Q1').map(r => r.ccn));
-  assert.equal(latest.size, 190);
-  assert.equal(current.facilities.filter(f => !latest.has(f.ccn)).length, 6);
+  assert.equal(current.reporting_period.quarter, '2026Q2');
+  assert.equal(current.facilities.length, 195);
+  const latest = new Set(current.facility_quarterly_staffing.filter(r => r.quarter === '2026Q2').map(r => r.ccn));
+  assert.equal(latest.size, 171);
+  assert.equal(current.facilities.filter(f => !latest.has(f.ccn)).length, 24);
   const quarters = [...new Set(history.facility_quarterly_staffing_history.map(r => r.quarter))].sort();
-  assert.equal(quarters.length, 34);
+  assert.equal(quarters.length, 35);
   assert.equal(quarters[0], '2017Q4');
-  assert.equal(quarters.at(-1), '2026Q1');
-  console.log('PASS production invariants: 196 / 190 / 6; 34 quarters');
+  assert.equal(quarters.at(-1), '2026Q2');
+  console.log('PASS production invariants: 195 / 171 / 24; 35 quarters');
 
   fs.mkdirSync(screenshots, { recursive: true });
   const browser = await chromium.launch({ headless: true, channel: process.env.PLAYWRIGHT_CHANNEL || 'msedge' });
@@ -82,7 +82,7 @@ async function main() {
     await page.locator('#history-full').click();
     assert.equal(await page.locator('#history-full').getAttribute('aria-pressed'), 'true');
     assert.match(await page.locator('#historical-pbj-output').innerText(), /2017|2018/);
-    assert.match(await csv('#download-history-csv'), /2026Q1/);
+    assert.match(await csv('#download-history-csv'), /2026Q2/);
     await page.locator('#history-latest-8').click();
     assert.equal(await page.locator('#history-latest-8').getAttribute('aria-pressed'), 'true');
     const before = await page.locator('main details').evaluateAll(es => es.map(e => e.open));
@@ -103,7 +103,7 @@ async function main() {
 
     await visit(route('statewide-staffing-comparison'));
     const allRows = await page.locator('tbody tr').count();
-    assert.equal(allRows, 196);
+    assert.equal(allRows, 195);
     await page.locator('#county-filter').selectOption({ index: 1 });
     assert.ok(await page.locator('tbody tr').count() < allRows);
     await page.locator('#facility-search').fill('075442');
@@ -115,7 +115,7 @@ async function main() {
     assert.equal(await page.locator('#county-filter').inputValue(), 'all');
     assert.equal(await page.locator('tbody tr').count(), allRows);
     await page.locator('#county-filter').selectOption('__unknown__');
-    assert.equal(await page.locator('tbody tr').count(), 5);
+    assert.equal(await page.locator('tbody tr').count(), 4);
     await page.locator('#reset-filters').click();
     await page.locator('[data-sort-key="name"]').click();
     assert.equal(await page.locator('[data-sort-key="name"]').getAttribute('aria-pressed'), 'true');
@@ -129,8 +129,8 @@ async function main() {
     assert.equal(await page.locator('#start-quarter').inputValue(), '2017Q4');
     await page.locator('#window-preset').selectOption('custom');
     await page.locator('#start-quarter').selectOption('2025Q4');
-    assert.equal(await page.locator('#end-quarter').inputValue(), '2026Q1');
-    assert.match(await csv('#download-change-csv'), /2026Q1/);
+    assert.equal(await page.locator('#end-quarter').inputValue(), '2026Q2');
+    assert.match(await csv('#download-change-csv'), /2026Q2/);
     await visit(route('persistent-staffing-patterns'));
     for (const value of ['latest4', 'latest8', 'full']) {
       await page.locator('#pattern-window').selectOption(value);
@@ -144,11 +144,12 @@ async function main() {
 
     await visit(route('ct-staffing-rules'));
     await page.locator('#snapshot-cards .summary-card').first().waitFor();
-    assert.match(await page.locator('#snapshot-cards').innerText(), /36/);
-    assert.match(await page.locator('#scenario-table').innerText(), /120 of 190/);
+    assert.match(await page.locator('#snapshot-cards').innerText(), /18/);
+    assert.match(await page.locator('#snapshot-note').innerText(), /Fewer homes reported than in Q1 2026/);
+    assert.match(await page.locator('#scenario-table').innerText(), /95 of 171/);
     assert.equal(await page.locator('#trend-chart svg').count(), 1);
     assert.equal(await page.locator('#legislation-table tbody tr').count(), 3);
-    console.log('PASS Connecticut rules and context: 36 below 3.00, 120 of 190 below 3.60 scenario, trend chart');
+    console.log('PASS Connecticut rules and context: 18 below 3.00, 95 of 171 below 3.60 scenario, coverage note, trend chart');
 
     const admins = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_nursing_home_administrators.json')));
     const sample = admins.people.find(p => p.license_number === '1750');
@@ -278,7 +279,7 @@ async function main() {
     await page.locator('#past-outcome').selectOption('failed');
     assert.ok(await page.locator('#past-bills tbody tr').count() >= 5);
     assert.ok(await page.locator('#past-bills .thread-chip').count() >= 3, '"Part of" chips in past sessions');
-    assert.match(await page.locator('#topic-staffing_workforce').innerText(), /36/);
+    assert.match(await page.locator('#topic-staffing_workforce').innerText(), /18\s+of 171 Connecticut nursing homes/);
     assert.match(await csv('#download-csv'), /SB 1279/);
     console.log('PASS legislative tracker: topics, stats, filters, CSV');
 

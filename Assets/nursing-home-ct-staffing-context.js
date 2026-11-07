@@ -29,8 +29,13 @@
   function renderSnapshot(data) {
     const latest = data.statewide_quarterly[data.statewide_quarterly.length - 1];
     const first = data.statewide_quarterly.find((r) => r.ct_comparison_applicable_for_public_status);
+    const prev = data.statewide_quarterly[data.statewide_quarterly.length - 2];
+    // A quarter where many homes did not submit PBJ makes counts look better than they are: say so.
+    const gap = prev && latest.facilities_reporting < 0.95 * prev.facilities_reporting
+      ? ` Fewer homes reported than in ${prev.quarter_label} (${prev.facilities_reporting}); homes that did not submit payroll data are missing, so these counts are not comparable with earlier quarters.`
+      : '';
     document.getElementById('snapshot-note').textContent =
-      `${latest.quarter_label} PBJ, ${latest.facilities_reporting} reporting Connecticut facilities. ${data.screening_note}`;
+      `${latest.quarter_label} PBJ, ${latest.facilities_reporting} reporting Connecticut facilities.${gap} ${data.screening_note}`;
     const box = document.getElementById('snapshot-cards');
     box.replaceChildren(
       card('Median CT direct-care estimate', fmt2(latest.median_ct_direct_care_total_hprd), 'hours per resident day'),

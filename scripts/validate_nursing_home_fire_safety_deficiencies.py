@@ -11,6 +11,10 @@ import json
 from collections import Counter
 from datetime import date, datetime
 from pathlib import Path
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from cms_release_order import release_key  # noqa: E402
 
 
 SOURCE_DIR = Path("source_data/cms_survey")
@@ -43,7 +47,7 @@ REQUIRED_COLUMNS = [
 
 
 def find_latest(pattern: str) -> Path:
-    matches = sorted(SOURCE_DIR.glob(pattern))
+    matches = sorted(SOURCE_DIR.glob(pattern), key=release_key)
     if not matches:
         raise FileNotFoundError(f"No {pattern} file found in {SOURCE_DIR.as_posix()}")
     if len(matches) > 1:
@@ -90,7 +94,7 @@ def load_current_staffing_ccns() -> dict[str, str]:
 
 
 def load_citation_lookup_codes() -> set[str]:
-    matches = sorted(SOURCE_DIR.glob(CITATION_LOOKUP_PATTERN))
+    matches = sorted(SOURCE_DIR.glob(CITATION_LOOKUP_PATTERN), key=release_key)
     if not matches:
         return set()
     lookup_path = matches[-1]

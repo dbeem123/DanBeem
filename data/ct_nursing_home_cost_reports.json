@@ -1,6 +1,6 @@
 {
  "schema_version": "ct-nursing-home-cost-reports-1.0",
- "generated_at": "2026-11-07T03:36:32+00:00",
+ "generated_at": "2026-11-07T12:10:00+00:00",
  "sources": [
   {
    "title": "Connecticut DSS Annual Report of Long-Term Care Facility (nursing facility cost reports)",
@@ -20,7 +20,7 @@
   },
   {
    "title": "CMS Payroll-Based Journal staffing (same months as each cost year)",
-   "as_of": "2026Q1"
+   "as_of": "2026Q2"
   },
   {
    "title": "DSS Nursing Home Rate Setting Guide Book (2024), direct-care definition"
@@ -21321,8 +21321,8 @@
   },
   {
    "ccn": "075351",
-   "facility_name": "ABBOTT TERRACE HEALTH CENTER",
-   "current": true,
+   "facility_name": "ABBOTT TERR HEALTH CTR",
+   "current": false,
    "years": {
     "2015": {
      "validated": false,

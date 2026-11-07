@@ -17,6 +17,10 @@ from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
+import sys as _sys
+from pathlib import Path as _Path
+_sys.path.insert(0, str(_Path(__file__).resolve().parent))
+from cms_release_order import release_key  # noqa: E402
 
 
 SOURCE_DIR = Path("source_data/cms_enforcement")
@@ -28,12 +32,12 @@ PENALTIES_PATTERN = "NH_Penalties_*.csv"
 
 SOURCE_URL = (
     "https://data.cms.gov/provider-data/sites/default/files/resources/"
-    "c671cdaa1461db5a685367690785fcb3_1778861763/"
-    "NH_Penalties_May2026.csv"
+    "4d0e526b8cf3d0b78294803291483073_1792181741/"
+    "NH_Penalties_Oct2026.csv"
 )
 CMS_DATASET_ID = "g6vv-u9sr"
 SOURCE_NAME = "CMS Provider Data Catalog Penalties"
-ACQUIRED_DATE = "2026-06-22"
+ACQUIRED_DATE = "2026-11-07"
 
 REQUIRED_COLUMNS = [
     "CMS Certification Number (CCN)",
@@ -77,7 +81,7 @@ LIMITATIONS = [
 
 
 def find_latest(pattern: str) -> Path:
-    matches = sorted(SOURCE_DIR.glob(pattern))
+    matches = sorted(SOURCE_DIR.glob(pattern), key=release_key)
     if not matches:
         raise FileNotFoundError(f"No {pattern} file found in {SOURCE_DIR.as_posix()}")
     return matches[-1]

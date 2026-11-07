@@ -332,6 +332,7 @@
         cmsShortStayQmRating: facility.cms_short_stay_qm_rating,
         cmsRatingSource: facility.cms_rating_source || '',
         cmsRatingSourceNote: facility.cms_rating_source_note || '',
+        cmsStaffingFootnote: facility.cms_staffing_rating_footnote || facility.cms_reported_staffing_footnote || '',
         qualityMeasuresClaims: Array.isArray(facility.quality_measures_claims) ? facility.quality_measures_claims : [],
         providerSourceMatched: Boolean(facility.provider_source_matched),
         enrollmentSourceMatched: Boolean(facility.enrollment_source_matched),
@@ -632,6 +633,27 @@
     }
   }
 
+  // CMS Nursing Home Data Dictionary, Table 15 (footnote codes used on staffing fields)
+  const CMS_STAFFING_FOOTNOTES = {
+    '2': 'Not enough data available to calculate a star rating.',
+    '6': 'This facility submitted data that did not meet the criteria required to calculate a staffing measure.',
+    '18': 'This facility is not rated due to a history of serious quality issues and is included in the special focus facility program.',
+    '23': 'This facility did not submit staffing data.',
+    '24': 'This facility reported a high number of days without a registered nurse onsite.',
+    '25': 'The accuracy of the staffing data for this measure could not be validated by CMS.'
+  };
+
+  // When a home has no PBJ row for the latest quarter, say so (with CMS's own footnote when it has one)
+  // instead of silently showing an older quarter.
+  function renderLatestQuarterNotice(facility) {
+    const latest = dataset?.reporting_period;
+    const current = facility.currentRow;
+    if (!latest?.quarter || (current && current.quarter === latest.quarter)) return '';
+    const note = CMS_STAFFING_FOOTNOTES[String(facility.cmsStaffingFootnote)];
+    const shown = current ? ` The figures below are for ${escapeHtml(current.quarter_label || current.quarter)}, the latest quarter it reported.` : '';
+    return `<div class="notice warning" role="note">No PBJ staffing for this home in ${escapeHtml(latest.label || latest.quarter)}.${note ? ` CMS footnote ${escapeHtml(facility.cmsStaffingFootnote)}: ${escapeHtml(note)}` : ''}${shown} Missing PBJ is not the same as zero staffing.</div>`;
+  }
+
   function renderFacilitySummary(facility) {
     const current = facility.currentRow;
     const quarterLabel = current?.quarter_label || dataset?.reporting_period?.label || 'Not available';
@@ -661,6 +683,7 @@
       <dl class="staffing-summary-list ltcop-provider-meta">
         ${metadataRows.join('')}
       </dl>
+      ${renderLatestQuarterNotice(facility)}
     `;
   }
 

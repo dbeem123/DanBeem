@@ -35,66 +35,67 @@ PATHS = {
     "registry": DATA / "current_tool_context_registry.json",
     "explorer": ROOT / "tools" / "nursing-home-staffing-explorer.html",
     "javascript": ROOT / "Assets" / "nursing-home-staffing.js",
-    "methodology": ROOT / "tools" / "nursing-home-staffing-methodology.html",
+    "methodology": ROOT / "staffing" / "tools" / "nursing-home-staffing-methodology.html",
 }
 
 EXPECTED = {
-    "current_facilities": 196,
-    "health_rows": 6761,
+    # Pinned to the October 2026 CMS release (refreshed 2026-11-07). Update deliberately with each release.
+    "current_facilities": 195,
+    "health_rows": 7210,
     "health_ccns": 191,
-    "health_dates": ("2018-11-08", "2026-03-31"),
-    "health_distinct_tags": 164,
+    "health_dates": ("2019-01-14", "2026-09-02"),
+    "health_distinct_tags": 165,
     "health_lookup_misses": 0,
     "health_groups": {
-        "actual_harm_not_ij": 172,
-        "immediate_jeopardy": 73,
-        "no_actual_harm_minimal": 463,
-        "no_actual_harm_more_than_minimal": 6053,
+        "actual_harm_not_ij": 195,
+        "immediate_jeopardy": 78,
+        "no_actual_harm_minimal": 528,
+        "no_actual_harm_more_than_minimal": 6409,
     },
-    "fire_rows": 2135,
+    "fire_rows": 2375,
     "fire_ccns": 178,
-    "fire_k_rows": 2007,
-    "fire_e_rows": 128,
-    "fire_distinct_codes": 84,
-    "fire_dates": ("2018-11-08", "2026-02-27"),
-    "fire_lookup_misses": 145,
-    "fire_lookup_codes": {"K-0133": 2, "K-0211": 143},
-    "fire_scope_counts": {"D": 1556, "E": 338, "F": 238, "J": 2, "K": 1},
-    "penalty_rows": 179,
-    "penalty_ccns": 102,
-    "fine_rows": 167,
-    "payment_denial_rows": 12,
-    "fine_total": 3925517.00,
-    "denial_days": 368,
-    "duplicate_penalty_rows": 3,
-    "penalty_dates": ("2023-05-17", "2026-03-17"),
-    "processing_dates": ("2026-05-01", "2026-05-01"),
-    "denial_start_dates": ("2024-01-17", "2024-12-03"),
-    "recent_window": ("2023-03-31", "2026-03-31"),
-    "zero_record_facilities": 5,
+    "fire_k_rows": 2234,
+    "fire_e_rows": 141,
+    "fire_distinct_codes": 80,
+    "fire_dates": ("2019-01-14", "2026-09-01"),
+    "fire_lookup_misses": 153,
+    "fire_lookup_codes": {"K-0133": 1, "K-0211": 152},
+    "fire_scope_counts": {"D": 1767, "E": 353, "F": 252, "J": 2, "K": 1},
+    "penalty_rows": 191,
+    "penalty_ccns": 109,
+    "fine_rows": 178,
+    "payment_denial_rows": 13,
+    "fine_total": 4344851.00,
+    "denial_days": 376,
+    "duplicate_penalty_rows": 0,
+    "penalty_dates": ("2023-10-17", "2026-07-09"),
+    "processing_dates": ("2026-10-01", "2026-10-01"),
+    "denial_start_dates": ("2024-01-17", "2026-05-27"),
+    "recent_window": ("2023-09-02", "2026-09-02"),
+    "zero_record_facilities": 4,
     "summary_all_time": {
-        "all_time_health_deficiency_count": 6761,
-        "all_time_actual_harm_count": 172,
-        "all_time_immediate_jeopardy_count": 73,
-        "all_time_fire_safety_citation_count": 2007,
-        "all_time_emergency_preparedness_citation_count": 128,
-        "all_time_enforcement_event_count": 179,
-        "all_time_fine_count": 167,
-        "all_time_fine_total": 3925517.00,
-        "all_time_payment_denial_count": 12,
-        "all_time_payment_denial_days": 368,
+        "all_time_health_deficiency_count": 7210,
+        "all_time_actual_harm_count": 195,
+        "all_time_immediate_jeopardy_count": 78,
+        "all_time_fire_safety_citation_count": 2234,
+        "all_time_emergency_preparedness_citation_count": 141,
+        "all_time_enforcement_event_count": 191,
+        "all_time_fine_count": 178,
+        "all_time_fine_total": 4344851.00,
+        "all_time_payment_denial_count": 13,
+        "all_time_payment_denial_days": 376,
     },
     "summary_recent": {
-        "recent_health_deficiency_count": 4717,
-        "recent_actual_harm_count": 141,
-        "recent_immediate_jeopardy_count": 66,
-        "recent_fire_safety_citation_count": 1151,
-        "recent_emergency_preparedness_citation_count": 57,
-        "recent_enforcement_event_count": 179,
-        "recent_fine_count": 167,
-        "recent_fine_total": 3925517.00,
-        "recent_payment_denial_count": 12,
-        "recent_payment_denial_days": 368,
+        "recent_health_deficiency_count": 5333,
+        "recent_actual_harm_count": 168,
+        "recent_immediate_jeopardy_count": 71,
+        "recent_fire_safety_citation_count": 1388,
+        "recent_emergency_preparedness_citation_count": 78,
+        "recent_enforcement_event_count": 191,
+        "recent_fine_count": 178,
+        "recent_fine_total": 4344851.00,
+        "recent_payment_denial_count": 13,
+        "recent_payment_denial_days": 376,
     },
 }
 
@@ -395,8 +396,8 @@ class ReleaseAudit:
         self.check("health metadata unique CCNs", metadata.get("unique_ct_ccn_count"), len({row.get("ccn") for row in rows}))
         self.check("health metadata date range", (metadata.get("survey_date_min"), metadata.get("survey_date_max")), date_range(rows, "survey_date"))
         self.check("health metadata lookup misses", metadata.get("citation_description_lookup_miss_count"), misses)
-        self.check("health May 2026 source metadata", (metadata.get("source_file"), metadata.get("source_month"), metadata.get("source_year"), metadata.get("state_filter")), ("NH_HealthCitations_May2026.csv", "May", 2026, "CT"))
-        self.check("health citation-description source", metadata.get("citation_descriptions_source_file"), "NH_CitationDescriptions_May2026.csv")
+        self.check("health source metadata", (metadata.get("source_file"), metadata.get("source_month"), metadata.get("source_year"), metadata.get("state_filter")), ("NH_HealthCitations_Oct2026.csv", "Oct", 2026, "CT"))
+        self.check("health citation-description source", metadata.get("citation_descriptions_source_file"), "NH_CitationDescriptions_Oct2026.csv")
 
     def audit_fire(self) -> None:
         rows = self.rows("fire", "deficiencies")
@@ -438,8 +439,8 @@ class ReleaseAudit:
         self.check("fire metadata E rows", metadata.get("e_tag_count"), prefixes.get("E", 0))
         self.check("fire metadata lookup-miss total", metadata.get("citation_description_lookup_miss_count"), sum(misses_by_code.values()))
         self.check("fire metadata lookup gaps", metadata.get("citation_description_lookup_missed_codes"), dict(misses_by_code))
-        self.check("fire May 2026 source metadata", (metadata.get("source_file"), metadata.get("source_month"), metadata.get("source_year"), metadata.get("state_filter")), ("NH_FireSafetyCitations_May2026.csv", "May", 2026, "CT"))
-        self.check("fire citation-description source", metadata.get("citation_descriptions_source_file"), "NH_CitationDescriptions_May2026.csv")
+        self.check("fire source metadata", (metadata.get("source_file"), metadata.get("source_month"), metadata.get("source_year"), metadata.get("state_filter")), ("NH_FireSafetyCitations_Oct2026.csv", "Oct", 2026, "CT"))
+        self.check("fire citation-description source", metadata.get("citation_descriptions_source_file"), "NH_CitationDescriptions_Oct2026.csv")
 
     def audit_penalties(self) -> None:
         rows = self.rows("penalties", "penalties")
@@ -467,7 +468,7 @@ class ReleaseAudit:
         ]
         self.check("penalty rows", len(rows), EXPECTED["penalty_rows"])
         self.check("penalty unique CCNs", len({row.get("ccn") for row in rows}), EXPECTED["penalty_ccns"])
-        self.check("enforcement category counts", dict(categories), {"fine": 167, "payment_denial": 12})
+        self.check("enforcement category counts", dict(categories), {"fine": EXPECTED["fine_rows"], "payment_denial": EXPECTED["payment_denial_rows"]})
         self.check("Fine source type count", sum(row.get("penalty_type") == "Fine" for row in rows), EXPECTED["fine_rows"])
         self.check("Payment Denial source type count", sum(row.get("penalty_type") == "Payment Denial" for row in rows), EXPECTED["payment_denial_rows"])
         self.check("fine total", fine_total, EXPECTED["fine_total"])
@@ -490,7 +491,7 @@ class ReleaseAudit:
         self.check("penalties metadata denial start dates", (metadata.get("payment_denial_start_date_min"), metadata.get("payment_denial_start_date_max")), date_range(denial_rows, "payment_denial_start_date"))
         self.check("penalties metadata fine total", metadata.get("ct_fine_amount_total"), fine_total)
         self.check("penalties metadata denial days", metadata.get("payment_denial_length_total_days"), denial_days)
-        self.check("penalties May 2026 source metadata", (metadata.get("source_file"), metadata.get("source_month"), metadata.get("source_year"), metadata.get("state_filter")), ("NH_Penalties_May2026.csv", "May", 2026, "CT"))
+        self.check("penalties source metadata", (metadata.get("source_file"), metadata.get("source_month"), metadata.get("source_year"), metadata.get("state_filter")), ("NH_Penalties_Oct2026.csv", "Oct", 2026, "CT"))
 
     def audit_summary(self) -> None:
         rows = self.rows("summary", "facilities")
@@ -520,7 +521,7 @@ class ReleaseAudit:
         self.check("zero-record facility representation errors", invalid_zero_rows, [])
         self.check("summary metadata record count", metadata.get("summary_record_count"), len(rows))
         self.check("summary metadata current facilities", metadata.get("current_facility_count"), EXPECTED["current_facilities"])
-        self.check("summary metadata runtime rows", (metadata.get("health_deficiency_row_count"), metadata.get("fire_safety_deficiency_row_count"), metadata.get("penalties_row_count")), (6761, 2135, 179))
+        self.check("summary metadata runtime rows", (metadata.get("health_deficiency_row_count"), metadata.get("fire_safety_deficiency_row_count"), metadata.get("penalties_row_count")), (EXPECTED["health_rows"], EXPECTED["fire_rows"], EXPECTED["penalty_rows"]))
         runtime_rows = {
             "health": self.rows("health", "deficiencies"),
             "fire": self.rows("fire", "deficiencies"),
@@ -684,7 +685,7 @@ class ReleaseAudit:
         zero_count = sum(sum(len(detail[name]) for name in DETAIL_ARRAYS) == 0 for detail in self.detail_by_ccn.values())
         self.check("detail zero-record facilities", zero_count, EXPECTED["zero_record_facilities"])
         self.check("index zero-record facilities", index.get("facilities_with_no_detail_records"), zero_count)
-        self.check("index aggregate totals", (index.get("total_health_records"), index.get("total_fire_safety_records"), index.get("total_emergency_preparedness_records"), index.get("total_penalty_records")), (6761, 2007, 128, 179))
+        self.check("index aggregate totals", (index.get("total_health_records"), index.get("total_fire_safety_records"), index.get("total_emergency_preparedness_records"), index.get("total_penalty_records")), (EXPECTED["health_rows"], EXPECTED["fire_k_rows"], EXPECTED["fire_e_rows"], EXPECTED["penalty_rows"]))
         self.check(
             "index source CCN coverage",
             index.get("source_ccn_coverage"),
@@ -810,8 +811,8 @@ class ReleaseAudit:
             for marker in shared_markers:
                 if normalized_text(marker) not in text:
                     errors.append(f"{label} missing marker {marker!r}")
-        if "may 2026" not in registry_text:
-            errors.append("registry missing May 2026 CMS source-release marker")
+        if "october 2026" not in registry_text:
+            errors.append("registry missing October 2026 CMS source-release marker")
         registry_requirements = ["selected facility", "view detailed findings", "staffing classification", "compact summary"]
         for marker in registry_requirements:
             if marker not in registry_text:
@@ -837,10 +838,10 @@ class ReleaseAudit:
             "j, k, or l", "g, h, or i", "d, e, or f", "a, b, or c",
             "immediate jeopardy", "actual harm, not immediate jeopardy",
             "potential for more than minimal harm", "potential for minimal harm",
-            "k-0211", "k-0133", "three duplicated full-row signatures",
+            "k-0211", "k-0133", "no duplicated full-row signatures",
             "penalty date", "payment-denial start date", "processing date",
-            "196 facilities", "191 current ccns", "178 current ccns", "102 current ccns",
-            "five current facility records", "do not change a facility's staffing classification",
+            "195 facilities", "191 current ccns", "178 current ccns", "109 current ccns",
+            "four current facility records", "do not change a facility's staffing classification",
             "not a standalone quality score", "citation counts", "fine amounts",
             "does not mean a facility has never had a deficiency or enforcement action",
         ]

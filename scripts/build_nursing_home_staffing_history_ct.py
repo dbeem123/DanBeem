@@ -50,9 +50,10 @@ def source_for_quarter(source_root: Path, quarter: str) -> Path:
     q = int(quarter[-1])
     if year < 2024 or (year == 2024 and q <= 3):
         return source_root / "historical" / str(year) / f"PBJ_Daily_Nurse_Staffing_Q{q}_{year}.zip"
-    if year == 2025 and q == 4:
-        return source_root / "PBJ_dailynursestaffing_CY2025Q4.csv"
-    return source_root / f"PBJ_Daily_Nurse_Staffing_Q{q}_{year}.csv"
+    # CMS has used two names for recent quarters; prefer the older pattern when both exist
+    candidates = [source_root / f"PBJ_Daily_Nurse_Staffing_Q{q}_{year}.csv",
+                  source_root / f"PBJ_dailynursestaffing_CY{year}Q{q}.csv"]
+    return next((c for c in candidates if c.exists()), candidates[-1] if (year, q) == (2025, 4) else candidates[0])
 
 
 def stable_source_identifier(source_root: Path, source: Path) -> str:

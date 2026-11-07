@@ -31,7 +31,7 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / "scripts"))
 from validate_data_freshness import on_site_versions, month_from_name  # noqa: E402
 
-UA = "danbeem-data-refresh/1.0"
+UA = "danbeem-data-refresh/1.0 (+https://danbeem.xyz)"
 CMS_PDC_ITEM = "https://data.cms.gov/provider-data/api/1/metastore/schemas/dataset/items/{id}?show-reference-ids=false"
 CMS_CATALOG = "https://data.cms.gov/data.json"
 SOCRATA_VIEW = "https://data.ct.gov/api/views/{id}.json"
@@ -59,20 +59,23 @@ def latest_pdc(item):
     dist = item.get("distribution") or []
     url = next((d.get("downloadURL") or (d.get("data") or {}).get("downloadURL") for d in dist
                 if (d.get("downloadURL") or (d.get("data") or {}).get("downloadURL"))), None)
-    return month_from_name(url or ""), url, item.get("modified")
+    return month_from_name(url or ""), url, item.get("modified"), item.get("nextUpdateDate")
 
 
 def latest_catalog(catalog, title):
-    """data.cms.gov data.json -> (version date, CSV download URL) for the newest CSV of the dataset titled `title`."""
+    """data.cms.gov data.json -> (version date, CSV download URL) for the newest CSV of the dataset titled `title`.
+    The catalog lists each release as its own entry titled "<title> : YYYY-MM-DD"; older catalogs put every
+    release in one entry's distributions. Both are handled."""
     best = (None, None)
     for ds in catalog.get("dataset", []):
-        if ds.get("title", "").strip().lower() != title.lower():
+        base, _, stamp = ds.get("title", "").partition(" : ")
+        if base.strip().lower() != title.lower():
             continue
         for d in ds.get("distribution", []):
             url = d.get("downloadURL")
             if not url or not (d.get("mediaType") == "text/csv" or url.lower().endswith(".csv")):
                 continue
-            m = re.search(r":\s*(\d{4}-\d{2}-\d{2})", d.get("title", ""))
+            m = re.search(r":\s*(\d{4}-\d{2}-\d{2})", d.get("title", "")) or re.search(r"(\d{4}-\d{2}-\d{2})", stamp)
             when = dt.date.fromisoformat(m.group(1)) if m else month_from_name(url)
             if when and (best[0] is None or when > best[0]):
                 best = (when, url)
@@ -102,8 +105,8 @@ def check(reg):
         row = {"id": s["id"], "name": s["name"], "on_site": (have.get(s["id"]) or (None, None))[0]}
         try:
             if acc["type"] == "cms_provider_data":
-                when, url, modified = latest_pdc(json.loads(get(CMS_PDC_ITEM.format(id=acc["dataset_id"]))))
-                row.update(latest=when.isoformat() if when else None, url=url, modified=modified)
+                when, url, modified, nxt = latest_pdc(json.loads(get(CMS_PDC_ITEM.format(id=acc["dataset_id"]))))
+                row.update(latest=when.isoformat() if when else None, url=url, modified=modified, next_update=nxt)
             elif acc["type"] == "cms_data_api":
                 if catalog is None:
                     catalog = json.loads(get(CMS_CATALOG))

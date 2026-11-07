@@ -304,7 +304,7 @@ def build_summary() -> tuple[dict[str, Any], dict[str, Any]]:
             "anchor_basis": "Maximum event or survey date across the three detailed runtime datasets.",
         },
         "source_join_coverage": join_coverage,
-        "fire_safety_citation_lookup_gaps": {"K-0133": 2, "K-0211": 143},
+        "fire_safety_citation_lookup_gaps": dict(sorted((fire_data["metadata"].get("citation_description_lookup_missed_codes") or {}).items())),
         "limitations": GLOBAL_LIMITATIONS,
     }
 

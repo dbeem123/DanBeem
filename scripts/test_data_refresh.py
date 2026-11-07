@@ -62,7 +62,7 @@ class RefreshHelperTests(unittest.TestCase):
     def test_latest_pdc(self):
         item = {"modified": "2026-10-01", "distribution": [{"downloadURL":
                 "https://data.cms.gov/provider-data/sites/default/files/resources/x/NH_ProviderInfo_Oct2026.csv"}]}
-        when, url, modified = rs.latest_pdc(item)
+        when, url, modified, _ = rs.latest_pdc(item)
         self.assertEqual((when, modified), (dt.date(2026, 10, 1), "2026-10-01"))
         self.assertTrue(url.endswith("NH_ProviderInfo_Oct2026.csv"))
 
@@ -77,6 +77,19 @@ class RefreshHelperTests(unittest.TestCase):
         when, url = rs.latest_catalog(cat, "Skilled Nursing Facility Change of Ownership")
         self.assertEqual(when, dt.date(2025, 12, 1))
         self.assertTrue(url.endswith("SNF_CHOW_2026.01.02.csv"))
+
+    def test_latest_catalog_release_per_entry(self):
+        cat = {"dataset": [
+            {"title": "Payroll Based Journal Daily Nurse Staffing : 2026-01-01", "distribution": [
+                {"mediaType": "text/csv", "downloadURL": "https://data.cms.gov/a/PBJ_dailynursestaffing_CY2026Q1.csv"}]},
+            {"title": "Payroll Based Journal Daily Nurse Staffing : 2026-04-01", "distribution": [
+                {"format": "API", "accessURL": "https://data.cms.gov/data-api/v1/dataset/x/data"},
+                {"mediaType": "text/csv", "downloadURL": "https://data.cms.gov/b/PBJ_dailynursestaffing_CY2026Q2.csv"}]},
+            {"title": "Payroll Based Journal Employee Detail Nursing Home Staffing : 2026-07-01", "distribution": [
+                {"mediaType": "text/csv", "downloadURL": "https://data.cms.gov/c/other.csv"}]}]}
+        when, url = rs.latest_catalog(cat, "Payroll Based Journal Daily Nurse Staffing")
+        self.assertEqual(when, dt.date(2026, 4, 1))
+        self.assertTrue(url.endswith("CY2026Q2.csv"))
 
     def test_is_newer(self):
         self.assertTrue(rs.is_newer("cms_pbj", "quarter", dt.date(2026, 4, 1), dt.date(2026, 3, 31)))

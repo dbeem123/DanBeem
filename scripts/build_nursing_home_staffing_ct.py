@@ -117,6 +117,8 @@ PROVIDER_INFO_ALIASES = {
     "cms_short_stay_qm_rating": ["Short-Stay QM Rating", "Short Stay QM Rating", "Short-Stay Quality Measure Rating"],
     "participation_date": ["Provider SSA County Code", "Participation Date"],
     "processing_date": ["Processing Date", "File Date"],
+    "cms_staffing_rating_footnote": ["Staffing Rating Footnote"],
+    "cms_reported_staffing_footnote": ["Reported Staffing Footnote"],
 }
 
 PROVIDER_RATING_FIELDS = (
@@ -514,6 +516,9 @@ def load_provider_info(provider_info_path: Path | None) -> tuple[dict[str, dict[
                 ),
                 "participation_date": get_value(row, lookup, "participation_date").strip(),
                 "processing_date": get_value(row, lookup, "processing_date").strip(),
+                # CMS footnote codes (Data Dictionary, Table 15), e.g. 23 = did not submit staffing data
+                "cms_staffing_rating_footnote": get_value(row, lookup, "cms_staffing_rating_footnote").strip() or None,
+                "cms_reported_staffing_footnote": get_value(row, lookup, "cms_reported_staffing_footnote").strip() or None,
             }
 
     return rows_by_ccn, quality
@@ -734,6 +739,8 @@ def merge_provider_metadata(
             "cms_short_stay_qm_rating": provider.get("cms_short_stay_qm_rating"),
             "cms_rating_source": provider.get("cms_rating_source"),
             "cms_rating_source_note": provider.get("cms_rating_source_note"),
+            "cms_staffing_rating_footnote": provider.get("cms_staffing_rating_footnote"),
+            "cms_reported_staffing_footnote": provider.get("cms_reported_staffing_footnote"),
             "case_mix_benchmarks": {
                 "case_mix_total_nurse_hprd": provider.get("case_mix_total_nurse_hprd"),
                 "case_mix_rn_hprd": provider.get("case_mix_rn_hprd"),
@@ -1069,6 +1076,8 @@ def build_output(
             "cms_overall_rating": "CMS Care Compare Overall Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
             "cms_health_inspection_rating": "CMS Care Compare Health Inspection Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
             "cms_staffing_rating": "CMS Care Compare Staffing Rating from Nursing Home Provider Information; contextual rating, not a replacement for PBJ HPRD metrics",
+            "cms_staffing_rating_footnote": "CMS footnote code on the Staffing Rating (Nursing Home Data Dictionary, Table 15); 23 means the facility did not submit staffing data",
+            "cms_reported_staffing_footnote": "CMS footnote code on the reported staffing measures (Nursing Home Data Dictionary, Table 15)",
             "cms_rn_staffing_rating": "CMS Care Compare RN Staffing Rating from Nursing Home Provider Information when present; contextual rating, not a replacement for PBJ RN HPRD",
             "cms_qm_rating": "CMS Care Compare Quality Measures Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",
             "cms_long_stay_qm_rating": "CMS Care Compare Long-Stay Quality Measures Rating from Nursing Home Provider Information; contextual rating, not calculated by this tool",

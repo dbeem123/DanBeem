@@ -42,8 +42,8 @@ class TrackerTests(unittest.TestCase):
 
     def test_key_numbers(self):
         s = {x["key"]: x for x in self.stats["stats"]}
-        self.assertEqual(s["homes_below_300"]["value"], 36)
-        self.assertEqual(s["homes_below_360"]["value"], 120)
+        self.assertEqual(s["homes_below_300"]["value"], 18)
+        self.assertEqual(s["homes_below_360"]["value"], 95)
         self.assertEqual(s["ltcop_complaints"]["value"], 3253)
         self.assertEqual(s["ltcop_funding"]["display"], "$2.42 million")
         topics = {topic["id"]: topic for topic in self.tracker["topics"]}

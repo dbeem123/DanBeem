@@ -1,6 +1,6 @@
 {
  "schema_version": "ct-nursing-home-management-companies-1.0",
- "generated_at": "2026-11-05T20:44:39+00:00",
+ "generated_at": "2026-11-07T12:08:14+00:00",
  "source_as_of": "2026-10-28",
  "window": {
   "first_release": "2020-01-09",
@@ -21,7 +21,7 @@
   },
   {
    "title": "CMS Payroll-Based Journal staffing history (Q4 2017 onward)",
-   "as_of": "2026Q1",
+   "as_of": "2026Q2",
    "note": "Each home's staffing during the management period."
   }
  ],
@@ -70,12 +70,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.62,
-      "total_nurse_hprd": 3.78,
-      "rn_hprd": 0.49
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.64,
+      "total_nurse_hprd": 3.79,
+      "rn_hprd": 0.48
      },
      "administrators": [
       {
@@ -99,9 +99,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 7,
+      "quarters": 8,
       "first_quarter": "2024Q3",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.7,
       "total_nurse_hprd": 3.95,
       "rn_hprd": 0.56
@@ -128,12 +128,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 7,
+      "quarters": 8,
       "first_quarter": "2024Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.6,
-      "total_nurse_hprd": 3.78,
-      "rn_hprd": 0.51
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.59,
+      "total_nurse_hprd": 3.76,
+      "rn_hprd": 0.5
      },
      "administrators": [
       {
@@ -157,12 +157,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 7,
+      "quarters": 8,
       "first_quarter": "2024Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.75,
-      "total_nurse_hprd": 3.94,
-      "rn_hprd": 0.75
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.71,
+      "total_nurse_hprd": 3.9,
+      "rn_hprd": 0.74
      },
      "administrators": [
       {
@@ -186,11 +186,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 7,
+      "quarters": 8,
       "first_quarter": "2024Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.64,
-      "total_nurse_hprd": 3.79,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.6,
+      "total_nurse_hprd": 3.76,
       "rn_hprd": 0.51
      },
      "administrators": [
@@ -223,12 +223,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 6,
+      "quarters": 7,
       "first_quarter": "2024Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.55,
-      "total_nurse_hprd": 3.73,
-      "rn_hprd": 0.57
+      "total_nurse_hprd": 3.75,
+      "rn_hprd": 0.58
      },
      "administrators": [
       {
@@ -268,12 +268,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.36,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.37,
       "total_nurse_hprd": 3.51,
-      "rn_hprd": 0.47
+      "rn_hprd": 0.46
      },
      "administrators": []
     },
@@ -288,11 +288,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.59,
-      "total_nurse_hprd": 3.76,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.64,
+      "total_nurse_hprd": 3.81,
       "rn_hprd": 0.54
      },
      "administrators": [
@@ -317,12 +317,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.42,
-      "total_nurse_hprd": 3.58,
-      "rn_hprd": 0.56
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.44,
+      "total_nurse_hprd": 3.6,
+      "rn_hprd": 0.57
      },
      "administrators": []
     },
@@ -337,12 +337,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 6,
+      "quarters": 7,
       "first_quarter": "2024Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.63,
-      "total_nurse_hprd": 3.93,
-      "rn_hprd": 0.67
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.65,
+      "total_nurse_hprd": 3.94,
+      "rn_hprd": 0.68
      },
      "administrators": []
     },
@@ -357,12 +357,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 6,
+      "quarters": 7,
       "first_quarter": "2024Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.41,
-      "total_nurse_hprd": 3.56,
-      "rn_hprd": 0.42
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.44,
+      "total_nurse_hprd": 3.6,
+      "rn_hprd": 0.43
      },
      "administrators": []
     }
@@ -462,11 +462,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2018Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 2.72,
-      "total_nurse_hprd": 3.17,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 2.73,
+      "total_nurse_hprd": 3.18,
       "rn_hprd": 0.45
      },
      "administrators": [
@@ -596,10 +596,10 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.01,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.02,
       "total_nurse_hprd": 3.39,
       "rn_hprd": 0.52
      },
@@ -699,11 +699,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 32,
+      "quarters": 33,
       "first_quarter": "2018Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.09,
-      "total_nurse_hprd": 3.41,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.11,
+      "total_nurse_hprd": 3.42,
       "rn_hprd": 0.41
      },
      "administrators": [
@@ -793,12 +793,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.29,
       "total_nurse_hprd": 3.7,
-      "rn_hprd": 0.58
+      "rn_hprd": 0.57
      },
      "administrators": [
       {
@@ -1001,11 +1001,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.2,
-      "total_nurse_hprd": 3.53,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.21,
+      "total_nurse_hprd": 3.54,
       "rn_hprd": 0.44
      },
      "administrators": [
@@ -1202,12 +1202,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 18,
+      "quarters": 19,
       "first_quarter": "2021Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.0,
-      "total_nurse_hprd": 3.25,
-      "rn_hprd": 0.65
+      "total_nurse_hprd": 3.24,
+      "rn_hprd": 0.64
      },
      "administrators": [
       {
@@ -1279,9 +1279,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.11,
       "total_nurse_hprd": 3.3,
       "rn_hprd": 0.49
@@ -1364,12 +1364,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 4,
+      "quarters": 5,
       "first_quarter": "2025Q2",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.68,
-      "total_nurse_hprd": 3.93,
-      "rn_hprd": 1.03
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.67,
+      "total_nurse_hprd": 3.92,
+      "rn_hprd": 0.99
      },
      "administrators": [
       {
@@ -1393,12 +1393,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 32,
+      "quarters": 33,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 2.83,
-      "total_nurse_hprd": 3.01,
-      "rn_hprd": 0.43
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 2.84,
+      "total_nurse_hprd": 3.02,
+      "rn_hprd": 0.44
      },
      "administrators": [
       {
@@ -1567,12 +1567,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 2.75,
-      "total_nurse_hprd": 3.01,
-      "rn_hprd": 0.39
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 2.74,
+      "total_nurse_hprd": 3.0,
+      "rn_hprd": 0.38
      },
      "administrators": [
       {
@@ -1596,9 +1596,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 2.69,
       "total_nurse_hprd": 3.0,
       "rn_hprd": 0.33
@@ -1641,11 +1641,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 2.86,
-      "total_nurse_hprd": 3.39,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 2.88,
+      "total_nurse_hprd": 3.41,
       "rn_hprd": 0.83
      },
      "administrators": [
@@ -1734,11 +1734,11 @@
      "ended_before": "2026-08-26",
      "current": false,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.16,
-      "total_nurse_hprd": 4.92,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.22,
+      "total_nurse_hprd": 4.97,
       "rn_hprd": 1.42
      },
      "administrators": [
@@ -1815,9 +1815,9 @@
      "ended_before": "2026-06-24",
      "current": false,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 4.84,
       "total_nurse_hprd": 5.26,
       "rn_hprd": 1.32
@@ -1870,11 +1870,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 4.53,
-      "total_nurse_hprd": 5.08,
+      "total_nurse_hprd": 5.07,
       "rn_hprd": 1.82
      },
      "administrators": [
@@ -1939,12 +1939,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.6,
-      "total_nurse_hprd": 5.02,
-      "rn_hprd": 1.55
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.56,
+      "total_nurse_hprd": 4.97,
+      "rn_hprd": 1.53
      },
      "administrators": []
     }
@@ -1975,12 +1975,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.65,
-      "total_nurse_hprd": 5.31,
-      "rn_hprd": 1.46
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.64,
+      "total_nurse_hprd": 5.29,
+      "rn_hprd": 1.45
      },
      "administrators": [
       {
@@ -2044,12 +2044,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 20,
+      "quarters": 21,
       "first_quarter": "2021Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.92,
-      "total_nurse_hprd": 5.42,
-      "rn_hprd": 1.37
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.91,
+      "total_nurse_hprd": 5.41,
+      "rn_hprd": 1.36
      },
      "administrators": [
       {
@@ -2099,11 +2099,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 14,
+      "quarters": 15,
       "first_quarter": "2022Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.27,
-      "total_nurse_hprd": 3.64,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.28,
+      "total_nurse_hprd": 3.65,
       "rn_hprd": 0.7
      },
      "administrators": [
@@ -2128,11 +2128,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 14,
+      "quarters": 15,
       "first_quarter": "2022Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.19,
-      "total_nurse_hprd": 3.58,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.2,
+      "total_nurse_hprd": 3.59,
       "rn_hprd": 0.98
      },
      "administrators": [
@@ -2173,12 +2173,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 4,
+      "quarters": 5,
       "first_quarter": "2025Q2",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.14,
-      "total_nurse_hprd": 3.35,
-      "rn_hprd": 0.34
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.19,
+      "total_nurse_hprd": 3.39,
+      "rn_hprd": 0.33
      },
      "administrators": [
       {
@@ -2218,12 +2218,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 4,
+      "quarters": 5,
       "first_quarter": "2025Q2",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.21,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.22,
       "total_nurse_hprd": 3.47,
-      "rn_hprd": 0.6
+      "rn_hprd": 0.58
      },
      "administrators": []
     }
@@ -2248,10 +2248,10 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2018Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.61,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.62,
       "total_nurse_hprd": 3.9,
       "rn_hprd": 0.59
      },
@@ -2309,11 +2309,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.3,
-      "total_nurse_hprd": 4.54,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.26,
+      "total_nurse_hprd": 4.5,
       "rn_hprd": 0.56
      },
      "administrators": [
@@ -4022,12 +4022,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 4,
+      "quarters": 5,
       "first_quarter": "2025Q2",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 5.35,
-      "total_nurse_hprd": 6.03,
-      "rn_hprd": 2.01
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 5.38,
+      "total_nurse_hprd": 6.04,
+      "rn_hprd": 2.02
      },
      "administrators": [
       {
@@ -4081,11 +4081,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 9,
+      "quarters": 10,
       "first_quarter": "2024Q1",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.68,
-      "total_nurse_hprd": 4.04,
+      "total_nurse_hprd": 4.05,
       "rn_hprd": 0.65
      },
      "administrators": [
@@ -4120,11 +4120,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 32,
+      "quarters": 33,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.59,
-      "total_nurse_hprd": 3.98,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.6,
+      "total_nurse_hprd": 3.99,
       "rn_hprd": 0.75
      },
      "administrators": [
@@ -4215,11 +4215,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 2.72,
-      "total_nurse_hprd": 3.09,
+      "total_nurse_hprd": 3.08,
       "rn_hprd": 0.54
      },
      "administrators": [
@@ -4318,11 +4318,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 9,
+      "quarters": 10,
       "first_quarter": "2024Q1",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.68,
-      "total_nurse_hprd": 4.04,
+      "total_nurse_hprd": 4.05,
       "rn_hprd": 0.65
      },
      "administrators": [
@@ -4357,12 +4357,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 4,
+      "quarters": 5,
       "first_quarter": "2025Q2",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.79,
       "total_nurse_hprd": 4.09,
-      "rn_hprd": 0.89
+      "rn_hprd": 0.87
      },
      "administrators": [
       {
@@ -4404,12 +4404,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 10,
+      "quarters": 11,
       "first_quarter": "2023Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.41,
-      "total_nurse_hprd": 3.71,
-      "rn_hprd": 0.58
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.42,
+      "total_nurse_hprd": 3.73,
+      "rn_hprd": 0.59
      },
      "administrators": [
       {
@@ -4499,12 +4499,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 9,
+      "quarters": 10,
       "first_quarter": "2024Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.34,
-      "total_nurse_hprd": 4.75,
-      "rn_hprd": 1.23
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.39,
+      "total_nurse_hprd": 4.8,
+      "rn_hprd": 1.22
      },
      "administrators": [
       {
@@ -4577,9 +4577,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.5,
       "total_nurse_hprd": 3.76,
       "rn_hprd": 0.83
@@ -4640,12 +4640,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 15,
+      "quarters": 16,
       "first_quarter": "2022Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.57,
-      "total_nurse_hprd": 3.85,
-      "rn_hprd": 0.48
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.59,
+      "total_nurse_hprd": 3.87,
+      "rn_hprd": 0.49
      },
      "administrators": [
       {
@@ -4695,12 +4695,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 31,
+      "quarters": 32,
       "first_quarter": "2018Q3",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 5.46,
-      "total_nurse_hprd": 6.05,
-      "rn_hprd": 1.65
+      "total_nurse_hprd": 6.04,
+      "rn_hprd": 1.64
      },
      "administrators": [
       {
@@ -4766,12 +4766,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 28,
+      "quarters": 29,
       "first_quarter": "2019Q2",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.48,
       "total_nurse_hprd": 3.78,
-      "rn_hprd": 0.8
+      "rn_hprd": 0.81
      },
      "administrators": [
       {
@@ -4805,12 +4805,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 9,
+      "quarters": 10,
       "first_quarter": "2024Q1",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.51,
       "total_nurse_hprd": 3.78,
-      "rn_hprd": 0.84
+      "rn_hprd": 0.85
      },
      "administrators": [
       {
@@ -4844,9 +4844,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 3.35,
       "total_nurse_hprd": 3.78,
       "rn_hprd": 0.78
@@ -4915,11 +4915,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.01,
-      "total_nurse_hprd": 4.37,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.03,
+      "total_nurse_hprd": 4.4,
       "rn_hprd": 1.11
      },
      "administrators": [
@@ -4962,11 +4962,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 4,
+      "quarters": 5,
       "first_quarter": "2025Q2",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.34,
-      "total_nurse_hprd": 3.75,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.38,
+      "total_nurse_hprd": 3.78,
       "rn_hprd": 0.63
      },
      "administrators": [
@@ -5007,12 +5007,12 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 5,
+      "quarters": 6,
       "first_quarter": "2025Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 5.02,
-      "total_nurse_hprd": 5.42,
-      "rn_hprd": 1.73
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.99,
+      "total_nurse_hprd": 5.4,
+      "rn_hprd": 1.69
      },
      "administrators": [
       {
@@ -5076,9 +5076,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 4.05,
       "total_nurse_hprd": 4.29,
       "rn_hprd": 0.88
@@ -5149,9 +5149,9 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
+      "last_quarter": "2026Q2",
       "ct_direct_care_hprd": 4.84,
       "total_nurse_hprd": 5.26,
       "rn_hprd": 1.32
@@ -5212,11 +5212,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.43,
-      "total_nurse_hprd": 4.86,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.44,
+      "total_nurse_hprd": 4.87,
       "rn_hprd": 1.69
      },
      "administrators": [
@@ -5259,10 +5259,10 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 33,
+      "quarters": 34,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 2.78,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 2.79,
       "total_nurse_hprd": 3.11,
       "rn_hprd": 0.34
      },
@@ -5370,11 +5370,11 @@
      "ended_before": null,
      "current": true,
      "context": {
-      "quarters": 11,
+      "quarters": 12,
       "first_quarter": "2023Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.4,
-      "total_nurse_hprd": 3.52,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.39,
+      "total_nurse_hprd": 3.51,
       "rn_hprd": 0.42
      },
      "administrators": []
@@ -6161,12 +6161,12 @@
      "ended_before": "2026-10-28",
      "current": false,
      "context": {
-      "quarters": 9,
+      "quarters": 10,
       "first_quarter": "2024Q1",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.34,
-      "total_nurse_hprd": 4.75,
-      "rn_hprd": 1.23
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.39,
+      "total_nurse_hprd": 4.8,
+      "rn_hprd": 1.22
      },
      "administrators": [
       {
@@ -6340,12 +6340,12 @@
      "ended_before": "2026-06-24",
      "current": false,
      "context": {
-      "quarters": 23,
+      "quarters": 24,
       "first_quarter": "2020Q3",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.97,
-      "total_nurse_hprd": 5.64,
-      "rn_hprd": 1.66
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.96,
+      "total_nurse_hprd": 5.62,
+      "rn_hprd": 1.65
      },
      "administrators": [
       {
@@ -6379,12 +6379,12 @@
      "ended_before": "2026-06-24",
      "current": false,
      "context": {
-      "quarters": 31,
+      "quarters": 32,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 4.56,
-      "total_nurse_hprd": 4.81,
-      "rn_hprd": 0.73
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 4.52,
+      "total_nurse_hprd": 4.78,
+      "rn_hprd": 0.72
      },
      "administrators": [
       {
@@ -6434,11 +6434,11 @@
      "ended_before": "2026-06-24",
      "current": false,
      "context": {
-      "quarters": 34,
+      "quarters": 35,
       "first_quarter": "2017Q4",
-      "last_quarter": "2026Q1",
-      "ct_direct_care_hprd": 3.81,
-      "total_nurse_hprd": 4.2,
+      "last_quarter": "2026Q2",
+      "ct_direct_care_hprd": 3.82,
+      "total_nurse_hprd": 4.21,
       "rn_hprd": 0.99
      },
      "administrators": [

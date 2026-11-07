@@ -2,7 +2,7 @@
   "metadata": {
     "ccn": "075272",
     "provider_name": "ST JOSEPH'S RESIDENCE",
-    "build_date": "2026-08-04",
+    "build_date": "2026-11-07",
     "source_files": [
       "data/nursing_home_health_deficiencies_ct.json",
       "data/nursing_home_fire_safety_deficiencies_ct.json",
@@ -39,11 +39,11 @@
       "correction_date": "2025-04-10",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nutrition and Dietary Deficiencies",
       "citation_description_text": "Procure food from sources approved or considered satisfactory and store, prepare, distribute and serve food in accordance with professional standards.",
-      "source_row_hash": "af8ac7067c920480e5314cd2335d6aeaf8ff4138d49b08d234eb6b54060e4125"
+      "source_row_hash": "9375e96237fd848ac9fff9a7de3efb87741f0b47bdb00bee44ad11b6b9ef94e4"
     },
     {
       "survey_date": "2023-04-20",
@@ -60,11 +60,11 @@
       "correction_date": "2023-05-11",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Resident Rights Deficiencies",
       "citation_description_text": "Honor the resident's right to organize and participate in resident/family groups in the facility.",
-      "source_row_hash": "a8159700abb6c3f40e34db936febe3b940553a9180bedf5ab37d7e16d827fc37"
+      "source_row_hash": "6f85c9236c198203a0d62ec131b301818011658244e1df31f6cc8ee789822abf"
     },
     {
       "survey_date": "2023-04-20",
@@ -81,11 +81,11 @@
       "correction_date": "2023-05-11",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Nutrition and Dietary Deficiencies",
       "citation_description_text": "Procure food from sources approved or considered satisfactory and store, prepare, distribute and serve food in accordance with professional standards.",
-      "source_row_hash": "0269f242ec326e97eb1131815f45a7b714b5fa5bfc3b528c60def5c03f60488b"
+      "source_row_hash": "f4a44c59136b062c086f9b504c563f21bb2e5823ed24a8a1841cb117576e2c0a"
     }
   ],
   "fire_safety_deficiencies": [
@@ -104,12 +104,12 @@
       "correction_date": "2025-04-03",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": false,
       "citation_description_category": null,
       "citation_description_text": null,
       "citation_description_lookup_gap_reason": "official_lookup_row_absent",
-      "source_row_hash": "f580837c19f762aac4b6ae251c88641554e564202bd74264e7ed1d9d36a317a3"
+      "source_row_hash": "84dd2799c4783b75c461f81bccd9519d36cbaf571e84ff0bf53413f7b21a8526"
     },
     {
       "survey_date": "2025-03-27",
@@ -126,12 +126,12 @@
       "correction_date": "2025-04-03",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Inspect, test, and maintain automatic sprinkler systems.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "24448186857e7f6e144c81dd8b0f9e5a88e4a52db3f9ac9efc474dca6563ce68"
+      "source_row_hash": "ffa16e474f5fb521eef7185bfbd853db3ecdb420391291d2e87b45782d9a5979"
     },
     {
       "survey_date": "2024-03-06",
@@ -148,12 +148,12 @@
       "correction_date": "2024-03-14",
       "citation_under_idr": false,
       "citation_under_iidr": false,
-      "processing_date": "2026-05-01",
+      "processing_date": "2026-10-01",
       "citation_description_lookup_matched": true,
       "citation_description_category": "Smoke Deficiencies",
       "citation_description_text": "Inspect, test, and maintain automatic sprinkler systems.",
       "citation_description_lookup_gap_reason": null,
-      "source_row_hash": "a39f8a4fce8832227b11996420d0c557628d5bd27d277b76c816c4d9bd20def3"
+      "source_row_hash": "3a382a38ca1f8c8057185379eb0c6b0fe2004d480fc70f0ef3b6f39481e86632"
     }
   ],
   "emergency_preparedness_deficiencies": [],

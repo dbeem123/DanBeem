@@ -1,17 +1,17 @@
 {
   "schema_version": "ct-legislative-research-stats-1.0",
-  "generated_at": "2026-11-03T15:37:58",
+  "generated_at": "2026-11-07T07:09:06",
   "note": "Computed from data files published on this site. Each stat lists its source, period and caveat.",
   "stats": [
     {
       "key": "homes_below_300",
-      "value": 36,
-      "display": "36",
-      "label": "of 190 Connecticut nursing homes had an estimated direct-care staffing level below the state's 3.00 hours per resident day",
-      "period": "Q1 2026",
+      "value": 18,
+      "display": "18",
+      "label": "of 171 Connecticut nursing homes had an estimated direct-care staffing level below the state's 3.00 hours per resident day",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
-      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "homes_below_300_first",
@@ -25,140 +25,140 @@
     },
     {
       "key": "homes_below_084",
-      "value": 9,
-      "display": "9",
-      "label": "of 190 homes had an estimated licensed-nurse level below the state's 0.84 hours per resident day",
-      "period": "Q1 2026",
+      "value": 4,
+      "display": "4",
+      "label": "of 171 homes had an estimated licensed-nurse level below the state's 0.84 hours per resident day",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
-      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "median_direct_care",
-      "value": 3.42,
-      "display": "3.42",
+      "value": 3.54,
+      "display": "3.54",
       "label": "hours of direct care per resident per day at the median Connecticut home",
-      "period": "Q1 2026",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
-      "caveat": "Screening estimate from payroll data, not a DPH compliance finding."
+      "caveat": "Screening estimate from payroll data, not a DPH compliance finding. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "homes_below_360",
-      "value": 120,
-      "display": "120",
-      "label": "of 190 homes would be below 3.60 hours, the level proposed in 2025 SB 1279 (not enacted)",
-      "period": "Q1 2026",
+      "value": 95,
+      "display": "95",
+      "label": "of 171 homes would be below 3.60 hours, the level proposed in 2025 SB 1279 (not enacted)",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
-      "caveat": "Scenario only; 3.60 is not law. Screening estimate from payroll data, not a DPH compliance finding."
+      "caveat": "Scenario only; 3.60 is not law. Screening estimate from payroll data, not a DPH compliance finding. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "homes_below_410",
-      "value": 166,
-      "display": "166",
-      "label": "of 190 homes would be below 4.10 hours, the level proposed in 2023 SB 1026 (not enacted)",
-      "period": "Q1 2026",
+      "value": 142,
+      "display": "142",
+      "label": "of 171 homes would be below 4.10 hours, the level proposed in 2023 SB 1026 (not enacted)",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal, PBJ-derived screening estimate",
       "link": "/staffing/tools/nursing-home-ct-staffing-rules.html",
-      "caveat": "Scenario only; 4.10 is not law. Screening estimate from payroll data, not a DPH compliance finding."
+      "caveat": "Scenario only; 4.10 is not law. Screening estimate from payroll data, not a DPH compliance finding. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "median_rn_hprd",
-      "value": 0.6,
-      "display": "0.60",
+      "value": 0.61,
+      "display": "0.61",
       "label": "registered nurse hours per resident per day at the median home",
-      "period": "Q1 2026",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal",
       "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
-      "caveat": "Quarterly payroll data."
+      "caveat": "Quarterly payroll data. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "contract_median",
-      "value": 2.8,
-      "display": "2.8%",
+      "value": 3.8,
+      "display": "3.8%",
       "label": "percent of nursing hours worked by contract (agency) staff at the median home",
-      "period": "Q1 2026",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal",
       "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
-      "caveat": "Quarterly payroll data."
+      "caveat": "Quarterly payroll data. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "contract_10pct_homes",
-      "value": 42,
-      "display": "42",
-      "label": "of 190 homes used contract staff for 10% or more of nursing hours",
-      "period": "Q1 2026",
+      "value": 37,
+      "display": "37",
+      "label": "of 171 homes used contract staff for 10% or more of nursing hours",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal",
       "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
-      "caveat": "Quarterly payroll data."
+      "caveat": "Quarterly payroll data. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "avg_daily_residents",
-      "value": 19700,
-      "display": "About 19,700",
+      "value": 17900,
+      "display": "About 17,900",
       "label": "residents in Connecticut nursing homes on an average day",
-      "period": "Q1 2026",
+      "period": "Q2 2026",
       "source": "CMS Payroll-Based Journal resident census",
       "link": "/staffing/tools/nursing-home-statewide-staffing-comparison.html",
-      "caveat": "Sum of each reporting home's average daily census, rounded to the nearest hundred."
+      "caveat": "Sum of each reporting home's average daily census, rounded to the nearest hundred. Only 171 homes reported PBJ for Q2 2026, against 190 in Q1 2026; CMS lists 19 as not submitting staffing data. Totals for this quarter are not comparable with earlier quarters."
     },
     {
       "key": "for_profit_homes",
-      "value": 153,
-      "display": "153",
-      "label": "of 196 Connecticut nursing homes are for-profit",
-      "period": "CMS Provider Information, Aug 2026",
+      "value": 154,
+      "display": "154",
+      "label": "of 195 Connecticut nursing homes are for-profit",
+      "period": "CMS Provider Information, Oct 2026",
       "source": "CMS Nursing Home Provider Information",
       "link": "/staffing/tools/nursing-home-staffing-explorer.html",
       "caveat": "Ownership type as reported to CMS."
     },
     {
       "key": "low_star_homes",
-      "value": 83,
-      "display": "83",
+      "value": 74,
+      "display": "74",
       "label": "of 190 rated homes have a 1- or 2-star CMS overall rating",
-      "period": "CMS Provider Information, Aug 2026",
+      "period": "CMS Provider Information, Oct 2026",
       "source": "CMS Care Compare star ratings",
       "link": "/staffing/tools/nursing-home-staffing-explorer.html",
       "caveat": "CMS ratings, not calculated by these tools."
     },
     {
       "key": "health_citations_3yr",
-      "value": 4717,
-      "display": "4,717",
+      "value": 5333,
+      "display": "5,333",
       "label": "federal health inspection citations at Connecticut nursing homes",
-      "period": "Mar 31, 2023 to Mar 31, 2026",
+      "period": "Sep 2, 2023 to Sep 2, 2026",
       "source": "CMS Health Deficiencies",
       "link": "/staffing/tools/nursing-home-staffing-explorer.html",
       "caveat": "Citation counts are context, not a quality score."
     },
     {
       "key": "harm_citations_3yr",
-      "value": 141,
-      "display": "141",
+      "value": 168,
+      "display": "168",
       "label": "citations where inspectors found actual harm to a resident",
-      "period": "Mar 31, 2023 to Mar 31, 2026",
+      "period": "Sep 2, 2023 to Sep 2, 2026",
       "source": "CMS Health Deficiencies",
       "link": "/staffing/tools/nursing-home-staffing-explorer.html",
       "caveat": "Scope and severity as recorded by CMS."
     },
     {
       "key": "ij_citations_3yr",
-      "value": 66,
-      "display": "66",
+      "value": 71,
+      "display": "71",
       "label": "immediate jeopardy citations (risk of serious injury or death)",
-      "period": "Mar 31, 2023 to Mar 31, 2026",
+      "period": "Sep 2, 2023 to Sep 2, 2026",
       "source": "CMS Health Deficiencies",
       "link": "/staffing/tools/nursing-home-staffing-explorer.html",
       "caveat": "Scope and severity as recorded by CMS."
     },
     {
       "key": "federal_fines_3yr",
-      "value": 167,
-      "display": "167",
-      "label": "federal fines, totaling $3,925,517, at 101 homes",
-      "period": "May 17, 2023 to Mar 17, 2026",
+      "value": 178,
+      "display": "178",
+      "label": "federal fines, totaling $4,344,851, at 108 homes",
+      "period": "Oct 17, 2023 to Jul 9, 2026",
       "source": "CMS Penalties",
       "link": "/staffing/tools/nursing-home-staffing-explorer.html",
       "caveat": "Fines are enforcement values, not quality scores; files may not be exhaustive."

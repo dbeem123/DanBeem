@@ -204,9 +204,15 @@
   function cmsStatusNote() {
     const st = detail.cms_status;
     if (!st) return '';
-    const stopped = st.last_pbj_quarter && st.latest_pbj_quarter && st.last_pbj_quarter < st.latest_pbj_quarter;
-    if (st.in_provider_information && !stopped) return '';
     const q = v => v ? `Q${v.slice(-1)} ${v.slice(0, 4)}` : '';
+    const qIndex = v => v ? Number(v.slice(0, 4)) * 4 + Number(v.slice(-1)) : 0;
+    const behind = st.last_pbj_quarter && st.latest_pbj_quarter ? qIndex(st.latest_pbj_quarter) - qIndex(st.last_pbj_quarter) : 0;
+    // Still listed by CMS and one quarter behind: a missed submission, not a closure.
+    if (st.in_provider_information && behind === 1) {
+      return `<p class="notice cr-status-note">No CMS staffing (PBJ) report for ${q(st.latest_pbj_quarter)}${String(st.staffing_footnote) === '23' ? '; CMS footnote 23 says this facility did not submit staffing data' : ''}. Its last PBJ report is for ${q(st.last_pbj_quarter)}.</p>`;
+    }
+    const stopped = behind >= 1;
+    if (st.in_provider_information && !stopped) return '';
     const last = detail.cost_years.length ? detail.cost_years[detail.cost_years.length - 1] : null;
     const parts = [];
     if (!st.in_provider_information) parts.push(`CMS does not list this home in its Provider Information file${st.provider_information_release ? ` (${esc(st.provider_information_release)})` : ''}.`);
