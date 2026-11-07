@@ -3,6 +3,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cr_extract import extract, derive, checks
 import cr_parse
 from cr_entities import extract_entities
+from cr_period import read_period
 
 SITE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
@@ -37,6 +38,11 @@ for d in idx:
         continue
     src = f"{ROOT}/_text/{d['file']}.txt"
     t = open(src, encoding="utf-8", errors="replace").read()
+    # the report period is on pages 1-2, which the layout re-OCR skips: read it from the full text
+    head = t
+    if len(t.strip()) < 50 and os.path.exists(f"{ROOT}/ocr_full/{d['file']}.txt"):
+        head = open(f"{ROOT}/ocr_full/{d['file']}.txt", encoding="utf-8", errors="replace").read()
+    p_start, p_end = read_period(head, d.get("year")) if d.get("year") else (None, None)
     if len(t.strip()) < 50:
         # scanned report: prefer the layout re-OCR of the form pages (reocr_out/), else the first-pass OCR
         o = f"{ROOT}/reocr_out/{d['file']}.txt"
@@ -53,7 +59,8 @@ for d in idx:
         rec, P = extract(t)
         out.append({"file": d["file"], "ccn": d.get("ccn"), "year": d.get("year"), "match": d.get("match"),
                     "text_source": d["text_source"], "pages_found": sorted(P), "fields": rec,
-                    "derived": derive(rec), "checks": checks(rec), "entities": extract_entities(P)})
+                    "derived": derive(rec), "checks": checks(rec), "entities": extract_entities(P),
+                    "period": {"start": p_start.isoformat(), "end": p_end.isoformat()} if p_start else None})
     except Exception as e:
         out.append({"file": d["file"], "error": repr(e), "trace": traceback.format_exc()[-500:]})
 json.dump(out, open(f"{ROOT}/extract_all.json", "w", encoding="utf-8"), indent=0, default=float)

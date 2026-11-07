@@ -43,7 +43,7 @@
       const rows = years.slice().reverse().map(([y, r]) => {
         const med = data.statewide_medians[y] || {};
         const ok = r.validated;
-        return `<tr><td data-label="Cost year"><a href="${PAGE}?ccn=${esc(ccn)}&year=${esc(y)}">${esc(y)}</a>${ok ? '' : ' <span class="subtle">(check)</span>'}</td>
+        return `<tr><td data-label="Cost year"><a href="${PAGE}?ccn=${esc(ccn)}&year=${esc(y)}">${esc(y)}</a>${r.part_year ? ' <span class="subtle">(part year)</span>' : ''}${ok ? '' : ' <span class="subtle">(check)</span>'}</td>
           <td data-label="Direct care / day">${ok ? money2(r.direct_care_per_resident_day) : ''} <span class="subtle">${ok ? `CT ${money2(med.direct_care_per_resident_day)}` : ''}</span></td>
           <td data-label="Share of costs">${ok ? pct(r.direct_care_share_of_expenses) : ''}</td>
           <td data-label="Nursing hrs / day">${ok ? num(r.nursing_hours_per_resident_day) : ''}${ok && r.pbj_total_nurse_hprd != null ? ` / PBJ ${num(r.pbj_total_nurse_hprd)}` : ''}</td>
@@ -54,7 +54,7 @@
         <caption>DSS cost reports, most recent first</caption>
         <thead><tr><th scope="col">Cost year</th><th scope="col">Direct care per resident day</th><th scope="col">Direct care share of costs</th><th scope="col">Nursing hours per resident day</th><th scope="col">Management fees</th><th scope="col">Paid to related parties</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
-        <p class="microcopy">As reported by the home, before DSS audit. Figures that did not pass the report's own total checks are left blank; open the year for detail. Spending is not a measure of care quality.</p>`;
+        <p class="microcopy">As reported by the home, before DSS audit. Figures that did not pass the report's own total checks are left blank; open the year for detail. A part-year filing covers fewer days, so its dollar totals are smaller. Spending is not a measure of care quality.</p>`;
     } catch (err) {
       out.innerHTML = `<p class="notice error">Cost-report records could not be loaded. Details: ${esc(err.message)}</p>`;
     } finally {

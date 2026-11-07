@@ -11,6 +11,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from cr_extract import extract, derive, checks  # noqa: E402
 from cr_entities import extract_entities, categorize  # noqa: E402
 from cr_parse import split_pages, page_header  # noqa: E402
+from cr_period import read_period  # noqa: E402
 import build_ct_cost_reports as build  # noqa: E402
 
 FIX = ROOT / "scripts" / "cost_reports" / "fixtures"
@@ -86,6 +87,27 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(build.plausible({"resident_days_total": 33000, "beds_certified": 100},
                                          {"direct_care_per_resident_day": 180, "nursing_hours_per_resident_day": 4.2,
                                           "direct_care_share_of_expenses": 0.41}), [])
+
+
+class PeriodTests(unittest.TestCase):
+    def test_certification_sentence(self):
+        s, e = read_period("I certify ... for the cost report period beginning October 1, 2024 and ending June 14, 2025, and that", 2025)
+        self.assertEqual((s.isoformat(), e.isoformat()), ("2024-10-01", "2025-06-14"))
+
+    def test_period_covered_box_and_misspelling(self):
+        s, e = read_period("Period Covered: From To\nHome LLC 6/7/2024 9/30/2024", 2024)
+        self.assertEqual((s.isoformat(), e.isoformat()), ("2024-06-07", "2024-09-30"))
+        s, e = read_period("period beginning October 1, 2024 and ending Septembe 30, 2025", 2025)
+        self.assertEqual(e.isoformat(), "2025-09-30")
+
+    def test_rejects_dates_outside_the_cost_year(self):
+        self.assertEqual(read_period("period beginning October 1, 2020 and ending September 30, 2021", 2025), (None, None))
+
+    def test_fixtures_are_full_years(self):
+        for name, year in (("bethel_2023.txt", 2023), ("governors_house_2016.txt", 2016)):
+            s, e = read_period((FIX / name).read_text(encoding="utf-8"), year)
+            if s:
+                self.assertGreaterEqual((e - s).days, 359)
 
 
 class PublishedDataTests(unittest.TestCase):

@@ -19,6 +19,9 @@
   const money = v => v == null ? '' : (v < 0 ? '-$' : '$') + Math.abs(Math.round(v)).toLocaleString('en-US');
   const money2 = v => v == null ? '' : (v < 0 ? '-$' : '$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const num = (v, d = 0) => v == null ? '' : Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+  const MONTHS_LONG = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const longDate = iso => { const [y, m, d] = String(iso).split('-').map(Number); return `${MONTHS_LONG[m - 1]} ${d}, ${y}`; };
+  const partTag = y => y.part_year ? ' <span class="cr-part" title="This filing covers only part of the cost year">part year</span>' : '';
   const pct = (v, d = 1) => v == null ? '' : `${(v * 100).toFixed(d)}%`;
   function fmtDate(iso) {
     if (!iso || !/^\d{4}-\d{2}-\d{2}/.test(iso)) return iso || '';
@@ -86,7 +89,7 @@
       const p = y.pbj_same_period || {};
       const d = guarded(y);
       return `<tr>
-        <td data-label="Cost year"><button type="button" data-year="${y.cost_year}">${y.cost_year}</button> ${y.checks.validated ? '' : '<span class="cr-flag">check</span>'}</td>
+        <td data-label="Cost year"><button type="button" data-year="${y.cost_year}">${y.cost_year}</button>${partTag(y)} ${y.checks.validated ? '' : '<span class="cr-flag">check</span>'}</td>
         <td data-label="Direct care / day" class="cr-num">${money2(d.direct_care_per_resident_day)}</td>
         <td data-label="Statewide median" class="cr-num subtle">${money2(stateMedian(y.cost_year, 'direct_care_per_resident_day'))}</td>
         <td data-label="Share of costs" class="cr-num">${pct(d.direct_care_share_of_expenses)}</td>
@@ -129,7 +132,8 @@
     const adm = y.administrators_during_year.length ? y.administrators_during_year.map(a => `<a href="${ADMIN}?license=${esc(a.license_number)}">${esc(a.name)}</a>`).join('; ') : 'None in the DPH history for these months';
     const chow = y.chow_during_year.length ? y.chow_during_year.map(c => `${esc(fmtDate(c.effective_date))}: ${esc(c.seller)} to ${esc(c.buyer)}`).join('<br>') : 'None';
     return `
-      <h3>Cost year ${y.cost_year} (October 1, ${y.cost_year - 1} to September 30, ${y.cost_year})</h3>
+      <h3>Cost year ${y.cost_year} (${longDate(y.period_start || `${y.cost_year - 1}-10-01`)} to ${longDate(y.period_end || `${y.cost_year}-09-30`)})${partTag(y)}</h3>
+      ${y.part_year ? `<p class="notice cr-part-note">This filing covers ${y.period_days} days, not a full cost year, usually because the home opened, closed or changed owner. Dollar totals cover only those days; figures per resident day can still be compared. Part-year filings are left out of the statewide medians.</p>` : ''}
       <p class="subtle">Filed as <strong>${esc(y.name_on_report || '')}</strong>${y.address_on_report ? `, ${esc(y.address_on_report)}` : ''}. Read from ${esc(y.source_file)} (${esc(y.read_method)}). Printed totals: ${esc(checks || 'not checked')}. ${y.checks.validated ? '<span class="cr-ok">Checks passed</span>' : `<span class="cr-flag">Check against the original</span> ${esc(flags)}`}${y.other_filings_same_year ? ` Other filings for this year: ${y.other_filings_same_year.map(esc).join(', ')}.` : ''}</p>
       <div class="facts">
         ${factCard('Direct care per resident day', money2(d.direct_care_per_resident_day), vsState(d.direct_care_per_resident_day, 'direct_care_per_resident_day', money2))}
@@ -184,6 +188,7 @@
     const y = yearRec();
     view.innerHTML = `
       <div class="person-head"><h2 id="home-name" tabindex="-1">${esc(detail.facility_name)}</h2><span class="subtle">CCN ${esc(detail.ccn)} · <a href="${EXPLORER}?ccn=${esc(detail.ccn)}">Facility Explorer</a></span></div>
+      ${cmsStatusNote()}
       ${years.length ? `<div class="year-row" role="group" aria-label="Cost year">${years.map(v => `<button type="button" data-year="${v}" aria-pressed="${v === selectedYear}">${v}</button>`).join('')}</div>` : '<div class="notice">No DSS cost report is on file for this home. Homes that do not take Medicaid, such as many continuing-care retirement community health centers, do not file one.</div>'}
       ${years.length ? `<h3>Year by year</h3>${trendTable()}` : ''}
       ${y ? yearDetail(y) : ''}
@@ -192,6 +197,23 @@
       ${years.length ? '<div class="report-actions no-print"><button id="cr-home-csv" class="action-button secondary" type="button">Download every year for this home (CSV)</button></div>' : ''}
       <p class="microcopy">${esc(detail.caveats[0])} ${esc(detail.caveats[2])}</p>`;
     document.getElementById('cr-home-csv')?.addEventListener('click', downloadHomeCsv);
+  }
+
+  // A home missing from CMS Provider Information, or whose PBJ staffing stopped, has usually closed or left
+  // Medicare and Medicaid. Say what CMS lists rather than asserting a closure.
+  function cmsStatusNote() {
+    const st = detail.cms_status;
+    if (!st) return '';
+    const stopped = st.last_pbj_quarter && st.latest_pbj_quarter && st.last_pbj_quarter < st.latest_pbj_quarter;
+    if (st.in_provider_information && !stopped) return '';
+    const q = v => v ? `Q${v.slice(-1)} ${v.slice(0, 4)}` : '';
+    const last = detail.cost_years.length ? detail.cost_years[detail.cost_years.length - 1] : null;
+    const parts = [];
+    if (!st.in_provider_information) parts.push(`CMS does not list this home in its Provider Information file${st.provider_information_release ? ` (${esc(st.provider_information_release)})` : ''}.`);
+    if (stopped) parts.push(`Its last CMS staffing (PBJ) report is for ${q(st.last_pbj_quarter)}; the latest quarter is ${q(st.latest_pbj_quarter)}.`);
+    if (last) parts.push(`Its last DSS cost report on file ends ${longDate(last.period_end)}.`);
+    parts.push('A home drops off these lists when it closes, changes its CMS number or leaves Medicare and Medicaid.');
+    return `<p class="notice cr-status-note">${parts.join(' ')}</p>`;
   }
 
   async function choose(ccn, scroll) {
@@ -234,9 +256,10 @@
     });
     const med = index.statewide_medians[y] || {};
     const max = Math.max(...rows.map(r => r.direct_care_per_resident_day || 0), 1);
-    document.getElementById('cr-state-summary').textContent = `${rows.length} homes with checked figures for cost year ${y}. Statewide median direct care ${money2(med.direct_care_per_resident_day)} per resident day, ${pct(med.direct_care_share_of_expenses)} of costs.`;
+    const parts = rows.filter(r => r.part_year).length;
+    document.getElementById('cr-state-summary').textContent = `${rows.length} homes with checked figures for cost year ${y}${parts ? `, ${parts} of them for part of the year (marked; their dollar totals cover fewer days)` : ''}. Statewide median direct care ${money2(med.direct_care_per_resident_day)} per resident day, ${pct(med.direct_care_share_of_expenses)} of costs, from full-year filings.`;
     document.getElementById('cr-state-rows').innerHTML = rows.map(r => `<tr>
-      <td data-label="Home"><button type="button" data-ccn="${esc(r.ccn)}">${esc(r.facility_name)}</button></td>
+      <td data-label="Home"><button type="button" data-ccn="${esc(r.ccn)}">${esc(r.facility_name)}</button>${partTag(r)}</td>
       <td data-label="Direct care / day" class="cr-num"><span class="cr-bar" style="width:${Math.round(60 * (r.direct_care_per_resident_day || 0) / max)}px" aria-hidden="true"></span>${money2(r.direct_care_per_resident_day)}</td>
       <td data-label="Share of costs" class="cr-num">${pct(r.direct_care_share_of_expenses)}</td>
       <td data-label="Nursing hrs / day" class="cr-num">${num(r.nursing_hours_per_resident_day, 2)}${r.pbj_total_nurse_hprd != null ? ` / ${num(r.pbj_total_nurse_hprd, 2)}` : ''}</td>
@@ -258,22 +281,24 @@
       'direct_care_total', 'direct_salaries', 'nursing_pool', 'direct_fringe_allocated', 'direct_care_per_resident_day',
       'direct_care_share_of_costs', 'nursing_hours_reported', 'nursing_hours_per_resident_day', 'pbj_total_nurse_hprd_same_months',
       'management_fees_m12', 'related_party_total', 'total_costs_nh', 'total_revenue_nh', 'operating_margin_nh',
-      'net_income_entity', 'total_assets', 'total_liabilities', 'source_file'];
+      'net_income_entity', 'total_assets', 'total_liabilities', 'source_file', 'period_start', 'period_end', 'part_year'];
     saveCsv(`ct-cost-reports-${detail.ccn}.csv`, header, detail.cost_years.map(y => [detail.ccn, detail.facility_name, y.cost_year,
       y.checks.validated ? 'yes' : 'no', y.resident_days.resident_days_total, y.resident_days.days_medicaid_ct, y.resident_days.days_medicare,
       y.resident_days.days_private, y.direct_care.direct_care_total, y.direct_care.direct_salaries, y.direct_care.nursing_pool,
       y.direct_care.direct_fringe_allocated, y.direct_care.direct_care_per_resident_day, y.direct_care.direct_care_share_of_expenses,
       y.direct_care.nursing_hours_reported, y.direct_care.nursing_hours_per_resident_day, (y.pbj_same_period || {}).total_nurse_hprd,
       y.expenses.mgmt_fee_m12, y.related_party_total_reported, y.expenses.expenses_total_ccnh, y.revenue.rev_total,
-      y.direct_care.operating_margin_nh, y.balance_sheet.net_income_p36, y.balance_sheet.assets_total, y.balance_sheet.liabilities_total, y.source_file]));
+      y.direct_care.operating_margin_nh, y.balance_sheet.net_income_p36, y.balance_sheet.assets_total, y.balance_sheet.liabilities_total, y.source_file,
+      y.period_start, y.period_end, y.part_year ? 'yes' : 'no']));
   }
   function downloadStateCsv() {
     const y = document.getElementById('cr-year').value;
     const header = ['ccn', 'home', 'cost_year', 'direct_care_per_resident_day', 'direct_care_share_of_costs', 'nursing_hours_per_resident_day',
-      'pbj_total_nurse_hprd_same_months', 'expenses_per_resident_day', 'management_fees_m12', 'related_party_total', 'operating_margin_nh', 'medicaid_share_of_days'];
+      'pbj_total_nurse_hprd_same_months', 'expenses_per_resident_day', 'management_fees_m12', 'related_party_total', 'operating_margin_nh', 'medicaid_share_of_days', 'period_start', 'period_end', 'part_year'];
     saveCsv(`ct-cost-reports-${y}.csv`, header, stateRows().map(r => [r.ccn, r.facility_name, y, r.direct_care_per_resident_day,
       r.direct_care_share_of_expenses, r.nursing_hours_per_resident_day, r.pbj_total_nurse_hprd, r.expenses_per_resident_day,
-      r.management_fee, r.related_party_total_reported, r.operating_margin_nh, r.medicaid_share_of_days]));
+      r.management_fee, r.related_party_total_reported, r.operating_margin_nh, r.medicaid_share_of_days,
+      r.period_start, r.period_end, r.part_year ? 'yes' : 'no']));
   }
 
   // ------------------------------------------------------------------ init

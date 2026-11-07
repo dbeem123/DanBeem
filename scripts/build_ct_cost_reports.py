@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import csv
 import glob
+import datetime as dt
 import json
 import os
 import re
@@ -149,30 +150,48 @@ def chow_events():
 
 
 # ---------------------------------------------------------------- PBJ comparison for a DSS cost year
-def pbj_by_cost_year(history):
-    """Cost year Y = Oct 1 (Y-1) .. Sep 30 Y = PBJ quarters (Y-1)Q4, YQ1, YQ2, YQ3."""
-    acc = defaultdict(lambda: {"days": 0.0, "hrs": 0.0, "rn": 0.0, "lpn": 0.0, "aide": 0.0, "q": 0, "contract": 0.0})
+def pbj_quarters(history):
+    """PBJ rows keyed by CCN: [(quarter_start, quarter_end, resident_days, metrics)]."""
+    out = defaultdict(list)
     for r in history["facility_quarterly_staffing_history"]:
         days = r.get("resident_days") or 0
         m = r.get("metrics") or {}
         if not days or m.get("total_nurse_hprd") is None:
             continue
         y, q = int(r["quarter"][:4]), int(r["quarter"][-1])
-        cy = y + 1 if q == 4 else y
-        a = acc[(r["ccn"], cy)]
+        qs = dt.date(y, 3 * q - 2, 1)
+        qe = dt.date(y + (q == 4), 1 if q == 4 else 3 * q + 1, 1) - dt.timedelta(days=1)
+        out[r["ccn"]].append((qs, qe, days, m))
+    return out
+
+
+def pbj_for_period(rows, start, end):
+    """Resident-day-weighted PBJ for the quarters that overlap the report period.
+    A full cost year (Oct 1 - Sep 30) is PBJ quarters Q4 of the prior year through Q3."""
+    a = {"days": 0.0, "hrs": 0.0, "rn": 0.0, "lpn": 0.0, "aide": 0.0, "q": 0, "contract": 0.0}
+    for qs, qe, days, m in rows:
+        if qe < start or qs > end:
+            continue
         a["days"] += days; a["q"] += 1
         a["hrs"] += m["total_nurse_hprd"] * days
         a["rn"] += (m.get("rn_hprd") or 0) * days
         a["lpn"] += (m.get("lpn_lvn_hprd") or 0) * days
         a["aide"] += (m.get("nurse_aide_hprd") or 0) * days
         a["contract"] += (m.get("contract_staff_pct") or 0) * days
-    out = {}
-    for k, a in acc.items():
-        out[k] = {"quarters": a["q"], "resident_days": r0(a["days"]),
-                  "total_nurse_hprd": round(a["hrs"] / a["days"], 2), "rn_hprd": round(a["rn"] / a["days"], 2),
-                  "lpn_hprd": round(a["lpn"] / a["days"], 2), "aide_hprd": round(a["aide"] / a["days"], 2),
-                  "contract_staff_pct": round(a["contract"] / a["days"], 1)}
-    return out
+    if not a["days"]:
+        return None
+    return {"quarters": a["q"], "resident_days": r0(a["days"]),
+            "total_nurse_hprd": round(a["hrs"] / a["days"], 2), "rn_hprd": round(a["rn"] / a["days"], 2),
+            "lpn_hprd": round(a["lpn"] / a["days"], 2), "aide_hprd": round(a["aide"] / a["days"], 2),
+            "contract_staff_pct": round(a["contract"] / a["days"], 1)}
+
+
+def report_period(o):
+    """(start, end, read_from_report) for one extracted report; defaults to the standard DSS cost year."""
+    p = o.get("period")
+    if p:
+        return dt.date.fromisoformat(p["start"]), dt.date.fromisoformat(p["end"]), True
+    return dt.date(o["year"] - 1, 10, 1), dt.date(o["year"], 9, 30), False
 
 
 # ---------------------------------------------------------------- per-report public record
@@ -218,7 +237,11 @@ def plausible(f, d):
 
 def year_record(o, idx_row, pbj):
     f, d, c = o["fields"], o["derived"], o["checks"]
-    rec = {"cost_year": o["year"], "period_end": f"{o['year']}-09-30", "source_file": o["file"] + ".pdf",
+    p_start, p_end, p_read = report_period(o)
+    p_days = (p_end - p_start).days + 1
+    rec = {"cost_year": o["year"], "period_start": p_start.isoformat(), "period_end": p_end.isoformat(),
+           "period_days": p_days, "period_read_from_report": p_read, "part_year": p_days < 360,
+           "source_file": o["file"] + ".pdf",
            "read_method": {"text": "PDF text", "ocr_layout": "OCR (scanned report)", "ocr_full": "OCR (scanned report)"}.get(o["text_source"], o["text_source"]),
            "match": o.get("match"), "match_evidence": idx_row.get("evidence"),
            "name_on_report": idx_row.get("name"), "address_on_report": idx_row.get("address"),
@@ -297,7 +320,14 @@ def main():
     by_name, names = provider_maps()
     owners, owner_releases = cms_owners(by_name)
     chow, chow_file = chow_events()
-    pbj = pbj_by_cost_year(history)
+    pbj_rows = pbj_quarters(history)
+    last_pbj = {}
+    for r in history["facility_quarterly_staffing_history"]:
+        last_pbj[r["ccn"]] = max(last_pbj.get(r["ccn"], ""), r["quarter"])
+    latest_pbj = max(last_pbj.values())
+    prov_src = next((x for x in staffing["sources"] if "Provider Information" in x.get("source_dataset_name", "")), {})
+    m_rel = re.search(r"ProviderInfo_([A-Za-z]{3})(\d{4})", prov_src.get("source_release", ""))
+    prov_release = f"{m_rel.group(1)} {m_rel.group(2)}" if m_rel else None
     mgmt_fac = {f["ccn"]: f["management"] for f in mgmt["facilities"]}
     admin_fac = {f["ccn"]: f for f in admins["facilities"] if f.get("ccn")}
     current = {f["ccn"]: f for f in staffing["facilities"]}
@@ -311,8 +341,11 @@ def main():
     homes = defaultdict(dict)
     dup_notes = defaultdict(list)
     for (ccn, y), lst in by.items():
-        lst.sort(key=lambda o: (not o["checks"].get("has_core"), o["text_source"] != "text", o["file"]))
-        homes[ccn][y] = year_record(lst[0], idx.get(lst[0]["file"], {}), pbj.get((ccn, y)))
+        # an owner change can split a year into two filings: show the longer period, note the other
+        lst.sort(key=lambda o: (not o["checks"].get("has_core"), -((lambda p: (p[1] - p[0]).days)(report_period(o))),
+                                o["text_source"] != "text", o["file"]))
+        ps, pe, _ = report_period(lst[0])
+        homes[ccn][y] = year_record(lst[0], idx.get(lst[0]["file"], {}), pbj_for_period(pbj_rows.get(ccn, []), ps, pe))
         if len(lst) > 1:
             homes[ccn][y]["other_filings_same_year"] = [x["file"] + ".pdf" for x in lst[1:]]
 
@@ -322,7 +355,7 @@ def main():
         vals = defaultdict(list)
         for h in homes.values():
             r = h.get(y)
-            if not r or not r["checks"]["validated"]:
+            if not r or not r["checks"]["validated"] or r["part_year"]:
                 continue
             for k in ("direct_care_per_resident_day", "direct_care_share_of_expenses", "expenses_per_resident_day",
                       "nursing_hours_per_resident_day", "direct_care_cost_per_nursing_hour", "revenue_per_resident_day",
@@ -349,7 +382,7 @@ def main():
             for p in r["related_parties"]:
                 p["company_id"] = match_company(p.get("text"), companies)
             # management of record during the cost year (CMS)
-            start, end = f"{y - 1}-10-01", f"{y}-09-30"
+            start, end = r["period_start"], r["period_end"]
             r["cms_management_during_year"] = [
                 {k: m[k] for k in ("company_id", "name", "start", "end", "current")}
                 for m in mgmt_fac.get(ccn, []) if m["start"] <= end and (m["end"] or "9999") >= start]
@@ -363,12 +396,18 @@ def main():
                   "cms_owners": owners.get(ccn, []),
                   "cms_owners_window": {"first_release": owner_releases[0], "latest_release": owner_releases[-1]},
                   "changes_of_ownership": chow.get(ccn, []),
+                  # CMS listing status: a home missing from CMS Provider Information, or whose PBJ staffing stopped,
+                  # is usually closed or decertified. Stated as what CMS lists, not as a closure.
+                  "cms_status": {"in_provider_information": bool((current.get(ccn) or {}).get("provider_source_matched")),
+                                 "provider_information_release": prov_release,
+                                 "last_pbj_quarter": last_pbj.get(ccn), "latest_pbj_quarter": latest_pbj},
                   "caveats": CAVEATS, "corrections_notice": CORRECTIONS}
         if years or owners.get(ccn) or chow.get(ccn):
             (OUT_DIR / f"{ccn}.json").write_text(json.dumps(detail, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         index_rows.append({
             "ccn": ccn, "facility_name": name, "current": ccn in current,
-            "years": {str(y): {"validated": r["checks"]["validated"],
+            "years": {str(y): {"validated": r["checks"]["validated"], "part_year": r["part_year"],
+                               "period_start": r["period_start"], "period_end": r["period_end"],
                                "direct_care_per_resident_day": r["direct_care"].get("direct_care_per_resident_day"),
                                "direct_care_share_of_expenses": r["direct_care"].get("direct_care_share_of_expenses"),
                                "nursing_hours_per_resident_day": r["direct_care"].get("nursing_hours_per_resident_day"),
@@ -417,8 +456,9 @@ def main():
                            "salaries (page 10), plus nursing pool fees for RN, LPN and aides (page 13), plus fringe "
                            "benefits (page 15, lines 1a) allocated by nursing salaries' share of total salaries.",
             "nursing_hours": "Paid hours reported for the same staff on pages 10 and 13, divided by total resident days (page 8).",
-            "pbj_same_period": "PBJ total nurse hours per resident day for the four quarters of the cost year (Oct-Sep), resident-day weighted.",
+            "pbj_same_period": "PBJ total nurse hours per resident day for the PBJ quarters that overlap the report period (a full cost year is Q4 through Q3), resident-day weighted.",
             "validated": "Core figures present, payer days add up to the printed total, and no figure outside a plausible range.",
+            "part_year": "The report covers fewer than 360 days (the home opened, closed or changed owner). Dates come from the report's certification page. Part-year filings are left out of the statewide medians.",
         },
         "caveats": CAVEATS, "corrections_notice": CORRECTIONS,
         "summary": {"homes_with_reports": len(homes), "home_years": n_reports,
