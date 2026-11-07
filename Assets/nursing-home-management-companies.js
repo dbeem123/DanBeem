@@ -118,6 +118,39 @@
       <div class="report-actions no-print"><button id="mc-csv" class="action-button secondary" type="button">Download these records (CSV)</button></div>
       <div class="notice warning">Staffing figures are the home's CMS Payroll-Based Journal averages for the quarters whose midpoint falls in the period, weighted by resident days. Facility conditions during this period reflect many factors and are not a measure of the management company's performance.</div>` : ''}`;
     document.getElementById('mc-csv')?.addEventListener('click', () => downloadCsv(company));
+    renderDssFees(company);
+  }
+
+  // Management fees the homes themselves reported on DSS cost reports (Schedule C-1), by cost year.
+  const COST_PATH = '/data/ct_nursing_home_cost_reports.json';
+  const COST_PAGE = '/staffing/tools/nursing-home-cost-reports.html';
+  let costPromise = null;
+  async function renderDssFees(company) {
+    const view = document.getElementById('company-view');
+    document.getElementById('mc-dss-fees')?.remove();
+    const box = document.createElement('div');
+    box.id = 'mc-dss-fees';
+    view.after(box);
+    try {
+      if (!costPromise) costPromise = global.DanBeemData ? global.DanBeemData.loadJson(COST_PATH) : fetch(COST_PATH).then(r => r.json());
+      const cost = await costPromise;
+      const fees = (cost.management_fees_by_company || {})[company.id];
+      if (!fees) {
+        box.innerHTML = '<h3>Management fees reported to DSS</h3><p class="subtle">No Connecticut DSS cost report lists this company by name on its management services schedule (Schedule C-1).</p>';
+        return;
+      }
+      const names = new Map(cost.facilities.map(f => [f.ccn, f.facility_name]));
+      const money = v => `$${Math.round(v).toLocaleString('en-US')}`;
+      box.innerHTML = `<h3>Management fees reported to DSS</h3>
+        <div class="table-scroll"><table class="stack"><caption>Fees the homes reported paying this company (DSS cost reports, Schedule C-1), by cost year ending September 30</caption>
+        <thead><tr><th scope="col">Cost year</th><th scope="col">Total reported</th><th scope="col">Homes</th></tr></thead><tbody>
+        ${Object.entries(fees).reverse().map(([y, v]) => `<tr><td data-label="Cost year">${esc(y)}</td><td data-label="Total">${money(v.total)}</td>
+          <td data-label="Homes">${v.homes.map(h => `<a href="${COST_PAGE}?ccn=${esc(h.ccn)}&year=${esc(y)}">${esc(names.get(h.ccn) || h.ccn)}</a> ${money(h.amount)}`).join('; ')}</td></tr>`).join('')}
+        </tbody></table></div>
+        <p class="microcopy">As reported by each home before DSS audit. A company can be paid under a different name; only schedule lines naming this company are counted.</p>`;
+    } catch (err) {
+      box.innerHTML = `<p class="notice error">DSS cost-report records could not be loaded. Details: ${esc(err.message)}</p>`;
+    }
   }
 
   function csvCell(value) {

@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Nursing Home Cost Reports | Connecticut LTCOP</title>
+  <meta name="description" content="What each Connecticut nursing home reported spending on direct care, staffing, management and related parties in its DSS cost reports, 2015 to 2025, linked to CMS staffing, ownership and change-of-ownership records." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/nursing-home-cost-reports.js"></script>
+  <style>
+    .mc-hero { min-height:auto; display:block; padding-top:26px; padding-bottom:8px; }
+    .mc-hero .panel { display:grid; gap:12px; }
+    .search-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:end; }
+    .search-row input { width:100%; }
+    .result-list { list-style:none; margin:12px 0 0; padding:0; display:grid; gap:6px; }
+    .result-list button { width:100%; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:4px 12px; align-items:center; text-align:left; padding:10px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; cursor:pointer; font:inherit; color:inherit; }
+    .result-list button:hover, .result-list button:focus-visible { border-color:var(--ltcop-navy); }
+    .result-list button[aria-current="true"] { border-color:var(--ltcop-navy); box-shadow:inset 3px 0 0 var(--ltcop-navy); }
+    .result-name { font-weight:850; overflow-wrap:anywhere; }
+    .result-meta { color:var(--ltcop-muted); font-size:13px; grid-column:1 / -1; }
+    .status-pill { display:inline-block; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:850; letter-spacing:0.04em; border:1px solid var(--ltcop-border); background:#f4f7fb; white-space:nowrap; }
+    .status-pill.st-active { background:#e8f4ec; border-color:#9cc9ab; color:#1d5e33; }
+    .status-pill.st-inactive { background:#f3f4f6; color:#4b5563; }
+    .person-head { display:flex; flex-wrap:wrap; gap:8px 16px; align-items:baseline; }
+    .person-head h2 { margin:0; overflow-wrap:anywhere; }
+    .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin:12px 0; }
+    .fact { padding:10px 12px; border:1px solid var(--ltcop-border); border-radius:8px; background:#fff; }
+    .fact span { display:block; color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; }
+    .fact strong { display:block; margin-top:3px; font-variant-numeric:tabular-nums; }
+    .tenure { list-style:none; margin:10px 0 0; padding:0; display:grid; gap:10px; }
+    .tenure li { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:6px 14px; align-items:center; }
+    .tenure .lbl { font-size:13px; overflow-wrap:anywhere; }
+    .tenure .lbl strong { display:block; font-size:14px; }
+    .track { position:relative; height:16px; border-radius:8px; background:#eef2f7; }
+    .track i { position:absolute; top:0; bottom:0; min-width:4px; border-radius:8px; background:#173761; }
+    .track i.open { background:linear-gradient(90deg,#173761 70%,#5d7fae); }
+    .track i.partial { background:repeating-linear-gradient(45deg,#8aa0c0 0 4px,#c9d5e6 4px 8px); }
+    .track i.overlap { outline:2px solid #c2410c; outline-offset:1px; }
+    .axis { display:flex; justify-content:space-between; color:var(--ltcop-muted); font-size:12px; margin:6px 0 0; }
+    .axis-row { display:grid; grid-template-columns:minmax(0,260px) minmax(0,1fr); gap:14px; }
+    .tag { display:inline-block; padding:2px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid var(--ltcop-border); background:#f4f7fb; margin:2px 4px 0 0; white-space:nowrap; }
+    .tag.overlap { border-color:#f0b48f; background:#fff4ec; color:#9a3412; }
+    .table-scroll { overflow-x:auto; border-radius:8px; border:1px solid var(--ltcop-border); margin-top:12px; }
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    caption { text-align:left; padding:10px 12px; color:var(--ltcop-muted); font-weight:800; }
+    th, td { padding:9px 12px; text-align:left; border-top:1px solid var(--ltcop-border); vertical-align:top; font-variant-numeric:tabular-nums; }
+    thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.06em; }
+    .ctx { font-size:13px; }
+    .legend { display:flex; flex-wrap:wrap; gap:14px; font-size:12px; color:var(--ltcop-muted); margin-top:8px; }
+    .legend span::before { content:""; display:inline-block; width:18px; height:10px; border-radius:5px; vertical-align:middle; margin-right:6px; background:#173761; }
+    .legend .lg-open::before { background:linear-gradient(90deg,#173761 60%,#5d7fae); }
+    .legend .lg-partial::before { background:repeating-linear-gradient(45deg,#8aa0c0 0 4px,#c9d5e6 4px 8px); }
+    .legend .lg-overlap::before { background:#fff; outline:2px solid #c2410c; }
+    .company-table td, .company-table th { vertical-align:middle; }
+    .company-table button { font:inherit; font-weight:850; color:var(--ltcop-navy); background:none; border:0; padding:0; text-align:left; cursor:pointer; text-decoration:underline; }
+    .filter-row { display:flex; flex-wrap:wrap; gap:12px 20px; align-items:end; }
+    .filter-row > div { flex:1 1 260px; }
+    .filter-row label.inline { display:flex; gap:8px; align-items:center; font-weight:700; flex:0 1 auto; }
+    body.ltcop-dashboard .filter-row label.inline input[type="checkbox"] { width:18px; height:18px; min-height:0; margin:0; flex:none; }
+    .admin-list { margin:0; padding-left:18px; }
+    .admin-list li { margin:2px 0; }
+    @media (max-width:720px) {
+      .tenure li, .axis-row { grid-template-columns:1fr; }
+      .axis-row > :first-child { display:none; }
+      .search-row { grid-template-columns:1fr; }
+      table.stack thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      table.stack tr { display:block; border-top:1px solid var(--ltcop-border); padding:6px 0; }
+      table.stack td { display:grid; grid-template-columns:110px minmax(0,1fr); gap:8px; border-top:0; padding:4px 12px; }
+      table.stack td::before { content:attr(data-label); color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; }
+    }
+    @media print { .ltcop-masthead, footer, .no-print { display:none !important; } }
+    .cr-num { text-align:right; white-space:nowrap; }
+    .cr-bar { display:inline-block; height:9px; border-radius:5px; background:#173761; vertical-align:middle; margin-right:6px; }
+    .cr-bar.state { background:#9aa9bf; }
+    .cr-flag { display:inline-block; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #f0b48f; background:#fff4ec; color:#9a3412; }
+    .cr-ok { display:inline-block; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #9cc9ab; background:#e8f4ec; color:#1d5e33; }
+    .year-row { display:flex; flex-wrap:wrap; gap:6px; margin:8px 0 4px; }
+    .year-row button { font:inherit; font-size:13px; font-weight:800; padding:5px 10px; border-radius:999px; border:1px solid var(--ltcop-border); background:#fff; cursor:pointer; }
+    .year-row button[aria-pressed="true"] { background:var(--ltcop-navy); color:#fff; border-color:var(--ltcop-navy); }
+    .cr-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:14px; }
+    .cr-grid table td:last-child, .cr-grid table th:last-child { text-align:right; }
+    .raw { color:var(--ltcop-muted); font-size:12px; }
+    details.cr-more summary { cursor:pointer; font-weight:800; margin-top:10px; }
+  </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap mc-hero" aria-labelledby="cr-title">
+      <div class="panel">
+        <div class="pill">Connecticut DSS cost reports</div>
+        <h1 id="cr-title">Nursing Home Cost Reports</h1>
+        <p>What each Connecticut nursing home reported to the Department of Social Services about its spending, staff, owners and related companies, cost years 2015 to 2025. Each year sits beside the home's CMS staffing for the same months, the management company and administrator of record, and CMS ownership and change-of-ownership records. Also see <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>, <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a> and the <a href="/staffing/tools/nursing-home-administrator-search.html">Administrator Search</a>.</p>
+        <div class="notice warning">Figures are the home's own filing, before DSS audit or rate-setting adjustments. Spending is not a measure of care quality. Being listed as an owner or related party is not an allegation of wrongdoing.</div>
+        <noscript><div class="notice">This page needs JavaScript. The records are published as <a href="/data/ct_nursing_home_cost_reports.json">ct_nursing_home_cost_reports.json</a> with one file per home in <code>/data/cost_reports/</code>.</div></noscript>
+        <div class="search-row">
+          <div>
+            <label for="cr-search">Find a nursing home</label>
+            <input id="cr-search" type="search" placeholder="Name, town or CCN" autocomplete="off" disabled>
+          </div>
+        </div>
+        <ul id="cr-results" class="result-list" aria-label="Matching homes"></ul>
+        <p id="cr-note" class="subtle" role="status">Loading cost-report records.</p>
+      </div>
+    </section>
+
+    <section id="home-section" class="wrap content-section" aria-labelledby="home-name" hidden>
+      <div class="panel">
+        <div class="eyebrow">Nursing home</div>
+        <div id="home-view" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="state-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Statewide</div>
+            <h2 id="state-title">All homes in one cost year</h2>
+            <p class="subtle">Only figures that passed the report's own total checks are shown. Select a column heading to sort.</p>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div><label for="cr-year">Cost year (ending September 30)</label><select id="cr-year" disabled></select></div>
+        </div>
+        <p id="cr-state-summary" class="subtle" role="status" aria-live="polite"></p>
+        <div class="table-scroll"><table class="stack company-table" id="cr-state-table">
+          <caption>Connecticut nursing homes, selected cost year</caption>
+          <thead><tr>
+            <th scope="col"><button type="button" data-sort="facility_name">Home</button></th>
+            <th scope="col"><button type="button" data-sort="direct_care_per_resident_day">Direct care per resident day</button></th>
+            <th scope="col"><button type="button" data-sort="direct_care_share_of_expenses">Direct care share of costs</button></th>
+            <th scope="col"><button type="button" data-sort="nursing_hours_per_resident_day">Nursing hours per resident day (cost report / PBJ)</button></th>
+            <th scope="col"><button type="button" data-sort="management_fee">Management fees</button></th>
+            <th scope="col"><button type="button" data-sort="related_party_total_reported">Paid to related parties</button></th>
+            <th scope="col"><button type="button" data-sort="operating_margin_nh">Operating margin</button></th>
+          </tr></thead>
+          <tbody id="cr-state-rows"></tbody>
+        </table></div>
+        <div class="report-actions no-print"><button id="cr-state-csv" class="action-button secondary" type="button">Download this year (CSV)</button></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="sources-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Sources</div>
+            <h2 id="sources-title">Sources, method, limits and corrections</h2>
+          </div>
+        </div>
+        <ul id="cr-sources"></ul>
+        <h3>How the figures are computed</h3>
+        <ul id="cr-method"></ul>
+        <ul id="cr-caveats" class="subtle"></ul>
+        <p id="cr-corrections" class="notice"></p>
+        <p class="subtle">See <a href="/staffing/tools/nursing-home-staffing-methodology.html#cost-reports-method-title">About the Data</a> for the full method.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Nursing Home Cost Reports - Connecticut DSS annual cost reports with CMS records.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

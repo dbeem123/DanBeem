@@ -1,5 +1,12 @@
 {
   "schema_version": "ct-management-company-aliases-1.0",
   "note": "Reviewed links between a CMS-reported organization name and a DPH management company license name. Add an entry only after a person confirms they are the same company, with reviewed: true and a note.",
-  "aliases": []
+  "aliases": [
+    {
+      "cms_name": "I CARE MANAGEMENT",
+      "dph_name": "ICARE MANAGEMENT, LLC",
+      "reviewed": true,
+      "note": "Confirmed by Daniel Beem 2026-11-05 as the same company (spacing difference)."
+    }
+  ]
 }

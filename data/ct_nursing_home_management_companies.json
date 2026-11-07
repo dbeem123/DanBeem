@@ -1,6 +1,6 @@
 {
  "schema_version": "ct-nursing-home-management-companies-1.0",
- "generated_at": "2026-11-05T18:42:04+00:00",
+ "generated_at": "2026-11-05T20:44:39+00:00",
  "source_as_of": "2026-10-28",
  "window": {
   "first_release": "2020-01-09",
@@ -35,12 +35,12 @@
  ],
  "corrections_notice": "Records come from public state and federal sources. To report an error, email hello@danbeem.xyz.",
  "summary": {
-  "companies": 64,
+  "companies": 63,
   "homes": 112,
   "periods": 145,
   "current_periods": 58,
-  "dph_licensed_companies_matched": 10,
-  "dph_licensed_without_cms_listing": 15
+  "dph_licensed_companies_matched": 11,
+  "dph_licensed_without_cms_listing": 14
  },
  "companies": [
   {
@@ -1441,7 +1441,13 @@
    "id": "mc-i-care-management",
    "name": "I CARE MANAGEMENT",
    "other_names": [],
-   "dph_license": null,
+   "dph_license": {
+    "name": "ICARE MANAGEMENT, LLC",
+    "license_number": "000030",
+    "status": "ACTIVE",
+    "effective": "2009-09-24",
+    "expires": "2026-12-31"
+   },
    "homes_total": 5,
    "homes_current": 3,
    "homes": [
@@ -6525,21 +6531,6 @@
     "license_number": "000031",
     "status": "ACTIVE",
     "effective": "2019-01-01",
-    "expires": "2026-12-31"
-   },
-   "homes_total": 0,
-   "homes_current": 0,
-   "homes": []
-  },
-  {
-   "id": "mc-icare-management-llc",
-   "name": "ICARE MANAGEMENT, LLC",
-   "other_names": [],
-   "dph_license": {
-    "name": "ICARE MANAGEMENT, LLC",
-    "license_number": "000030",
-    "status": "ACTIVE",
-    "effective": "2009-09-24",
     "expires": "2026-12-31"
    },
    "homes_total": 0,

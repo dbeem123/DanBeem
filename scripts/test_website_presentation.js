@@ -233,6 +233,44 @@ async function main() {
     assert.equal(await page.locator('#management-output tbody tr').count(), mgmtHome.management.length);
     console.log('PASS Facility Explorer management companies: lazy load, rows, links');
 
+    const costIdx = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_nursing_home_cost_reports.json')));
+    const bethel = costIdx.facilities.find(f => f.ccn === '075400');
+    assert.ok(bethel && Object.keys(bethel.years).length >= 5, 'fixture home has cost reports');
+    await visit(route('cost-reports'));
+    await page.locator('#cr-search:not([disabled])').waitFor();
+    assert.match(await page.locator('#cr-note').innerText(), /cost reports from \d+ homes/);
+    const stateYear = await page.locator('#cr-year').inputValue();
+    const validated = costIdx.facilities.filter(f => f.years[stateYear] && f.years[stateYear].validated).length;
+    assert.equal(await page.locator('#cr-state-rows tr').count(), validated);
+    const stateCsv = await csv('#cr-state-csv');
+    assert.equal(stateCsv.trim().split('\n').length, validated + 1);
+    await page.locator('#cr-search').fill('bethel health');
+    await page.locator('#cr-results button[data-ccn="075400"]').click();
+    await page.locator('#home-name').waitFor();
+    assert.match(new URL(page.url()).search, /ccn=075400/);
+    assert.equal(await page.locator('#home-view .year-row button').count(), Object.keys(bethel.years).length);
+    await page.locator('#home-view .year-row button[data-year="2023"]').click();
+    const homeText = await page.locator('#home-view').innerText();
+    assert.match(homeText, /Cost year 2023/);
+    assert.match(homeText, /Direct care per resident day/i);
+    assert.match(homeText, /National Health Care Associates/i);
+    assert.match(homeText, /Bethel Investors, LLC/i);
+    const homeCsv = await csv('#cr-home-csv');
+    assert.equal(homeCsv.trim().split('\n').length, Object.keys(bethel.years).length + 1);
+    assert.match(await page.locator('main').innerText(), /not a measure of care quality/);
+    console.log('PASS cost reports: statewide year, search, home view, year switch, owners, CSV');
+
+    await visit(route('management-companies') + '?company=mc-national-health-care-associates-inc');
+    await page.locator('#mc-dss-fees table').waitFor();
+    assert.ok(await page.locator('#mc-dss-fees tbody tr').count() >= 1);
+    requests.length = 0;
+    await visit(route('staffing-explorer') + '?ccn=075400');
+    assert.ok(!requests.some(u => u.includes('ct_nursing_home_cost_reports.json')), 'cost-report data stays lazy');
+    await page.locator('.dossier-guide a[href="#cost-report-title"]').click();
+    await page.locator('#cost-report-output tbody tr').first().waitFor();
+    assert.equal(await page.locator('#cost-report-output tbody tr').count(), Object.keys(bethel.years).length);
+    console.log('PASS Facility Explorer cost reports and management DSS fees: lazy load, rows, links');
+
     await visit('/legislation/');
     await page.locator('#topics .topic').first().waitFor();
     assert.equal(await page.locator('#topics .topic').count(), 9);
@@ -352,7 +390,7 @@ async function main() {
     assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
     console.log('PASS 2027 session tracker: pre-session empty state');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await resize({ width, height: 1000 });

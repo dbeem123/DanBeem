@@ -12,6 +12,7 @@
   <script defer src="/Assets/nursing-home-staffing.js?v=20260804-11d20"></script>
   <script defer src="/Assets/nursing-home-administrators-of-record.js"></script>
   <script defer src="/Assets/nursing-home-management-of-record.js"></script>
+  <script defer src="/Assets/nursing-home-cost-reports-of-record.js"></script>
   <style>
     label { display:block; font-weight:800; margin-bottom:6px; }
     input,
@@ -542,6 +543,7 @@
           <a href="#ownership-detail-title"><strong>Ownership / affiliation</strong></a>
           <a href="#administrators-title"><strong>Administrators of record</strong></a>
           <a href="#management-title"><strong>Management companies</strong></a>
+          <a href="#cost-report-title"><strong>Cost reports (DSS)</strong></a>
           <a href="#report-actions-title"><strong>Reports and exports</strong></a>
           <a href="#source-note-title"><strong>Sources and limits</strong></a>
         </nav>
@@ -716,6 +718,18 @@
             </div>
           </div>
           <div id="management-output" aria-live="polite"><p class="subtle">Open this section to load the management records.</p></div>
+        </div>
+      </details>
+      <details class="ltcop-disclosure" id="cost-report-details">
+        <summary id="cost-report-title"><span role="heading" aria-level="2">Cost reports (DSS)</span></summary>
+        <div class="ltcop-disclosure-body">
+          <div class="sectionHeader">
+            <div>
+              <div class="eyebrow">Connecticut DSS Annual Cost Reports</div>
+              <p class="subtle">What this home reported spending on direct care, agency staff, management and related parties, by cost year. <a href="/staffing/tools/nursing-home-cost-reports.html">Open Cost Reports</a>.</p>
+            </div>
+          </div>
+          <div id="cost-report-output" aria-live="polite"><p class="subtle">Open this section to load the cost-report records.</p></div>
         </div>
       </details>
     </section>
