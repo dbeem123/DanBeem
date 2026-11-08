@@ -92,6 +92,10 @@ def on_site_versions():
             out["cms_snf_chow"] = (a, month_from_name(a))
         elif "Skilled Nursing Facility Cost Report" in t and a:
             out["cms_snf_cost_report"] = (a, dt.date.fromisoformat(a))
+    cpi = load("data/reference/cpi_u_us_city_average.json") or {}
+    if cpi.get("monthly"):
+        last = max(cpi["monthly"])
+        out["bls_cpi_u"] = (f"through {last}", dt.date.fromisoformat(cpi["retrieved"]))
     years = sorted({int(y) for f in cost.get("facilities", []) for y in f.get("years", {})})
     if years:
         out["ct_dss_cost_reports"] = (f"cost year {years[-1]}", dt.date(years[-1], 9, 30))

@@ -276,7 +276,7 @@
     if (!years.includes(selectedYear)) selectedYear = years[years.length - 1];
     const y = yearRec();
     view.innerHTML = `
-      <div class="person-head"><h2 id="home-name" tabindex="-1">${esc(detail.facility_name)}</h2><span class="subtle">CCN ${esc(detail.ccn)} · <a href="${EXPLORER}?ccn=${esc(detail.ccn)}">Facility Explorer</a></span></div>
+      <div class="person-head"><h2 id="home-name" tabindex="-1">${esc(detail.facility_name)}</h2><span class="subtle">CCN ${esc(detail.ccn)} · <a href="${EXPLORER}?ccn=${esc(detail.ccn)}">Facility Explorer</a> · <a href="/staffing/tools/nursing-home-cost-report-insights.html?view=home&ccn=${esc(detail.ccn)}">Trends and comparisons</a></span></div>
       ${cmsStatusNote()}
       ${years.length ? `<div class="year-row" role="group" aria-label="Cost year">${years.map(v => `<button type="button" data-year="${v}" aria-pressed="${v === selectedYear}">${v}</button>`).join('')}</div>` : '<div class="notice">No DSS cost report is on file for this home. Homes that do not take Medicaid, such as many continuing-care retirement community health centers, do not file one.</div>'}
       ${years.length ? `<h3>Year by year</h3>${trendTable()}` : ''}

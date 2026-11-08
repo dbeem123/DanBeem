@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cost Report Insights | Connecticut LTCOP</title>
+  <meta name="description" content="Trends, comparisons and peer groups from Connecticut nursing homes' DSS cost reports, 2015 to 2025: one home over time, homes side by side, management companies and chains, a pivot table, spending against nursing care, and where each home's money goes.">
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/nursing-home-cost-report-insights.js"></script>
+  <style>
+    .viz-root { --surface-1:#ffffff; --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#6b6a66; --grid:#e6e8ec; --band:#dde6f2; --median:#6b7a90;
+      --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#6250d6; --s8:#e34948; --other:#b8bfc9; }
+    .ci-hero { min-height:auto; display:block; padding-top:26px; padding-bottom:8px; }
+    .ci-hero .panel { display:grid; gap:12px; }
+    .ci-tabs { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 0; }
+    .ci-tabs button { font:inherit; font-size:14px; font-weight:800; padding:8px 14px; border-radius:999px; border:1px solid var(--ltcop-border); background:#fff; cursor:pointer; color:var(--ltcop-navy); }
+    .ci-tabs button[aria-selected="true"] { background:var(--ltcop-navy); color:#fff; border-color:var(--ltcop-navy); }
+    .ci-tabs button:focus-visible { outline:3px solid var(--ltcop-focus); outline-offset:2px; }
+    .filter-row { display:flex; flex-wrap:wrap; gap:12px 18px; align-items:end; margin:10px 0; }
+    .filter-row > div { flex:1 1 220px; min-width:0; }
+    .filter-row label.inline { display:flex; gap:8px; align-items:center; font-weight:700; flex:0 1 auto; }
+    body.ltcop-dashboard .filter-row label.inline input[type="checkbox"] { width:18px; height:18px; min-height:0; margin:0; flex:none; }
+    .home-pick { position:relative; }
+    .home-pick ul { list-style:none; margin:4px 0 0; padding:0; position:absolute; z-index:5; left:0; right:0; background:#fff; border:1px solid var(--ltcop-border); border-radius:8px; max-height:280px; overflow:auto; box-shadow:0 8px 24px rgba(15,30,60,.12); }
+    .home-pick ul:empty { display:none; }
+    .home-pick li button { width:100%; text-align:left; font:inherit; padding:8px 12px; border:0; background:none; cursor:pointer; }
+    .home-pick li button:hover, .home-pick li button:focus-visible { background:#eef3f9; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0; }
+    .chip { display:inline-flex; align-items:center; gap:6px; padding:4px 6px 4px 10px; border-radius:999px; border:1px solid var(--ltcop-border); background:#fff; color:var(--text-primary); font-size:13px; font-weight:700; }
+    .chip i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+    .chip button { font:inherit; border:0; background:none; cursor:pointer; padding:0 4px; font-size:16px; line-height:1; color:var(--ltcop-muted); }
+    .ci-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr)); gap:14px; }
+    .ci-card { border:1px solid var(--ltcop-border); border-radius:10px; background:#fff; padding:12px 12px 6px; min-width:0; }
+    .ci-card h3, .ci-card h4 { margin:0 0 2px; font-size:15px; }
+    .ci-card .sub { color:var(--ltcop-muted); font-size:12px; margin:0 0 6px; }
+    .ci-chart { position:relative; width:100%; }
+    .ci-chart svg { display:block; width:100%; height:auto; overflow:visible; }
+    .ci-chart svg text { font-family:inherit; }
+    .ci-tip { position:absolute; pointer-events:none; z-index:6; background:#0f1e33; color:#fff; font-size:12px; line-height:1.4; padding:7px 9px; border-radius:6px; max-width:260px; box-shadow:0 6px 18px rgba(0,0,0,.2); }
+    .ci-tip[hidden] { display:none; }
+    .ci-tip b { font-weight:800; }
+    .ci-legend { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; color:var(--text-secondary, #52514e); margin:6px 0; }
+    .ci-legend span { display:inline-flex; align-items:center; gap:6px; }
+    .ci-legend i { width:14px; height:10px; border-radius:3px; display:inline-block; }
+    .ci-legend i.line { height:3px; border-radius:2px; }
+    .ci-legend i.band { background:var(--band); }
+    .ci-legend i.dash { height:0; border-top:2px dashed var(--median); border-radius:0; }
+    .ci-events { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:4px; font-size:13px; }
+    .ci-events b { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:#0f1e33; color:#fff; font-size:11px; margin-right:6px; }
+    .ci-story { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:8px; }
+    .ci-story li { padding:10px 12px; border-left:4px solid var(--ltcop-navy); background:#f6f9fd; border-radius:0 8px 8px 0; }
+    .table-scroll { overflow-x:auto; border-radius:8px; border:1px solid var(--ltcop-border); margin-top:10px; }
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    caption { text-align:left; padding:10px 12px; color:var(--ltcop-muted); font-weight:800; }
+    th, td { padding:7px 10px; text-align:left; border-top:1px solid var(--ltcop-border); vertical-align:top; font-variant-numeric:tabular-nums; }
+    thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; }
+    thead th button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-transform:inherit; letter-spacing:inherit; text-decoration:underline; }
+    .num { text-align:right; white-space:nowrap; }
+    .pivot td.num { min-width:68px; }
+    .linkish { font:inherit; font-weight:800; color:var(--ltcop-navy); background:none; border:0; padding:0; text-align:left; cursor:pointer; text-decoration:underline; }
+    details.ci-more summary { cursor:pointer; font-weight:800; margin-top:8px; }
+    .ci-flag { display:inline-block; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #b9c7da; background:#eef3f9; color:#1f3a5f; }
+    [role="tabpanel"][hidden] { display:none; }
+    @media (max-width:720px) {
+      table.stack thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      table.stack tr { display:block; border-top:1px solid var(--ltcop-border); padding:6px 0; }
+      table.stack td { display:grid; grid-template-columns:120px minmax(0,1fr); gap:8px; border-top:0; padding:3px 12px; text-align:left; }
+      table.stack td::before { content:attr(data-label); color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; }
+    }
+    @media print { .ltcop-masthead, footer, .no-print { display:none !important; } }
+  </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
+        <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>
+        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>
+        <a href="/staffing/tools/nursing-home-cost-report-insights.html" aria-current="page">Cost Insights</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="viz-root">
+    <section class="hero wrap ci-hero" aria-labelledby="ci-title">
+      <div class="panel">
+        <div class="pill">Connecticut DSS cost reports, 2015 to 2025</div>
+        <h1 id="ci-title">Cost Report Insights</h1>
+        <p>Trends and comparisons built from each home's own cost reports: how one home's spending changed over time and when owners or managers changed, homes side by side, management companies and chains as peer groups, a pivot table for any figure, spending against nursing care, and where each home's money goes. Every figure is per resident day, so large and small homes compare fairly. The year-by-year detail for each home is on <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>.</p>
+        <div class="notice warning">These are the homes' own reported figures, before DSS audit. They are not a measure of care quality and are not rankings. A change that follows an ownership or management change is shown as timing only, not as its cause.</div>
+        <noscript><div class="notice">This page needs JavaScript. The data is published as <a href="/data/ct_cost_report_insights.json">ct_cost_report_insights.json</a>.</div></noscript>
+        <div class="filter-row">
+          <label class="inline"><input type="checkbox" id="ci-real"> Show dollars adjusted for inflation (in <span id="ci-base-year">2025</span> dollars)</label>
+        </div>
+        <div class="ci-tabs no-print" role="tablist" aria-label="Views">
+          <button role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true" data-view="home">One home over time</button>
+          <button role="tab" id="tab-compare" aria-controls="panel-compare" aria-selected="false" tabindex="-1" data-view="compare">Compare homes</button>
+          <button role="tab" id="tab-peers" aria-controls="panel-peers" aria-selected="false" tabindex="-1" data-view="peers">Peer groups</button>
+          <button role="tab" id="tab-pivot" aria-controls="panel-pivot" aria-selected="false" tabindex="-1" data-view="pivot">Pivot table</button>
+          <button role="tab" id="tab-scatter" aria-controls="panel-scatter" aria-selected="false" tabindex="-1" data-view="scatter">Money vs care</button>
+          <button role="tab" id="tab-flow" aria-controls="panel-flow" aria-selected="false" tabindex="-1" data-view="flow">Where the money goes</button>
+        </div>
+        <p id="ci-note" class="subtle" role="status">Loading cost-report figures.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-home" role="tabpanel" aria-labelledby="tab-home">
+      <div class="panel">
+        <div class="filter-row">
+          <div class="home-pick"><label for="home-search">Nursing home</label><input id="home-search" type="search" placeholder="Name, town or CCN" autocomplete="off"><ul id="home-results" aria-label="Matching homes"></ul></div>
+          <div><label for="home-extra">Add a chart</label><select id="home-extra"></select></div>
+        </div>
+        <div id="home-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-compare" role="tabpanel" aria-labelledby="tab-compare" hidden>
+      <div class="panel">
+        <p class="subtle">Add up to five homes. The link in your address bar reproduces this comparison.</p>
+        <div class="filter-row">
+          <div class="home-pick"><label for="cmp-search">Add a home</label><input id="cmp-search" type="search" placeholder="Name, town or CCN" autocomplete="off"><ul id="cmp-results" aria-label="Matching homes"></ul></div>
+          <div><label for="cmp-metric">Figure</label><select id="cmp-metric"></select></div>
+          <div><label for="cmp-year">Cost year</label><select id="cmp-year"></select></div>
+        </div>
+        <div id="cmp-chips" class="chips" aria-label="Homes being compared"></div>
+        <div id="cmp-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-peers" role="tabpanel" aria-labelledby="tab-peers" hidden>
+      <div class="panel">
+        <div class="filter-row">
+          <div><label for="peer-type">Group by</label><select id="peer-type"></select></div>
+          <div><label for="peer-group">Group</label><select id="peer-group"></select></div>
+          <div><label for="peer-metric">Figure</label><select id="peer-metric"></select></div>
+          <div><label for="peer-year">Cost year (for the table)</label><select id="peer-year"></select></div>
+        </div>
+        <div id="peer-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-pivot" role="tabpanel" aria-labelledby="tab-pivot" hidden>
+      <div class="panel">
+        <div class="filter-row">
+          <div><label for="pv-rows">Rows</label><select id="pv-rows"></select></div>
+          <div><label for="pv-metric">Figure</label><select id="pv-metric"></select></div>
+          <div><label for="pv-agg">Combine homes by</label><select id="pv-agg"><option value="median">Median</option><option value="mean">Average</option></select></div>
+          <div><label for="pv-filter">Filter rows</label><input id="pv-filter" type="search" placeholder="Type to filter" autocomplete="off"></div>
+        </div>
+        <div id="pv-out" aria-live="polite"></div>
+        <div class="report-actions no-print"><button id="pv-csv" class="action-button secondary" type="button">Download this table (CSV)</button></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-scatter" role="tabpanel" aria-labelledby="tab-scatter" hidden>
+      <div class="panel">
+        <div class="filter-row">
+          <div><label for="sc-x">Across (horizontal)</label><select id="sc-x"></select></div>
+          <div><label for="sc-y">Up (vertical)</label><select id="sc-y"></select></div>
+          <div><label for="sc-year">Cost year</label><select id="sc-year"></select></div>
+          <div><label for="sc-type">Highlight a group</label><select id="sc-type"></select></div>
+          <div><label for="sc-group">Group</label><select id="sc-group"></select></div>
+        </div>
+        <div id="sc-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-flow" role="tabpanel" aria-labelledby="tab-flow" hidden>
+      <div class="panel">
+        <div class="filter-row">
+          <div class="home-pick"><label for="flow-search">Nursing home</label><input id="flow-search" type="search" placeholder="Name, town or CCN" autocomplete="off"><ul id="flow-results" aria-label="Matching homes"></ul></div>
+          <div><label for="flow-year">Cost year</label><select id="flow-year"></select></div>
+        </div>
+        <div id="flow-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="ci-method-title">
+      <div class="panel">
+        <h2 id="ci-method-title">How these views are built</h2>
+        <ul id="ci-method"></ul>
+        <p class="subtle">Inflation index: <a id="ci-cpi-link" href="https://fred.stlouisfed.org/series/CPIAUCNS">CPI-U, all urban consumers, US city average</a> (Bureau of Labor Statistics, via FRED). Full method: <a href="/staffing/tools/nursing-home-staffing-methodology.html#cost-reports-method-title">About the Data</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Cost Report Insights - trends and comparisons from Connecticut DSS cost reports.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

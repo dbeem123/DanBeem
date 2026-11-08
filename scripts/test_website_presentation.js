@@ -286,6 +286,59 @@ async function main() {
     assert.match(await page.locator('main').innerText(), /not a measure of care quality/);
     console.log('PASS cost reports: statewide year, search, home view, year switch, owners, CSV');
 
+    // Cost Report Insights: six views, URL state, charts with table fallbacks, pivot CSV
+    const ins = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_cost_report_insights.json')));
+    requests.length = 0;
+    await visit(route('cost-report-insights') + '?view=home&ccn=075400');
+    await page.locator('#home-title').waitFor();
+    assert.match(await page.locator('#ci-note').innerText(), /homes, cost years 2015 to 2025/);
+    assert.equal(await page.locator('#panel-home .ci-chart[data-k] svg').count(), 6);
+    assert.match(await page.locator('#home-out').innerText(), /What changed/);
+    assert.ok(await page.locator('#home-share svg').count() === 1, 'share of every dollar chart');
+    await page.locator('#home-extra').selectOption('raw_food');
+    assert.equal(await page.locator('#panel-home .ci-chart[data-k] svg').count(), 7);
+    assert.match(new URL(page.url()).search, /extra=raw_food/);
+    await page.locator('#ci-real').check();
+    assert.match(await page.locator('#home-out').innerText(), /in 2025 dollars/i);
+    await page.locator('#ci-real').uncheck();
+    await page.locator('#tab-compare').click();
+    await page.locator('#cmp-search').fill('bethel');
+    await page.locator('#cmp-results button[data-ccn="075400"]').click();
+    await page.locator('#cmp-search').fill('075001');
+    await page.locator('#cmp-results button[data-ccn="075001"]').click();
+    assert.equal(await page.locator('#cmp-chips .chip').count(), 2);
+    assert.equal(await page.locator('#cmp-line svg').count(), 1);
+    assert.match(new URL(page.url()).search, /homes=075400%2C075001|homes=075400,075001/);
+    await page.locator('#tab-peers').click();
+    await page.locator('#peer-type').selectOption('management');
+    assert.ok(await page.locator('#peer-out tbody tr').count() >= 5, 'peer group table');
+    await page.locator('#peer-compare').click();
+    assert.equal(await page.locator('#tab-compare').getAttribute('aria-selected'), 'true');
+    assert.ok(await page.locator('#cmp-chips .chip').count() >= 2);
+    await page.locator('#tab-pivot').click();
+    await page.locator('#pv-rows').selectOption('management');
+    const pvRows = await page.locator('#pv-out tbody tr').count();
+    assert.ok(pvRows >= 5, 'pivot rows');
+    const pvCsv = await csv('#pv-csv');
+    assert.equal(pvCsv.trim().split('\n').length, pvRows + 1);
+    assert.match(pvCsv.split('\n')[0], /^row,detail,2015/);
+    await page.locator('#tab-scatter').click();
+    await page.locator('#sc-chart svg circle').first().waitFor();
+    assert.ok(await page.locator('#sc-chart svg circle').count() > 100, 'one dot per home');
+    await page.locator('#tab-flow').click();
+    await page.locator('#flow-search').fill('075400');
+    await page.locator('#flow-results button[data-ccn="075400"]').click();
+    await page.locator('#flow-chart svg').waitFor();
+    assert.match(await page.locator('#flow-out').innerText(), /Paid to related parties/);
+    assert.ok(requests.some(u => u.includes('/data/cost_reports/075400.json')), 'flow loads the home detail lazily');
+    for (const v of ['home', 'compare', 'peers', 'pivot', 'scatter', 'flow']) {
+      await visit(route('cost-report-insights') + `?view=${v}&ccn=075400&homes=075400,075001`);
+      await page.locator(`#panel-${v}:not([hidden])`).waitFor();
+      assert.ok((await page.evaluate(() => document.documentElement.scrollWidth)) <= (await page.evaluate(() => window.innerWidth)) + 1, `${v} no horizontal scroll`);
+    }
+    assert.ok(ins.homes.length >= 150);
+    console.log('PASS cost report insights: six views, URL state, constant dollars, compare, peers, pivot CSV, scatter, money flow');
+
     await visit(route('management-companies') + '?company=mc-national-health-care-associates-inc');
     await page.locator('#mc-dss-fees table').waitFor();
     assert.ok(await page.locator('#mc-dss-fees tbody tr').count() >= 1);
@@ -416,7 +469,7 @@ async function main() {
     assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
     console.log('PASS 2027 session tracker: pre-session empty state');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', route('cost-report-insights') + '?view=home&ccn=075400', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await resize({ width, height: 1000 });

@@ -65,6 +65,13 @@ Older and scanned reports often lack a readable page 18; those years show no sup
   computes CT and US medians per fiscal-year-end year from full-year reports. Refresh yearly (CMS updates the
   dataset annually; the latest year fills in over the following year and is marked "incomplete").
 
+## Cost Report Insights (added 2026-11-08)
+
+After the build, run `python scripts/build_ct_cost_report_insights.py` -> `data/ct_cost_report_insights.json`
+(per home and year values for the six views, statewide 25th/50th/75th percentile bands, peer groups, events,
+CPI-U factors), then `python scripts/test_ct_cost_report_insights.py`. When a new cost year is added, append its
+October-to-September CPI-U months (FRED series CPIAUCNS) to `data/reference/cpi_u_us_city_average.json` first.
+
 ## Checks and withholding
 
 - Printed totals: payer days sum to total care days; revenue lines sum to total revenue; liabilities sum.

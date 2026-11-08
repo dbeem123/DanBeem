@@ -172,6 +172,20 @@
       "local_folder": "source_data/cms_snf_cost_report"
     },
     {
+      "id": "bls_cpi_u",
+      "name": "Consumer Price Index for All Urban Consumers (CPI-U), US city average",
+      "publisher": "U.S. Bureau of Labor Statistics (via FRED)",
+      "page": "https://fred.stlouisfed.org/series/CPIAUCNS",
+      "access": {"type": "manual", "how": "When a new DSS cost year is added, copy the monthly CPIAUCNS values for its October-to-September months into data/reference/cpi_u_us_city_average.json, then rebuild the insights data."},
+      "frequency": "Monthly",
+      "frequency_basis": "BLS publishes CPI-U monthly. The site only needs the months of each cost year, so it is updated once a year with the cost reports.",
+      "check": "Each spring, with the new DSS cost year",
+      "max_age_days": 600,
+      "version_kind": "date",
+      "feeds": ["Cost Report Insights (constant dollars)"],
+      "local_folder": "data/reference"
+    },
+    {
       "id": "ct_dss_cost_reports",
       "name": "Annual Report of Long-Term Care Facility (nursing home cost reports)",
       "publisher": "Connecticut Department of Social Services",
@@ -182,7 +196,7 @@
       "check": "Each spring (March to May) until the new year is posted",
       "max_age_days": 600,
       "version_kind": "cost_year",
-      "feeds": ["Cost Reports", "Facility Explorer", "Management Companies (DSS fees)"],
+      "feeds": ["Cost Reports", "Cost Report Insights", "Facility Explorer", "Management Companies (DSS fees)"],
       "local_folder": "X:\\DanBeem-Data\\Cost_Reports"
     },
     {
