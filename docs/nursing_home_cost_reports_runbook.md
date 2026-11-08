@@ -37,6 +37,20 @@ addresses and amounts as filed (Daniel's decision, 2026-11-06: anything public f
 5. **Test** `python scripts/test_ct_cost_reports.py` (parser fixtures in `scripts/cost_reports/fixtures/` are
    page text from two public reports, values checked by eye against the PDF images), then the browser test.
 
+## Food and support services (added 2026-11-08)
+
+`cr_support.py` reads page 10 lines 5a-5c (dietary), 6a-6b (housekeeping), 8a-8b (laundry) and the non-salary
+pages 18 (raw food 2a1, supplies 2a2, other 2a3, contract services 2b, other 2c, total 2D), 19 (3D) and 20 (4D).
+`build_ct_cost_reports.support_services` turns them into cost per resident day:
+- all-in department cost = its salaries + their share of fringe (fringe total x department salaries / all
+  salaries, the same allocation as direct care) + the department's non-salary total, over total resident days;
+- raw food per resident day only when the home buys its own food (raw food >= $3.00 per resident day and
+  contract dietary services under half of raw food + contract). Otherwise "contractor" or "unclear";
+- page 18's lines must add up to its printed total (a negative "Other" printed only in the Total column is an
+  adjustment and is left out); if not, dietary and raw food are withheld.
+Ranges (per resident day): raw food $2-$40, dietary $5-$120, housekeeping $1-$60, laundry $0.50-$40.
+Older and scanned reports often lack a readable page 18; those years show no support figures.
+
 ## Checks and withholding
 
 - Printed totals: payer days sum to total care days; revenue lines sum to total revenue; liabilities sum.

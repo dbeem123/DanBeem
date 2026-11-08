@@ -13,6 +13,8 @@
   let detail = null;
   let selectedYear = null;
   let stateSort = { key: 'direct_care_per_resident_day', dir: -1 };
+  let supportSort = { key: 'raw_food_per_resident_day', dir: -1 };
+  const PURCHASING = { home: 'The home', contractor: 'Food-service contractor', unclear: 'Unclear' };
 
   const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
   const norm = t => String(t || '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
@@ -111,6 +113,35 @@
     return body ? `<div class="table-scroll"><table><caption>${esc(caption)}</caption><tbody>${body}</tbody></table></div>` : '';
   }
 
+  // Food, dietary, housekeeping and laundry per resident day (method in index.method)
+  function supportSection(y) {
+    const ss = y.support_services;
+    if (!ss || !['dietary', 'housekeeping', 'laundry'].some(k => ss[k]) || (y.checks.out_of_range || []).includes('resident days vs beds')) {
+      return '<h3>Food and support services</h3><p class="subtle">Not available for this year: the dietary, laundry and housekeeping pages could not be read reliably. Check the original report.</p>';
+    }
+    const f = ss.food || {}, dt = ss.dietary || {}, hk = ss.housekeeping || {}, la = ss.laundry || {};
+    const rawSub = f.purchasing === 'home' ? vsState(f.raw_food_per_resident_day, 'raw_food_per_resident_day', money2)
+      : f.purchasing === 'contractor' ? `A food-service company supplies the food (contract services ${pct(f.contract_share, 0)} of food plus contract), so raw food cannot be separated. Compare the all-in dietary cost instead.`
+      : 'Raw food could not be separated from the report. Compare the all-in dietary cost instead.';
+    const split = d => d.per_resident_day == null ? '' : d.salaries ? `Staff ${money(d.salaries)} + benefits ${money(d.fringe_allocated)} + supplies and contracts ${money(d.non_salary)}`
+      : `No staff on the home's own payroll; supplies and contracts ${money(d.non_salary)}`;
+    const other = (dt.non_salary || 0) - (f.raw_food || 0) - (f.contract_services || 0);
+    const days = y.resident_days.resident_days_total || y.resident_days.days_total_care;
+    return `<h3>Food and support services</h3>
+      ${ss.flags.length ? `<p class="subtle"><span class="cr-flag">Check against the original</span> Withheld: ${esc(ss.flags.join(', '))}.</p>` : ''}
+      <div class="facts">
+        ${factCard('Raw food per resident day', f.raw_food_per_resident_day == null ? 'Not separable' : money2(f.raw_food_per_resident_day), rawSub)}
+        ${factCard('Dietary, all-in, per resident day', money2(dt.per_resident_day), [split(dt), vsState(dt.per_resident_day, 'dietary_per_resident_day', money2)].filter(Boolean).join('<br>'))}
+        ${factCard('Housekeeping per resident day', money2(hk.per_resident_day), [split(hk), vsState(hk.per_resident_day, 'housekeeping_per_resident_day', money2)].filter(Boolean).join('<br>'))}
+        ${factCard('Laundry per resident day', money2(la.per_resident_day), [split(la), vsState(la.per_resident_day, 'laundry_per_resident_day', money2)].filter(Boolean).join('<br>'))}
+      </div>
+      ${f.lines_add_up ? kvTable('Dietary lines (pages 10 and 18, nursing home)', [['Raw food (line 2a1)', money(f.raw_food)], ['Contract dietary services (line 2b)', money(f.contract_services)], ['Supplies and other (lines 2a2, 2a3, 2c)', other ? money(other) : ''], ['Dietary staff salaries (page 10, lines 5a-5c)', money(dt.salaries)], ['Their share of benefits', money(dt.fringe_allocated)], ['Total resident days (page 8)', num(days)], ['Food bought by', esc(PURCHASING[f.purchasing] || '')]]) : ''}
+      ${!ss.dietary_staff_on_payroll && f.lines_add_up ? '<p class="subtle">No dietary staff on the home\'s own payroll: the kitchen staff are likely employed by the contractor, whose fee is in contract services.</p>' : ''}
+      <details class="cr-more"><summary>How these numbers are calculated</summary><ul>
+        ${['raw_food', 'dietary', 'housekeeping', 'laundry', 'support_costs_exclude'].filter(k => index.method[k]).map(k => `<li>${esc(index.method[k])}</li>`).join('')}
+      </ul></details>`;
+  }
+
   function yearDetail(y) {
     const d = guarded(y), rd = y.resident_days, s = y.salaries, h = y.hours, np = y.nursing_pool, ex = y.expenses,
       rv = y.revenue, bs = y.balance_sheet, p = y.pbj_same_period || {};
@@ -147,12 +178,13 @@
         ${factCard('Administrators (DPH)', adm)}
         ${factCard('Changes of ownership (CMS)', chow)}
       </div>
+      ${supportSection(y)}
       <div class="cr-grid">
         ${kvTable('Resident days (page 8)', [['Certified beds', num(y.capacity.beds_certified)], ['Medicaid (CT)', num(rd.days_medicaid_ct)], ['Medicaid (other states)', num(rd.days_medicaid_other_states)], ['Medicare', num(rd.days_medicare)], ['Private pay', num(rd.days_private)], ['Other payers', num(rd.days_other_payer)], ['Total care days', num(rd.days_total_care)], ['Total resident days', num(days)]])}
         ${kvTable('Nursing salaries and paid hours (page 10)', [['Directors of nursing', s.sal_don == null ? '' : `${money(s.sal_don)} · ${num(h.hrs_don)} h`], ['RN direct care', s.sal_rn_direct == null ? '' : `${money(s.sal_rn_direct)} · ${num(h.hrs_rn_direct)} h`], ['RN administrative', s.sal_rn_admin == null ? '' : `${money(s.sal_rn_admin)} · ${num(h.hrs_rn_admin)} h`], ['LPN direct care', s.sal_lpn_direct == null ? '' : `${money(s.sal_lpn_direct)} · ${num(h.hrs_lpn_direct)} h`], ['LPN administrative', s.sal_lpn_admin == null ? '' : `${money(s.sal_lpn_admin)} · ${num(h.hrs_lpn_admin)} h`], ['Aides and attendants', s.sal_aides == null ? '' : `${money(s.sal_aides)} · ${num(h.hrs_aides)} h`], ['All salaries', s.sal_total == null ? '' : `${money(s.sal_total)} · ${num(h.hrs_total)} h`]])}
         ${kvTable('Owner and administrator pay (page 10)', [['Operators / owners', money(s.sal_owners)], ['Administrator(s)', money(s.sal_administrator)], ['Assistant administrator', money(s.sal_asst_administrator)]])}
         ${kvTable('Agency / nursing pool (page 13)', [['RN', np.pool_rn_direct == null ? '' : `${money(np.pool_rn_direct)} · ${num(np.pool_hrs_rn_direct)} h`], ['RN administrative', money(np.pool_rn_admin)], ['LPN', np.pool_lpn_direct == null ? '' : `${money(np.pool_lpn_direct)} · ${num(np.pool_hrs_lpn_direct)} h`], ['Aides', np.pool_aides == null ? '' : `${money(np.pool_aides)} · ${num(np.pool_hrs_aides)} h`], ['All fees in lieu of salaries', money(np.prof_fees_total)]])}
-        ${kvTable('Costs by category (nursing home)', [['Administrative and general', money(ex.ag_total)], ['of which management services (line m12)', money(ex.mgmt_fee_m12)], ['Employee benefits (fringe)', money(y.fringe.fringe_total)], ['Dietary', money(ex.dietary_total)], ['Laundry', money(ex.laundry_total)], ['Housekeeping', money(ex.housekeeping_total)], ['Resident care supplies and services', money(ex.resident_care_total)], ['Maintenance and operating', money(ex.maint_operating_total)], ['Property', money(ex.property_total)], ['Interest', money(ex.interest_total)], ['Insurance', money(ex.insurance_total)], ['Total costs (nursing home)', money(ex.expenses_total_ccnh)], ['Total costs (all levels)', money(ex.expenses_total_all)]])}
+        ${kvTable('Costs by category (nursing home)', [['Administrative and general', money(ex.ag_total)], ['of which management services (line m12)', money(ex.mgmt_fee_m12)], ['Employee benefits (fringe)', money(y.fringe.fringe_total)], ['Dietary (non-salary, page 18)', money(ex.dietary_total)], ['Laundry (non-salary, page 19)', money(ex.laundry_total)], ['Housekeeping (non-salary, page 20)', money(ex.housekeeping_total)], ['Resident care supplies and services', money(ex.resident_care_total)], ['Maintenance and operating', money(ex.maint_operating_total)], ['Property', money(ex.property_total)], ['Interest', money(ex.interest_total)], ['Insurance', money(ex.insurance_total)], ['Total costs (nursing home)', money(ex.expenses_total_ccnh)], ['Total costs (all levels)', money(ex.expenses_total_all)]])}
         ${kvTable('Revenue (page 30, nursing home)', [['Medicaid (CT)', money(rv.rev_medicaid_ct)], ['Medicare', money(rv.rev_medicare)], ['Private pay and other', money(rv.rev_private)], ['Total resident revenue', money(rv.rev_resident_total)], ['Other revenue', money(rv.rev_other_total)], ['Total revenue (nursing home)', money(rv.rev_total)], ['Total revenue (all levels)', money(rv.rev_total_all)]])}
         ${kvTable('Balance sheet (pages 31 to 36, whole entity)', [['Current assets', money(bs.assets_current)], ['Total assets', money(bs.assets_total)], ['Current liabilities', money(bs.liabilities_current)], ['Long-term liabilities', money(bs.liabilities_long_term)], ['Total liabilities', money(bs.liabilities_total)], ['Net worth', money(bs.net_worth)], ['Net income or deficit', money(bs.net_income_p36)]])}
       </div>
@@ -274,6 +306,30 @@
       <td data-label="Margin" class="cr-num">${pct(r.operating_margin_nh)}</td></tr>`).join('');
   }
 
+  function renderSupport() {
+    const y = document.getElementById('cr-year').value;
+    const rows = stateRows().filter(r => ['raw_food_per_resident_day', 'dietary_per_resident_day', 'housekeeping_per_resident_day', 'laundry_per_resident_day'].some(k => r[k] != null));
+    const { key, dir } = supportSort;
+    rows.sort((a, b) => {
+      const av = a[key], bv = b[key];
+      if (typeof av === 'string' || typeof bv === 'string') return dir * String(av || '').localeCompare(String(bv || ''));
+      return dir * ((av == null ? -Infinity : av) - (bv == null ? -Infinity : bv));
+    });
+    const med = index.statewide_medians[y] || {};
+    const own = rows.filter(r => r.food_purchasing === 'home').length, con = rows.filter(r => r.food_purchasing === 'contractor').length;
+    document.getElementById('cr-support-summary').textContent = med.dietary_per_resident_day == null ? `No food and support figures for cost year ${y}.`
+      : `${rows.length} homes for cost year ${y}. ${own} buy their own food; ${con} have a food-service contractor supply it (raw food not separable). Statewide medians per resident day: raw food ${money2(med.raw_food_per_resident_day)}, dietary all-in ${money2(med.dietary_per_resident_day)}, housekeeping ${money2(med.housekeeping_per_resident_day)}, laundry ${money2(med.laundry_per_resident_day)}.`;
+    document.getElementById('cr-support-rows').innerHTML = rows.map(r => `<tr>
+      <td data-label="Home"><button type="button" data-ccn="${esc(r.ccn)}">${esc(r.facility_name)}</button>${partTag(r)}</td>
+      <td data-label="Raw food / day" class="cr-num">${r.raw_food_per_resident_day == null ? '<span class="subtle">not separable</span>' : money2(r.raw_food_per_resident_day)}</td>
+      <td data-label="Food bought by">${esc(PURCHASING[r.food_purchasing] || '')}</td>
+      <td data-label="Dietary all-in / day" class="cr-num">${money2(r.dietary_per_resident_day)}</td>
+      <td data-label="Housekeeping / day" class="cr-num">${money2(r.housekeeping_per_resident_day)}</td>
+      <td data-label="Laundry / day" class="cr-num">${money2(r.laundry_per_resident_day)}</td></tr>`).join('');
+    document.getElementById('cr-support-method').innerHTML = ['raw_food', 'dietary', 'housekeeping', 'laundry', 'support_costs_exclude']
+      .filter(k => index.method[k]).map(k => `<li>${esc(index.method[k])}</li>`).join('');
+  }
+
   // ------------------------------------------------------------------ CSV
   const csvCell = v => { const t = v == null ? '' : String(v); return /[",\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t; };
   function saveCsv(name, header, rows) {
@@ -287,7 +343,12 @@
       'direct_care_total', 'direct_salaries', 'nursing_pool', 'direct_fringe_allocated', 'direct_care_per_resident_day',
       'direct_care_share_of_costs', 'nursing_hours_reported', 'nursing_hours_per_resident_day', 'pbj_total_nurse_hprd_same_months',
       'management_fees_m12', 'related_party_total', 'total_costs_nh', 'total_revenue_nh', 'operating_margin_nh',
-      'net_income_entity', 'total_assets', 'total_liabilities', 'source_file', 'period_start', 'period_end', 'part_year'];
+      'net_income_entity', 'total_assets', 'total_liabilities', 'source_file', 'period_start', 'period_end', 'part_year',
+      'raw_food', 'raw_food_per_resident_day', 'food_bought_by', 'dietary_contract_services', 'dietary_all_in_per_resident_day',
+      'housekeeping_all_in_per_resident_day', 'laundry_all_in_per_resident_day'];
+    const sup = y => { const ss = y.support_services || {}, f = ss.food || {};
+      return [f.raw_food, f.raw_food_per_resident_day, f.purchasing, f.contract_services, (ss.dietary || {}).per_resident_day,
+        (ss.housekeeping || {}).per_resident_day, (ss.laundry || {}).per_resident_day]; };
     saveCsv(`ct-cost-reports-${detail.ccn}.csv`, header, detail.cost_years.map(y => [detail.ccn, detail.facility_name, y.cost_year,
       y.checks.validated ? 'yes' : 'no', y.resident_days.resident_days_total, y.resident_days.days_medicaid_ct, y.resident_days.days_medicare,
       y.resident_days.days_private, y.direct_care.direct_care_total, y.direct_care.direct_salaries, y.direct_care.nursing_pool,
@@ -295,16 +356,18 @@
       y.direct_care.nursing_hours_reported, y.direct_care.nursing_hours_per_resident_day, (y.pbj_same_period || {}).total_nurse_hprd,
       y.expenses.mgmt_fee_m12, y.related_party_total_reported, y.expenses.expenses_total_ccnh, y.revenue.rev_total,
       y.direct_care.operating_margin_nh, y.balance_sheet.net_income_p36, y.balance_sheet.assets_total, y.balance_sheet.liabilities_total, y.source_file,
-      y.period_start, y.period_end, y.part_year ? 'yes' : 'no']));
+      y.period_start, y.period_end, y.part_year ? 'yes' : 'no', ...sup(y)]));
   }
   function downloadStateCsv() {
     const y = document.getElementById('cr-year').value;
     const header = ['ccn', 'home', 'cost_year', 'direct_care_per_resident_day', 'direct_care_share_of_costs', 'nursing_hours_per_resident_day',
-      'pbj_total_nurse_hprd_same_months', 'expenses_per_resident_day', 'management_fees_m12', 'related_party_total', 'operating_margin_nh', 'medicaid_share_of_days', 'period_start', 'period_end', 'part_year'];
+      'pbj_total_nurse_hprd_same_months', 'expenses_per_resident_day', 'management_fees_m12', 'related_party_total', 'operating_margin_nh', 'medicaid_share_of_days', 'period_start', 'period_end', 'part_year',
+      'raw_food_per_resident_day', 'food_bought_by', 'dietary_all_in_per_resident_day', 'housekeeping_all_in_per_resident_day', 'laundry_all_in_per_resident_day'];
     saveCsv(`ct-cost-reports-${y}.csv`, header, stateRows().map(r => [r.ccn, r.facility_name, y, r.direct_care_per_resident_day,
       r.direct_care_share_of_expenses, r.nursing_hours_per_resident_day, r.pbj_total_nurse_hprd, r.expenses_per_resident_day,
       r.management_fee, r.related_party_total_reported, r.operating_margin_nh, r.medicaid_share_of_days,
-      r.period_start, r.period_end, r.part_year ? 'yes' : 'no']));
+      r.period_start, r.period_end, r.part_year ? 'yes' : 'no', r.raw_food_per_resident_day, r.food_purchasing,
+      r.dietary_per_resident_day, r.housekeeping_per_resident_day, r.laundry_per_resident_day]));
   }
 
   // ------------------------------------------------------------------ init
@@ -344,7 +407,7 @@
     const ysel = document.getElementById('cr-year');
     ysel.innerHTML = years.slice().reverse().map(y => `<option value="${y}">${y}</option>`).join('');
     ysel.disabled = false;
-    ysel.addEventListener('change', renderState);
+    ysel.addEventListener('change', () => { renderState(); renderSupport(); });
     document.querySelector('#cr-state-table thead').addEventListener('click', e => {
       const b = e.target.closest('button[data-sort]');
       if (!b) return;
@@ -353,7 +416,15 @@
     });
     document.getElementById('cr-state-rows').addEventListener('click', e => { const b = e.target.closest('button[data-ccn]'); if (b) choose(b.dataset.ccn, true); });
     document.getElementById('cr-state-csv').addEventListener('click', downloadStateCsv);
+    document.querySelector('#cr-support-table thead').addEventListener('click', e => {
+      const b = e.target.closest('button[data-sort]');
+      if (!b) return;
+      supportSort = { key: b.dataset.sort, dir: supportSort.key === b.dataset.sort ? -supportSort.dir : (['facility_name', 'food_purchasing'].includes(b.dataset.sort) ? 1 : -1) };
+      renderSupport();
+    });
+    document.getElementById('cr-support-rows').addEventListener('click', e => { const b = e.target.closest('button[data-ccn]'); if (b) choose(b.dataset.ccn, true); });
     renderState();
+    renderSupport();
     const ccn = new URLSearchParams(global.location.search).get('ccn');
     if (ccn && /^\d{6}$/.test(ccn)) choose(ccn, false);
   }

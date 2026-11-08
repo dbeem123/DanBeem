@@ -211,6 +211,10 @@ FIELDS = {
                  "expenses_total_all", "expenses_total_p36"],
     "revenue": ["rev_medicaid_ct", "rev_medicare", "rev_private", "rev_resident_total", "rev_other_total", "rev_total",
                 "rev_total_all", "revenue_total_p36"],
+    "support": ["sal_head_dietitian", "sal_food_supervisor", "sal_dietary_workers", "diet_raw_food",
+                "diet_nonfood_supplies", "diet_other_inhouse", "diet_purchased_services", "diet_other",
+                "sal_head_housekeeper", "sal_housekeeping_workers", "hk_supplies", "hk_purchased_services",
+                "sal_laundry_supervisor", "sal_laundry_workers", "laundry_purchased_services"],
     "balance_sheet": ["assets_current", "assets_total", "liabilities_current", "liabilities_long_term",
                       "liabilities_total", "net_worth", "net_income_p36"],
 }
@@ -233,6 +237,82 @@ def plausible(f, d):
     if s is not None and not (0.15 <= s <= 0.85):
         bad.append("direct care share of expenses")
     return bad
+
+
+# Support services per resident day. Ranges outside these are almost always a misread line.
+SUPPORT_RANGES = {"raw_food": (2, 40), "dietary": (5, 120), "housekeeping": (1, 60), "laundry": (0.5, 40)}
+RAW_FOOD_MIN_PRD = 3.0       # below this the home is not buying most of its own food
+CONTRACT_SHARE_MAX = 0.5     # contract dietary services at or above this share of (raw food + contract) = food by contractor
+
+
+def support_services(f, days):
+    """Food, dietary, housekeeping and laundry cost per resident day, with how each was reached.
+    Department cost = its salaries (page 10) + their share of fringe benefits (page 15, by share of all salaries)
+    + the department's non-salary total (pages 18, 19, 20: supplies, contracts, other)."""
+    if not days:
+        return None
+    g = lambda k: f.get(k) or 0
+    sal_total, fringe = f.get("sal_total"), f.get("fringe_total")
+    fr_rate = fringe / sal_total if fringe and sal_total else 0
+    out, flags = {"fringe_rate": round(fr_rate, 4)}, []
+
+    def dept(name, sal_keys, nonsal_key):
+        sal = sum(g(k) for k in sal_keys)
+        nonsal = f.get(nonsal_key)
+        if not sal and not nonsal:
+            return None
+        fr = sal * fr_rate
+        total = sal + fr + (nonsal or 0)
+        prd = round(total / days, 2)
+        lo, hi = SUPPORT_RANGES[name]
+        if not (lo <= prd <= hi):
+            flags.append(f"{name} per resident day")
+            return {"salaries": r0(sal), "fringe_allocated": r0(fr), "non_salary": r0(nonsal), "total": r0(total),
+                    "per_resident_day": None}
+        return {"salaries": r0(sal), "fringe_allocated": r0(fr), "non_salary": r0(nonsal), "total": r0(total),
+                "per_resident_day": prd}
+
+    out["dietary"] = dept("dietary", ("sal_head_dietitian", "sal_food_supervisor", "sal_dietary_workers"), "dietary_total")
+    out["housekeeping"] = dept("housekeeping", ("sal_head_housekeeper", "sal_housekeeping_workers"), "housekeeping_total")
+    out["laundry"] = dept("laundry", ("sal_laundry_supervisor", "sal_laundry_workers"), "laundry_total")
+
+    # dietary lines must add up to the printed dietary total before any part of it is shown
+    parts = [g(k) for k in ("diet_raw_food", "diet_nonfood_supplies", "diet_other_inhouse", "diet_purchased_services", "diet_other")]
+    dt = f.get("dietary_total")
+    close = lambda v: bool(dt) and abs(v - dt) <= max(5, 0.005 * dt)
+    # a negative "Other" that is an adjustment printed only in the Total column (e.g. meals sold outside
+    # the home) is not part of the nursing-home column: accept the lines if they add up without it
+    parts_ok = close(sum(parts)) or close(sum(x for x in parts if x > 0))
+    raw, contract = g("diet_raw_food"), g("diet_purchased_services")
+    food = {"raw_food": r0(raw) if f.get("diet_raw_food") is not None else None,
+            "nonfood_supplies": f.get("diet_nonfood_supplies"), "other_in_house": f.get("diet_other_inhouse"),
+            "contract_services": f.get("diet_purchased_services"), "other": f.get("diet_other"),
+            "lines_add_up": parts_ok, "raw_food_per_resident_day": None}
+    if not parts_ok:
+        food["purchasing"] = "unclear"
+        flags.append("dietary lines do not add up")
+        if out["dietary"]:
+            out["dietary"]["per_resident_day"] = None
+    else:
+        raw_prd = raw / days
+        share = contract / (raw + contract) if raw + contract else None
+        food["contract_share"] = round(share, 4) if share is not None else None
+        if raw_prd >= RAW_FOOD_MIN_PRD and (share or 0) < CONTRACT_SHARE_MAX:
+            lo, hi = SUPPORT_RANGES["raw_food"]
+            if lo <= raw_prd <= hi:
+                food["purchasing"] = "home"
+                food["raw_food_per_resident_day"] = round(raw_prd, 2)
+            else:
+                food["purchasing"] = "unclear"
+                flags.append("raw food per resident day")
+        elif contract and (share or 0) >= CONTRACT_SHARE_MAX:
+            food["purchasing"] = "contractor"
+        else:
+            food["purchasing"] = "unclear"
+    out["food"] = food
+    out["dietary_staff_on_payroll"] = bool(g("sal_head_dietitian") + g("sal_food_supervisor") + g("sal_dietary_workers"))
+    out["flags"] = flags
+    return out
 
 
 def year_record(o, idx_row, pbj):
@@ -272,6 +352,7 @@ def year_record(o, idx_row, pbj):
         money_flags.append("operating margin")
         dc.pop("operating_margin_nh")
     rec["direct_care"] = dc
+    rec["support_services"] = support_services(f, days)
     rec["payer_mix"] = d.get("payer_mix")
     rec["pbj_same_period"] = pbj
     if pbj and d.get("nursing_hours_per_resident_day"):
@@ -364,6 +445,12 @@ def main():
                     vals[k].append(r["direct_care"][k])
             if r["payer_mix"]:
                 vals["medicaid_share_of_days"].append(r["payer_mix"].get("medicaid_ct") or 0)
+            ss = r.get("support_services") or {}
+            if (ss.get("food") or {}).get("raw_food_per_resident_day") is not None:
+                vals["raw_food_per_resident_day"].append(ss["food"]["raw_food_per_resident_day"])
+            for dept in ("dietary", "housekeeping", "laundry"):
+                if (ss.get(dept) or {}).get("per_resident_day") is not None:
+                    vals[f"{dept}_per_resident_day"].append(ss[dept]["per_resident_day"])
         state[y] = {"reports": len(vals["direct_care_per_resident_day"]),
                     **{k: round(statistics.median(v), 4 if "share" in k or "margin" in k else 2) for k, v in vals.items() if v}}
 
@@ -417,7 +504,12 @@ def main():
                                "operating_margin_nh": r["direct_care"].get("operating_margin_nh"),
                                "management_fee": r["expenses"].get("mgmt_fee_m12"),
                                "related_party_total_reported": r.get("related_party_total_reported"),
-                               "medicaid_share_of_days": (r.get("payer_mix") or {}).get("medicaid_ct")}
+                               "medicaid_share_of_days": (r.get("payer_mix") or {}).get("medicaid_ct"),
+                               "raw_food_per_resident_day": ((r.get("support_services") or {}).get("food") or {}).get("raw_food_per_resident_day"),
+                               "food_purchasing": ((r.get("support_services") or {}).get("food") or {}).get("purchasing"),
+                               "dietary_per_resident_day": ((r.get("support_services") or {}).get("dietary") or {}).get("per_resident_day"),
+                               "housekeeping_per_resident_day": ((r.get("support_services") or {}).get("housekeeping") or {}).get("per_resident_day"),
+                               "laundry_per_resident_day": ((r.get("support_services") or {}).get("laundry") or {}).get("per_resident_day")}
                       for y, r in sorted(years.items())},
             "cms_current_owner_count": sum(1 for x in owners.get(ccn, []) if x["current"]),
             "changes_of_ownership": len(chow.get(ccn, [])),
@@ -459,6 +551,28 @@ def main():
             "nursing_hours": "Paid hours reported for the same staff on pages 10 and 13, divided by total resident days (page 8).",
             "pbj_same_period": "PBJ total nurse hours per resident day for the PBJ quarters that overlap the report period (a full cost year is Q4 through Q3), resident-day weighted.",
             "validated": "Core figures present, payer days add up to the printed total, and no figure outside a plausible range.",
+            "raw_food": "Raw food cost per resident day = the Raw Food line (page 18, line 2a1, nursing home column) "
+                        "divided by total resident days (page 8). Shown only when the home buys its own food: raw food "
+                        "is at least $3.00 per resident day and contract dietary services (line 2b) are under half of raw "
+                        "food plus contract services. When a food-service company supplies the food, its cost is inside the "
+                        "contract fee and cannot be separated, so only the all-in dietary cost is shown. Raw food may "
+                        "include staff or guest meals where the home reports them in the dietary total (questions G and J "
+                        "on page 18).",
+            "dietary": "All-in dietary cost per resident day = dietary salaries (page 10, lines 5a-5c: dietitian, food "
+                       "service supervisor, dietary workers) + their share of fringe benefits (page 15, allocated by "
+                       "dietary salaries' share of all salaries) + total dietary expenditures (page 18, line 2D: raw food, "
+                       "non-food supplies, other, contract services), divided by total resident days. This compares homes "
+                       "that run their own kitchen with homes that contract it out. Shown only when page 18's lines add "
+                       "up to its printed total.",
+            "housekeeping": "All-in housekeeping cost per resident day = housekeeping salaries (page 10, lines 6a-6b) + "
+                            "their share of fringe benefits + total housekeeping expenditures (page 20, line 4D: supplies "
+                            "and contract services), divided by total resident days.",
+            "laundry": "All-in laundry cost per resident day = laundry salaries (page 10, lines 8a-8b) + their share of "
+                       "fringe benefits + total laundry expenditures (page 19, line 3D: in-house costs and linen or "
+                       "laundry contracts), divided by total resident days.",
+            "support_costs_exclude": "None of the support figures include management-company charges reported on page 16, "
+                                     "kitchen or laundry equipment depreciation and building costs (property), or "
+                                     "utilities; a contractor's fee includes its own overhead and profit.",
             "part_year": "The report covers fewer than 360 days (the home opened, closed or changed owner). Dates come from the report's certification page. Part-year filings are left out of the statewide medians.",
         },
         "caveats": CAVEATS, "corrections_notice": CORRECTIONS,

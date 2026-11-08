@@ -96,6 +96,23 @@ def extract(text):
     put("days_bed_reserve_medicaid", find(P, "8", r"Medicaid Bed Reserve")[0])
     put("resident_days_total", find(P, "8", r"Total Resident Days")[0])
 
+    # 2023+ forms put the nursing home in one "CCNH / RHNS" column. A home that also runs a separate RHNS
+    # unit shows it in its own column on page 8 (and on page 10 onward), which the old-form rule above would
+    # add to the nursing-home days while the costs leave it out: read the nursing-home column alone.
+    if P.get("10") and P.get("8"):
+        h8 = [n for n, _ in page_header(P["8"][0])[0]]
+        h10 = [n for n, _ in page_header(P["10"][0])[0]]
+        if h8[:3] == ["Total", "NH", "NH#2"] and "NH" in h10:
+            for key, pat in (("beds_certified", r"On last day of THIS"), ("residents_end", r"(As of midnight|midnight) of THIS"),
+                             ("days_medicare", r"^A\.?\s*Medicare\b|^Medicare\b"), ("days_medicaid_ct", r"Medicaid \(Conn"),
+                             ("days_medicaid_other_states", r"Medicaid \(other"), ("days_private", r"Private Pay"),
+                             ("days_other_payer", r"^F\.?\s*Other|Other \(Specify"), ("days_total_care", r"Total Care Days"),
+                             ("days_bed_reserve_medicaid", r"Medicaid Bed Reserve"), ("resident_days_total", r"Total Resident Days")):
+                vals = find(P, "8", pat)[1]
+                if vals and vals.get("NH#2"):
+                    rec[key] = vals.get("NH")
+                    notes.append(f"{key}: separate RHNS unit left out")
+
     # ---- salaries (CSP-10): CCNH/RHNS column + hours ----
     def sal(pat, **kw):
         v, cols = find(P, "10", pat, **kw)
@@ -194,6 +211,10 @@ def extract(text):
             rec["rev_total"] = rec["revenue_total_p36"]; filled.append("rev_total")
     rec["filled_from_p36"] = filled or None
 
+    # ---- support services: dietary, laundry, housekeeping (CSP-10, 18, 19, 20) ----
+    from cr_support import support_lines
+    for k, v in support_lines(P).items():
+        rec.setdefault(k, v)
     return rec, P
 
 

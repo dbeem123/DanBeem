@@ -176,6 +176,33 @@
       </div>
     </section>
 
+    <section class="wrap content-section" aria-labelledby="support-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Statewide</div>
+            <h2 id="support-title">Food, dietary, housekeeping and laundry</h2>
+            <p class="subtle">Cost per resident day for the cost year selected above, from each home's own report. Raw food is shown only when the home buys its own food; the all-in dietary cost compares every home, including those that contract out their kitchen. Select a column heading to sort.</p>
+          </div>
+        </div>
+        <p id="cr-support-summary" class="subtle" role="status" aria-live="polite"></p>
+        <div class="table-scroll"><table class="stack company-table" id="cr-support-table">
+          <caption>Food and support-service costs per resident day, selected cost year</caption>
+          <thead><tr>
+            <th scope="col"><button type="button" data-sort="facility_name">Home</button></th>
+            <th scope="col"><button type="button" data-sort="raw_food_per_resident_day">Raw food per resident day</button></th>
+            <th scope="col"><button type="button" data-sort="food_purchasing">Food bought by</button></th>
+            <th scope="col"><button type="button" data-sort="dietary_per_resident_day">Dietary, all-in, per resident day</button></th>
+            <th scope="col"><button type="button" data-sort="housekeeping_per_resident_day">Housekeeping per resident day</button></th>
+            <th scope="col"><button type="button" data-sort="laundry_per_resident_day">Laundry per resident day</button></th>
+          </tr></thead>
+          <tbody id="cr-support-rows"></tbody>
+        </table></div>
+        <details class="cr-more"><summary>How these numbers are calculated</summary><ul id="cr-support-method"></ul></details>
+        <p class="subtle">These columns are also in the "Download this year (CSV)" file above.</p>
+      </div>
+    </section>
+
     <section class="wrap content-section" aria-labelledby="sources-title">
       <div class="panel">
         <div class="sectionHeader">

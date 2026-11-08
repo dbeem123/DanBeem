@@ -82,6 +82,41 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(rp["Bethel Realty"]["category"], "rent / lease / real estate")
         self.assertEqual(categorize("Drugs/OTC/RX Consulting"), "pharmacy / supplies")
 
+    def test_support_lines_cook_willow_2025(self):
+        # Page text of the public 2025 report, values checked against the report: pages 10, 18, 19, 20.
+        rec, _ = extract((FIX / "cook_willow_2025_support.txt").read_text(encoding="utf-8"))
+        self.assertEqual(rec["resident_days_total"], 20101)
+        self.assertEqual(rec["sal_dietary_workers"], 439858)
+        self.assertEqual(rec["sal_housekeeping_workers"], 201658)
+        self.assertEqual(rec["sal_laundry_workers"], 89051)
+        self.assertEqual(rec["diet_raw_food"], 337238)
+        self.assertEqual(rec["diet_nonfood_supplies"], 32378)
+        self.assertEqual(rec["dietary_total"], 369616)
+        self.assertEqual(rec["laundry_total"], 17957)
+        self.assertEqual(rec["housekeeping_total"], 35379)
+
+    def test_support_services_rules(self):
+        base = {"sal_total": 1_000_000, "fringe_total": 200_000}
+        home = build.support_services(dict(base, sal_dietary_workers=100_000, diet_raw_food=90_000, diet_nonfood_supplies=10_000,
+                                           diet_purchased_services=5_000, dietary_total=105_000), 10_000)
+        self.assertEqual(home["food"]["purchasing"], "home")
+        self.assertEqual(home["food"]["raw_food_per_resident_day"], 9.0)
+        # salaries 100,000 + fringe 20% + non-salary 105,000 over 10,000 days
+        self.assertEqual(home["dietary"]["per_resident_day"], 22.5)
+        contractor = build.support_services(dict(base, diet_raw_food=2_000, diet_purchased_services=300_000, dietary_total=302_000), 10_000)
+        self.assertEqual(contractor["food"]["purchasing"], "contractor")
+        self.assertIsNone(contractor["food"]["raw_food_per_resident_day"])
+        self.assertEqual(contractor["dietary"]["per_resident_day"], 30.2)
+        mismatch = build.support_services(dict(base, sal_dietary_workers=100_000, diet_raw_food=90_000, dietary_total=150_000), 10_000)
+        self.assertIsNone(mismatch["food"]["raw_food_per_resident_day"])
+        self.assertIsNone(mismatch["dietary"]["per_resident_day"])
+        self.assertIn("dietary lines do not add up", mismatch["flags"])
+        # a negative adjustment printed only in the Total column is not part of the nursing-home column
+        adj = build.support_services(dict(base, diet_raw_food=90_000, diet_nonfood_supplies=10_000, diet_other=-5_000,
+                                          dietary_total=100_000), 10_000)
+        self.assertTrue(adj["food"]["lines_add_up"])
+        self.assertIsNone(build.support_services(base, 0))
+
     def test_plausibility_flags(self):
         self.assertIn("resident days vs beds", build.plausible({"resident_days_total": 900000, "beds_certified": 100}, {}))
         self.assertEqual(build.plausible({"resident_days_total": 33000, "beds_certified": 100},
@@ -121,6 +156,21 @@ class PublishedDataTests(unittest.TestCase):
             self.assertRegex(f["ccn"], r"^07\d{4}$")
             if f["has_detail"]:
                 self.assertTrue((ROOT / "data" / "cost_reports" / f"{f['ccn']}.json").exists(), f["ccn"])
+
+    def test_published_support_figures(self):
+        idx = json.loads((ROOT / "data" / "ct_nursing_home_cost_reports.json").read_text(encoding="utf-8"))
+        latest = max(idx["statewide_medians"])
+        for k in ("raw_food_per_resident_day", "dietary_per_resident_day", "housekeeping_per_resident_day", "laundry_per_resident_day"):
+            self.assertIn(k, idx["statewide_medians"][latest])
+        for f in idx["facilities"]:
+            for y in f["years"].values():
+                if y.get("raw_food_per_resident_day") is not None:
+                    self.assertEqual(y["food_purchasing"], "home")
+                    self.assertTrue(2 <= y["raw_food_per_resident_day"] <= 40)
+                if y.get("dietary_per_resident_day") is not None:
+                    self.assertTrue(5 <= y["dietary_per_resident_day"] <= 120)
+        for k in ("raw_food", "dietary", "housekeeping", "laundry", "support_costs_exclude"):
+            self.assertIn(k, idx["method"])
 
     def test_validated_years_in_range(self):
         for f in self.idx["facilities"]:

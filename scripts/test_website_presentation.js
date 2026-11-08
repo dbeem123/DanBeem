@@ -245,6 +245,13 @@ async function main() {
     assert.equal(await page.locator('#cr-state-rows tr').count(), validated);
     const stateCsv = await csv('#cr-state-csv');
     assert.equal(stateCsv.trim().split('\n').length, validated + 1);
+    assert.match(stateCsv.split('\n')[0], /raw_food_per_resident_day,food_bought_by,dietary_all_in_per_resident_day/);
+    const supportRows = costIdx.facilities.filter(f => { const r = f.years[stateYear]; return r && r.validated && ['raw_food_per_resident_day', 'dietary_per_resident_day', 'housekeeping_per_resident_day', 'laundry_per_resident_day'].some(k => r[k] != null); }).length;
+    assert.ok(supportRows > 100, 'most homes have support figures');
+    assert.equal(await page.locator('#cr-support-rows tr').count(), supportRows);
+    assert.match(await page.locator('#cr-support-summary').innerText(), /buy their own food/);
+    assert.ok(await page.locator('#cr-support-rows').getByText('not separable').count() >= 1, 'contracted food is labelled');
+    assert.ok(await page.locator('#cr-support-method li').count() >= 4, 'definitions listed');
     await page.locator('#cr-search').fill('bethel health');
     await page.locator('#cr-results button[data-ccn="075400"]').click();
     await page.locator('#home-name').waitFor();
@@ -254,10 +261,13 @@ async function main() {
     const homeText = await page.locator('#home-view').innerText();
     assert.match(homeText, /Cost year 2023/);
     assert.match(homeText, /Direct care per resident day/i);
+    assert.match(homeText, /Food and support services/i);
+    assert.match(homeText, /Dietary, all-in, per resident day/i);
     assert.match(homeText, /National Health Care Associates/i);
     assert.match(homeText, /Bethel Investors, LLC/i);
     const homeCsv = await csv('#cr-home-csv');
     assert.equal(homeCsv.trim().split('\n').length, Object.keys(bethel.years).length + 1);
+    assert.match(homeCsv.split('\n')[0], /raw_food_per_resident_day,food_bought_by/);
     assert.match(await page.locator('main').innerText(), /not a measure of care quality/);
     console.log('PASS cost reports: statewide year, search, home view, year switch, owners, CSV');
 
