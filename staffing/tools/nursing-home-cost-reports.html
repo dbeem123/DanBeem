@@ -74,6 +74,9 @@
     .cr-num { text-align:right; white-space:nowrap; }
     .cr-bar { display:inline-block; height:9px; border-radius:5px; background:#173761; vertical-align:middle; margin-right:6px; }
     .cr-bar.state { background:#9aa9bf; }
+    .cr-breakdown .cr-sub th { font-weight:500; padding-left:28px; color:var(--muted, #4b5563); }
+    .cr-breakdown .cr-sub td { color:var(--muted, #4b5563); }
+    .cr-breakdown .cr-total th, .cr-breakdown .cr-total td { font-weight:800; border-top:2px solid currentColor; }
     .cr-flag { display:inline-block; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #f0b48f; background:#fff4ec; color:#9a3412; }
     .cr-part { display:inline-block; margin-left:6px; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #b9c7da; background:#eef3f9; color:#1f3a5f; white-space:nowrap; }
     .cr-part-note { margin:6px 0 10px; }
@@ -181,25 +184,44 @@
         <div class="sectionHeader">
           <div>
             <div class="eyebrow">Statewide</div>
-            <h2 id="support-title">Food, dietary, housekeeping and laundry</h2>
-            <p class="subtle">Cost per resident day for the cost year selected above, from each home's own report. Raw food is shown only when the home buys its own food; the all-in dietary cost compares every home, including those that contract out their kitchen. Select a column heading to sort.</p>
+            <h2 id="support-title">Costs per resident day, by category</h2>
+            <p class="subtle">Pick a cost category or detail line for the cost year selected above. Every figure is divided by the home's total resident days, so large and small homes compare fairly. Categories add up to each home's total costs. Select a column heading to sort.</p>
           </div>
+        </div>
+        <div class="filter-row">
+          <div><label for="cr-metric">Cost category or detail</label><select id="cr-metric"></select></div>
         </div>
         <p id="cr-support-summary" class="subtle" role="status" aria-live="polite"></p>
         <div class="table-scroll"><table class="stack company-table" id="cr-support-table">
-          <caption>Food and support-service costs per resident day, selected cost year</caption>
+          <caption>Selected cost per resident day, selected cost year</caption>
           <thead><tr>
             <th scope="col"><button type="button" data-sort="facility_name">Home</button></th>
-            <th scope="col"><button type="button" data-sort="raw_food_per_resident_day">Raw food per resident day</button></th>
-            <th scope="col"><button type="button" data-sort="food_purchasing">Food bought by</button></th>
-            <th scope="col"><button type="button" data-sort="dietary_per_resident_day">Dietary, all-in, per resident day</button></th>
-            <th scope="col"><button type="button" data-sort="housekeeping_per_resident_day">Housekeeping per resident day</button></th>
-            <th scope="col"><button type="button" data-sort="laundry_per_resident_day">Laundry per resident day</button></th>
+            <th scope="col"><button type="button" data-sort="metric" id="cr-metric-head">Per resident day</button></th>
+            <th scope="col">Share of total costs</th>
+            <th scope="col"><button type="button" data-sort="expenses_per_resident_day">Total costs per resident day</button></th>
+            <th scope="col" id="cr-food-head" hidden><button type="button" data-sort="food_purchasing">Food bought by</button></th>
           </tr></thead>
           <tbody id="cr-support-rows"></tbody>
         </table></div>
         <details class="cr-more"><summary>How these numbers are calculated</summary><ul id="cr-support-method"></ul></details>
-        <p class="subtle">These columns are also in the "Download this year (CSV)" file above.</p>
+        <p class="subtle">Every category and detail line is also in the "Download this year (CSV)" file above.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="national-title">
+      <div class="panel">
+        <div class="sectionHeader">
+          <div>
+            <div class="eyebrow">Connecticut and the nation</div>
+            <h2 id="national-title">Medicare cost reports: Connecticut vs the United States</h2>
+            <p class="subtle">Medians of the Medicare cost reports every skilled nursing facility files with CMS, by the year its fiscal year ends. These cover whole facilities on each home's own fiscal year, so they are close to, but not the same as, the DSS figures above. Connecticut's figure is on top, the US figure below it.</p>
+          </div>
+        </div>
+        <div class="table-scroll"><table class="stack company-table" id="cr-national-table">
+          <caption>Median per total day, full-year Medicare cost reports</caption>
+          <thead id="cr-national-head"></thead>
+          <tbody id="cr-national-rows"></tbody>
+        </table></div>
       </div>
     </section>
 

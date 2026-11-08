@@ -215,6 +215,9 @@ FIELDS = {
                 "diet_nonfood_supplies", "diet_other_inhouse", "diet_purchased_services", "diet_other",
                 "sal_head_housekeeper", "sal_housekeeping_workers", "hk_supplies", "hk_purchased_services",
                 "sal_laundry_supervisor", "sal_laundry_workers", "laundry_purchased_services"],
+    "plant_and_property": ["plant_repairs", "plant_heat", "plant_light_power", "plant_water", "plant_equipment_lease",
+                           "property_depreciation", "property_amortization", "property_rent", "property_tax_owner",
+                           "property_tax_lessor", "property_tax_personal"],
     "balance_sheet": ["assets_current", "assets_total", "liabilities_current", "liabilities_long_term",
                       "liabilities_total", "net_worth", "net_income_p36"],
 }
@@ -315,6 +318,169 @@ def support_services(f, days):
     return out
 
 
+# Every dollar of the nursing home's costs, by category. The categories add back to page 27's printed total.
+COST_CATEGORIES = [
+    ("nursing", "Nursing care (nursing and aide staff, agency, their benefits)"),
+    ("dietary", "Dietary (kitchen staff, benefits, food, supplies, contracts)"),
+    ("housekeeping", "Housekeeping (staff, benefits, supplies, contracts)"),
+    ("laundry", "Laundry (staff, benefits, supplies, contracts)"),
+    ("other_staff", "All other staff and their benefits (administration, maintenance, activities, social work, therapy staff, etc.)"),
+    ("other_fees", "Other professional fees (therapy, medical director, consultants and other fees in lieu of salaries)"),
+    ("admin", "Administrative and general, non-salary (management fees, legal, accounting, office, advertising, etc.)"),
+    ("resident_care", "Resident care supplies and services (drugs, medical supplies, oxygen, lab, recreation)"),
+    ("plant", "Plant operation and utilities (repairs, heat, light and power, water, equipment leases)"),
+    ("property", "Building and property (rent, depreciation, amortization, property taxes)"),
+    ("interest", "Interest"),
+    ("insurance", "Insurance"),
+]
+
+
+def cost_breakdown(f, dc, ss, days, related_parties):
+    """Split total nursing-home costs into categories per resident day. Withheld unless the categories add up
+    to the printed total (page 27, line 15) and none is negative."""
+    total = f.get("expenses_total_ccnh")
+    if not days or not total or not ss:
+        return None
+    g = lambda k: f.get(k) or 0
+    dept = {k: (ss.get(k) or {}) for k in ("dietary", "housekeeping", "laundry")}
+    fringe = g("fringe_total")
+    sal_rest = g("sal_total") - (dc.get("direct_salaries") or 0) - sum(d.get("salaries") or 0 for d in dept.values())
+    fr_rest = fringe - (dc.get("direct_fringe_allocated") or 0) - sum(d.get("fringe_allocated") or 0 for d in dept.values())
+    amounts = {
+        "nursing": dc.get("direct_care_total") or 0,
+        "dietary": (dept["dietary"].get("salaries") or 0) + (dept["dietary"].get("fringe_allocated") or 0) + g("dietary_total"),
+        "housekeeping": (dept["housekeeping"].get("salaries") or 0) + (dept["housekeeping"].get("fringe_allocated") or 0) + g("housekeeping_total"),
+        "laundry": (dept["laundry"].get("salaries") or 0) + (dept["laundry"].get("fringe_allocated") or 0) + g("laundry_total"),
+        "other_staff": sal_rest + fr_rest,
+        "other_fees": g("prof_fees_total") - (dc.get("nursing_pool") or 0),
+        "admin": g("ag_total") - fringe,
+        "resident_care": g("resident_care_total"),
+        "plant": g("maint_operating_total"),
+        "property": g("property_total"),
+        "interest": g("interest_total"),
+        "insurance": g("insurance_total"),
+    }
+    added = sum(amounts.values())
+    ok = abs(added - total) <= max(50, 0.002 * total) and all(v >= -days for v in amounts.values())
+    out = {"adds_up": ok, "categories_total": r0(added), "printed_total": r0(total)}
+    if not ok:
+        return out
+    out["categories"] = {k: {"amount": r0(v), "per_resident_day": round(v / days, 2), "share": round(v / total, 4)}
+                         for k, v in amounts.items()}
+    # detail lines inside the categories
+    det = {}
+    if f.get("mgmt_fee_m12"):
+        det["management_fees"] = f["mgmt_fee_m12"]
+    util = g("plant_heat") + g("plant_light_power") + g("plant_water")
+    if util and util <= g("maint_operating_total") + 1:
+        det["utilities"] = util
+    if f.get("plant_equipment_lease"):
+        det["equipment_leases"] = f["plant_equipment_lease"]
+    prop_parts = {"rent": g("property_rent"), "depreciation": g("property_depreciation"), "amortization": g("property_amortization"),
+                  "property_taxes": g("property_tax_owner") + g("property_tax_lessor") + g("property_tax_personal")}
+    if abs(sum(prop_parts.values()) - g("property_total")) <= max(50, 0.005 * (g("property_total") or 1)):
+        det.update({k: v for k, v in prop_parts.items() if v})
+    rp_rent = sum((x.get("cost_reported") or 0) for x in related_parties or []
+                  if (x.get("category") or "") == "rent / lease / real estate")
+    if rp_rent:
+        det["rent_or_lease_paid_to_related_parties"] = rp_rent
+    out["details"] = {k: {"amount": r0(v), "per_resident_day": round(v / days, 2)} for k, v in det.items()}
+    return out
+
+
+# ---------------------------------------------------------------- CMS Medicare cost reports (HCRIS public use file)
+CMS_COST_DIR = ROOT / "source_data" / "cms_snf_cost_report"
+
+
+def _num(v):
+    try:
+        return float(str(v).replace(",", "")) if str(v).strip() not in ("", "NA") else None
+    except ValueError:
+        return None
+
+
+def _mdy(v):
+    try:
+        return datetime.strptime(v.strip(), "%m/%d/%Y").date()
+    except (ValueError, AttributeError):
+        return None
+
+
+def cms_cost_reports():
+    """Medicare SNF cost reports (form CMS-2540-10), every US home and fiscal year in the public use file.
+    Returns (CT rows by CCN, national and CT medians by fiscal-year-end year, file manifest)."""
+    import csv
+    manifest = json.loads((CMS_COST_DIR / "manifest.json").read_text(encoding="utf-8")) if (CMS_COST_DIR / "manifest.json").exists() else []
+    seen, ct = set(), defaultdict(list)
+    pools = defaultdict(lambda: defaultdict(list))   # (scope, year) -> metric -> values
+    for path in sorted(CMS_COST_DIR.glob("CostReportsnf_Final_*.csv")):
+        with open(path, encoding="utf-8-sig", errors="replace", newline="") as fh:
+            for r in csv.DictReader(fh):
+                if r.get("rpt_rec_num") in seen:
+                    continue
+                seen.add(r.get("rpt_rec_num"))
+                b, e = _mdy(r.get("Fiscal Year Begin Date")), _mdy(r.get("Fiscal Year End Date"))
+                days = _num(r.get("Total Days Total"))
+                if not b or not e or not days or days <= 0:
+                    continue
+                n = lambda k: _num(r.get(k))
+                opex, npr = n("Less Total Operating Expense"), n("Net Patient Revenue")
+                m = {"operating_expense_per_day": opex / days if opex else None,
+                     "salaries_per_day": (n("Total Salaries (adjusted)") or 0) / days if n("Total Salaries (adjusted)") else None,
+                     "benefits_per_day": n("Wage-related Costs (core)") / days if n("Wage-related Costs (core)") else None,
+                     "contract_labor_per_day": (n("Contract Labor") or 0) / days,
+                     "net_patient_revenue_per_day": npr / days if npr else None,
+                     "operating_margin": (npr - opex) / npr if npr and opex and npr > 0 else None,
+                     "occupancy": days / n("Total Bed Days Available") if n("Total Bed Days Available") else None,
+                     "medicaid_share_of_days": (n("Total Days Title XIX") or 0) / days}
+                # implausible values are left out (usually a filing error)
+                ok = {"operating_expense_per_day": (50, 2500), "salaries_per_day": (10, 1500), "benefits_per_day": (1, 600),
+                      "contract_labor_per_day": (0, 800), "net_patient_revenue_per_day": (50, 2500), "operating_margin": (-1, 0.6),
+                      "occupancy": (0.05, 1.05), "medicaid_share_of_days": (0, 1)}
+                m = {k: (round(v, 4) if k in ("operating_margin", "occupancy", "medicaid_share_of_days") else round(v, 2))
+                     for k, v in m.items() if v is not None and ok[k][0] <= v <= ok[k][1]}
+                full = 360 <= (e - b).days + 1 <= 371
+                if full:
+                    for scope in ("US", r.get("State Code")) if r.get("State Code") == "CT" else ("US",):
+                        for k, v in m.items():
+                            pools[(scope, e.year)][k].append(v)
+                if r.get("State Code") == "CT":
+                    ccn = (r.get("Provider CCN") or "").strip().zfill(6)
+                    ct[ccn].append({"period_start": b.isoformat(), "period_end": e.isoformat(), "full_year": full,
+                                    "report_id": r.get("rpt_rec_num"), "name": (r.get("Facility Name") or "").strip(),
+                                    "beds": n("Number of Beds"), "total_days": days,
+                                    "operating_expense": n("Less Total Operating Expense"),
+                                    "total_salaries": n("Total Salaries (adjusted)"), "benefits": n("Wage-related Costs (core)"),
+                                    "contract_labor": n("Contract Labor"), "net_patient_revenue": npr,
+                                    "net_income": n("Net Income"), **m})
+    med = {}
+    for (scope, y), vals in pools.items():
+        med.setdefault(str(y), {})[scope] = {"reports": len(vals.get("operating_expense_per_day", [])),
+                                             # a year still being filed has far fewer reports: flagged on the page
+                                             "complete": len(vals.get("operating_expense_per_day", [])) >= (10000 if scope == "US" else 120),
+                                             **{k: round(statistics.median(v), 4 if k in ("operating_margin", "occupancy", "medicaid_share_of_days") else 2)
+                                                for k, v in vals.items() if len(v) >= 5}}
+    for lst in ct.values():
+        lst.sort(key=lambda x: x["period_end"])
+    return ct, dict(sorted(med.items())), manifest
+
+
+def cms_match(cms_rows, start, end):
+    """The Medicare report covering most of the DSS report period (at least 6 months)."""
+    from datetime import date
+    s, e = date.fromisoformat(start), date.fromisoformat(end)
+    best, best_days = None, 0
+    for r in cms_rows:
+        rs, re_ = date.fromisoformat(r["period_start"]), date.fromisoformat(r["period_end"])
+        overlap = (min(e, re_) - max(s, rs)).days + 1
+        if overlap > best_days:
+            best, best_days = r, overlap
+    if not best or best_days < 183:
+        return None
+    return {"report_id": best["report_id"], "period_start": best["period_start"], "period_end": best["period_end"],
+            "same_period": best["period_start"] == start and best["period_end"] == end, "overlap_days": best_days}
+
+
 def year_record(o, idx_row, pbj):
     f, d, c = o["fields"], o["derived"], o["checks"]
     p_start, p_end, p_read = report_period(o)
@@ -372,6 +538,8 @@ def year_record(o, idx_row, pbj):
                                                        "actual_cost_to_related_party", "pct_revenue_from_non_related")}
                               for x in e.get("related_parties", [])]
     rec["management_services"] = [{k: x.get(k) for k in ("name", "cost", "description")} for x in e.get("management_services", [])]
+    rec["cost_breakdown"] = None if "resident days vs beds" in flags else \
+        cost_breakdown(f, d, rec["support_services"], days, rec["related_parties"])
     rec["related_party_total_reported"] = r0(sum(x["cost_reported"] or 0 for x in rec["related_parties"]
                                                  if (x.get("category") or "") not in ("loans / interest / receivables",)
                                                  and not re.match(r"^(See attached|Various)", x.get("name_guess") or "", re.I)))
@@ -401,6 +569,7 @@ def main():
     by_name, names = provider_maps()
     owners, owner_releases = cms_owners(by_name)
     chow, chow_file = chow_events()
+    cms_ct, cms_medians, cms_manifest = cms_cost_reports()
     pbj_rows = pbj_quarters(history)
     last_pbj = {}
     for r in history["facility_quarterly_staffing_history"]:
@@ -451,6 +620,14 @@ def main():
             for dept in ("dietary", "housekeeping", "laundry"):
                 if (ss.get(dept) or {}).get("per_resident_day") is not None:
                     vals[f"{dept}_per_resident_day"].append(ss[dept]["per_resident_day"])
+            cb = r.get("cost_breakdown") or {}
+            for k, v in (cb.get("categories") or {}).items():
+                if k not in ("nursing", "dietary", "housekeeping", "laundry"):
+                    vals[f"{k}_per_resident_day"].append(v["per_resident_day"])
+                vals[f"{k}_share"].append(v["share"])
+            for k in ("management_fees", "utilities", "rent"):
+                if k in (cb.get("details") or {}):
+                    vals[f"{k}_per_resident_day"].append(cb["details"][k]["per_resident_day"])
         state[y] = {"reports": len(vals["direct_care_per_resident_day"]),
                     **{k: round(statistics.median(v), 4 if "share" in k or "margin" in k else 2) for k, v in vals.items() if v}}
 
@@ -478,11 +655,13 @@ def main():
                 for a in (admin_fac.get(ccn) or {}).get("administrators", [])
                 if (a.get("start") or "0000") <= end and (a.get("end") or "9999") >= start]
             r["chow_during_year"] = [e for e in chow.get(ccn, []) if start <= e["effective_date"] <= end]
+            r["medicare_cost_report_same_year"] = cms_match(cms_ct.get(ccn, []), start, end)
         detail = {"schema_version": SCHEMA, "ccn": ccn, "facility_name": name,
                   "cost_years": [years[y] for y in sorted(years)],
                   "cms_owners": owners.get(ccn, []),
                   "cms_owners_window": {"first_release": owner_releases[0], "latest_release": owner_releases[-1]},
                   "changes_of_ownership": chow.get(ccn, []),
+                  "medicare_cost_reports": cms_ct.get(ccn, []),
                   # CMS listing status: a home missing from CMS Provider Information, or whose PBJ staffing stopped,
                   # is usually closed or decertified. Stated as what CMS lists, not as a closure.
                   "cms_status": {"in_provider_information": bool((current.get(ccn) or {}).get("provider_source_matched")),
@@ -490,7 +669,7 @@ def main():
                                  "last_pbj_quarter": last_pbj.get(ccn), "latest_pbj_quarter": latest_pbj,
                                  "staffing_footnote": (current.get(ccn) or {}).get("cms_staffing_rating_footnote")},
                   "caveats": CAVEATS, "corrections_notice": CORRECTIONS}
-        if years or owners.get(ccn) or chow.get(ccn):
+        if years or owners.get(ccn) or chow.get(ccn) or cms_ct.get(ccn):
             (OUT_DIR / f"{ccn}.json").write_text(json.dumps(detail, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
         index_rows.append({
             "ccn": ccn, "facility_name": name, "current": ccn in current,
@@ -509,7 +688,13 @@ def main():
                                "food_purchasing": ((r.get("support_services") or {}).get("food") or {}).get("purchasing"),
                                "dietary_per_resident_day": ((r.get("support_services") or {}).get("dietary") or {}).get("per_resident_day"),
                                "housekeeping_per_resident_day": ((r.get("support_services") or {}).get("housekeeping") or {}).get("per_resident_day"),
-                               "laundry_per_resident_day": ((r.get("support_services") or {}).get("laundry") or {}).get("per_resident_day")}
+                               "laundry_per_resident_day": ((r.get("support_services") or {}).get("laundry") or {}).get("per_resident_day"),
+                               **{f"{k}_per_resident_day": v["per_resident_day"] for k, v in
+                                  ((r.get("cost_breakdown") or {}).get("categories") or {}).items()
+                                  if k not in ("nursing", "dietary", "housekeeping", "laundry")},
+                               **{f"{k}_per_resident_day": v["per_resident_day"] for k, v in
+                                  ((r.get("cost_breakdown") or {}).get("details") or {}).items()
+                                  if k in ("management_fees", "utilities", "rent", "rent_or_lease_paid_to_related_parties")}}
                       for y, r in sorted(years.items())},
             "cms_current_owner_count": sum(1 for x in owners.get(ccn, []) if x["current"]),
             "changes_of_ownership": len(chow.get(ccn, [])),
@@ -543,6 +728,11 @@ def main():
             {"title": "CMS Payroll-Based Journal staffing (same months as each cost year)",
              "as_of": history.get("history_window", {}).get("latest_quarter")},
             {"title": "DSS Nursing Home Rate Setting Guide Book (2024), direct-care definition"},
+            {"title": "CMS Skilled Nursing Facility Cost Report (Medicare cost reports, form CMS-2540-10, public use file)",
+             "url": "https://data.cms.gov/provider-compliance/cost-report/skilled-nursing-facility-cost-report",
+             # when CMS last re-released the series (catalog "modified"); the freshness check ages it yearly
+             "as_of": (max(m[1] for m in cms_manifest) if cms_manifest else None),
+             "note": f"Every US skilled nursing facility, fiscal years ending {min(cms_medians) if cms_medians else ''}-{max(cms_medians) if cms_medians else ''}; used for the national comparison and each home's Medicare cost report."},
         ],
         "method": {
             "direct_care": "Director/assistant directors of nursing + RN + LPN (direct and administrative) + nurse aide "
@@ -570,6 +760,27 @@ def main():
             "laundry": "All-in laundry cost per resident day = laundry salaries (page 10, lines 8a-8b) + their share of "
                        "fringe benefits + total laundry expenditures (page 19, line 3D: in-house costs and linen or "
                        "laundry contracts), divided by total resident days.",
+            "cost_breakdown": "Costs by category split the nursing home's total costs (page 27, line 15, nursing-home "
+                              "column) into twelve categories, each divided by total resident days. Fringe benefits "
+                              "(page 15) are part of administrative and general on the form; here they are moved to the "
+                              "staff they belong to, allocated by each group's share of all salaries. Nursing care uses "
+                              "the direct-care definition above. 'All other staff' is the remaining salaries and benefits. "
+                              "'Other professional fees' is page 13's total less nursing agency. Administrative and "
+                              "general is page 16's total less fringe benefits; management fees (line m12) are part of it. "
+                              "Plant operation is page 22 line 6g (utilities = heat, light and power, water). Building "
+                              "and property is page 22 line 11: rent on leased real property (line 9), depreciation, "
+                              "amortization and property taxes. Interest and insurance are page 27. Shown only when the "
+                              "categories add back to the printed total within 0.2%.",
+            "medicare_cost_reports": "Medicare cost reports (CMS) are filed by each home for its own fiscal year and "
+                                     "cover the whole facility (all units), so they do not match the DSS nursing-home "
+                                     "column exactly. Figures are per total day on the Medicare report: operating "
+                                     "expense, salaries, wage-related costs (benefits), contract labor and net patient "
+                                     "revenue. Operating margin = (net patient revenue - operating expense) / net patient "
+                                     "revenue. National and Connecticut medians use full-year reports only (360-371 days), "
+                                     "grouped by the year the fiscal year ends, and leave out implausible values.",
+            "related_party_rent": "Rent or lease paid to related parties is the cost the home reported on page 4 for "
+                                  "related parties whose description mentions rent, lease, realty or real estate. It is "
+                                  "already inside the building and property category, not in addition to it.",
             "support_costs_exclude": "None of the support figures include management-company charges reported on page 16, "
                                      "kitchen or laundry equipment depreciation and building costs (property), or "
                                      "utilities; a contractor's fee includes its own overhead and profit.",
@@ -580,6 +791,8 @@ def main():
                     "validated_home_years": sum(1 for h in homes.values() for r in h.values() if r["checks"]["validated"]),
                     "homes_with_cms_owners": len(owners), "chow_events": sum(len(v) for v in chow.values())},
         "statewide_medians": {str(y): v for y, v in state.items()},
+        "cost_categories": COST_CATEGORIES,
+        "medicare_cost_report_medians": cms_medians,
         "facilities": index_rows,
         "management_fees_by_company": fees_out,
     }

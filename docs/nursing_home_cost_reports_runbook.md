@@ -51,6 +51,20 @@ pages 18 (raw food 2a1, supplies 2a2, other 2a3, contract services 2b, other 2c,
 Ranges (per resident day): raw food $2-$40, dietary $5-$120, housekeeping $1-$60, laundry $0.50-$40.
 Older and scanned reports often lack a readable page 18; those years show no support figures.
 
+## Costs by category and the Medicare layer (added 2026-11-08)
+
+- `cost_breakdown` splits page 27 line 15 (nursing-home column) into 12 categories: nursing (direct care),
+  dietary, housekeeping, laundry (all-in), all other staff (remaining salaries + fringe), other professional fees
+  (page 13 total less nursing agency), administrative and general (page 16 total less fringe; management fees m12
+  inside), resident care (5P), plant (6g; utilities = 6b-6d), property (11; rent 9, depreciation 7e, amortization
+  8e, taxes 10a-c), interest, insurance. Shown only when they add back to the printed total within 0.2% and none is
+  negative. Related-party rent = page 4 lines categorised "rent / lease / real estate".
+- Medicare cost reports: download the yearly CSVs of the CMS "Skilled Nursing Facility Cost Report" dataset into
+  `source_data/cms_snf_cost_report/` (file list in its `manifest.json`, from data.cms.gov/data.json). The build
+  keeps CT rows per home, matches each DSS year to the Medicare report covering most of it (6+ months), and
+  computes CT and US medians per fiscal-year-end year from full-year reports. Refresh yearly (CMS updates the
+  dataset annually; the latest year fills in over the following year and is marked "incomplete").
+
 ## Checks and withholding
 
 - Printed totals: payer days sum to total care days; revenue lines sum to total revenue; liabilities sum.

@@ -94,6 +94,9 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(rec["dietary_total"], 369616)
         self.assertEqual(rec["laundry_total"], 17957)
         self.assertEqual(rec["housekeeping_total"], 35379)
+        self.assertEqual(rec["property_rent"], 392089)
+        self.assertEqual(rec["property_depreciation"], 208389)
+        self.assertEqual(rec["plant_light_power"], 66098)
 
     def test_support_services_rules(self):
         base = {"sal_total": 1_000_000, "fringe_total": 200_000}
@@ -171,6 +174,36 @@ class PublishedDataTests(unittest.TestCase):
                     self.assertTrue(5 <= y["dietary_per_resident_day"] <= 120)
         for k in ("raw_food", "dietary", "housekeeping", "laundry", "support_costs_exclude"):
             self.assertIn(k, idx["method"])
+
+    def test_cost_breakdown_adds_up(self):
+        for path in (ROOT / "data" / "cost_reports").glob("*.json"):
+            d = json.loads(path.read_text(encoding="utf-8"))
+            for y in d["cost_years"]:
+                cb = y.get("cost_breakdown")
+                if not cb or not cb["adds_up"]:
+                    continue
+                cats = cb["categories"]
+                self.assertEqual(len(cats), 12)
+                self.assertLessEqual(abs(sum(c["amount"] for c in cats.values()) - cb["printed_total"]),
+                                     max(60, 0.002 * cb["printed_total"]), (d["ccn"], y["cost_year"]))
+                self.assertAlmostEqual(cats["nursing"]["amount"], y["direct_care"]["direct_care_total"], delta=1)
+                prop = cats["property"]["amount"]
+                parts = sum(cb["details"].get(k, {}).get("amount", 0) for k in ("rent", "depreciation", "amortization", "property_taxes"))
+                if parts:
+                    self.assertLessEqual(abs(parts - prop), max(60, 0.005 * prop), (d["ccn"], y["cost_year"]))
+
+    def test_medicare_layer(self):
+        idx = json.loads((ROOT / "data" / "ct_nursing_home_cost_reports.json").read_text(encoding="utf-8"))
+        meds = idx["medicare_cost_report_medians"]
+        full = [y for y, m in meds.items() if m.get("US", {}).get("complete")]
+        self.assertGreaterEqual(len(full), 12)
+        for y in full:
+            us = meds[y]["US"]
+            self.assertTrue(150 <= us["operating_expense_per_day"] <= 600, y)
+        m = build.cms_match([{"report_id": "1", "period_start": "2023-10-01", "period_end": "2024-09-30"},
+                             {"report_id": "2", "period_start": "2023-01-01", "period_end": "2023-12-31"}], "2023-10-01", "2024-09-30")
+        self.assertEqual((m["report_id"], m["same_period"]), ("1", True))
+        self.assertIsNone(build.cms_match([{"report_id": "3", "period_start": "2022-01-01", "period_end": "2022-12-31"}], "2023-10-01", "2024-09-30"))
 
     def test_validated_years_in_range(self):
         for f in self.idx["facilities"]:

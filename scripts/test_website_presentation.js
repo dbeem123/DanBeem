@@ -236,6 +236,7 @@ async function main() {
 
     const costIdx = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_nursing_home_cost_reports.json')));
     const bethel = costIdx.facilities.find(f => f.ccn === '075400');
+    const bethelDetail = JSON.parse(fs.readFileSync(path.join(root, 'data/cost_reports/075400.json')));
     assert.ok(bethel && Object.keys(bethel.years).length >= 5, 'fixture home has cost reports');
     await visit(route('cost-reports'));
     await page.locator('#cr-search:not([disabled])').waitFor();
@@ -246,11 +247,21 @@ async function main() {
     const stateCsv = await csv('#cr-state-csv');
     assert.equal(stateCsv.trim().split('\n').length, validated + 1);
     assert.match(stateCsv.split('\n')[0], /raw_food_per_resident_day,food_bought_by,dietary_all_in_per_resident_day/);
-    const supportRows = costIdx.facilities.filter(f => { const r = f.years[stateYear]; return r && r.validated && ['raw_food_per_resident_day', 'dietary_per_resident_day', 'housekeeping_per_resident_day', 'laundry_per_resident_day'].some(k => r[k] != null); }).length;
-    assert.ok(supportRows > 100, 'most homes have support figures');
-    assert.equal(await page.locator('#cr-support-rows tr').count(), supportRows);
-    assert.match(await page.locator('#cr-support-summary').innerText(), /buy their own food/);
-    assert.ok(await page.locator('#cr-support-rows').getByText('not separable').count() >= 1, 'contracted food is labelled');
+    assert.match(stateCsv.split('\n')[0], /management_fees_per_resident_day,rent_per_resident_day,rent_or_lease_paid_to_related_parties_per_resident_day/);
+    const rowsWith = key => costIdx.facilities.filter(f => { const r = f.years[stateYear]; return r && r.validated && r[key] != null; }).length;
+    assert.equal(await page.locator('#cr-metric').inputValue(), 'expenses_per_resident_day');
+    assert.equal(await page.locator('#cr-support-rows tr').count(), rowsWith('expenses_per_resident_day'));
+    for (const key of ['raw_food_per_resident_day', 'management_fees_per_resident_day', 'rent_per_resident_day', 'property_per_resident_day']) {
+      await page.locator('#cr-metric').selectOption(key);
+      assert.ok(rowsWith(key) > 50, `${key} has homes`);
+      assert.equal(await page.locator('#cr-support-rows tr').count(), rowsWith(key));
+    }
+    await page.locator('#cr-metric').selectOption('raw_food_per_resident_day');
+    assert.match(await page.locator('#cr-support-summary').innerText(), /food-service contractor/);
+    assert.ok(await page.locator('#cr-food-head').isVisible(), 'food column shown for raw food');
+    const natYears = Object.keys(costIdx.medicare_cost_report_medians).filter(y => { const m = costIdx.medicare_cost_report_medians[y]; return m.US && m.CT && m.CT.operating_expense_per_day != null; });
+    assert.ok(natYears.length >= 10, 'CT vs US years');
+    assert.equal(await page.locator('#cr-national-rows tr').count(), natYears.length);
     assert.ok(await page.locator('#cr-support-method li').count() >= 4, 'definitions listed');
     await page.locator('#cr-search').fill('bethel health');
     await page.locator('#cr-results button[data-ccn="075400"]').click();
@@ -263,6 +274,10 @@ async function main() {
     assert.match(homeText, /Direct care per resident day/i);
     assert.match(homeText, /Food and support services/i);
     assert.match(homeText, /Dietary, all-in, per resident day/i);
+    assert.match(homeText, /Where the money goes/i);
+    assert.match(homeText, /Building and property/);
+    assert.match(homeText, /Medicare cost reports \(CMS\)/);
+    assert.ok(bethelDetail.medicare_cost_reports.length >= 5, 'fixture home has Medicare cost reports');
     assert.match(homeText, /National Health Care Associates/i);
     assert.match(homeText, /Bethel Investors, LLC/i);
     const homeCsv = await csv('#cr-home-csv');

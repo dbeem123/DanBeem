@@ -158,6 +158,20 @@
       "local_folder": "X:\\DanBeem-Data\\Skilled Nursing Facility Change of Ownership"
     },
     {
+      "id": "cms_snf_cost_report",
+      "name": "Skilled Nursing Facility Cost Report (Medicare cost reports)",
+      "publisher": "CMS",
+      "page": "https://data.cms.gov/provider-compliance/cost-report/skilled-nursing-facility-cost-report",
+      "access": {"type": "cms_data_api", "dataset_title": "Skilled Nursing Facility Cost Report", "script": "All yearly files, every state (national medians): see docs/nursing_home_cost_reports_runbook.md, then rebuild the cost reports"},
+      "frequency": "Once a year",
+      "frequency_basis": "CMS catalog lists the update frequency as annual and re-releases the whole series (each fiscal year its own file); the newest year fills in over the following year as homes file. The site version is the date of the last re-release.",
+      "check": "Yearly (CMS has re-released the series each fall)",
+      "max_age_days": 450,
+      "version_kind": "date",
+      "feeds": ["Cost Reports (Medicare cost reports, Connecticut vs US)"],
+      "local_folder": "source_data/cms_snf_cost_report"
+    },
+    {
       "id": "ct_dss_cost_reports",
       "name": "Annual Report of Long-Term Care Facility (nursing home cost reports)",
       "publisher": "Connecticut Department of Social Services",

@@ -90,6 +90,8 @@ def on_site_versions():
             out["cms_snf_all_owners"] = (a, month_from_name(a))
         elif "Change of Ownership" in t and month_from_name(a):
             out["cms_snf_chow"] = (a, month_from_name(a))
+        elif "Skilled Nursing Facility Cost Report" in t and a:
+            out["cms_snf_cost_report"] = (a, dt.date.fromisoformat(a))
     years = sorted({int(y) for f in cost.get("facilities", []) for y in f.get("years", {})})
     if years:
         out["ct_dss_cost_reports"] = (f"cost year {years[-1]}", dt.date(years[-1], 9, 30))

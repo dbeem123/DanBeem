@@ -111,7 +111,7 @@ def check(reg):
                 if catalog is None:
                     catalog = json.loads(get(CMS_CATALOG))
                 when, url = latest_catalog(catalog, acc["dataset_title"])
-                row.update(latest=when.isoformat() if when else None, url=url)
+                row.update(latest=when.isoformat() if when else None, url=url, script=acc.get("script"))
             elif acc["type"] == "socrata":
                 v = json.loads(get(SOCRATA_VIEW.format(id=acc["view_id"])))
                 when = dt.datetime.fromtimestamp(v["rowsUpdatedAt"], dt.timezone.utc).date()

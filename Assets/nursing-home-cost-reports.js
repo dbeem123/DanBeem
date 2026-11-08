@@ -13,7 +13,28 @@
   let detail = null;
   let selectedYear = null;
   let stateSort = { key: 'direct_care_per_resident_day', dir: -1 };
-  let supportSort = { key: 'raw_food_per_resident_day', dir: -1 };
+  let supportSort = { key: 'metric', dir: -1 };
+  // Statewide cost explorer: one metric at a time (per resident day). 'cat' marks a category of total costs.
+  const METRICS = [
+    ['expenses_per_resident_day', 'Total costs', 'Totals'],
+    ['direct_care_per_resident_day', 'Nursing care (direct care)', 'Categories', 'nursing'],
+    ['dietary_per_resident_day', 'Dietary, all-in', 'Categories', 'dietary'],
+    ['housekeeping_per_resident_day', 'Housekeeping, all-in', 'Categories', 'housekeeping'],
+    ['laundry_per_resident_day', 'Laundry, all-in', 'Categories', 'laundry'],
+    ['other_staff_per_resident_day', 'All other staff and benefits', 'Categories', 'other_staff'],
+    ['other_fees_per_resident_day', 'Other professional fees', 'Categories', 'other_fees'],
+    ['admin_per_resident_day', 'Administrative and general', 'Categories', 'admin'],
+    ['resident_care_per_resident_day', 'Resident care supplies and services', 'Categories', 'resident_care'],
+    ['plant_per_resident_day', 'Plant operation and utilities', 'Categories', 'plant'],
+    ['property_per_resident_day', 'Building and property', 'Categories', 'property'],
+    ['interest_per_resident_day', 'Interest', 'Categories', 'interest'],
+    ['insurance_per_resident_day', 'Insurance', 'Categories', 'insurance'],
+    ['raw_food_per_resident_day', 'Raw food (homes that buy their own)', 'Details'],
+    ['management_fees_per_resident_day', 'Management fees (line m12)', 'Details'],
+    ['rent_per_resident_day', 'Rent on leased real property', 'Details'],
+    ['rent_or_lease_paid_to_related_parties_per_resident_day', 'Rent or lease paid to related parties', 'Details'],
+    ['utilities_per_resident_day', 'Utilities (heat, light and power, water)', 'Details'],
+  ];
   const PURCHASING = { home: 'The home', contractor: 'Food-service contractor', unclear: 'Unclear' };
 
   const esc = v => String(v == null ? '' : v).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
@@ -142,6 +163,40 @@
       </ul></details>`;
   }
 
+  // Medicare cost reports (CMS) for this home, with Connecticut and national medians for the same fiscal-year end.
+  function medicareSection() {
+    const rows = detail.medicare_cost_reports || [];
+    if (!rows.length) return '<p class="subtle">No Medicare cost reports for this home in the CMS file.</p>';
+    const meds = index.medicare_cost_report_medians || {};
+    const body = rows.slice().reverse().map(r => {
+      const m = meds[r.period_end.slice(0, 4)] || {}, ct = m.CT || {}, us = m.US || {};
+      const cmp = (v, k, f) => `${f(v)}<div class="subtle">CT ${f(ct[k])} · US ${f(us[k])}</div>`;
+      return `<tr>
+        <td data-label="Fiscal year">${esc(fmtDate(r.period_start))} to ${esc(fmtDate(r.period_end))}${r.full_year ? '' : ' <span class="cr-part">part year</span>'}</td>
+        <td data-label="Beds" class="cr-num">${num(r.beds)}</td>
+        <td data-label="Days" class="cr-num">${num(r.total_days)}</td>
+        <td data-label="Operating expense / day" class="cr-num">${cmp(r.operating_expense_per_day, 'operating_expense_per_day', money2)}</td>
+        <td data-label="Salaries / day" class="cr-num">${cmp(r.salaries_per_day, 'salaries_per_day', money2)}</td>
+        <td data-label="Benefits / day" class="cr-num">${cmp(r.benefits_per_day, 'benefits_per_day', money2)}</td>
+        <td data-label="Contract labor / day" class="cr-num">${cmp(r.contract_labor_per_day, 'contract_labor_per_day', money2)}</td>
+        <td data-label="Operating margin" class="cr-num">${cmp(r.operating_margin, 'operating_margin', pct)}</td></tr>`;
+    }).join('');
+    return `<div class="table-scroll"><table class="stack company-table"><caption>Medicare cost reports filed with CMS (whole facility, the home's own fiscal year), with Connecticut and US medians for full-year reports ending the same year</caption>
+      <thead><tr><th scope="col">Fiscal year</th><th scope="col">Beds</th><th scope="col">Total days</th><th scope="col">Operating expense per day</th><th scope="col">Salaries per day</th><th scope="col">Benefits (wage-related) per day</th><th scope="col">Contract labor per day</th><th scope="col">Operating margin</th></tr></thead>
+      <tbody>${body}</tbody></table></div>
+      <details class="cr-more"><summary>How the Medicare figures differ from the DSS report</summary><p>${esc(index.method.medicare_cost_reports || '')}</p></details>`;
+  }
+
+  function medicareSameYear(y) {
+    const m = y.medicare_cost_report_same_year;
+    if (!m) return '';
+    const r = (detail.medicare_cost_reports || []).find(x => x.report_id === m.report_id);
+    if (!r) return '';
+    const d = guarded(y);
+    return factCard('Medicare cost report, same months', money2(r.operating_expense_per_day),
+      `Operating expense per day for ${esc(fmtDate(r.period_start))} to ${esc(fmtDate(r.period_end))}${m.same_period ? ' (same period)' : ` (${num(m.overlap_days)} days overlap)`}, whole facility. DSS nursing-home costs ${money2(d.expenses_per_resident_day)} per resident day.`);
+  }
+
   function yearDetail(y) {
     const d = guarded(y), rd = y.resident_days, s = y.salaries, h = y.hours, np = y.nursing_pool, ex = y.expenses,
       rv = y.revenue, bs = y.balance_sheet, p = y.pbj_same_period || {};
@@ -177,7 +232,9 @@
         ${factCard('Management of record (CMS)', cmsM)}
         ${factCard('Administrators (DPH)', adm)}
         ${factCard('Changes of ownership (CMS)', chow)}
+        ${medicareSameYear(y)}
       </div>
+      ${breakdownSection(y)}
       ${supportSection(y)}
       <div class="cr-grid">
         ${kvTable('Resident days (page 8)', [['Certified beds', num(y.capacity.beds_certified)], ['Medicaid (CT)', num(rd.days_medicaid_ct)], ['Medicaid (other states)', num(rd.days_medicaid_other_states)], ['Medicare', num(rd.days_medicare)], ['Private pay', num(rd.days_private)], ['Other payers', num(rd.days_other_payer)], ['Total care days', num(rd.days_total_care)], ['Total resident days', num(days)]])}
@@ -226,6 +283,7 @@
       ${y ? yearDetail(y) : ''}
       <h3>CMS ownership records</h3>${ownersSection()}
       <h3>Changes of ownership</h3>${chowSection()}
+      <h3 id="medicare-title">Medicare cost reports (CMS)</h3>${medicareSection()}
       ${years.length ? '<div class="report-actions no-print"><button id="cr-home-csv" class="action-button secondary" type="button">Download every year for this home (CSV)</button></div>' : ''}
       <p class="microcopy">${esc(detail.caveats[0])} ${esc(detail.caveats[2])}</p>`;
     document.getElementById('cr-home-csv')?.addEventListener('click', downloadHomeCsv);
@@ -308,7 +366,10 @@
 
   function renderSupport() {
     const y = document.getElementById('cr-year').value;
-    const rows = stateRows().filter(r => ['raw_food_per_resident_day', 'dietary_per_resident_day', 'housekeeping_per_resident_day', 'laundry_per_resident_day'].some(k => r[k] != null));
+    const sel = document.getElementById('cr-metric');
+    const m = METRICS.find(x => x[0] === sel.value) || METRICS[0];
+    const mk = m[0];
+    const rows = stateRows().filter(r => r[mk] != null).map(r => Object.assign({}, r, { metric: r[mk] }));
     const { key, dir } = supportSort;
     rows.sort((a, b) => {
       const av = a[key], bv = b[key];
@@ -316,18 +377,61 @@
       return dir * ((av == null ? -Infinity : av) - (bv == null ? -Infinity : bv));
     });
     const med = index.statewide_medians[y] || {};
-    const own = rows.filter(r => r.food_purchasing === 'home').length, con = rows.filter(r => r.food_purchasing === 'contractor').length;
-    document.getElementById('cr-support-summary').textContent = med.dietary_per_resident_day == null ? `No food and support figures for cost year ${y}.`
-      : `${rows.length} homes for cost year ${y}. ${own} buy their own food; ${con} have a food-service contractor supply it (raw food not separable). Statewide medians per resident day: raw food ${money2(med.raw_food_per_resident_day)}, dietary all-in ${money2(med.dietary_per_resident_day)}, housekeeping ${money2(med.housekeeping_per_resident_day)}, laundry ${money2(med.laundry_per_resident_day)}.`;
+    const isFood = mk === 'raw_food_per_resident_day';
+    const max = Math.max(...rows.map(r => r.metric || 0), 1);
+    document.getElementById('cr-metric-head').textContent = `${m[1]} per resident day`;
+    document.getElementById('cr-food-head').hidden = !isFood;
+    const contractors = isFood ? stateRows().filter(r => r.food_purchasing === 'contractor').length : 0;
+    document.getElementById('cr-support-summary').textContent = rows.length
+      ? `${rows.length} homes for cost year ${y}. Statewide median ${money2(med[mk])} per resident day${m[3] && med[`${m[3]}_share`] != null ? `, ${pct(med[`${m[3]}_share`])} of total costs` : ''}.${isFood ? ` ${contractors} homes have a food-service contractor supply the food, so their raw food cannot be separated (see dietary, all-in).` : ''}`
+      : `No figures for ${m[1].toLowerCase()} in cost year ${y}.`;
     document.getElementById('cr-support-rows').innerHTML = rows.map(r => `<tr>
       <td data-label="Home"><button type="button" data-ccn="${esc(r.ccn)}">${esc(r.facility_name)}</button>${partTag(r)}</td>
-      <td data-label="Raw food / day" class="cr-num">${r.raw_food_per_resident_day == null ? '<span class="subtle">not separable</span>' : money2(r.raw_food_per_resident_day)}</td>
-      <td data-label="Food bought by">${esc(PURCHASING[r.food_purchasing] || '')}</td>
-      <td data-label="Dietary all-in / day" class="cr-num">${money2(r.dietary_per_resident_day)}</td>
-      <td data-label="Housekeeping / day" class="cr-num">${money2(r.housekeeping_per_resident_day)}</td>
-      <td data-label="Laundry / day" class="cr-num">${money2(r.laundry_per_resident_day)}</td></tr>`).join('');
-    document.getElementById('cr-support-method').innerHTML = ['raw_food', 'dietary', 'housekeeping', 'laundry', 'support_costs_exclude']
+      <td data-label="Per resident day" class="cr-num"><span class="cr-bar" style="width:${Math.round(60 * Math.max(0, r.metric) / max)}px" aria-hidden="true"></span>${money2(r.metric)}</td>
+      <td data-label="Share of costs" class="cr-num">${m[3] && r.expenses_per_resident_day ? pct(r.metric / r.expenses_per_resident_day) : ''}</td>
+      <td data-label="Total costs / day" class="cr-num">${money2(r.expenses_per_resident_day)}</td>
+      ${isFood ? `<td data-label="Food bought by">${esc(PURCHASING[r.food_purchasing] || '')}</td>` : ''}</tr>`).join('');
+    document.getElementById('cr-support-method').innerHTML = ['cost_breakdown', 'raw_food', 'dietary', 'housekeeping', 'laundry', 'related_party_rent', 'support_costs_exclude']
       .filter(k => index.method[k]).map(k => `<li>${esc(index.method[k])}</li>`).join('');
+  }
+
+  // Every dollar of the home's costs by category, per resident day, with the statewide median.
+  const CATEGORY_DETAILS = { admin: [['management_fees', 'of which management fees (line m12)']],
+    plant: [['utilities', 'of which utilities (heat, light and power, water)'], ['equipment_leases', 'of which equipment leases']],
+    property: [['rent', 'of which rent on leased real property'], ['depreciation', 'of which depreciation'], ['amortization', 'of which amortization'],
+      ['property_taxes', 'of which property taxes'], ['rent_or_lease_paid_to_related_parties', 'of which paid to related parties for rent or lease (page 4)']] };
+  const CATEGORY_MEDIAN = { nursing: 'direct_care_per_resident_day', dietary: 'dietary_per_resident_day', housekeeping: 'housekeeping_per_resident_day', laundry: 'laundry_per_resident_day' };
+  function breakdownSection(y) {
+    const cb = y.cost_breakdown;
+    if (!cb) return '';
+    if (!cb.adds_up) return `<h3>Where the money goes</h3><p class="subtle">Not shown for this year: the cost categories read from the report add up to ${money(cb.categories_total)}, not the printed total of ${money(cb.printed_total)}. Check the original report.</p>`;
+    const labels = Object.fromEntries((index.cost_categories || []).map(c => [c[0], c[1]]));
+    const det = cb.details || {};
+    const rows = Object.entries(cb.categories).map(([k, v]) => {
+      const mkey = CATEGORY_MEDIAN[k] || `${k}_per_resident_day`;
+      const sub = (CATEGORY_DETAILS[k] || []).filter(([d]) => det[d]).map(([d, l]) => `<tr class="cr-sub"><th scope="row">${esc(l)}</th><td class="cr-num">${money2(det[d].per_resident_day)}</td><td class="cr-num">${money(det[d].amount)}</td><td></td><td class="cr-num subtle">${money2(stateMedian(selectedYear, `${d}_per_resident_day`))}</td></tr>`).join('');
+      return `<tr><th scope="row">${esc(labels[k] || k)}</th><td class="cr-num">${money2(v.per_resident_day)}</td><td class="cr-num">${money(v.amount)}</td><td class="cr-num">${pct(v.share)}</td><td class="cr-num subtle">${money2(stateMedian(selectedYear, mkey))}</td></tr>${sub}`;
+    }).join('');
+    const days = y.resident_days.resident_days_total || y.resident_days.days_total_care;
+    return `<h3>Where the money goes</h3>
+      <div class="table-scroll"><table class="cr-breakdown"><caption>Nursing-home costs by category, cost year ${y.cost_year} (${num(days)} resident days)</caption>
+      <thead><tr><th scope="col">Category</th><th scope="col">Per resident day</th><th scope="col">Amount</th><th scope="col">Share of costs</th><th scope="col">CT median per day</th></tr></thead>
+      <tbody>${rows}<tr class="cr-total"><th scope="row">Total costs (page 27)</th><td class="cr-num">${money2(cb.printed_total / days)}</td><td class="cr-num">${money(cb.printed_total)}</td><td class="cr-num">100%</td><td class="cr-num subtle">${money2(stateMedian(selectedYear, 'expenses_per_resident_day'))}</td></tr></tbody></table></div>
+      <details class="cr-more"><summary>How these categories are built</summary><ul>${['cost_breakdown', 'related_party_rent'].filter(k => index.method[k]).map(k => `<li>${esc(index.method[k])}</li>`).join('')}</ul></details>`;
+  }
+
+  function renderNational() {
+    const meds = index.medicare_cost_report_medians || {};
+    const keys = [['operating_expense_per_day', 'Operating expense per day', money2], ['salaries_per_day', 'Salaries per day', money2],
+      ['benefits_per_day', 'Benefits per day', money2], ['contract_labor_per_day', 'Contract labor per day', money2],
+      ['net_patient_revenue_per_day', 'Net patient revenue per day', money2], ['operating_margin', 'Operating margin', pct],
+      ['occupancy', 'Occupancy', pct], ['medicaid_share_of_days', 'Medicaid share of days', pct]];
+    const years = Object.keys(meds).filter(y => meds[y].US && meds[y].CT && meds[y].CT.operating_expense_per_day != null).reverse();
+    document.getElementById('cr-national-head').innerHTML = `<tr><th scope="col">Fiscal year ending</th>${keys.map(k => `<th scope="col">${esc(k[1])}<br><span class="subtle">CT / US</span></th>`).join('')}</tr>`;
+    document.getElementById('cr-national-rows').innerHTML = years.map(y => {
+      const ct = meds[y].CT, us = meds[y].US;
+      return `<tr><td data-label="Fiscal year ending">${esc(y)}${us.complete && ct.complete ? '' : ' <span class="cr-flag" title="Reports for this year are still being filed">incomplete</span>'}<div class="subtle">${num(ct.reports)} CT · ${num(us.reports)} US</div></td>${keys.map(([k, l, f]) => `<td data-label="${esc(l)} (CT / US)" class="cr-num">${f(ct[k])}<div class="subtle">${f(us[k])}</div></td>`).join('')}</tr>`;
+    }).join('');
   }
 
   // ------------------------------------------------------------------ CSV
@@ -358,16 +462,20 @@
       y.direct_care.operating_margin_nh, y.balance_sheet.net_income_p36, y.balance_sheet.assets_total, y.balance_sheet.liabilities_total, y.source_file,
       y.period_start, y.period_end, y.part_year ? 'yes' : 'no', ...sup(y)]));
   }
+  const EXTRA_STATE_KEYS = ['other_staff_per_resident_day', 'other_fees_per_resident_day', 'admin_per_resident_day',
+    'resident_care_per_resident_day', 'plant_per_resident_day', 'property_per_resident_day', 'interest_per_resident_day', 'insurance_per_resident_day',
+    'management_fees_per_resident_day', 'rent_per_resident_day', 'rent_or_lease_paid_to_related_parties_per_resident_day', 'utilities_per_resident_day'];
   function downloadStateCsv() {
     const y = document.getElementById('cr-year').value;
     const header = ['ccn', 'home', 'cost_year', 'direct_care_per_resident_day', 'direct_care_share_of_costs', 'nursing_hours_per_resident_day',
       'pbj_total_nurse_hprd_same_months', 'expenses_per_resident_day', 'management_fees_m12', 'related_party_total', 'operating_margin_nh', 'medicaid_share_of_days', 'period_start', 'period_end', 'part_year',
-      'raw_food_per_resident_day', 'food_bought_by', 'dietary_all_in_per_resident_day', 'housekeeping_all_in_per_resident_day', 'laundry_all_in_per_resident_day'];
+      'raw_food_per_resident_day', 'food_bought_by', 'dietary_all_in_per_resident_day', 'housekeeping_all_in_per_resident_day', 'laundry_all_in_per_resident_day',
+      ...EXTRA_STATE_KEYS];
     saveCsv(`ct-cost-reports-${y}.csv`, header, stateRows().map(r => [r.ccn, r.facility_name, y, r.direct_care_per_resident_day,
       r.direct_care_share_of_expenses, r.nursing_hours_per_resident_day, r.pbj_total_nurse_hprd, r.expenses_per_resident_day,
       r.management_fee, r.related_party_total_reported, r.operating_margin_nh, r.medicaid_share_of_days,
       r.period_start, r.period_end, r.part_year ? 'yes' : 'no', r.raw_food_per_resident_day, r.food_purchasing,
-      r.dietary_per_resident_day, r.housekeeping_per_resident_day, r.laundry_per_resident_day]));
+      r.dietary_per_resident_day, r.housekeeping_per_resident_day, r.laundry_per_resident_day, ...EXTRA_STATE_KEYS.map(k => r[k])]));
   }
 
   // ------------------------------------------------------------------ init
@@ -408,6 +516,11 @@
     ysel.innerHTML = years.slice().reverse().map(y => `<option value="${y}">${y}</option>`).join('');
     ysel.disabled = false;
     ysel.addEventListener('change', () => { renderState(); renderSupport(); });
+    const msel = document.getElementById('cr-metric');
+    const groups = [...new Set(METRICS.map(m => m[2]))];
+    msel.innerHTML = groups.map(g => `<optgroup label="${esc(g)}">${METRICS.filter(m => m[2] === g).map(m => `<option value="${m[0]}">${esc(m[1])}</option>`).join('')}</optgroup>`).join('');
+    msel.value = 'expenses_per_resident_day';
+    msel.addEventListener('change', () => { supportSort = { key: 'metric', dir: -1 }; renderSupport(); });
     document.querySelector('#cr-state-table thead').addEventListener('click', e => {
       const b = e.target.closest('button[data-sort]');
       if (!b) return;
@@ -419,12 +532,13 @@
     document.querySelector('#cr-support-table thead').addEventListener('click', e => {
       const b = e.target.closest('button[data-sort]');
       if (!b) return;
-      supportSort = { key: b.dataset.sort, dir: supportSort.key === b.dataset.sort ? -supportSort.dir : (['facility_name', 'food_purchasing'].includes(b.dataset.sort) ? 1 : -1) };
+      supportSort = { key: b.dataset.sort, dir: supportSort.key === b.dataset.sort ? -supportSort.dir : (b.dataset.sort === 'facility_name' ? 1 : -1) };
       renderSupport();
     });
     document.getElementById('cr-support-rows').addEventListener('click', e => { const b = e.target.closest('button[data-ccn]'); if (b) choose(b.dataset.ccn, true); });
     renderState();
     renderSupport();
+    renderNational();
     const ccn = new URLSearchParams(global.location.search).get('ccn');
     if (ccn && /^\d{6}$/.test(ccn)) choose(ccn, false);
   }

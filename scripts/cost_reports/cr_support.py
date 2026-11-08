@@ -26,4 +26,16 @@ def support_lines(P):
     r["hk_supplies"] = find(P, "20", r"Supplies\s*-?\s*Cleaning")[0]
     r["hk_purchased_services"] = find(P, "20", r"Purchased Services", within=(r"Housekeeping", r"Resident Care"))[0]
     r["housekeeping_total"] = find(P, "20", r"Total Housekeeping")[0]
+    # CSP-22 maintenance, utilities and property
+    r["plant_repairs"] = find(P, "22", r"^\s*a\.\s*Repairs\s*(&|and)\s*Maint")[0]
+    r["plant_heat"] = find(P, "22", r"^\s*b\.\s*Heat\b")[0]
+    r["plant_light_power"] = find(P, "22", r"Light\s*(&|and)\s*Power")[0]
+    r["plant_water"] = find(P, "22", r"^\s*d\.\s*Water\b")[0]
+    r["plant_equipment_lease"] = find(P, "22", r"Equipment Lease")[0]
+    r["property_depreciation"] = find(P, "22", r"Total Depreciation")[0]
+    r["property_amortization"] = find(P, "22", r"Total Amortization")[0]
+    r["property_rent"] = find(P, "22", r"Rental payments")[0]
+    r["property_tax_owner"] = find(P, "22", r"Real estate taxes paid by owner")[0]
+    r["property_tax_lessor"] = find(P, "22", r"Real estate taxes paid by lessor")[0]
+    r["property_tax_personal"] = find(P, "22", r"Personal property tax")[0]
     return r
