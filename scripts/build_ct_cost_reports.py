@@ -16,6 +16,7 @@ Outputs:
 """
 from __future__ import annotations
 
+import argparse
 import csv
 import glob
 import datetime as dt
@@ -26,6 +27,8 @@ import statistics
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
+
+from cost_reports.cr_entities import RELATED_PARTY_METHOD, included_related, is_related_rent
 
 ROOT = Path(__file__).resolve().parents[1]
 PRIV = ROOT / "data" / "testing" / "cost_reports"
@@ -380,16 +383,54 @@ def cost_breakdown(f, dc, ss, days, related_parties):
                   "property_taxes": g("property_tax_owner") + g("property_tax_lessor") + g("property_tax_personal")}
     if abs(sum(prop_parts.values()) - g("property_total")) <= max(50, 0.005 * (g("property_total") or 1)):
         det.update({k: v for k, v in prop_parts.items() if v})
-    rp_rent = sum((x.get("cost_reported") or 0) for x in related_parties or []
-                  if (x.get("category") or "") == "rent / lease / real estate")
-    # it is part of building and property, so it cannot be larger: a larger figure means page 4 also holds
-    # amounts that are not this year's nursing-home rent (other levels, balances); withheld
-    if rp_rent and rp_rent <= g("property_total") * 1.02 + 50:
-        det["rent_or_lease_paid_to_related_parties"] = rp_rent
-    elif rp_rent:
-        out["withheld_details"] = ["rent or lease paid to related parties is larger than building and property"]
     out["details"] = {k: {"amount": r0(v), "per_resident_day": round(v / days, 2)} for k, v in det.items()}
+    apply_related_rent(out, days, related_parties)
     return out
+
+
+RELATED_RENT = "rent_or_lease_paid_to_related_parties"
+RENT_WITHHELD = "rent or lease paid to related parties is larger than building and property"
+RELATED_RENT_METHOD = (
+    "Rent or lease paid to related parties uses the printed service description to identify rent or lease. "
+    "The amount belongs within building and property, and is withheld when it exceeds that category. "
+    + RELATED_PARTY_METHOD
+)
+
+
+def apply_related_rent(breakdown, days, rows):
+    if not breakdown or not breakdown.get("adds_up") or not days:
+        return
+    details = breakdown["details"]
+    details.pop(RELATED_RENT, None)
+    flags = [flag for flag in breakdown.pop("withheld_details", []) if flag != RENT_WITHHELD]
+    rent = sum((x.get("cost_reported") or 0) for x in rows if is_related_rent(x))
+    property_cost = breakdown["categories"]["property"]["amount"]
+    if rent and rent <= property_cost * 1.02 + 50:
+        details[RELATED_RENT] = {"amount": r0(rent), "per_resident_day": round(rent / days, 2)}
+    elif rent:
+        flags.append(RENT_WITHHELD)
+    if flags:
+        breakdown["withheld_details"] = flags
+
+
+def set_related_parties(record, entities, companies=None):
+    keys = ("name_guess", "text", "description", "category", "where", "cost_reported",
+            "actual_cost_to_related_party", "pct_revenue_from_non_related", "row_status")
+    rows = [{key: row.get(key) for key in keys} for row in entities.get("related_parties", [])]
+    if companies is not None:
+        for row in rows:
+            row["company_id"] = match_company(row["name_guess"], companies) if not row["row_status"] else None
+    record["related_parties"] = rows
+    record["related_party_total_reported"] = r0(sum(x["cost_reported"] or 0 for x in rows if included_related(x)))
+    unreadable = sum(row["row_status"] == "unreadable" for row in rows)
+    if unreadable:
+        record["related_party_unreadable_rows"] = unreadable
+    else:
+        record.pop("related_party_unreadable_rows", None)
+    if not entities.get("related_party_page_found"):
+        record["related_party_page_found"] = False
+    else:
+        record.pop("related_party_page_found", None)
 
 
 # ---------------------------------------------------------------- CMS Medicare cost reports (HCRIS public use file)
@@ -538,15 +579,10 @@ def year_record(o, idx_row, pbj):
         "directors_officers": [{k: x.get(k) for k in ("name", "address", "percent")} for x in e.get("directors_officers", [])],
         "stockholders_10pct": [{k: x.get(k) for k in ("name", "address", "percent")} for x in e.get("stockholders_10pct", [])],
     }
-    rec["related_parties"] = [{k: x.get(k) for k in ("name_guess", "text", "category", "where", "cost_reported",
-                                                       "actual_cost_to_related_party", "pct_revenue_from_non_related")}
-                              for x in e.get("related_parties", [])]
+    set_related_parties(rec, e)
     rec["management_services"] = [{k: x.get(k) for k in ("name", "cost", "description")} for x in e.get("management_services", [])]
     rec["cost_breakdown"] = None if "resident days vs beds" in flags else \
         cost_breakdown(f, d, rec["support_services"], days, rec["related_parties"])
-    rec["related_party_total_reported"] = r0(sum(x["cost_reported"] or 0 for x in rec["related_parties"]
-                                                 if (x.get("category") or "") not in ("loans / interest / receivables",)
-                                                 and not re.match(r"^(See attached|Various)", x.get("name_guess") or "", re.I)))
     return rec
 
 
@@ -561,6 +597,51 @@ def match_company(name, companies):
             if len(core) >= 6 and core in n:
                 return c["id"]
     return None
+
+
+def rebuild_related_parties(extract_path):
+    """Rebuild only page-4 fields, using the filings already selected in the published snapshot."""
+    extracted = {(o.get("ccn"), o.get("year"), o["file"] + ".pdf"): o["entities"]
+                 for o in load(extract_path) if "entities" in o}
+    index = load(OUT_INDEX)
+    companies = load(ROOT / "data" / "ct_nursing_home_management_companies.json")["companies"]
+    reports = {}
+    year_count = 0
+    for facility in index["facilities"]:
+        if not facility["has_detail"]:
+            continue
+        ccn = facility["ccn"]
+        path = OUT_DIR / f"{ccn}.json"
+        detail = load(path)
+        if set(facility["years"]) != {str(y["cost_year"]) for y in detail["cost_years"]}:
+            raise ValueError(f"Cost-report index and detail disagree for {ccn}")
+        for year in detail["cost_years"]:
+            y = year["cost_year"]
+            source = extracted[(ccn, y, year["source_file"])]
+            set_related_parties(year, source, companies)
+            days = year["resident_days"].get("resident_days_total") or year["resident_days"].get("days_total_care")
+            cb = year["cost_breakdown"]
+            apply_related_rent(cb, days, year["related_parties"])
+            indexed = facility["years"][str(y)]
+            indexed["related_party_total_reported"] = year["related_party_total_reported"]
+            rent = ((cb or {}).get("details") or {}).get(RELATED_RENT)
+            key = f"{RELATED_RENT}_per_resident_day"
+            if rent:
+                indexed[key] = rent["per_resident_day"]
+            else:
+                indexed.pop(key, None)
+            year_count += 1
+        reports[path] = detail
+    # Validate the entire filing mapping before writing any output.
+    if year_count != index["summary"]["home_years"]:
+        raise ValueError("Scoped rebuild did not cover all published home-years")
+    index["method"]["related_party_rent"] = RELATED_RENT_METHOD
+    for path, detail in reports.items():
+        path.write_text(json.dumps(detail, ensure_ascii=False, separators=(",", ":")) + "\n",
+                        encoding="utf-8", newline="\n")
+    OUT_INDEX.write_text(json.dumps(index, ensure_ascii=False, indent=1) + "\n",
+                         encoding="utf-8", newline="\n")
+    print(f"Rebuilt page-4 fields for {year_count} published home-years")
 
 
 def main():
@@ -648,7 +729,7 @@ def main():
             for m in r["management_services"]:
                 m["company_id"] = match_company(m.get("name"), companies)
             for p in r["related_parties"]:
-                p["company_id"] = match_company(p.get("text"), companies)
+                p["company_id"] = match_company(p["name_guess"], companies) if not p["row_status"] else None
             # management of record during the cost year (CMS)
             start, end = r["period_start"], r["period_end"]
             r["cms_management_during_year"] = [
@@ -782,12 +863,7 @@ def main():
                                      "revenue. Operating margin = (net patient revenue - operating expense) / net patient "
                                      "revenue. National and Connecticut medians use full-year reports only (360-371 days), "
                                      "grouped by the year the fiscal year ends, and leave out implausible values.",
-            "related_party_rent": "Rent or lease paid to related parties is the cost the home reported on page 4 for "
-                                  "related parties whose description mentions rent, lease, realty or real estate. It is "
-                                  "already inside the building and property category, not in addition to it, so it is "
-                                  "withheld when it is larger than that category (page 4 then also covers other levels "
-                                  "of care or other years). Balances due to or from related companies are not costs and "
-                                  "are left out of every related-party total.",
+            "related_party_rent": RELATED_RENT_METHOD,
             "support_costs_exclude": "None of the support figures include management-company charges reported on page 16, "
                                      "kitchen or laundry equipment depreciation and building costs (property), or "
                                      "utilities; a contractor's fee includes its own overhead and profit.",
@@ -811,4 +887,11 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--related-parties-only", type=Path, metavar="EXTRACT",
+                        help="Rebuild only page-4 fields from run_all.py --related-parties-only.")
+    args = parser.parse_args()
+    if args.related_parties_only:
+        rebuild_related_parties(args.related_parties_only)
+    else:
+        main()

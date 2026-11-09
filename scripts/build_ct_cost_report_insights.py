@@ -35,8 +35,8 @@ METRICS = [
     ("raw_food", "Raw food (homes that buy their own)", "money", "Details", "Raw food line (page 18, 2a1) per resident day, only when the home buys its own food."),
     ("management_fees", "Management fees", "money", "Details", "Administrative management services (page 16, line m12) per resident day."),
     ("rent", "Rent on leased real property", "money", "Details", "Page 22, line 9, per resident day."),
-    ("rent_related", "Rent or lease paid to related parties", "money", "Details", "Page 4 related-party lines for rent, lease or real estate, per resident day."),
-    ("related_parties", "All payments to related parties", "money", "Details", "Every related-party cost on page 4 except loans and balances, per resident day."),
+    ("rent_related", "Rent or lease paid to related parties", "money", "Details", "Readable itemized page 4 lines whose service describes rent or a lease, per resident day."),
+    ("related_parties", "Itemized costs reported for related parties", "money", "Details", "Readable itemized costs on page 4 and its continuation pages, per resident day. Loans, balances, attachment summary rows, duplicates and unreadable rows are excluded."),
     ("agency", "Nursing agency (pool)", "money", "Details", "Nursing pool fees for RNs, LPNs and aides (page 13), per resident day."),
     ("utilities", "Utilities", "money", "Details", "Heat, light and power, and water (page 22, 6b-6d), per resident day."),
     ("direct_share", "Direct care share of costs", "pct", "Staffing and payers", "Direct care as a share of total costs."),
@@ -241,7 +241,7 @@ def main():
                            "rankings.",
         },
     }
-    OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8")
+    OUT.write_text(json.dumps(out, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
     print(f"Wrote {OUT.relative_to(ROOT)}: {len(homes)} homes, {sum(len(h['years']) for h in homes)} home-years, "
           f"{len(out['management_companies'])} management companies, {len(aff_groups)} affiliations, "
           f"{OUT.stat().st_size // 1024} KB")

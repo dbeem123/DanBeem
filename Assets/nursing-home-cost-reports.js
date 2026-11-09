@@ -209,8 +209,11 @@
       </tbody></table></div>` : '<p class="subtle">No management services listed on Schedule C-1.</p>';
     const rel = y.related_parties.length ? `<div class="table-scroll"><table class="stack"><caption>Related parties the home reported (page 4), as written</caption>
       <thead><tr><th scope="col">Related party</th><th scope="col">Type</th><th scope="col">As written on the report</th><th scope="col">Cost reported</th><th scope="col">Actual cost to related party</th></tr></thead><tbody>
-      ${y.related_parties.map(r => `<tr><td data-label="Related party">${r.company_id ? `<a href="${MGMT}?company=${esc(r.company_id)}">${esc(r.name_guess)}</a>` : esc(r.name_guess)}</td><td data-label="Type">${esc(r.category)}</td><td data-label="As written" class="raw">${esc(r.text)}</td><td data-label="Cost" class="cr-num">${money(r.cost_reported)}</td><td data-label="Actual cost" class="cr-num">${money(r.actual_cost_to_related_party)}</td></tr>`).join('')}
-      </tbody></table></div>` : '<p class="subtle">No related parties listed on page 4.</p>';
+      ${y.related_parties.map(r => `<tr><td data-label="Related party">${r.company_id ? `<a href="${MGMT}?company=${esc(r.company_id)}">${esc(r.name_guess)}</a>` : esc(r.name_guess)}</td><td data-label="Type">${esc(r.row_status || r.category)}</td><td data-label="As written" class="raw">${esc(r.text)}</td><td data-label="Cost" class="cr-num">${money(r.cost_reported)}</td><td data-label="Actual cost" class="cr-num">${money(r.actual_cost_to_related_party)}</td></tr>`).join('')}
+      </tbody></table></div>` : '<p class="subtle">No related-party lines were read on page 4.</p>';
+    const unreadable = y.related_party_unreadable_rows || 0;
+    const rpNote = y.related_party_page_found === false ? '<p class="subtle">Page 4 was not found in the extracted report.</p>'
+      : unreadable ? '<p class="subtle">Unreadable rows: ' + num(unreadable) + '. Excluded from totals. See the original report for detail.</p>' : '';
     const ow = y.owners_on_report;
     const people = (title, list) => list.length ? `<div class="table-scroll"><table class="stack"><caption>${esc(title)}</caption><thead><tr><th scope="col">Name</th><th scope="col">Address as filed</th><th scope="col">% / shares</th></tr></thead><tbody>
       ${list.map(x => `<tr><td data-label="Name">${esc(x.name)}</td><td data-label="Address">${esc(x.address)}</td><td data-label="%" class="cr-num">${x.percent == null ? '' : num(x.percent, x.percent % 1 ? 2 : 0)}</td></tr>`).join('')}</tbody></table></div>` : '';
@@ -246,7 +249,7 @@
         ${kvTable('Balance sheet (pages 31 to 36, whole entity)', [['Current assets', money(bs.assets_current)], ['Total assets', money(bs.assets_total)], ['Current liabilities', money(bs.liabilities_current)], ['Long-term liabilities', money(bs.liabilities_long_term)], ['Total liabilities', money(bs.liabilities_total)], ['Net worth', money(bs.net_worth)], ['Net income or deficit', money(bs.net_income_p36)]])}
       </div>
       <h3>Management services</h3>${mgmt}
-      <h3>Related parties</h3>${y.related_parties.length ? `<details class="cr-more"><summary>Show ${y.related_parties.length} related-party lines (${money(y.related_party_total_reported)} reported, excluding loans and balances)</summary>${rel}</details>` : rel}
+      <h3>Related parties</h3>${rpNote}${y.related_parties.length ? `<details class="cr-more"><summary>Show ${y.related_parties.length} related-party lines (${money(y.related_party_total_reported)} included in the total)</summary>${rel}</details>` : rel}
       <h3>Owners and officers listed on the report</h3>
       ${ow.partnership_legal_name ? `<p>Partnership / LLC: <strong>${esc(ow.partnership_legal_name)}</strong></p>` : ''}${ow.corporation_legal_name ? `<p>Corporation: <strong>${esc(ow.corporation_legal_name)}</strong></p>` : ''}
       ${people('Partners / members (page 3)', ow.partners_members)}${people('Directors and officers (page 3A)', ow.directors_officers)}${people('Stockholders owning 10% or more (page 3A)', ow.stockholders_10pct)}

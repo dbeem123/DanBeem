@@ -1,8 +1,8 @@
-import re, json, os, sys, collections, traceback
+import argparse, re, json, os, sys, traceback
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cr_extract import extract, derive, checks
 import cr_parse
-from cr_entities import extract_entities
+from cr_entities import extract_entities, extract_related
 from cr_period import read_period
 
 SITE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
@@ -30,6 +30,9 @@ def clean_ocr(t):
     return t
 
 
+parser = argparse.ArgumentParser(description="Extract indexed DSS annual report text.")
+parser.add_argument("--related-parties-only", action="store_true", help="Extract just page 4 for a scoped rebuild.")
+args = parser.parse_args()
 ROOT = os.environ.get("COST_REPORT_WORKDIR", os.path.join(SITE, "data", "testing", "cost_reports", "work"))
 idx = json.load(open(f"{ROOT}/cost_report_index.json", encoding="utf-8"))
 out = []
@@ -56,17 +59,27 @@ for d in idx:
     # scanned pages: header words sit centred over their columns, so read columns by centre
     cr_parse.ALIGN = "center" if d.get("text_source", "text").startswith("ocr") else "right"
     try:
-        rec, P = extract(t)
-        out.append({"file": d["file"], "ccn": d.get("ccn"), "year": d.get("year"), "match": d.get("match"),
-                    "text_source": d["text_source"], "pages_found": sorted(P), "fields": rec,
-                    "derived": derive(rec), "checks": checks(rec), "entities": extract_entities(P),
-                    "period": {"start": p_start.isoformat(), "end": p_end.isoformat()} if p_start else None})
+        row = {"file": d["file"], "ccn": d.get("ccn"), "year": d.get("year"), "match": d.get("match"),
+               "text_source": d["text_source"]}
+        if args.related_parties_only:
+            row["entities"] = extract_related(cr_parse.split_pages(t))
+        else:
+            rec, P = extract(t)
+            row.update(pages_found=sorted(P), fields=rec, derived=derive(rec), checks=checks(rec),
+                       entities=extract_entities(P),
+                       period={"start": p_start.isoformat(), "end": p_end.isoformat()} if p_start else None)
+        out.append(row)
     except Exception as e:
         out.append({"file": d["file"], "error": repr(e), "trace": traceback.format_exc()[-500:]})
-json.dump(out, open(f"{ROOT}/extract_all.json", "w", encoding="utf-8"), indent=0, default=float)
+filename = "extract_related_parties.json" if args.related_parties_only else "extract_all.json"
+with open(f"{ROOT}/{filename}", "w", encoding="utf-8", newline="\n") as fh:
+    json.dump(out, fh, indent=0, default=float)
+errors = sum("error" in o for o in out)
+print("reports", len(out), "errors", errors)
+if args.related_parties_only:
+    sys.exit(bool(errors))
 
 ok = [o for o in out if "fields" in o]
-print("reports", len(out), "errors", len(out) - len(ok))
 keys = list(ok[0]["fields"])
 cov = {k: sum(1 for o in ok if o["fields"].get(k) not in (None, 0)) / len(ok) for k in keys}
 for k in keys:

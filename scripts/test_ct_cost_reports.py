@@ -9,7 +9,7 @@ sys.path.insert(0, str(ROOT / "scripts" / "cost_reports"))
 sys.path.insert(0, str(ROOT / "scripts"))
 
 from cr_extract import extract, derive, checks  # noqa: E402
-from cr_entities import extract_entities, categorize  # noqa: E402
+from cr_entities import extract_entities, categorize, included_related, is_related_rent, parse_related, related_parties  # noqa: E402
 from cr_parse import split_pages, page_header  # noqa: E402
 from cr_period import read_period  # noqa: E402
 import build_ct_cost_reports as build  # noqa: E402
@@ -84,6 +84,67 @@ class ParserTests(unittest.TestCase):
         # A balance owed between related companies is not rent, even when the other party is a realty company.
         self.assertEqual(categorize("Intercompany due to/from Bethel Realty"), "loans / interest / receivables")
         self.assertEqual(categorize("Rent - Bethel Realty LLC"), "rent / lease / real estate")
+
+    def test_bethel_2025_separates_three_digit_rent_from_therapy(self):
+        page = (FIX / "bethel_2025_related_parties.txt").read_text(encoding="utf-8")
+        rows = {r["name_guess"]: r for r in parse_related(page)}
+        rent = rows["851 SILAS DEANE"]
+        therapy = rows["Preferred Therapy Solutions"]
+        self.assertEqual(rent["cost_reported"], 561)
+        self.assertTrue(is_related_rent(rent))
+        self.assertEqual(therapy["cost_reported"], 1346310)
+        self.assertEqual(therapy["actual_cost_to_related_party"], 1298112)
+        self.assertEqual(therapy["description"], "PT, OT, ST")
+        self.assertEqual(therapy["category"], "therapy")
+        self.assertFalse(is_related_rent(therapy))
+
+    def test_attachment_summary_excluded_itemized_page_retained(self):
+        _, pages = self.new
+        rows = extract_entities(pages)["related_parties"]
+        summary = next(r for r in rows if r["row_status"] == "attachment summary")
+        self.assertEqual(summary["cost_reported"], 17620327)
+        self.assertFalse(included_related(summary))
+        self.assertTrue(any(r["name_guess"] == "Bethel Realty" and is_related_rent(r) for r in rows))
+
+    def test_no_party_identity_from_collapsed_ocr(self):
+        page = (FIX / "westside_2016_related_parties_ocr.txt").read_text(encoding="utf-8")
+        rows = parse_related(page)
+        self.assertEqual(len(rows), 1)
+        self.assertIsNone(rows[0]["name_guess"])
+        self.assertEqual(rows[0]["row_status"], "unreadable")
+        self.assertFalse(included_related(rows[0]))
+
+    def test_address_only_is_unreadable_and_duplicate_cost_not_added_twice(self):
+        page = (FIX / "bethel_2025_related_parties.txt").read_text(encoding="utf-8")
+        edited = page.replace("851 SILAS DEANE", "851 Silas Deane Highway")
+        address_row = next(r for r in parse_related(edited) if r["cost_reported"] == 561)
+        self.assertIsNone(address_row["name_guess"])
+        self.assertFalse(included_related(address_row))
+        rows = related_parties([page, page])
+        self.assertEqual(sum(r["row_status"] == "duplicate" for r in rows), 8)
+        self.assertEqual(sum(r["cost_reported"] for r in rows if is_related_rent(r)), 10260)
+
+    def test_single_character_reference_and_actual_na_do_not_hide_reported_cost(self):
+        ludlowe = (FIX / "ludlowe_2018_related_parties.txt").read_text(encoding="utf-8")
+        rent, = parse_related(ludlowe)
+        self.assertEqual(rent["name_guess"], "Ludlowe Realty, LLC")
+        self.assertEqual(rent["where"], "22 9")
+        self.assertEqual(rent["cost_reported"], 2498025)
+        self.assertTrue(is_related_rent(rent))
+        advanced = (FIX / "advanced_2025_related_parties.txt").read_text(encoding="utf-8")
+        rent, = parse_related(advanced)
+        self.assertEqual(rent["name_guess"], "169 Davenport Ave Realty, LLC")
+        self.assertEqual(rent["cost_reported"], 7115355)
+        self.assertIsNone(rent["actual_cost_to_related_party"])
+        self.assertTrue(is_related_rent(rent))
+
+    def test_negative_credit_and_category_precedence(self):
+        page = (FIX / "bethel_2025_related_parties.txt").read_text(encoding="utf-8")
+        page = page.replace("561                   561", "(61)                  (61)")
+        page = page.replace("Preferred Therapy Solutions", "Preferred Realty Solutions ")
+        rows = parse_related(page)
+        self.assertTrue(any(r["cost_reported"] == -61 and is_related_rent(r) for r in rows))
+        self.assertTrue(any(r["cost_reported"] == 1346310 and r["category"] == "therapy" for r in rows))
 
     def test_support_lines_cook_willow_2025(self):
         # Page text of the public 2025 report, values checked against the report: pages 10, 18, 19, 20.

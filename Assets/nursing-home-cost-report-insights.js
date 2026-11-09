@@ -639,7 +639,10 @@
     revs = (rest >= 0 && revs.every(r => r.v >= 0)) ? revs.concat([{ label: 'Other revenue and adjustments', v: rest }]) : [{ label: 'Nursing-home revenue', v: revTotal }];
     revs = revs.filter(r => r.v > 0);
     const gap = revTotal - totalCost;
-    const rp = (yr.related_parties || []).filter(p => (p.category || '') !== 'loans / interest / receivables' && p.cost_reported);
+    const rp = (yr.related_parties || []).filter(p => !p.row_status && p.category !== 'loans / interest / receivables' && p.cost_reported);
+    const unreadable = yr.related_party_unreadable_rows || 0;
+    const rpNote = yr.related_party_page_found === false ? '<p class="subtle">Page 4 was not found in the extracted report.</p>'
+      : unreadable ? '<p class="subtle">Unreadable rows: ' + num(unreadable) + '. Excluded from totals. See the original report for detail.</p>' : '';
     const rpLabel = c => (!c || c === 'other') ? 'other or not classified (see the report)' : c;
     const rpBy = {}; rp.forEach(p => { const c = rpLabel(p.category); rpBy[c] = (rpBy[c] || 0) + p.cost_reported * f; });
     out.innerHTML = `<h2 style="margin-bottom:2px">${esc(title(h.name))}, cost year ${y}</h2>
@@ -647,10 +650,11 @@
       <div class="ci-chart" id="flow-chart"></div>
       ${legend(costs.map(c => ({ label: c.label, color: c.color })))}
       <h3>Paid to related parties</h3>
+      ${rpNote}
       ${rp.length ? `<p>The home reported ${esc(money(rp.reduce((a, p) => a + p.cost_reported * f, 0)))} in costs paid to related parties (companies or people connected to its owners or operators), ${esc(pct(rp.reduce((a, p) => a + p.cost_reported * f, 0) / totalCost))} of its costs. These payments are inside the cost groups above, not in addition to them.</p>
         <div class="table-scroll"><table class="stack"><caption>Related-party costs by type (page 4)</caption><thead><tr><th scope="col">Type</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Per resident day</th></tr></thead>
         <tbody>${Object.entries(rpBy).sort((a, b) => b[1] - a[1]).map(([c, v]) => `<tr><td data-label="Type">${esc(c)}</td><td class="num" data-label="Amount">${esc(money(v))}</td><td class="num" data-label="Per day">${esc(money2(v / days))}</td></tr>`).join('')}</tbody></table></div>`
-        : '<p class="subtle">No related-party costs reported on page 4 for this year.</p>'}
+        : '<p class="subtle">No readable itemized related-party costs were included for this year.</p>'}
       <details class="ci-more"><summary>Show the flow as a table</summary><div class="table-scroll"><table class="stack"><caption>Revenue and costs, cost year ${y}</caption><thead><tr><th scope="col">Line</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Per resident day</th></tr></thead>
         <tbody>${revs.map(r => `<tr><td data-label="Line">Revenue: ${esc(r.label)}</td><td class="num" data-label="Amount">${esc(money(r.v))}</td><td class="num" data-label="Per day">${esc(money2(r.v / days))}</td></tr>`).join('')}
         ${costs.map(c => `<tr><td data-label="Line">Cost: ${esc(c.label)}</td><td class="num" data-label="Amount">${esc(money(c.v))}</td><td class="num" data-label="Per day">${esc(money2(c.v / days))}</td></tr>`).join('')}
