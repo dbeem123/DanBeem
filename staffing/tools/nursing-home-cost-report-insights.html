@@ -96,10 +96,12 @@
       .ci-hero .panel > :not(h1) { display:none !important; }
       body.ltcop-dashboard .wrap { width:100%; max-width:none; padding:0; }
       body.ltcop-dashboard { background:#fff; }
-      .ci-grid { display:block; }
-      .ci-card { margin-bottom:8mm; break-inside:avoid; }
+      .ci-grid { display:grid; grid-template-columns:1fr 1fr; gap:4mm; }
+      .ci-card { margin:0; padding:2mm 3mm 1mm; break-inside:avoid; }
+      .ci-share-wrap { break-inside:avoid; }
+      .ci-share-wrap .ci-chart svg { max-height:80mm; }
       .ci-chart, .ci-chart svg { width:100%; max-width:100%; break-inside:avoid; }
-      .ci-card .ci-chart svg { max-height:62mm; }
+      .ci-card .ci-chart svg { max-height:52mm; }
       .ci-legend { break-after:avoid; }
       .table-scroll { overflow:visible; break-inside:avoid; }
       table { width:100%; table-layout:fixed; break-inside:avoid; }
@@ -113,7 +115,18 @@
       table.stack td { display:table-cell; }
       table.stack td::before { display:none; }
       table.pivot { font-size:8pt; }
+      .ci-sticky tr > :first-child { width:24% !important; overflow-wrap:normal; hyphens:auto; }
+      .ci-more table:not(.stack) { table-layout:auto; font-size:8pt; }
+      .ci-more table:not(.stack) th, .ci-more table:not(.stack) td { overflow-wrap:normal; }
+      .ci-more table:not(.stack) td { white-space:nowrap !important; }
+      .ci-more table:not(.stack) tr > :first-child { width:28% !important; }
       table.pivot thead th { font-size:7pt; }
+      .ci-tiles { grid-template-columns:repeat(4,minmax(0,1fr)); gap:4mm; }
+      .ci-tile { padding:2mm 3mm; background:#fff; break-inside:avoid; }
+      .ci-tile dd { font-size:13pt; }
+      .ci-headlines, .ci-story-wrap, .ci-events-wrap { break-inside:avoid; margin-bottom:4mm; }
+      .ci-story, .ci-events { margin:1mm 0 0; font-size:10pt; }
+      h2, h3 { break-after:avoid; }
       .ci-print-only { display:inline; }
       .ci-more summary { display:none; }
       .ci-more::details-content { content-visibility:visible; }

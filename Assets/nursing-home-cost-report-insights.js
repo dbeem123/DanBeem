@@ -339,7 +339,7 @@
       ['Direct care share of costs', pct(val(h, y, 'direct_share'))],
       ['Related-party payments as a share of costs', related == null || !costs ? '' : pct(related / costs)],
     ];
-    return `<section class="ci-headlines ci-screen-only" aria-label="Latest checked cost year">
+    return `<section class="ci-headlines" aria-label="Latest checked cost year">
       <p class="subtle">Latest cost year that passed every check: ${y}${real ? `, in ${D.cpi.base_year} dollars` : ''}.</p>
       <dl class="ci-tiles">${tiles.map(([label, value]) => `<div class="ci-tile"><dt>${esc(label)}</dt><dd>${esc(value || 'Unavailable')}</dd></div>`).join('')}</dl>
     </section>`;
@@ -360,16 +360,16 @@
       <h2 id="home-title" tabindex="-1" style="margin-bottom:2px">${esc(title(h.name))}</h2>
       <p class="subtle">${esc([h.city, h.county ? `${h.county} planning region` : '', h.beds ? `${h.beds} certified beds` : '', h.ownership, h.affiliation ? `CMS affiliated entity: ${title(h.affiliation)}` : ''].filter(Boolean).join(' · '))} · CCN ${h.ccn} · <a href="${COST_PAGE}?ccn=${h.ccn}">Year-by-year detail on Cost Reports</a></p>
       ${headlineTiles(h)}
-      ${story.length ? `<div class="ci-screen-only"><h3>What changed</h3><ul class="ci-story">${story.map(item => `<li>${item}</li>`).join('')}</ul></div>` : ''}
+      ${story.length ? `<div class="ci-story-wrap"><h3>What changed</h3><ul class="ci-story">${story.map(item => `<li>${item}</li>`).join('')}</ul></div>` : ''}
       <h3>Costs over time ${real ? `<span class="ci-flag">in ${D.cpi.base_year} dollars</span>` : ''}</h3>
       ${legend([{ label: title(h.name), color: HEX[0], cls: 'line' }, { label: 'Connecticut middle half of homes', cls: 'band' }, { label: 'Connecticut median', cls: 'dash' }])}
       <div class="ci-grid">${keys.map(k => `<div class="ci-card"><h4>${esc(META[k].label)}</h4><p class="sub">${META[k].unit === 'money' ? 'Per resident day' : esc(META[k].definition)}</p><div class="ci-chart" data-k="${k}"></div>${metricDisclosure(META[k].definition)}</div>`).join('')}</div>
       <p class="subtle">Each chart has its own scale.</p>
-      <div class="ci-screen-only">${evs.length ? `<h3>Ownership, management and administrator changes</h3><ol class="ci-events">${evs.map(e => `<li><b>${e.n}</b>${esc(fmtDate(e.date))}: ${esc(e.label)}</li>`).join('')}</ol>` : '<p class="subtle">No ownership, management-of-record or administrator changes recorded in these years.</p>'}</div>
-      <h3>Share of every dollar</h3>
+      <div class="ci-events-wrap">${evs.length ? `<h3>Ownership, management and administrator changes</h3><ol class="ci-events">${evs.map(e => `<li><b>${e.n}</b>${esc(fmtDate(e.date))}: ${esc(e.label)}</li>`).join('')}</ol>` : '<p class="subtle">No ownership, management-of-record or administrator changes recorded in these years.</p>'}</div>
+      <div class="ci-share-wrap"><h3>Share of every dollar</h3>
       <p class="subtle">Each year's costs split into eight groups, as a share of the total. Hover a segment for its amount per resident day.</p>
       ${legend(GROUP_COLORS())}
-      <div class="ci-chart" id="home-share"></div>
+      <div class="ci-chart" id="home-share"></div></div>
       ${metricDisclosure(D.method.values)}
       <details class="ci-more"><summary>Show these figures as a table</summary>${homeTable(h, keys)}</details>`;
     out.querySelectorAll('.ci-chart[data-k]').forEach(box => {

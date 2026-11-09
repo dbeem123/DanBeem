@@ -1,6 +1,6 @@
 {
  "schema_version": "ct-nursing-home-cost-reports-1.0",
- "generated_at": "2026-11-08T20:49:00+00:00",
+ "generated_at": "2026-11-09T12:44:01+00:00",
  "sources": [
   {
    "title": "Connecticut DSS Annual Report of Long-Term Care Facility (nursing facility cost reports)",
@@ -43,7 +43,7 @@
   "laundry": "All-in laundry cost per resident day = laundry salaries (page 10, lines 8a-8b) + their share of fringe benefits + total laundry expenditures (page 19, line 3D: in-house costs and linen or laundry contracts), divided by total resident days.",
   "cost_breakdown": "Costs by category split the nursing home's total costs (page 27, line 15, nursing-home column) into twelve categories, each divided by total resident days. Fringe benefits (page 15) are part of administrative and general on the form; here they are moved to the staff they belong to, allocated by each group's share of all salaries. Nursing care uses the direct-care definition above. 'All other staff' is the remaining salaries and benefits. 'Other professional fees' is page 13's total less nursing agency. Administrative and general is page 16's total less fringe benefits; management fees (line m12) are part of it. Plant operation is page 22 line 6g (utilities = heat, light and power, water). Building and property is page 22 line 11: rent on leased real property (line 9), depreciation, amortization and property taxes. Interest and insurance are page 27. Shown only when the categories add back to the printed total within 0.2%.",
   "medicare_cost_reports": "Medicare cost reports (CMS) are filed by each home for its own fiscal year and cover the whole facility (all units), so they do not match the DSS nursing-home column exactly. Figures are per total day on the Medicare report: operating expense, salaries, wage-related costs (benefits), contract labor and net patient revenue. Operating margin = (net patient revenue - operating expense) / net patient revenue. National and Connecticut medians use full-year reports only (360-371 days), grouped by the year the fiscal year ends, and leave out implausible values.",
-  "related_party_rent": "Rent or lease paid to related parties is the cost the home reported on page 4 for related parties whose description mentions rent, lease, realty or real estate. It is already inside the building and property category, not in addition to it.",
+  "related_party_rent": "Rent or lease paid to related parties is the cost the home reported on page 4 for related parties whose description mentions rent, lease, realty or real estate. It is already inside the building and property category, not in addition to it, so it is withheld when it is larger than that category (page 4 then also covers other levels of care or other years). Balances due to or from related companies are not costs and are left out of every related-party total.",
   "support_costs_exclude": "None of the support figures include management-company charges reported on page 16, kitchen or laundry equipment depreciation and building costs (property), or utilities; a contractor's fee includes its own overhead and profit.",
   "part_year": "The report covers fewer than 360 days (the home opened, closed or changed owner). Dates come from the report's certification page. Part-year filings are left out of the statewide medians."
  },
@@ -1723,7 +1723,7 @@
      "expenses_per_resident_day": 529.62,
      "operating_margin_nh": -0.143,
      "management_fee": null,
-     "related_party_total_reported": 1313569,
+     "related_party_total_reported": 1117842,
      "medicaid_share_of_days": 0.5601,
      "raw_food_per_resident_day": 8.95,
      "food_purchasing": "home",
@@ -1754,7 +1754,7 @@
      "expenses_per_resident_day": 520.34,
      "operating_margin_nh": -0.1897,
      "management_fee": 118528.0,
-     "related_party_total_reported": 908002,
+     "related_party_total_reported": 761207,
      "medicaid_share_of_days": 0.6018,
      "raw_food_per_resident_day": 9.12,
      "food_purchasing": "home",
@@ -2195,8 +2195,7 @@
      "insurance_per_resident_day": 3.98,
      "management_fees_per_resident_day": 10.38,
      "utilities_per_resident_day": 5.56,
-     "rent_per_resident_day": 15.35,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 25.73
+     "rent_per_resident_day": 15.35
     },
     "2017": {
      "validated": true,
@@ -3758,7 +3757,7 @@
      "expenses_per_resident_day": 401.04,
      "operating_margin_nh": -0.0146,
      "management_fee": null,
-     "related_party_total_reported": 2010193,
+     "related_party_total_reported": 690193,
      "medicaid_share_of_days": 0.7009,
      "raw_food_per_resident_day": 10.08,
      "food_purchasing": "home",
@@ -3774,8 +3773,7 @@
      "interest_per_resident_day": 0.79,
      "insurance_per_resident_day": 7.78,
      "utilities_per_resident_day": 16.08,
-     "rent_per_resident_day": 36.23,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 36.23
+     "rent_per_resident_day": 36.23
     }
    },
    "cms_current_owner_count": 4,
@@ -3819,7 +3817,7 @@
      "expenses_per_resident_day": null,
      "operating_margin_nh": -0.0016,
      "management_fee": 300864.0,
-     "related_party_total_reported": 1843083,
+     "related_party_total_reported": 1572126,
      "medicaid_share_of_days": null,
      "raw_food_per_resident_day": null,
      "food_purchasing": null,
@@ -4408,7 +4406,7 @@
      "expenses_per_resident_day": 328.76,
      "operating_margin_nh": -0.0011,
      "management_fee": 500784.0,
-     "related_party_total_reported": 4841930,
+     "related_party_total_reported": 3657232,
      "medicaid_share_of_days": 0.7021,
      "raw_food_per_resident_day": 7.2,
      "food_purchasing": "home",
@@ -4426,7 +4424,7 @@
      "management_fees_per_resident_day": 11.95,
      "utilities_per_resident_day": 5.38,
      "rent_per_resident_day": 15.53,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 29.32
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 15.57
     },
     "2018": {
      "validated": true,
@@ -4440,7 +4438,7 @@
      "expenses_per_resident_day": 326.81,
      "operating_margin_nh": 0.0357,
      "management_fee": 541178.0,
-     "related_party_total_reported": 5302540,
+     "related_party_total_reported": 3782778,
      "medicaid_share_of_days": 0.6622,
      "raw_food_per_resident_day": 7.01,
      "food_purchasing": "home",
@@ -4458,7 +4456,7 @@
      "management_fees_per_resident_day": 12.91,
      "utilities_per_resident_day": 5.42,
      "rent_per_resident_day": 15.52,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 32.39
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 15.56
     },
     "2019": {
      "validated": false,
@@ -4582,7 +4580,7 @@
      "management_fees_per_resident_day": 16.03,
      "utilities_per_resident_day": 4.84,
      "rent_per_resident_day": 15.37,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 92.29
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 15.75
     },
     "2024": {
      "validated": true,
@@ -5250,8 +5248,7 @@
      "insurance_per_resident_day": 4.01,
      "management_fees_per_resident_day": 11.63,
      "utilities_per_resident_day": 6.87,
-     "rent_per_resident_day": 34.45,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 68.91
+     "rent_per_resident_day": 34.45
     },
     "2025": {
      "validated": false,
@@ -5792,8 +5789,7 @@
      "interest_per_resident_day": 0.43,
      "insurance_per_resident_day": 4.35,
      "utilities_per_resident_day": 8.65,
-     "rent_per_resident_day": 68.84,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 78.06
+     "rent_per_resident_day": 68.84
     },
     "2023": {
      "validated": false,
@@ -7295,7 +7291,7 @@
      "management_fees_per_resident_day": 25.51,
      "utilities_per_resident_day": 8.82,
      "rent_per_resident_day": 24.21,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 28.82
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 4.61
     },
     "2025": {
      "validated": true,
@@ -8376,8 +8372,7 @@
      "interest_per_resident_day": 1.63,
      "insurance_per_resident_day": 2.91,
      "management_fees_per_resident_day": 19.34,
-     "utilities_per_resident_day": 5.73,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 26.92
+     "utilities_per_resident_day": 5.73
     },
     "2018": {
      "validated": false,
@@ -8407,8 +8402,7 @@
      "interest_per_resident_day": 1.7,
      "insurance_per_resident_day": 2.59,
      "management_fees_per_resident_day": 20.5,
-     "utilities_per_resident_day": 5.64,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 23.37
+     "utilities_per_resident_day": 5.64
     },
     "2019": {
      "validated": false,
@@ -8458,8 +8452,7 @@
      "interest_per_resident_day": 1.78,
      "insurance_per_resident_day": 3.34,
      "management_fees_per_resident_day": 21.42,
-     "utilities_per_resident_day": 5.57,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 22.85
+     "utilities_per_resident_day": 5.57
     },
     "2021": {
      "validated": false,
@@ -8647,7 +8640,7 @@
      "expenses_per_resident_day": 306.93,
      "operating_margin_nh": -0.2549,
      "management_fee": 502649.0,
-     "related_party_total_reported": 5565554,
+     "related_party_total_reported": 2738687,
      "medicaid_share_of_days": 0.8723,
      "raw_food_per_resident_day": 7.72,
      "food_purchasing": "home",
@@ -8820,7 +8813,7 @@
      "management_fees_per_resident_day": 17.94,
      "utilities_per_resident_day": 6.0,
      "rent_per_resident_day": 11.73,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 215.21
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 12.15
     },
     "2024": {
      "validated": true,
@@ -10583,7 +10576,7 @@
      "expenses_per_resident_day": 448.94,
      "operating_margin_nh": -0.0033,
      "management_fee": 517012.0,
-     "related_party_total_reported": 517012,
+     "related_party_total_reported": 0,
      "medicaid_share_of_days": 0.4643,
      "raw_food_per_resident_day": 12.89,
      "food_purchasing": "home",
@@ -10977,8 +10970,7 @@
      "interest_per_resident_day": 2.83,
      "insurance_per_resident_day": 1.39,
      "management_fees_per_resident_day": 4.0,
-     "utilities_per_resident_day": 2.69,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 4.9
+     "utilities_per_resident_day": 2.69
     },
     "2016": {
      "validated": false,
@@ -13566,7 +13558,7 @@
      "expenses_per_resident_day": 305.0,
      "operating_margin_nh": -0.0416,
      "management_fee": 397514.0,
-     "related_party_total_reported": 2570414,
+     "related_party_total_reported": 1964418,
      "medicaid_share_of_days": 0.8057,
      "raw_food_per_resident_day": 7.34,
      "food_purchasing": "home",
@@ -13584,7 +13576,7 @@
      "management_fees_per_resident_day": 14.26,
      "utilities_per_resident_day": 8.09,
      "rent_per_resident_day": 13.27,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 31.47
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 13.27
     },
     "2018": {
      "validated": true,
@@ -13598,7 +13590,7 @@
      "expenses_per_resident_day": 311.35,
      "operating_margin_nh": -0.0432,
      "management_fee": 433572.0,
-     "related_party_total_reported": 2713105,
+     "related_party_total_reported": 2059174,
      "medicaid_share_of_days": 0.8023,
      "raw_food_per_resident_day": 7.14,
      "food_purchasing": "home",
@@ -13616,7 +13608,7 @@
      "management_fees_per_resident_day": 15.53,
      "utilities_per_resident_day": 8.95,
      "rent_per_resident_day": 13.33,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 31.35
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 13.82
     },
     "2019": {
      "validated": false,
@@ -13740,7 +13732,7 @@
      "management_fees_per_resident_day": 17.31,
      "utilities_per_resident_day": 6.91,
      "rent_per_resident_day": 11.97,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 48.4
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 12.35
     },
     "2024": {
      "validated": true,
@@ -14278,7 +14270,7 @@
      "expenses_per_resident_day": 331.75,
      "operating_margin_nh": -0.0854,
      "management_fee": null,
-     "related_party_total_reported": 185975,
+     "related_party_total_reported": 146759,
      "medicaid_share_of_days": 0.7612,
      "raw_food_per_resident_day": 9.03,
      "food_purchasing": "home",
@@ -14298,7 +14290,7 @@
      "expenses_per_resident_day": null,
      "operating_margin_nh": null,
      "management_fee": null,
-     "related_party_total_reported": 673346,
+     "related_party_total_reported": 563010,
      "medicaid_share_of_days": 0.81,
      "raw_food_per_resident_day": null,
      "food_purchasing": "contractor",
@@ -15310,7 +15302,7 @@
      "expenses_per_resident_day": 300.81,
      "operating_margin_nh": -0.0146,
      "management_fee": 560296.0,
-     "related_party_total_reported": 6100173,
+     "related_party_total_reported": 3628755,
      "medicaid_share_of_days": 0.7693,
      "raw_food_per_resident_day": 6.93,
      "food_purchasing": "home",
@@ -15328,7 +15320,7 @@
      "management_fees_per_resident_day": 12.59,
      "utilities_per_resident_day": 4.13,
      "rent_per_resident_day": 28.32,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 80.23
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 28.36
     },
     "2018": {
      "validated": true,
@@ -15342,7 +15334,7 @@
      "expenses_per_resident_day": 294.98,
      "operating_margin_nh": 0.0097,
      "management_fee": 601926.0,
-     "related_party_total_reported": 6358844,
+     "related_party_total_reported": 3779314,
      "medicaid_share_of_days": 0.771,
      "raw_food_per_resident_day": 6.5,
      "food_purchasing": "home",
@@ -15360,7 +15352,7 @@
      "management_fees_per_resident_day": 13.22,
      "utilities_per_resident_day": 4.38,
      "rent_per_resident_day": 27.68,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 79.85
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 27.73
     },
     "2019": {
      "validated": false,
@@ -15484,7 +15476,7 @@
      "management_fees_per_resident_day": 16.37,
      "utilities_per_resident_day": 4.72,
      "rent_per_resident_day": 27.62,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 114.97
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 28.0
     },
     "2024": {
      "validated": true,
@@ -18056,7 +18048,7 @@
      "expenses_per_resident_day": 296.8,
      "operating_margin_nh": 0.0199,
      "management_fee": 501141.0,
-     "related_party_total_reported": 3802924,
+     "related_party_total_reported": 3006225,
      "medicaid_share_of_days": 0.7212,
      "raw_food_per_resident_day": 7.78,
      "food_purchasing": "home",
@@ -18074,7 +18066,7 @@
      "management_fees_per_resident_day": 13.31,
      "utilities_per_resident_day": 4.29,
      "rent_per_resident_day": 12.09,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 12.65
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 12.09
     },
     "2018": {
      "validated": true,
@@ -18088,7 +18080,7 @@
      "expenses_per_resident_day": 284.18,
      "operating_margin_nh": 0.0302,
      "management_fee": 541725.0,
-     "related_party_total_reported": 3597412,
+     "related_party_total_reported": 2938534,
      "medicaid_share_of_days": 0.7726,
      "raw_food_per_resident_day": 7.73,
      "food_purchasing": "home",
@@ -18106,7 +18098,7 @@
      "management_fees_per_resident_day": 13.45,
      "utilities_per_resident_day": 4.43,
      "rent_per_resident_day": 11.56,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 13.99
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 12.95
     },
     "2019": {
      "validated": false,
@@ -18230,7 +18222,7 @@
      "management_fees_per_resident_day": 17.62,
      "utilities_per_resident_day": 3.86,
      "rent_per_resident_day": 21.63,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 44.94
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 26.48
     },
     "2024": {
      "validated": false,
@@ -19292,7 +19284,7 @@
      "expenses_per_resident_day": 335.86,
      "operating_margin_nh": -0.0237,
      "management_fee": null,
-     "related_party_total_reported": 1612332,
+     "related_party_total_reported": 867324,
      "medicaid_share_of_days": 0.7284,
      "raw_food_per_resident_day": 6.96,
      "food_purchasing": "home",
@@ -19309,7 +19301,7 @@
      "insurance_per_resident_day": 2.42,
      "utilities_per_resident_day": 3.71,
      "rent_per_resident_day": 8.58,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 36.4
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 16.55
     },
     "2021": {
      "validated": true,
@@ -19323,7 +19315,7 @@
      "expenses_per_resident_day": 383.79,
      "operating_margin_nh": 0.0544,
      "management_fee": null,
-     "related_party_total_reported": 1705282,
+     "related_party_total_reported": 860062,
      "medicaid_share_of_days": 0.7135,
      "raw_food_per_resident_day": 6.84,
      "food_purchasing": "home",
@@ -19340,7 +19332,7 @@
      "insurance_per_resident_day": 2.47,
      "utilities_per_resident_day": 4.6,
      "rent_per_resident_day": 11.41,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 45.56
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 19.32
     },
     "2022": {
      "validated": true,
@@ -19384,7 +19376,7 @@
      "expenses_per_resident_day": 385.28,
      "operating_margin_nh": 0.0009,
      "management_fee": null,
-     "related_party_total_reported": 1739613,
+     "related_party_total_reported": 1259697,
      "medicaid_share_of_days": 0.7293,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -19404,7 +19396,7 @@
      "expenses_per_resident_day": 378.27,
      "operating_margin_nh": -0.0049,
      "management_fee": null,
-     "related_party_total_reported": 959365,
+     "related_party_total_reported": 918885,
      "medicaid_share_of_days": 0.6898,
      "raw_food_per_resident_day": 8.75,
      "food_purchasing": "home",
@@ -19421,7 +19413,7 @@
      "insurance_per_resident_day": 3.12,
      "utilities_per_resident_day": 4.99,
      "rent_per_resident_day": 9.27,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 19.36
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 18.29
     },
     "2025": {
      "validated": true,
@@ -19435,7 +19427,7 @@
      "expenses_per_resident_day": 394.73,
      "operating_margin_nh": 0.0339,
      "management_fee": null,
-     "related_party_total_reported": 904588,
+     "related_party_total_reported": 344479,
      "medicaid_share_of_days": 0.7235,
      "raw_food_per_resident_day": 9.16,
      "food_purchasing": "home",
@@ -19452,7 +19444,7 @@
      "insurance_per_resident_day": 3.32,
      "utilities_per_resident_day": 6.22,
      "rent_per_resident_day": 9.28,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 18.31
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 3.27
     }
    },
    "cms_current_owner_count": 7,
@@ -20833,7 +20825,7 @@
      "expenses_per_resident_day": 277.17,
      "operating_margin_nh": -0.0251,
      "management_fee": 1463850.0,
-     "related_party_total_reported": 8353207,
+     "related_party_total_reported": 7455404,
      "medicaid_share_of_days": 0.8788,
      "raw_food_per_resident_day": 7.69,
      "food_purchasing": "home",
@@ -20851,7 +20843,7 @@
      "management_fees_per_resident_day": 12.68,
      "utilities_per_resident_day": 5.74,
      "rent_per_resident_day": 10.92,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 11.75
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 10.97
     },
     "2018": {
      "validated": true,
@@ -20865,7 +20857,7 @@
      "expenses_per_resident_day": 274.06,
      "operating_margin_nh": 0.0101,
      "management_fee": 1557315.0,
-     "related_party_total_reported": 8781580,
+     "related_party_total_reported": 7772810,
      "medicaid_share_of_days": 0.8783,
      "raw_food_per_resident_day": 7.77,
      "food_purchasing": "home",
@@ -20883,7 +20875,7 @@
      "management_fees_per_resident_day": 13.0,
      "utilities_per_resident_day": 6.72,
      "rent_per_resident_day": 10.28,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 11.1
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 10.95
     },
     "2019": {
      "validated": false,
@@ -21451,7 +21443,7 @@
      "expenses_per_resident_day": 307.36,
      "operating_margin_nh": 0.0615,
      "management_fee": 544850.0,
-     "related_party_total_reported": 4692746,
+     "related_party_total_reported": 4255956,
      "medicaid_share_of_days": 0.7156,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -21469,7 +21461,7 @@
      "management_fees_per_resident_day": 12.3,
      "utilities_per_resident_day": 4.44,
      "rent_per_resident_day": 24.6,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 6.25
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 0.79
     },
     "2018": {
      "validated": true,
@@ -21483,7 +21475,7 @@
      "expenses_per_resident_day": 303.92,
      "operating_margin_nh": 0.0821,
      "management_fee": 593291.0,
-     "related_party_total_reported": 5097301,
+     "related_party_total_reported": 4726267,
      "medicaid_share_of_days": 0.7102,
      "raw_food_per_resident_day": 8.1,
      "food_purchasing": "home",
@@ -21501,7 +21493,7 @@
      "management_fees_per_resident_day": 12.9,
      "utilities_per_resident_day": 4.53,
      "rent_per_resident_day": 21.12,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 5.86
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 2.43
     },
     "2019": {
      "validated": false,
@@ -23018,8 +23010,7 @@
      "interest_per_resident_day": 0.79,
      "insurance_per_resident_day": 2.47,
      "management_fees_per_resident_day": 26.97,
-     "utilities_per_resident_day": 4.33,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 21.93
+     "utilities_per_resident_day": 4.33
     },
     "2023": {
      "validated": false,
@@ -23070,8 +23061,7 @@
      "insurance_per_resident_day": 2.1,
      "management_fees_per_resident_day": 10.43,
      "utilities_per_resident_day": 5.09,
-     "rent_per_resident_day": 19.44,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 39.21
+     "rent_per_resident_day": 19.44
     },
     "2025": {
      "validated": true,
@@ -23102,8 +23092,7 @@
      "insurance_per_resident_day": 2.76,
      "management_fees_per_resident_day": 11.18,
      "utilities_per_resident_day": 4.83,
-     "rent_per_resident_day": 21.23,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 42.82
+     "rent_per_resident_day": 21.23
     }
    },
    "cms_current_owner_count": 6,
@@ -23911,7 +23900,7 @@
      "expenses_per_resident_day": 426.67,
      "operating_margin_nh": -0.1214,
      "management_fee": null,
-     "related_party_total_reported": 374494,
+     "related_party_total_reported": 124592,
      "medicaid_share_of_days": 0.8321,
      "raw_food_per_resident_day": 9.12,
      "food_purchasing": "home",
@@ -23931,7 +23920,7 @@
      "expenses_per_resident_day": 409.87,
      "operating_margin_nh": -0.1518,
      "management_fee": null,
-     "related_party_total_reported": 1343791,
+     "related_party_total_reported": 536421,
      "medicaid_share_of_days": 0.8247,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -24515,7 +24504,7 @@
      "expenses_per_resident_day": 372.19,
      "operating_margin_nh": 0.0639,
      "management_fee": null,
-     "related_party_total_reported": 1310703,
+     "related_party_total_reported": 1287122,
      "medicaid_share_of_days": 0.7481,
      "raw_food_per_resident_day": 9.79,
      "food_purchasing": "home",
@@ -25049,7 +25038,7 @@
      "expenses_per_resident_day": 391.42,
      "operating_margin_nh": 0.0086,
      "management_fee": null,
-     "related_party_total_reported": 475601,
+     "related_party_total_reported": 191068,
      "medicaid_share_of_days": 0.7503,
      "raw_food_per_resident_day": 9.61,
      "food_purchasing": "home",
@@ -25079,7 +25068,7 @@
      "expenses_per_resident_day": null,
      "operating_margin_nh": null,
      "management_fee": null,
-     "related_party_total_reported": 1591857,
+     "related_party_total_reported": 742835,
      "medicaid_share_of_days": 0.7626,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -25160,7 +25149,7 @@
      "expenses_per_resident_day": null,
      "operating_margin_nh": null,
      "management_fee": null,
-     "related_party_total_reported": 78337,
+     "related_party_total_reported": 40013,
      "medicaid_share_of_days": 0.5621,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -26627,8 +26616,7 @@
      "insurance_per_resident_day": 7.17,
      "management_fees_per_resident_day": 17.65,
      "utilities_per_resident_day": 6.8,
-     "rent_per_resident_day": 0.47,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 23.66
+     "rent_per_resident_day": 0.47
     },
     "2024": {
      "validated": true,
@@ -26659,8 +26647,7 @@
      "insurance_per_resident_day": 9.49,
      "management_fees_per_resident_day": 18.62,
      "utilities_per_resident_day": 6.8,
-     "rent_per_resident_day": 0.46,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 24.2
+     "rent_per_resident_day": 0.46
     }
    },
    "cms_current_owner_count": 4,
@@ -29573,8 +29560,7 @@
      "insurance_per_resident_day": 3.48,
      "management_fees_per_resident_day": 4.06,
      "utilities_per_resident_day": 6.06,
-     "rent_per_resident_day": 13.85,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 19.84
+     "rent_per_resident_day": 13.85
     }
    },
    "cms_current_owner_count": 11,
@@ -30788,7 +30774,7 @@
      "expenses_per_resident_day": 434.71,
      "operating_margin_nh": 0.1218,
      "management_fee": 166787.0,
-     "related_party_total_reported": 1038057,
+     "related_party_total_reported": 933582,
      "medicaid_share_of_days": 0.583,
      "raw_food_per_resident_day": 12.45,
      "food_purchasing": "home",
@@ -31820,7 +31806,7 @@
      "expenses_per_resident_day": 334.47,
      "operating_margin_nh": 0.0051,
      "management_fee": 672061.0,
-     "related_party_total_reported": 6432864,
+     "related_party_total_reported": 5251079,
      "medicaid_share_of_days": 0.715,
      "raw_food_per_resident_day": 7.48,
      "food_purchasing": "home",
@@ -31838,7 +31824,7 @@
      "management_fees_per_resident_day": 12.25,
      "utilities_per_resident_day": 4.97,
      "rent_per_resident_day": 26.2,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 44.8
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 29.63
     },
     "2018": {
      "validated": true,
@@ -31852,7 +31838,7 @@
      "expenses_per_resident_day": 334.39,
      "operating_margin_nh": -0.0147,
      "management_fee": 731271.0,
-     "related_party_total_reported": 7164083,
+     "related_party_total_reported": 5386419,
      "medicaid_share_of_days": 0.7086,
      "raw_food_per_resident_day": 7.91,
      "food_purchasing": "home",
@@ -31870,7 +31856,7 @@
      "management_fees_per_resident_day": 13.27,
      "utilities_per_resident_day": 5.74,
      "rent_per_resident_day": 28.0,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 50.06
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 28.05
     },
     "2019": {
      "validated": false,
@@ -31994,7 +31980,7 @@
      "management_fees_per_resident_day": 16.83,
      "utilities_per_resident_day": 4.98,
      "rent_per_resident_day": 27.95,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 77.29
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 28.35
     },
     "2024": {
      "validated": true,
@@ -32913,7 +32899,7 @@
      "expenses_per_resident_day": 358.71,
      "operating_margin_nh": 0.0381,
      "management_fee": 610116.0,
-     "related_party_total_reported": 3662207,
+     "related_party_total_reported": 3600401,
      "medicaid_share_of_days": 0.701,
      "raw_food_per_resident_day": 10.4,
      "food_purchasing": "home",
@@ -33763,7 +33749,7 @@
      "expenses_per_resident_day": 365.12,
      "operating_margin_nh": 0.0553,
      "management_fee": 607612.0,
-     "related_party_total_reported": 6645440,
+     "related_party_total_reported": 6297622,
      "medicaid_share_of_days": 0.6316,
      "raw_food_per_resident_day": 7.13,
      "food_purchasing": "home",
@@ -33781,7 +33767,7 @@
      "management_fees_per_resident_day": 11.91,
      "utilities_per_resident_day": 4.53,
      "rent_per_resident_day": 45.88,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 46.81
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 45.92
     },
     "2018": {
      "validated": true,
@@ -33795,7 +33781,7 @@
      "expenses_per_resident_day": 385.14,
      "operating_margin_nh": 0.0328,
      "management_fee": 656694.0,
-     "related_party_total_reported": 7537917,
+     "related_party_total_reported": 7131274,
      "medicaid_share_of_days": 0.5921,
      "raw_food_per_resident_day": 7.55,
      "food_purchasing": "home",
@@ -33813,7 +33799,7 @@
      "management_fees_per_resident_day": 13.06,
      "utilities_per_resident_day": 4.92,
      "rent_per_resident_day": 48.69,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 50.62
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 49.71
     },
     "2019": {
      "validated": false,
@@ -33949,7 +33935,7 @@
      "management_fees_per_resident_day": 16.07,
      "utilities_per_resident_day": 5.15,
      "rent_per_resident_day": 42.1,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 118.61
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 46.09
     },
     "2024": {
      "validated": true,
@@ -34335,7 +34321,7 @@
      "expenses_per_resident_day": null,
      "operating_margin_nh": null,
      "management_fee": 515053.0,
-     "related_party_total_reported": 1068080,
+     "related_party_total_reported": 1188080,
      "medicaid_share_of_days": 0.0,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -34427,7 +34413,7 @@
      "expenses_per_resident_day": 296.51,
      "operating_margin_nh": 0.057,
      "management_fee": 503477.0,
-     "related_party_total_reported": 1908962,
+     "related_party_total_reported": 1413616,
      "medicaid_share_of_days": 0.7266,
      "raw_food_per_resident_day": 6.84,
      "food_purchasing": "home",
@@ -34447,7 +34433,7 @@
      "expenses_per_resident_day": 360.21,
      "operating_margin_nh": -0.0547,
      "management_fee": 480317.0,
-     "related_party_total_reported": 1772869,
+     "related_party_total_reported": 1306317,
      "medicaid_share_of_days": 0.6879,
      "raw_food_per_resident_day": 8.68,
      "food_purchasing": "home",
@@ -34479,7 +34465,7 @@
      "expenses_per_resident_day": 374.61,
      "operating_margin_nh": -0.0966,
      "management_fee": 490607.0,
-     "related_party_total_reported": 2104777,
+     "related_party_total_reported": 1656205,
      "medicaid_share_of_days": 0.7098,
      "raw_food_per_resident_day": 7.41,
      "food_purchasing": "home",
@@ -34511,7 +34497,7 @@
      "expenses_per_resident_day": 360.63,
      "operating_margin_nh": 0.0461,
      "management_fee": 551923.0,
-     "related_party_total_reported": 3707838,
+     "related_party_total_reported": 3242399,
      "medicaid_share_of_days": 0.7319,
      "raw_food_per_resident_day": 8.91,
      "food_purchasing": "home",
@@ -34543,7 +34529,7 @@
      "expenses_per_resident_day": 384.08,
      "operating_margin_nh": -0.0676,
      "management_fee": 499721.0,
-     "related_party_total_reported": 3766600,
+     "related_party_total_reported": 3307278,
      "medicaid_share_of_days": 0.7347,
      "raw_food_per_resident_day": 9.7,
      "food_purchasing": "home",
@@ -34575,7 +34561,7 @@
      "expenses_per_resident_day": 394.17,
      "operating_margin_nh": -0.0613,
      "management_fee": 576869.0,
-     "related_party_total_reported": 3224126,
+     "related_party_total_reported": 2762364,
      "medicaid_share_of_days": 0.7485,
      "raw_food_per_resident_day": 10.07,
      "food_purchasing": "home",
@@ -35565,8 +35551,7 @@
      "insurance_per_resident_day": 5.23,
      "management_fees_per_resident_day": 10.18,
      "utilities_per_resident_day": 10.8,
-     "rent_per_resident_day": 18.11,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 25.92
+     "rent_per_resident_day": 18.11
     }
    },
    "cms_current_owner_count": 21,
@@ -38921,7 +38906,7 @@
      "expenses_per_resident_day": 360.24,
      "operating_margin_nh": -0.1515,
      "management_fee": 399165.0,
-     "related_party_total_reported": 2414644,
+     "related_party_total_reported": 2338074,
      "medicaid_share_of_days": 0.8496,
      "raw_food_per_resident_day": 11.2,
      "food_purchasing": "home",
@@ -39201,7 +39186,7 @@
      "expenses_per_resident_day": 337.48,
      "operating_margin_nh": -0.0386,
      "management_fee": 506880.0,
-     "related_party_total_reported": 2101931,
+     "related_party_total_reported": 2001695,
      "medicaid_share_of_days": 0.8597,
      "raw_food_per_resident_day": 6.56,
      "food_purchasing": "home",
@@ -39233,7 +39218,7 @@
      "expenses_per_resident_day": 330.02,
      "operating_margin_nh": -0.0414,
      "management_fee": 441469.0,
-     "related_party_total_reported": 1871087,
+     "related_party_total_reported": 1799532,
      "medicaid_share_of_days": 0.897,
      "raw_food_per_resident_day": 7.93,
      "food_purchasing": "home",
@@ -40442,8 +40427,7 @@
      "insurance_per_resident_day": 4.92,
      "management_fees_per_resident_day": 23.87,
      "utilities_per_resident_day": 4.42,
-     "rent_per_resident_day": 16.99,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 52.67
+     "rent_per_resident_day": 16.99
     }
    },
    "cms_current_owner_count": 43,
@@ -42468,7 +42452,7 @@
      "expenses_per_resident_day": 468.76,
      "operating_margin_nh": -0.1215,
      "management_fee": null,
-     "related_party_total_reported": 1991070,
+     "related_party_total_reported": 1942488,
      "medicaid_share_of_days": 0.6469,
      "raw_food_per_resident_day": 9.38,
      "food_purchasing": "home",
@@ -42499,7 +42483,7 @@
      "expenses_per_resident_day": 487.4,
      "operating_margin_nh": -0.159,
      "management_fee": 110536.0,
-     "related_party_total_reported": 2137378,
+     "related_party_total_reported": 2100941,
      "medicaid_share_of_days": 0.6723,
      "raw_food_per_resident_day": 9.97,
      "food_purchasing": "home",
@@ -42991,8 +42975,7 @@
      "insurance_per_resident_day": 1.32,
      "management_fees_per_resident_day": 18.25,
      "utilities_per_resident_day": 3.78,
-     "rent_per_resident_day": 2.45,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 7.07
+     "rent_per_resident_day": 2.45
     },
     "2017": {
      "validated": true,
@@ -43023,8 +43006,7 @@
      "insurance_per_resident_day": 1.25,
      "management_fees_per_resident_day": 16.75,
      "utilities_per_resident_day": 4.45,
-     "rent_per_resident_day": 8.49,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 14.32
+     "rent_per_resident_day": 8.49
     },
     "2018": {
      "validated": true,
@@ -43151,8 +43133,7 @@
      "insurance_per_resident_day": 1.79,
      "management_fees_per_resident_day": 8.61,
      "utilities_per_resident_day": 4.88,
-     "rent_per_resident_day": 36.55,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 57.77
+     "rent_per_resident_day": 36.55
     },
     "2022": {
      "validated": true,
@@ -45535,7 +45516,7 @@
      "expenses_per_resident_day": 297.27,
      "operating_margin_nh": -0.0184,
      "management_fee": 633369.0,
-     "related_party_total_reported": 3862161,
+     "related_party_total_reported": 3439898,
      "medicaid_share_of_days": 0.8125,
      "raw_food_per_resident_day": 7.82,
      "food_purchasing": "home",
@@ -45567,7 +45548,7 @@
      "expenses_per_resident_day": 299.51,
      "operating_margin_nh": -0.0476,
      "management_fee": 684132.0,
-     "related_party_total_reported": 4020079,
+     "related_party_total_reported": 3494259,
      "medicaid_share_of_days": 0.8334,
      "raw_food_per_resident_day": 7.63,
      "food_purchasing": "home",
@@ -45585,7 +45566,7 @@
      "management_fees_per_resident_day": 14.96,
      "utilities_per_resident_day": 5.67,
      "rent_per_resident_day": 15.74,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 19.78
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 16.21
     },
     "2019": {
      "validated": false,
@@ -45721,7 +45702,7 @@
      "management_fees_per_resident_day": 16.86,
      "utilities_per_resident_day": 4.76,
      "rent_per_resident_day": 14.3,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 49.66
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 14.7
     },
     "2024": {
      "validated": true,
@@ -46069,7 +46050,7 @@
      "expenses_per_resident_day": 354.77,
      "operating_margin_nh": 0.1348,
      "management_fee": null,
-     "related_party_total_reported": 2316904,
+     "related_party_total_reported": 816904,
      "medicaid_share_of_days": 0.6994,
      "raw_food_per_resident_day": 7.52,
      "food_purchasing": "home",
@@ -46085,8 +46066,7 @@
      "interest_per_resident_day": 1.49,
      "insurance_per_resident_day": 6.22,
      "utilities_per_resident_day": 10.28,
-     "rent_per_resident_day": 37.94,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 37.94
+     "rent_per_resident_day": 37.94
     },
     "2025": {
      "validated": true,
@@ -46515,7 +46495,7 @@
      "expenses_per_resident_day": 285.23,
      "operating_margin_nh": -0.0245,
      "management_fee": 503724.0,
-     "related_party_total_reported": 2773988,
+     "related_party_total_reported": 2100500,
      "medicaid_share_of_days": 0.7763,
      "raw_food_per_resident_day": 7.34,
      "food_purchasing": "home",
@@ -46533,7 +46513,7 @@
      "management_fees_per_resident_day": 14.55,
      "utilities_per_resident_day": 5.86,
      "rent_per_resident_day": 4.33,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 7.34
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 4.38
     },
     "2018": {
      "validated": true,
@@ -46547,7 +46527,7 @@
      "expenses_per_resident_day": 281.35,
      "operating_margin_nh": -0.039,
      "management_fee": 437199.0,
-     "related_party_total_reported": 3001395,
+     "related_party_total_reported": 2169086,
      "medicaid_share_of_days": 0.7948,
      "raw_food_per_resident_day": 7.01,
      "food_purchasing": "home",
@@ -46701,7 +46681,7 @@
      "management_fees_per_resident_day": 19.3,
      "utilities_per_resident_day": 7.8,
      "rent_per_resident_day": 10.24,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 96.34
+     "rent_or_lease_paid_to_related_parties_per_resident_day": 10.69
     },
     "2024": {
      "validated": true,
@@ -48822,7 +48802,7 @@
      "expenses_per_resident_day": 527.36,
      "operating_margin_nh": 0.0483,
      "management_fee": null,
-     "related_party_total_reported": 410052,
+     "related_party_total_reported": 167775,
      "medicaid_share_of_days": 0.7492,
      "raw_food_per_resident_day": 11.78,
      "food_purchasing": "home",
@@ -48852,7 +48832,7 @@
      "expenses_per_resident_day": null,
      "operating_margin_nh": null,
      "management_fee": null,
-     "related_party_total_reported": 1661067,
+     "related_party_total_reported": 752453,
      "medicaid_share_of_days": 0.7524,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -48872,7 +48852,7 @@
      "expenses_per_resident_day": 402.25,
      "operating_margin_nh": 0.035,
      "management_fee": 291773.0,
-     "related_party_total_reported": 1400687,
+     "related_party_total_reported": 560522,
      "medicaid_share_of_days": 0.7719,
      "raw_food_per_resident_day": 8.84,
      "food_purchasing": "home",
@@ -49922,7 +49902,7 @@
      "expenses_per_resident_day": 423.47,
      "operating_margin_nh": -0.0185,
      "management_fee": 787052.0,
-     "related_party_total_reported": 7171918,
+     "related_party_total_reported": 5512485,
      "medicaid_share_of_days": 0.3486,
      "raw_food_per_resident_day": 10.98,
      "food_purchasing": "home",
@@ -49953,7 +49933,7 @@
      "expenses_per_resident_day": 388.88,
      "operating_margin_nh": 0.0318,
      "management_fee": 863743.0,
-     "related_party_total_reported": 8728757,
+     "related_party_total_reported": 6854532,
      "medicaid_share_of_days": 0.3962,
      "raw_food_per_resident_day": 8.84,
      "food_purchasing": "home",
@@ -50002,8 +49982,7 @@
      "insurance_per_resident_day": 2.87,
      "management_fees_per_resident_day": 13.76,
      "utilities_per_resident_day": 7.67,
-     "rent_per_resident_day": 32.12,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 41.67
+     "rent_per_resident_day": 32.12
     },
     "2020": {
      "validated": true,
@@ -50106,8 +50085,7 @@
      "insurance_per_resident_day": 3.14,
      "management_fees_per_resident_day": 18.44,
      "utilities_per_resident_day": 5.7,
-     "rent_per_resident_day": 26.22,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 303.3
+     "rent_per_resident_day": 26.22
     },
     "2024": {
      "validated": true,
@@ -50138,8 +50116,7 @@
      "insurance_per_resident_day": 3.36,
      "management_fees_per_resident_day": 21.65,
      "utilities_per_resident_day": 6.71,
-     "rent_per_resident_day": 26.45,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 37.86
+     "rent_per_resident_day": 26.45
     },
     "2025": {
      "validated": true,
@@ -50391,7 +50368,7 @@
      "expenses_per_resident_day": 541.45,
      "operating_margin_nh": -0.2806,
      "management_fee": null,
-     "related_party_total_reported": 324020,
+     "related_party_total_reported": 322667,
      "medicaid_share_of_days": 0.509,
      "raw_food_per_resident_day": null,
      "food_purchasing": "unclear",
@@ -50411,7 +50388,7 @@
      "expenses_per_resident_day": 663.3,
      "operating_margin_nh": -0.437,
      "management_fee": 544311.0,
-     "related_party_total_reported": 233232,
+     "related_party_total_reported": 231925,
      "medicaid_share_of_days": 0.4121,
      "raw_food_per_resident_day": null,
      "food_purchasing": "contractor",
@@ -50942,8 +50919,7 @@
      "insurance_per_resident_day": 3.37,
      "management_fees_per_resident_day": 10.04,
      "utilities_per_resident_day": 6.08,
-     "rent_per_resident_day": 21.33,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 30.13
+     "rent_per_resident_day": 21.33
     },
     "2022": {
      "validated": true,
@@ -53452,7 +53428,7 @@
      "expenses_per_resident_day": 401.56,
      "operating_margin_nh": -0.0579,
      "management_fee": null,
-     "related_party_total_reported": 1718758,
+     "related_party_total_reported": 1675925,
      "medicaid_share_of_days": 0.7376,
      "raw_food_per_resident_day": 9.53,
      "food_purchasing": "home",
@@ -53483,7 +53459,7 @@
      "expenses_per_resident_day": 422.33,
      "operating_margin_nh": -0.1337,
      "management_fee": 156327.0,
-     "related_party_total_reported": 1777093,
+     "related_party_total_reported": 1744968,
      "medicaid_share_of_days": 0.7552,
      "raw_food_per_resident_day": 10.78,
      "food_purchasing": "home",
@@ -54213,8 +54189,7 @@
      "interest_per_resident_day": 0.0,
      "insurance_per_resident_day": 2.29,
      "utilities_per_resident_day": 5.42,
-     "rent_per_resident_day": 12.51,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 34.28
+     "rent_per_resident_day": 12.51
     },
     "2016": {
      "validated": true,
@@ -54244,8 +54219,7 @@
      "interest_per_resident_day": 0.0,
      "insurance_per_resident_day": 2.65,
      "utilities_per_resident_day": 5.18,
-     "rent_per_resident_day": 15.69,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 41.04
+     "rent_per_resident_day": 15.69
     },
     "2017": {
      "validated": true,
@@ -54275,8 +54249,7 @@
      "interest_per_resident_day": 0.0,
      "insurance_per_resident_day": 2.31,
      "utilities_per_resident_day": 5.28,
-     "rent_per_resident_day": 16.15,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 42.31
+     "rent_per_resident_day": 16.15
     },
     "2018": {
      "validated": true,
@@ -54306,8 +54279,7 @@
      "interest_per_resident_day": 0.0,
      "insurance_per_resident_day": 2.38,
      "utilities_per_resident_day": 4.83,
-     "rent_per_resident_day": 18.11,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 46.61
+     "rent_per_resident_day": 18.11
     },
     "2019": {
      "validated": true,
@@ -54337,8 +54309,7 @@
      "interest_per_resident_day": 0.0,
      "insurance_per_resident_day": 2.84,
      "utilities_per_resident_day": 7.35,
-     "rent_per_resident_day": 19.03,
-     "rent_or_lease_paid_to_related_parties_per_resident_day": 48.34
+     "rent_per_resident_day": 19.03
     },
     "2020": {
      "validated": true,

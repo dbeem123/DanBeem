@@ -81,6 +81,9 @@ class ParserTests(unittest.TestCase):
         self.assertEqual(rp["Bethel Realty"]["cost_reported"], 2030126)
         self.assertEqual(rp["Bethel Realty"]["category"], "rent / lease / real estate")
         self.assertEqual(categorize("Drugs/OTC/RX Consulting"), "pharmacy / supplies")
+        # A balance owed between related companies is not rent, even when the other party is a realty company.
+        self.assertEqual(categorize("Intercompany due to/from Bethel Realty"), "loans / interest / receivables")
+        self.assertEqual(categorize("Rent - Bethel Realty LLC"), "rent / lease / real estate")
 
     def test_support_lines_cook_willow_2025(self):
         # Page text of the public 2025 report, values checked against the report: pages 10, 18, 19, 20.

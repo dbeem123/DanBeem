@@ -177,6 +177,8 @@ def extract_entities(P):
 
 
 CATS = [
+    # balances between related companies are not costs; checked first so "Due to/from Related / Realty" is not rent
+    ("loans / interest / receivables", r"due\s*to|due\s*from|receivable|payable|intercompany|inter-company"),
     ("pharmacy / supplies", r"pharm|drug|supplies|medical supply|oxygen"),
     ("insurance", r"insur"),
     ("rent / lease / real estate", r"\brent|lease|realty|real (estate|property)|property tax|real estate"),

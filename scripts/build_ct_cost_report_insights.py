@@ -235,7 +235,7 @@ def main():
             "events": "Ownership changes are CMS change-of-ownership records; management companies are CMS management of "
                       "record (with DPH); administrators are DPH records. They show what changed and when, not why.",
             "peer_groups": "Peer groups: management company of record in any cost year, CMS affiliated entity (chain), "
-                           "county and LTCOP region, certified beds, CMS ownership type, and Medicaid share of days in "
+                           "Connecticut planning region (CMS county field), certified beds, CMS ownership type, and Medicaid share of days in "
                            "the home's latest report.",
             "not_quality": "These are the homes' own reported costs. They are not a measure of care quality and are not "
                            "rankings.",

@@ -382,8 +382,12 @@ def cost_breakdown(f, dc, ss, days, related_parties):
         det.update({k: v for k, v in prop_parts.items() if v})
     rp_rent = sum((x.get("cost_reported") or 0) for x in related_parties or []
                   if (x.get("category") or "") == "rent / lease / real estate")
-    if rp_rent:
+    # it is part of building and property, so it cannot be larger: a larger figure means page 4 also holds
+    # amounts that are not this year's nursing-home rent (other levels, balances); withheld
+    if rp_rent and rp_rent <= g("property_total") * 1.02 + 50:
         det["rent_or_lease_paid_to_related_parties"] = rp_rent
+    elif rp_rent:
+        out["withheld_details"] = ["rent or lease paid to related parties is larger than building and property"]
     out["details"] = {k: {"amount": r0(v), "per_resident_day": round(v / days, 2)} for k, v in det.items()}
     return out
 
@@ -780,7 +784,10 @@ def main():
                                      "grouped by the year the fiscal year ends, and leave out implausible values.",
             "related_party_rent": "Rent or lease paid to related parties is the cost the home reported on page 4 for "
                                   "related parties whose description mentions rent, lease, realty or real estate. It is "
-                                  "already inside the building and property category, not in addition to it.",
+                                  "already inside the building and property category, not in addition to it, so it is "
+                                  "withheld when it is larger than that category (page 4 then also covers other levels "
+                                  "of care or other years). Balances due to or from related companies are not costs and "
+                                  "are left out of every related-party total.",
             "support_costs_exclude": "None of the support figures include management-company charges reported on page 16, "
                                      "kitchen or laundry equipment depreciation and building costs (property), or "
                                      "utilities; a contractor's fee includes its own overhead and profit.",
