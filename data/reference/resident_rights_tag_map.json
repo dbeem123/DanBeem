@@ -1,7 +1,7 @@
 {
-  "version": "0.1-draft",
-  "status": "draft",
-  "status_note": "Draft grouping of Federal tags into resident-rights topics, based on the CMS citation descriptions (October 2026) and Appendix PP Rev. 232. It is being checked against Appendix PP; a tag belongs to only one topic here.",
+  "version": "1.0",
+  "status": "verified",
+  "status_note": "Tags grouped into resident-rights topics and checked against CMS State Operations Manual Appendix PP Rev. 232 (July 23, 2025), the CMS F-tag crosswalk and 42 CFR 483 on November 9, 2026.",
   "appendix_pp": {
     "title": "CMS State Operations Manual, Appendix PP",
     "revision": "Rev. 232 (07-23-25)",
@@ -21,15 +21,15 @@
         "F607",
         "F608",
         "F609",
-        "F610"
-      ]
+        "F610",
+        "F758"
+      ],
+      "note": "A citation here is not by itself a finding that abuse happened: the group also covers restraints, psychotropic medications, hiring checks, policies and reporting. Read the requirement for each tag."
     },
     {
       "id": "transfer",
       "label": "Transfer and discharge",
       "tags": [
-        "F620",
-        "F621",
         "F622",
         "F623",
         "F624",
@@ -37,7 +37,8 @@
         "F626",
         "F627",
         "F628"
-      ]
+      ],
+      "note": "F622 to F626 are the codes used before April 28, 2025; CMS moved those requirements to F627 and F628. Older citations keep their original codes."
     },
     {
       "id": "discharge_planning",
@@ -45,6 +46,15 @@
       "tags": [
         "F660",
         "F661"
+      ],
+      "note": "F660 and F661 are codes used before April 28, 2025; the requirements are now cited under F627 and F628."
+    },
+    {
+      "id": "admission",
+      "label": "Admission and equal treatment",
+      "tags": [
+        "F620",
+        "F621"
       ]
     },
     {
@@ -52,20 +62,42 @@
       "label": "Dignity, choice and self-determination",
       "tags": [
         "F550",
+        "F551",
         "F557",
         "F558",
         "F559",
-        "F561"
+        "F560",
+        "F561",
+        "F566"
+      ]
+    },
+    {
+      "id": "care",
+      "label": "Treatment and care participation",
+      "tags": [
+        "F552",
+        "F553",
+        "F554",
+        "F555",
+        "F578"
       ]
     },
     {
       "id": "visitation",
       "label": "Visitation",
       "tags": [
+        "F172",
         "F563",
         "F564"
       ],
-      "note": "Few or no Connecticut citations use these tags. Visitation findings may be cited under other tags; this is being checked."
+      "note": "CMS also directed some visitation concerns to F550, F562, F583 and F880 during COVID-19 (QSO-20-39-NH, now expired). Only the specific inspection report can show whether one of those citations was about visitation, so they are not counted here. Older CMS releases include four Connecticut F563 and F564 citations from 2020 to 2022 that are no longer in the current file."
+    },
+    {
+      "id": "access",
+      "label": "Ombudsman and authorized access",
+      "tags": [
+        "F562"
+      ]
     },
     {
       "id": "councils",
@@ -82,21 +114,618 @@
       ]
     },
     {
-      "id": "notice",
-      "label": "Notice of changes in condition, rights and charges",
+      "id": "retaliation",
+      "label": "Retaliation and interference with rights",
       "tags": [
+        "F586"
+      ],
+      "note": "F550 also covers interference, coercion and reprisal in exercising rights; it is counted under dignity and choice here because it is a general rights tag."
+    },
+    {
+      "id": "notices",
+      "label": "Notices and information",
+      "tags": [
+        "F572",
+        "F574",
+        "F575",
+        "F577",
+        "F579",
         "F580",
         "F582"
       ]
     },
     {
-      "id": "privacy",
-      "label": "Privacy, mail, phone and records",
+      "id": "funds",
+      "label": "Personal funds and charges",
       "tags": [
-        "F583",
-        "F576",
-        "F573"
+        "F567",
+        "F568",
+        "F569",
+        "F570",
+        "F571"
       ]
+    },
+    {
+      "id": "privacy",
+      "label": "Privacy and confidentiality",
+      "tags": [
+        "F573",
+        "F583"
+      ]
+    },
+    {
+      "id": "communication",
+      "label": "Communication access and privacy",
+      "tags": [
+        "F576"
+      ]
+    },
+    {
+      "id": "environment",
+      "label": "Safe and homelike environment",
+      "tags": [
+        "F584"
+      ]
+    }
+  ],
+  "tags": [
+    {
+      "tag": "F172",
+      "title": "Access and Visitation Rights",
+      "cfr": "42 CFR 483.10(j) (historical)",
+      "group": "Visitation",
+      "appendix_pp_page": null,
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/surveycertificationgeninfo/downloads/survey-and-cert-letter-13-42.pdf",
+      "note": "Legacy access and visitation tag. The Phase 2 crosswalk assigns its provisions to F562, F563 and F564 from November 28, 2017. Historical source is S&C 13-42-NH, PDF page 1."
+    },
+    {
+      "tag": "F550",
+      "title": "Resident Rights/Exercise of Rights",
+      "cfr": "42 CFR 483.10(a)(1)-(2) and (b)(1)-(2)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 6,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=6",
+      "note": "General dignity, equal access, and exercise of rights. Use the interference or reprisal provisions for broad resident retaliation. QSO-20-39-NH also directed investigation here for resident communication and access concerns."
+    },
+    {
+      "tag": "F551",
+      "title": "Rights Exercised by Representative",
+      "cfr": "42 CFR 483.10(b)(3)-(7)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 11,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=11",
+      "note": "Designation and scope of a resident representative, protection against overreach, and resident participation where practicable."
+    },
+    {
+      "tag": "F552",
+      "title": "Right to be Informed/Make Treatment Decisions",
+      "cfr": "42 CFR 483.10(c)(1), (4) and (5)",
+      "group": "Treatment and care participation",
+      "appendix_pp_page": 14,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=14",
+      "note": "Information about health status, proposed care, risks, benefits and alternatives."
+    },
+    {
+      "tag": "F553",
+      "title": "Right to Participate in Planning Care",
+      "cfr": "42 CFR 483.10(c)(2)-(3)",
+      "group": "Treatment and care participation",
+      "appendix_pp_page": 15,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=15",
+      "note": "Resident participation in the person-centered care plan and advance information about care and changes."
+    },
+    {
+      "tag": "F554",
+      "title": "Resident Self-Admin Meds-Clinically Appropriate",
+      "cfr": "42 CFR 483.10(c)(7)",
+      "group": "Treatment and care participation",
+      "appendix_pp_page": 17,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=17",
+      "note": "Self-administration of medications where clinically appropriate. The crosswalk and CMS lookup identify the same right."
+    },
+    {
+      "tag": "F555",
+      "title": "Right to Choose/Be Informed of Attending Physician",
+      "cfr": "42 CFR 483.10(d)(1)-(5)",
+      "group": "Treatment and care participation",
+      "appendix_pp_page": 19,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=19",
+      "note": "Choice of attending physician and information about the responsible physician and other primary care professionals."
+    },
+    {
+      "tag": "F556",
+      "title": "Reserved",
+      "cfr": null,
+      "group": "Not resident rights",
+      "appendix_pp_page": 20,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=20",
+      "note": "Reserved in Appendix PP. No citations under this number."
+    },
+    {
+      "tag": "F557",
+      "title": "Respect, Dignity/Right to have Personal Property",
+      "cfr": "42 CFR 483.10(e)(2)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 20,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=20",
+      "note": "Personal possessions and their use, subject to space, rights and safety. General treatment with dignity is covered by F550."
+    },
+    {
+      "tag": "F558",
+      "title": "Reasonable Accommodations of Needs/Preferences",
+      "cfr": "42 CFR 483.10(e)(3)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 22,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=22",
+      "note": "Reasonable accommodation of individual needs and preferences."
+    },
+    {
+      "tag": "F559",
+      "title": "Choose/Be Notified of Room/Roommate Change",
+      "cfr": "42 CFR 483.10(e)(4)-(6)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 23,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=23",
+      "note": "Room and roommate choice and written notice before a change. Distinct from F580 notification of changes and from discharge notice."
+    },
+    {
+      "tag": "F560",
+      "title": "Right to Refuse Certain Transfers",
+      "cfr": "42 CFR 483.10(e)(7)-(8)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 24,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=24",
+      "note": "Refusal of specified internal room transfers, including moves for staff convenience. External transfers and discharges are tracked separately."
+    },
+    {
+      "tag": "F561",
+      "title": "Self Determination",
+      "cfr": "42 CFR 483.10(f)(1)-(3) and (8)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 26,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=26",
+      "note": "Support for activities, schedules, health-care choices and other significant aspects of life."
+    },
+    {
+      "tag": "F562",
+      "title": "Immediate Access to Resident",
+      "cfr": "42 CFR 483.10(f)(4)(i)(A)-(G)",
+      "group": "Ombudsman and authorized access",
+      "appendix_pp_page": 28,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=28",
+      "note": "Immediate access for specified persons and agencies, including the State Long-Term Care Ombudsman at (C). Ombudsman record access is F583."
+    },
+    {
+      "tag": "F563",
+      "title": "Right to Receive/Deny Visitors",
+      "cfr": "42 CFR 483.10(f)(4) and (f)(4)(ii)-(v)",
+      "group": "Visitation",
+      "appendix_pp_page": 29,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=29",
+      "note": "Visitor choice and timing, consent, access for family and service providers, and policies for permissible clinical or safety restrictions. This is the direct tag named by QSO-20-39-NH for visitor limits."
+    },
+    {
+      "tag": "F564",
+      "title": "Inform of Visitation Rights/Equal Visitation Privileges",
+      "cfr": "42 CFR 483.10(f)(4)(vi)(A)-(D)",
+      "group": "Visitation",
+      "appendix_pp_page": 32,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=32",
+      "note": "Visitation rights and policy notice, consent, nondiscrimination, and equal privileges. Appendix PP also gives restriction examples, including its cross-reference from F550 for justice-involved residents."
+    },
+    {
+      "tag": "F565",
+      "title": "Resident/Family Group and Response",
+      "cfr": "42 CFR 483.10(f)(5)-(7)",
+      "group": "Resident and family councils",
+      "appendix_pp_page": 33,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=33",
+      "note": "Resident and family group participation, private meeting space, and facility response to group concerns."
+    },
+    {
+      "tag": "F566",
+      "title": "Right to Perform Facility Services or Refuse",
+      "cfr": "42 CFR 483.10(f)(9)(i)-(iv)",
+      "group": "Dignity, choice and self-determination",
+      "appendix_pp_page": 35,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=35",
+      "note": "Right to choose or refuse services for the facility, including pay and care-plan requirements where applicable."
+    },
+    {
+      "tag": "F567",
+      "title": "Protection/Management of Personal Funds",
+      "cfr": "42 CFR 483.10(f)(10)(i)-(ii)",
+      "group": "Personal funds and charges",
+      "appendix_pp_page": 36,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=36",
+      "note": "Control of personal funds and protection of deposits placed with the facility."
+    },
+    {
+      "tag": "F568",
+      "title": "Accounting and Records of Personal Funds",
+      "cfr": "42 CFR 483.10(f)(10)(iii)",
+      "group": "Personal funds and charges",
+      "appendix_pp_page": 39,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=39",
+      "note": "Separate accounting and resident access to financial records."
+    },
+    {
+      "tag": "F569",
+      "title": "Notice and Conveyance of Personal Funds",
+      "cfr": "42 CFR 483.10(f)(10)(iv)-(v)",
+      "group": "Personal funds and charges",
+      "appendix_pp_page": 40,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=40",
+      "note": "Medicaid balance notices and conveyance of funds upon discharge, eviction or death."
+    },
+    {
+      "tag": "F570",
+      "title": "Surety Bond - Security of Personal Funds",
+      "cfr": "42 CFR 483.10(f)(10)(vi)",
+      "group": "Personal funds and charges",
+      "appendix_pp_page": 40,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=40",
+      "note": "Surety bond or other assurance for deposited resident funds."
+    },
+    {
+      "tag": "F571",
+      "title": "Limitations on Charges to Personal Funds",
+      "cfr": "42 CFR 483.10(f)(11)(i)-(iii)",
+      "group": "Personal funds and charges",
+      "appendix_pp_page": 42,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=42",
+      "note": "Limits on charges for covered items and services."
+    },
+    {
+      "tag": "F572",
+      "title": "Notice of Rights and Rules",
+      "cfr": "42 CFR 483.10(g)(1) and (16)",
+      "group": "Notices and information",
+      "appendix_pp_page": 44,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=44",
+      "note": "Notice of rights, facility rules, services and charges."
+    },
+    {
+      "tag": "F573",
+      "title": "Right to Access/Purchase Copies of Records",
+      "cfr": "42 CFR 483.10(g)(2)-(3)",
+      "group": "Privacy and confidentiality",
+      "appendix_pp_page": 45,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=45",
+      "note": "Right to access and obtain copies of personal and medical records. The confidentiality right is F583."
+    },
+    {
+      "tag": "F574",
+      "title": "Required Notices and Contact Information",
+      "cfr": "42 CFR 483.10(g)(4)(i)-(vi)",
+      "group": "Notices and information",
+      "appendix_pp_page": 47,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=47",
+      "note": "Required notices and contact information in accessible formats and understandable languages."
+    },
+    {
+      "tag": "F575",
+      "title": "Required Postings",
+      "cfr": "42 CFR 483.10(g)(5)(i)-(ii)",
+      "group": "Notices and information",
+      "appendix_pp_page": 49,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=49",
+      "note": "Accessible posting of advocacy and regulatory contact information and complaint rights."
+    },
+    {
+      "tag": "F576",
+      "title": "Right to Forms of Communication with Privacy",
+      "cfr": "42 CFR 483.10(g)(6)-(9)",
+      "group": "Communication access and privacy",
+      "appendix_pp_page": 49,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=49",
+      "note": "Reasonable access and privacy for phones, mail and electronic communications."
+    },
+    {
+      "tag": "F577",
+      "title": "Right to Survey Results/Advocate Agency Info",
+      "cfr": "42 CFR 483.10(g)(10)-(11)",
+      "group": "Notices and information",
+      "appendix_pp_page": 50,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=50",
+      "note": "Access to survey results, current plan of correction and advocate information and contact."
+    },
+    {
+      "tag": "F578",
+      "title": "Request/Refuse/Discontinue Treatment;Formulate Adv Directives",
+      "cfr": "42 CFR 483.10(c)(6), (8) and (g)(12)",
+      "group": "Treatment and care participation",
+      "appendix_pp_page": 51,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=51",
+      "note": "Request, refuse or discontinue treatment, research choice and advance directives. Current vaccine guidance also points to this right."
+    },
+    {
+      "tag": "F579",
+      "title": "Posting/Notice of Medicare/Medicaid on Admission",
+      "cfr": "42 CFR 483.10(g)(13)",
+      "group": "Notices and information",
+      "appendix_pp_page": 56,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=56",
+      "note": "Information about Medicare and Medicaid benefits, applications and refunds."
+    },
+    {
+      "tag": "F580",
+      "title": "Notify of Changes (Injury/Decline/Room, Etc.)",
+      "cfr": "42 CFR 483.10(g)(14)-(15)",
+      "group": "Notices and information",
+      "appendix_pp_page": 56,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=56",
+      "note": "Notification of specified changes. Appendix PP directs that a violation of (g)(15) be cited at F620. F623 or F628 covers the discharge notice for the applicable period."
+    },
+    {
+      "tag": "F581",
+      "title": "Reserved",
+      "cfr": null,
+      "group": "Not resident rights",
+      "appendix_pp_page": 58,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=58",
+      "note": "Reserved in Appendix PP. No citations under this number."
+    },
+    {
+      "tag": "F582",
+      "title": "Medicaid/Medicare Coverage/Liability Notice",
+      "cfr": "42 CFR 483.10(g)(17)-(18)",
+      "group": "Notices and information",
+      "appendix_pp_page": 58,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=58",
+      "note": "Medicaid and Medicare coverage, services and charges, including applicable noncoverage or liability notices."
+    },
+    {
+      "tag": "F583",
+      "title": "Personal Privacy/Confidentiality of Records",
+      "cfr": "42 CFR 483.10(h)(1)-(3)",
+      "group": "Privacy and confidentiality",
+      "appendix_pp_page": 61,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=61",
+      "note": "Privacy in care and visits and confidentiality of records. QSO-20-39-NH identified (h)(3)(ii) for ombudsman access to resident records."
+    },
+    {
+      "tag": "F584",
+      "title": "Safe/Clean/Comfortable/ Homelike Environment",
+      "cfr": "42 CFR 483.10(i)(1)-(7)",
+      "group": "Safe and homelike environment",
+      "appendix_pp_page": 64,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=64",
+      "note": "Safe, clean, comfortable and homelike environment under the resident-rights provision."
+    },
+    {
+      "tag": "F585",
+      "title": "Grievances",
+      "cfr": "42 CFR 483.10(j)(1)-(4)",
+      "group": "Grievances",
+      "appendix_pp_page": 68,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=68",
+      "note": "Grievances without reprisal or fear of reprisal, access to the complaint process and prompt resolution. Its guidance cross-refers interference with filing to F550."
+    },
+    {
+      "tag": "F586",
+      "title": "Resident Contact with External Entities",
+      "cfr": "42 CFR 483.10(k)",
+      "group": "Retaliation and interference with rights",
+      "appendix_pp_page": 71,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=71",
+      "note": "Prohibiting or discouraging resident contact with public officials or advocacy representatives. Access to a resident by an authorized person is F562."
+    },
+    {
+      "tag": "F600",
+      "title": "Free from Abuse and Neglect",
+      "cfr": "42 CFR 483.12(a)(1)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 71,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=71",
+      "note": "Abuse and neglect, including mental abuse. Retaliatory conduct may warrant abuse investigation where the facts support it."
+    },
+    {
+      "tag": "F602",
+      "title": "Free from Misappropriation/Exploitation",
+      "cfr": "42 CFR 483.12 (opening resident-rights provision)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 97,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=97",
+      "note": "Misappropriation or exploitation. Distinguish from financial-record and deposit controls in F567-F571."
+    },
+    {
+      "tag": "F603",
+      "title": "Free from Involuntary Seclusion",
+      "cfr": "42 CFR 483.12(a)(1)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 106,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=106",
+      "note": "Involuntary seclusion. A visitation restriction alone does not establish seclusion."
+    },
+    {
+      "tag": "F604",
+      "title": "Right to be Free from Physical Restraints",
+      "cfr": "42 CFR 483.10(e)(1) and 483.12(a)(2)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 116,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=116",
+      "note": "Physical restraints imposed for discipline or convenience or without a medical need."
+    },
+    {
+      "tag": "F605",
+      "title": "Right to be Free from Chemical Restraints",
+      "cfr": "42 CFR 483.10(e)(1), 483.12(a)(2) and 483.45(c)(3), (d) and (e)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 130,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=130",
+      "note": "Chemical restraints and the psychotropic provisions moved from former F758 in April 2025. Review the specific provision before describing a citation as abuse."
+    },
+    {
+      "tag": "F606",
+      "title": "Not Employ/Engage Staff with Adverse Actions",
+      "cfr": "42 CFR 483.12(a)(3)-(4)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 148,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=148",
+      "note": "Employment or engagement after qualifying adverse findings, and reporting applicable court actions."
+    },
+    {
+      "tag": "F607",
+      "title": "Develop/Implement Abuse/Neglect, etc. Policies",
+      "cfr": "42 CFR 483.12(b)(1)-(4) and (b)(5)(ii)-(iii)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 151,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=151",
+      "note": "Facility prevention and investigation policies, training and QAPI coordination. Includes posting covered workers' rights and protection against retaliation for suspected-crime reporting, formerly F608."
+    },
+    {
+      "tag": "F608",
+      "title": "Reporting of Reasonable Suspicion of a Crime",
+      "cfr": "42 CFR 483.12(b)(5)(i)-(iii) (historical)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": null,
+      "source_url": "https://www.cms.gov/medicare/provider-enrollment-and-certification/surveycertificationgeninfo/downloads/survey-and-cert-17-36-appendix-pp.pdf#page=132",
+      "note": "Historical reporting tag. November 2017 Appendix PP PDF page 132. CMS 2022 guidance transferred (ii)-(iii) to F607 and (i)(A)-(B) to F609, implemented October 24, 2022."
+    },
+    {
+      "tag": "F609",
+      "title": "Reporting of Alleged Violations",
+      "cfr": "42 CFR 483.12(b)(5)(i) and (c)(1), (4)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 162,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=162",
+      "note": "Reporting suspected crimes, alleged violations and investigation results. Crime-reporting clauses formerly appeared under F608."
+    },
+    {
+      "tag": "F610",
+      "title": "Investigate/Prevent/Correct Alleged Violation",
+      "cfr": "42 CFR 483.12(c)(2)-(4)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 184,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=184",
+      "note": "Investigation, interim protection, reporting results and corrective action."
+    },
+    {
+      "tag": "F620",
+      "title": "Admissions Policy",
+      "cfr": "42 CFR 483.15(a)(1)-(7)",
+      "group": "Admission and equal treatment",
+      "appendix_pp_page": 186,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=186",
+      "note": "Admission terms, prohibited preconditions and disclosure. F580 and F620 direct surveyors here for (g)(15) admission-information violations."
+    },
+    {
+      "tag": "F621",
+      "title": "Equal Practices Regardless of Payment Source",
+      "cfr": "42 CFR 483.15(b)(1)-(3) and (c)(9)",
+      "group": "Admission and equal treatment",
+      "appendix_pp_page": 193,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=193",
+      "note": "Equal treatment by payment source, including transfer or discharge practices, and closure-related provision."
+    },
+    {
+      "tag": "F622",
+      "title": "Transfer and Discharge Requirements",
+      "cfr": "42 CFR 483.15(c)(1)-(2) (historical)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 196,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=196",
+      "note": "Historical citation. Rev. 232 page 196 is a relocation note. From April 28, 2025, eligibility and justification/documentation under (c)(2)(i)-(ii) go to F627, and information conveyed under (c)(2)(iii) goes to F628."
+    },
+    {
+      "tag": "F623",
+      "title": "Notice Requirements Before Transfer/Discharge",
+      "cfr": "42 CFR 483.15(c)(3)-(6) and (8) (historical)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 196,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=196",
+      "note": "Historical notice citation. Current requirements are at F628. Rev. 232 page 196 is a relocation note."
+    },
+    {
+      "tag": "F624",
+      "title": "Preparation for Safe/Orderly Transfer/Discharge",
+      "cfr": "42 CFR 483.15(c)(7) (historical)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 196,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=196",
+      "note": "Historical safe preparation and orientation citation. Current requirement is at F627. Rev. 232 page 196 is a relocation note."
+    },
+    {
+      "tag": "F625",
+      "title": "Notice of Bed Hold Policy Before/Upon Transfer",
+      "cfr": "42 CFR 483.15(d)(1)-(2) (historical)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 196,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=196",
+      "note": "Historical bed-hold notice citation. Current requirements are at F628. Rev. 232 page 196 is a relocation note."
+    },
+    {
+      "tag": "F626",
+      "title": "Permitting Residents to Return to Facility",
+      "cfr": "42 CFR 483.15(e)(1)-(2) (historical)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 196,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=196",
+      "note": "Historical return/readmission citation. Current requirements are at F627. Rev. 232 page 196 is a relocation note."
+    },
+    {
+      "tag": "F627",
+      "title": "Inappropriate Transfers and Discharges",
+      "cfr": "42 CFR 483.15(c)(1), (c)(2)(i)-(ii), (c)(7), (e)(1)-(2) and 483.21(c)(1), (c)(2)(iv)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 197,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=197",
+      "note": "Current tag since April 28, 2025. Also covers discharge planning and the post-discharge plan of care. Retain original historical tags in citation records."
+    },
+    {
+      "tag": "F628",
+      "title": "Transfer and Discharge Process",
+      "cfr": "42 CFR 483.15(c)(2)(iii), (c)(3)-(6), (c)(8), (d)(1)-(2) and 483.21(c)(2)(i)-(iii)",
+      "group": "Transfer and discharge",
+      "appendix_pp_page": 219,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=219",
+      "note": "Current tag since April 28, 2025. Includes information to receiving providers, written notice and appeal information, bed-hold notices and discharge-summary components."
+    },
+    {
+      "tag": "F660",
+      "title": "Discharge Planning Process",
+      "cfr": "42 CFR 483.21(c)(1)(i)-(ix) (historical)",
+      "group": "Discharge planning",
+      "appendix_pp_page": 284,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=284",
+      "note": "Historical discharge-planning tag. Current guidance is in F627 under 483.21(c)(1). The Rev. 232 relocation note on page 284 instead names 483.15(c)(1), so the substantive F627 text is the controlling cross-reference for this mapping."
+    },
+    {
+      "tag": "F661",
+      "title": "Discharge Summary",
+      "cfr": "42 CFR 483.21(c)(2)(i)-(iv) (historical)",
+      "group": "Discharge planning",
+      "appendix_pp_page": 284,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=284",
+      "note": "Historical discharge-summary tag. Current summary clauses (i)-(iii) are at F628. The post-discharge plan in (iv) is at F627. Rev. 232 page 284 is a relocation note."
+    },
+    {
+      "tag": "F758",
+      "title": "Free from Unnec Psychotropic Meds/PRN Use",
+      "cfr": "42 CFR 483.45(c)(3) and (e) (historical)",
+      "group": "Abuse, neglect and exploitation",
+      "appendix_pp_page": 627,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=627",
+      "note": "Historical unnecessary psychotropic medication/PRN tag. Current requirements moved to F605. Rev. 232 page 627 is a relocation note. Historical F758 alone does not establish abuse."
+    },
+    {
+      "tag": "F880",
+      "title": "Infection Prevention & Control",
+      "cfr": "42 CFR 483.80(a)(1), (2), (4), (e) and (f)",
+      "group": "Not resident rights",
+      "appendix_pp_page": 809,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=809",
+      "note": "Infection prevention and control. QSO-20-39-NH referred infection-control practice concerns here. An F880 record alone cannot identify a visitation finding."
+    },
+    {
+      "tag": "F887",
+      "title": "COVID-19 Immunizations",
+      "cfr": "42 CFR 483.80(d)(3)",
+      "group": "Not resident rights",
+      "appendix_pp_page": 870,
+      "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=870",
+      "note": "COVID-19 immunizations. Its guidance cross-refers F578 and 483.10(b)(2) when discussing refusal and adverse action such as denied visits. The immunization tag alone cannot identify a visitation finding."
     }
   ]
 }

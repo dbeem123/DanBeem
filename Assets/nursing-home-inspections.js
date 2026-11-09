@@ -219,8 +219,9 @@
     const out = document.getElementById('rr-out'), map = D.meta.resident_rights_map, nPi = D.meta.denominators.provider_info_homes;
     const health = ROWS.filter(r => r.kind === 0);
     out.innerHTML = `${map.status === 'draft' ? `<div class="notice warning">${esc(map.status_note)}</div>` : ''}
-      <p>Resident rights citations, grouped by topic. Each tag links to its guidance in CMS's State Operations Manual, Appendix PP (${esc(map.appendix_pp.revision)}). Counts cover health citations from ${esc(fmtDate(D.meta.citation_date_min))} to ${esc(fmtDate(D.meta.citation_date_max))}.</p>
-      ${D.groups.map(g => {
+      <p>Resident rights citations, grouped by topic. Each tag links to its guidance in CMS's State Operations Manual, Appendix PP (${esc(map.appendix_pp.revision)}). Counts cover health citations from ${esc(fmtDate(D.meta.citation_date_min))} to ${esc(fmtDate(D.meta.citation_date_max))}. Each tag is counted in one topic only. Topics with no Connecticut citations in the current file are listed at the end.</p>
+      ${map.status === 'verified' ? `<p class="subtle">${esc(map.status_note)}</p>` : ''}
+      ${D.groups.slice().sort((a, b) => (health.some(r => tagInfo(r.tag).group === b.id) ? 1 : 0) - (health.some(r => tagInfo(r.tag).group === a.id) ? 1 : 0)).map(g => {
         const rows = health.filter(r => tagInfo(r.tag).group === g.id), homes = new Set(rows.map(r => r.h));
         const serious = rows.filter(r => r.ss && sevLevel(r.ss) <= 1).length, rep = rows.filter(r => r.repeat).length;
         const latest = rows.reduce((a, r) => r.date > a ? r.date : a, '');
@@ -230,7 +231,10 @@
           ${g.note ? `<p class="subtle">${esc(g.note)}</p>` : ''}
           ${latest ? `<p class="subtle">Most recent: ${esc(fmtDate(latest))}.</p>` : ''}
           <div class="table-scroll"><table class="stack"><caption>Tags in this group</caption><thead><tr><th scope="col">Tag</th><th scope="col">Requirement</th><th scope="col" class="num">Citations</th><th scope="col" class="num">Homes</th></tr></thead>
-          <tbody>${byTag.map(({ t, rows: tr }) => { const i = tagInfo(t); return `<tr><td data-label="Tag">${i.page ? `<a href="${esc(map.appendix_pp.url)}#page=${i.page}" target="_blank" rel="noopener">${esc(tagLabel(t))}</a>` : esc(tagLabel(t))}</td><td data-label="Requirement">${esc(i.desc || 'No Connecticut citations in this file')}</td><td class="num" data-label="Citations">${num(tr.length)}</td><td class="num" data-label="Homes">${new Set(tr.map(r => r.h)).size}</td></tr>`; }).join('')}</tbody></table></div>
+          <tbody>${byTag.map(({ t, rows: tr }) => { const i = tagInfo(t), ref = (D.tagref || {})[t] || [], url = ref[3] || (i.page ? `${map.appendix_pp.url}#page=${i.page}` : '');
+            return `<tr><td data-label="Tag">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener">${esc(tagLabel(t))}</a>` : esc(tagLabel(t))}</td>
+              <td data-label="Requirement"><strong>${esc(ref[0] || i.desc || '')}</strong>${i.desc && ref[0] ? `<div>${esc(i.desc)}</div>` : ''}${ref[1] ? `<div class="subtle">${esc(ref[1])}</div>` : ''}${ref[2] ? `<div class="subtle">${esc(ref[2])}</div>` : ''}</td>
+              <td class="num" data-label="Citations">${num(tr.length)}</td><td class="num" data-label="Homes">${new Set(tr.map(r => r.h)).size}</td></tr>`; }).join('')}</tbody></table></div>
           <p><button type="button" class="action-button secondary" data-group="${g.id}">List these citations</button></p></article>`;
       }).join('')}`;
   }

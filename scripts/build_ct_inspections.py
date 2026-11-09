@@ -208,6 +208,12 @@ def main():
         if r.get("appendix_pp_pdf_page_start"):
             pp_page[tag4(r["f_tag"])] = r["appendix_pp_pdf_page_start"]
     group_of = {tag4(t): g["id"] for g in rr["groups"] for t in g["tags"]}
+    tagref = {}
+    for rec in rr.get("tags", []):
+        t = tag4(rec["tag"])
+        tagref[t] = [rec.get("title"), rec.get("cfr"), rec.get("note"), rec.get("source_url")]
+        if rec.get("appendix_pp_page"):
+            pp_page[t] = rec["appendix_pp_page"]
 
     SCORE_FIELDS = [
         ("cycle1_date", "Rating Cycle 1 Standard Survey Health Date"), ("cycle1_deficiencies", "Rating Cycle 1 Total Number of Health Deficiencies"),
@@ -299,6 +305,7 @@ def main():
         "tags": tags,
         "groups": [{"id": g["id"], "label": g["label"], "tags": [tag4(t) for t in g["tags"]], **({"note": g["note"]} if g.get("note") else {})} for g in rr["groups"]],
         "rows": out_rows,
+        "tagref": {t: v for t, v in tagref.items() if group_of.get(t)},
         "surveys": {str(hidx[c]): v for c, v in surveys.items() if c in hidx},
         "scores": {str(hidx[c]): v for c, v in scores.items() if c in hidx},
     }
