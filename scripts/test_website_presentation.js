@@ -294,6 +294,14 @@ async function main() {
     assert.match(await page.locator('#ci-note').innerText(), /homes, cost years 2015 to 2025/);
     assert.equal(await page.locator('#panel-home .ci-chart[data-k] svg').count(), 6);
     assert.match(await page.locator('#home-out').innerText(), /What changed/);
+    assert.equal(await page.locator('#home-out .ci-tile').count(), 4);
+    assert.ok(await page.locator('.ci-story li').count() <= 5);
+    assert.match(await page.locator('.ci-story li').first().locator('strong').allTextContents().then(v => v.join(' ')), /\$.*\$.*%/);
+    assert.equal(await page.locator('#home-out details.ci-definition').count(), 7);
+    await context.grantPermissions(['clipboard-read', 'clipboard-write'], { origin: base });
+    await page.locator('#ci-copy').click();
+    await page.getByText('Link copied.', { exact: true }).waitFor();
+    assert.equal(await page.evaluate(() => navigator.clipboard.readText()), page.url());
     assert.ok(await page.locator('#home-share svg').count() === 1, 'share of every dollar chart');
     await page.locator('#home-extra').selectOption('raw_food');
     assert.equal(await page.locator('#panel-home .ci-chart[data-k] svg').count(), 7);
@@ -308,10 +316,13 @@ async function main() {
     await page.locator('#cmp-results button[data-ccn="075001"]').click();
     assert.equal(await page.locator('#cmp-chips .chip').count(), 2);
     assert.equal(await page.locator('#cmp-line svg').count(), 1);
+    assert.equal(await page.locator('#cmp-line .ci-end-label').count(), 2);
+    assert.match(await page.locator('#cmp-chips').innerText(), /St Joseph's Center/);
     assert.match(new URL(page.url()).search, /homes=075400%2C075001|homes=075400,075001/);
     await page.locator('#tab-peers').click();
     await page.locator('#peer-type').selectOption('management');
     assert.ok(await page.locator('#peer-out tbody tr').count() >= 5, 'peer group table');
+    assert.match(await page.locator('.ci-peer-summary').innerText(), /Group median.*homes reporting/s);
     await page.locator('#peer-compare').click();
     assert.equal(await page.locator('#tab-compare').getAttribute('aria-selected'), 'true');
     assert.ok(await page.locator('#cmp-chips .chip').count() >= 2);
@@ -321,7 +332,12 @@ async function main() {
     assert.ok(pvRows >= 5, 'pivot rows');
     const pvCsv = await csv('#pv-csv');
     assert.equal(pvCsv.trim().split('\n').length, pvRows + 1);
-    assert.match(pvCsv.split('\n')[0], /^row,detail,2015/);
+    assert.match(pvCsv.split('\n')[0], /^row,detail,2015.*latest_year_change_pct,change_since_2019_pct$/);
+    await page.getByRole('button', { name: 'Latest year change (%)', exact: true }).click();
+    assert.match(new URL(page.url()).search, /sort=11/);
+    assert.equal(await page.getByRole('button', { name: 'Change since 2019 (%)', exact: true }).count(), 1);
+    const changeValues = await page.locator('#pv-out tbody tr:not(:last-child) td:last-child').allTextContents();
+    assert.ok(changeValues.some(value => /^[+-]\d/.test(value)), 'signed change values');
     await page.locator('#tab-scatter').click();
     await page.locator('#sc-chart svg circle').first().waitFor();
     assert.ok(await page.locator('#sc-chart svg circle').count() > 100, 'one dot per home');
@@ -331,11 +347,40 @@ async function main() {
     await page.locator('#flow-chart svg').waitFor();
     assert.match(await page.locator('#flow-out').innerText(), /Paid to related parties/);
     assert.ok(requests.some(u => u.includes('/data/cost_reports/075400.json')), 'flow loads the home detail lazily');
+    await resize({ width: 390, height: 844 });
     for (const v of ['home', 'compare', 'peers', 'pivot', 'scatter', 'flow']) {
-      await visit(route('cost-report-insights') + `?view=${v}&ccn=075400&homes=075400,075001`);
+      await visit(route('cost-report-insights') + `?view=${v}&ccn=075400&homes=075400,075001,075017`);
       await page.locator(`#panel-${v}:not([hidden])`).waitFor();
-      assert.ok((await page.evaluate(() => document.documentElement.scrollWidth)) <= (await page.evaluate(() => window.innerWidth)) + 1, `${v} no horizontal scroll`);
+      if (v === 'flow') await page.locator('#flow-chart svg').waitFor();
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `${v} no horizontal scroll at 390 px`);
+      if (v === 'compare') {
+        const table = page.locator('#cmp-out table');
+        assert.ok(!(await table.getAttribute('class')).split(/\s+/).includes('stack'));
+        assert.ok(await table.evaluate(t => [...t.tBodies[0].rows].every(row => {
+          const figure = row.cells[0].getBoundingClientRect();
+          return getComputedStyle(row.cells[0]).position === 'sticky'
+            && [...row.cells].slice(1).every(cell => figure.right <= cell.getBoundingClientRect().left + 0.5);
+        })), 'figure and value cell boxes are disjoint at rest');
+        const labels = page.locator('#cmp-bars .ci-bar-label');
+        assert.ok(await labels.count() > 0, 'comparison has bar labels');
+        assert.ok(await labels.evaluateAll(items => items.every(label => {
+          const box = label.getBBox();
+          const bar = label.nextElementSibling;
+          return box.x >= 0 && box.x + box.width <= label.ownerSVGElement.viewBox.baseVal.width
+            && bar.matches('.seg') && box.y + box.height < Number(bar.getAttribute('y'));
+        })), 'bar labels fit above the bars on phones');
+      }
+      if (v === 'pivot') {
+        assert.ok(await page.locator('#pv-out table').evaluate(table => {
+          const first = table.querySelector('thead th');
+          const latest = table.querySelector('[data-latest]').closest('th').getBoundingClientRect();
+          return table.parentElement.scrollLeft > 0 && getComputedStyle(first).position === 'sticky'
+            && latest.left >= first.getBoundingClientRect().right - 1
+            && latest.right <= table.parentElement.getBoundingClientRect().right + 1;
+        }), 'newest year starts visible next to the frozen pivot label');
+      }
     }
+    await resize({ width: 1440, height: 1000 });
     assert.ok(ins.homes.length >= 150);
     console.log('PASS cost report insights: six views, URL state, constant dollars, compare, peers, pivot CSV, scatter, money flow');
 

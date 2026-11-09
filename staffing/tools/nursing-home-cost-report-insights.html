@@ -58,18 +58,66 @@
     thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; }
     thead th button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-transform:inherit; letter-spacing:inherit; text-decoration:underline; }
     .num { text-align:right; white-space:nowrap; }
+    .ci-headlines { margin:16px 0 20px; }
+    .ci-tiles { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:6px 0 0; }
+    .ci-tile { border:1px solid var(--ltcop-border); border-top:3px solid var(--ltcop-navy); border-radius:8px; background:#f6f9fd; padding:10px; }
+    .ci-tile dt { font-size:13px; font-weight:700; color:var(--ltcop-muted); }
+    .ci-tile dd { margin:4px 0 0; font-size:clamp(16px,2vw,23px); font-weight:800; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+    .ci-definition { font-size:13px; margin:6px 0; }
+    .ci-definition summary { cursor:pointer; font-weight:700; }
+    .ci-definition p { margin:4px 0; }
+    .ci-copy-row { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; }
+    .ci-sticky { border-collapse:separate; border-spacing:0; }
+    .ci-sticky tr > th:first-child { position:sticky; left:0; z-index:1; background:#fff; box-shadow:1px 0 var(--ltcop-border); }
+    .ci-compare-table th { min-width:8rem; white-space:normal; }
+    .ci-compare-table tr > th:first-child, .pivot tr > th:first-child { width:10rem; min-width:10rem; max-width:10rem; overflow-wrap:anywhere; }
     .pivot td.num { min-width:68px; }
+    .pivot thead th { white-space:normal; }
+    .ci-peer-summary { background:#f6f9fd; font-weight:700; }
     .linkish { font:inherit; font-weight:800; color:var(--ltcop-navy); background:none; border:0; padding:0; text-align:left; cursor:pointer; text-decoration:underline; }
     details.ci-more summary { cursor:pointer; font-weight:800; margin-top:8px; }
     .ci-flag { display:inline-block; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #b9c7da; background:#eef3f9; color:#1f3a5f; }
+    .ci-print-only { display:none; }
     [role="tabpanel"][hidden] { display:none; }
     @media (max-width:720px) {
+      .ci-tiles { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .ci-compare-table tr > th:first-child, .pivot tr > th:first-child { width:8rem; min-width:8rem; max-width:8rem; }
       table.stack thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
       table.stack tr { display:block; border-top:1px solid var(--ltcop-border); padding:6px 0; }
       table.stack td { display:grid; grid-template-columns:120px minmax(0,1fr); gap:8px; border-top:0; padding:3px 12px; text-align:left; }
       table.stack td::before { content:attr(data-label); color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; }
     }
-    @media print { .ltcop-masthead, footer, .no-print { display:none !important; } }
+    @media print {
+      @page { margin:12mm; }
+      .ltcop-masthead, footer, nav, .skipLink, .no-print, .ci-screen-only, .ci-tabs,
+      .filter-row, .home-pick, button, #ci-note, [role="tabpanel"][hidden], main > section[aria-labelledby="ci-method-title"] {
+        display:none !important;
+      }
+      .ci-hero .panel > :not(h1) { display:none !important; }
+      body.ltcop-dashboard .wrap { width:100%; max-width:none; padding:0; }
+      body.ltcop-dashboard { background:#fff; }
+      .ci-grid { display:block; }
+      .ci-card { margin-bottom:8mm; break-inside:avoid; }
+      .ci-chart, .ci-chart svg { width:100%; max-width:100%; break-inside:avoid; }
+      .ci-card .ci-chart svg { max-height:62mm; }
+      .ci-legend { break-after:avoid; }
+      .table-scroll { overflow:visible; break-inside:avoid; }
+      table { width:100%; table-layout:fixed; break-inside:avoid; }
+      table th, table td { min-width:0 !important; max-width:none !important; width:auto !important;
+        white-space:normal !important; overflow-wrap:anywhere; padding:3px; }
+      .ci-sticky tr > th:first-child { position:static; box-shadow:none; }
+      thead { display:table-header-group; }
+      tr { break-inside:avoid; }
+      table.stack thead { position:static; width:auto; height:auto; clip:auto; }
+      table.stack tr { display:table-row; }
+      table.stack td { display:table-cell; }
+      table.stack td::before { display:none; }
+      table.pivot { font-size:8pt; }
+      table.pivot thead th { font-size:7pt; }
+      .ci-print-only { display:inline; }
+      .ci-more summary { display:none; }
+      .ci-more::details-content { content-visibility:visible; }
+    }
   </style>
   <link rel="stylesheet" href="/Assets/staffing-layout.css">
   <script defer src="/Assets/staffing-layout.js"></script>
@@ -111,11 +159,15 @@
       <div class="panel">
         <div class="pill">Connecticut DSS cost reports, 2015 to 2025</div>
         <h1 id="ci-title">Cost Report Insights</h1>
-        <p>Trends and comparisons built from each home's own cost reports: how one home's spending changed over time and when owners or managers changed, homes side by side, management companies and chains as peer groups, a pivot table for any figure, spending against nursing care, and where each home's money goes. Every figure is per resident day, so large and small homes compare fairly. The year-by-year detail for each home is on <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>.</p>
+        <p>Trends and comparisons built from each home's own cost reports: how one home's spending changed over time and when owners or managers changed, homes side by side, management companies and chains as peer groups, a pivot table for any figure, spending against nursing care, and where each home's money goes. A resident day is one resident for one day. The reports cover cost years 2015 to 2025. A cost year runs October 1 to September 30. The year-by-year detail for each home is on <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>.</p>
         <div class="notice warning">These are the homes' own reported figures, before DSS audit. They are not a measure of care quality and are not rankings. A change that follows an ownership or management change is shown as timing only, not as its cause.</div>
         <noscript><div class="notice">This page needs JavaScript. The data is published as <a href="/data/ct_cost_report_insights.json">ct_cost_report_insights.json</a>.</div></noscript>
         <div class="filter-row">
-          <label class="inline"><input type="checkbox" id="ci-real"> Show dollars adjusted for inflation (in <span id="ci-base-year">2025</span> dollars)</label>
+          <label class="inline"><input type="checkbox" id="ci-real"> <span>Show dollars adjusted for inflation (in <span id="ci-base-year">2025</span> dollars)</span></label>
+        </div>
+        <div class="ci-copy-row no-print">
+          <button id="ci-copy" class="action-button secondary" type="button">Copy link to this view</button>
+          <span id="ci-copy-status" class="subtle" role="status"></span>
         </div>
         <div class="ci-tabs no-print" role="tablist" aria-label="Views">
           <button role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true" data-view="home">One home over time</button>

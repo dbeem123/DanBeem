@@ -20,9 +20,11 @@
   const pct = (v, d = 1) => v == null ? '' : `${(v * 100).toFixed(d)}%`;
   const num = (v, d = 0) => v == null ? '' : Number(v).toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
   const fmt = (key, v) => { const u = (META[key] || {}).unit; return u === 'pct' ? pct(v) : u === 'hours' ? num(v, 2) : money2(v); };
+  const signed = (v, format) => v == null ? '' : (v > 0 ? '+' : '') + format(v);
+  const relativeChange = (from, to) => from == null || to == null || from === 0 ? null : (to - from) / Math.abs(from);
   const median = a => { const s = a.filter(x => x != null).sort((x, y) => x - y); if (!s.length) return null; const m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; };
   const mean = a => { const s = a.filter(x => x != null); return s.length ? s.reduce((p, c) => p + c, 0) / s.length : null; };
-  const title = n => String(n || '').toLowerCase().replace(/\b([a-z])/g, c => c.toUpperCase()).replace(/\b(Llc|Inc|Ct)\b/g, w => w.toUpperCase());
+  const title = n => String(n || '').toLowerCase().replace(/(^|[^a-z0-9'’])([a-z])/g, (_, prefix, letter) => prefix + letter.toUpperCase()).replace(/\b(Llc|Inc|Ct)\b/g, w => w.toUpperCase());
 
   // ------------------------------------------------------------------ values
   // Composite figure for the scatter: everything that is neither staff nor resident care.
@@ -115,8 +117,38 @@
   const evX = d => { const [y, m, dd] = d.split('-').map(Number); return y + (m - 1 + (dd - 1) / 30 - 8.97) / 12; };
 
   // series: [{name, color, points:[[year, value]], dashed, width, faint}] ; band: {year:{lo,med,hi}} ; events: [{date, n, label}]
+  function fitLabels(svg) {
+    svg.querySelectorAll('text[data-fit]').forEach(text => {
+      const full = text.textContent;
+      if (text.getComputedTextLength() <= Number(text.dataset.fit)) return;
+      const chars = [...full];
+      do {
+        chars.pop();
+        text.textContent = chars.join('').trimEnd() + '…';
+      } while (chars.length && text.getComputedTextLength() > Number(text.dataset.fit));
+      const tip = document.createElementNS(svg.namespaceURI, 'title');
+      tip.textContent = full;
+      text.append(tip);
+    });
+  }
+
+  function pointLabels(points, x, top, bottom, width, className) {
+    const labels = points.sort((a, b) => a.y - b.y);
+    const gap = 16;
+    labels.forEach((p, i) => { p.labelY = Math.max(p.y, i ? labels[i - 1].labelY + gap : top); });
+    for (let i = labels.length - 1; i >= 0; i--) {
+      labels[i].labelY = Math.min(labels[i].labelY, i === labels.length - 1 ? bottom : labels[i + 1].labelY - gap);
+    }
+    return `<g pointer-events="none">${labels.map(p => `
+      <path d="M${p.x},${p.y} L${x - 4},${p.labelY}" fill="none" stroke="${p.color}" opacity="0.65"/>
+      <text class="${className}" data-fit="${width}" x="${x}" y="${p.labelY + 4}" font-size="11" font-weight="700" fill="${INK}">${esc(p.name)}</text>`).join('')}</g>`;
+  }
+
   function lineChart(box, { series, band, unit, events = [], height = 220, years = D.years, yZero = unit !== 'pct', onClickYear }) {
-    const W = Math.max(280, box.clientWidth), H = height, m = { l: 54, r: 14, t: events.length ? 22 : 10, b: 26 };
+    const W = Math.max(280, box.clientWidth), H = height;
+    const labels = series.filter(s => s.endLabel);
+    const labelWidth = Math.min(146, Math.round(W * 0.31));
+    const m = { l: 54, r: labels.length ? labelWidth + 14 : 14, t: events.length ? 22 : 10, b: 26 };
     const xs = years.map(Number), x0 = xs[0], x1 = xs[xs.length - 1];
     const vals = [];
     series.forEach(s => s.points.forEach(p => p[1] != null && vals.push(p[1])));
@@ -142,7 +174,7 @@
       const ex = evX(e.date);
       if (ex < x0 - 1 || ex > x1) return;
       const px = Math.max(m.l, X(Math.max(ex, x0 - 0.0)));
-      g += `<line x1="${px}" x2="${px}" y1="${m.t}" y2="${H - m.b}" stroke="#0f1e33" stroke-width="1" stroke-dasharray="2 3" opacity="0.55"/><circle cx="${px}" cy="${m.t - 10}" r="8" fill="#0f1e33"/><text x="${px}" y="${m.t - 6.5}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">${e.n}</text>`;
+      g += `<g class="ci-screen-only"><line x1="${px}" x2="${px}" y1="${m.t}" y2="${H - m.b}" stroke="#0f1e33" stroke-width="1" stroke-dasharray="2 3" opacity="0.55"/><circle cx="${px}" cy="${m.t - 10}" r="8" fill="#0f1e33"/><text x="${px}" y="${m.t - 6.5}" text-anchor="middle" font-size="10" font-weight="700" fill="#fff">${e.n}</text></g>`;
     });
     series.forEach(s => {
       const segs = []; let cur = [];
@@ -153,10 +185,18 @@
       });
       if (!s.faint) s.points.forEach(p => { if (p[1] != null) g += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="${s.dot || 4}" fill="${s.color}" stroke="#fff" stroke-width="2"/>`; });
     });
+    if (labels.length) {
+      const points = labels.flatMap(s => {
+        const last = s.points.findLast(p => p[1] != null);
+        return last ? [{ x: X(last[0]), y: Y(last[1]), name: s.name, color: s.color }] : [];
+      });
+      g += pointLabels(points, W - m.r + 10, m.t, H - m.b, labelWidth, 'ci-end-label');
+    }
     g += `<line class="xh" x1="0" x2="0" y1="${m.t}" y2="${H - m.b}" stroke="${INK2}" stroke-width="1" visibility="hidden"/>`;
     g += `<rect class="hit" x="${m.l}" y="${m.t}" width="${W - m.l - m.r}" height="${H - m.t - m.b}" fill="transparent"/>`;
     box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-hidden="true">${g}</svg>`;
     const svg = box.querySelector('svg'), xh = svg.querySelector('.xh'), tip = tipLayer(box);
+    fitLabels(svg);
     const near = ev => {
       const r = svg.getBoundingClientRect(), px = (ev.clientX - r.left) * (W / r.width);
       let best = xs[0]; xs.forEach(x => { if (Math.abs(X(x) - px) < Math.abs(X(best) - px)) best = x; });
@@ -185,12 +225,14 @@
     const max = percent ? 1 : Math.max(...totals, 1);
     let g = '', H;
     if (horizontal) {
-      const labelW = Math.min(220, Math.max(110, W * 0.32)), bar = 22, gap = 14, m = { t: 6, r: 70 };
-      H = m.t + rows.length * (bar + gap) + 20;
-      const X = v => labelW + (W - labelW - m.r) * v / max;
+      const narrow = W < 520, bar = 22;
+      const labelW = narrow ? 2 : Math.min(220, W * 0.32);
+      const right = narrow ? 4 : 88, rowHeight = narrow ? 66 : 36;
+      H = 8 + rows.length * rowHeight;
+      const X = v => labelW + (W - labelW - right) * v / max;
       rows.forEach((r, i) => {
-        const y = m.t + i * (bar + gap);
-        g += `<text x="${labelW - 8}" y="${y + bar / 2 + 4}" text-anchor="end" font-size="12" fill="${INK}">${esc(r.label.length > 34 ? r.label.slice(0, 33) + '…' : r.label)}</text>`;
+        const y = 6 + i * rowHeight + (narrow ? 16 : 0);
+        g += `<text class="ci-bar-label" data-fit="${narrow ? W - 6 : labelW - 10}" x="${narrow ? 2 : labelW - 8}" y="${narrow ? y - 5 : y + bar / 2 + 4}" text-anchor="${narrow ? 'start' : 'end'}" font-size="12" fill="${INK}">${esc(r.label)}</text>`;
         let acc = 0;
         r.values.forEach((v, j) => {
           if (!(v > 0)) return;
@@ -198,7 +240,7 @@
           g += `<rect class="seg" data-r="${i}" data-g="${j}" x="${x}" y="${y}" width="${w}" height="${bar}" rx="${j === r.values.length - 1 ? 3 : 0}" fill="${groups[j].color}"/>`;
           acc += w0;
         });
-        g += `<text x="${X(acc) + 6}" y="${y + bar / 2 + 4}" font-size="12" fill="${INK2}">${percent ? '100%' : esc(money2(totals[i]))}</text>`;
+        g += `<text x="${narrow ? W - 4 : X(acc) + 6}" y="${narrow ? y + bar + 14 : y + bar / 2 + 4}" text-anchor="${narrow ? 'end' : 'start'}" font-size="12" fill="${INK2}">${percent ? '100%' : esc(money2(totals[i]))}</text>`;
       });
     } else {
       const m = { l: 54, r: 10, t: 8, b: 26 }; H = 240;
@@ -220,6 +262,7 @@
     }
     box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-hidden="true">${g}</svg>`;
     const svg = box.querySelector('svg'), tip = tipLayer(box);
+    fitLabels(svg);
     svg.addEventListener('pointermove', ev => {
       const s = ev.target.closest('.seg');
       if (!s) { tip.hide(); return; }
@@ -248,32 +291,63 @@
   function storyFor(h) {
     const ys = homeYears(h).filter(y => usable(h, y));
     if (ys.length < 2) return [];
-    const last = ys[ys.length - 1], prev = ys[ys.length - 2], first = ys[0];
+    const last = ys.at(-1), prev = ys.at(-2), first = ys[0];
     const keys = KEYS.filter(k => isMoney(k) && !['expenses', 'revenue'].includes(k));
-    const out = [];
     const changes = keys.map(k => {
       const a = val(h, prev, k), b = val(h, last, k);
-      if (a == null || b == null) return null;
-      return { k, a, b, d: b - a, r: a ? (b - a) / a : null };
-    }).filter(c => c && Math.abs(c.d) >= 2 && (c.r == null || Math.abs(c.r) >= 0.1)).sort((x, y) => Math.abs(y.d) - Math.abs(x.d)).slice(0, 4);
+      return a == null || b == null ? null : { k, a, b, d: b - a, r: relativeChange(a, b) };
+    }).filter(c => c && Math.abs(c.d) >= 2 && (c.r == null || Math.abs(c.r) >= 0.1))
+      .sort((x, y) => Math.abs(y.d) - Math.abs(x.d)).slice(0, 4);
+    const out = [];
+    const strong = value => `<strong>${esc(value)}</strong>`;
+    const amount = value => strong(money2(value));
+    const changeText = (a, b) => {
+      const ratio = relativeChange(a, b);
+      return `from ${amount(a)} to ${amount(b)} per resident day${ratio == null ? '' : ` (${strong(signed(ratio, pct))})`}`;
+    };
+    const medianText = k => {
+      const a = bandAt(k, prev), b = bandAt(k, last);
+      return a && b ? `, while the Connecticut median went from ${amount(a.med)} to ${amount(b.med)}` : '';
+    };
     const tot0 = val(h, prev, 'expenses'), tot1 = val(h, last, 'expenses');
     if (tot0 != null && tot1 != null) {
-      const bb0 = bandAt('expenses', prev), bb1 = bandAt('expenses', last);
-      out.push(`Total costs went from ${money2(tot0)} to ${money2(tot1)} per resident day between cost years ${prev} and ${last} (${tot1 >= tot0 ? '+' : ''}${pct((tot1 - tot0) / tot0)})${bb0 && bb1 ? `; the Connecticut median went from ${money2(bb0.med)} to ${money2(bb1.med)}` : ''}.`);
+      out.push(`Total costs went ${changeText(tot0, tot1)} between cost years ${prev} and ${last}${medianText('expenses')}.`);
     }
     changes.forEach(c => {
-      const b0 = bandAt(c.k, prev), b1 = bandAt(c.k, last);
-      out.push(`${META[c.k].label} ${c.d > 0 ? 'rose' : 'fell'} from ${money2(c.a)} to ${money2(c.b)} per resident day${c.r != null ? ` (${c.d > 0 ? '+' : ''}${pct(c.r)})` : ''} between ${prev} and ${last}${b0 && b1 ? `, while the Connecticut median went from ${money2(b0.med)} to ${money2(b1.med)}` : ''}.`);
+      out.push(`${esc(META[c.k].label)} ${c.d > 0 ? 'rose' : 'fell'} ${changeText(c.a, c.b)} between ${prev} and ${last}${medianText(c.k)}.`);
     });
     if (first !== prev) {
       const a = val(h, first, 'expenses'), b = val(h, last, 'expenses');
-      if (a != null && b != null) out.push(`Since cost year ${first}, total costs per resident day changed by ${b >= a ? '+' : ''}${pct((b - a) / a)}${real ? ' after inflation' : ' (not adjusted for inflation; tick the box above to adjust)'}.`);
+      if (a != null && b != null) out.push(`Since cost year ${first}, total costs went ${changeText(a, b)}${real ? ' after inflation' : ' in reported dollars'}.`);
     }
-    const recent = h.events.filter(e => e.date >= `${Number(prev) - 1}-10-01`);
-    recent.forEach(e => out.push(`${e.label}, ${fmtDate(e.date)}. This is timing only: the cost report does not say whether it caused any change.`));
-    return out;
+    h.events.filter(e => e.date >= `${Number(prev) - 1}-10-01`).forEach(e => {
+      out.push(`${esc(e.label)}, ${esc(fmtDate(e.date))}. The timing alone cannot establish a cause.`);
+    });
+    return out.slice(0, 5);
   }
   const fmtDate = iso => { const [y, m, d] = iso.split('-').map(Number); return `${['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'][m - 1]} ${d}, ${y}`; };
+
+  function headlineTiles(h) {
+    const y = homeYears(h).filter(year => usable(h, year)).at(-1);
+    if (!y) return '<p class="subtle ci-screen-only">No cost year passed every check for this home.</p>';
+    const costs = val(h, y, 'expenses'), ct = bandAt('expenses', y)?.med;
+    const gap = costs == null || ct == null ? null : costs - ct;
+    const gapPct = relativeChange(ct, costs), related = val(h, y, 'related_parties');
+    const tiles = [
+      ['Total costs per resident day', money2(costs)],
+      ['Gap to Connecticut median', gap == null ? '' : `${signed(gap, money2)}${gapPct == null ? '' : ` (${signed(gapPct, pct)})`}`],
+      ['Direct care share of costs', pct(val(h, y, 'direct_share'))],
+      ['Related-party payments as a share of costs', related == null || !costs ? '' : pct(related / costs)],
+    ];
+    return `<section class="ci-headlines ci-screen-only" aria-label="Latest checked cost year">
+      <p class="subtle">Latest cost year that passed every check: ${y}${real ? `, in ${D.cpi.base_year} dollars` : ''}.</p>
+      <dl class="ci-tiles">${tiles.map(([label, value]) => `<div class="ci-tile"><dt>${esc(label)}</dt><dd>${esc(value || 'Unavailable')}</dd></div>`).join('')}</dl>
+    </section>`;
+  }
+
+  function metricDisclosure(definition) {
+    return `<details class="ci-definition ci-screen-only"><summary>What is this?</summary><p class="subtle">${esc(definition)}</p></details>`;
+  }
 
   function renderHome() {
     const out = document.getElementById('home-out');
@@ -285,15 +359,18 @@
     out.innerHTML = `
       <h2 id="home-title" tabindex="-1" style="margin-bottom:2px">${esc(title(h.name))}</h2>
       <p class="subtle">${esc([h.city, h.county ? `${h.county} planning region` : '', h.beds ? `${h.beds} certified beds` : '', h.ownership, h.affiliation ? `CMS affiliated entity: ${title(h.affiliation)}` : ''].filter(Boolean).join(' · '))} · CCN ${h.ccn} · <a href="${COST_PAGE}?ccn=${h.ccn}">Year-by-year detail on Cost Reports</a></p>
-      ${story.length ? `<h3>What changed</h3><ul class="ci-story">${story.map(s => `<li>${esc(s)}</li>`).join('')}</ul>` : ''}
+      ${headlineTiles(h)}
+      ${story.length ? `<div class="ci-screen-only"><h3>What changed</h3><ul class="ci-story">${story.map(item => `<li>${item}</li>`).join('')}</ul></div>` : ''}
       <h3>Costs over time ${real ? `<span class="ci-flag">in ${D.cpi.base_year} dollars</span>` : ''}</h3>
       ${legend([{ label: title(h.name), color: HEX[0], cls: 'line' }, { label: 'Connecticut middle half of homes', cls: 'band' }, { label: 'Connecticut median', cls: 'dash' }])}
-      <div class="ci-grid">${keys.map(k => `<div class="ci-card"><h4>${esc(META[k].label)}</h4><p class="sub">${META[k].unit === 'money' ? 'Per resident day' : esc(META[k].definition)}</p><div class="ci-chart" data-k="${k}"></div></div>`).join('')}</div>
-      ${evs.length ? `<h3>Ownership, management and administrator changes</h3><ol class="ci-events">${evs.map(e => `<li><b>${e.n}</b>${esc(fmtDate(e.date))}: ${esc(e.label)}</li>`).join('')}</ol>` : '<p class="subtle">No ownership, management-of-record or administrator changes recorded in these years.</p>'}
+      <div class="ci-grid">${keys.map(k => `<div class="ci-card"><h4>${esc(META[k].label)}</h4><p class="sub">${META[k].unit === 'money' ? 'Per resident day' : esc(META[k].definition)}</p><div class="ci-chart" data-k="${k}"></div>${metricDisclosure(META[k].definition)}</div>`).join('')}</div>
+      <p class="subtle">Each chart has its own scale.</p>
+      <div class="ci-screen-only">${evs.length ? `<h3>Ownership, management and administrator changes</h3><ol class="ci-events">${evs.map(e => `<li><b>${e.n}</b>${esc(fmtDate(e.date))}: ${esc(e.label)}</li>`).join('')}</ol>` : '<p class="subtle">No ownership, management-of-record or administrator changes recorded in these years.</p>'}</div>
       <h3>Share of every dollar</h3>
       <p class="subtle">Each year's costs split into eight groups, as a share of the total. Hover a segment for its amount per resident day.</p>
       ${legend(GROUP_COLORS())}
       <div class="ci-chart" id="home-share"></div>
+      ${metricDisclosure(D.method.values)}
       <details class="ci-more"><summary>Show these figures as a table</summary>${homeTable(h, keys)}</details>`;
     out.querySelectorAll('.ci-chart[data-k]').forEach(box => {
       const k = box.dataset.k, ys = D.years;
@@ -334,7 +411,7 @@
         ${legend(GROUP_COLORS())}<div class="ci-chart" id="cmp-bars"></div></div>
       ${compareTable(hs, y)}`;
     const band = {}; D.years.forEach(yy => { const b = bandAt(k, yy); band[yy] = b ? { lo: b.med, med: b.med, hi: b.med } : null; });
-    lineChart(document.getElementById('cmp-line'), { unit: META[k].unit, height: 260, series: hs.map((h, i) => ({ name: title(h.name), color: HEX[i], points: D.years.map(yy => [yy, val(h, yy, k)]) }))
+    lineChart(document.getElementById('cmp-line'), { unit: META[k].unit, height: 260, series: hs.map((h, i) => ({ name: title(h.name), color: HEX[i], endLabel: hs.length <= 4, points: D.years.map(yy => [yy, val(h, yy, k)]) }))
       .concat([{ name: 'Connecticut median', color: MEDIAN, dashed: true, width: 1.5, dot: 0, points: D.years.map(yy => [yy, band[yy] ? band[yy].med : null]) }]) });
     const rows = hs.map(h => ({ label: title(h.name), values: groupValues(h, y) })).filter(r => r.values.every(v => v != null));
     const bars = document.getElementById('cmp-bars');
@@ -342,7 +419,7 @@
   }
   function compareTable(hs, y) {
     const keys = KEYS;
-    return `<details class="ci-more" open><summary>All figures for ${y}, with the gap to the Connecticut median</summary><div class="table-scroll"><table class="stack"><caption>Cost year ${y}${real ? `, ${D.cpi.base_year} dollars` : ''}</caption>
+    return `<details class="ci-more" open><summary>All figures for ${y}, with the gap to the Connecticut median</summary><div class="table-scroll" tabindex="0" role="region" aria-label="All figures for ${y}"><table class="ci-sticky ci-compare-table"><caption>Cost year ${y}${real ? `, ${D.cpi.base_year} dollars` : ''}</caption>
       <thead><tr><th scope="col">Figure</th>${hs.map(h => `<th scope="col" class="num">${esc(title(h.name))}</th>`).join('')}<th scope="col" class="num">CT median</th></tr></thead>
       <tbody>${keys.map(k => { const b = bandAt(k, y); return `<tr><th scope="row">${esc(META[k].label)}</th>${hs.map(h => { const v = val(h, y, k); const gap = v != null && b ? v - b.med : null;
         return `<td class="num" data-label="${esc(title(h.name))}">${esc(fmt(k, v))}${gap != null ? `<div class="subtle">${gap >= 0 ? '+' : ''}${esc(fmt(k, gap))}</div>` : ''}</td>`; }).join('')}<td class="num subtle" data-label="CT median">${esc(fmt(k, b && b.med))}</td></tr>`; }).join('')}</tbody></table></div></details>`;
@@ -377,7 +454,9 @@
     if (!grp) { out.innerHTML = '<p class="subtle">No group selected.</p>'; return; }
     const hs = grp.ccns.map(c => HOMES[c]);
     // the group median is drawn only for years with at least three homes reporting the figure
-    const gmed = yy => { const v = hs.filter(h => usable(h, yy) && !h.years[yy].part).map(h => val(h, yy, k)).filter(x => x != null); return v.length >= 3 ? median(v) : null; };
+    const comparable = yy => hs.filter(h => usable(h, yy) && !h.years[yy].part).map(h => val(h, yy, k)).filter(v => v != null);
+    const gmed = yy => { const values = comparable(yy); return values.length >= 3 ? median(values) : null; };
+    const groupMedian = gmed(y), ctMedian = bandAt(k, y)?.med;
     const ct = yy => { const b = bandAt(k, yy); return b ? b.med : null; };
     const rows = hs.map(h => ({ h, v: val(h, y, k), part: h.years[y] && h.years[y].part })).filter(r => r.v != null).sort((a, b) => b.v - a.v);
     out.innerHTML = `
@@ -386,8 +465,13 @@
         <div class="ci-chart" id="peer-line"></div></div>
       <div class="table-scroll"><table class="stack"><caption>${esc(grp.name)}, cost year ${y}: ${esc(META[k].label)} (Connecticut median ${esc(fmt(k, ct(y)))})</caption>
         <thead><tr><th scope="col">Home</th><th scope="col" class="num">${esc(META[k].label)}</th><th scope="col" class="num">Gap to CT median</th><th scope="col">Town</th></tr></thead>
-        <tbody>${rows.map(r => `<tr><td data-label="Home"><button class="linkish" type="button" data-open="${r.h.ccn}">${esc(title(r.h.name))}</button>${r.part ? ' <span class="ci-flag">part year</span>' : ''}</td><td class="num" data-label="Value">${esc(fmt(k, r.v))}</td><td class="num" data-label="Gap">${ct(y) != null ? esc((r.v - ct(y) >= 0 ? '+' : '') + fmt(k, r.v - ct(y))) : ''}</td><td data-label="Town">${esc(r.h.city || '')}</td></tr>`).join('')
-          || `<tr><td colspan="4" class="subtle">No home in this group has this figure for ${y}.</td></tr>`}</tbody></table></div>
+        <tbody>${rows.map(r => `<tr><td data-label="Home"><button class="linkish" type="button" data-open="${r.h.ccn}">${esc(title(r.h.name))}</button><span class="ci-print-only">${esc(title(r.h.name))}</span>${r.part ? ' <span class="ci-flag">part year</span>' : ''}</td><td class="num" data-label="Value">${esc(fmt(k, r.v))}</td><td class="num" data-label="Gap">${ct(y) != null ? esc((r.v - ct(y) >= 0 ? '+' : '') + fmt(k, r.v - ct(y))) : ''}</td><td data-label="Town">${esc(r.h.city || '')}</td></tr>`).join('')
+          || `<tr><td colspan="4" class="subtle">No home in this group has this figure for ${y}.</td></tr>`}
+          <tr class="ci-peer-summary"><td data-label="Home"><strong>Group median</strong></td>
+            <td class="num" data-label="Value">${groupMedian == null ? 'Unavailable' : esc(fmt(k, groupMedian))}</td>
+            <td class="num" data-label="Gap">${groupMedian == null || ctMedian == null ? '' : esc(signed(groupMedian - ctMedian, v => fmt(k, v)))}</td>
+            <td data-label="Coverage">${rows.length} homes reporting in ${y} (${comparable(y).length} eligible for median)</td></tr>
+        </tbody></table></div>
       <div class="report-actions no-print"><button type="button" class="action-button secondary" id="peer-compare">Compare these homes side by side${hs.length > 5 ? ' (first five by this figure)' : ''}</button></div>`;
     lineChart(document.getElementById('peer-line'), { unit: META[k].unit, height: 280,
       series: hs.map(h => ({ name: title(h.name), color: OTHER, faint: true, width: 1.5, points: D.years.map(yy => [yy, val(h, yy, k)]) }))
@@ -420,11 +504,30 @@
     rows = rows.filter(r => r.total || !f || norm(`${r.label} ${r.sub || ''}`).includes(f)).filter(r => r.cells.some(c => c != null));
     return { rows, k, rowsBy, agg };
   }
+  function pivotChanges(row) {
+    const latest = row.cells.at(-1);
+    return [relativeChange(row.cells.at(-2), latest), relativeChange(row.cells[D.years.indexOf(2019)], latest)];
+  }
+
   function renderPivot() {
+    const out = document.getElementById('pv-out');
+    const previous = out.querySelector('.table-scroll');
+    const narrow = global.matchMedia('(max-width: 719px)').matches;
+    const scrollLeft = previous && previous.clientWidth && (previous.dataset.narrow === String(narrow))
+      ? previous.scrollLeft : null;
     const { rows, k, rowsBy, agg } = pivotData();
     syncUrl();
     const body = rows.filter(r => !r.total), total = rows.find(r => r.total);
-    if (pvSort.col != null) body.sort((a, b) => pvSort.col === 'label' ? pvSort.dir * a.label.localeCompare(b.label) : pvSort.dir * ((a.cells[pvSort.col] ?? -Infinity) - (b.cells[pvSort.col] ?? -Infinity)));
+    if (pvSort.col === 'label') body.sort((a, b) => pvSort.dir * a.label.localeCompare(b.label));
+    else if (pvSort.col != null) {
+      const value = row => row.cells.concat(pivotChanges(row))[pvSort.col];
+      body.sort((a, b) => {
+        const av = value(a), bv = value(b);
+        if (av == null) return bv == null ? 0 : 1;
+        if (bv == null) return -1;
+        return pvSort.dir * (av - bv);
+      });
+    }
     const all = body.flatMap(r => r.cells).filter(v => v != null).sort((a, b) => a - b);
     const lo = all[Math.floor(all.length * 0.05)] ?? 0, hi = all[Math.floor(all.length * 0.95)] ?? 1;
     // sequential single hue (blue 100 -> 600); text flips to white on the darkest steps
@@ -432,17 +535,32 @@
     const shade = v => { if (v == null) return ''; const t = Math.max(0, Math.min(1, (v - lo) / ((hi - lo) || 1))); const i = Math.round(t * (ramp.length - 1)); return `background:${ramp[i]};${i >= 6 ? 'color:#fff;' : ''}`; };
     const few = (r, i) => !r.total && rowsBy !== 'home' && r.n[i] > 0 && r.n[i] < 3;
     const cell = (r, v, i) => `<td class="num" style="${r.total || few(r, i) ? '' : shade(v)}" title="${r.n[i]} home${r.n[i] === 1 ? '' : 's'}">${esc(fmt(k, v))}${few(r, i) && v != null ? '<sup>†</sup>' : ''}</td>`;
-    document.getElementById('pv-out').innerHTML = `<p class="subtle">${body.length} rows. ${rowsBy === 'home' ? 'Each home\'s own figure' : `${agg === 'mean' ? 'Average' : 'Median'} of the homes in each group (full-year filings that passed every check)`} for ${esc(META[k].label.toLowerCase())}${real && isMoney(k) ? `, in ${D.cpi.base_year} dollars` : ''}. Darker blue = higher. Select a heading to sort; hover a cell for how many homes it covers.</p>
-      <div class="table-scroll"><table class="pivot"><caption>${esc(META[k].label)} by ${esc((PEER_TYPES.find(p => p[0] === rowsBy) || ['', 'home'])[1].toLowerCase())} and cost year</caption>
-      <thead><tr><th scope="col"><button type="button" data-sort="label">${rowsBy === 'home' ? 'Home' : 'Group'}</button></th>${D.years.map((y, i) => `<th scope="col" class="num"><button type="button" data-sort="${i}">${y}</button></th>`).join('')}</tr></thead>
-      <tbody>${body.map(r => `<tr><th scope="row">${r.ccn ? `<button class="linkish" type="button" data-open="${r.ccn}">${esc(r.label)}</button>` : esc(r.label)} <span class="subtle">${esc(r.sub || '')}</span></th>${r.cells.map((v, i) => cell(r, v, i)).join('')}</tr>`).join('')}
-      ${total ? `<tr style="font-weight:800"><th scope="row">${esc(total.label)} <span class="subtle">median</span></th>${total.cells.map((v, i) => cell(total, v, i)).join('')}</tr>` : ''}</tbody></table></div>
-      ${rowsBy !== 'home' ? '<p class="subtle">† Fewer than three homes in the group reported this figure that year; not shaded, read with care.</p>' : ''}`;
+    const changeCells = row => pivotChanges(row).map(v => `<td class="num">${esc(signed(v, pct))}</td>`).join('');
+    out.innerHTML = `<p class="subtle">${body.length} rows. ${rowsBy === 'home' ? 'Each home\'s own figure' : `${agg === 'mean' ? 'Average' : 'Median'} of the homes in each group (full-year filings that passed every check)`} for ${esc(META[k].label.toLowerCase())}${real && isMoney(k) ? `, in ${D.cpi.base_year} dollars` : ''}. Darker blue = higher. Select a heading to sort; hover a cell for how many homes it covers.</p>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Pivot results" data-narrow="${narrow}"><table class="pivot ci-sticky"><caption>${esc(META[k].label)} by ${esc((PEER_TYPES.find(p => p[0] === rowsBy) || ['', 'home'])[1].toLowerCase())} and cost year</caption>
+      <thead><tr><th scope="col"><button type="button" data-sort="label">${rowsBy === 'home' ? 'Home' : 'Group'}</button><span class="ci-print-only">${rowsBy === 'home' ? 'Home' : 'Group'}</span></th>${D.years.map((y, i) => `<th scope="col" class="num"><button type="button" data-sort="${i}"${i === D.years.length - 1 ? ' data-latest' : ''}>${y}</button><span class="ci-print-only">${y}</span></th>`).join('')}
+        <th scope="col" class="num"><button type="button" data-sort="${D.years.length}" title="${D.years.at(-2)} to ${D.years.at(-1)}">Latest year change (%)</button><span class="ci-print-only">Latest year change (%)</span></th>
+        <th scope="col" class="num"><button type="button" data-sort="${D.years.length + 1}" title="2019 to ${D.years.at(-1)}">Change since 2019 (%)</button><span class="ci-print-only">Change since 2019 (%)</span></th></tr></thead>
+      <tbody>${body.map(r => `<tr><th scope="row">${r.ccn ? `<button class="linkish" type="button" data-open="${r.ccn}">${esc(r.label)}</button><span class="ci-print-only">${esc(r.label)}</span>` : esc(r.label)} <span class="subtle">${esc(r.sub || '')}</span></th>${r.cells.map((v, i) => cell(r, v, i)).join('')}${changeCells(r)}</tr>`).join('')}
+      ${total ? `<tr style="font-weight:800"><th scope="row">${esc(total.label)} <span class="subtle">median</span></th>${total.cells.map((v, i) => cell(total, v, i)).join('')}${changeCells(total)}</tr>` : ''}</tbody></table></div>
+      ${rowsBy !== 'home' ? '<p class="subtle">† Fewer than three homes in the group reported this figure that year; not shaded, read with care.</p>' : ''}
+      <p class="subtle">Change compares ${D.years.at(-1)} with ${D.years.at(-2)} or 2019. Change is relative to the magnitude of the starting value. Blank means a figure is missing or the starting value is zero.</p>`;
+    const scroller = out.querySelector('.table-scroll');
+    if (scrollLeft != null) scroller.scrollLeft = scrollLeft;
+    else if (narrow) {
+      const latest = out.querySelector('[data-latest]').closest('th');
+      const first = out.querySelector('thead th');
+      scroller.scrollLeft = latest.getBoundingClientRect().left - first.getBoundingClientRect().right;
+    }
   }
   function pivotCsv() {
     const { rows, k } = pivotData();
     const q = v => { const t = v == null ? '' : String(v); return /[",\n]/.test(t) ? `"${t.replace(/"/g, '""')}"` : t; };
-    const lines = [['row', 'detail', ...D.years].join(','), ...rows.map(r => [r.label, r.sub || '', ...r.cells.map(v => v == null ? '' : (+v).toFixed(4))].map(q).join(','))];
+    const header = ['row', 'detail', ...D.years, 'latest_year_change_pct', 'change_since_2019_pct'];
+    const lines = [header.join(','), ...rows.map(r => [
+      r.label, r.sub || '', ...r.cells.map(v => v == null ? '' : (+v).toFixed(4)),
+      ...pivotChanges(r).map(v => signed(v, pct)),
+    ].map(q).join(','))];
     const blob = new Blob([lines.join('\n') + '\n'], { type: 'text/csv' });
     const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `ct-cost-reports-pivot-${k}${real ? '-constant-dollars' : ''}.csv`;
     document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 0);
@@ -466,9 +584,13 @@
       <tbody>${pts.sort((a, b) => a.h.name.localeCompare(b.h.name)).map(p => `<tr><td data-label="Home">${esc(title(p.h.name))}${p.g ? ' <span class="ci-flag">in group</span>' : ''}</td><td class="num" data-label="${esc(mx.label)}">${esc(fmt(kx, p.x))}</td><td class="num" data-label="${esc(my.label)}">${esc(fmt(ky, p.y))}</td></tr>`).join('')}</tbody></table></div></details>`;
     const box = document.getElementById('sc-chart');
     if (!pts.length) { box.innerHTML = '<p class="subtle">No homes have both figures for this year.</p>'; return; }
-    const W = Math.max(280, box.clientWidth), H = Math.min(460, Math.max(300, W * 0.62)), m = { l: 58, r: 14, t: 10, b: 40 };
+    const W = Math.max(280, box.clientWidth), H = Math.min(460, Math.max(300, W * 0.62));
+    const highlighted = pts.filter(p => p.g);
+    const showLabels = highlighted.length > 0 && highlighted.length <= 8;
+    const labelWidth = Math.min(146, Math.round(W * 0.31));
+    const m = { l: 58, r: showLabels ? labelWidth + 14 : 14, t: 10, b: 40 };
     const xsV = pts.map(p => p.x), ysV = pts.map(p => p.y);
-    const tx = niceTicks(Math.min(...xsV), Math.max(...xsV)), ty = niceTicks(Math.min(...ysV), Math.max(...ysV));
+    const tx = niceTicks(Math.min(...xsV), Math.max(...xsV), Math.max(2, Math.floor((W - m.l - m.r) / 64))), ty = niceTicks(Math.min(...ysV), Math.max(...ysV));
     const xl = Math.min(tx[0], ...xsV), xh = Math.max(tx[tx.length - 1], ...xsV), yl = Math.min(ty[0], ...ysV), yh = Math.max(ty[ty.length - 1], ...ysV);
     const X = v => m.l + (W - m.l - m.r) * (v - xl) / ((xh - xl) || 1), Y = v => m.t + (H - m.t - m.b) * (1 - (v - yl) / ((yh - yl) || 1));
     let g = '';
@@ -476,10 +598,15 @@
     g += tx.map(t => `<text x="${X(t)}" y="${H - m.b + 16}" text-anchor="middle" font-size="11" fill="${MUTED}">${esc(axisFmt(mx.unit, t))}</text>`).join('');
     const mxv = median(xsV), myv = median(ysV);
     g += `<line x1="${X(mxv)}" x2="${X(mxv)}" y1="${m.t}" y2="${H - m.b}" stroke="${MEDIAN}" stroke-dasharray="4 3"/><line x1="${m.l}" x2="${W - m.r}" y1="${Y(myv)}" y2="${Y(myv)}" stroke="${MEDIAN}" stroke-dasharray="4 3"/>`;
-    g += `<text x="${W - m.r}" y="${H - 6}" text-anchor="end" font-size="11" fill="${INK2}">${esc(mx.label)} →</text><text x="${m.l}" y="${m.t + 12}" font-size="11" fill="${INK2}" dx="6">↑ ${esc(my.label)}</text>`;
+    g += `<text data-fit="${W - 12}" x="${W - 6}" y="${H - 6}" text-anchor="end" font-size="11" fill="${INK2}">${esc(mx.label)} →</text><text data-fit="${W - m.l - 12}" x="${m.l}" y="${m.t + 12}" font-size="11" fill="${INK2}" dx="6">↑ ${esc(my.label)}</text>`;
     pts.sort((a, b) => a.g - b.g).forEach((p, i) => { g += `<circle class="pt" data-i="${i}" cx="${X(p.x)}" cy="${Y(p.y)}" r="${p.g ? 6 : 4.5}" fill="${p.g ? HEX[0] : OTHER}" stroke="#fff" stroke-width="2" style="cursor:pointer"/>`; });
+    if (showLabels) {
+      const points = highlighted.map(p => ({ x: X(p.x), y: Y(p.y), name: title(p.h.name), color: HEX[0] }));
+      g += pointLabels(points, W - m.r + 10, m.t, H - m.b, labelWidth, 'ci-dot-label');
+    }
     box.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-hidden="true">${g}</svg>`;
     const svg = box.querySelector('svg'), tip = tipLayer(box);
+    fitLabels(svg);
     svg.addEventListener('pointermove', ev => {
       const c = ev.target.closest('.pt'); if (!c) { tip.hide(); return; }
       const p = pts[+c.dataset.i], r = svg.getBoundingClientRect();
@@ -590,11 +717,40 @@
     if (view === 'home' && homeCcn) { p.set('ccn', homeCcn); if (homeExtra) p.set('extra', homeExtra); }
     if (view === 'compare') { if (cmp.length) p.set('homes', cmp.join(',')); p.set('metric', g('cmp-metric')); p.set('year', g('cmp-year')); }
     if (view === 'peers') { p.set('by', g('peer-type')); p.set('group', g('peer-group')); p.set('metric', g('peer-metric')); p.set('year', g('peer-year')); }
-    if (view === 'pivot') { p.set('rows', g('pv-rows')); p.set('metric', g('pv-metric')); p.set('agg', g('pv-agg')); }
+    if (view === 'pivot') {
+      p.set('rows', g('pv-rows')); p.set('metric', g('pv-metric')); p.set('agg', g('pv-agg'));
+      if (g('pv-filter')) p.set('filter', g('pv-filter'));
+      if (pvSort.col != null) { p.set('sort', pvSort.col); p.set('dir', pvSort.dir); }
+    }
     if (view === 'scatter') { p.set('x', g('sc-x')); p.set('y', g('sc-y')); p.set('year', g('sc-year')); if (g('sc-type')) { p.set('by', g('sc-type')); p.set('group', g('sc-group')); } }
     if (view === 'flow' && flowCcn) { p.set('ccn', flowCcn); p.set('year', g('flow-year')); }
     u.search = p.toString();
+    if (u.href !== global.location.href) document.getElementById('ci-copy-status').textContent = '';
     global.history.replaceState(null, '', u);
+  }
+
+  async function copyViewLink() {
+    const status = document.getElementById('ci-copy-status');
+    const url = global.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      status.textContent = 'Link copied.';
+    } catch {
+      const input = document.createElement('textarea');
+      input.value = url;
+      input.readOnly = true;
+      input.style.cssText = 'position:fixed;inset:0 auto auto 0;opacity:0';
+      document.body.append(input);
+      try {
+        input.select();
+        status.textContent = document.execCommand('copy') ? 'Link copied.' : 'Copy the link from the address bar.';
+      } catch {
+        status.textContent = 'Copy the link from the address bar.';
+      } finally {
+        input.remove();
+        document.getElementById('ci-copy').focus();
+      }
+    }
   }
 
   async function init() {
@@ -666,6 +822,7 @@
     picker(document.getElementById('flow-search'), document.getElementById('flow-results'), c => { flowCcn = c; const h = HOMES[c]; const ys = homeYears(h).filter(y => usable(h, y)); if (ys.length) document.getElementById('flow-year').value = ys[ys.length - 1]; renderFlow(); });
     document.getElementById('flow-year').addEventListener('change', renderFlow);
     // shared
+    document.getElementById('ci-copy').addEventListener('click', copyViewLink);
     document.getElementById('ci-real').addEventListener('change', e => { real = e.target.checked; render(); });
     document.querySelector('main').addEventListener('click', e => { const b = e.target.closest('[data-open]'); if (b) openHome(b.dataset.open); });
     const tabs = [...document.querySelectorAll('.ci-tabs [role="tab"]')];
@@ -685,7 +842,13 @@
     if (v === 'compare') { cmp = (q.get('homes') || '').split(',').filter(c => HOMES[c]).slice(0, 5); if (KEYS.includes(q.get('metric'))) document.getElementById('cmp-metric').value = q.get('metric'); if (okYear(q.get('year'))) document.getElementById('cmp-year').value = q.get('year'); }
     if (v === 'peers') { if (PEER_TYPES.some(p => p[0] === q.get('by'))) pt.value = q.get('by'); if (KEYS.includes(q.get('metric'))) document.getElementById('peer-metric').value = q.get('metric'); if (okYear(q.get('year'))) document.getElementById('peer-year').value = q.get('year'); }
     fillGroupSelect(pt, pg, v === 'peers' ? q.get('group') : null);
-    if (v === 'pivot') { if (q.get('rows')) pvRows.value = q.get('rows'); if (KEYS.includes(q.get('metric'))) document.getElementById('pv-metric').value = q.get('metric'); if (q.get('agg') === 'mean') document.getElementById('pv-agg').value = 'mean'; }
+    if (v === 'pivot') { if (q.get('rows')) pvRows.value = q.get('rows'); if (KEYS.includes(q.get('metric'))) document.getElementById('pv-metric').value = q.get('metric'); if (q.get('agg') === 'mean') document.getElementById('pv-agg').value = 'mean';
+      document.getElementById('pv-filter').value = q.get('filter') || '';
+      const sort = q.get('sort');
+      if (sort === 'label' || (/^\d+$/.test(sort || '') && Number(sort) < D.years.length + 2)) {
+        pvSort = { col: sort === 'label' ? sort : Number(sort), dir: q.get('dir') === '1' ? 1 : -1 };
+      }
+    }
     if (v === 'scatter') {
       if (scKeys.includes(q.get('x'))) document.getElementById('sc-x').value = q.get('x');
       if (scKeys.includes(q.get('y'))) document.getElementById('sc-y').value = q.get('y');
