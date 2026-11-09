@@ -338,7 +338,7 @@ COST_CATEGORIES = [
 ]
 
 
-def cost_breakdown(f, dc, ss, days, related_parties):
+def cost_breakdown(f, dc, ss, days, record):
     """Split total nursing-home costs into categories per resident day. Withheld unless the categories add up
     to the printed total (page 27, line 15) and none is negative."""
     total = f.get("expenses_total_ccnh")
@@ -384,31 +384,36 @@ def cost_breakdown(f, dc, ss, days, related_parties):
     if abs(sum(prop_parts.values()) - g("property_total")) <= max(50, 0.005 * (g("property_total") or 1)):
         det.update({k: v for k, v in prop_parts.items() if v})
     out["details"] = {k: {"amount": r0(v), "per_resident_day": round(v / days, 2)} for k, v in det.items()}
-    apply_related_rent(out, days, related_parties)
+    apply_related_rent(out, days, record)
     return out
 
 
 RELATED_RENT = "rent_or_lease_paid_to_related_parties"
 RENT_WITHHELD = "rent or lease paid to related parties is larger than building and property"
+RENT_INCOMPLETE = "rent or lease paid to related parties: some page 4 rows could not be read"
 RELATED_RENT_METHOD = (
     "Rent or lease paid to related parties uses the printed service description to identify rent or lease. "
     "The amount belongs within building and property, and is withheld when it exceeds that category. "
+    "Shown only for years where every page 4 row could be read. "
     + RELATED_PARTY_METHOD
 )
 
 
-def apply_related_rent(breakdown, days, rows):
-    if not breakdown or not breakdown.get("adds_up") or not days:
+def apply_related_rent(breakdown, days, record):
+    if not breakdown:
         return
-    details = breakdown["details"]
+    details = breakdown.get("details", {})
     details.pop(RELATED_RENT, None)
-    flags = [flag for flag in breakdown.pop("withheld_details", []) if flag != RENT_WITHHELD]
-    rent = sum((x.get("cost_reported") or 0) for x in rows if is_related_rent(x))
-    property_cost = breakdown["categories"]["property"]["amount"]
-    if rent and rent <= property_cost * 1.02 + 50:
-        details[RELATED_RENT] = {"amount": r0(rent), "per_resident_day": round(rent / days, 2)}
-    elif rent:
-        flags.append(RENT_WITHHELD)
+    flags = [flag for flag in breakdown.pop("withheld_details", []) if flag not in (RENT_WITHHELD, RENT_INCOMPLETE)]
+    if record.get("related_party_total_complete") is False:
+        flags.append(RENT_INCOMPLETE)
+    elif breakdown.get("adds_up") and days:
+        rent = sum((row.get("cost_reported") or 0) for row in record["related_parties"] if is_related_rent(row))
+        property_cost = breakdown["categories"]["property"]["amount"]
+        if rent and rent <= property_cost * 1.02 + 50:
+            details[RELATED_RENT] = {"amount": r0(rent), "per_resident_day": round(rent / days, 2)}
+        elif rent:
+            flags.append(RENT_WITHHELD)
     if flags:
         breakdown["withheld_details"] = flags
 
@@ -427,10 +432,19 @@ def set_related_parties(record, entities, companies=None):
         record["related_party_unreadable_rows"] = unreadable
     else:
         record.pop("related_party_unreadable_rows", None)
-    if not entities.get("related_party_page_found"):
+    page_found = entities.get("related_party_page_found")
+    if not page_found:
         record["related_party_page_found"] = False
     else:
         record.pop("related_party_page_found", None)
+    if unreadable or not page_found:
+        record["related_party_total_complete"] = False
+    else:
+        record.pop("related_party_total_complete", None)
+
+
+def indexed_related_total(record):
+    return None if record.get("related_party_total_complete") is False else record["related_party_total_reported"]
 
 
 # ---------------------------------------------------------------- CMS Medicare cost reports (HCRIS public use file)
@@ -582,7 +596,7 @@ def year_record(o, idx_row, pbj):
     set_related_parties(rec, e)
     rec["management_services"] = [{k: x.get(k) for k in ("name", "cost", "description")} for x in e.get("management_services", [])]
     rec["cost_breakdown"] = None if "resident days vs beds" in flags else \
-        cost_breakdown(f, d, rec["support_services"], days, rec["related_parties"])
+        cost_breakdown(f, d, rec["support_services"], days, rec)
     return rec
 
 
@@ -621,9 +635,9 @@ def rebuild_related_parties(extract_path):
             set_related_parties(year, source, companies)
             days = year["resident_days"].get("resident_days_total") or year["resident_days"].get("days_total_care")
             cb = year["cost_breakdown"]
-            apply_related_rent(cb, days, year["related_parties"])
+            apply_related_rent(cb, days, year)
             indexed = facility["years"][str(y)]
-            indexed["related_party_total_reported"] = year["related_party_total_reported"]
+            indexed["related_party_total_reported"] = indexed_related_total(year)
             rent = ((cb or {}).get("details") or {}).get(RELATED_RENT)
             key = f"{RELATED_RENT}_per_resident_day"
             if rent:
@@ -767,7 +781,7 @@ def main():
                                "expenses_per_resident_day": r["direct_care"].get("expenses_per_resident_day"),
                                "operating_margin_nh": r["direct_care"].get("operating_margin_nh"),
                                "management_fee": r["expenses"].get("mgmt_fee_m12"),
-                               "related_party_total_reported": r.get("related_party_total_reported"),
+                               "related_party_total_reported": indexed_related_total(r),
                                "medicaid_share_of_days": (r.get("payer_mix") or {}).get("medicaid_ct"),
                                "raw_food_per_resident_day": ((r.get("support_services") or {}).get("food") or {}).get("raw_food_per_resident_day"),
                                "food_purchasing": ((r.get("support_services") or {}).get("food") or {}).get("purchasing"),

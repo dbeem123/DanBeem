@@ -639,6 +639,7 @@
     revs = (rest >= 0 && revs.every(r => r.v >= 0)) ? revs.concat([{ label: 'Other revenue and adjustments', v: rest }]) : [{ label: 'Nursing-home revenue', v: revTotal }];
     revs = revs.filter(r => r.v > 0);
     const gap = revTotal - totalCost;
+    const relatedComplete = yr.related_party_total_complete !== false;
     const rp = (yr.related_parties || []).filter(p => !p.row_status && p.category !== 'loans / interest / receivables' && p.cost_reported);
     const unreadable = yr.related_party_unreadable_rows || 0;
     const rpNote = yr.related_party_page_found === false ? '<p class="subtle">Page 4 was not found in the extracted report.</p>'
@@ -651,7 +652,7 @@
       ${legend(costs.map(c => ({ label: c.label, color: c.color })))}
       <h3>Paid to related parties</h3>
       ${rpNote}
-      ${rp.length ? `<p>The home reported ${esc(money(rp.reduce((a, p) => a + p.cost_reported * f, 0)))} in costs paid to related parties (companies or people connected to its owners or operators), ${esc(pct(rp.reduce((a, p) => a + p.cost_reported * f, 0) / totalCost))} of its costs. These payments are inside the cost groups above, not in addition to them.</p>
+      ${!relatedComplete ? '<p class="subtle">Related-party figures are withheld for this year. The full report detail shows the lines that could be read.</p>' : rp.length ? `<p>The home reported ${esc(money(rp.reduce((a, p) => a + p.cost_reported * f, 0)))} in costs paid to related parties (companies or people connected to its owners or operators), ${esc(pct(rp.reduce((a, p) => a + p.cost_reported * f, 0) / totalCost))} of its costs. These payments are inside the cost groups above, not in addition to them.</p>
         <div class="table-scroll"><table class="stack"><caption>Related-party costs by type (page 4)</caption><thead><tr><th scope="col">Type</th><th scope="col" class="num">Amount</th><th scope="col" class="num">Per resident day</th></tr></thead>
         <tbody>${Object.entries(rpBy).sort((a, b) => b[1] - a[1]).map(([c, v]) => `<tr><td data-label="Type">${esc(c)}</td><td class="num" data-label="Amount">${esc(money(v))}</td><td class="num" data-label="Per day">${esc(money2(v / days))}</td></tr>`).join('')}</tbody></table></div>`
         : '<p class="subtle">No readable itemized related-party costs were included for this year.</p>'}

@@ -119,7 +119,7 @@
         <td data-label="Nursing hrs / day" class="cr-num">${num(d.nursing_hours_per_resident_day, 2)}${p.total_nurse_hprd != null ? ` / ${num(p.total_nurse_hprd, 2)}` : ''}</td>
         <td data-label="Agency (pool)" class="cr-num">${money(y.direct_care.nursing_pool)}</td>
         <td data-label="Mgmt fees" class="cr-num">${money(y.expenses.mgmt_fee_m12)}</td>
-        <td data-label="Related parties" class="cr-num">${money(y.related_party_total_reported)}</td>
+        <td data-label="Related parties" class="cr-num">${money(y.related_party_total_complete === false ? null : y.related_party_total_reported)}</td>
         <td data-label="Margin" class="cr-num">${pct(d.operating_margin_nh)}</td>
       </tr>`;
     }).join('');
@@ -149,7 +149,7 @@
     const other = (dt.non_salary || 0) - (f.raw_food || 0) - (f.contract_services || 0);
     const days = y.resident_days.resident_days_total || y.resident_days.days_total_care;
     return `<h3>Food and support services</h3>
-      ${ss.flags.length ? `<p class="subtle"><span class="cr-flag">Check against the original</span> Withheld: ${esc(ss.flags.join(', '))}.</p>` : ''}
+      ${ss.flags.length ? `<p class="subtle"><span class="cr-flag">Check against the original</span> Figure withheld. ${esc(ss.flags.join(', '))}.</p>` : ''}
       <div class="facts">
         ${factCard('Raw food per resident day', f.raw_food_per_resident_day == null ? 'Not separable' : money2(f.raw_food_per_resident_day), rawSub)}
         ${factCard('Dietary, all-in, per resident day', money2(dt.per_resident_day), [split(dt), vsState(dt.per_resident_day, 'dietary_per_resident_day', money2)].filter(Boolean).join('<br>'))}
@@ -410,6 +410,8 @@
     if (!cb.adds_up) return `<h3>Where the money goes</h3><p class="subtle">Not shown for this year: the cost categories read from the report add up to ${money(cb.categories_total)}, not the printed total of ${money(cb.printed_total)}. Check the original report.</p>`;
     const labels = Object.fromEntries((index.cost_categories || []).map(c => [c[0], c[1]]));
     const det = cb.details || {};
+    const withheld = (cb.withheld_details || []).map(reason =>
+      '<p class="subtle">Figure withheld. ' + esc(reason) + '.</p>').join('');
     const rows = Object.entries(cb.categories).map(([k, v]) => {
       const mkey = CATEGORY_MEDIAN[k] || `${k}_per_resident_day`;
       const sub = (CATEGORY_DETAILS[k] || []).filter(([d]) => det[d]).map(([d, l]) => `<tr class="cr-sub"><th scope="row">${esc(l)}</th><td class="cr-num">${money2(det[d].per_resident_day)}</td><td class="cr-num">${money(det[d].amount)}</td><td></td><td class="cr-num subtle">${money2(stateMedian(selectedYear, `${d}_per_resident_day`))}</td></tr>`).join('');
@@ -419,7 +421,7 @@
     return `<h3>Where the money goes</h3>
       <div class="table-scroll"><table class="cr-breakdown"><caption>Nursing-home costs by category, cost year ${y.cost_year} (${num(days)} resident days)</caption>
       <thead><tr><th scope="col">Category</th><th scope="col">Per resident day</th><th scope="col">Amount</th><th scope="col">Share of costs</th><th scope="col">CT median per day</th></tr></thead>
-      <tbody>${rows}<tr class="cr-total"><th scope="row">Total costs (page 27)</th><td class="cr-num">${money2(cb.printed_total / days)}</td><td class="cr-num">${money(cb.printed_total)}</td><td class="cr-num">100%</td><td class="cr-num subtle">${money2(stateMedian(selectedYear, 'expenses_per_resident_day'))}</td></tr></tbody></table></div>
+      <tbody>${rows}<tr class="cr-total"><th scope="row">Total costs (page 27)</th><td class="cr-num">${money2(cb.printed_total / days)}</td><td class="cr-num">${money(cb.printed_total)}</td><td class="cr-num">100%</td><td class="cr-num subtle">${money2(stateMedian(selectedYear, 'expenses_per_resident_day'))}</td></tr></tbody></table></div>${withheld}
       <details class="cr-more"><summary>How these categories are built</summary><ul>${['cost_breakdown', 'related_party_rent'].filter(k => index.method[k]).map(k => `<li>${esc(index.method[k])}</li>`).join('')}</ul></details>`;
   }
 
@@ -461,7 +463,7 @@
       y.resident_days.days_private, y.direct_care.direct_care_total, y.direct_care.direct_salaries, y.direct_care.nursing_pool,
       y.direct_care.direct_fringe_allocated, y.direct_care.direct_care_per_resident_day, y.direct_care.direct_care_share_of_expenses,
       y.direct_care.nursing_hours_reported, y.direct_care.nursing_hours_per_resident_day, (y.pbj_same_period || {}).total_nurse_hprd,
-      y.expenses.mgmt_fee_m12, y.related_party_total_reported, y.expenses.expenses_total_ccnh, y.revenue.rev_total,
+      y.expenses.mgmt_fee_m12, y.related_party_total_complete === false ? null : y.related_party_total_reported, y.expenses.expenses_total_ccnh, y.revenue.rev_total,
       y.direct_care.operating_margin_nh, y.balance_sheet.net_income_p36, y.balance_sheet.assets_total, y.balance_sheet.liabilities_total, y.source_file,
       y.period_start, y.period_end, y.part_year ? 'yes' : 'no', ...sup(y)]));
   }

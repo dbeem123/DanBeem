@@ -32,6 +32,40 @@ class InsightsTests(unittest.TestCase):
         self.assertEqual(v["admin"], y["cost_breakdown"]["categories"]["admin"]["per_resident_day"])
         self.assertEqual(v["management_fees"], y["cost_breakdown"]["details"]["management_fees"]["per_resident_day"])
 
+    def related_party_year(self, ccn, year):
+        detail = json.loads((ROOT / "data" / "cost_reports" / f"{ccn}.json").read_text(encoding="utf-8"))
+        index = json.loads((ROOT / "data" / "ct_nursing_home_cost_reports.json").read_text(encoding="utf-8"))
+        report = next(y for y in detail["cost_years"] if y["cost_year"] == year)
+        index_year = next(f for f in index["facilities"] if f["ccn"] == ccn)["years"][str(year)]
+        insights = next(h for h in self.d["homes"] if h["ccn"] == ccn)["years"][str(year)]["v"]
+        return report, index_year, dict(zip(self.keys, insights))
+
+    def test_partial_related_party_year_withholds_comparable_values(self):
+        report, index, insights = self.related_party_year("075330", 2022)
+        rent = "rent_or_lease_paid_to_related_parties"
+        self.assertGreater(report["related_party_unreadable_rows"], 0)
+        self.assertGreater(report["related_party_total_reported"], 0)
+        self.assertIs(report["related_party_total_complete"], False)
+        self.assertNotIn(rent, report["cost_breakdown"]["details"])
+        self.assertIn("rent or lease paid to related parties: some page 4 rows could not be read",
+                      report["cost_breakdown"]["withheld_details"])
+        self.assertIsNone(index["related_party_total_reported"])
+        self.assertNotIn(f"{rent}_per_resident_day", index)
+        for key in ("related_parties", "rent_related"):
+            self.assertIsNone(build.year_values(report)[key])
+            self.assertIsNone(insights[key])
+
+    def test_complete_related_party_year_keeps_comparable_values(self):
+        report, index, insights = self.related_party_year("075400", 2025)
+        rent = "rent_or_lease_paid_to_related_parties"
+        self.assertIsNot(report.get("related_party_total_complete"), False)
+        self.assertEqual(report["related_party_total_reported"], 5694819)
+        self.assertEqual(index["related_party_total_reported"], 5694819)
+        self.assertEqual(report["cost_breakdown"]["details"][rent]["amount"], 10260)
+        self.assertEqual(index[f"{rent}_per_resident_day"], 0.18)
+        self.assertEqual(insights["rent_related"], 0.18)
+        self.assertEqual(insights["related_parties"], round(5694819 / report["resident_days"]["resident_days_total"], 2))
+
     def test_bands_ordered_and_medians_match_index(self):
         idx = json.loads((ROOT / "data" / "ct_nursing_home_cost_reports.json").read_text(encoding="utf-8"))
         for k, years in self.d["bands"].items():

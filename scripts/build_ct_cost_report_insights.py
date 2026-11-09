@@ -35,8 +35,8 @@ METRICS = [
     ("raw_food", "Raw food (homes that buy their own)", "money", "Details", "Raw food line (page 18, 2a1) per resident day, only when the home buys its own food."),
     ("management_fees", "Management fees", "money", "Details", "Administrative management services (page 16, line m12) per resident day."),
     ("rent", "Rent on leased real property", "money", "Details", "Page 22, line 9, per resident day."),
-    ("rent_related", "Rent or lease paid to related parties", "money", "Details", "Readable itemized page 4 lines whose service describes rent or a lease, per resident day."),
-    ("related_parties", "Itemized costs reported for related parties", "money", "Details", "Readable itemized costs on page 4 and its continuation pages, per resident day. Loans, balances, attachment summary rows, duplicates and unreadable rows are excluded."),
+    ("rent_related", "Rent or lease paid to related parties", "money", "Details", "Readable itemized page 4 lines whose service describes rent or a lease, per resident day. Shown only for years where every page 4 row could be read."),
+    ("related_parties", "Itemized costs reported for related parties", "money", "Details", "Readable itemized costs on page 4 and its continuation pages, per resident day. Loans, balances and attachment summaries are excluded, and duplicate rows are counted once. Shown only for years where every page 4 row could be read."),
     ("agency", "Nursing agency (pool)", "money", "Details", "Nursing pool fees for RNs, LPNs and aides (page 13), per resident day."),
     ("utilities", "Utilities", "money", "Details", "Heat, light and power, and water (page 22, 6b-6d), per resident day."),
     ("direct_share", "Direct care share of costs", "pct", "Staffing and payers", "Direct care as a share of total costs."),
@@ -97,6 +97,10 @@ def year_values(y):
     cats = cb.get("categories") or {} if cb.get("adds_up") else {}
     det = cb.get("details") or {} if cb.get("adds_up") else {}
     food = ((y.get("support_services") or {}).get("food") or {})
+    related_complete = (y.get("related_party_total_complete") is not False
+                        and not y.get("related_party_unreadable_rows")
+                        and y.get("related_party_page_found") is not False)
+    related_total = y.get("related_party_total_reported") if related_complete else None
     v = {
         "expenses": d.get("expenses_per_resident_day"),
         "revenue": d.get("revenue_per_resident_day"),
@@ -104,9 +108,9 @@ def year_values(y):
         "raw_food": food.get("raw_food_per_resident_day"),
         "management_fees": (det.get("management_fees") or {}).get("per_resident_day"),
         "rent": (det.get("rent") or {}).get("per_resident_day"),
-        "rent_related": (det.get("rent_or_lease_paid_to_related_parties") or {}).get("per_resident_day"),
+        "rent_related": (det.get("rent_or_lease_paid_to_related_parties") or {}).get("per_resident_day") if related_complete else None,
         "utilities": (det.get("utilities") or {}).get("per_resident_day"),
-        "related_parties": round(y["related_party_total_reported"] / days, 2) if y.get("related_party_total_reported") else None,
+        "related_parties": round(related_total / days, 2) if related_total else None,
         "agency": round(d["nursing_pool"] / days, 2) if d.get("nursing_pool") is not None else None,
         "direct_share": d.get("direct_care_share_of_expenses"),
         "hours": d.get("nursing_hours_per_resident_day"),
