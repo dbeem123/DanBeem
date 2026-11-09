@@ -384,6 +384,40 @@ async function main() {
     assert.ok(ins.homes.length >= 150);
     console.log('PASS cost report insights: six views, URL state, constant dollars, compare, peers, pivot CSV, scatter, money flow');
 
+    // Inspections and Resident Rights
+    const insp = JSON.parse(fs.readFileSync(path.join(root, 'data/ct_inspections.json'), 'utf8'));
+    await visit(route('inspections'));
+    await page.locator('#ov-grid button[data-ss="D"]').waitFor();
+    const healthRows = insp.rows.filter(r => r[7] === 0);
+    const gridTotal = await page.locator('#ov-grid .ss-n').evaluateAll(ns => ns.reduce((a, n) => a + Number(n.textContent.replace(/,/g, '')), 0));
+    assert.equal(gridTotal, healthRows.filter(r => r[3]).length, 'statewide grid adds up to health citations with a letter');
+    await page.locator('#ov-grid button[data-ss="J"]').click();
+    await page.locator('#fd-grid button[data-ss="J"][aria-pressed="true"]').waitFor();
+    assert.equal(new URL(page.url()).searchParams.get('ss'), 'J');
+    assert.equal(await page.locator('#fd-out .cite-table tbody tr').count(), Math.min(200, healthRows.filter(r => r[3] === 'J').length));
+    await page.locator('#tab-rights').click();
+    assert.equal(await page.locator('#rr-out .rr-card').count(), insp.groups.length);
+    await page.locator('#rr-out [data-group="abuse"]').click();
+    assert.equal(new URL(page.url()).searchParams.get('group'), 'abuse');
+    assert.match(await csv('#fd-csv'), /^# CMS citations, Connecticut/);
+    await visit(route('inspections') + '?view=home&ccn=075228');
+    await page.locator('#hm-grid').waitFor();
+    assert.match(await page.locator('#hm-out').innerText(), /Standard survey cycles[\s\S]*Complaint investigations[\s\S]*Fire safety and emergency preparedness/);
+    assert.ok(await page.locator('#hm-score svg').count() === 1, 'score histogram');
+    await page.locator('#hf-kind').selectOption('1');
+    assert.equal(new URL(page.url()).searchParams.get('hkind'), '1');
+    await page.locator('#tab-counted').click();
+    await page.locator('#ct-out table').first().waitFor();
+    assert.match(await page.locator('#ct-out').innerText(), /All CCNs seen in any source/);
+    for (const v of ['overview', 'rights', 'find', 'home', 'counted']) {
+      await resize({ width: 390, height: 900 });
+      await visit(route('inspections') + `?view=${v}&ccn=075228`);
+      await page.waitForTimeout(300);
+      assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), `inspections ${v} no horizontal scroll at 390 px`);
+    }
+    await resize({ width: 1440, height: 1000 });
+    console.log('PASS inspections: statewide grid totals, grid to finder, resident rights, CSV, one home sections, roster, phone width');
+
     await visit(route('management-companies') + '?company=mc-national-health-care-associates-inc');
     await page.locator('#mc-dss-fees table').waitFor();
     assert.ok(await page.locator('#mc-dss-fees tbody tr').count() >= 1);
@@ -514,7 +548,7 @@ async function main() {
     assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
     console.log('PASS 2027 session tracker: pre-session empty state');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', route('cost-report-insights') + '?view=home&ccn=075400', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', route('cost-report-insights') + '?view=home&ccn=075400', route('inspections') + '?view=home&ccn=075228', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await resize({ width, height: 1000 });

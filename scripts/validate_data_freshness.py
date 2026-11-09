@@ -76,6 +76,10 @@ def on_site_versions():
             c = md.get("citation_descriptions_source_file")
             if month_from_name(c):
                 out["cms_citation_lookup"] = (c, month_from_name(c))
+    insp = (load("data/ct_inspections.json") or {}).get("meta") or {}
+    d = month_from_name(insp.get("inspection_dates_source"))
+    if d:
+        out["cms_inspection_dates"] = (insp["inspection_dates_source"], d)
     mgmt = load("data/ct_nursing_home_management_companies.json") or {}
     latest = (mgmt.get("window") or {}).get("latest_release")
     if latest:

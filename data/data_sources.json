@@ -14,7 +14,7 @@
       "check": "Monthly; a new quarter appears about every three months",
       "max_age_days": 300,
       "version_kind": "quarter",
-      "feeds": ["Facility Explorer", "Statewide Comparison", "Change Over Time", "Persistent Patterns", "Ownership / Affiliation", "Administrators", "Management Companies", "Cost Reports"],
+      "feeds": ["Facility Explorer", "Statewide Comparison", "Change Over Time", "Persistent Patterns", "Ownership / Affiliation", "Administrators", "Management Companies", "Cost Reports", "Facility roster"],
       "local_folder": "source_data/pbj"
     },
     {
@@ -28,7 +28,7 @@
       "check": "Monthly",
       "max_age_days": 75,
       "version_kind": "month",
-      "feeds": ["Facility Explorer", "Statewide Comparison", "Cost Reports"],
+      "feeds": ["Facility Explorer", "Statewide Comparison", "Cost Reports", "Facility roster"],
       "local_folder": "source_data/provider_info"
     },
     {
@@ -70,7 +70,7 @@
       "check": "Monthly",
       "max_age_days": 75,
       "version_kind": "month",
-      "feeds": ["Facility Explorer (inspections)"],
+      "feeds": ["Facility Explorer (inspections)", "Inspections"],
       "local_folder": "source_data/cms_survey"
     },
     {
@@ -98,7 +98,21 @@
       "check": "Monthly, with the deficiency files",
       "max_age_days": 75,
       "version_kind": "month",
-      "feeds": ["Facility Explorer (inspections)"],
+      "feeds": ["Facility Explorer (inspections)", "Inspections"],
+      "local_folder": "source_data/cms_survey"
+    },
+    {
+      "id": "cms_inspection_dates",
+      "name": "Inspection Dates",
+      "publisher": "CMS",
+      "page": "https://data.cms.gov/provider-data/dataset/svdt-c123",
+      "access": {"type": "cms_provider_data", "dataset_id": "svdt-c123"},
+      "frequency": "Monthly",
+      "frequency_basis": "Posted with each monthly Care Compare refresh. Footnote 29 marks a risk-based survey (QSO-26-14-NH).",
+      "check": "Monthly",
+      "max_age_days": 75,
+      "version_kind": "month",
+      "feeds": ["Inspections", "Facility roster"],
       "local_folder": "source_data/cms_survey"
     },
     {
@@ -112,7 +126,7 @@
       "check": "Monthly",
       "max_age_days": 75,
       "version_kind": "month",
-      "feeds": ["Facility Explorer (inspections)"],
+      "feeds": ["Facility Explorer (inspections)", "Facility roster"],
       "local_folder": "source_data/cms_enforcement"
     },
     {

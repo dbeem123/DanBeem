@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Inspections and Resident Rights | Connecticut LTCOP</title>
+  <meta name="description" content="CMS inspection citations for Connecticut nursing homes: resident rights, the A to L scope and severity grid, standard surveys and complaint investigations, fire safety and emergency preparedness, and CMS health inspection scores.">
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/nursing-home-inspections.js"></script>
+  <style>
+    .viz-root { --surface-1:#ffffff; --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#6b6a66; --grid:#e6e8ec; --band:#dde6f2; --median:#6b7a90;
+      --s1:#2a78d6; --s2:#eb6834; --s3:#1baf7a; --s4:#eda100; --s5:#e87ba4; --s6:#008300; --s7:#6250d6; --s8:#e34948; --other:#b8bfc9; }
+    .ci-hero { min-height:auto; display:block; padding-top:26px; padding-bottom:8px; }
+    .ci-hero .panel { display:grid; gap:12px; }
+    .ci-tabs { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0 0; }
+    .ci-tabs button { font:inherit; font-size:14px; font-weight:800; padding:8px 14px; border-radius:999px; border:1px solid var(--ltcop-border); background:#fff; cursor:pointer; color:var(--ltcop-navy); }
+    .ci-tabs button[aria-selected="true"] { background:var(--ltcop-navy); color:#fff; border-color:var(--ltcop-navy); }
+    .ci-tabs button:focus-visible { outline:3px solid var(--ltcop-focus); outline-offset:2px; }
+    .filter-row { display:flex; flex-wrap:wrap; gap:12px 18px; align-items:end; margin:10px 0; }
+    .filter-row > div { flex:1 1 220px; min-width:0; }
+    .filter-row label.inline { display:flex; gap:8px; align-items:center; font-weight:700; flex:0 1 auto; }
+    body.ltcop-dashboard .filter-row label.inline input[type="checkbox"] { width:18px; height:18px; min-height:0; margin:0; flex:none; }
+    .home-pick { position:relative; }
+    .home-pick ul { list-style:none; margin:4px 0 0; padding:0; position:absolute; z-index:5; left:0; right:0; background:#fff; border:1px solid var(--ltcop-border); border-radius:8px; max-height:280px; overflow:auto; box-shadow:0 8px 24px rgba(15,30,60,.12); }
+    .home-pick ul:empty { display:none; }
+    .home-pick li button { width:100%; text-align:left; font:inherit; padding:8px 12px; border:0; background:none; cursor:pointer; }
+    .home-pick li button:hover, .home-pick li button:focus-visible { background:#eef3f9; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; margin:6px 0; }
+    .chip { display:inline-flex; align-items:center; gap:6px; padding:4px 6px 4px 10px; border-radius:999px; border:1px solid var(--ltcop-border); background:#fff; color:var(--text-primary); font-size:13px; font-weight:700; }
+    .chip i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+    .chip button { font:inherit; border:0; background:none; cursor:pointer; padding:0 4px; font-size:16px; line-height:1; color:var(--ltcop-muted); }
+    .ci-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr)); gap:14px; }
+    .ci-card { border:1px solid var(--ltcop-border); border-radius:10px; background:#fff; padding:12px 12px 6px; min-width:0; }
+    .ci-card h3, .ci-card h4 { margin:0 0 2px; font-size:15px; }
+    .ci-card .sub { color:var(--ltcop-muted); font-size:12px; margin:0 0 6px; }
+    .ci-chart { position:relative; width:100%; }
+    .ci-chart svg { display:block; width:100%; height:auto; overflow:visible; }
+    .ci-chart svg text { font-family:inherit; }
+    .ci-tip { position:absolute; pointer-events:none; z-index:6; background:#0f1e33; color:#fff; font-size:12px; line-height:1.4; padding:7px 9px; border-radius:6px; max-width:260px; box-shadow:0 6px 18px rgba(0,0,0,.2); }
+    .ci-tip[hidden] { display:none; }
+    .ci-tip b { font-weight:800; }
+    .ci-legend { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:12px; color:var(--text-secondary, #52514e); margin:6px 0; }
+    .ci-legend span { display:inline-flex; align-items:center; gap:6px; }
+    .ci-legend i { width:14px; height:10px; border-radius:3px; display:inline-block; }
+    .ci-legend i.line { height:3px; border-radius:2px; }
+    .ci-legend i.band { background:var(--band); }
+    .ci-legend i.dash { height:0; border-top:2px dashed var(--median); border-radius:0; }
+    .ci-events { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:4px; font-size:13px; }
+    .ci-events b { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:#0f1e33; color:#fff; font-size:11px; margin-right:6px; }
+    .ci-story { list-style:none; margin:8px 0 0; padding:0; display:grid; gap:8px; }
+    .ci-story li { padding:10px 12px; border-left:4px solid var(--ltcop-navy); background:#f6f9fd; border-radius:0 8px 8px 0; }
+    .table-scroll { overflow-x:auto; border-radius:8px; border:1px solid var(--ltcop-border); margin-top:10px; }
+    table { width:100%; border-collapse:collapse; background:#fff; }
+    caption { text-align:left; padding:10px 12px; color:var(--ltcop-muted); font-weight:800; }
+    th, td { padding:7px 10px; text-align:left; border-top:1px solid var(--ltcop-border); vertical-align:top; font-variant-numeric:tabular-nums; }
+    thead th { color:var(--ltcop-muted); font-size:12px; text-transform:uppercase; letter-spacing:0.05em; }
+    thead th button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-transform:inherit; letter-spacing:inherit; text-decoration:underline; }
+    .num { text-align:right; white-space:nowrap; }
+    .ci-headlines { margin:16px 0 20px; }
+    .ci-tiles { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:6px 0 0; }
+    .ci-tile { border:1px solid var(--ltcop-border); border-top:3px solid var(--ltcop-navy); border-radius:8px; background:#f6f9fd; padding:10px; }
+    .ci-tile dt { font-size:13px; font-weight:700; color:var(--ltcop-muted); }
+    .ci-tile dd { margin:4px 0 0; font-size:clamp(16px,2vw,23px); font-weight:800; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+    .ci-definition { font-size:13px; margin:6px 0; }
+    .ci-definition summary { cursor:pointer; font-weight:700; }
+    .ci-definition p { margin:4px 0; }
+    .ci-copy-row { display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; }
+    .ci-sticky { border-collapse:separate; border-spacing:0; }
+    .ci-sticky tr > th:first-child { position:sticky; left:0; z-index:1; background:#fff; box-shadow:1px 0 var(--ltcop-border); }
+    .ci-compare-table th { min-width:8rem; white-space:normal; }
+    .ci-compare-table tr > th:first-child, .pivot tr > th:first-child { width:10rem; min-width:10rem; max-width:10rem; overflow-wrap:anywhere; }
+    .pivot td.num { min-width:68px; }
+    .pivot thead th { white-space:normal; }
+    .ci-peer-summary { background:#f6f9fd; font-weight:700; }
+    .linkish { font:inherit; font-weight:800; color:var(--ltcop-navy); background:none; border:0; padding:0; text-align:left; cursor:pointer; text-decoration:underline; }
+    details.ci-more summary { cursor:pointer; font-weight:800; margin-top:8px; }
+    .ci-flag { display:inline-block; padding:1px 7px; border-radius:999px; font-size:11px; font-weight:800; border:1px solid #b9c7da; background:#eef3f9; color:#1f3a5f; }
+    .ci-print-only { display:none; }
+    [role="tabpanel"][hidden] { display:none; }
+    @media (max-width:720px) {
+      .ci-tiles { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .ci-compare-table tr > th:first-child, .pivot tr > th:first-child { width:8rem; min-width:8rem; max-width:8rem; }
+      table.stack thead { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); }
+      table.stack tr { display:block; border-top:1px solid var(--ltcop-border); padding:6px 0; }
+      table.stack td { display:grid; grid-template-columns:120px minmax(0,1fr); gap:8px; border-top:0; padding:3px 12px; text-align:left; }
+      table.stack td::before { content:attr(data-label); color:var(--ltcop-muted); font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; }
+    }
+    @media print {
+      @page { margin:12mm; }
+      .ltcop-masthead, footer, nav, .skipLink, .no-print, .ci-screen-only, .ci-tabs,
+      .filter-row, .home-pick, button, #ci-note, [role="tabpanel"][hidden], main > section[aria-labelledby="ci-method-title"] {
+        display:none !important;
+      }
+      .ci-hero .panel > :not(h1) { display:none !important; }
+      body.ltcop-dashboard .wrap { width:100%; max-width:none; padding:0; }
+      body.ltcop-dashboard { background:#fff; }
+      .ci-grid { display:grid; grid-template-columns:1fr 1fr; gap:4mm; }
+      .ci-card { margin:0; padding:2mm 3mm 1mm; break-inside:avoid; }
+      .ci-share-wrap { break-inside:avoid; }
+      .ci-share-wrap .ci-chart svg { max-height:80mm; }
+      .ci-chart, .ci-chart svg { width:100%; max-width:100%; break-inside:avoid; }
+      .ci-card .ci-chart svg { max-height:52mm; }
+      .ci-legend { break-after:avoid; }
+      .table-scroll { overflow:visible; break-inside:avoid; }
+      table { width:100%; table-layout:fixed; break-inside:avoid; }
+      table th, table td { min-width:0 !important; max-width:none !important; width:auto !important;
+        white-space:normal !important; overflow-wrap:anywhere; padding:3px; }
+      .ci-sticky tr > th:first-child { position:static; box-shadow:none; }
+      thead { display:table-header-group; }
+      tr { break-inside:avoid; }
+      table.stack thead { position:static; width:auto; height:auto; clip:auto; }
+      table.stack tr { display:table-row; }
+      table.stack td { display:table-cell; }
+      table.stack td::before { display:none; }
+      table.pivot { font-size:8pt; }
+      .ci-sticky tr > :first-child { width:24% !important; overflow-wrap:normal; hyphens:auto; }
+      .ci-more table:not(.stack) { table-layout:auto; font-size:8pt; }
+      .ci-more table:not(.stack) th, .ci-more table:not(.stack) td { overflow-wrap:normal; }
+      .ci-more table:not(.stack) td { white-space:nowrap !important; }
+      .ci-more table:not(.stack) tr > :first-child { width:28% !important; }
+      table.pivot thead th { font-size:7pt; }
+      .ci-tiles { grid-template-columns:repeat(4,minmax(0,1fr)); gap:4mm; }
+      .ci-tile { padding:2mm 3mm; background:#fff; break-inside:avoid; }
+      .ci-tile dd { font-size:13pt; }
+      .ci-headlines, .ci-story-wrap, .ci-events-wrap { break-inside:avoid; margin-bottom:4mm; }
+      .ci-story, .ci-events { margin:1mm 0 0; font-size:10pt; }
+      h2, h3 { break-after:avoid; }
+      .ci-print-only { display:inline; }
+      .ci-more summary { display:none; }
+      .ci-more::details-content { content-visibility:visible; }
+    }
+    .ss-grid { table-layout:fixed; min-width:520px; }
+    .ss-grid th[scope="row"] { width:34%; font-size:13px; font-weight:700; color:var(--text-primary); text-transform:none; letter-spacing:0; }
+    .ss-grid td.ss-cell { padding:3px; }
+    .ss-grid td.ss-cell button { width:100%; min-height:64px; border:2px solid #fff; border-radius:8px; font:inherit; cursor:pointer; display:grid; gap:1px; place-items:center; padding:6px 4px; }
+    .ss-grid td.ss-cell button[aria-pressed="true"] { outline:3px solid var(--ltcop-navy); outline-offset:-1px; border-color:var(--ltcop-navy); }
+    .ss-grid td.ss-cell button:focus-visible { outline:3px solid var(--ltcop-focus); outline-offset:1px; }
+    .ss-l { font-weight:800; font-size:15px; } .ss-n { font-weight:800; font-size:18px; font-variant-numeric:tabular-nums; } .ss-h { font-size:11px; opacity:.85; }
+    .rr-card { margin:0 0 14px; padding:12px; }
+    .rr-card .ci-tiles { margin:8px 0; }
+    .cite-table td { font-size:14px; }
+    @media (max-width:720px) {
+      .ss-grid { min-width:0; }
+      .ss-grid th[scope="row"] { width:30%; font-size:11px; padding:4px; }
+      .ss-grid thead th { font-size:10px; padding:4px; }
+      .ss-grid caption { font-size:13px; }
+      .ss-grid td.ss-cell button { min-height:56px; padding:4px 2px; }
+      .ss-n { font-size:15px; } .ss-h { font-size:10px; }
+    }
+  </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-inspections.html" aria-current="page">Inspections</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
+        <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>
+        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>
+        <a href="/staffing/tools/nursing-home-cost-report-insights.html">Cost Insights</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="viz-root">
+    <section class="hero wrap ci-hero" aria-labelledby="ci-title">
+      <div class="panel">
+        <div class="pill">CMS inspections, Connecticut</div>
+        <h1 id="ci-title">Inspections and Resident Rights</h1>
+        <p>What state inspectors cited at Connecticut nursing homes, from CMS's public inspection files: health citations (F-tags), fire safety (K-tags) and emergency preparedness (E-tags). Explore citations about resident rights, see every citation on CMS's A to L scope and severity grid, follow each home's standard surveys and complaint investigations, and see how CMS scores a home's inspection record. Staffing, star ratings and fines for each home are on the <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>.</p>
+        <div class="notice warning">A citation is an inspector's finding that a home did not meet a federal requirement on the survey date. It is not a measure of care on any other day, and the number of citations depends on when and how often a home was inspected. These pages do not rank homes.</div>
+        <noscript><div class="notice">This page needs JavaScript. The data is published as <a href="/data/ct_inspections.json">ct_inspections.json</a>.</div></noscript>
+        <div class="ci-copy-row no-print">
+          <button id="ci-copy" class="action-button secondary" type="button">Copy link to this view</button>
+          <span id="ci-copy-status" class="subtle" role="status"></span>
+        </div>
+        <div class="ci-tabs no-print" role="tablist" aria-label="Views">
+          <button role="tab" id="tab-overview" aria-controls="panel-overview" aria-selected="true" data-view="overview">Statewide</button>
+          <button role="tab" id="tab-rights" aria-controls="panel-rights" aria-selected="false" tabindex="-1" data-view="rights">Resident rights</button>
+          <button role="tab" id="tab-find" aria-controls="panel-find" aria-selected="false" tabindex="-1" data-view="find">Find citations</button>
+          <button role="tab" id="tab-home" aria-controls="panel-home" aria-selected="false" tabindex="-1" data-view="home">One home</button>
+          <button role="tab" id="tab-counted" aria-controls="panel-counted" aria-selected="false" tabindex="-1" data-view="counted">Which homes are counted</button>
+        </div>
+        <p id="ci-note" class="subtle" role="status">Loading inspection data.</p>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-overview" role="tabpanel" aria-labelledby="tab-overview">
+      <div class="panel">
+        <div class="filter-row"><div><label for="ov-kind">Inspection</label><select id="ov-kind"><option value="0">Health</option><option value="1">Fire safety</option><option value="2">Emergency preparedness</option><option value="">All three</option></select></div></div>
+        <div id="ov-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-rights" role="tabpanel" aria-labelledby="tab-rights" hidden>
+      <div class="panel"><div id="rr-out" aria-live="polite"></div></div>
+    </section>
+
+    <section class="wrap content-section" id="panel-find" role="tabpanel" aria-labelledby="tab-find" hidden>
+      <div class="panel">
+        <div class="filter-row">
+          <div class="home-pick"><label for="fd-home">Home</label><input id="fd-home" type="search" placeholder="Name, town or CCN" autocomplete="off"><ul id="fd-home-results" aria-label="Matching homes"></ul></div>
+          <div><label for="fd-group">Resident rights topic</label><select id="fd-group"></select></div>
+          <div><label for="fd-cat">CMS category</label><select id="fd-cat"></select></div>
+          <div><label for="fd-kind">Inspection</label><select id="fd-kind"><option value="0">Health</option><option value="1">Fire safety</option><option value="2">Emergency preparedness</option><option value="">All three</option></select></div>
+          <div><label for="fd-type">Survey type (health)</label><select id="fd-type"><option value="">Any</option><option value="1">Standard survey</option><option value="2">Complaint investigation</option><option value="4">Infection control inspection</option></select></div>
+          <div><label for="fd-from">From year</label><select id="fd-from"></select></div>
+          <div><label for="fd-to">To year</label><select id="fd-to"></select></div>
+          <div><label for="fd-q">Tag or words</label><input id="fd-q" type="search" placeholder="For example F600 or discharge" autocomplete="off"></div>
+          <label class="inline"><input type="checkbox" id="fd-repeat"> <span>Only tags cited before at the same home</span></label>
+        </div>
+        <div id="fd-home-chip" class="chips"></div>
+        <div id="fd-out" aria-live="polite"></div>
+        <div class="report-actions no-print"><button id="fd-csv" class="action-button secondary" type="button">Download matching citations (CSV)</button></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-home" role="tabpanel" aria-labelledby="tab-home" hidden>
+      <div class="panel">
+        <div class="filter-row"><div class="home-pick"><label for="hm-search">Nursing home</label><input id="hm-search" type="search" placeholder="Name, town or CCN" autocomplete="off"><ul id="hm-results" aria-label="Matching homes"></ul></div></div>
+        <div id="hm-out" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="wrap content-section" id="panel-counted" role="tabpanel" aria-labelledby="tab-counted" hidden>
+      <div class="panel"><div id="ct-out" aria-live="polite"></div></div>
+    </section>
+
+    <section class="wrap content-section" aria-labelledby="in-method-title">
+      <div class="panel">
+        <h2 id="in-method-title">How this is built</h2>
+        <ul>
+          <li>Citations come from CMS Health Deficiencies (F-tags) and CMS Fire Safety Deficiencies (K-tags and E-tags), with descriptions and categories from the CMS Citation Code Look-up. Survey dates and the risk-based survey footnote (29) come from CMS Inspection Dates. Scores come from CMS Provider Information.</li>
+          <li>Scope and severity letters: A to C mean no actual harm with potential for minimal harm; D to F, no actual harm with potential for more than minimal harm; G to I, actual harm that is not immediate jeopardy; J to L, immediate jeopardy. Within each level the letters go from isolated to pattern to widespread.</li>
+          <li>A tag is marked "cited before" when CMS's current file also shows the same tag at the same home on an earlier survey date. The file covers only about three years of standard surveys, so older repeats are not visible.</li>
+          <li>Resident rights topics group related tags. Each tag links to its guidance in Appendix PP of CMS's State Operations Manual. The grouping is the site's own and is listed in full on the Resident rights tab.</li>
+          <li>Correction dates are shown as CMS recorded them, including some that fall before the survey date.</li>
+          <li>Percentages and counts of homes say what they are out of: by default the Connecticut homes in the current CMS Provider Information file. The "Which homes are counted" tab explains the differences between CMS files.</li>
+        </ul>
+        <p class="subtle">Data: <a href="/data/ct_inspections.json">ct_inspections.json</a> and <a href="/data/nursing_home_facility_roster_ct.json">nursing_home_facility_roster_ct.json</a>. Sources and update schedule: <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Cost Report Insights - trends and comparisons from Connecticut DSS cost reports.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data / Methodology</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

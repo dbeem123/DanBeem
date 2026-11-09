@@ -1,0 +1,102 @@
+{
+  "version": "0.1-draft",
+  "status": "draft",
+  "status_note": "Draft grouping of Federal tags into resident-rights topics, based on the CMS citation descriptions (October 2026) and Appendix PP Rev. 232. It is being checked against Appendix PP; a tag belongs to only one topic here.",
+  "appendix_pp": {
+    "title": "CMS State Operations Manual, Appendix PP",
+    "revision": "Rev. 232 (07-23-25)",
+    "url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf"
+  },
+  "groups": [
+    {
+      "id": "abuse",
+      "label": "Abuse, neglect and exploitation",
+      "tags": [
+        "F600",
+        "F602",
+        "F603",
+        "F604",
+        "F605",
+        "F606",
+        "F607",
+        "F608",
+        "F609",
+        "F610"
+      ]
+    },
+    {
+      "id": "transfer",
+      "label": "Transfer and discharge",
+      "tags": [
+        "F620",
+        "F621",
+        "F622",
+        "F623",
+        "F624",
+        "F625",
+        "F626",
+        "F627",
+        "F628"
+      ]
+    },
+    {
+      "id": "discharge_planning",
+      "label": "Discharge planning",
+      "tags": [
+        "F660",
+        "F661"
+      ]
+    },
+    {
+      "id": "dignity",
+      "label": "Dignity, choice and self-determination",
+      "tags": [
+        "F550",
+        "F557",
+        "F558",
+        "F559",
+        "F561"
+      ]
+    },
+    {
+      "id": "visitation",
+      "label": "Visitation",
+      "tags": [
+        "F563",
+        "F564"
+      ],
+      "note": "Few or no Connecticut citations use these tags. Visitation findings may be cited under other tags; this is being checked."
+    },
+    {
+      "id": "councils",
+      "label": "Resident and family councils",
+      "tags": [
+        "F565"
+      ]
+    },
+    {
+      "id": "grievances",
+      "label": "Grievances",
+      "tags": [
+        "F585"
+      ]
+    },
+    {
+      "id": "notice",
+      "label": "Notice of changes in condition, rights and charges",
+      "tags": [
+        "F580",
+        "F582"
+      ]
+    },
+    {
+      "id": "privacy",
+      "label": "Privacy, mail, phone and records",
+      "tags": [
+        "F583",
+        "F576",
+        "F573"
+      ]
+    }
+  ]
+}
