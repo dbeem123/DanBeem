@@ -1,0 +1,10 @@
+.phase0-safety { border:1px solid rgba(56,189,248,.35); background:rgba(56,189,248,.08); border-radius:12px; padding:12px 16px; margin-top:14px; }
+.phase0-safety p { margin:6px 0; }
+.synthetic-loader { display:grid; grid-template-columns:minmax(0,1fr) auto auto; align-items:end; gap:8px; margin-top:14px; }
+.synthetic-loader label { grid-column:1 / -1; font-weight:700; }
+.synthetic-loader select { min-width:0; }
+#sensitive-input-warning { margin-top:10px; }
+.nors-phase0 a:not(.btn):not(.navLink) { color:#91d8ff; text-decoration:underline; text-underline-offset:2px; }
+.nors-phase0 a:not(.btn):not(.navLink):visited { color:#d0b7ff; }
+.code-chip, .tag, .pill { color:#e6f0fb; }
+@media (max-width:640px) { .nors-phase0 .space-between { align-items:flex-start; flex-direction:column; } .nors-phase0 .nav { flex-wrap:wrap; } .synthetic-loader { grid-template-columns:1fr; } .synthetic-loader label { grid-column:auto; } }

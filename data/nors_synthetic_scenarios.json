@@ -1,0 +1,37 @@
+[
+  {
+    "id": "call-light",
+    "label": "Response to a call light",
+    "notes": "Synthetic example: A resident says a call light was not answered promptly. The resident asks for a clearer way to request help. The ombudsman explains how to document the concern.",
+    "fields": {
+      "complainant_type": "Resident",
+      "problem_description": "Resident reports a delayed response to a call light.",
+      "resident_perspective": "The resident says help did not arrive promptly.",
+      "resident_desired_outcome": "The resident asks for a clearer way to request help.",
+      "actions_taken": "The ombudsman reviewed the concern with the resident."
+    }
+  },
+  {
+    "id": "choice",
+    "label": "Choice during a daily routine",
+    "notes": "Synthetic example: A resident describes wanting more choice about a daily routine. The resident asks staff to discuss available options.",
+    "fields": {
+      "complainant_type": "Resident",
+      "problem_description": "Resident describes limited choice during a daily routine.",
+      "resident_perspective": "The resident wants more choice.",
+      "resident_desired_outcome": "The resident asks staff to discuss available options."
+    }
+  },
+  {
+    "id": "personal-items",
+    "label": "Access to personal items",
+    "notes": "Synthetic example: A resident says access to personal items has been difficult. The resident asks for help finding a workable arrangement.",
+    "fields": {
+      "complainant_type": "Resident",
+      "problem_description": "Resident reports difficulty accessing personal items.",
+      "resident_perspective": "The resident says access has been difficult.",
+      "resident_desired_outcome": "The resident asks for help finding a workable arrangement.",
+      "actions_taken": "The ombudsman discussed options with the resident."
+    }
+  }
+]

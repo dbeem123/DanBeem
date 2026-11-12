@@ -1,0 +1,367 @@
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function cleanReviewText(value) {
+      return String(value || '')
+        .replace(/\bCODEX\b:?\s*/gi, '')
+        .replace(/\bInstruct Codex to\s*/gi, '')
+        .trim();
+    }
+
+    function renderCardList(outputId, items, renderItem, emptyText) {
+      const output = document.getElementById(outputId);
+      if (!items.length) {
+        output.textContent = emptyText;
+        return;
+      }
+      output.innerHTML = items.map(renderItem).join('');
+    }
+
+    function renderSourceRegistry(data) {
+      const output = document.getElementById('source-registry-output');
+      const sources = data.sources || [];
+      if (!sources.length) {
+        output.textContent = 'No source registry entries found.';
+        return;
+      }
+
+      output.innerHTML = sources.map(source => `
+        <article class="card">
+          <div class="pill">${escapeHtml(source.category || 'Source')}</div>
+          <h3>${escapeHtml(source.title)}</h3>
+          <p class="subtle">${escapeHtml(source.owner || '')}</p>
+          <p>${escapeHtml(source.use_in_tool || '')}</p>
+          <p class="subtle">Version: ${escapeHtml(source.version_or_revision || 'Current source')}</p>
+          <p class="subtle">Last verified: ${escapeHtml(source.last_verified || 'Not documented')}</p>
+          ${source.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">Open official source</a></p>` : ''}
+        </article>
+      `).join('');
+    }
+
+    function renderNorsSourcePack(data) {
+      const rows = data.source_pack_rows || [];
+      renderCardList('nors-source-pack-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.authority_role || row.source_type || 'Source')}</div>
+          <h3>${escapeHtml(row.title || row.source_pack_id || 'NORS source')}</h3>
+          <p class="subtle">${escapeHtml(row.source_owner || '')} ${row.current_status ? `- ${escapeHtml(row.current_status)}` : ''}</p>
+          <p>${escapeHtml(row.preferred_use || '')}</p>
+          ${row.limitations ? `<p class="subtle">Limitations: ${escapeHtml(row.limitations)}</p>` : ''}
+          ${row.publication_or_revision_date ? `<p class="subtle">Revision: ${escapeHtml(row.publication_or_revision_date)}</p>` : ''}
+          ${row.recheck_frequency ? `<p class="subtle">Recheck: ${escapeHtml(row.recheck_frequency)}</p>` : ''}
+          ${row.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">Open source</a></p>` : ''}
+        </article>
+      `, 'No NORS source pack entries found.');
+    }
+
+    function renderSourcePriorityRules(rows) {
+      renderCardList('source-priority-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.rule_id || 'Priority')}</div>
+          <h3>${escapeHtml(row.rule || 'Source priority rule')}</h3>
+          <p>${escapeHtml(row.plain_language_rationale || '')}</p>
+          ${row.priority_order?.length ? `<p class="subtle">Priority order: ${escapeHtml(row.priority_order.join(' > '))}</p>` : ''}
+          ${row.applies_to?.length ? `<p class="subtle">Applies to: ${escapeHtml(row.applies_to.join(', '))}</p>` : ''}
+        </article>
+      `, 'No source priority rules found.');
+    }
+
+    function renderSourceQuality(rows) {
+      renderCardList('source-quality-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.authority_level || 'Source')}</div>
+          <h3>${escapeHtml(row.source_title || 'Source')}</h3>
+          <p class="subtle">${escapeHtml(row.source_owner || '')}</p>
+          <p>${escapeHtml(row.preferred_use || '')}</p>
+          ${row.limitations ? `<p class="subtle">Limitations: ${escapeHtml(row.limitations)}</p>` : ''}
+          ${row.last_verified ? `<p class="subtle">Last verified: ${escapeHtml(row.last_verified)}</p>` : ''}
+          ${row.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(row.url)}" target="_blank" rel="noopener noreferrer">Open source</a></p>` : ''}
+        </article>
+      `, 'No source quality notes found.');
+    }
+
+    function renderWorkflowRows(rows) {
+      renderCardList('workflow-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.workflow || row.id || 'Workflow')}</div>
+          <h3>${escapeHtml(row.trigger || 'Workflow guidance')}</h3>
+          <p>${escapeHtml(row.guidance_text || '')}</p>
+          ${row.do_not_say ? `<p class="subtle">Guardrail: ${escapeHtml(row.do_not_say)}</p>` : ''}
+          ${renderSourceLinks(row.source_urls || [])}
+        </article>
+      `, 'No workflow guidance found.');
+    }
+
+    function renderSourceVerification(rows) {
+      renderCardList('source-verification-output', rows, row => `
+        <article class="card">
+          <div class="pill">${escapeHtml(row.status || 'Source')}</div>
+          <h3>${escapeHtml(row.source_or_claim || row.source_name || 'Source verification')}</h3>
+          <p>${escapeHtml(row.what_was_verified || row.preferred_use || '')}</p>
+          ${row.limitations ? `<p class="subtle">Limitations: ${escapeHtml(row.limitations)}</p>` : ''}
+          ${row.recommended_tool_action ? `<p class="subtle">Recommended action: ${escapeHtml(cleanReviewText(row.recommended_tool_action))}</p>` : ''}
+          ${row.replacement_url ? `<p class="subtle">Replacement source: ${escapeHtml(row.replacement_url)}</p>` : ''}
+          ${row.checked_date ? `<p class="subtle">Checked: ${escapeHtml(row.checked_date)}</p>` : ''}
+          ${row.verified_url || row.url ? `<p><a class="navLink linkBtn" href="${escapeHtml(row.verified_url || row.url)}" target="_blank" rel="noopener noreferrer">Open verified source</a></p>` : ''}
+        </article>
+      `, 'No source verification rows found.');
+    }
+
+    function renderGlossary(rows) {
+      renderCardList('glossary-output', rows, row => `
+        <article class="card">
+          <div class="pill">Explainer</div>
+          <h3>${escapeHtml(row.term || 'Term')}</h3>
+          <p>${escapeHtml(row.plain_language_definition || '')}</p>
+          ${row.ombudsman_context ? `<p class="subtle">${escapeHtml(row.ombudsman_context)}</p>` : ''}
+          ${row.not_the_same_as?.length ? `<p class="subtle">Not the same as: ${escapeHtml(row.not_the_same_as.join(', '))}</p>` : ''}
+          ${renderSourceLinks(row.source_urls || [])}
+        </article>
+      `, 'No glossary entries found.');
+    }
+
+    function renderHumanReviewFlags(rows) {
+      const output = document.getElementById('human-review-output');
+      if (!rows.length) {
+        output.textContent = 'No human review flags found.';
+        return;
+      }
+
+      output.innerHTML = `
+        <ul class="source-list">
+          ${rows.map(row => `
+            <li>
+              <strong>${escapeHtml(row.flag_id || row.id || 'Review flag')}</strong>
+              ${row.flag_type ? `<span class="subtle"> - ${escapeHtml(row.flag_type)}</span>` : ''}
+              <br>${escapeHtml(cleanReviewText(row.description || ''))}
+              ${row.recommended_action ? `<br><span class="subtle">Recommended action: ${escapeHtml(cleanReviewText(row.recommended_action))}</span>` : ''}
+              ${renderSourceLinks(row.source_urls || [])}
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    }
+
+    function renderSourceLinks(urls) {
+      if (!urls.length) return '';
+      return `<p class="subtle">Sources: ${urls.map((url, index) => `<a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">source ${index + 1}</a>`).join(', ')}</p>`;
+    }
+
+    function applyWorkflowCorrections(rows, corrections) {
+      return rows.map(row => {
+        const correction = corrections.find(item => item.workflow_id === row.id);
+        if (!correction || correction.recommended_action !== 'replace') return row;
+        return {
+          ...row,
+          guidance_text: correction.corrected_guidance_text || row.guidance_text,
+          do_not_say: correction.corrected_do_not_say || row.do_not_say,
+          source_urls: correction.source_urls || row.source_urls || []
+        };
+      });
+    }
+
+    function applySourceQualityCorrections(rows, corrections) {
+      return rows.map(row => {
+        const correction = corrections.find(item => item.source_id === row.source_id);
+        if (!correction) return row;
+        return {
+          ...row,
+          authority_level: correction.corrected_authority_level || row.authority_level,
+          preferred_use: correction.corrected_preferred_use || row.preferred_use,
+          limitations: correction.corrected_limitations || row.limitations
+        };
+      });
+    }
+
+    function applySourceVerificationCorrections(rows, corrections) {
+      return rows.map(row => {
+        const correction = corrections.find(item => item.target_row_id === row.id);
+        if (!correction) return row;
+        return {
+          ...row,
+          ...(correction.corrected_value || {})
+        };
+      });
+    }
+
+    function filterResolvedReviewFlags(rows, corrections) {
+      const resolved = new Set(corrections
+        .filter(correction => /^HRF-/.test(correction.target_row_id || '') && correction.corrected_value?.flag_type === 'resolved')
+        .map(correction => correction.target_row_id));
+      return rows.filter(row => !resolved.has(row.flag_id || row.id));
+    }
+
+    function tooltipRowsToGlossary(rows) {
+      return rows.map(row => ({
+        term: row.term || row.label || row.tooltip_type?.replace(/_/g, ' ') || row.id || row.tooltip_id,
+        plain_language_definition: row.short_help || row.tooltip_text || '',
+        ombudsman_context: row.details || row.authority || '',
+        not_the_same_as: [],
+        source_urls: row.source_urls || []
+      }));
+    }
+
+    function workflowUpdatesToRows(rows) {
+      return rows.map(row => ({
+        id: row.id || row.workflow_id,
+        workflow: row.workflow_area || row.workflow_id || row.id,
+        trigger: row.update_type ? `${row.update_type.replace(/_/g, ' ')} update` : 'Workflow update',
+        guidance_text: row.corrected_guidance || row.guidance || '',
+        do_not_say: row.caveat || row.do_not_say || '',
+        source_urls: row.source_urls || []
+      }));
+    }
+
+    function sourceRowsToVerification(rows) {
+      return rows.map(row => ({
+        source_id: row.id,
+        source_name: row.title,
+        status: 'confirmed training source',
+        preferred_use: row.description,
+        url: row.url,
+        checked_date: ''
+      }));
+    }
+
+    function codingPrinciplesToWorkflowRows(rows) {
+      return rows.map(row => ({
+        id: row.principle_id,
+        workflow: 'NORS coding principle',
+        trigger: row.principle_text || 'Coding principle',
+        guidance_text: row.practical_tool_rule || '',
+        do_not_say: '',
+        source_urls: row.source_urls || []
+      }));
+    }
+
+    function sourceConflictsToWorkflowRows(rows) {
+      return rows.map(row => ({
+        id: row.conflict_id,
+        workflow: 'Source conflict review',
+        trigger: row.issue || 'Source conflict',
+        guidance_text: row.recommended_resolution || row.conflict_description || '',
+        do_not_say: row.human_review_note || '',
+        source_urls: []
+      }));
+    }
+
+    async function loadJson(path) {
+      const response = await fetch(path);
+      if (!response.ok) throw new Error(`${path} returned HTTP ${response.status}`);
+      return response.json();
+    }
+
+    async function loadSourceRegistry() {
+      const output = document.getElementById('source-registry-output');
+      try {
+        const [sourceRegistry, batch4] = await Promise.all([
+          loadJson('../data/source_registry.json'),
+          loadJson('../data/nors_knowledge_base_batch4.json')
+        ]);
+        const batch5 = await loadJson('../data/nors_knowledge_base_batch5.json').catch(() => ({
+          workflow_corrections: [],
+          source_quality_corrections: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch6 = await loadJson('../data/nors_knowledge_base_batch6.json').catch(() => ({
+          source_verification_rows: [],
+          workflow_update_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch7 = await loadJson('../data/nors_knowledge_base_batch7.json').catch(() => ({
+          resource_corrections: [],
+          source_verification_rows: [],
+          workflow_update_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch8 = await loadJson('../data/nors_knowledge_base_batch8.json').catch(() => ({
+          resource_corrections: [],
+          source_verification_rows: [],
+          workflow_update_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch9 = await loadJson('../data/nors_knowledge_base_batch9.json').catch(() => ({
+          resource_corrections: [],
+          source_verification_rows: [],
+          workflow_update_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch10 = await loadJson('../data/nors_knowledge_base_batch10.json').catch(() => ({
+          source_rows: [],
+          coding_principle_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch11 = await loadJson('../data/nors_knowledge_base_batch11.json').catch(() => ({
+          source_verification_rows: [],
+          source_conflict_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch14 = await loadJson('../data/nors_knowledge_base_batch14.json').catch(() => ({
+          source_conflict_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch15 = await loadJson('../data/nors_knowledge_base_batch15.json').catch(() => ({
+          source_conflict_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const batch16 = await loadJson('../data/nors_knowledge_base_batch16.json').catch(() => ({
+          source_conflict_rows: [],
+          tooltip_rows: [],
+          human_review_flags: []
+        }));
+        const norsSourcePack = await loadJson('../data/nors_source_pack_lock.json').catch(() => ({
+          source_pack_rows: [],
+          source_priority_rules: [],
+          human_review_flags: []
+        }));
+        renderSourceRegistry(sourceRegistry);
+        renderNorsSourcePack(norsSourcePack);
+        renderSourcePriorityRules(norsSourcePack.source_priority_rules || []);
+        renderSourceQuality(applySourceQualityCorrections(batch4.source_quality_rows || [], batch5.source_quality_corrections || []));
+        renderSourceVerification(applySourceVerificationCorrections([
+          ...(batch6.source_verification_rows || []),
+          ...(batch7.source_verification_rows || []),
+          ...(batch8.source_verification_rows || []),
+          ...(batch9.source_verification_rows || []),
+          ...(batch11.source_verification_rows || []),
+          ...sourceRowsToVerification(batch10.source_rows || [])
+        ], [...(batch7.resource_corrections || []), ...(batch8.resource_corrections || []), ...(batch9.resource_corrections || [])]));
+        renderWorkflowRows([
+          ...applyWorkflowCorrections(batch4.workflow_guidance_rows || [], batch5.workflow_corrections || []),
+          ...workflowUpdatesToRows([...(batch6.workflow_update_rows || []), ...(batch7.workflow_update_rows || []), ...(batch8.workflow_update_rows || []), ...(batch9.workflow_update_rows || [])]),
+          ...codingPrinciplesToWorkflowRows(batch10.coding_principle_rows || []),
+          ...sourceConflictsToWorkflowRows(batch11.source_conflict_rows || []),
+          ...sourceConflictsToWorkflowRows(batch14.source_conflict_rows || []),
+          ...sourceConflictsToWorkflowRows(batch15.source_conflict_rows || []),
+          ...sourceConflictsToWorkflowRows(batch16.source_conflict_rows || [])
+        ]);
+        renderGlossary([...(batch4.plain_language_explainer_rows || []), ...tooltipRowsToGlossary(batch5.tooltip_rows || []), ...tooltipRowsToGlossary(batch6.tooltip_rows || []), ...tooltipRowsToGlossary(batch7.tooltip_rows || []), ...tooltipRowsToGlossary(batch8.tooltip_rows || []), ...tooltipRowsToGlossary(batch9.tooltip_rows || []), ...tooltipRowsToGlossary(batch10.tooltip_rows || []), ...tooltipRowsToGlossary(batch11.tooltip_rows || []), ...tooltipRowsToGlossary(batch14.tooltip_rows || []), ...tooltipRowsToGlossary(batch15.tooltip_rows || []), ...tooltipRowsToGlossary(batch16.tooltip_rows || [])]);
+        renderHumanReviewFlags(filterResolvedReviewFlags([...(batch4.human_review_flags || []), ...(batch5.human_review_flags || []), ...(batch6.human_review_flags || []), ...(batch7.human_review_flags || []), ...(batch8.human_review_flags || []), ...(batch9.human_review_flags || []), ...(batch10.human_review_flags || []), ...(batch11.human_review_flags || []), ...(batch14.human_review_flags || []), ...(batch15.human_review_flags || []), ...(batch16.human_review_flags || []), ...(norsSourcePack.human_review_flags || [])], [...(batch7.resource_corrections || []), ...(batch8.resource_corrections || []), ...(batch9.resource_corrections || [])]));
+      } catch (err) {
+        output.textContent = `Source registry could not be loaded. Details: ${err.message}`;
+        document.getElementById('nors-source-pack-output').textContent = `NORS source pack could not be loaded. Details: ${err.message}`;
+        document.getElementById('source-priority-output').textContent = `Source priority rules could not be loaded. Details: ${err.message}`;
+        document.getElementById('source-quality-output').textContent = `Source quality notes could not be loaded. Details: ${err.message}`;
+        document.getElementById('source-verification-output').textContent = `Source verification notes could not be loaded. Details: ${err.message}`;
+        document.getElementById('workflow-output').textContent = `Workflow guardrails could not be loaded. Details: ${err.message}`;
+        document.getElementById('glossary-output').textContent = `Glossary could not be loaded. Details: ${err.message}`;
+        document.getElementById('human-review-output').textContent = `Human review flags could not be loaded. Details: ${err.message}`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadSourceRegistry);

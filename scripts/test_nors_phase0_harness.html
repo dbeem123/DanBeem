@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Phase 0 Edge presentation tests</title>
+<style>body{font:16px system-ui;margin:12px}iframe{display:block;border:0;position:absolute;left:-10000px;top:0}#results{white-space:pre-wrap}</style></head><body><h1>Phase 0 Edge presentation tests</h1><div id="results">RUNNING</div>
+<script>
+(async function(){
+ const results=document.getElementById('results'); const checks=[]; const issues=[]; const origin=location.origin;
+ function check(ok,message){checks.push(`${ok?'PASS':'FAIL'} ${message}`);if(!ok)issues.push(message);}
+ function wait(ms){return new Promise(r=>setTimeout(r,ms));}
+ async function visit(route,width){
+   const frame=document.createElement('iframe'); frame.title=`${route} at ${width}px`; frame.style.width=`${width}px`; frame.style.height=width<600?'844px':'900px'; document.body.appendChild(frame);
+   await new Promise((resolve,reject)=>{frame.onload=resolve;frame.onerror=()=>reject(new Error(`load ${route}`));frame.src=route;});
+   const win=frame.contentWindow,doc=frame.contentDocument;
+   for(let i=0;i<80;i++){if(doc.readyState==='complete' && (route.includes('drafting-assistant') ? doc.querySelector('#synthetic-scenario')?.options.length>=4 : route.includes('nors-crosswalk') ? doc.querySelector('#nors-code')?.options.length>1 : true))break;await wait(150);}
+   const pageText=doc.body.innerText; const req=win.performance.getEntriesByType('resource').map(x=>x.name);
+   for(const url of req){try{check(new URL(url).origin===origin,`${route} request is same-origin`);}catch{check(false,`${route} request URL is invalid`);}}
+   const csp=doc.querySelector('meta[http-equiv="Content-Security-Policy"]')?.content||'';
+   check(csp.includes("default-src 'self'; connect-src 'self'; script-src 'self'"),`${route} CSP is strict`);
+   for(const copy of [
+     'Demonstration only. Use the synthetic examples or invented facts. Do not enter information from a real case, even with names removed.',
+     'This tool uses fixed rules and published sources. It does not use artificial intelligence or send your text anywhere.',
+     'Personal demonstration project. Not an official State of Connecticut or LTCOP tool, and not approved for real case information.'
+   ]) check(pageText.includes(copy),`${route} required safety text`);
+   const overflow=win.document.documentElement.scrollWidth>win.innerWidth;
+   check(!overflow,`${route} has no horizontal overflow at ${width}px (page ${win.innerWidth}px)`);
+   if(route.includes('nors-crosswalk')){
+     const input=doc.querySelector('#keyword-text'); input.value='Synthetic Person';input.dispatchEvent(new win.Event('input',{bubbles:true}));
+     check(!doc.querySelector('#sensitive-input-warning').hidden,'name-pattern warning appears');
+     const prior=win.location.href;
+     input.value='';input.dispatchEvent(new win.Event('input',{bubbles:true}));input.value='call light';doc.querySelector('#run-keyword-crosswalk').click();await wait(500);
+     check(doc.querySelector('#topics-output').innerText.length>10,'crosswalk local result renders');check(win.location.href===prior,'crosswalk input stays out of URL');
+   }
+   if(route.includes('drafting-assistant')){
+     const initial=['#identity-permission','#case-status','#resident-satisfaction'].map(x=>doc.querySelector(x).value);
+     check(initial.every(x=>x===''),'permission, status, satisfaction start blank');
+     doc.querySelector('#synthetic-scenario').value='call-light';doc.querySelector('#load-synthetic-scenario').click();await wait(350);
+     check(doc.querySelector('#synthetic-load-status').textContent.includes('loaded'),'one-click synthetic example loads');
+     const after=['#identity-permission','#case-status','#resident-satisfaction'].map(x=>doc.querySelector(x).value);
+     check(after.every(x=>x===''),'synthetic load leaves decision fields blank');
+     doc.querySelector('#generate-button').click();
+     const draft=doc.querySelector('#draft-output').innerText;
+     check(draft.includes('Resident reports a delayed response to a call light.'),'draft uses populated field');
+     check(!draft.includes('[missing')&&!draft.includes('satisfaction'),'draft omits blank fields');
+     const area=doc.querySelector('#scenario-notes');area.value='Synthetic Person asked about a call light on 03/04/2025 in room 212. Phone 203-555-0114 ID 12345678';area.dispatchEvent(new win.Event('input',{bubbles:true}));
+     check(!doc.querySelector('#sensitive-input-warning').hidden,'date/room/phone/ID reminder appears');
+     check(!win.location.search.includes('Synthetic'),'draft text stays out of URL');
+   }
+   frame.remove();
+ }
+ try{
+   for(const width of [1280,390]) for(const route of ['/tools/ombudsman-casework-tools.html','/tools/nors-crosswalk.html','/tools/drafting-assistant.html','/tools/responsible-use.html']) await visit(route,width);
+ }catch(error){issues.push(error.stack||String(error));}
+ results.textContent=checks.join('\n')+'\n'+(issues.length?`FAILURES ${issues.length}: ${issues.join(' | ')}`:`PASS complete: 4 pages at desktop and mobile sizes; no external requests.`);
+ document.title=issues.length?'FAIL Phase 0 Edge tests':'PASS Phase 0 Edge tests';
+})();
+</script></body></html>
