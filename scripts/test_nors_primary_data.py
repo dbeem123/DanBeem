@@ -39,7 +39,10 @@ class NorsPrimaryDataTests(unittest.TestCase):
         cls.lock_by_name = {r["name"]: r for r in cls.lock["revision4_source_inventory"]["files"]}
         cls.authorities = read_json(DATA / "nors_primary_authority.json")["authority_records"]
         cls.tags = read_json(DATA / "appendix_pp" / "index.json")["tags"]
-        cls.term_index = read_json(DATA / "term_index.json")["terms"]
+        cls.term_manifest = read_json(DATA / "term_index.json")
+        cls.term_index = {}
+        for shard in cls.term_manifest["shards"]:
+            cls.term_index.update(read_json(DATA / shard["file"]))
         cls.ambiguity = read_json(DATA / "nors_code_ambiguity.json")["codes"]
         cls.pdf_pages = {}
         cls.file_hashes = {}
@@ -187,6 +190,33 @@ class NorsPrimaryDataTests(unittest.TestCase):
         for term in ("self-administer", "wrong", "medication"):
             classes = {entry["source_class"] for entry in self.term_index[term]}
             self.assertTrue(classes <= {"nors", "appendix_pp"})
+
+    def test_shards_are_bounded_and_ranges_resolve(self):
+        previous = None
+        seen = set()
+        for shard in self.term_manifest["shards"]:
+            path = DATA / shard["file"]
+            self.assertLessEqual(path.stat().st_size, 500_000)
+            self.assertEqual(path.stat().st_size, shard["bytes"])
+            terms = read_json(path)
+            keys = sorted(terms)
+            self.assertEqual((keys[0], keys[-1]), (shard["first"], shard["last"]))
+            if previous is not None:
+                self.assertLess(previous, keys[0])
+            self.assertFalse(seen.intersection(keys))
+            seen.update(keys)
+            previous = keys[-1]
+        self.assertEqual(seen, set(self.term_index))
+
+    def test_appendix_authority_references_resolve_without_duplicate_text(self):
+        authority = read_json(DATA / "nors_primary_authority.json")
+        refs = authority["appendix_pp_passage_refs"]
+        self.assertEqual({r["tag"] for r in refs}, {t["tag"] for t in self.tags})
+        for ref in refs:
+            passages = read_json(DATA / ref["file"])["passages"]
+            self.assertEqual(ref["passage_ids"], [p["id"] for p in passages])
+            self.assertEqual(len(ref["passage_ids"]), len(set(ref["passage_ids"])))
+        self.assertFalse(any(r["authority_type"].startswith("cms_") for r in authority["authority_records"]))
 
     def test_wrong_medication_given_has_source_support_on_both_result_sides(self):
         def ids(term, source_class):

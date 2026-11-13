@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import csv
 import json
 import re
 from collections import defaultdict
@@ -294,6 +295,20 @@ def build_ambiguity(table_records: list[dict]) -> list[dict]:
 
 
 def extract_appendix() -> tuple[list[dict], dict[str, list[str]]]:
+    citation_name = "NH_CitationDescriptions_May2026.csv"
+    citation_path = SOURCES / "cms_survey" / citation_name
+    if sha(citation_path) != LOCK[citation_name]["sha256"]:
+        raise ValueError("Locked CMS citation descriptions hash mismatch")
+    with citation_path.open(encoding="utf-8-sig", newline="") as stream:
+        titles = {}
+        for item in csv.DictReader(stream):
+            match = re.fullmatch(r"F-0*(\d+)", item["Deficiency Prefix and Number"].strip())
+            if match:
+                tag = f"F{int(match.group(1))}"
+                title = item["Deficiency Description"].strip()
+                if tag in titles and titles[tag] != title:
+                    raise ValueError(f"Conflicting CMS citation descriptions: {tag}")
+                titles[tag] = title
     tag_doc = json.loads((DATA / "appendix_pp_tag_pages.json").read_text(encoding="utf-8-sig"))
     all_rows = {r["f_tag"].upper(): r for r in tag_doc["appendix_pp_tag_page_rows"]}
     authority_titles = {}
@@ -350,35 +365,56 @@ def extract_appendix() -> tuple[list[dict], dict[str, list[str]]]:
             fragment = raw[lo:hi]
             for para in re.split(r"\n\s*\n", fragment):
                 text = norm(para)
-                if len(text) >= 20:
+                # PDF section headings are often standalone fragments shorter than
+                # ordinary passages; keep them so the following text inherits them.
+                if len(text) >= 20 or re.match(r"^(INTENT|DEFINITIONS|GUIDANCE|EXAMPLES? OF NONCOMPLIANCE|PROCEDURES|INVESTIGATIVE PROTOCOL|PROBES|KEY ELEMENTS OF NONCOMPLIANCE|DEFICIENCY CATEGORIZATION)\b", text, re.I):
                     extracted.append((pno, text))
         # Shared sections without a standalone tag header are intentionally flagged.
         row = all_rows.get(tag, {})
         is_shared = tag not in starts
         passages = []
         section = "Appendix PP text"
+        reached_guidance = False
         for pno, text in extracted:
             upper = text.upper().strip()
-            if re.match(r"^(REGULATION|§?\s*483\.)", text, re.I):
-                section = "Regulation"
-            elif re.match(r"^INTENT\b", upper):
+            if re.match(r"^INTENT\b", upper):
                 section = "Intent"
+                reached_guidance = True
             elif re.match(r"^DEFINITIONS\b", upper):
                 section = "Definitions"
+                reached_guidance = True
             elif re.match(r"^GUIDANCE\b", upper):
                 section = "Guidance"
-            elif re.match(r"^(EXAMPLES? OF NONCOMPLIANCE|EXAMPLES INCLUDE|FOR EXAMPLE|MAY INCLUDE|SUCH AS)\b", upper):
+                reached_guidance = True
+            elif re.match(r"^EXAMPLES? OF NONCOMPLIANCE\b", upper):
                 section = "Examples"
+                reached_guidance = True
             elif re.match(r"^(PROCEDURES|INVESTIGATIVE PROTOCOL|PROBES)\b", upper):
                 section = "Probes / investigative protocol"
+                reached_guidance = True
             elif re.match(r"^KEY ELEMENTS OF NONCOMPLIANCE\b", upper):
                 section = "Key elements of noncompliance"
+                reached_guidance = True
             elif re.match(r"^DEFICIENCY CATEGORIZATION\b", upper):
                 section = "Deficiency categorization"
+                reached_guidance = True
+            elif not reached_guidance and re.match(r"^(REGULATION|§\s*483\.)", text, re.I):
+                section = "Regulation"
             crossrefs = sorted(set(x.upper() for x in re.findall(r"\bF\s*\d{3,4}\b", text, re.I) if re.sub(r"\s+", "", x).upper() != tag))
             passage = {"pdf_page": pno, "section_label": section, "text": text}
             if crossrefs:
                 passage["cross_references"] = crossrefs
+            # Preserve long rule text as page-sized passages when the joined text
+            # occurs verbatim in the source page; never bridge omitted material.
+            if section == "Regulation" and passages and passages[-1]["section_label"] == section and passages[-1]["pdf_page"] == pno:
+                previous = passages[-1]
+                merged = previous["text"] + " " + text
+                if merged in norm(pages[pno - 1]):
+                    previous["text"] = merged
+                    refs = sorted(set(previous.get("cross_references", [])) | set(crossrefs))
+                    if refs:
+                        previous["cross_references"] = refs
+                    continue
             passages.append(passage)
         if not passages:
             continue
@@ -393,17 +429,8 @@ def extract_appendix() -> tuple[list[dict], dict[str, list[str]]]:
         first_cfr = next((p["text"] for p in passages if re.search(r"§?\s*483\.\d+", p["text"])), "")
         cfr_match = re.search(r"§?\s*483\.\d+(?:\([a-z0-9]+\))*", first_cfr, re.I)
         cfr = ("§" + cfr_match.group(0).replace("§", "").strip()) if cfr_match else ""
-        title = row.get("display_title")
-        if not title:
-            heading = row.get("heading_exact", "")
-            title = re.sub(r"^F\d{3,4}\s*[-–—]?\s*", "", heading).split("(")[0].strip() if heading else ""
-        if not title:
-            title = authority_titles.get(tag, "") or resident_titles.get(tag, "")
-        if not title:
-            # The source does not print a separate F-tag short title for every tag. Keep
-            # this explicit rather than turning a long regulation paragraph into a title.
-            title = ""
-        title_status = "available_from_locked_tag_metadata" if title else "not_printed_in_locked_pdf_or_existing_tag_metadata"
+        title = titles.get(tag, "")
+        title_status = "cms_citation_description" if title else "missing_cms_citation_description"
         record = {
             "id": rid,
             "tag": tag,
@@ -533,8 +560,34 @@ def build_term_index(authorities: list[dict], pp_records: list[dict]) -> int:
             {"source_class": source_class, "record_id": record_id, "locators": sorted(locators)}
             for (source_class, record_id), locators in sorted(entries.items())
         ]
-    term_payload = {"version": "1.0", "method": "Lowercase source tokens and source-contiguous bigrams; stop words excluded from phrase formation; no inferred synonyms.", "results_are_separate": ["nors", "appendix_pp"], "terms": packed}
-    (DATA / "term_index.json").write_text(json.dumps(term_payload, ensure_ascii=False, separators=(",", ":")) + "\n", encoding="utf-8", newline="\n")
+    # Sorted ranges permit a client to load only the shard containing a term.
+    outdir = DATA / "term_index"
+    outdir.mkdir(exist_ok=True)
+    for old in outdir.glob("part-*.json"):
+        old.unlink()
+    shards = []
+    current = []
+    size = 2  # braces
+    def flush():
+        if not current:
+            return
+        name = f"part-{len(shards) + 1:04}.json"
+        payload = "{" + ",".join(item[1] for item in current) + "}\n"
+        (outdir / name).write_text(payload, encoding="utf-8", newline="\n")
+        shards.append({"file": f"term_index/{name}", "first": current[0][0], "last": current[-1][0], "bytes": len(payload.encode("utf-8"))})
+    for term, entries in packed.items():
+        encoded = json.dumps(term, ensure_ascii=False) + ":" + json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
+        item_size = len(encoded.encode("utf-8")) + 1
+        if item_size + 3 > 500_000:
+            raise ValueError(f"Term too large for shard: {term}")
+        if current and size + item_size + 1 > 500_000:
+            flush()
+            current = []
+            size = 2
+        current.append((term, encoded))
+        size += item_size
+    flush()
+    jwrite(DATA / "term_index.json", {"version": "2.0", "method": "Lowercase source tokens and source-contiguous bigrams; no inferred synonyms.", "results_are_separate": ["nors", "appendix_pp"], "shards": shards})
     return len(hits)
 
 
@@ -551,25 +604,13 @@ def main() -> None:
     jwrite(DATA / "nors_code_ambiguity.json", {"version": "1.0", "source_rule": "All source_quote fields are extracted from NORS Table 2 text; review_prompt is app copy, not authority.", "codes": build_ambiguity(table_records)})
     build_nors_mapping(table_records)
     pp_records, _ = extract_appendix()
+    appendix_refs = []
     for tag_record in pp_records:
         for i, passage in enumerate(tag_record["passages"], 1):
-            section = passage["section_label"]
-            authority_type = "cms_regulation" if section == "Regulation" else "cms_appendix_pp_interpretive_guidance"
-            authorities.append({
-                "id": f"{tag_record['id']}-p{i}",
-                "authority_type": authority_type,
-                "citation": f"Appendix PP {tag_record['tag']} — {section}",
-                "locator": f"PDF page {passage['pdf_page']}; {section}",
-                "text": passage["text"],
-                "source_file": tag_record["source_file"],
-                "source_sha256": tag_record["source_sha256"],
-                "source_revision": tag_record["source_revision"],
-                "retrieved": tag_record["retrieved"],
-                "url": tag_record["url"],
-                "tag": tag_record["tag"],
-                "controls_coding": False,
-            })
-    jwrite(DATA / "nors_primary_authority.json", {"version": "1.0", "authority_records": authorities})
+            passage["id"] = f"{tag_record['id']}-p{i}"
+        jwrite(DATA / "appendix_pp" / f"{tag_record['tag']}.json", tag_record)
+        appendix_refs.append({"tag": tag_record["tag"], "file": f"appendix_pp/{tag_record['tag']}.json", "passage_ids": [p["id"] for p in tag_record["passages"]]})
+    jwrite(DATA / "nors_primary_authority.json", {"version": "2.0", "authority_records": authorities, "appendix_pp_passage_refs": appendix_refs})
     terms = build_term_index(authorities, pp_records)
     print(f"NORS Table 2 authorities: {len(table_records)}")
     print(f"NORS training/FAQ/answer-sheet passages: {len(guidance)}")
