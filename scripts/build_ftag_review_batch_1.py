@@ -128,7 +128,7 @@ def main():
                         rows.append({**base, 'candidate_code': code, 'table_2_definition': definitions[code]['text'], 'basis': 'existing_app_link'})
     out = ROOT / 'docs' / 'nors_ftag_review_batch_1.csv'
     with out.open('w', encoding='utf-8', newline='') as f:
-        writer = csv.DictWriter(f, fieldnames=fields)
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator='\n')
         writer.writeheader()
         writer.writerows(rows)
     print('rows', len(rows), 'scenarios', len(scenarios))
