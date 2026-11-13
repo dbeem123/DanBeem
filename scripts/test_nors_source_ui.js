@@ -47,7 +47,7 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   nodes['ftag-filter'].value='F917'; nodes['ftag-filter'].events.input();
   assert.equal(f917group.children.find(option=>option.value==='F917').hidden,false);
   assert.equal(f917group.children.find(option=>option.value==='F918').hidden,true);
-  nodes['nors-code'].value='D09'; nodes['nors-code'].events.change();
+  nodes['nors-code'].value='D09'; nodes['nors-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
   let text=walk(nodes['source-output']).join(' ');
   assert(text.includes('D09 The deprivation')); assert(text.includes('F554 (coded_by_reviewer)'));
   assert.equal(location.hash,'#code=D09');
@@ -64,8 +64,14 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   }
   nodes['ftag-code'].value='F660'; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
   text=walk(nodes['source-output']).join(' ');
-  assert(text.includes('D02 (coded_by_reviewer)'), 'F660 tag card should show reviewed D02');
+  assert(text.includes('D02 (coded_by_reviewer; weak — title-only, check)'), 'F660 tag card should show reviewed D02 with its weak title-only check label');
+  assert(text.includes('weak — title-only, check'), 'F660 D02 should be visibly marked weak and title-only');
   assert(!text.includes('C03 (coded_by_reviewer)'), 'undecided F660 to C03 must stay out');
+  for (const [tag, codes] of Object.entries({F620:['C02','C03','C04'],F621:['C02','C03','C04'],F627:['C01','C04'],F628:['D02','C04','C01']})) {
+    nodes['ftag-code'].value=tag; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
+    text=walk(nodes['source-output']).join(' ');
+    for (const code of codes) assert(!text.includes(`${code} (`), `${tag} must not show dropped ${code}`);
+  }
   nodes['ftag-code'].value='F554'; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
   nodes['source-output'].querySelectorAll('button').find(button=>button.textContent.startsWith('D09 ')).events.click();
   assert(walk(nodes['source-output']).join(' ').includes('NORS D09'), 'related-code link opens its selected card');

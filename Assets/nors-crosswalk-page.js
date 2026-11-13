@@ -3,7 +3,7 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const output = $('source-output');
-  let definitions, tags, catalog, manifest, reviewedLinks, appSynonyms, searchWeights;
+  let definitions, tags, catalog, manifest, reviewedLinks, rejectedLinks, appSynonyms, searchWeights;
   let renderedHash = null;
   const STOP = new Set('request requests follow staff resident residents facility facilities care planning ability defined ensure consider timing practice will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including her his who there did having etc lack keep own take want wants my the and for from with that this their they have has was were are into than then when where which what would could should shall include includes example examples such each any all use used under section requirements requirement information provided provide upon person persons program code codes complaint complaints does not but its you your about'.split(' '));
   function stem(word) {
@@ -41,13 +41,17 @@
   }
   function linkedTags(code) {
     const row = catalog.find(x => x.nors_minor_code === code);
-    const existing = row ? tagValues(row) : [];
+    const existing = row ? tagValues(row).filter(tag => !rejectedLinks.some(link => link.nors_code === code && link.f_tag === tag)) : [];
     const reviewed = reviewedLinks.filter(x => x.nors_code === code).map(x => x.f_tag);
     return [...new Set([...existing, ...reviewed])];
   }
   function linkBasis(code, tag) {
     const row = catalog.find(x => x.nors_minor_code === code);
-    return row && tagValues(row).includes(tag) ? 'existing_app_link' : 'coded_by_reviewer';
+    return row && tagValues(row).includes(tag) && !rejectedLinks.some(link => link.nors_code === code && link.f_tag === tag) ? 'existing_app_link' : 'coded_by_reviewer';
+  }
+  function linkLabel(label, code, tag) {
+    const weak = reviewedLinks.some(link => link.nors_code === code && link.f_tag === tag && link.link_strength === 'weak');
+    return `${label} (${linkBasis(code, tag)}${weak ? '; weak — title-only, check' : ''})`;
   }
   function openButton(parent, label, fn) { const button = element('button', label); button.type = 'button'; button.className = 'btn secondary'; button.addEventListener('click', fn); parent.append(button); }
   function setHash(kind, id) {
@@ -81,7 +85,7 @@
     appendText(output, 'h4', 'Related F-tags (existing or reviewed links; context only)');
     const links = linkedTags(code).filter(tag => tags.some(item => item.tag === tag));
     if (!links.length) appendText(output, 'p', 'No existing app links are available.');
-    links.forEach(tag => openButton(output, `${tag} (${linkBasis(code, tag)})`, () => showTag(tag)));
+    links.forEach(tag => openButton(output, linkLabel(tag, code, tag), () => showTag(tag)));
     scrollResults();
   }
   async function showTag(tag, updateRoute = true) {
@@ -103,7 +107,7 @@
       appendText(output, 'h4', 'Related NORS codes (existing or reviewed links; context only)');
       const linked = definitions.filter(row => linkedTags(row.code).includes(tag));
       if (!linked.length) appendText(output, 'p', 'No existing or reviewed links are available.');
-      linked.forEach(row => openButton(output, `${row.code} (${linkBasis(row.code, tag)})`, () => showCode(row.code)));
+      linked.forEach(row => openButton(output, linkLabel(row.code, row.code, tag), () => showCode(row.code)));
       scrollResults();
     } catch (error) { clear(); appendText(output, 'p', `Unable to load this F-tag. ${error.message}`); }
   }
@@ -182,7 +186,10 @@
         ? (Array.isArray(synonyms.rules) ? synonyms.rules : []).filter(x => Array.isArray(x.match_any_trigger) && Array.isArray(x.alongside_any_medication_term) && Array.isArray(x.expands_to))
         : [];
       searchWeights = buildSearchWeights(definitions);
-      const candidates = (Array.isArray(reviewed.links) ? reviewed.links : []).filter(x => x.status === 'reviewed' && x.basis === 'coded_by_reviewer' && x.reviewed_by === 'Daniel' && typeof x.review_method === 'string' && x.review_method === 'approved Claude first-pass triage' && /^\d{4}-\d{2}-\d{2}$/.test(x.reviewed_date || '') && /^[A-L]\d{2}$/.test(x.nors_code || '') && /^F\d{3,4}$/.test(x.f_tag || '') && definitions.some(d => d.code === x.nors_code && d.id === x.nors_authority_id && typeof x.nors_excerpt === 'string' && x.nors_excerpt.trim() && d.text.includes(x.nors_excerpt)) && tags.some(t => t.tag === x.f_tag));
+      const allReviewRows = Array.isArray(reviewed.links) ? reviewed.links : [];
+      const reviewMetaValid = x => x.reviewed_by === 'Daniel' && x.review_method === 'approved Claude first-pass triage' && /^\d{4}-\d{2}-\d{2}$/.test(x.reviewed_date || '') && /^[A-L]\d{2}$/.test(x.nors_code || '') && /^F\d{3,4}$/.test(x.f_tag || '') && definitions.some(d => d.code === x.nors_code) && tags.some(t => t.tag === x.f_tag);
+      rejectedLinks = allReviewRows.filter(x => x.status === 'rejected' && reviewMetaValid(x));
+      const candidates = allReviewRows.filter(x => x.status === 'reviewed' && x.basis === 'coded_by_reviewer' && reviewMetaValid(x) && definitions.some(d => d.code === x.nors_code && d.id === x.nors_authority_id && typeof x.nors_excerpt === 'string' && x.nors_excerpt.trim() && d.text.includes(x.nors_excerpt)));
       const checked = await Promise.all(candidates.map(async link => {
         try { const record = await read(`../data/appendix_pp/${encodeURIComponent(link.f_tag)}.json`); return record.passages.some(p => p.id === link.appendix_passage_id && typeof link.appendix_excerpt === 'string' && link.appendix_excerpt.trim() && p.text.includes(link.appendix_excerpt)) ? link : null; }
         catch (_) { return null; }

@@ -1,35 +1,32 @@
 # NORS F-tag review batch 2 — §483.15
 
-Status: partial import from Daniel's 2026-11-13 approval. The section map remains a proposal; no candidate controls coding.
+## Daniel-approved decisions
 
-## Batch 1 review record
+Created `docs/nors_ftag_review_batch_2_claude_triage.csv` from the candidate sheet in the batch 1 review format. Every decision records Daniel's approval on 2026-11-13 and the method `approved Claude first-pass triage`.
 
-Committed `docs/nors_ftag_review_batch_1_claude_triage.csv` with its original row decisions unchanged and the triage field recording Daniel's approval of Claude's first pass on 2026-11-13. It contains 229 rows: 79 keep, 140 drop, and 10 add. The row-level reasons and added codes remain recorded in the CSV.
+- Keep: 6 pairings — F620/C01, F621/C01 (check), F627/C03 and C02, F628/C03 and C02.
+- Drop: 11 pairings — F620/C02,C03,C04; F621/C02,C03,C04; F627/C01,C04; F628/D02,C04,C01. These are stored as rejected records.
+- Add: 7 pairings — F622/C03; F623/C03,C02; F624/C03; F625/C03; F626/C03; F660/D02.
+- F660/D02 is a weak, title-only check. It remains visibly labeled `weak — title-only, check`; its extracted Appendix PP content is only a relocation note. F660/C03 is not imported.
 
-## Batch 2 scope and method
+Batch 2 triage sheet: **24 rows** (6 keep, 11 drop, 7 add). By tag: F620 4, F621 4, F622 1, F623 2, F624 1, F625 1, F626 1, F627 4, F628 5, F660 1.
 
-The batch covers the 10 Appendix PP tags whose source index cites §483.15: F620–F628 and F660. Candidate generation follows the batch 1 method: one row per candidate code, strongest three qualifying excerpts, at most five rows per tag, and existing app links retained even when outside the proposed category. Evidence is drawn from passages flagged as examples and from key-element or deficiency-categorization passages, including the severity examples within deficiency categorization.
+## Section map
 
-The draft §483.15 map proposes category C, “Admission, Transfer, Discharge, Eviction,” based on the locked Table 2 heading. It is stored separately at `data/nors_section_prior_483_15_draft.json` with `status: draft`, `approval_status: pending_Daniel`, and `controls_coding: false`. Existing app links remain eligible for review outside C.
+The §483.15 section map remains `draft`, with category C only and `controls_coding: false`. Recommendation: do **not** add D02 to this broad category map. D02 is a specific, weak, title-only F660 candidate, while the map's schema maps whole categories. Keep that candidate visible with its weak label and revisit the section map only if the broader D-category mapping is independently supported and approved.
 
-## Counts
+## Data totals after import
 
-- Total review rows: **23** (17 candidate-code rows and 6 no-candidate review rows).
-- Per tag: F620 **4**, F621 **4**, F622 **1**, F623 **1**, F624 **1**, F625 **1**, F626 **1**, F627 **4**, F628 **5**, F660 **1**.
-- Existing links retained: F620/C01; F621/C01; F627/C02 and C03; F628/C03 and D02.
-- F622, F623, F624, F625, F626 and F660 contain only tag headers or relocation notes in the extracted Appendix PP data, with no qualifying example, key-element or severity evidence. Their rows therefore have no candidate code and explain the evidence gap rather than inventing a pairing.
+- Reviewed links: **102** total (89 from batch 1 and 13 from this batch).
+- Rejected links: **151** total (140 from batch 1 and 11 from this batch).
+- F660/D02: reviewed, `basis: coded_by_reviewer`, `link_strength: weak`, `evidence_basis: title_only`.
+- F660/C03: absent.
+- Batch 3 (`59fa009`) was not changed or started.
 
-## Daniel's approved imports
+## Validation
 
-Imported F622–F626 → C03 and F660 → D02 as reviewed links using the batch 1 review method. F660 → C03 was not imported because it was marked “check” and remains undecided. The existing batch 2 candidate CSV still has blank decision fields for its other rows; no completed triage file was present in the worktree. I did not infer additional keeps or drops, so no batch 2 drops have yet been stored as rejected. A completed row-level triage file is needed to finish the full import.
+- `py -m unittest discover -s scripts -p "test_nors*.py"` — **45 passed**.
+- `node scripts/test_nors_source_ui.js` — **passed**. Covers accepted and rejected link display, the weak F660/D02 label, medication search, navigation, and selection behavior.
+- `git diff --check` — **passed**.
 
-The §483.15 draft map currently proposes category C only. It does not map D02, so it does not meet the condition for promotion to approved; it remains draft pending Daniel's decision.
-
-## Checks
-
-- `py scripts/build_ftag_review_batch_2.py` — completed; 10 tags, 23 rows.
-- `py -m unittest scripts.test_nors_ftag_review_batch_2 -v` — 6 passed.
-- `py -m unittest discover -s scripts -p "test_nors*.py"` — 40 passed.
-- UI test confirms F622–F626 show C03, F660 shows D02, and F660 does not show C03.
-
-No push or publication was performed. The batch 2 CSV is draft review material; all decisions remain blank.
+No publication or push was performed.
