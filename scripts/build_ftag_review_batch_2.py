@@ -7,7 +7,7 @@ import re
 from collections import Counter, defaultdict
 from pathlib import Path
 
-from build_ftag_review_batch_1 import DATA, ROOT, linked_evidence, load, terms
+from build_ftag_review_batch_1 import DATA, ROOT, linked_evidence, load, terms, title_regulation_fallback
 
 
 FIELDS = [
@@ -93,6 +93,9 @@ def main():
                 if score >= 3:
                     matches.append((score, passage, shared))
             matches.sort(key=lambda item: (-item[0], item[1]['id']))
+            fallback_matches = title_regulation_fallback(tag, definition['text'])
+            if fallback_matches and not is_existing:
+                matches = fallback_matches + matches
             if not matches and not is_existing:
                 continue
             if not matches and is_existing and evidence:
@@ -126,7 +129,8 @@ def main():
                    'regulation_sentence': regulation, 'candidate_code': code,
                    'table_2_definition': definitions[code]['text'],
                    'shared_terms': ', '.join(sorted(set().union(*(item[2] for item in matches[:3])))),
-                   'basis': 'existing_app_link' if is_existing else 'keyword_match',
+                   'basis': ('existing_app_link' if is_existing else
+                             'title_regulation_fallback' if matches[0][1].get('title_regulation_fallback') else 'keyword_match'),
                    'score': f'{score:.3f}',
                    'matched_norc_scenario': scenario['scenario_text'] if scenario else '',
                    'scenario_answer_code': code if scenario else '',

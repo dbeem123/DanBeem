@@ -6,6 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
+from build_ftag_review_batch_1 import stemmed_phrase_match  # noqa: E402
 from build_ftag_review_batch_2 import evidence_for, existing_links, load  # noqa: E402
 
 
@@ -58,7 +59,47 @@ class Batch3ReviewTests(unittest.TestCase):
             self.assertTrue(locators)
             used_ids = {fragment.rsplit('; ', 1)[-1].strip()
                         for locator in locators for fragment in locator.split(' | ')}
-            self.assertTrue(used_ids <= eligible_ids, (row['tag'], used_ids - eligible_ids))
+            fallback_locators = {locator for locator in locators
+                                 if locator.startswith('source_data/cms_survey/NH_CitationDescriptions_May2026.csv;') or
+                                 '; Regulation;' in locator}
+            if row['basis'] == 'title_regulation_fallback':
+                self.assertTrue(fallback_locators, (row['tag'], locators))
+                regular_locators = set(locators) - fallback_locators
+                regular_ids = {fragment.rsplit('; ', 1)[-1].strip()
+                               for locator in regular_locators for fragment in locator.split(' | ')}
+                self.assertTrue(regular_ids <= eligible_ids, (row['tag'], regular_ids - eligible_ids))
+            else:
+                self.assertTrue(used_ids <= eligible_ids, (row['tag'], used_ids - eligible_ids))
+
+    def test_stemmed_title_phrase_fallback_finds_care_plan_without_single_word_match(self):
+        self.assertEqual(stemmed_phrase_match('Complete care plan', 'Care plans are person-centered.'), ('care', 'plan'))
+        self.assertEqual(stemmed_phrase_match('care', 'care'), ())
+        self.assertEqual(stemmed_phrase_match('care plan', 'The plan is in the care record.'), ())
+
+    def test_f657_and_f658_surface_f03(self):
+        pairs = {(row['tag'], row['candidate_code']) for row in self.rows}
+        self.assertIn(('F657', 'F03'), pairs)
+        self.assertIn(('F658', 'F03'), pairs)
+
+    def test_daniel_directed_triage_is_complete_and_keeps_adds_unimported(self):
+        path = ROOT / 'docs/nors_ftag_review_batch_3_claude_triage.csv'
+        with path.open(encoding='utf-8-sig', newline='') as stream:
+            rows = list(csv.DictReader(stream))
+        self.assertEqual(len(rows), 71)
+        self.assertTrue(all(row['decision'] in {'keep', 'add', 'drop'} for row in rows))
+        counts = Counter(row['decision'] for row in rows)
+        self.assertEqual(counts, {'drop': 60, 'keep': 8, 'add': 3})
+        kept = {(row['tag'], row['candidate_code']) for row in rows if row['decision'] == 'keep'}
+        self.assertEqual(kept, {('F636', 'F03'), ('F637', 'F07'), ('F644', 'F03'),
+                                ('F645', 'F03'), ('F655', 'F03'), ('F656', 'F03'),
+                                ('F656', 'F01'), ('F658', 'F12')})
+        added = {(row['tag'], row['added_code']) for row in rows if row['decision'] == 'add'}
+        self.assertEqual(added, {('F646', 'F03'), ('F657', 'F03'), ('F658', 'F03')})
+        for row in rows:
+            if row['decision'] == 'add':
+                self.assertIn('F03 Facility does not create or follow', row['evidence_2_text'])
+                self.assertIn('Table 2 row F03', row['evidence_2_locator'])
+                self.assertIn('Deficiency Description', row['evidence_1_locator'])
 
     def test_existing_links_are_preserved(self):
         by_tag = {}

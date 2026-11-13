@@ -61,7 +61,17 @@ class Batch2ReviewTests(unittest.TestCase):
             self.assertTrue(locators, row)
             locator_ids = {fragment.rsplit('; ', 1)[-1].strip()
                            for locator in locators for fragment in locator.split(' | ')}
-            self.assertTrue(locator_ids <= allowed_ids, (row['tag'], locator_ids - allowed_ids))
+            fallback_locators = {locator for locator in locators
+                                 if locator.startswith('source_data/cms_survey/NH_CitationDescriptions_May2026.csv;') or
+                                 '; Regulation;' in locator}
+            if row['basis'] == 'title_regulation_fallback':
+                self.assertTrue(fallback_locators, (row['tag'], locators))
+                regular_locators = set(locators) - fallback_locators
+                regular_ids = {fragment.rsplit('; ', 1)[-1].strip()
+                               for locator in regular_locators for fragment in locator.split(' | ')}
+                self.assertTrue(regular_ids <= allowed_ids, (row['tag'], regular_ids - allowed_ids))
+            else:
+                self.assertTrue(locator_ids <= allowed_ids, (row['tag'], locator_ids - allowed_ids))
 
     def test_all_existing_links_are_included(self):
         by_tag = {}

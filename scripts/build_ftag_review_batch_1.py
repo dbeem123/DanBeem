@@ -49,6 +49,69 @@ def terms(text):
     return {stem(w) for w in words if w not in STOP and stem(w) not in STOP_STEMS}
 
 
+TITLE_PHRASE_COMMON = {stem(word) for word in STOP} | set(
+    'a an and are as at be by can did do does for from had has have if in into '
+    'is it its may must no not of on or should shall that the their them then '
+    'there these they this to under up use used was were when where which with '
+    'would right rights health medical condition change service services time '
+    'timely manner provide provided s re ve'.split()
+)
+
+
+def stemmed_phrase_match(source_text, definition_text):
+    """Return a shared adjacent stemmed phrase; never match one common word."""
+    def tokenize(value):
+        result = []
+        for raw in re.findall(r"[a-z][a-z0-9'-]*", value.lower()):
+            result.append(stem(re.sub(r"'s$", '', raw)))
+        return result
+
+    source = tokenize(source_text)
+    target = tokenize(definition_text)
+    # Care planning is a specific two-word subject phrase that the general
+    # stoplist deliberately suppresses in broad keyword matching.
+    care_plan = ('care', 'plan')
+    if (any(tuple(source[i:i + 2]) == care_plan for i in range(len(source) - 1)) and
+            any(tuple(target[i:i + 2]) == care_plan for i in range(len(target) - 1))):
+        return care_plan
+    source = [word for word in source if word not in TITLE_PHRASE_COMMON]
+    target = [word for word in target if word not in TITLE_PHRASE_COMMON]
+    for size in range(min(4, len(source)), 1, -1):
+        for start in range(len(source) - size + 1):
+            phrase = tuple(source[start:start + size])
+            if any(tuple(target[offset:offset + size]) == phrase
+                   for offset in range(len(target) - size + 1)):
+                return phrase
+    return ()
+
+
+def title_regulation_fallback(tag, definition_text):
+    """Create deterministic candidates from matching title/regulation phrases."""
+    title = tag.get('cms_short_title', '')
+    tag_number = int(tag['tag'][1:])
+    title_locator = (f'source_data/cms_survey/NH_CitationDescriptions_May2026.csv; '
+                     f'Deficiency Description; F-{tag_number:04d}')
+    matches = []
+    phrase = stemmed_phrase_match(title, definition_text)
+    if phrase:
+        matches.append((40 + len(phrase), {
+            'id': 'cms-citation-description', 'text': title,
+            'section_label': 'CMS citation description', 'evidence_locator': title_locator,
+            'title_regulation_fallback': True,
+        }, set(phrase)))
+    regulation = next((item for item in tag['passages'] if item['section_label'] == 'Regulation'), None)
+    if regulation:
+        phrase = stemmed_phrase_match(regulation['text'], definition_text)
+        if phrase:
+            locator = (f"{tag['source_file']}; PDF page {regulation['pdf_page']}; "
+                       f"Regulation; {regulation['id']}")
+            matches.append((40 + len(phrase), {
+                **regulation, 'evidence_locator': locator,
+                'title_regulation_fallback': True,
+            }, set(phrase)))
+    return matches
+
+
 def linked_evidence(passage, passages_by_id, source_file):
     """Combine linked page fragments while preserving a locator for each fragment."""
     parts = [passage]
@@ -184,6 +247,9 @@ def main():
                 if score >= 3:
                     matches.append((score, passage, shared))
             matches.sort(key=lambda item: (-item[0], item[1]['id']))
+            fallback_matches = title_regulation_fallback(tag, definition['text'])
+            if fallback_matches and not is_existing:
+                matches = fallback_matches + matches
             if not matches and not is_existing:
                 continue
             if not matches:
@@ -215,7 +281,9 @@ def main():
             row = {'tag': tag['tag'], 'cms_title': tag['cms_short_title'], 'regulation_sentence': regulation,
                    'candidate_code': code, 'table_2_definition': definitions[code]['text'],
                    'shared_terms': ', '.join(sorted(set().union(*(item[2] for item in matches[:3])))),
-                   'basis': 'existing_app_link' if is_existing else 'keyword_match', 'score': f'{score:.3f}',
+                   'basis': ('existing_app_link' if is_existing else
+                             'title_regulation_fallback' if matches[0][1].get('title_regulation_fallback') else 'keyword_match'),
+                   'score': f'{score:.3f}',
                    'matched_norc_scenario': scenario['text'] if scenario else '',
                    'scenario_answer_code': code if scenario else '',
                    'scenario_locator': f"{scenario['source_file']}; {scenario['locator']}" if scenario else '',

@@ -150,10 +150,18 @@ class Revision7ReviewTests(unittest.TestCase):
                     continue
                 count += 1
                 self.assertNotRegex(text, r'(?i)^severity level\s*1\s+does not apply')
-                self.assertTrue(any(text == linked_evidence(p, by_id, record['source_file'])['text'] and
-                                    linked_evidence(p, by_id, record['source_file'])['evidence_locator'] == locator and
-                                    (linked_evidence(p, by_id, record['source_file'])['is_example'] or p['section_label'] in {'Deficiency categorization', 'Key elements of noncompliance', 'Regulation'})
-                                    for p in record['passages']), (row['tag'], locator))
+                is_title_or_regulation_fallback = locator.startswith('source_data/cms_survey/NH_CitationDescriptions_May2026.csv;') or (
+                    '; Regulation;' in locator and any(p['id'] == locator.rsplit('; ', 1)[-1]
+                                                       for p in record['passages']))
+                is_regular_source_evidence = any(text == linked_evidence(p, by_id, record['source_file'])['text'] and
+                    linked_evidence(p, by_id, record['source_file'])['evidence_locator'] == locator and
+                    (linked_evidence(p, by_id, record['source_file'])['is_example'] or p['section_label'] in {'Deficiency categorization', 'Key elements of noncompliance', 'Regulation'})
+                    for p in record['passages'])
+                if row['basis'] == 'title_regulation_fallback':
+                    self.assertTrue(is_title_or_regulation_fallback or is_regular_source_evidence,
+                                    (row['tag'], locator))
+                else:
+                    self.assertTrue(is_regular_source_evidence, (row['tag'], locator))
             self.assertTrue(1 <= count <= 3, (row['tag'], row['candidate_code'], count))
             shared = set(re.findall(r"[a-z][a-z0-9'-]*", row['shared_terms'].lower()))
             self.assertFalse(shared & forbidden, (row['tag'], shared & forbidden))
