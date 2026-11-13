@@ -77,10 +77,17 @@
       "tags": [
         "F552",
         "F553",
-        "F554",
         "F555",
         "F578"
       ]
+    },
+    {
+      "id": "medication_self_administration",
+      "label": "Medication self-administration",
+      "tags": [
+        "F554"
+      ],
+      "note": "The resident’s right to self-administer medications when clinically appropriate."
     },
     {
       "id": "visitation",
@@ -216,12 +223,12 @@
     },
     {
       "tag": "F554",
-      "title": "Resident Self-Admin Meds-Clinically Appropriate",
+      "title": "Right to self-administer medications if clinically appropriate",
       "cfr": "42 CFR 483.10(c)(7)",
-      "group": "Treatment and care participation",
+      "group": "medication_self_administration",
       "appendix_pp_page": 17,
       "source_url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf#page=17",
-      "note": "Self-administration of medications where clinically appropriate. The crosswalk and CMS lookup identify the same right."
+      "note": "The exact F554 tag heading begins on Appendix PP PDF page 17; 42 CFR 483.10(c)(7) and its GUIDANCE begin on page 18."
     },
     {
       "tag": "F555",
