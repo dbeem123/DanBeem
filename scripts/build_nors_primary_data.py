@@ -30,6 +30,10 @@ def norm(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+def is_example_passage(text: str) -> bool:
+    return bool(re.search(r"\b(?:for example|examples include|such as|may include)\b|(?<!\w)e\.g\.", text, re.I))
+
+
 def jwrite(path: Path, payload) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
@@ -416,6 +420,9 @@ def extract_appendix() -> tuple[list[dict], dict[str, list[str]]]:
                         previous["cross_references"] = refs
                     continue
             passages.append(passage)
+        # Determine this after merging so the flag always describes the final text.
+        for passage in passages:
+            passage["is_example"] = is_example_passage(passage["text"])
         if not passages:
             continue
         joined = " ".join(p["text"] for p in passages)
