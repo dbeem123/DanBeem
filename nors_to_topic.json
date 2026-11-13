@@ -1,5 +1,182 @@
 {
-  "F03": ["care_quality"],
-  "A01": ["abuse_neglect"],
-  "C01": ["transfer_discharge"]
+  "A01": [
+    "abuse_neglect_exploitation"
+  ],
+  "A02": [
+    "abuse_neglect_exploitation"
+  ],
+  "A03": [
+    "abuse_neglect_exploitation"
+  ],
+  "A04": [
+    "financial_exploitation"
+  ],
+  "A05": [
+    "gross_neglect"
+  ],
+  "B01": [
+    "access_information"
+  ],
+  "B02": [
+    "access_information"
+  ],
+  "B03": [
+    "willful_interference"
+  ],
+  "C01": [
+    "admission"
+  ],
+  "C02": [
+    "transfer_discharge"
+  ],
+  "C03": [
+    "transfer_discharge"
+  ],
+  "C04": [
+    "transfer_discharge"
+  ],
+  "D01": [
+    "autonomy_choice"
+  ],
+  "D02": [
+    "autonomy_choice"
+  ],
+  "D03": [
+    "dignity_respect"
+  ],
+  "D04": [
+    "privacy"
+  ],
+  "D05": [
+    "complaint_response"
+  ],
+  "D06": [
+    "retaliation"
+  ],
+  "D07": [
+    "visitors"
+  ],
+  "D08": [
+    "councils"
+  ],
+  "D09": [
+    "autonomy_choice"
+  ],
+  "E01": [
+    "financial_property"
+  ],
+  "E02": [
+    "financial_property"
+  ],
+  "F01": [
+    "accidents_falls"
+  ],
+  "F02": [
+    "care_quality"
+  ],
+  "F03": [
+    "care_planning"
+  ],
+  "F04": [
+    "medications"
+  ],
+  "F05": [
+    "care_quality"
+  ],
+  "F06": [
+    "access_health_services"
+  ],
+  "F07": [
+    "care_quality"
+  ],
+  "F08": [
+    "care_quality"
+  ],
+  "F09": [
+    "care_quality"
+  ],
+  "F10": [
+    "rehabilitation"
+  ],
+  "F11": [
+    "restraints"
+  ],
+  "F12": [
+    "chemical_restraint"
+  ],
+  "F13": [
+    "infection_control"
+  ],
+  "G01": [
+    "activities"
+  ],
+  "G02": [
+    "activities"
+  ],
+  "G03": [
+    "social_services"
+  ],
+  "G04": [
+    "social_services"
+  ],
+  "H01": [
+    "dietary"
+  ],
+  "H02": [
+    "dietary"
+  ],
+  "H03": [
+    "dietary"
+  ],
+  "I01": [
+    "environment"
+  ],
+  "I02": [
+    "environment"
+  ],
+  "I03": [
+    "environment"
+  ],
+  "I04": [
+    "environment"
+  ],
+  "I05": [
+    "environment"
+  ],
+  "J01": [
+    "administrative_oversight"
+  ],
+  "J02": [
+    "administrative_oversight"
+  ],
+  "J03": [
+    "staffing"
+  ],
+  "K01": [
+    "regulatory_system"
+  ],
+  "K02": [
+    "insurance_benefits"
+  ],
+  "K03": [
+    "insurance_benefits"
+  ],
+  "K04": [
+    "insurance_benefits"
+  ],
+  "K05": [
+    "insurance_benefits"
+  ],
+  "K06": [
+    "insurance_benefits"
+  ],
+  "L01": [
+    "representative_conflict"
+  ],
+  "L02": [
+    "outside_services"
+  ],
+  "L03": [
+    "community_transition"
+  ]
 }

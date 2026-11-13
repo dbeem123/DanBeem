@@ -1,0 +1,149 @@
+{
+  "id": "appendix-pp-f640",
+  "tag": "F640",
+  "cms_short_title": "",
+  "cms_short_title_status": "not_printed_in_locked_pdf_or_existing_tag_metadata",
+  "cfr_section": "§483.20(f)",
+  "pdf_page_start": 241,
+  "pdf_page_end": 244,
+  "source_shared_section": false,
+  "extraction_quality": "text_extracted",
+  "low_text_pages": [],
+  "passages": [
+    {
+      "pdf_page": 241,
+      "section_label": "Appendix PP text",
+      "text": "F640 (Rev. 173, Issued: 11-22-17, Effective: 11-28-17, Implementation: 11-28-17)"
+    },
+    {
+      "pdf_page": 241,
+      "section_label": "Regulation",
+      "text": "§483.20(f) Automated data processing requirement- §483.20(f)(1) Encoding data. Within 7 days after a facility completes a resident’s assessment, a facility must encode the following information for each resident in the facility: (i) Admission assessment. (ii) Annual assessment updates. (iii) Significant change in status assessments. (iv) Quarterly review assessments. (v) A subset of items upon a resident’s transfer, reentry, discharge, and death. (vi) Background (face-sheet) information, if there is no admission assessment."
+    },
+    {
+      "pdf_page": 241,
+      "section_label": "Regulation",
+      "text": "§483.20(f)(2) Transmitting data. Within 7 days after a facility completes a resident’s assessment, a facility must be capable of transmitting to the CMS System information for each resident contained in the MDS in a format that conforms to standard record layouts and data dictionaries, and that passes standardized edits defined by CMS and the State."
+    },
+    {
+      "pdf_page": 241,
+      "section_label": "Regulation",
+      "text": "§483.20(f)(3) Transmittal requirements. Within 14 days after a facility completes a resident’s assessment, a facility must electronically transmit encoded, accurate, and complete MDS data to the CMS System, including the following: (i)Admission assessment. (ii) Annual assessment. (iii) Significant change in status assessment. (iv) Significant correction of prior full assessment. (v) Significant correction of prior quarterly assessment. (vi) Quarterly review. (vii) A subset of items upon a resident’s transfer, reentry, discharge, and death."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Regulation",
+      "text": "(viii) Background (face-sheet) information, for an initial transmission of MDS data on resident that does not have an admission assessment."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Regulation",
+      "text": "§483.20(f)(4) Data format. The facility must transmit data in the format specified by CMS or, for a State which has an alternate RAI approved by CMS, in the format specified by the State and approved by CMS."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Intent",
+      "text": "INTENT §483.20(f)(1-4) To ensure that facilities have provided resident specific information for payment and quality measure purposes."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Intent",
+      "text": "To enable a facility to better monitor each resident’s decline and progress over time. Computer- aided data analysis facilitates a more efficient, comprehensive and sophisticated review of health data."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "DEFINITIONS §483.20(f)(1-4) “Accurate” means that the encoded MDS data matches the MDS form in the clinical record. Also refer to guidance regarding accuracy at §483.20(g), and the information accurately reflects the resident’s status as of the Assessment Reference Date (ARD)."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Background (face-sheet) information” refers to the MDS Entry tracking record"
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Capable of transmitting” means that the facility has encoded and edited according to CMS specifications, the record accurately reflects the resident’s overall clinical status as of the assessment reference date, and the record is ready for transmission."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Complete” means that all items required according to the record type, and in accordance with CMS’ record specifications and State required edits are in effect at the time the record is completed."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Discharge subset of items” refers to the MDS Discharge assessment."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Encoding” means entering information into the facility MDS software in the computer."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Passing standard edits” means that the encoded responses to MDS items are consistent and within range, in accordance with CMS-specified standards. In general, inconsistent responses are either not plausible or ignore a skip pattern on the MDS. An example of inconsistency would be if one or more MDS items on a list were checked as present, and the “None of the Above” response was also checked for the same list. Out of range responses are invalid responses, such as using a response code of 2 for an MDS item for which the valid responses are zero or 1."
+    },
+    {
+      "pdf_page": 242,
+      "section_label": "Definitions",
+      "text": "“Transmitted” means electronically transmitting to the Quality Improvement Evaluation System (QIES) Assessment Submission and Processing (ASAP) System, an MDS record that passes CMS’ standard edits and is accepted into the system, within 14 days of the final completion date, or event date in the case of Entry and Death in Facility situations, of the record."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Definitions",
+      "text": "“Transmitting data” refers to electronically sending encoded MDS information, from the facility to the QIES ASAP System."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Guidance",
+      "text": "GUIDANCE §483.20(f)(1-4) Facilities are required to encode MDS data for each resident in the facility."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Guidance",
+      "text": "Facilities are required to electronically transmit MDS data to the CMS System for each resident in the facility. The CMS System for MDS data is named the QIES ASAP System."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Guidance",
+      "text": "Facilities are responsible to edit the encoded MDS data to ensure that it meets the standard edit specifications."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Guidance",
+      "text": "For §483.20(f)(1)(v), the subset of items required upon a resident’s entry, transfer, discharge and death are contained in the Entry and Death in Facility Tracking records and Discharge assessments. Refer to Chapter 2 of the Long-Term Care Resident Assessment Instrument User’s Manual for further information about these records."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Guidance",
+      "text": "All nursing homes must computerize MDS information. The facility must edit MDS information using standard CMS-specified edits, revise the information to conform to the edits and to be accurate, and be capable of transmitting that data to the QIES ASAP system within 7 days: • For a comprehensive assessment (Admission, Annual, Significant Change in Status, and Significant Correction to Prior Comprehensive), encoding must occur within 7 days after the Care Plan Completion Date (V0200C2 + 7 days). • For a Quarterly, Significant Correction to Prior Quarterly, Discharge, or PPS assessment, encoding must occur within 7 days after the MDS Completion Date (Z0500B + 7 days). • For a tracking record, encoding should occur within 7 days of the Event Date (A1600 + 7 days for Entry records and A2000 + 7 days for Death in Facility records)."
+    },
+    {
+      "pdf_page": 243,
+      "section_label": "Guidance",
+      "text": "Submission must be according to State and Federal time frames. Therefore the facility must: • Encode the MDS and CAAs Summary (where applicable) in machine readable format; and o Edit the MDS and CAA Summary (where applicable) according to edits specified by CMS. Within the 7 day time period specified above for editing, the facility must revise any information on the encoded MDS and CAA Summary (if applicable) that does not pass CMS-specified edits, revise any otherwise inaccurate information, and make the information ready for submission. The MDS Vendor software used at the facility should have an automated editing process that alerts the user to entries in an MDS record that do not conform to the CMS-specified edits and that prompts the facility to complete revisions within the 7-day editing and revision period. After editing and revision, MDS information and CAA summary information (if applicable) must always accurately reflect the resident’s overall clinical status as of the original ARD for an assessment or the original event date for a discharge or entry."
+    },
+    {
+      "pdf_page": 244,
+      "section_label": "Guidance",
+      "text": "Electronically submit MDS information to the QIES ASAP system within 14 days: • Assessment Transmission: Comprehensive assessments must be transmitted electronically within 14 days of the Care Plan Completion Date (V0200C2 + 14 days). All other assessments must be submitted within 14 days of the MDS Completion Date (Z0500B + 14 days). • Tracking Information Transmission: For Entry and Death in Facility tracking records, information must be transmitted within 14 days of the Event Date (A1600 + 14 days for Entry records and A2000 + 14 days for Death in Facility records)."
+    },
+    {
+      "pdf_page": 244,
+      "section_label": "Guidance",
+      "text": "Only CMS-required MDS assessments (e.g., OBRA and Medicare Part A PPS) are permitted to be transmitted into the QIES ASAP System. Assessments completed to meet third party payer (i.e. private insurance or managed care) requirements cannot be transmitted to CMS. OBRA MDS assessments completed anytime a facility is NOT certified to participate in Medicare/Medicaid cannot be transmitted."
+    },
+    {
+      "pdf_page": 244,
+      "section_label": "Probes / investigative protocol",
+      "text": "PROCEDURES §483.20(f)(1-4) If the surveyor suspects the facility is not encoding and submitting assessments as required, the surveyor should review the facility’s MDS 3.0 NH Final Validation Report to verify assessment submission into the QIES ASAP System."
+    }
+  ],
+  "source_file": "source_data/som107ap_pp_guidelines_ltcf_0.pdf",
+  "source_sha256": "510239296026021a4bd88724024743cff9ac1d777901367d8c4d35a5a3a51a01",
+  "source_revision": "Rev. 232",
+  "retrieved": "2026-11-12",
+  "url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf"
+}

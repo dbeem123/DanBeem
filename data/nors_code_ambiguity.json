@@ -1,0 +1,368 @@
+{
+  "version": "1.0",
+  "source_rule": "All source_quote fields are extracted from NORS Table 2 text; review_prompt is app copy, not authority.",
+  "codes": [
+    {
+      "code": "A05",
+      "neighbors": [
+        {
+          "code": "F01",
+          "source_quote": "Use A05",
+          "locator": "PDF page 10; Table 2 row F01"
+        },
+        {
+          "code": "F05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F05"
+        },
+        {
+          "code": "F07",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F07"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 10; Table 2 row F01",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        },
+        {
+          "situation": "Use A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F05",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        },
+        {
+          "situation": "Use A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F07",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "C03",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "C03 Resident received a discharge notice and does not want to leave. Resident was transferred or discharged without notice or due process; resident was transferred to the hospital and not advised of bed hold policy, or was not readmitted post hospitalization and similar problems. Use when facility fails to provide a written discharge notice; notice is incomplete or incorrect; if the transfer or discharge is for inappropriate reasons; or to an inappropriate environment.",
+          "source_quote": "C03 Resident received a discharge notice and does not want to leave. Resident was transferred or discharged without notice or due process; resident was transferred to the hospital and not advised of bed hold policy, or was not readmitted post hospitalization and similar problems. Use when facility fails to provide a written discharge notice; notice is incomplete or incorrect; if the transfer or discharge is for inappropriate reasons; or to an inappropriate environment.",
+          "locator": "PDF page 5; Table 2 row C03",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D01",
+      "neighbors": [
+        {
+          "code": "F06",
+          "source_quote": "Use D01",
+          "locator": "PDF page 11; Table 2 row F06"
+        },
+        {
+          "code": "L02",
+          "source_quote": "Use L02",
+          "locator": "PDF page 6; Table 2 row D01"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D01",
+          "source_quote": "Use D01",
+          "locator": "PDF page 11; Table 2 row F06",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        },
+        {
+          "situation": "Use L02",
+          "source_quote": "Use L02",
+          "locator": "PDF page 6; Table 2 row D01",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D02",
+      "neighbors": [
+        {
+          "code": "L03",
+          "source_quote": "Use D02",
+          "locator": "PDF page 21; Table 2 row L03"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D02",
+          "source_quote": "Use D02",
+          "locator": "PDF page 21; Table 2 row L03",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D03",
+      "neighbors": [
+        {
+          "code": "A03",
+          "source_quote": "Use D03",
+          "locator": "PDF page 2; Table 2 row A03"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D03",
+          "source_quote": "Use D03",
+          "locator": "PDF page 2; Table 2 row A03",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D04",
+      "neighbors": [
+        {
+          "code": "D09",
+          "source_quote": "Use D4",
+          "locator": "PDF page 8; Table 2 row D09"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D4",
+          "source_quote": "Use D4",
+          "locator": "PDF page 8; Table 2 row D09",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D05",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "D05 Facility staff ignores or trivializes a resident complaint or there is no facility grievance process thereby limiting the resident's ability to resolve a problem directly with the administration. Use if the grievance procedure is not followed or made known to residents.",
+          "source_quote": "D05 Facility staff ignores or trivializes a resident complaint or there is no facility grievance process thereby limiting the resident's ability to resolve a problem directly with the administration. Use if the grievance procedure is not followed or made known to residents.",
+          "locator": "PDF page 7; Table 2 row D05",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D06",
+      "neighbors": [
+        {
+          "code": "F02",
+          "source_quote": "Use D06",
+          "locator": "PDF page 10; Table 2 row F02"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D06",
+          "source_quote": "Use D06",
+          "locator": "PDF page 10; Table 2 row F02",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D07",
+      "neighbors": [
+        {
+          "code": "G01",
+          "source_quote": "Use D07",
+          "locator": "PDF page 14; Table 2 row G01"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D07",
+          "source_quote": "Use D07",
+          "locator": "PDF page 14; Table 2 row G01",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D08",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "D08 Interference with or prevention of the formation of a resident or family council. Staff does not assist in the promotion of councils or exerts too much control; does not respond or follow-up on council requests and similar problems.",
+          "source_quote": "D08 Interference with or prevention of the formation of a resident or family council. Staff does not assist in the promotion of councils or exerts too much control; does not respond or follow-up on council requests and similar problems.",
+          "locator": "PDF page 8; Table 2 row D08",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "D09",
+      "neighbors": [
+        {
+          "code": "D04",
+          "source_quote": "Use D4",
+          "locator": "PDF page 8; Table 2 row D09"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use D4",
+          "source_quote": "Use D4",
+          "locator": "PDF page 8; Table 2 row D09",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F02",
+      "neighbors": [
+        {
+          "code": "A03",
+          "source_quote": "Use F02",
+          "locator": "PDF page 2; Table 2 row A03"
+        },
+        {
+          "code": "D06",
+          "source_quote": "Use D06",
+          "locator": "PDF page 10; Table 2 row F02"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use F02",
+          "source_quote": "Use F02",
+          "locator": "PDF page 2; Table 2 row A03",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        },
+        {
+          "situation": "Use D06",
+          "source_quote": "Use D06",
+          "locator": "PDF page 10; Table 2 row F02",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F03",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "F03 Facility does not create or follow a person- centered care plan. Care planning does not include the resident or resident representative, or staff disregards or is not informed of the plan. s Use if the nursing home resident’s Specialized Services an indicated by a PASRR level II screen are not included in the care plan. Use if care plans are not scheduled, not enough time allowed at the meeting, or a copy of plan is not provided to the resident, etc.",
+          "source_quote": "F03 Facility does not create or follow a person- centered care plan. Care planning does not include the resident or resident representative, or staff disregards or is not informed of the plan. s Use if the nursing home resident’s Specialized Services an indicated by a PASRR level II screen are not included in the care plan. Use if care plans are not scheduled, not enough time allowed at the meeting, or a copy of plan is not provided to the resident, etc.",
+          "locator": "PDF page 10; Table 2 row F03",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F04",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "F04 Medication given in error, or not given on time or at all. Medication administration not documented or incorrectly documented. Medications not secured, incorrect medications including expired; not filled in a timely manner; incorrectly labeled and similar problems.",
+          "source_quote": "F04 Medication given in error, or not given on time or at all. Medication administration not documented or incorrectly documented. Medications not secured, incorrect medications including expired; not filled in a timely manner; incorrectly labeled and similar problems.",
+          "locator": "PDF page 11; Table 2 row F04",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F05",
+      "neighbors": [
+        {
+          "code": "A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F05"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F05",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F07",
+      "neighbors": [
+        {
+          "code": "A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F07"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use A05",
+          "source_quote": "Use A05",
+          "locator": "PDF page 11; Table 2 row F07",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F08",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "F08 Failure to provide incontinence care or catheter care in a timely manner as requested, or as directed by the care plan. Not providing necessary bowel and bladder training. Resident is not assisted to the bathroom or is provided with incontinence briefs or catheters rather than receiving assistance to go to the bathroom (for purposes of staff convenience.)",
+          "source_quote": "F08 Failure to provide incontinence care or catheter care in a timely manner as requested, or as directed by the care plan. Not providing necessary bowel and bladder training. Resident is not assisted to the bathroom or is provided with incontinence briefs or catheters rather than receiving assistance to go to the bathroom (for purposes of staff convenience.)",
+          "locator": "PDF page 12; Table 2 row F08",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "F12",
+      "neighbors": [],
+      "ambiguity": [
+        {
+          "situation": "F 12 Use of any for discipline or convenience that is not required to treat medical symptoms. Includes inappropriate use of antipsychotics, anti-anxiety or hypnotic medication. Use this code for issues involving the inappropriate assessment, use or monitoring of chemical restraints.",
+          "source_quote": "F 12 Use of any for discipline or convenience that is not required to treat medical symptoms. Includes inappropriate use of antipsychotics, anti-anxiety or hypnotic medication. Use this code for issues involving the inappropriate assessment, use or monitoring of chemical restraints.",
+          "locator": "PDF page 13; Table 2 row F12",
+          "review_prompt": "Check the facts against this NORS definition and any applicable neighboring codes; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "J01",
+      "neighbors": [
+        {
+          "code": "J03",
+          "source_quote": "Use J01",
+          "locator": "PDF page 18; Table 2 row J03"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use J01",
+          "source_quote": "Use J01",
+          "locator": "PDF page 18; Table 2 row J03",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    },
+    {
+      "code": "J03",
+      "neighbors": [
+        {
+          "code": "J01",
+          "source_quote": "Use J01",
+          "locator": "PDF page 18; Table 2 row J03"
+        }
+      ],
+      "ambiguity": [
+        {
+          "situation": "Use J01",
+          "source_quote": "Use J01",
+          "locator": "PDF page 18; Table 2 row J03",
+          "review_prompt": "Check the facts and compare the cited NORS definitions; this tool does not choose a code."
+        }
+      ]
+    }
+  ]
+}
