@@ -19,8 +19,34 @@ def load(path):
 STOP = set('request requests follow staff resident residents facility facilities care planning ability defined ensure consider timing practice will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including her his who there did having etc lack the and for from with that this their they have has was were are into than then when where which what would could should shall include includes example examples such each any all use used under section requirements requirement information provided provide upon person persons program code codes complaint complaints does not but its you your about'.split())
 
 
+def stem(word):
+    """Normalize common English plurals and inflections deterministically.
+
+    This deliberately small rule set is not a dictionary or a semantic match:
+    ies -> y, selected plural es -> base, final s -> base, and ing/ed -> base.
+    Conservative length checks avoid reducing short words and ss/us endings.
+    """
+    if len(word) > 4 and word.endswith('ies'):
+        return word[:-3] + 'y'
+    if len(word) > 5 and word.endswith(('sses', 'shes', 'ches', 'xes', 'zes')):
+        return word[:-2]
+    if len(word) > 4 and word.endswith('s') and not word.endswith(('ss', 'us', 'is')):
+        return word[:-1]
+    if len(word) > 6 and word.endswith('ing'):
+        base = word[:-3]
+        return base[:-1] if len(base) > 3 and base[-1] == base[-2] else base
+    if len(word) > 5 and word.endswith('ed'):
+        base = word[:-2]
+        return base[:-1] if len(base) > 3 and base[-1] == base[-2] else base
+    return word
+
+
+STOP_STEMS = {stem(w) for w in STOP}
+
+
 def terms(text):
-    return {w for w in re.findall(r"[a-z][a-z0-9'-]{2,}", text.lower()) if w not in STOP}
+    words = re.findall(r"[a-z][a-z0-9'-]{2,}", text.lower())
+    return {stem(w) for w in words if w not in STOP and stem(w) not in STOP_STEMS}
 
 
 def linked_evidence(passage, passages_by_id, source_file):

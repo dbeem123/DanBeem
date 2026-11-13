@@ -44,6 +44,19 @@ class Revision7ReviewTests(unittest.TestCase):
         finally:
             sys.path.pop(0)
 
+    def test_plural_and_suffix_matching_and_f567_e02(self):
+        import sys
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        try:
+            from build_ftag_review_batch_1 import terms
+            self.assertIn('fund', terms('funds') & terms('fund'))
+            self.assertIn('deposit', terms('deposits') & terms('deposit'))
+            self.assertIn('transfer', terms('transfers') & terms('transferred'))
+            self.assertFalse(terms('requests follows residents') & terms('request follow resident'))
+        finally:
+            sys.path.pop(0)
+        self.assertIn('E02', {r['candidate_code'] for r in self.rows if r['tag'] == 'F567'})
+
     def test_cross_page_evidence_retains_both_locators(self):
         import sys
         sys.path.insert(0, str(ROOT / 'scripts'))

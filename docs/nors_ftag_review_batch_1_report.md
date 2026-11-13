@@ -1,10 +1,12 @@
 # Revision 7 review batch
 
-The regenerated sheet contains **214 rows for 44 tags**. Each candidate is a draft context link, not a coding decision. There are 36 existing app links and 178 keyword candidates. Each proposed candidate includes one to three source passages; reviewer fields remain blank. Colon lead-ins are joined with their following text; cross-page continuations retain separate source locators.
+The regenerated sheet contains **219 rows for 44 tags**. Each candidate is a draft context link, not a coding decision. There are 36 existing app links and 183 keyword candidates. Each proposed candidate includes one to three source passages; reviewer fields remain blank. Colon lead-ins are joined with their following text; cross-page continuations retain separate source locators. Shared terms are deterministic rule-based stems (for example, `fund` matches `funds`, and `deposit` matches `deposits`); they need not appear verbatim in each excerpt. The stoplist applies before and after stemming.
 
 ## Section prior — approved by Daniel on 2026-11-13
 
 This is app guidance for filtering context-link candidates only. It does not rank NORS complaint codes. Daniel approved the proposed map without edits on 2026-11-13. Existing app links remain included even outside the filter.
+
+The present regeneration leaves that approved map unchanged; a subsequent choice about adding E to §483.12 is pending.
 
 - §483.10: B, C, D, E, F, G, H, I, J.
 - §483.12: A, B, D, F, J.
@@ -29,7 +31,7 @@ The categories are cited from the locked Table 2 headings below. The PDF extract
 | Tag | Rows | Tag | Rows | Tag | Rows | Tag | Rows |
 |---|---:|---|---:|---|---:|---|---:|
 | F550 | 5 | F551 | 5 | F552 | 5 | F553 | 5 |
-| F554 | 3 | F555 | 1 | F557 | 5 | F558 | 5 |
+| F554 | 5 | F555 | 4 | F557 | 5 | F558 | 5 |
 | F559 | 5 | F560 | 5 | F561 | 5 | F562 | 5 |
 | F563 | 5 | F564 | 5 | F565 | 5 | F566 | 5 |
 | F567 | 5 | F568 | 5 | F569 | 5 | F570 | 5 |
@@ -42,11 +44,15 @@ The categories are cited from the locked Table 2 headings below. The PDF extract
 
 ## F554
 
-All three rows show the self-administration regulation passage as source evidence: F04 shares `medications` (4.418), D01 shares `right` (4.012), and D09 shares `right` (4.012). The word `right` is broad and does not establish either link. A reviewer must decide using the full facts and Table 2 definitions.
+The five candidates are F04 and F12 (normalized `medication`, 4.012 each), plus C01, C02 and D01 (`right`, 3.319 each). D09 falls outside the five-candidate cap after normalization and may be added by the reviewer. The word `right` is broad and does not establish any link; review the full facts and Table 2 definitions.
 
 ## F567
 
-The five candidates are D06 (`permission`, `without`; 7.737), F13 (`personal`, `providing`; 6.415), B03 (`access`, `representative`; 6.233), D04 (`personal`, `without`; 6.233), and F11 (`access`, `without`; 6.233). These are keyword matches for review, not coding decisions.
+The five candidates are D06 (`permission`, `without`; 7.737), E01 (`deposit`, `without`; 7.737), E02 (`fund`, `personal`; 6.638), B03 (`access`, `representative`; 6.233), and D04 (`personal`, `without`; 6.233). These are keyword matches for review, not coding decisions.
+
+## F602
+
+The five candidates are A04 (`access`, `belonging`, `fund`, `individual`, `personal`, `property`; 10.363), D02 (`agency`, `home`, `local`, `nurs`; 14.557), J01 (`abuse`, `exploitation`, `implement`, `investigate`, `neglect`, `policy`, `train`; 13.998), J03 (`administrator`, `agency`, `nurs`, `over`, `oversight`, `temporary`, `train`; 12.442), and D06 (`agency`, `another`, `state`, `survey`; 11.749). Existing app links are listed ahead of scored keyword candidates.
 
 ## Limitations
 
