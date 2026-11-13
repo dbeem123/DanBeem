@@ -1,0 +1,194 @@
+{
+  "version": "1.0",
+  "status": "draft",
+  "controls_coding": false,
+  "note": "Only unambiguous printed quiz rows are included; explicit residential care examples are excluded. Other quizzes and uncertain answers require review. Synthetic answers require Daniel review. This is not a coding decision tool.",
+  "scenarios": [
+    {
+      "id": "norc-part-ii-p1-q1-a04",
+      "kind": "official_training",
+      "scenario_text": "A family member is making withdrawals of unusual amounts of funds that are not routine from the account of a bank customer who is a resident in a nursing facility. A01 Another resident 2) Resident A hits Resident B because Resident B will not move out of the way.",
+      "expected_codes": [
+        "A04"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 1; question 1; printed answer A04"
+    },
+    {
+      "id": "norc-part-ii-p2-q5-a03",
+      "kind": "official_training",
+      "scenario_text": "A resident cries as she tells you that staff took her photo when she was in the bathroom and said they would post it online if she doesn’t quit pushing her call bell.",
+      "expected_codes": [
+        "A03"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 2; question 5; printed answer A03"
+    },
+    {
+      "id": "norc-part-ii-p2-q1-b03",
+      "kind": "official_training",
+      "scenario_text": "As part of a complaint investigation, you have resident permission to view their records and care plan. However, the charge nurse says you must wait a week before access can be granted.",
+      "expected_codes": [
+        "B03"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 2; question 1; printed answer B03"
+    },
+    {
+      "id": "norc-part-ii-p2-q2-b01",
+      "kind": "official_training",
+      "scenario_text": "A resident’s daughter (the resident’s representative) contacts you to say the facility is ignoring her request to see her mother’s medical records.",
+      "expected_codes": [
+        "B01"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 2; question 2; printed answer B01"
+    },
+    {
+      "id": "norc-part-ii-p2-q4-b02",
+      "kind": "official_training",
+      "scenario_text": "A resident complains that she cannot understand anything the morning caregiver says when she comes in to help her get up and dressed for the day. The caregiver’s primary language is not the same as the resident’s.",
+      "expected_codes": [
+        "B02"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 2; question 4; printed answer B02"
+    },
+    {
+      "id": "norc-part-ii-p2-q1-c04",
+      "kind": "official_training",
+      "scenario_text": "A nursing facility forces a resident to change rooms and roommates without telling her in advance.",
+      "expected_codes": [
+        "C04"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 2; question 1; printed answer C04"
+    },
+    {
+      "id": "norc-part-ii-p3-q1-e02",
+      "kind": "official_training",
+      "scenario_text": "The home will not give a resident his personal needs allowance when he wants some money because they say he spends it all in the first week of the month.",
+      "expected_codes": [
+        "E02"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 3; question 1; printed answer E02"
+    },
+    {
+      "id": "norc-part-ii-p4-q1-f05",
+      "kind": "official_training",
+      "scenario_text": "Several male residents are observed to be unshaven, female residents have long facial hair, and numerous residents have dirty, jagged fingernails.",
+      "expected_codes": [
+        "F05"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 4; question 1; printed answer F05"
+    },
+    {
+      "id": "norc-part-ii-p5-q2-h01",
+      "kind": "official_training",
+      "scenario_text": "Residents report that they do not get snacks on the weekends and that they feel hungry between meals.",
+      "expected_codes": [
+        "H01"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 5; question 2; printed answer H01"
+    },
+    {
+      "id": "norc-part-ii-p5-q1-i01",
+      "kind": "official_training",
+      "scenario_text": "During a visit, you observe a bottle of hazardous cleaning fluid left in a resident’s room.",
+      "expected_codes": [
+        "I01"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 5; question 1; printed answer I01"
+    },
+    {
+      "id": "norc-part-ii-p6-q1-k02",
+      "kind": "official_training",
+      "scenario_text": "A family member is upset with how long the Medicaid agency is taking to review their loved one’s application for Medicaid to pay for their continued nursing facility stay.",
+      "expected_codes": [
+        "K02"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 6; question 1; printed answer K02"
+    },
+    {
+      "id": "norc-part-ii-p6-q1-l01",
+      "kind": "official_training",
+      "scenario_text": "A nursing facility resident would like to revoke the guardianship ordered during his illness.",
+      "expected_codes": [
+        "L01"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 6; question 1; printed answer L01"
+    },
+    {
+      "id": "norc-part-ii-p7-q3-l02",
+      "kind": "official_training",
+      "scenario_text": "A resident has not received a screening by the community mental health agency to address his mental health care needs since his admission to the nursing facility four months ago. The facility staff has called several times about the referral.",
+      "expected_codes": [
+        "L02"
+      ],
+      "answer_status": "printed_official_answer",
+      "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+      "source_sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+      "locator": "PDF page 7; question 3; printed answer L02"
+    },
+    {
+      "id": "synthetic-self-administer-denied",
+      "kind": "synthetic_draft",
+      "scenario_text": "A resident asks to manage their own medications. The resident says the facility refused the request.",
+      "expected_codes": [],
+      "answer_status": "pending_daniel_review",
+      "source_file": null,
+      "source_sha256": null,
+      "locator": null
+    },
+    {
+      "id": "synthetic-self-administer-assessment",
+      "kind": "synthetic_draft",
+      "scenario_text": "A resident asks to self-administer medication and says no interdisciplinary assessment has been discussed.",
+      "expected_codes": [],
+      "answer_status": "pending_daniel_review",
+      "source_file": null,
+      "source_sha256": null,
+      "locator": null
+    },
+    {
+      "id": "synthetic-wrong-medication",
+      "kind": "synthetic_draft",
+      "scenario_text": "A resident says a different medication was given to them in error.",
+      "expected_codes": [],
+      "answer_status": "pending_daniel_review",
+      "source_file": null,
+      "source_sha256": null,
+      "locator": null
+    }
+  ]
+}
