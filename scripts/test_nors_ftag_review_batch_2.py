@@ -72,6 +72,21 @@ class Batch2ReviewTests(unittest.TestCase):
             if any(row['tag'] == tag for row in self.tags):
                 self.assertTrue(codes <= by_tag[tag], (tag, codes - by_tag.get(tag, set())))
 
+    def test_daniel_approved_links_and_undecided_f660_candidate(self):
+        links = load(ROOT / 'data/nors_reviewed_links.json')['links']
+        reviewed = {(row['f_tag'], row['nors_code']): row for row in links if row.get('status') == 'reviewed'}
+        for tag in ['F622', 'F623', 'F624', 'F625', 'F626']:
+            row = reviewed[(tag, 'C03')]
+            self.assertEqual(row['basis'], 'coded_by_reviewer')
+            self.assertEqual(row['reviewed_by'], 'Daniel')
+            self.assertEqual(row['reviewed_date'], '2026-11-13')
+            self.assertEqual(row['review_method'], 'approved Claude first-pass triage')
+        row = reviewed[('F660', 'D02')]
+        self.assertEqual(row['reviewed_by'], 'Daniel')
+        self.assertEqual(row['reviewed_date'], '2026-11-13')
+        self.assertEqual(row['review_method'], 'approved Claude first-pass triage')
+        self.assertNotIn(('F660', 'C03'), reviewed)
+
     def test_batch_one_triage_records_daniels_approval_without_decision_changes(self):
         with (ROOT / 'docs/nors_ftag_review_batch_1_claude_triage.csv').open(encoding='utf-8-sig', newline='') as stream:
             rows = list(csv.DictReader(stream))

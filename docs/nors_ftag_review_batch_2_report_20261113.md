@@ -1,6 +1,6 @@
 # NORS F-tag review batch 2 — §483.15
 
-Status: draft for Claude triage. The section map is a proposal awaiting Daniel's approval; no candidate controls coding.
+Status: partial import from Daniel's 2026-11-13 approval. The section map remains a proposal; no candidate controls coding.
 
 ## Batch 1 review record
 
@@ -19,10 +19,17 @@ The draft §483.15 map proposes category C, “Admission, Transfer, Discharge, E
 - Existing links retained: F620/C01; F621/C01; F627/C02 and C03; F628/C03 and D02.
 - F622, F623, F624, F625, F626 and F660 contain only tag headers or relocation notes in the extracted Appendix PP data, with no qualifying example, key-element or severity evidence. Their rows therefore have no candidate code and explain the evidence gap rather than inventing a pairing.
 
+## Daniel's approved imports
+
+Imported F622–F626 → C03 and F660 → D02 as reviewed links using the batch 1 review method. F660 → C03 was not imported because it was marked “check” and remains undecided. The existing batch 2 candidate CSV still has blank decision fields for its other rows; no completed triage file was present in the worktree. I did not infer additional keeps or drops, so no batch 2 drops have yet been stored as rejected. A completed row-level triage file is needed to finish the full import.
+
+The §483.15 draft map currently proposes category C only. It does not map D02, so it does not meet the condition for promotion to approved; it remains draft pending Daniel's decision.
+
 ## Checks
 
 - `py scripts/build_ftag_review_batch_2.py` — completed; 10 tags, 23 rows.
 - `py -m unittest scripts.test_nors_ftag_review_batch_2 -v` — 6 passed.
-- `py -m unittest discover -s scripts -p "test_nors*.py"` — 39 passed.
+- `py -m unittest discover -s scripts -p "test_nors*.py"` — 40 passed.
+- UI test confirms F622–F626 show C03, F660 shows D02, and F660 does not show C03.
 
 No push or publication was performed. The batch 2 CSV is draft review material; all decisions remain blank.

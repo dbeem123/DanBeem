@@ -57,6 +57,16 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   for (const code of ['F04','D01','D09']) assert(text.includes(`${code} (`), `F554 should show reviewed ${code}`);
   assert(nodes['source-output'].scrolls > scrollBeforeOpen, 'opening a tag scrolls its card into view');
   assert(text.includes('Tag header: F554 — Rev. 232'));
+  for (const tag of ['F622','F623','F624','F625','F626']) {
+    nodes['ftag-code'].value=tag; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
+    text=walk(nodes['source-output']).join(' ');
+    assert(text.includes('C03 (coded_by_reviewer)'), `${tag} tag card should show reviewed C03`);
+  }
+  nodes['ftag-code'].value='F660'; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
+  text=walk(nodes['source-output']).join(' ');
+  assert(text.includes('D02 (coded_by_reviewer)'), 'F660 tag card should show reviewed D02');
+  assert(!text.includes('C03 (coded_by_reviewer)'), 'undecided F660 to C03 must stay out');
+  nodes['ftag-code'].value='F554'; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
   nodes['source-output'].querySelectorAll('button').find(button=>button.textContent.startsWith('D09 ')).events.click();
   assert(walk(nodes['source-output']).join(' ').includes('NORS D09'), 'related-code link opens its selected card');
   assert.equal(location.hash,'#code=D09');
