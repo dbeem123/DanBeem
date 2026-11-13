@@ -9,14 +9,15 @@ Status: local draft for Claude review. Batch 1 decisions remain pending; no publ
 
 ## UI
 
-- Code and F-tag cards, filters and source-word search use local source data. F-tag passages are loaded on demand. Existing catalog links and valid `coded_by_reviewer` entries may appear as context only; entries marked draft are excluded. The reviewed-links file is empty because batch review is pending.
+- Daniel approved Claude's first-pass batch 1 triage unchanged on 2026-11-13. The review overlay contains 89 reviewed links and 140 rejected rows; reviewed links include Daniel, date and review method. Existing catalog links and validated reviewed links may appear as context only; draft and rejected rows do not render.
 - All 60 codes and 204 tags are available. Section grouping is verified only for §§483.10 and 483.12; other tags are labeled “Section not verified” instead of using potentially misleading cross-references.
-- The medication pilot is **partial**: direct D09 and F554 selectors work and F554 displays its source passage. Search for “keep my own medications” does not reliably return D09 because that language is absent from its definition and an app synonym or rule has not been approved. No inferred coding rule was added.
+- The medication pilot remains contextual, not a coding rule: F554 displays reviewed links F04, D01 and D09. Daniel-approved app guidance expands the five listed medication phrases to `self-administer` for Appendix PP search only; it does not affect NORS matches or ranking.
+- Selecting a code or F-tag opens it immediately. Result cards scroll into view, `hashchange` and history navigation restore cards/searches, and the source revision line is labeled “Tag header.”
 
 ## Checks
 
-- `node scripts/test_nors_source_ui.js`: passed, including 60/204 selectors, F554 and draft/reviewed link filtering in a mock DOM.
+- `node scripts/test_nors_source_ui.js`: passed, including the imported review metadata, F554 links F04/D01/D09, approved synonym search, NORS-only ranking, scrolling, card links, hash/history navigation and open-on-select.
 - `py -m unittest discover -s scripts -p "test_nors*.py"`: 33 passed.
-- The Phase 0 Edge browser harness failed before its assertions: Edge exited with Windows code 3221225477 after access/token errors. No browser presentation or privacy result is claimed. The local server started for this check was stopped.
+- Claude's Chromium check of commit `5c8e5b1` passed (cards, no outside requests, no storage and no console errors). The browser check was not repeated after these changes; the local UI test and NORS Python suite passed.
 
-The untracked `docs/nors_ftag_review_batch_1_claude_triage.csv` was present before this work and was left untouched. No batch decision was inferred from it. No push or publication was performed.
+The triage CSV remains unchanged. No push or publication was performed.

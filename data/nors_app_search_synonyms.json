@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "label": "Approved app guidance; expands Appendix PP search terms only.",
+  "status": "approved_app_guidance",
+  "approved_by": "Daniel",
+  "approved_date": "2026-11-13",
+  "rules": [
+    { "phrase": "own medications", "expands_to": ["self-administer"] },
+    { "phrase": "own medicine", "expands_to": ["self-administer"] },
+    { "phrase": "my own pills", "expands_to": ["self-administer"] },
+    { "phrase": "keep medications at bedside", "expands_to": ["self-administer"] },
+    { "phrase": "take my own medication", "expands_to": ["self-administer"] }
+  ]
+}

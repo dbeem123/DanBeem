@@ -3,23 +3,38 @@ const path = require('path');
 const vm = require('vm');
 const assert = require('assert');
 const root = path.resolve(__dirname, '..');
+const reviewData=JSON.parse(fs.readFileSync(path.join(root,'data/nors_reviewed_links.json'),'utf8'));
+const accepted=reviewData.links.filter(link=>link.status==='reviewed');
+const rejected=reviewData.links.filter(link=>link.status==='rejected');
+assert(accepted.length>0 && accepted.every(link=>link.reviewed_by==='Daniel' && link.reviewed_date==='2026-11-13' && link.review_method==='approved Claude first-pass triage'));
+assert(rejected.length>0, 'drop decisions are retained as rejected records');
+const synonymData=JSON.parse(fs.readFileSync(path.join(root,'data/nors_app_search_synonyms.json'),'utf8'));
+assert.equal(synonymData.label,'Approved app guidance; expands Appendix PP search terms only.');
+assert.deepEqual(synonymData.rules.map(rule=>rule.phrase),['own medications','own medicine','my own pills','keep medications at bedside','take my own medication']);
 class Node {
-  constructor(name) { this.name=name; this.children=[]; this.events={}; this.textContent=''; this.value=''; }
+  constructor(name) { this.name=name; this.children=[]; this.events={}; this.textContent=''; this.value=''; this.scrolls=0; }
   append(...nodes) { this.children.push(...nodes); }
   replaceChildren(...nodes) { this.children=[...nodes]; this.textContent=''; }
   addEventListener(type, fn) { this.events[type]=fn; }
+  scrollIntoView() { this.scrolls++; }
   querySelectorAll(name) { return this.children.flatMap(x => x instanceof Node ? [...(x.name === name ? [x] : []), ...x.querySelectorAll(name)] : []); }
 }
-const nodes = Object.fromEntries(['source-output','load-status','nors-code','ftag-code','nors-filter','ftag-filter','run-nors-crosswalk','open-ftag','run-keyword-crosswalk','keyword-text'].map(id => [id,new Node(id)]));
+const nodes = Object.fromEntries(['source-output','load-status','nors-code','ftag-code','nors-filter','ftag-filter','run-keyword-crosswalk','keyword-text'].map(id => [id,new Node(id)]));
 const document = { getElementById: id=>nodes[id], createElement: name=>new Node(name), createTextNode: text=>({textContent:text}), addEventListener: (event,fn)=>{if(event==='DOMContentLoaded') document.init=fn;} };
 const seen=[];
+const windowEvents={};
+let currentHash='';
+const location={get hash(){return currentHash;},set hash(value){currentHash=value; windowEvents.hashchange?.();}};
 async function fetch(file) {
   seen.push(file);
-  if (file.includes('nors_reviewed_links')) return {ok:true,json:async()=>({links:[{status:'draft',basis:'coded_by_reviewer',reviewer:'Daniel',reviewed_date:'2026-11-13',nors_code:'D09',f_tag:'F554'},{status:'reviewed',basis:'keyword_match',reviewer:'Daniel',reviewed_date:'2026-11-13',nors_code:'D09',f_tag:'F554'},{status:'reviewed',basis:'coded_by_reviewer',reviewer:'Daniel',reviewed_date:'2026-11-13',nors_code:'D09',f_tag:'F555',nors_authority_id:'nors-table2-d09',nors_excerpt:'D09 The deprivation',appendix_passage_id:'appendix-pp-f555-p2',appendix_excerpt:'Choice of Attending Physician'}]})};
+  if (file.includes('nors_reviewed_links')) {
+    const target=path.join(root, file.replace(/^\.\.\//,''));
+    return {ok:true,json:async()=>JSON.parse(fs.readFileSync(target,'utf8').replace(/^\uFEFF/,''))};
+  }
   const target=path.join(root, file.replace(/^\.\.\//,''));
   return {ok:true,json:async()=>JSON.parse(fs.readFileSync(target,'utf8').replace(/^\uFEFF/,''))};
 }
-const context={document,fetch,history:{replaceState(){}},location:{hash:''},URLSearchParams,console,encodeURIComponent,Map,Set};
+const context={document,fetch,history:{replaceState(){}},location,window:{addEventListener:(event,fn)=>{windowEvents[event]=fn;}},URLSearchParams,console,encodeURIComponent,Map,Set};
 vm.runInNewContext(fs.readFileSync(path.join(root,'Assets/nors-crosswalk-page.js'),'utf8'),context);
 const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
 (async()=>{
@@ -31,12 +46,39 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   nodes['ftag-filter'].value='F917'; nodes['ftag-filter'].events.input();
   assert.equal(f917group.children.find(option=>option.value==='F917').hidden,false);
   assert.equal(f917group.children.find(option=>option.value==='F918').hidden,true);
-  nodes['nors-code'].value='D09'; nodes['run-nors-crosswalk'].events.click();
+  nodes['nors-code'].value='D09'; nodes['nors-code'].events.change();
   let text=walk(nodes['source-output']).join(' ');
-  assert(text.includes('D09 The deprivation')); assert(text.includes('F555 (coded_by_reviewer)')); assert(!text.includes('F554 (coded_by_reviewer)'));
-  nodes['ftag-code'].value='F554'; await nodes['open-ftag'].events.click();
-  text=walk(nodes['source-output']).join(' '); assert(text.includes('self-administer medications')); assert(text.includes('Regulation (42 CFR)')); assert(!text.includes('D09 (coded_by_reviewer)'));
-  nodes['keyword-text'].value='medications'; await nodes['run-keyword-crosswalk'].events.click();
-  text=walk(nodes['source-output']).join(' '); assert(text.includes('NORS definitions with matching words')); assert(text.includes('Appendix PP tags with matching words')); assert(seen.every(x=>!x.includes('draft')));
-  console.log('Source UI checks passed: 60 codes, 204 tags, provenance filter, F554 and source search.');
+  assert(text.includes('D09 The deprivation')); assert(text.includes('F554 (coded_by_reviewer)'));
+  assert.equal(location.hash,'#code=D09');
+  const scrollBeforeOpen=nodes['source-output'].scrolls;
+  nodes['ftag-code'].value='F554'; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
+  text=walk(nodes['source-output']).join(' '); assert(text.includes('self-administer medications')); assert(text.includes('Regulation (42 CFR)'));
+  for (const code of ['F04','D01','D09']) assert(text.includes(`${code} (`), `F554 should show reviewed ${code}`);
+  assert(nodes['source-output'].scrolls > scrollBeforeOpen, 'opening a tag scrolls its card into view');
+  assert(text.includes('Tag header: F554 — Rev. 232'));
+  nodes['source-output'].querySelectorAll('button').find(button=>button.textContent.startsWith('D09 ')).events.click();
+  assert(walk(nodes['source-output']).join(' ').includes('NORS D09'), 'related-code link opens its selected card');
+  assert.equal(location.hash,'#code=D09');
+  nodes['source-output'].querySelectorAll('button').find(button=>button.textContent.startsWith('F554 ')).events.click();
+  await new Promise(resolve=>setTimeout(resolve,0));
+  assert(walk(nodes['source-output']).join(' ').includes('Tag header: F554'), 'related-tag link opens its selected card');
+  const scrollBeforeSearch=nodes['source-output'].scrolls;
+  nodes['keyword-text'].value='keep my own medications'; await nodes['run-keyword-crosswalk'].events.click();
+  text=walk(nodes['source-output']).join(' ');
+  assert(text.includes('NORS definitions with matching words')); assert(text.includes('Appendix PP tags with matching words'));
+  const appendixResults=text.split('Appendix PP tags with matching words')[1];
+  assert(appendixResults.includes('F554'), 'approved app synonym expands search to F554');
+  for (const code of ['F04','D01','D09']) assert(appendixResults.includes(code), `search shows reviewed ${code} as context`);
+  const norsResults=text.split('Appendix PP tags with matching words')[0];
+  assert(!norsResults.includes('Matched: self-administer'), 'app synonym does not alter NORS matching or ranking');
+  assert.equal(location.hash,'#search=keep%20my%20own%20medications');
+  assert(nodes['source-output'].scrolls > scrollBeforeSearch, 'search scrolls results into view');
+  currentHash='#tag=F554'; windowEvents.popstate?.(); await new Promise(resolve=>setTimeout(resolve,0));
+  assert(walk(nodes['source-output']).join(' ').includes('Tag header: F554'), 'forward navigation restores the tag card');
+  currentHash='#code=D09'; windowEvents.popstate?.();
+  assert(walk(nodes['source-output']).join(' ').includes('NORS D09'), 'history navigation restores prior card');
+  const html=fs.readFileSync(path.join(root,'tools/nors-crosswalk.html'),'utf8');
+  assert(!html.includes('id="open-ftag"') && !html.includes('id="run-nors-crosswalk"'), 'selection opens without a separate button');
+  assert(seen.every(x=>!x.includes('draft')));
+  console.log('Source UI checks passed: approved triage, synonyms, result scrolling, hash navigation, and open-on-select.');
 })().catch(error=>{console.error(error);process.exitCode=1;});
