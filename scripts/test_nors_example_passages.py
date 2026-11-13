@@ -26,9 +26,18 @@ class AppendixExamples(unittest.TestCase):
             record = json.loads((DATA / f"{item['tag']}.json").read_text(encoding="utf-8"))
             for passage in record["passages"]:
                 self.assertIs(type(passage.get("is_example")), bool)
-                expected = bool(pattern.search(passage["text"]))
+                expected = bool(pattern.search(passage["text"])) or bool(passage.get("example_context_inherited"))
                 self.assertEqual(passage["is_example"], expected, (item["tag"], passage["pdf_page"]))
                 examples += expected
+                if passage.get("example_context_inherited"):
+                    previous = next(p for p in record["passages"] if p["id"] == passage["continued_from_passage_id"])
+                    self.assertTrue(previous["is_example"])
+                    self.assertTrue(previous["text"].rstrip().endswith(":"))
+                    self.assertEqual(previous["continuation_passage_id"], passage["id"])
+                    self.assertEqual(previous["pdf_page"] + 1, passage["pdf_page"])
+        f567 = json.loads((DATA / "F567.json").read_text(encoding="utf-8"))
+        lead = next(p for p in f567["passages"] if "Examples of noncompliance may include" in p["text"])
+        self.assertIn("Requiring residents to deposit", lead["text"])
         self.assertGreater(examples, 0)
 
 

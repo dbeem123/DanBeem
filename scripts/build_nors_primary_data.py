@@ -410,7 +410,7 @@ def extract_appendix() -> tuple[list[dict], dict[str, list[str]]]:
                 passage["cross_references"] = crossrefs
             # Preserve long rule text as page-sized passages when the joined text
             # occurs verbatim in the source page; never bridge omitted material.
-            if section == "Regulation" and passages and passages[-1]["section_label"] == section and passages[-1]["pdf_page"] == pno:
+            if passages and passages[-1]["section_label"] == section and passages[-1]["pdf_page"] == pno and (section == "Regulation" or passages[-1]["text"].rstrip().endswith(":")):
                 previous = passages[-1]
                 merged = previous["text"] + " " + text
                 if merged in norm(pages[pno - 1]):
@@ -421,8 +421,18 @@ def extract_appendix() -> tuple[list[dict], dict[str, list[str]]]:
                     continue
             passages.append(passage)
         # Determine this after merging so the flag always describes the final text.
-        for passage in passages:
+        for position, passage in enumerate(passages):
             passage["is_example"] = is_example_passage(passage["text"])
+            if position:
+                previous = passages[position - 1]
+                if (previous["text"].rstrip().endswith(":")
+                        and previous["section_label"] == passage["section_label"]
+                        and previous["pdf_page"] + 1 == passage["pdf_page"]):
+                    previous["continuation_passage_id"] = f"appendix-pp-{tag.lower()}-p{position + 1}"
+                    passage["continued_from_passage_id"] = f"appendix-pp-{tag.lower()}-p{position}"
+                    if previous["is_example"]:
+                        passage["is_example"] = True
+                        passage["example_context_inherited"] = True
         if not passages:
             continue
         joined = " ".join(p["text"] for p in passages)

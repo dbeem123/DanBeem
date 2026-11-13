@@ -1,8 +1,8 @@
 {
-  "status": "draft_pending_approval",
-  "label": "Proposed app guidance; awaiting Daniel approval",
-  "approved_by": null,
-  "approved_date": null,
+  "status": "approved",
+  "label": "App guidance, approved by Daniel on 2026-11-13",
+  "approved_by": "Daniel",
+  "approved_date": "2026-11-13",
   "controls_coding": false,
   "source_file": "source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
   "source_sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce",
@@ -60,7 +60,7 @@
       "categories": [
         {
           "letter": "A",
-          "heading": "Abuse, Gro\nss Neglect, Exploitation (Code A)",
+          "heading": "Abuse, Gross Neglect, Exploitation (Code A)",
           "locator": "PDF page 1; Table 2 category heading"
         },
         {

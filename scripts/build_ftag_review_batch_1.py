@@ -16,11 +16,30 @@ def load(path):
     return json.loads(path.read_text(encoding='utf-8-sig'))
 
 
-STOP = set('request requests follow staff resident residents facility facilities care planning ability defined ensure consider timing practice will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including the and for from with that this their they have has was were are into than then when where which what would could should shall include includes example examples such each any all use used under section requirements requirement information provided provide upon person persons program code codes complaint complaints does not but its you your about'.split())
+STOP = set('request requests follow staff resident residents facility facilities care planning ability defined ensure consider timing practice will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including her his who there did having etc lack the and for from with that this their they have has was were are into than then when where which what would could should shall include includes example examples such each any all use used under section requirements requirement information provided provide upon person persons program code codes complaint complaints does not but its you your about'.split())
 
 
 def terms(text):
     return {w for w in re.findall(r"[a-z][a-z0-9'-]{2,}", text.lower()) if w not in STOP}
+
+
+def linked_evidence(passage, passages_by_id, source_file):
+    """Combine linked page fragments while preserving a locator for each fragment."""
+    parts = [passage]
+    seen = {passage['id']}
+    while parts[-1].get('continuation_passage_id'):
+        next_id = parts[-1]['continuation_passage_id']
+        if next_id in seen or next_id not in passages_by_id:
+            raise ValueError(f'Invalid passage continuation: {next_id}')
+        next_part = passages_by_id[next_id]
+        if next_part.get('continued_from_passage_id') != parts[-1]['id']:
+            raise ValueError(f'Inconsistent passage continuation: {next_id}')
+        parts.append(next_part)
+        seen.add(next_id)
+    text = ' '.join(part['text'] for part in parts)
+    locators = ' | '.join(f"{source_file}; PDF page {part['pdf_page']}; {part['section_label']}; {part['id']}" for part in parts)
+    return {**passage, 'text': text, 'evidence_locator': locators,
+            'is_example': any(part.get('is_example', False) for part in parts)}
 
 
 def main():
@@ -74,7 +93,7 @@ def main():
             tag = str(item.get('citation', '') if isinstance(item, dict) else item).upper().strip()
             if re.fullmatch(r'F\d{3,4}', tag):
                 existing[tag].add(row['nors_minor_code'])
-    # A proposed context filter only. Approval is deliberately not presumed.
+    # Daniel approved this context filter on 2026-11-13; it never controls coding.
     table_path = ROOT / 'source_data' / 'NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf'
     locked_table = next(r for r in lock if r['name'] == table_path.name)
     if hashlib.sha256(table_path.read_bytes()).hexdigest() != locked_table['sha256']:
@@ -84,13 +103,14 @@ def main():
         text = page.extract_text() or ''
         for match in re.finditer(r'(?m)^([^\n]*(?:\n[^\n]*)?\(Code ([A-L])\))', text):
             heading = re.sub(r'^\d+\s*\n', '', match.group(1).strip())
-            # The PDF splits "Gross" across lines; preserve the extracted spelling.
+            # Join the word split by PDF extraction while preserving its spelling.
+            heading = re.sub(r'Gro\s*\n\s*ss', 'Gross', heading)
             headings[match.group(2)] = {'letter': match.group(2), 'heading': heading,
                                         'locator': f'PDF page {page_no}; Table 2 category heading'}
     if not set('ABCDEFGHIJ') <= set(headings):
         raise ValueError('Missing Table 2 category heading')
-    prior = {'status': 'draft_pending_approval', 'label': 'Proposed app guidance; awaiting Daniel approval',
-             'approved_by': None, 'approved_date': None, 'controls_coding': False,
+    prior = {'status': 'approved', 'label': 'App guidance, approved by Daniel on 2026-11-13',
+             'approved_by': 'Daniel', 'approved_date': '2026-11-13', 'controls_coding': False,
              'source_file': locked_table['source_file'], 'source_sha256': locked_table['sha256'],
              'sections': {section: {'categories': [headings[x] for x in letters]}
                           for section, letters in [('483.10', 'BCDEFGHIJ'), ('483.12', 'ABDFJ')]}}
@@ -110,7 +130,11 @@ def main():
         if not anchors['F550'] <= idx['pdf_page_start'] < anchors['F620']:
             continue
         tag = load(DATA / 'appendix_pp' / (idx['tag'] + '.json'))
-        situations = [p for p in tag['passages'] if p.get('is_example') or p['section_label'] in ('Deficiency categorization', 'Key elements of noncompliance')]
+        by_id = {p['id']: p for p in tag['passages']}
+        grouped = [linked_evidence(p, by_id, tag['source_file']) for p in tag['passages']
+                   if not p.get('continued_from_passage_id')]
+        situations = [p for p in grouped if p.get('is_example') or p['section_label'] in
+                      ('Deficiency categorization', 'Key elements of noncompliance')]
         if not situations:
             situations = next(([p] for p in tag['passages'] if p['section_label'] == 'Regulation'), [])
         if not situations:
@@ -159,7 +183,7 @@ def main():
                    'candidate_code': '', 'basis': 'no_candidate_for_review', 'decision': '', 'added_code': '', 'reviewer_note': ''}
             if passage:
                 row['evidence_1_text'] = passage['text']
-                row['evidence_1_locator'] = f"{tag['source_file']}; PDF page {passage['pdf_page']}; {passage['section_label']}; {passage['id']}"
+                row['evidence_1_locator'] = passage.get('evidence_locator') or f"{tag['source_file']}; PDF page {passage['pdf_page']}; {passage['section_label']}; {passage['id']}"
             rows.append(row)
         for is_existing, score, code, matches, scenario in scored[:5]:
             row = {'tag': tag['tag'], 'cms_title': tag['cms_short_title'], 'regulation_sentence': regulation,
@@ -172,7 +196,7 @@ def main():
                    'decision': '', 'added_code': '', 'reviewer_note': ''}
             for n, (_, passage, _) in enumerate(matches[:3], 1):
                 row[f'evidence_{n}_text'] = passage['text']
-                row[f'evidence_{n}_locator'] = f"{tag['source_file']}; PDF page {passage['pdf_page']}; {passage['section_label']}; {passage['id']}"
+                row[f'evidence_{n}_locator'] = passage.get('evidence_locator') or f"{tag['source_file']}; PDF page {passage['pdf_page']}; {passage['section_label']}; {passage['id']}"
             rows.append(row)
     out = ROOT / 'docs' / 'nors_ftag_review_batch_1.csv'
     with out.open('w', encoding='utf-8', newline='') as f:

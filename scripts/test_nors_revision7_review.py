@@ -34,22 +34,52 @@ class Revision7ReviewTests(unittest.TestCase):
         authority = read_json(DATA / 'nors_primary_authority.json')['authority_records']
         cls.table = {r['code']: r['text'] for r in authority if r['authority_type'] == 'nors_table_2_definition'}
 
-    def test_draft_prior_contains_only_verbatim_table2_category_headings(self):
-        self.assertEqual(self.prior['status'], 'draft_pending_approval')
-        self.assertIsNone(self.prior['approved_by'])
-        self.assertIsNone(self.prior['approved_date'])
+    def test_added_stop_words_are_not_scored(self):
+        import sys
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        try:
+            from build_ftag_review_batch_1 import terms
+            self.assertEqual(terms('her his who there did having etc lack'), set())
+            self.assertEqual(terms('her medication'), {'medication'})
+        finally:
+            sys.path.pop(0)
+
+    def test_cross_page_evidence_retains_both_locators(self):
+        import sys
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        try:
+            from build_ftag_review_batch_1 import linked_evidence
+            first = {'id': 'p1', 'text': 'Examples include:', 'pdf_page': 12,
+                     'section_label': 'Guidance', 'continuation_passage_id': 'p2'}
+            second = {'id': 'p2', 'text': 'A resident was left waiting.', 'pdf_page': 13,
+                      'section_label': 'Guidance', 'continued_from_passage_id': 'p1'}
+            result = linked_evidence(first, {'p1': first, 'p2': second}, 'source.pdf')
+            self.assertEqual(result['text'], 'Examples include: A resident was left waiting.')
+            self.assertIn('PDF page 12; Guidance; p1', result['evidence_locator'])
+            self.assertIn('PDF page 13; Guidance; p2', result['evidence_locator'])
+        finally:
+            sys.path.pop(0)
+
+    def test_approved_prior_contains_only_verbatim_table2_category_headings(self):
+        self.assertEqual(self.prior['status'], 'approved')
+        self.assertEqual(self.prior['approved_by'], 'Daniel')
+        self.assertEqual(self.prior['approved_date'], '2026-11-13')
         self.assertFalse(self.prior['controls_coding'])
         self.assertEqual(set(self.prior['sections']), {'483.10', '483.12'})
         path = ROOT / 'source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf'
         if not path.exists():
             self.skipTest('ignored Table 2 source unavailable for heading verification')
-        pages = [normalized(p.extract_text() or '') for p in PdfReader(str(path)).pages]
+        # The source extractor splits the word "Gross" at a line break.
+        pages = [normalized(re.sub(r'Gro\s*\n\s*ss', 'Gross', p.extract_text() or ''))
+                 for p in PdfReader(str(path)).pages]
         for section in self.prior['sections'].values():
             self.assertTrue(section['categories'])
             for item in section['categories']:
                 self.assertRegex(item['letter'], r'^[A-L]$')
                 self.assertTrue(item['locator'])
                 self.assertTrue(any(normalized(item['heading']) in p for p in pages), item)
+                if item['letter'] == 'A':
+                    self.assertEqual(item['heading'], 'Abuse, Gross Neglect, Exploitation (Code A)')
 
     def test_one_decision_per_candidate_and_all_existing_links(self):
         self.assertEqual({r['tag'] for r in self.rows}, set(self.selected))
@@ -84,9 +114,16 @@ class Revision7ReviewTests(unittest.TestCase):
         self.assertTrue(expected <= observed, sorted(expected - observed))
 
     def test_evidence_is_verbatim_labeled_and_not_severity_boilerplate(self):
-        forbidden = set('will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including ensure'.split())
+        import sys
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        try:
+            from build_ftag_review_batch_1 import linked_evidence
+        finally:
+            sys.path.pop(0)
+        forbidden = set('will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including ensure her his who there did having etc lack'.split())
         for row in self.rows:
             record = self.selected[row['tag']]
+            by_id = {p['id']: p for p in record['passages']}
             self.assertEqual(row['cms_title'], record['cms_short_title'])
             self.assertTrue(any(row['regulation_sentence'] == p['text'] for p in record['passages']
                                 if p['section_label'] == 'Regulation'), row['tag'])
@@ -98,8 +135,9 @@ class Revision7ReviewTests(unittest.TestCase):
                     continue
                 count += 1
                 self.assertNotRegex(text, r'(?i)^severity level\s*1\s+does not apply')
-                self.assertTrue(any(text == p['text'] and str(p['pdf_page']) in locator and
-                                    (p['is_example'] or p['section_label'] in {'Deficiency categorization', 'Key elements of noncompliance', 'Regulation'})
+                self.assertTrue(any(text == linked_evidence(p, by_id, record['source_file'])['text'] and
+                                    linked_evidence(p, by_id, record['source_file'])['evidence_locator'] == locator and
+                                    (linked_evidence(p, by_id, record['source_file'])['is_example'] or p['section_label'] in {'Deficiency categorization', 'Key elements of noncompliance', 'Regulation'})
                                     for p in record['passages']), (row['tag'], locator))
             self.assertTrue(1 <= count <= 3, (row['tag'], row['candidate_code'], count))
             shared = set(re.findall(r"[a-z][a-z0-9'-]*", row['shared_terms'].lower()))

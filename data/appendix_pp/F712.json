@@ -154,13 +154,16 @@
       "section_label": "Guidance",
       "text": "In a facility where beds are dually-certified under Medicare and Medicaid, the facility must determine how the particular resident stay is being paid in order to identify whether physician delegation of tasks is permissible and if an NPP may perform the tasks. For example:",
       "is_example": true,
+      "continuation_passage_id": "appendix-pp-f712-p21",
       "id": "appendix-pp-f712-p20"
     },
     {
       "pdf_page": 501,
       "section_label": "Guidance",
       "text": "• For residents in a Part A Medicare stay, the NPP must follow the requirements for physician services in a SNF. This includes, at the option of a physician, required physician visits alternated between personal visits by the physician and visits by an NPP after the physician makes the initial comprehensive visit; and",
-      "is_example": false,
+      "is_example": true,
+      "continued_from_passage_id": "appendix-pp-f712-p20",
+      "example_context_inherited": true,
       "id": "appendix-pp-f712-p21"
     },
     {
@@ -221,58 +224,30 @@
     {
       "pdf_page": 502,
       "section_label": "Deficiency categorization",
-      "text": "DEFICIENCY CATEGORIZATION An example of Level 4, immediate jeopardy to resident health and safety, includes, but is not limited to:",
+      "text": "DEFICIENCY CATEGORIZATION An example of Level 4, immediate jeopardy to resident health and safety, includes, but is not limited to: • The facility failed to ensure the attending physician conducted required visits for several consecutive months in the facility. The physician responded to phone calls and provided verbal orders during this time-frame, however did not visit and make face-to-face contact with the resident, who experienced a significant negative change in status. No other physicians or NPPs visited the resident. This placed the resident at risk for serious harm or death.",
       "is_example": false,
       "id": "appendix-pp-f712-p29"
     },
     {
       "pdf_page": 502,
       "section_label": "Deficiency categorization",
-      "text": "• The facility failed to ensure the attending physician conducted required visits for several consecutive months in the facility. The physician responded to phone calls and provided verbal orders during this time-frame, however did not visit and make face-to-face contact with the resident, who experienced a significant negative change in status. No other physicians or NPPs visited the resident. This placed the resident at risk for serious harm or death.",
+      "text": "An example of level 3, actual harm that is not immediate jeopardy, includes, but is not limited to: • A resident newly admitted to the facility and determined to be at high risk of developing a pressure ulcer/injury, developed an unstageable pressure ulcer during the first 30 days. While the physician was consulted by telephone, the facility failed to ensure the physician conducted an initial comprehensive visit for over 40 days, contributing to the decline in the resident’s skin status.",
       "is_example": false,
       "id": "appendix-pp-f712-p30"
     },
     {
       "pdf_page": 502,
       "section_label": "Deficiency categorization",
-      "text": "An example of level 3, actual harm that is not immediate jeopardy, includes, but is not limited to:",
+      "text": "Examples of Level 2, no actual harm, with potential for than more than minimal harm, that is not immediate jeopardy, includes, but is not limited to: • The facility failed to ensure the physician personally conducted an initial comprehensive visit within the first 30 days after admission, for a resident under a Medicare Part A stay.",
       "is_example": false,
       "id": "appendix-pp-f712-p31"
     },
     {
       "pdf_page": 502,
       "section_label": "Deficiency categorization",
-      "text": "• A resident newly admitted to the facility and determined to be at high risk of developing a pressure ulcer/injury, developed an unstageable pressure ulcer during the first 30 days. While the physician was consulted by telephone, the facility failed to ensure the physician conducted an initial comprehensive visit for over 40 days, contributing to the decline in the resident’s skin status.",
+      "text": "An example of Level 1, no actual harm with potential for no more than a minor negative impact on the resident, includes, but is not limited to: • The facility failed to ensure that the attending physician alternated required monthly visits with the Nurse Practitioner (NP) as required for a resident under a SNF stay. A review of the Progress Notes revealed that notes were written, signed and dated by the NP for several consecutive visits, and all of the resident’s needs were met. No documentation was found to indicate that the attending physician had visited and examined the resident at least once every 30 days for the first 90 days after admission or at least once every 60 days thereafter during this time.",
       "is_example": false,
       "id": "appendix-pp-f712-p32"
-    },
-    {
-      "pdf_page": 502,
-      "section_label": "Deficiency categorization",
-      "text": "Examples of Level 2, no actual harm, with potential for than more than minimal harm, that is not immediate jeopardy, includes, but is not limited to:",
-      "is_example": false,
-      "id": "appendix-pp-f712-p33"
-    },
-    {
-      "pdf_page": 502,
-      "section_label": "Deficiency categorization",
-      "text": "• The facility failed to ensure the physician personally conducted an initial comprehensive visit within the first 30 days after admission, for a resident under a Medicare Part A stay.",
-      "is_example": false,
-      "id": "appendix-pp-f712-p34"
-    },
-    {
-      "pdf_page": 502,
-      "section_label": "Deficiency categorization",
-      "text": "An example of Level 1, no actual harm with potential for no more than a minor negative impact on the resident, includes, but is not limited to:",
-      "is_example": false,
-      "id": "appendix-pp-f712-p35"
-    },
-    {
-      "pdf_page": 502,
-      "section_label": "Deficiency categorization",
-      "text": "• The facility failed to ensure that the attending physician alternated required monthly visits with the Nurse Practitioner (NP) as required for a resident under a SNF stay. A review of the Progress Notes revealed that notes were written, signed and dated by the NP for several consecutive visits, and all of the resident’s needs were met. No documentation was found to indicate that the attending physician had visited and examined the resident at least once every 30 days for the first 90 days after admission or at least once every 60 days thereafter during this time.",
-      "is_example": false,
-      "id": "appendix-pp-f712-p36"
     }
   ],
   "source_file": "source_data/som107ap_pp_guidelines_ltcf_0.pdf",
