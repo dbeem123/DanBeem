@@ -1,9 +1,9 @@
 # NORS Phase 1 — Steps 0–1 report
 
-Date: 2026-11-12  
-Worktree: `C:\Users\Dan\Documents\Codex\nors-phase1-step0-1-20261112`  
-Branch: `codex/nors-phase1-step0-1-20261112`  
-Base: `origin/main` at `494d3cd32931a9d4756959a8f3b23f8a4e4a72d0`  
+Date: 2026-11-12
+Worktree: `C:\Users\Dan\Documents\Codex\nors-phase1-step0-1-20261112`
+Branch: `codex/nors-phase1-step0-1-20261112`
+Base: `origin/main` at `494d3cd32931a9d4756959a8f3b23f8a4e4a72d0`
 Status: **Steps 0–1 complete and committed locally. No push.**
 
 ## Revision 4 source pack
