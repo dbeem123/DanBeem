@@ -3,8 +3,26 @@
   'use strict';
   const $ = id => document.getElementById(id);
   const output = $('source-output');
-  let definitions, tags, catalog, manifest, reviewedLinks, appSynonyms;
+  let definitions, tags, catalog, manifest, reviewedLinks, appSynonyms, searchWeights;
   let renderedHash = null;
+  const STOP = new Set('request requests follow staff resident residents facility facilities care planning ability defined ensure consider timing practice will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including her his who there did having etc lack keep own take want wants my the and for from with that this their they have has was were are into than then when where which what would could should shall include includes example examples such each any all use used under section requirements requirement information provided provide upon person persons program code codes complaint complaints does not but its you your about'.split(' '));
+  function stem(word) {
+    if (word.length > 4 && word.endsWith('ies')) return word.slice(0, -3) + 'y';
+    if (word.length > 5 && ['sses', 'shes', 'ches', 'xes', 'zes'].some(suffix => word.endsWith(suffix))) return word.slice(0, -2);
+    if (word.length > 4 && word.endsWith('s') && !['ss', 'us', 'is'].some(suffix => word.endsWith(suffix))) return word.slice(0, -1);
+    if (word.length > 6 && word.endsWith('ing')) { const base = word.slice(0, -3); return base.length > 3 && base.at(-1) === base.at(-2) ? base.slice(0, -1) : base; }
+    if (word.length > 5 && word.endsWith('ed')) { const base = word.slice(0, -2); return base.length > 3 && base.at(-1) === base.at(-2) ? base.slice(0, -1) : base; }
+    return word;
+  }
+  const STOP_STEMS = new Set([...STOP].map(stem));
+  function normalizedTerms(text) {
+    return new Set((text.toLowerCase().match(/[a-z][a-z0-9'-]{2,}/g) || []).map(stem).filter(word => !STOP.has(word) && !STOP_STEMS.has(word)));
+  }
+  function buildSearchWeights(records) {
+    const frequencies = new Map();
+    records.forEach(record => normalizedTerms(record.text).forEach(word => frequencies.set(word, (frequencies.get(word) || 0) + 1)));
+    return new Map([...frequencies].map(([word, count]) => [word, Math.log((records.length + 1) / (count + 1)) + 1]));
+  }
   const read = async path => {
     const response = await fetch(path);
     if (!response.ok) throw new Error(`Source unavailable (${response.status})`);
@@ -89,36 +107,54 @@
       scrollResults();
     } catch (error) { clear(); appendText(output, 'p', `Unable to load this F-tag. ${error.message}`); }
   }
-  function expandAppendixWords(input, words) {
-    const normalized = input.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  function expandAppendixTerms(input, baseTerms) {
+    const rawTokens = input.toLowerCase().match(/[a-z0-9]+/g) || [];
+    const tokenStems = new Set(rawTokens.map(stem));
     const extra = [];
+    const triggerTerms = new Set();
     appSynonyms.forEach(rule => {
-      const phrase = rule.phrase.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
-      if (phrase && (` ${normalized} `).includes(` ${phrase} `)) extra.push(...rule.expands_to);
+      const matchedTriggers = rule.match_any_trigger.filter(item => {
+        if (item.includes(' ')) return (` ${input.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim()} `).includes(` ${item} `);
+        return tokenStems.has(stem(item));
+      });
+      const medicationTerms = new Set(rule.alongside_any_medication_term.map(stem));
+      if (matchedTriggers.length && rawTokens.some(token => medicationTerms.has(stem(token)))) {
+        extra.push(...rule.expands_to.map(stem));
+        matchedTriggers.forEach(trigger => trigger.split(' ').forEach(token => triggerTerms.add(stem(token))));
+      }
     });
-    return [...new Set([...words, ...extra])];
+    return new Set([...baseTerms].filter(term => !triggerTerms.has(term)).concat(extra));
   }
   async function search(updateRoute = true, searchText) {
     const input = (searchText === undefined ? $('keyword-text').value : searchText).toLowerCase();
-    const words = [...new Set(input.match(/[a-z0-9][a-z0-9'-]{2,}/g) || [])];
-    const appendixWords = expandAppendixWords(input, words);
+    const rawWords = [...new Set(input.match(/[a-z][a-z0-9'-]{2,}/g) || [])];
+    const baseTerms = new Set(rawWords.map(stem).filter(word => !STOP.has(word) && !STOP_STEMS.has(word)));
+    const appendixTerms = expandAppendixTerms(input, baseTerms);
     if (updateRoute) setHash('search', input.trim());
-    clear(); if (!words.length) { appendText(output, 'p', 'Enter a source word to search.'); return; }
+    clear(); if (!baseTerms.size) { appendText(output, 'p', 'Enter a source word to search.'); return; }
     appendText(output, 'p', 'Searching source text…');
     try {
-      const files = [...new Set(appendixWords.map(word => manifest.shards.find(s => s.first <= word && word <= s.last)?.file).filter(Boolean))];
+      const termsByKind = { nors: baseTerms, appendix_pp: appendixTerms };
+      const lookup = new Map();
+      rawWords.forEach(raw => {
+        const term = stem(raw);
+        if (!STOP.has(term) && !STOP_STEMS.has(term)) { lookup.set(raw, term); lookup.set(term, term); }
+      });
+      [...appendixTerms].filter(term => !baseTerms.has(term)).forEach(term => lookup.set(term, term));
+      const files = [...new Set([...lookup.keys()].map(word => manifest.shards.find(s => s.first <= word && word <= s.last)?.file).filter(Boolean))];
       const shards = await Promise.all(files.map(file => read(`../data/${file}`)));
       const hits = new Map();
-      const termsFor = kind => kind === 'nors' ? words : appendixWords;
-      [...new Set([...words, ...appendixWords])].forEach(word => shards.forEach(shard => (shard[word] || []).forEach(hit => {
-        if (!termsFor(hit.source_class).includes(word)) return;
+      [...lookup.keys()].forEach(word => shards.forEach(shard => (shard[word] || []).forEach(hit => {
+        const term = lookup.get(word);
+        if (!termsByKind[hit.source_class]?.has(term)) return;
         if (hit.source_class === 'nors' && !definitions.some(d => d.id === hit.record_id)) return;
-        const key = `${hit.source_class}|${hit.record_id}`; const old = hits.get(key) || { ...hit, words: new Set() }; old.words.add(word); hits.set(key, old);
+        const key = `${hit.source_class}|${hit.record_id}`; const old = hits.get(key) || { ...hit, words: new Set() }; old.words.add(term); hits.set(key, old);
       })));
       clear();
       for (const kind of ['nors', 'appendix_pp']) {
         appendText(output, 'h3', kind === 'nors' ? 'NORS definitions with matching words' : 'Appendix PP tags with matching words');
-        const matched = [...hits.values()].filter(x => x.source_class === kind).sort((a, b) => b.words.size - a.words.size || a.record_id.localeCompare(b.record_id)).slice(0, 30);
+        const searchScore = hit => [...hit.words].reduce((score, word) => score + (searchWeights.get(word) || Math.log((definitions.length + 1)) + 1), 0);
+        const matched = [...hits.values()].filter(x => x.source_class === kind).sort((a, b) => searchScore(b) - searchScore(a) || b.words.size - a.words.size || a.record_id.localeCompare(b.record_id)).slice(0, 30);
         if (!matched.length) appendText(output, 'p', 'No matching source words found.');
         for (const hit of matched) {
           const id = kind === 'nors' ? definitions.find(x => x.id === hit.record_id)?.code : tags.find(x => x.id === hit.record_id)?.tag;
@@ -143,8 +179,9 @@
       const [a, t, c, m, reviewed, synonyms] = await Promise.all([read('../data/nors_primary_authority.json'), read('../data/appendix_pp/index.json'), read('../crosswalk_catalog.json'), read('../data/term_index.json'), read('../data/nors_reviewed_links.json'), read('../data/nors_app_search_synonyms.json')]);
       definitions = a.authority_records.filter(x => x.authority_type === 'nors_table_2_definition'); tags = t.tags; catalog = c.records; manifest = m;
       appSynonyms = synonyms.status === 'approved_app_guidance' && synonyms.approved_by === 'Daniel' && synonyms.approved_date === '2026-11-13'
-        ? (Array.isArray(synonyms.rules) ? synonyms.rules : []).filter(x => typeof x.phrase === 'string' && Array.isArray(x.expands_to))
+        ? (Array.isArray(synonyms.rules) ? synonyms.rules : []).filter(x => Array.isArray(x.match_any_trigger) && Array.isArray(x.alongside_any_medication_term) && Array.isArray(x.expands_to))
         : [];
+      searchWeights = buildSearchWeights(definitions);
       const candidates = (Array.isArray(reviewed.links) ? reviewed.links : []).filter(x => x.status === 'reviewed' && x.basis === 'coded_by_reviewer' && x.reviewed_by === 'Daniel' && typeof x.review_method === 'string' && x.review_method === 'approved Claude first-pass triage' && /^\d{4}-\d{2}-\d{2}$/.test(x.reviewed_date || '') && /^[A-L]\d{2}$/.test(x.nors_code || '') && /^F\d{3,4}$/.test(x.f_tag || '') && definitions.some(d => d.code === x.nors_code && d.id === x.nors_authority_id && typeof x.nors_excerpt === 'string' && x.nors_excerpt.trim() && d.text.includes(x.nors_excerpt)) && tags.some(t => t.tag === x.f_tag));
       const checked = await Promise.all(candidates.map(async link => {
         try { const record = await read(`../data/appendix_pp/${encodeURIComponent(link.f_tag)}.json`); return record.passages.some(p => p.id === link.appendix_passage_id && typeof link.appendix_excerpt === 'string' && link.appendix_excerpt.trim() && p.text.includes(link.appendix_excerpt)) ? link : null; }

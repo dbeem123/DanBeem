@@ -10,7 +10,8 @@ assert(accepted.length>0 && accepted.every(link=>link.reviewed_by==='Daniel' && 
 assert(rejected.length>0, 'drop decisions are retained as rejected records');
 const synonymData=JSON.parse(fs.readFileSync(path.join(root,'data/nors_app_search_synonyms.json'),'utf8'));
 assert.equal(synonymData.label,'Approved app guidance; expands Appendix PP search terms only.');
-assert.deepEqual(synonymData.rules.map(rule=>rule.phrase),['own medications','own medicine','my own pills','keep medications at bedside','take my own medication']);
+assert.deepEqual(synonymData.rules[0].match_any_trigger,['own','my own','bedside','self']);
+assert.deepEqual(synonymData.rules[0].alongside_any_medication_term,['medication','medicine','pills','meds','inhaler']);
 class Node {
   constructor(name) { this.name=name; this.children=[]; this.events={}; this.textContent=''; this.value=''; this.scrolls=0; }
   append(...nodes) { this.children.push(...nodes); }
@@ -62,17 +63,25 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   nodes['source-output'].querySelectorAll('button').find(button=>button.textContent.startsWith('F554 ')).events.click();
   await new Promise(resolve=>setTimeout(resolve,0));
   assert(walk(nodes['source-output']).join(' ').includes('Tag header: F554'), 'related-tag link opens its selected card');
-  const scrollBeforeSearch=nodes['source-output'].scrolls;
-  nodes['keyword-text'].value='keep my own medications'; await nodes['run-keyword-crosswalk'].events.click();
-  text=walk(nodes['source-output']).join(' ');
-  assert(text.includes('NORS definitions with matching words')); assert(text.includes('Appendix PP tags with matching words'));
-  const appendixResults=text.split('Appendix PP tags with matching words')[1];
-  assert(appendixResults.includes('F554'), 'approved app synonym expands search to F554');
-  for (const code of ['F04','D01','D09']) assert(appendixResults.includes(code), `search shows reviewed ${code} as context`);
-  const norsResults=text.split('Appendix PP tags with matching words')[0];
-  assert(!norsResults.includes('Matched: self-administer'), 'app synonym does not alter NORS matching or ranking');
+  async function searchAndCheckFirstTag(query) {
+    const scrollBefore=nodes['source-output'].scrolls;
+    nodes['keyword-text'].value=query; await nodes['run-keyword-crosswalk'].events.click();
+    const outputText=walk(nodes['source-output']).join(' ');
+    assert(outputText.includes('NORS definitions with matching words'));
+    assert(outputText.includes('Appendix PP tags with matching words'));
+    const appendixHeading=nodes['source-output'].children.findIndex(child=>child.textContent==='Appendix PP tags with matching words');
+    const firstTag=nodes['source-output'].children.slice(appendixHeading+1).find(child=>child.name==='div');
+    assert(firstTag && walk(firstTag).join(' ').trim().startsWith('F554'), `${query} should return F554 as first Appendix PP result; got ${firstTag ? walk(firstTag).join(' ').slice(0,80) : 'none'}`);
+    for (const code of ['F04','D01','D09']) assert(walk(firstTag).join(' ').includes(code), `search shows reviewed ${code} as context`);
+    const norsResults=outputText.split('Appendix PP tags with matching words')[0];
+    assert(!norsResults.includes('Matched: self-administer'), 'app synonym does not alter NORS matching or ranking');
+    assert(nodes['source-output'].scrolls > scrollBefore, 'search scrolls results into view');
+    return outputText;
+  }
+  text=await searchAndCheckFirstTag('keep my own medications');
   assert.equal(location.hash,'#search=keep%20my%20own%20medications');
-  assert(nodes['source-output'].scrolls > scrollBeforeSearch, 'search scrolls results into view');
+  await searchAndCheckFirstTag('resident wants to take her own pills');
+  await searchAndCheckFirstTag('can I keep my own medicine at bedside');
   currentHash='#tag=F554'; windowEvents.popstate?.(); await new Promise(resolve=>setTimeout(resolve,0));
   assert(walk(nodes['source-output']).join(' ').includes('Tag header: F554'), 'forward navigation restores the tag card');
   currentHash='#code=D09'; windowEvents.popstate?.();

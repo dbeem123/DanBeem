@@ -40,6 +40,7 @@ class Revision7ReviewTests(unittest.TestCase):
         try:
             from build_ftag_review_batch_1 import terms
             self.assertEqual(terms('her his who there did having etc lack'), set())
+            self.assertEqual(terms('keep own take want wants my her his can'), set())
             self.assertEqual(terms('her medication'), {'medication'})
         finally:
             sys.path.pop(0)

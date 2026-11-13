@@ -5,10 +5,10 @@
   "approved_by": "Daniel",
   "approved_date": "2026-11-13",
   "rules": [
-    { "phrase": "own medications", "expands_to": ["self-administer"] },
-    { "phrase": "own medicine", "expands_to": ["self-administer"] },
-    { "phrase": "my own pills", "expands_to": ["self-administer"] },
-    { "phrase": "keep medications at bedside", "expands_to": ["self-administer"] },
-    { "phrase": "take my own medication", "expands_to": ["self-administer"] }
+    {
+      "match_any_trigger": ["own", "my own", "bedside", "self"],
+      "alongside_any_medication_term": ["medication", "medicine", "pills", "meds", "inhaler"],
+      "expands_to": ["self-administer"]
+    }
   ]
 }
