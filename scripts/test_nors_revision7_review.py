@@ -79,6 +79,7 @@ class Revision7ReviewTests(unittest.TestCase):
         self.assertEqual(self.prior['approved_date'], '2026-11-13')
         self.assertFalse(self.prior['controls_coding'])
         self.assertEqual(set(self.prior['sections']), {'483.10', '483.12'})
+        self.assertIn('E', {item['letter'] for item in self.prior['sections']['483.12']['categories']})
         path = ROOT / 'source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf'
         if not path.exists():
             self.skipTest('ignored Table 2 source unavailable for heading verification')

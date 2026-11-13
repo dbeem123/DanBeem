@@ -139,7 +139,7 @@ def main():
              'approved_by': 'Daniel', 'approved_date': '2026-11-13', 'controls_coding': False,
              'source_file': locked_table['source_file'], 'source_sha256': locked_table['sha256'],
              'sections': {section: {'categories': [headings[x] for x in letters]}
-                          for section, letters in [('483.10', 'BCDEFGHIJ'), ('483.12', 'ABDFJ')]}}
+                          for section, letters in [('483.10', 'BCDEFGHIJ'), ('483.12', 'ABDEFJ')]}}
     (DATA / 'nors_section_prior.json').write_text(json.dumps(prior, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
     fields = ['tag', 'cms_title', 'regulation_sentence', 'candidate_code', 'table_2_definition',
               'evidence_1_text', 'evidence_1_locator', 'evidence_2_text', 'evidence_2_locator',

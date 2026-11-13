@@ -4,12 +4,10 @@ The regenerated sheet contains **219 rows for 44 tags**. Each candidate is a dra
 
 ## Section prior — approved by Daniel on 2026-11-13
 
-This is app guidance for filtering context-link candidates only. It does not rank NORS complaint codes. Daniel approved the proposed map without edits on 2026-11-13. Existing app links remain included even outside the filter.
-
-The present regeneration leaves that approved map unchanged; a subsequent choice about adding E to §483.12 is pending.
+This is app guidance for filtering context-link candidates only. It does not rank NORS complaint codes. Daniel approved adding E to §483.12 on 2026-11-13. Existing app links remain included even outside the filter.
 
 - §483.10: B, C, D, E, F, G, H, I, J.
-- §483.12: A, B, D, F, J.
+- §483.12: A, B, D, E, F, J.
 
 The categories are cited from the locked Table 2 headings below. The PDF extraction's line break inside “Gross” is repaired.
 
@@ -52,7 +50,7 @@ The five candidates are D06 (`permission`, `without`; 7.737), E01 (`deposit`, `w
 
 ## F602
 
-The five candidates are A04 (`access`, `belonging`, `fund`, `individual`, `personal`, `property`; 10.363), D02 (`agency`, `home`, `local`, `nurs`; 14.557), J01 (`abuse`, `exploitation`, `implement`, `investigate`, `neglect`, `policy`, `train`; 13.998), J03 (`administrator`, `agency`, `nurs`, `over`, `oversight`, `temporary`, `train`; 12.442), and D06 (`agency`, `another`, `state`, `survey`; 11.749). Existing app links are listed ahead of scored keyword candidates.
+The five candidates are A04 (existing app link), E02, D02, J01 and J03. The matches are draft context for human review; existing app links are listed ahead of scored keyword candidates.
 
 ## Limitations
 
