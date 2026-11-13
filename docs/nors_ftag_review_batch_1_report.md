@@ -1,31 +1,49 @@
-# Revision 6 review batch
+# Revision 7 review batch
 
-The CSV contains 1,222 draft rows for 44 tags in §§483.10 and 483.12. Generated candidates are context for human review, not coding decisions. Existing app links are additional rows marked `existing_app_link`; they are not constrained by the three generated-candidate limit. Reviewer decision fields are blank.
+The sheet contains **212 rows for 44 tags**. Each candidate is a draft context link, not a coding decision. There are 36 existing app links, 175 keyword candidates, and one blank candidate for F567. Each proposed candidate includes one to three source passages; reviewer fields remain blank.
+
+## Proposed section prior — awaiting Daniel's approval
+
+This is app guidance for filtering context-link candidates only. It does not rank NORS complaint codes. It is **not approved**; `approved_by` and `approved_date` are null. Existing app links remain included even outside the proposed filter.
+
+- §483.10: B, C, D, E, F, G, H, I, J.
+- §483.12: A, B, D, F, J.
+
+The categories are cited from the locked Table 2 headings below. Line breaks within the PDF-extracted heading for A are retained in the data.
+
+| Code | Verbatim Table 2 heading | PDF page |
+|---|---|---:|
+| A | Abuse, Gro<br>ss Neglect, Exploitation (Code A) | 1 |
+| B | Access to Information (Code B) | 4 |
+| C | Admission, Transfer, Discharge, Eviction (Code C) | 5 |
+| D | Autonomy, Choice, Rights (Code D) | 6 |
+| E | Financial, Property (Code E) | 9 |
+| F | Care (Code F) | 10 |
+| G | Activities, Community Integration and Social Services (Code G) | 14 |
+| H | Dietary (Code H) | 15 |
+| I | Environment (Code I) | 16 |
+| J | Facility Policies, Procedures and Practices (Code J) | 18 |
 
 ## Rows per tag
 
 | Tag | Rows | Tag | Rows | Tag | Rows | Tag | Rows |
 |---|---:|---|---:|---|---:|---|---:|
-| F550 | 37 | F551 | 15 | F552 | 3 | F553 | 10 |
-| F554 | 3 | F555 | 4 | F557 | 8 | F558 | 7 |
-| F559 | 4 | F560 | 10 | F561 | 11 | F562 | 4 |
-| F563 | 27 | F564 | 7 | F565 | 7 | F566 | 6 |
-| F567 | 3 | F568 | 6 | F569 | 3 | F570 | 9 |
-| F571 | 9 | F572 | 5 | F573 | 10 | F574 | 10 |
-| F575 | 3 | F576 | 8 | F577 | 3 | F578 | 42 |
-| F579 | 3 | F580 | 7 | F582 | 10 | F583 | 16 |
-| F584 | 15 | F585 | 13 | F586 | 3 | F600 | 207 |
-| F602 | 84 | F603 | 73 | F604 | 139 | F605 | 124 |
-| F606 | 18 | F607 | 78 | F609 | 143 | F610 | 15 |
+| F550 | 5 | F551 | 5 | F552 | 5 | F553 | 5 |
+| F554 | 3 | F555 | 3 | F557 | 5 | F558 | 5 |
+| F559 | 5 | F560 | 5 | F561 | 5 | F562 | 5 |
+| F563 | 5 | F564 | 5 | F565 | 5 | F566 | 5 |
+| F567 | 1 | F568 | 5 | F569 | 5 | F570 | 5 |
+| F571 | 5 | F572 | 5 | F573 | 5 | F574 | 5 |
+| F575 | 5 | F576 | 5 | F577 | 5 | F578 | 5 |
+| F579 | 5 | F580 | 5 | F582 | 5 | F583 | 5 |
+| F584 | 5 | F585 | 5 | F586 | 5 | F600 | 5 |
+| F602 | 5 | F603 | 5 | F604 | 5 | F605 | 5 |
+| F606 | 5 | F607 | 5 | F609 | 5 | F610 | 5 |
 
 ## F554
 
-Three rows use the same verbatim self-administration regulation passage: F04 matches `medications` (score 4.418), and D01 and D09 each match `right` (score 4.012). All three are Table 2 definition candidates, not decisions. The word `right` is broad; review the full definitions and facts before retaining either link.
+All three rows show the self-administration regulation passage as source evidence: F04 shares `medications` (4.418), D01 shares `right` (4.012), and D09 shares `right` (4.012). The word `right` is broad and does not establish either link. A reviewer must decide using the full facts and Table 2 definitions.
 
-## Limitations and checks
+## Limitations
 
-The generator uses 20 NORC quiz/answer situations for which the printed answer could be tied to the situation. Other quiz and FAQ scenarios with ambiguous answer ordering or page boundaries were excluded and require structured extraction before the NORC corpus can be considered complete. Unmatched scenario fields remain blank.
-
-The former lexical-only Step 3 JSON and Markdown batch, and their generator and tests, are retired in this commit so their superseded matches are not mistaken for the Revision 6 review sheet. They remain recoverable in Git history.
-
-The NORS tests and CT inspection suite were run offline. This batch is for review only; no UI or publication work was done.
+The NORC corpus contains only 20 unambiguous quiz/answer situations; one output row met the stricter scenario threshold. Other quiz and FAQ situations with ambiguous answer ordering or page boundaries are excluded pending further structured extraction. F567 has one blank-candidate row for the reviewer to add a code, as no keyword candidate met the threshold. All proposed links and the section prior require Daniel's review before use.

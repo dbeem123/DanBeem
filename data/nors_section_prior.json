@@ -1,0 +1,89 @@
+{
+  "status": "draft_pending_approval",
+  "label": "Proposed app guidance; awaiting Daniel approval",
+  "approved_by": null,
+  "approved_date": null,
+  "controls_coding": false,
+  "source_file": "source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+  "source_sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce",
+  "sections": {
+    "483.10": {
+      "categories": [
+        {
+          "letter": "B",
+          "heading": "Access to Information (Code B)",
+          "locator": "PDF page 4; Table 2 category heading"
+        },
+        {
+          "letter": "C",
+          "heading": "Admission, Transfer, Discharge, Eviction (Code C)",
+          "locator": "PDF page 5; Table 2 category heading"
+        },
+        {
+          "letter": "D",
+          "heading": "Autonomy, Choice, Rights (Code D)",
+          "locator": "PDF page 6; Table 2 category heading"
+        },
+        {
+          "letter": "E",
+          "heading": "Financial, Property (Code E)",
+          "locator": "PDF page 9; Table 2 category heading"
+        },
+        {
+          "letter": "F",
+          "heading": "Care (Code F)",
+          "locator": "PDF page 10; Table 2 category heading"
+        },
+        {
+          "letter": "G",
+          "heading": "Activities, Community Integration and Social Services (Code G)",
+          "locator": "PDF page 14; Table 2 category heading"
+        },
+        {
+          "letter": "H",
+          "heading": "Dietary (Code H)",
+          "locator": "PDF page 15; Table 2 category heading"
+        },
+        {
+          "letter": "I",
+          "heading": "Environment (Code I)",
+          "locator": "PDF page 16; Table 2 category heading"
+        },
+        {
+          "letter": "J",
+          "heading": "Facility Policies, Procedures and Practices (Code J)",
+          "locator": "PDF page 18; Table 2 category heading"
+        }
+      ]
+    },
+    "483.12": {
+      "categories": [
+        {
+          "letter": "A",
+          "heading": "Abuse, Gro\nss Neglect, Exploitation (Code A)",
+          "locator": "PDF page 1; Table 2 category heading"
+        },
+        {
+          "letter": "B",
+          "heading": "Access to Information (Code B)",
+          "locator": "PDF page 4; Table 2 category heading"
+        },
+        {
+          "letter": "D",
+          "heading": "Autonomy, Choice, Rights (Code D)",
+          "locator": "PDF page 6; Table 2 category heading"
+        },
+        {
+          "letter": "F",
+          "heading": "Care (Code F)",
+          "locator": "PDF page 10; Table 2 category heading"
+        },
+        {
+          "letter": "J",
+          "heading": "Facility Policies, Procedures and Practices (Code J)",
+          "locator": "PDF page 18; Table 2 category heading"
+        }
+      ]
+    }
+  }
+}
