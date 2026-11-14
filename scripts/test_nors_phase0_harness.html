@@ -25,9 +25,8 @@
    if(route.includes('nors-crosswalk')){
      const input=doc.querySelector('#keyword-text'); input.value='Synthetic Person';input.dispatchEvent(new win.Event('input',{bubbles:true}));
      check(!doc.querySelector('#sensitive-input-warning').hidden,'name-pattern warning appears');
-     const prior=win.location.href;
      input.value='';input.dispatchEvent(new win.Event('input',{bubbles:true}));input.value='call light';doc.querySelector('#run-keyword-crosswalk').click();await wait(500);
-     check(doc.querySelector('#topics-output').innerText.length>10,'crosswalk local result renders');check(win.location.href===prior,'crosswalk input stays out of URL');
+     check(doc.querySelector('#source-output').innerText.length>10,'crosswalk local result renders');check(win.location.hash==='#search=call%20light','search route is preserved in the fragment for history navigation');
    }
    if(route.includes('drafting-assistant')){
      const initial=['#identity-permission','#case-status','#resident-satisfaction'].map(x=>doc.querySelector(x).value);
