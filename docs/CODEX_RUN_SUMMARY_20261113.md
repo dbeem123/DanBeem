@@ -14,7 +14,10 @@ Starting point: `8aeb958` (batch 3 triage and title fallback).
 6. `31d985c` — First run summary (superseded by this follow-up update).
 7. `d62d325` — Imported Daniel-approved batch 3 decisions; added 11 reviewed links and 56 rejections. Added accurate Daniel-directed review metadata and UI support for the imported records.
 8. `1b6536f` — Recorded Daniel's approval of the batch 4–6 section maps and review package.
-9. Pending final follow-up commit — Updated this summary with the import and approval results.
+9. `64caf31` — Source-reviewed batch 4 candidate suggestions: 1 keep, 13 drops, 56 checks, 2 no-candidate/Claude rows.
+10. `46f43c1` — Source-reviewed batch 5 candidate suggestions: 2 keeps, 16 drops, 30 checks, 11 no-candidate/Claude rows.
+11. `d17585b` — Source-reviewed batch 6 candidate suggestions: 5 drops, 9 checks, 36 no-candidate/Claude rows.
+12. Pending final follow-up commit — Updated this summary with Codex's source review.
 
 The final follow-up commit hash is reported in the completion message.
 
@@ -25,6 +28,7 @@ The final follow-up commit hash is reported in the completion message.
 - `py scripts/validate_nors_example_worksheet.py --allow-empty` — **passed**, 60 code rows; worksheet remains blank.
 - `git diff --check` — passed.
 - `py -m unittest discover -s scripts -p "test_nors*.py"` after the approval/import updates — **56 passed**, 0 failed (16.239 seconds).
+- After Codex's batch 4–6 triage — **56 passed**, 0 failed (16.100 seconds).
 - `node scripts/test_nors_source_ui.js` after batch 3 import — **passed**, including the visible weak F646/F03 context link.
 - `py scripts/validate_nors_example_worksheet.py --allow-empty` — **passed**, 60 blank code rows.
 - `git diff --check` — passed.
@@ -37,6 +41,7 @@ The final follow-up commit hash is reported in the completion message.
 - Batch 5: corresponding `batch_5` files; draft map: `data/nors_section_prior_batch_5_draft.json`. Needs Claude: F710, F711, F712, F713, F714, F715, F728, F730, F731, F759, F801.
 - Batch 6: corresponding `batch_6` files; draft map: `data/nors_section_prior_batch_6_draft.json`. Needs Claude: F802, F835, F836, F837, F838, F839, F840, F841, F843, F844, F845, F849, F850, F851, F865, F866, F867, F883, F895, F907, F908, F909, F910, F911, F912, F914, F915, F916, F918, F919, F920, F921, F922, F923, F924, F926.
 - Daniel approved the batch 4–6 maps as proposed on 2026-11-13. Their JSON status is `approved_Daniel`; all retain `controls_coding: false`. The batch 4–6 proposed triage packages are approved as review materials; check and needs_claude flags remain unresolved, and no batch 4–6 links were imported.
+- Codex source-reviewed all 181 batch 4–6 review rows: **3 keep, 34 drop, 95 check, 49 needs_claude/no candidate**. The checked suggestions remain undecided; the 49 no-candidate tags remain explicitly listed for Claude because no clean fit was supported. The triage CSVs include a rule ID and a rationale for every row. This review did not import anything.
 - `docs/nors_example_worksheet.csv` has one blank row for each of 60 Table 2 codes. No example or near-miss complaint was written. Validator checks exact quoted Table 2 text, voice labels, the required illustrative label, and 5–6 examples plus 1–2 near-misses per code once filled.
 - `docs/nors_distinctions_review.csv` has all 139 verbatim rules, proposed questions and blank Daniel decisions. `data/nors_distinctions.json` remains unchanged; its question fields remain blank.
 - `docs/ROADMAP_DRAFT.md` is the copied roadmap, still marked DRAFT. Source file SHA-256: `D7EBE935CCD5DB3BD677C1E6BC1BC3C82DAFD1E1B1F8ACFF87E8FACD10362AEF`.
@@ -44,7 +49,7 @@ The final follow-up commit hash is reported in the completion message.
 
 ## What Daniel should review, in priority order
 
-1. Claude should triage the remaining `needs_claude` tags and checked candidates in batches 4–6. Approved section maps and triage packages are in `data/nors_section_prior_batch_{4,5,6}_draft.json` and `docs/nors_ftag_review_batch_{4,5,6}_codex_proposed_triage.csv`.
+1. Claude can review the 49 no-candidate tags and the checked suggestions in batches 4–6. The reports and proposal files are `docs/nors_ftag_review_batch_{4,5,6}_report_20261113.md` and `docs/nors_ftag_review_batch_{4,5,6}_codex_proposed_triage.csv`.
 2. Daniel can review the 139 proposed distinction questions in `docs/nors_distinctions_review.csv`; live questions remain blank.
 3. Daniel can decide how to author and review examples in `docs/nors_example_worksheet.csv`; the worksheet is blank and no examples were generated.
 
