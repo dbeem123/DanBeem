@@ -3,7 +3,7 @@
 **Section map approved by Daniel on 2026-11-13. Candidate review/proposed triage is approved as a review package; check and needs_claude flags remain unresolved. No proposed links were imported.**
 
 - Tags: 44; review rows: 50.
-- Proposed outcomes: {'check': 14, 'needs_claude': 36}.
+- Proposed outcomes after Codex source review: drop 5, check 9, needs_claude 36.
 - Section map: `data/nors_section_prior_batch_6_draft.json` (`approved_Daniel`, `controls_coding: false`).
 - Review sheet: `docs/nors_ftag_review_batch_6.csv`.
 - Proposed triage: `docs/nors_ftag_review_batch_6_codex_proposed_triage.csv`.
@@ -59,3 +59,9 @@ Each proposed row names a rule in `docs/nors_triage_rubric.md`; all uncertain ma
 | F924 | 1 |
 | F925 | 1 |
 | F926 | 1 |
+
+## Codex source review
+
+The approved review package was source-reviewed by Codex. Obvious mismatches were proposed as drops with Table 2 scope reasons; direct source-backed matches are proposed as context keeps; ambiguous/existing/title-only links remain checks. No batch 4–6 proposal was imported.
+
+- Revised proposed outcomes: drop: 5, check: 9, needs_claude: 36
