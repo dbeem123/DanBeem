@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CT LTCOP Regional Ombudsman Coverage Map</title>
+<meta name="description" content="Working 169-municipality Connecticut Long-Term Care Ombudsman regional coverage map.">
+<style>
+:root{--navy:#163a5f;--ink:#172033;--muted:#667085;--border:#d8dee8;--panel:#fff;--bg:#f4f7fb;--accent:#174a7e}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:var(--bg)}
+header{background:#fff;border-bottom:1px solid var(--border)}
+.header-inner{max-width:1500px;margin:0 auto;padding:18px 20px}
+h1{font-size:26px;margin:0 0 6px}
+.subtitle{margin:0;color:var(--muted);line-height:1.45;max-width:980px}
+.badge{display:inline-block;margin-top:9px;padding:5px 9px;border-radius:999px;border:1px solid #e6c65f;background:#fff6d8;color:#6a4c00;font-size:12px;font-weight:700}
+main{max-width:1500px;margin:0 auto;padding:16px 20px 28px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 310px;gap:14px;align-items:start}
+.map-card,.panel{background:var(--panel);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:10px;border-bottom:1px solid var(--border)}
+input,select,button{font:inherit}
+input[type=search],select{border:1px solid #b9c3d0;border-radius:8px;padding:8px 10px;background:#fff;min-height:40px}
+input[type=search]{flex:1 1 250px;min-width:210px}
+button{border:1px solid #b9c3d0;border-radius:8px;padding:8px 10px;background:#fff;color:var(--ink);cursor:pointer;min-height:40px}
+button:hover{background:#f2f5f8}
+button.active{background:#e7f1fb;border-color:#6e9bc7;color:#113e68;font-weight:700}
+.map-stage{position:relative;background:#eef3f8;min-height:650px}
+#map{display:block;width:100%;height:auto;min-height:650px}
+.town{cursor:pointer;transition:opacity .12s,stroke-width .12s}
+.town:hover{stroke:#111827!important;stroke-width:2.2!important}
+.town.dimmed{opacity:.13}
+.town.selected{stroke:#111827!important;stroke-width:3.2!important;opacity:1!important}
+.town.proposed{stroke-dasharray:4 3}
+.label{font-size:7px;font-weight:700;fill:#25354b;paint-order:stroke;stroke:#fff;stroke-width:2.5px;stroke-linejoin:round;pointer-events:none}
+.labels-hidden .label{display:none}
+.loading{padding:10px 12px;border-bottom:1px solid #c9d9ea;background:#eef6ff;color:#2b537a;font-size:13px}
+.loading.error{background:#fff0f0;border-color:#edc5c5;color:#7a1d1d}
+.side{display:flex;flex-direction:column;gap:12px}
+.panel{padding:12px}
+.panel h2{margin:0 0 10px;font-size:16px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.stat{border:1px solid var(--border);border-radius:8px;padding:8px;background:#fafbfd}
+.stat strong{display:block;font-size:20px}.stat span{font-size:12px;color:var(--muted)}
+.legend-row{display:flex;width:100%;align-items:center;gap:9px;text-align:left;border:0;background:transparent;padding:7px 6px}
+.legend-row small{color:var(--muted)}
+.swatch{width:22px;height:22px;border:1px solid rgba(0,0,0,.18);border-radius:5px;flex:0 0 auto}
+.detail{font-size:14px;line-height:1.45;min-height:110px}.detail .town-name{font-size:18px;font-weight:700;margin-bottom:4px}.detail a{color:#135b96}
+.status-key{display:grid;gap:8px;font-size:13px}.status-line{display:flex;align-items:center;gap:9px}.line{width:32px;border-top:3px solid #222}.line.proposed{border-top-style:dashed;border-color:#7b2d26}
+.footer{margin-top:12px;color:var(--muted);font-size:12px;line-height:1.45}
+.tooltip{position:absolute;z-index:5;display:none;pointer-events:none;background:#111827;color:#fff;padding:6px 8px;border-radius:6px;font-size:12px;max-width:250px}
+@media(max-width:980px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:1fr 1fr}.map-stage,#map{min-height:540px}}
+@media(max-width:650px){main,.header-inner{padding-left:9px;padding-right:9px}.side{grid-template-columns:1fr}.map-stage,#map{min-height:470px}}
+@media print{body{background:#fff}.toolbar,.detail-panel,.footer,.loading{display:none!important}.layout{grid-template-columns:1fr 235px}.map-card,.panel{border-color:#bbb}}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <h1>Connecticut Long-Term Care Ombudsman Regional Coverage</h1>
+    <p class="subtitle">Working statewide territory map using all 169 Connecticut municipalities. Portal/DPH town labels remain separate and unchanged; this page uses legal municipalities only for geographic coverage.</p>
+    <span class="badge">WORKING DRAFT — proposed municipalities remain subject to review</span>
+  </div>
+</header>
+<main>
+  <div class="layout">
+    <section class="map-card" aria-label="Interactive Connecticut Ombudsman coverage map">
+      <div class="toolbar">
+        <input id="search" type="search" placeholder="Find a municipality…" aria-label="Find a municipality">
+        <select id="regionFilter" aria-label="Filter by region"><option value="">All 11 regions</option></select>
+        <select id="statusFilter" aria-label="Filter by assignment status">
+          <option value="">All assignment statuses</option>
+          <option value="PROPOSED – REVIEW">Proposed – Review only</option>
+          <option value="CONFIRMED / DERIVED">Confirmed / Derived only</option>
+        </select>
+        <button id="labelsBtn" type="button">Town labels</button>
+        <button id="resetBtn" type="button">Reset</button>
+        <button id="printBtn" type="button">Print</button>
+      </div>
+      <div id="loading" class="loading">Loading local Connecticut town geometry…</div>
+      <div class="map-stage">
+        <svg id="map" viewBox="0 0 1100 690" role="img" aria-label="Connecticut municipalities colored by LTCOP region"></svg>
+        <div id="tooltip" class="tooltip"></div>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="panel">
+        <h2>Coverage status</h2>
+        <div class="stats">
+          <div class="stat"><strong>169</strong><span>municipalities</span></div>
+          <div class="stat"><strong>11</strong><span>regions</span></div>
+          <div class="stat"><strong>106</strong><span>confirmed / derived</span></div>
+          <div class="stat"><strong>63</strong><span>proposed review</span></div>
+          <div class="stat"><strong>0</strong><span>unassigned</span></div>
+          <div class="stat"><strong>100%</strong><span>state coverage</span></div>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Regional Ombudsmen</h2>
+        <div id="legend"></div>
+      </section>
+      <section class="panel">
+        <h2>Assignment status</h2>
+        <div class="status-key">
+          <div class="status-line"><span class="line"></span><span>Confirmed / derived</span></div>
+          <div class="status-line"><span class="line proposed"></span><span>Proposed municipality — review</span></div>
+        </div>
+      </section>
+      <section class="panel detail-panel">
+        <h2>Selected municipality</h2>
+        <div id="detail" class="detail">Click a municipality to see its Region and Ombudsman.</div>
+      </section>
+    </aside>
+  </div>
+  <p class="footer">Municipal geometry and LTCOP assignments are served locally from <code>/data/</code> on danbeem.xyz. The territory table is a working draft and does not alter discharge-portal or DPH town naming.</p>
+</main>
+<script>
+(() => {
+  const colors={"1":"#1f77b4","2":"#ff7f0e","3":"#2ca02c","4":"#d62728","5":"#9467bd","6":"#8c564b","7":"#e377c2","8":"#7f7f7f","9":"#bcbd22","10":"#17becf","11":"#4c78a8"};
+  const svg=document.getElementById("map");
+  const loading=document.getElementById("loading");
+  const legend=document.getElementById("legend");
+  const detail=document.getElementById("detail");
+  const tooltip=document.getElementById("tooltip");
+  const search=document.getElementById("search");
+  const regionFilter=document.getElementById("regionFilter");
+  const statusFilter=document.getElementById("statusFilter");
+  const labelsBtn=document.getElementById("labelsBtn");
+
+  let data, geo, selectedTown=null;
+  const townEls=new Map(), labelEls=new Map();
+
+  const ns="http://www.w3.org/2000/svg";
+  const normalize=s=>String(s||"").trim().toUpperCase();
+
+  function getCoords(geometry){
+    if(geometry.type==="Polygon") return geometry.coordinates.flat(1);
+    if(geometry.type==="MultiPolygon") return geometry.coordinates.flat(2);
+    return [];
+  }
+
+  function bounds(features){
+    let minX=Infinity,maxX=-Infinity,minY=Infinity,maxY=-Infinity;
+    for(const f of features){
+      for(const p of getCoords(f.geometry)){
+        minX=Math.min(minX,p[0]);maxX=Math.max(maxX,p[0]);
+        minY=Math.min(minY,p[1]);maxY=Math.max(maxY,p[1]);
+      }
+    }
+    return {minX,maxX,minY,maxY};
+  }
+
+  function centroid(feature){
+    const c=feature.properties||{};
+    if(Number.isFinite(c.cx)&&Number.isFinite(c.cy)) return [c.cx,c.cy];
+    const pts=getCoords(feature.geometry);
+    if(!pts.length) return [0,0];
+    let x=0,y=0;for(const p of pts){x+=p[0];y+=p[1]}
+    return [x/pts.length,y/pts.length];
+  }
+
+  function projection(b){
+    const pad=28,W=1100,H=690;
+    const sx=(W-2*pad)/(b.maxX-b.minX);
+    const sy=(H-2*pad)/(b.maxY-b.minY);
+    const s=Math.min(sx,sy);
+    const usedW=(b.maxX-b.minX)*s,usedH=(b.maxY-b.minY)*s;
+    const ox=(W-usedW)/2,oy=(H-usedH)/2;
+    return ([x,y])=>[ox+(x-b.minX)*s, H-(oy+(y-b.minY)*s)];
+  }
+
+  function ringPath(ring,project){
+    return ring.map((p,i)=>{
+      const [x,y]=project(p);
+      return (i?"L":"M")+x.toFixed(2)+","+y.toFixed(2);
+    }).join(" ")+" Z";
+  }
+
+  function featurePath(feature,project){
+    const g=feature.geometry;
+    if(g.type==="Polygon") return g.coordinates.map(r=>ringPath(r,project)).join(" ");
+    if(g.type==="MultiPolygon") return g.coordinates.flatMap(poly=>poly.map(r=>ringPath(r,project))).join(" ");
+    return "";
+  }
+
+  function showDetail(town){
+    const rec=data.municipalities.find(x=>normalize(x.municipality)===normalize(town));
+    if(!rec){detail.innerHTML="<strong>"+town+"</strong><br>No assignment matched.";return}
+    const region=data.regions.find(r=>r.region===rec.region);
+    detail.innerHTML='<div class="town-name">'+rec.municipality+'</div>'+
+      '<div><strong>Region:</strong> '+rec.region+'</div>'+
+      '<div><strong>Regional Ombudsman:</strong> '+region.ombudsman+'</div>'+
+      '<div><strong>Email:</strong> <a href="mailto:'+region.email+'">'+region.email+'</a></div>'+
+      '<div><strong>Status:</strong> '+rec.status+'</div>';
+  }
+
+  function applyFilters(){
+    const r=regionFilter.value, s=statusFilter.value;
+    for(const [town,el] of townEls){
+      const rec=data.municipalities.find(x=>normalize(x.municipality)===town);
+      const ok=(!r||String(rec.region)===r)&&(!s||rec.status===s);
+      el.classList.toggle("dimmed",!ok);
+      const lab=labelEls.get(town);if(lab) lab.style.opacity=ok?"1":"0.08";
+    }
+  }
+
+  function selectTown(town,scroll=true){
+    if(selectedTown&&townEls.get(selectedTown)) townEls.get(selectedTown).classList.remove("selected");
+    selectedTown=normalize(town);
+    const el=townEls.get(selectedTown);
+    if(el){el.classList.add("selected");showDetail(town)}
+    if(scroll) el?.scrollIntoView?.({block:"nearest",inline:"nearest"});
+  }
+
+  function render(){
+    const recByTown=new Map(data.municipalities.map(x=>[normalize(x.municipality),x]));
+    const b=bounds(geo.features), project=projection(b);
+    svg.innerHTML="";
+    const pathGroup=document.createElementNS(ns,"g");
+    const labelGroup=document.createElementNS(ns,"g");
+    svg.append(pathGroup,labelGroup);
+
+    for(const f of geo.features){
+      const town=f.properties.name||f.properties.Municipality||f.properties.NAME;
+      const key=normalize(town), rec=recByTown.get(key);
+      if(!rec) continue;
+
+      const p=document.createElementNS(ns,"path");
+      p.setAttribute("d",featurePath(f,project));
+      p.setAttribute("fill",colors[rec.region]);
+      p.setAttribute("fill-opacity","0.78");
+      p.setAttribute("stroke",rec.status==="PROPOSED – REVIEW"?"#7b2d26":"#ffffff");
+      p.setAttribute("stroke-width",rec.status==="PROPOSED – REVIEW"?"1.45":"0.9");
+      p.setAttribute("vector-effect","non-scaling-stroke");
+      p.setAttribute("class","town"+(rec.status==="PROPOSED – REVIEW"?" proposed":""));
+      p.setAttribute("tabindex","0");
+      p.setAttribute("aria-label",town+", Region "+rec.region);
+      p.dataset.town=key;
+
+      const hover=e=>{
+        const region=data.regions.find(r=>r.region===rec.region);
+        tooltip.textContent=town+" — Region "+rec.region+" — "+region.ombudsman;
+        tooltip.style.display="block";
+        const stage=svg.parentElement.getBoundingClientRect();
+        tooltip.style.left=(e.clientX-stage.left+10)+"px";
+        tooltip.style.top=(e.clientY-stage.top+10)+"px";
+      };
+      p.addEventListener("mousemove",hover);
+      p.addEventListener("mouseleave",()=>tooltip.style.display="none");
+      p.addEventListener("click",()=>selectTown(town,false));
+      p.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();selectTown(town,false)}});
+      pathGroup.appendChild(p);
+      townEls.set(key,p);
+
+      const [cx,cy]=project(centroid(f));
+      const t=document.createElementNS(ns,"text");
+      t.setAttribute("x",cx);t.setAttribute("y",cy);
+      t.setAttribute("text-anchor","middle");
+      t.setAttribute("dominant-baseline","central");
+      t.setAttribute("class","label");
+      t.textContent=town;
+      labelGroup.appendChild(t);
+      labelEls.set(key,t);
+    }
+
+    svg.classList.add("labels-hidden");
+
+    for(const r of data.regions){
+      const opt=document.createElement("option");
+      opt.value=String(r.region);opt.textContent="Region "+r.region+" — "+r.ombudsman;
+      regionFilter.appendChild(opt);
+
+      const btn=document.createElement("button");
+      btn.type="button";btn.className="legend-row";btn.dataset.region=r.region;
+      btn.innerHTML='<span class="swatch" style="background:'+colors[r.region]+'"></span><span><strong>Region '+r.region+'</strong><br><small>'+r.ombudsman+'</small></span>';
+      btn.addEventListener("click",()=>{
+        regionFilter.value=regionFilter.value===String(r.region)?"":String(r.region);
+        applyFilters();
+        document.querySelectorAll(".legend-row").forEach(x=>x.classList.toggle("active",x.dataset.region===regionFilter.value));
+      });
+      legend.appendChild(btn);
+    }
+    applyFilters();
+  }
+
+  regionFilter.addEventListener("change",applyFilters);
+  statusFilter.addEventListener("change",applyFilters);
+  labelsBtn.addEventListener("click",()=>{
+    const hidden=svg.classList.toggle("labels-hidden");
+    labelsBtn.classList.toggle("active",!hidden);
+  });
+  document.getElementById("resetBtn").addEventListener("click",()=>{
+    regionFilter.value="";statusFilter.value="";search.value="";
+    document.querySelectorAll(".legend-row").forEach(x=>x.classList.remove("active"));
+    if(selectedTown&&townEls.get(selectedTown)) townEls.get(selectedTown).classList.remove("selected");
+    selectedTown=null;detail.textContent="Click a municipality to see its Region and Ombudsman.";applyFilters();
+  });
+  document.getElementById("printBtn").addEventListener("click",()=>window.print());
+  search.addEventListener("change",()=>{
+    const q=normalize(search.value);if(!q)return;
+    let key=[...townEls.keys()].find(x=>x===q)||[...townEls.keys()].find(x=>x.includes(q));
+    if(key){const rec=data.municipalities.find(x=>normalize(x.municipality)===key);selectTown(rec.municipality,false)}
+  });
+
+  Promise.all([
+    fetch("/data/ct_ltcop_ombudsman_regions.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw new Error("Coverage data "+r.status);return r.json()}),
+    fetch("/data/ct_municipalities_169.geojson",{cache:"force-cache"}).then(r=>{if(!r.ok)throw new Error("Geometry "+r.status);return r.json()})
+  ]).then(([d,g])=>{
+    data=d;geo=g;
+    if(!geo.features||geo.features.length!==169) throw new Error("Expected 169 town polygons");
+    if(!data.municipalities||data.municipalities.length!==169) throw new Error("Expected 169 assignments");
+    loading.style.display="none";render();
+  }).catch(err=>{
+    console.error(err);loading.classList.add("error");
+    loading.textContent="The local map data could not be loaded: "+err.message;
+  });
+})();
+</script>
+</body>
+</html>
