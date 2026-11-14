@@ -1,0 +1,914 @@
+{
+  "metadata": {
+    "generated": "2026-11-14",
+    "status": "working draft",
+    "municipalityCount": 169,
+    "proposedReviewCount": 63,
+    "note": "Portal/DPH town labels remain separate and unchanged. This dataset is for statewide GIS territory mapping.",
+    "boundaryFile": "/data/ct_municipalities_169.geojson"
+  },
+  "regions": [
+    {
+      "region": 1,
+      "ombudsman": "Lindsay Jesshop",
+      "email": "Lindsay.Jesshop@ct.gov"
+    },
+    {
+      "region": 2,
+      "ombudsman": "Kiomara Cruz",
+      "email": "Kiomara.Cruz@ct.gov"
+    },
+    {
+      "region": 3,
+      "ombudsman": "Sylvia Crespo",
+      "email": "Sylvia.Crespo@ct.gov"
+    },
+    {
+      "region": 4,
+      "ombudsman": "Shontai Butler",
+      "email": "Shontai.Butler@ct.gov"
+    },
+    {
+      "region": 5,
+      "ombudsman": "Brenda Texidor",
+      "email": "Brenda.Texidor@ct.gov"
+    },
+    {
+      "region": 6,
+      "ombudsman": "Patricia Calderone",
+      "email": "Patricia.Calderone@ct.gov"
+    },
+    {
+      "region": 7,
+      "ombudsman": "Gayle Paquin",
+      "email": "Gayle.Paquin@ct.gov"
+    },
+    {
+      "region": 8,
+      "ombudsman": "Tasha Erskine-Jackson",
+      "email": "Tasha.Erskine@ct.gov"
+    },
+    {
+      "region": 9,
+      "ombudsman": "Cynthia Scott",
+      "email": "Cynthia.Scott@ct.gov"
+    },
+    {
+      "region": 10,
+      "ombudsman": "Amanda Mangiafico",
+      "email": "Amanda.Mangiafico@ct.gov"
+    },
+    {
+      "region": 11,
+      "ombudsman": "Stacey Larrabee",
+      "email": "Stacey.Larrabee@ct.gov"
+    }
+  ],
+  "municipalities": [
+    {
+      "municipality": "Andover",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Ansonia",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Ashford",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Avon",
+      "region": 5,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Barkhamsted",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Beacon Falls",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Berlin",
+      "region": 4,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Bethany",
+      "region": 9,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Bethel",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Bethlehem",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Bloomfield",
+      "region": 5,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Bolton",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Bozrah",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Branford",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Bridgeport",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Bridgewater",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Bristol",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Brookfield",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Brooklyn",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Burlington",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Canaan",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Canterbury",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Canton",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Chaplin",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Cheshire",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Chester",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Clinton",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Colchester",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Colebrook",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Columbia",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Cornwall",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Coventry",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Cromwell",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Danbury",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Darien",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Deep River",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Derby",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Durham",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "East Granby",
+      "region": 5,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "East Haddam",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "East Hampton",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "East Hartford",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "East Haven",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "East Lyme",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "East Windsor",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Eastford",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Easton",
+      "region": 3,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Ellington",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Enfield",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Essex",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Fairfield",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Farmington",
+      "region": 4,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Franklin",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Glastonbury",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Goshen",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Granby",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Greenwich",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Griswold",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Groton",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Guilford",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Haddam",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Hamden",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Hampton",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Hartford",
+      "region": 5,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Hartland",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Harwinton",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Hebron",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Kent",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Killingly",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Killingworth",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Lebanon",
+      "region": 6,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Ledyard",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Lisbon",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Litchfield",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Lyme",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Madison",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Manchester",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Mansfield",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Marlborough",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Meriden",
+      "region": 4,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Middlebury",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Middlefield",
+      "region": 10,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Middletown",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Milford",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Monroe",
+      "region": 3,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Montville",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Morris",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Naugatuck",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "New Britain",
+      "region": 4,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "New Canaan",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "New Fairfield",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "New Hartford",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "New Haven",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "New London",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "New Milford",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Newington",
+      "region": 4,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Newtown",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Norfolk",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "North Branford",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "North Canaan",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "North Haven",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "North Stonington",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Norwalk",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Norwich",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Old Lyme",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Old Saybrook",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Orange",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Oxford",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Plainfield",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Plainville",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Plymouth",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Pomfret",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Portland",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Preston",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Prospect",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Putnam",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Redding",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Ridgefield",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Rocky Hill",
+      "region": 6,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Roxbury",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Salem",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Salisbury",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Scotland",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Seymour",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Sharon",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Shelton",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Sherman",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Simsbury",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Somers",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "South Windsor",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Southbury",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Southington",
+      "region": 4,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Sprague",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Stafford",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Stamford",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Sterling",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Stonington",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Stratford",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Suffield",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Thomaston",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Thompson",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Tolland",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Torrington",
+      "region": 1,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Trumbull",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Union",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Vernon",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Voluntown",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Wallingford",
+      "region": 10,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Warren",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Washington",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Waterbury",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Waterford",
+      "region": 11,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Watertown",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "West Hartford",
+      "region": 5,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "West Haven",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Westbrook",
+      "region": 11,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Weston",
+      "region": 7,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Westport",
+      "region": 3,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Wethersfield",
+      "region": 5,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Willington",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Wilton",
+      "region": 7,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Winchester",
+      "region": 1,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Windham",
+      "region": 2,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Windsor",
+      "region": 5,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Windsor Locks",
+      "region": 5,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Wolcott",
+      "region": 8,
+      "status": "PROPOSED – REVIEW"
+    },
+    {
+      "municipality": "Woodbridge",
+      "region": 9,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Woodbury",
+      "region": 8,
+      "status": "CONFIRMED / DERIVED"
+    },
+    {
+      "municipality": "Woodstock",
+      "region": 2,
+      "status": "PROPOSED – REVIEW"
+    }
+  ]
+}
