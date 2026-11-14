@@ -31,10 +31,15 @@ class Batch456Tests(unittest.TestCase):
             self.assertTrue(proposed)
             for row in proposed:
                 self.assertIn(row['rubric_rule'], {'R2_keyword_only_drop', 'R3_specific_phrase_check',
-                                                   'R4_existing_link_check', 'R5_title_or_regulation_phrase_check',
-                                                   'R6_no_clean_fit'})
+                                                   'R1_substantive_context', 'R4_existing_link_check',
+                                                   'R5_title_or_regulation_phrase_check', 'R6_no_clean_fit'})
+                self.assertTrue(row['proposal_note'])
                 if row['proposed_decision'] == 'needs_claude':
                     self.assertFalse(row['candidate_code'])
+                if row['proposed_decision'] == 'keep':
+                    self.assertEqual(row['rubric_rule'], 'R1_substantive_context')
+                if row['proposed_decision'] == 'drop':
+                    self.assertEqual(row['rubric_rule'], 'R2_keyword_only_drop')
                 if row['proposed_decision'] == 'check':
                     self.assertIn(row['rubric_rule'], {'R3_specific_phrase_check', 'R4_existing_link_check',
                                                        'R5_title_or_regulation_phrase_check'})
