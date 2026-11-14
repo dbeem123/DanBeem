@@ -1,0 +1,306 @@
+"""Create the Revision 6 human-review sheet from locked source extracts."""
+import csv
+import json
+import math
+import re
+from collections import Counter, defaultdict
+from pathlib import Path
+from pypdf import PdfReader
+import hashlib
+
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / 'data'
+
+
+def load(path):
+    return json.loads(path.read_text(encoding='utf-8-sig'))
+
+
+STOP = set('request requests follow staff resident residents facility facilities care planning ability defined ensure consider timing practice will some can level limited medical during needs harm immediate report others based making failure risk appropriate may must also other including her his who there did having etc lack keep own take want wants my the and for from with that this their they have has was were are into than then when where which what would could should shall include includes example examples such each any all use used under section requirements requirement information provided provide upon person persons program code codes complaint complaints does not but its you your about'.split())
+
+
+def stem(word):
+    """Normalize common English plurals and inflections deterministically.
+
+    This deliberately small rule set is not a dictionary or a semantic match:
+    ies -> y, selected plural es -> base, final s -> base, and ing/ed -> base.
+    Conservative length checks avoid reducing short words and ss/us endings.
+    """
+    if len(word) > 4 and word.endswith('ies'):
+        return word[:-3] + 'y'
+    if len(word) > 5 and word.endswith(('sses', 'shes', 'ches', 'xes', 'zes')):
+        return word[:-2]
+    if len(word) > 4 and word.endswith('s') and not word.endswith(('ss', 'us', 'is')):
+        return word[:-1]
+    if len(word) > 6 and word.endswith('ing'):
+        base = word[:-3]
+        return base[:-1] if len(base) > 3 and base[-1] == base[-2] else base
+    if len(word) > 5 and word.endswith('ed'):
+        base = word[:-2]
+        return base[:-1] if len(base) > 3 and base[-1] == base[-2] else base
+    return word
+
+
+STOP_STEMS = {stem(w) for w in STOP}
+
+
+def terms(text):
+    words = re.findall(r"[a-z][a-z0-9'-]{2,}", text.lower())
+    return {stem(w) for w in words if w not in STOP and stem(w) not in STOP_STEMS}
+
+
+TITLE_PHRASE_COMMON = {stem(word) for word in STOP} | set(
+    'a an and are as at be by can did do does for from had has have if in into '
+    'is it its may must no not of on or should shall that the their them then '
+    'there these they this to under up use used was were when where which with '
+    'would right rights health medical condition change service services time '
+    'timely manner provide provided s re ve'.split()
+)
+
+
+def stemmed_phrase_match(source_text, definition_text):
+    """Return a shared adjacent stemmed phrase; never match one common word."""
+    def tokenize(value):
+        result = []
+        for raw in re.findall(r"[a-z][a-z0-9'-]*", value.lower()):
+            result.append(stem(re.sub(r"'s$", '', raw)))
+        return result
+
+    source = tokenize(source_text)
+    target = tokenize(definition_text)
+    # Care planning is a specific two-word subject phrase that the general
+    # stoplist deliberately suppresses in broad keyword matching.
+    care_plan = ('care', 'plan')
+    if (any(tuple(source[i:i + 2]) == care_plan for i in range(len(source) - 1)) and
+            any(tuple(target[i:i + 2]) == care_plan for i in range(len(target) - 1))):
+        return care_plan
+    source = [word for word in source if word not in TITLE_PHRASE_COMMON]
+    target = [word for word in target if word not in TITLE_PHRASE_COMMON]
+    for size in range(min(4, len(source)), 1, -1):
+        for start in range(len(source) - size + 1):
+            phrase = tuple(source[start:start + size])
+            if any(tuple(target[offset:offset + size]) == phrase
+                   for offset in range(len(target) - size + 1)):
+                return phrase
+    return ()
+
+
+def title_regulation_fallback(tag, definition_text):
+    """Create deterministic candidates from matching title/regulation phrases."""
+    title = tag.get('cms_short_title', '')
+    tag_number = int(tag['tag'][1:])
+    title_locator = (f'source_data/cms_survey/NH_CitationDescriptions_May2026.csv; '
+                     f'Deficiency Description; F-{tag_number:04d}')
+    matches = []
+    phrase = stemmed_phrase_match(title, definition_text)
+    if phrase:
+        matches.append((40 + len(phrase), {
+            'id': 'cms-citation-description', 'text': title,
+            'section_label': 'CMS citation description', 'evidence_locator': title_locator,
+            'title_regulation_fallback': True,
+        }, set(phrase)))
+    regulation = next((item for item in tag['passages'] if item['section_label'] == 'Regulation'), None)
+    if regulation:
+        phrase = stemmed_phrase_match(regulation['text'], definition_text)
+        if phrase:
+            locator = (f"{tag['source_file']}; PDF page {regulation['pdf_page']}; "
+                       f"Regulation; {regulation['id']}")
+            matches.append((40 + len(phrase), {
+                **regulation, 'evidence_locator': locator,
+                'title_regulation_fallback': True,
+            }, set(phrase)))
+    return matches
+
+
+def linked_evidence(passage, passages_by_id, source_file):
+    """Combine linked page fragments while preserving a locator for each fragment."""
+    parts = [passage]
+    seen = {passage['id']}
+    while parts[-1].get('continuation_passage_id'):
+        next_id = parts[-1]['continuation_passage_id']
+        if next_id in seen or next_id not in passages_by_id:
+            raise ValueError(f'Invalid passage continuation: {next_id}')
+        next_part = passages_by_id[next_id]
+        if next_part.get('continued_from_passage_id') != parts[-1]['id']:
+            raise ValueError(f'Inconsistent passage continuation: {next_id}')
+        parts.append(next_part)
+        seen.add(next_id)
+    text = ' '.join(part['text'] for part in parts)
+    locators = ' | '.join(f"{source_file}; PDF page {part['pdf_page']}; {part['section_label']}; {part['id']}" for part in parts)
+    return {**passage, 'text': text, 'evidence_locator': locators,
+            'is_example': any(part.get('is_example', False) for part in parts)}
+
+
+def main():
+    authority = load(DATA / 'nors_primary_authority.json')['authority_records']
+    definitions = {r['code']: r for r in authority if r['authority_type'] == 'nors_table_2_definition'}
+    # Only answer-sheet/FAQ excerpts containing a single explicit answer code
+    # are eligible. An answer cannot be inferred from a separate question.
+    scenarios = []
+    for r in authority:
+        source = r.get('source_file', '').lower()
+        codes = r.get('codes_mentioned', [])
+        if ('quiz-answers' in source or 'faqs.pdf' in source) and len(codes) == 1 and codes[0] in definitions:
+            # Require an explicit code attached to a complaint in one sentence;
+            # code mentions elsewhere on a page do not establish an answer.
+            code = codes[0]
+            for sentence in re.split(r'(?<=[.!?])\s+', r['text']):
+                if (re.search(r'\bcomplaint\b', sentence, re.I)
+                        and re.search(r'\b' + re.escape(code) + r'\b', sentence, re.I)
+                        and re.search(r'\b(?:because|based on|since|circumstances)\b', sentence, re.I)
+                        and not re.search(r'\b(?:number of cases|complaint code for each)\b', sentence, re.I)):
+                    scenarios.append((code, {**r, 'text': sentence}))
+    # The Part II answer sheet prints the answer and scenario together on many
+    # lines. Only accept rows whose code and question number share the same
+    # printed line; multi-column or page-spanning rows need manual review.
+    quiz_name = 'nors-training-part-II-quiz-answers.pdf'
+    lock = load(DATA / 'nors_source_pack_lock.json')['revision4_source_inventory']['files']
+    locked = next(r for r in lock if r['name'] == quiz_name)
+    quiz_path = ROOT / locked['source_file']
+    if hashlib.sha256(quiz_path.read_bytes()).hexdigest() != locked['sha256']:
+        raise ValueError('quiz-answer source hash mismatch')
+    for page_no, page in enumerate(PdfReader(str(quiz_path)).pages, 1):
+        text = page.extract_text() or ''
+        pattern = r'(?m)^([A-L][0O][1-9])[ \t]+(?:(?:Family|Staff)[ \t]+)?\d+\)[ \t]+([^\n]+(?:\n(?!\s*\n)[^\n]+)*)'
+        for match in re.finditer(pattern, text):
+            code = match.group(1).replace('O', '0')
+            if code not in definitions:
+                continue
+            raw_situation = re.split(r'(?m)^\s*[A-L][0O][1-9]\s+\d+\)', match.group(2))[0]
+            situation = ' '.join(raw_situation.split())
+            if not 35 <= len(situation) <= 1500:
+                continue
+            scenarios.append((code, {'text': situation, 'source_file': locked['source_file'], 'locator': f'PDF page {page_no}; answer {code}'}))
+    frequencies = Counter(w for r in definitions.values() for w in terms(r['text']))
+    weights = {w: math.log((len(definitions) + 1) / (n + 1)) + 1 for w, n in frequencies.items()}
+    existing = defaultdict(set)
+    for row in load(ROOT / 'crosswalk_catalog.json')['records']:
+        items = row.get('appendix_pp_tags', [])
+        if isinstance(items, dict):
+            items = [items]
+        for item in items:
+            tag = str(item.get('citation', '') if isinstance(item, dict) else item).upper().strip()
+            if re.fullmatch(r'F\d{3,4}', tag):
+                existing[tag].add(row['nors_minor_code'])
+    # Daniel approved this context filter on 2026-11-13; it never controls coding.
+    table_path = ROOT / 'source_data' / 'NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf'
+    locked_table = next(r for r in lock if r['name'] == table_path.name)
+    if hashlib.sha256(table_path.read_bytes()).hexdigest() != locked_table['sha256']:
+        raise ValueError('Table 2 source hash mismatch')
+    headings = {}
+    for page_no, page in enumerate(PdfReader(str(table_path)).pages, 1):
+        text = page.extract_text() or ''
+        for match in re.finditer(r'(?m)^([^\n]*(?:\n[^\n]*)?\(Code ([A-L])\))', text):
+            heading = re.sub(r'^\d+\s*\n', '', match.group(1).strip())
+            # Join the word split by PDF extraction while preserving its spelling.
+            heading = re.sub(r'Gro\s*\n\s*ss', 'Gross', heading)
+            headings[match.group(2)] = {'letter': match.group(2), 'heading': heading,
+                                        'locator': f'PDF page {page_no}; Table 2 category heading'}
+    if not set('ABCDEFGHIJ') <= set(headings):
+        raise ValueError('Missing Table 2 category heading')
+    prior = {'status': 'approved', 'label': 'App guidance, approved by Daniel on 2026-11-13',
+             'approved_by': 'Daniel', 'approved_date': '2026-11-13', 'controls_coding': False,
+             'source_file': locked_table['source_file'], 'source_sha256': locked_table['sha256'],
+             'sections': {section: {'categories': [headings[x] for x in letters]}
+                          for section, letters in [('483.10', 'BCDEFGHIJ'), ('483.12', 'ABDEFJ')]}}
+    (DATA / 'nors_section_prior.json').write_text(json.dumps(prior, ensure_ascii=False, indent=2) + '\n', encoding='utf-8', newline='\n')
+    fields = ['tag', 'cms_title', 'regulation_sentence', 'candidate_code', 'table_2_definition',
+              'evidence_1_text', 'evidence_1_locator', 'evidence_2_text', 'evidence_2_locator',
+              'evidence_3_text', 'evidence_3_locator', 'shared_terms', 'basis', 'score',
+              'matched_norc_scenario', 'scenario_answer_code', 'scenario_locator',
+              'decision', 'added_code', 'reviewer_note']
+    rows = []
+    index = load(DATA / 'appendix_pp' / 'index.json')['tags']
+    # The extract's first CFR mention can be an incidental cross-reference.
+    # The document order is bounded by the verified F550 (§483.10) and F620
+    # (§483.15) anchors in the locked Appendix PP.
+    anchors = {item['tag']: item['pdf_page_start'] for item in index}
+    for idx in index:
+        if not anchors['F550'] <= idx['pdf_page_start'] < anchors['F620']:
+            continue
+        tag = load(DATA / 'appendix_pp' / (idx['tag'] + '.json'))
+        by_id = {p['id']: p for p in tag['passages']}
+        grouped = [linked_evidence(p, by_id, tag['source_file']) for p in tag['passages']
+                   if not p.get('continued_from_passage_id')]
+        situations = [p for p in grouped if p.get('is_example') or p['section_label'] in
+                      ('Deficiency categorization', 'Key elements of noncompliance')]
+        if not situations:
+            situations = next(([p] for p in tag['passages'] if p['section_label'] == 'Regulation'), [])
+        if not situations:
+            # Flag shared/low-text extracts explicitly rather than inventing regulation.
+            continue
+        situations = [p for p in situations if not re.search(r'severity level\s*1\s+does not apply', p['text'], re.I)]
+        if not situations:
+            situations = next(([p] for p in tag['passages'] if p['section_label'] == 'Regulation'), [])
+        regulation = next((p['text'] for p in tag['passages'] if p['section_label'] == 'Regulation'), '')
+        section = '483.10' if idx['pdf_page_start'] < anchors['F600'] else '483.12'
+        allowed = {r['letter'] for r in prior['sections'][section]['categories']}
+        scored = []
+        for code, definition in definitions.items():
+            is_existing = code in existing[tag['tag']]
+            if code[0] not in allowed and not is_existing:
+                continue
+            matches = []
+            for passage in situations:
+                shared = terms(passage['text']) & terms(definition['text'])
+                score = sum(weights.get(w, 0) for w in shared)
+                if score >= 3:
+                    matches.append((score, passage, shared))
+            matches.sort(key=lambda item: (-item[0], item[1]['id']))
+            fallback_matches = title_regulation_fallback(tag, definition['text'])
+            if fallback_matches and not is_existing:
+                matches = fallback_matches + matches
+            if not matches and not is_existing:
+                continue
+            if not matches:
+                # Preserve an existing app link, clearly marked, without invented overlap.
+                matches = [(0, p, set()) for p in situations[:1]]
+            if not matches:
+                continue
+            best_scenarios = []
+            for scode, scenario in scenarios:
+                if scode == code:
+                    overlap = terms(matches[0][1]['text']) & terms(scenario['text'])
+                    scenario_score = sum(weights.get(w, 1) for w in overlap)
+                    if scenario_score >= 12 and len(overlap) >= 3:
+                        best_scenarios.append((scenario_score, scenario))
+            scenario = max(best_scenarios, key=lambda x: x[0])[1] if best_scenarios else None
+            scored.append((is_existing, matches[0][0], code, matches, scenario))
+        if sum(item[0] for item in scored) > 5:
+            raise ValueError(f"{tag['tag']} has more than five existing links; manual review required")
+        scored.sort(key=lambda item: (-int(item[0]), -item[1], item[2]))
+        if not scored:
+            passage = situations[0] if situations else next((p for p in tag['passages'] if p['section_label'] == 'Regulation'), None)
+            row = {'tag': tag['tag'], 'cms_title': tag['cms_short_title'], 'regulation_sentence': regulation,
+                   'candidate_code': '', 'basis': 'no_candidate_for_review', 'decision': '', 'added_code': '', 'reviewer_note': ''}
+            if passage:
+                row['evidence_1_text'] = passage['text']
+                row['evidence_1_locator'] = passage.get('evidence_locator') or f"{tag['source_file']}; PDF page {passage['pdf_page']}; {passage['section_label']}; {passage['id']}"
+            rows.append(row)
+        for is_existing, score, code, matches, scenario in scored[:5]:
+            row = {'tag': tag['tag'], 'cms_title': tag['cms_short_title'], 'regulation_sentence': regulation,
+                   'candidate_code': code, 'table_2_definition': definitions[code]['text'],
+                   'shared_terms': ', '.join(sorted(set().union(*(item[2] for item in matches[:3])))),
+                   'basis': ('existing_app_link' if is_existing else
+                             'title_regulation_fallback' if matches[0][1].get('title_regulation_fallback') else 'keyword_match'),
+                   'score': f'{score:.3f}',
+                   'matched_norc_scenario': scenario['text'] if scenario else '',
+                   'scenario_answer_code': code if scenario else '',
+                   'scenario_locator': f"{scenario['source_file']}; {scenario['locator']}" if scenario else '',
+                   'decision': '', 'added_code': '', 'reviewer_note': ''}
+            for n, (_, passage, _) in enumerate(matches[:3], 1):
+                row[f'evidence_{n}_text'] = passage['text']
+                row[f'evidence_{n}_locator'] = passage.get('evidence_locator') or f"{tag['source_file']}; PDF page {passage['pdf_page']}; {passage['section_label']}; {passage['id']}"
+            rows.append(row)
+    out = ROOT / 'docs' / 'nors_ftag_review_batch_1.csv'
+    with out.open('w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=fields, lineterminator='\n')
+        writer.writeheader()
+        writer.writerows(rows)
+    print('rows', len(rows), 'scenarios', len(scenarios))
+    print('rows_per_tag', dict(sorted(Counter(r['tag'] for r in rows).items())))
+    print('F554', [(r.get('candidate_code', ''), r.get('basis', ''), r['score']) for r in rows if r['tag'] == 'F554'])
+
+
+if __name__ == '__main__':
+    main()

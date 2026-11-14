@@ -11,8 +11,9 @@ for(let run=1;run<=2;run++){
  const result=spawnSync(edge,['--headless=new','--disable-gpu','--disable-crash-reporter','--no-first-run','--no-default-browser-check','--disable-background-networking','--disable-component-update','--virtual-time-budget=30000','--dump-dom',`--user-data-dir=${require('node:path').join(profile,'EdgeData')}`,`${base}/scripts/test_nors_phase0_harness.html`],{encoding:'utf8',timeout:60000,maxBuffer:8*1024*1024,windowsHide:true,env});
  try{
   assert.equal(result.status,0,`Edge run ${run} failed: ${result.error?.message||result.stderr}`);
-  assert.ok(result.stdout.includes('PASS complete: 4 pages at desktop and mobile sizes'),`Edge run ${run} did not report success. ${result.stdout.slice(-2000)} ${result.stderr}`);
-  assert.ok(!result.stdout.includes('FAILURES'),`Edge run ${run} reported a failing browser assertion.`);
+  const resultPanel=result.stdout.match(/<div id="results">([\s\S]*?)<\/div>/)?.[1]||'';
+  assert.ok(resultPanel.includes('PASS complete: 4 pages at desktop and mobile sizes'),`Edge run ${run} did not report success. ${resultPanel.slice(-2000)} ${result.stderr}`);
+  assert.ok(!resultPanel.includes('FAILURES'),`Edge run ${run} reported a failing browser assertion. ${resultPanel.slice(-2000)}`);
   console.log(`PASS Edge presentation/privacy run ${run}: 8 page-size combinations; synthetic workflow, warning, URL, CSP, request-origin and overflow checks.`);
  } finally {
   try{require('node:fs').rmSync(profile,{recursive:true,force:true});}catch{}

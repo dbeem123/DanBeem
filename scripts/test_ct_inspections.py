@@ -61,6 +61,19 @@ class InspectionsData(unittest.TestCase):
         self.assertGreater(len(pages), 50)
         self.assertTrue(all(isinstance(p, int) and p > 0 for p in pages))
 
+    def test_f554_is_mapped_to_medication_self_administration(self):
+        group = next(g for g in MAP["groups"] if g["id"] == "medication_self_administration")
+        self.assertIn("F554", group["tags"])
+        self.assertNotIn("F554", next(g for g in MAP["groups"] if g["id"] == "care")["tags"])
+        self.assertEqual(INS["tags"]["F0554"][2], "medication_self_administration")
+        self.assertEqual(INS["tags"]["F0554"][3], 17)
+        self.assertEqual(INS["tagref"]["F0554"][1], "42 CFR 483.10(c)(7)")
+
+    def test_f556_reserved_page_anchor_matches_appendix_pp(self):
+        row = next(r for r in json.loads((ROOT / "data/appendix_pp_tag_pages.json").read_text(encoding="utf-8"))["appendix_pp_tag_page_rows"] if r["f_tag"] == "F556")
+        self.assertEqual(row["status"], "reserved")
+        self.assertEqual(row["appendix_pp_pdf_page_start"], 20)
+
     def test_scores_from_provider_info(self):
         scores = INS["scores"]
         self.assertEqual(len(scores), INS["meta"]["denominators"]["provider_info_homes"])

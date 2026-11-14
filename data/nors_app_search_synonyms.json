@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "label": "Approved app guidance; expands Appendix PP search terms only.",
+  "status": "approved_app_guidance",
+  "approved_by": "Daniel",
+  "approved_date": "2026-11-13",
+  "rules": [
+    {
+      "match_any_trigger": ["own", "my own", "bedside", "self"],
+      "alongside_any_medication_term": ["medication", "medicine", "pills", "meds", "inhaler"],
+      "expands_to": ["self-administer"]
+    }
+  ]
+}

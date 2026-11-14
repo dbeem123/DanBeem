@@ -1,0 +1,20 @@
+{
+  "status": "draft",
+  "label": "Proposed App guidance category filter for §483.15; Daniel approval pending",
+  "approval_status": "pending_Daniel",
+  "controls_coding": false,
+  "source_file": "source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+  "source_sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce",
+  "rationale": "Table 2 labels category C “Admission, Transfer, Discharge, Eviction”. Existing app links remain visible as candidates even when outside category C.",
+  "sections": {
+    "483.15": {
+      "categories": [
+        {
+          "letter": "C",
+          "heading": "Admission, Transfer, Discharge, Eviction (Code C)",
+          "locator": "PDF page 5; Table 2 category heading"
+        }
+      ]
+    }
+  }
+}

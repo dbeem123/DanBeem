@@ -4,7 +4,8 @@
     "source_pack_name": "NORS_CODING_AND_COMPLAINT_PROCESSING_SOURCE_PACK",
     "date_checked": "2026-04-23",
     "delta_only": false,
-    "purpose": "Lock official NORS training and curriculum sources for future crosswalk QA. NORS guidance controls reporting and complaint coding; regulations, Appendix PP, and CT overlays provide authority and context."
+    "purpose": "Lock official NORS training and curriculum sources for future crosswalk QA. NORS guidance controls reporting and complaint coding; regulations, Appendix PP, and CT overlays provide authority and context.",
+    "local_artifact_note": "Official source files were supplied in Full Ombudsman Repo 11-12-26; the original downloader log was not present. Retrieval dates therefore use the local file last-write date, not an independently verified download timestamp."
   },
   "source_pack_rows": [
     {
@@ -13,7 +14,11 @@
       "url": "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%201%20Case%20Level%20%2010-31-2024.pdf",
       "source_owner": "ACL",
       "source_type": "nors_table",
-      "topic_scope": ["case_vs_complaint", "case_level_values", "verification_disposition_referral"],
+      "topic_scope": [
+        "case_vs_complaint",
+        "case_level_values",
+        "verification_disposition_referral"
+      ],
       "preferred_use": "Primary reference for case-level coding, including case values, verification, disposition, referral fields, and case closure values.",
       "authority_role": "coding_authority",
       "current_status": "current",
@@ -31,7 +36,11 @@
       "url": "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%202%20Complaint%20Code%2010-31-2024.pdf",
       "source_owner": "ACL",
       "source_type": "nors_table",
-      "topic_scope": ["complaint_coding", "nors_codes_definitions", "examples_reporting_tips"],
+      "topic_scope": [
+        "complaint_coding",
+        "nors_codes_definitions",
+        "examples_reporting_tips"
+      ],
       "preferred_use": "Primary reference for NORS complaint code labels, definitions, examples, and reporting tips.",
       "authority_role": "coding_authority",
       "current_status": "current",
@@ -49,7 +58,12 @@
       "url": "https://acl.gov/sites/default/files/programs/2021-11/NORS%20Table%203%20Program%20Information%2010-31-2024.pdf",
       "source_owner": "ACL",
       "source_type": "nors_table",
-      "topic_scope": ["program_activities", "facility_visits", "community_education", "programmatic_reporting"],
+      "topic_scope": [
+        "program_activities",
+        "facility_visits",
+        "community_education",
+        "programmatic_reporting"
+      ],
       "preferred_use": "Primary reference for state program information and activity reporting codes used with NORS Part 4.",
       "authority_role": "coding_authority",
       "current_status": "current",
@@ -67,7 +81,13 @@
       "url": "https://ltcombudsman.org/omb_support/nors",
       "source_owner": "NORC",
       "source_type": "training_index",
-      "topic_scope": ["nors_tables", "nors_training_links", "faqs", "decision_trees", "data_reports"],
+      "topic_scope": [
+        "nors_tables",
+        "nors_training_links",
+        "faqs",
+        "decision_trees",
+        "data_reports"
+      ],
       "preferred_use": "Primary hub for checking current NORS tables, training materials, FAQs, decision trees, and updates.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -85,7 +105,13 @@
       "url": "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_1_FINAL_for_website.pdf",
       "source_owner": "NORC",
       "source_type": "nors_training",
-      "topic_scope": ["case_vs_complaint", "information_and_assistance", "complainant_rules", "multiple_complaints", "initial_coding_workflow"],
+      "topic_scope": [
+        "case_vs_complaint",
+        "information_and_assistance",
+        "complainant_rules",
+        "multiple_complaints",
+        "initial_coding_workflow"
+      ],
       "preferred_use": "Primary training authority for distinguishing cases from information and assistance, counting complaints, and identifying the complainant before complaint coding.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -103,7 +129,11 @@
       "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-I-quiz.pdf",
       "source_owner": "NORC",
       "source_type": "quiz",
-      "topic_scope": ["case_vs_information_and_assistance", "complainant_identification", "multiple_complaints"],
+      "topic_scope": [
+        "case_vs_information_and_assistance",
+        "complainant_identification",
+        "multiple_complaints"
+      ],
       "preferred_use": "Scenario practice for deciding case vs I&A, number of complaints, and complainant.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -121,7 +151,11 @@
       "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-I-quiz-answers.pdf",
       "source_owner": "NORC",
       "source_type": "answer_sheet",
-      "topic_scope": ["case_vs_information_and_assistance", "complainant_rules", "complaint_counting"],
+      "topic_scope": [
+        "case_vs_information_and_assistance",
+        "complainant_rules",
+        "complaint_counting"
+      ],
       "preferred_use": "High-value QA source for ambiguous case vs I&A and complainant scenarios.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -139,7 +173,12 @@
       "url": "https://ltcombudsman.org/uploads/files/support/Part-II-Principles-9-28-11_0.pdf",
       "source_owner": "NORC",
       "source_type": "nors_training",
-      "topic_scope": ["complaint_coding", "one_complaint_one_code", "facility_vs_outside_agency", "abuse_vs_poor_care"],
+      "topic_scope": [
+        "complaint_coding",
+        "one_complaint_one_code",
+        "facility_vs_outside_agency",
+        "abuse_vs_poor_care"
+      ],
       "preferred_use": "Primary training authority for complaint-coding principles, including one complaint equals one complaint code and A-M vs N-Q categories.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -157,7 +196,12 @@
       "url": "https://ltcombudsman.org/uploads/files/support/NORS_Part_II_Training_PPT.pdf",
       "source_owner": "NORC",
       "source_type": "webinar",
-      "topic_scope": ["complaint_coding", "basic_principles_reinforcement", "table_2_usage", "ambiguous_complaint_examples"],
+      "topic_scope": [
+        "complaint_coding",
+        "basic_principles_reinforcement",
+        "table_2_usage",
+        "ambiguous_complaint_examples"
+      ],
       "preferred_use": "Slide-based reinforcement of Part 2 complaint-coding principles and Table 2 usage.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -175,7 +219,11 @@
       "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
       "source_owner": "NORC",
       "source_type": "quiz",
-      "topic_scope": ["complaint_coding_scenarios", "multiple_complaints_decisions", "facility_vs_outside_agency"],
+      "topic_scope": [
+        "complaint_coding_scenarios",
+        "multiple_complaints_decisions",
+        "facility_vs_outside_agency"
+      ],
       "preferred_use": "Scenario practice for complaint coding using Table 2 and Part 2 principles.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -193,7 +241,12 @@
       "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf",
       "source_owner": "NORC",
       "source_type": "answer_sheet",
-      "topic_scope": ["complaint_coding_answers", "abuse_vs_poor_care", "rights_vs_care", "facility_vs_outside_agency"],
+      "topic_scope": [
+        "complaint_coding_answers",
+        "abuse_vs_poor_care",
+        "rights_vs_care",
+        "facility_vs_outside_agency"
+      ],
       "preferred_use": "High-value QA source showing how NORC resolves ambiguous complaint-coding scenarios.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -211,7 +264,11 @@
       "url": "https://ltcombudsman.org/uploads/files/support/Part_II_Beyond_Basics_Quiz_Answers_2021.pdf",
       "source_owner": "NORC",
       "source_type": "answer_sheet",
-      "topic_scope": ["advanced_complaint_coding", "multiple_complaints_per_case", "outside_agency_L03_barriers_to_transition"],
+      "topic_scope": [
+        "advanced_complaint_coding",
+        "multiple_complaints_per_case",
+        "outside_agency_L03_barriers_to_transition"
+      ],
       "preferred_use": "Advanced scenario guidance for multi-issue cases and outside-agency/system complaint distinctions.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -229,7 +286,11 @@
       "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-beyond-basics-quiz-answers.pdf",
       "source_owner": "NORC",
       "source_type": "answer_sheet",
-      "topic_scope": ["advanced_complaint_coding", "complex_scenarios", "ambiguous_complaints"],
+      "topic_scope": [
+        "advanced_complaint_coding",
+        "complex_scenarios",
+        "ambiguous_complaints"
+      ],
       "preferred_use": "Most recent advanced answer set; preferred training reference when it differs from older beyond-basics materials.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -247,7 +308,13 @@
       "url": "https://ltcombudsman.org/omb_support/nors/revised-nors-data-collection",
       "source_owner": "NORC",
       "source_type": "nors_training",
-      "topic_scope": ["verification", "disposition", "referral", "closing_cases", "case_level_reporting"],
+      "topic_scope": [
+        "verification",
+        "disposition",
+        "referral",
+        "closing_cases",
+        "case_level_reporting"
+      ],
       "preferred_use": "Primary training authority for verification, disposition, referral, and closing cases.",
       "authority_role": "training_authority",
       "current_status": "uncertain",
@@ -265,7 +332,12 @@
       "url": "https://ltcombudsman.org/uploads/files/support/nors-training-part-III-quiz-answers-verification-disposition-referral-and-closing-cases.pdf",
       "source_owner": "NORC",
       "source_type": "answer_sheet",
-      "topic_scope": ["verification_examples", "disposition_examples", "referral_examples", "closing_case_examples"],
+      "topic_scope": [
+        "verification_examples",
+        "disposition_examples",
+        "referral_examples",
+        "closing_case_examples"
+      ],
       "preferred_use": "QA examples for verification, disposition, referral, and case-closing logic.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -283,7 +355,13 @@
       "url": "https://ltcombudsman.org/uploads/files/support/NORS_Training_Part_IV_Basic_Principles.pdf",
       "source_owner": "NORC",
       "source_type": "nors_training",
-      "topic_scope": ["program_activities", "facility_visits", "community_education", "systems_advocacy", "activity_reporting"],
+      "topic_scope": [
+        "program_activities",
+        "facility_visits",
+        "community_education",
+        "systems_advocacy",
+        "activity_reporting"
+      ],
       "preferred_use": "Primary training authority for program activity reporting in NORS.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -301,7 +379,11 @@
       "url": "https://ltcombudsman.org/omb_support/nors/nors-faqs",
       "source_owner": "NORC",
       "source_type": "faq",
-      "topic_scope": ["frequent_coding_questions", "multiple_complaints_guidance", "case_vs_complaint_clarifications"],
+      "topic_scope": [
+        "frequent_coding_questions",
+        "multiple_complaints_guidance",
+        "case_vs_complaint_clarifications"
+      ],
       "preferred_use": "Clarifies ambiguous or commonly misunderstood NORS rules.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -319,7 +401,11 @@
       "url": "https://ltcombudsman.org/uploads/files/support/NORS_Course_Webinar_July_2025.pdf",
       "source_owner": "NORC",
       "source_type": "webinar",
-      "topic_scope": ["overview_of_revised_NORS_training", "online_course_structure", "updated_part_1_4_materials"],
+      "topic_scope": [
+        "overview_of_revised_NORS_training",
+        "online_course_structure",
+        "updated_part_1_4_materials"
+      ],
       "preferred_use": "Orientation to the online NORS course and current source pack.",
       "authority_role": "interpretive_guidance",
       "current_status": "current",
@@ -337,7 +423,12 @@
       "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
       "source_owner": "NORC",
       "source_type": "curriculum_module",
-      "topic_scope": ["resident_first_complaint_processing", "case_documentation", "ombudsman_roles_authorities", "workflow_training"],
+      "topic_scope": [
+        "resident_first_complaint_processing",
+        "case_documentation",
+        "ombudsman_roles_authorities",
+        "workflow_training"
+      ],
       "preferred_use": "Broad initial certification curriculum supporting resident-first complaint processing, documentation, roles, and workflow.",
       "authority_role": "training_authority",
       "current_status": "current",
@@ -355,7 +446,12 @@
       "url": "https://ltcombudsman.org/omb_support/training",
       "source_owner": "NORC",
       "source_type": "training_index",
-      "topic_scope": ["training_index", "nors_training_links", "initial_certification_links", "office_hour_links"],
+      "topic_scope": [
+        "training_index",
+        "nors_training_links",
+        "initial_certification_links",
+        "office_hour_links"
+      ],
       "preferred_use": "Index for NORC training resources; useful for update checks.",
       "authority_role": "interpretive_guidance",
       "current_status": "current",
@@ -373,7 +469,12 @@
       "url": "https://ltcombudsman.org/uploads/files/support/office-hour-july-2024.pdf",
       "source_owner": "NORC",
       "source_type": "webinar",
-      "topic_scope": ["nors_consistency", "faq_highlights", "table_1_3_usage", "common_coding_errors"],
+      "topic_scope": [
+        "nors_consistency",
+        "faq_highlights",
+        "table_1_3_usage",
+        "common_coding_errors"
+      ],
       "preferred_use": "Interpretive guidance for common NORS consistency questions and QA edge cases.",
       "authority_role": "interpretive_guidance",
       "current_status": "current",
@@ -389,55 +490,94 @@
   "source_relationship_rows": [
     {
       "relationship_id": "REL-NORS-TABLES-CORE-001",
-      "source_pack_ids": ["ACL_NORS_TABLE_1_CASE_LEVEL_2024", "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "ACL_NORS_TABLE_3_PROGRAM_INFO_2024"],
+      "source_pack_ids": [
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024"
+      ],
       "relationship_type": "prerequisite",
       "relationship_note": "ACL NORS Tables 1-3 are the foundational data definitions for NORS training Parts 1-4."
     },
     {
       "relationship_id": "REL-NORS-PART1-PART2-001",
-      "source_pack_ids": ["NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_2_BASIC_PRINCIPLES"],
+      "source_pack_ids": [
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_2_BASIC_PRINCIPLES"
+      ],
       "relationship_type": "prerequisite",
       "relationship_note": "Part 1 case/complaint/I&A screening should be applied before Part 2 complaint coding."
     },
     {
       "relationship_id": "REL-NORS-PART2-TABLE2-001",
-      "source_pack_ids": ["NORS_PART_2_BASIC_PRINCIPLES", "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024"],
+      "source_pack_ids": [
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024"
+      ],
       "relationship_type": "supports_workflow",
       "relationship_note": "Part 2 explains how to use Table 2; Table 2 supplies complaint code labels, definitions, examples, and reporting tips."
     },
     {
       "relationship_id": "REL-NORS-PART2-QUIZZES-002",
-      "source_pack_ids": ["NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_2_QUIZ", "NORS_PART_2_QUIZ_ANSWER_SHEET", "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED"],
+      "source_pack_ids": [
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_2_QUIZ",
+        "NORS_PART_2_QUIZ_ANSWER_SHEET",
+        "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED"
+      ],
       "relationship_type": "answers_quiz",
       "relationship_note": "Part 2 quizzes and answer sheets show NORC's intended coding choices for ambiguous scenarios."
     },
     {
       "relationship_id": "REL-NORS-PART3-TABLE1-003",
-      "source_pack_ids": ["NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_3_QUIZ_ANSWER_SHEET", "ACL_NORS_TABLE_1_CASE_LEVEL_2024"],
+      "source_pack_ids": [
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_3_QUIZ_ANSWER_SHEET",
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024"
+      ],
       "relationship_type": "supports_workflow",
       "relationship_note": "Part 3 training and Table 1 control verification, disposition, referral, and case-closing values."
     },
     {
       "relationship_id": "REL-NORS-PART4-TABLE3-004",
-      "source_pack_ids": ["NORS_PART_4_BASIC_PRINCIPLES", "ACL_NORS_TABLE_3_PROGRAM_INFO_2024"],
+      "source_pack_ids": [
+        "NORS_PART_4_BASIC_PRINCIPLES",
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024"
+      ],
       "relationship_type": "supports_workflow",
       "relationship_note": "Part 4 training and Table 3 control program activity reporting."
     },
     {
       "relationship_id": "REL-NORS-FAQ-TRAINING-005",
-      "source_pack_ids": ["NORS_FAQS", "NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_4_BASIC_PRINCIPLES"],
+      "source_pack_ids": [
+        "NORS_FAQS",
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_4_BASIC_PRINCIPLES"
+      ],
       "relationship_type": "explains",
       "relationship_note": "NORS FAQs clarify and expand on questions that arise from Parts 1-4."
     },
     {
       "relationship_id": "REL-NORS-CURRICULUM-NORS-006",
-      "source_pack_ids": ["NORC_INITIAL_CERTIFICATION_CURRICULUM_MODULES", "NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_4_BASIC_PRINCIPLES"],
+      "source_pack_ids": [
+        "NORC_INITIAL_CERTIFICATION_CURRICULUM_MODULES",
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_4_BASIC_PRINCIPLES"
+      ],
       "relationship_type": "documentation_support",
       "relationship_note": "Initial certification curriculum supports workflow and documentation, but NORS-specific training controls reporting codes."
     },
     {
       "relationship_id": "REL-NORS-ONLINE-COURSE-007",
-      "source_pack_ids": ["NORS_ONLINE_COURSE_WEBINAR_2025", "ACL_NORS_TABLE_1_CASE_LEVEL_2024", "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "ACL_NORS_TABLE_3_PROGRAM_INFO_2024"],
+      "source_pack_ids": [
+        "NORS_ONLINE_COURSE_WEBINAR_2025",
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024"
+      ],
       "relationship_type": "explains",
       "relationship_note": "The 2025 NORS course launch confirms the current online course and revised NORS training source set."
     }
@@ -446,57 +586,139 @@
     {
       "rule_id": "SPR-NORS-001",
       "rule": "ACL NORS Tables 1-3 and NORC NORS Training Parts 1-4 are the controlling sources for NORS reporting and complaint coding.",
-      "applies_to": ["nors_reporting", "complaint_coding", "case_workflow"],
-      "priority_order": ["ACL_NORS_TABLE_1_CASE_LEVEL_2024", "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "ACL_NORS_TABLE_3_PROGRAM_INFO_2024", "NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_4_BASIC_PRINCIPLES"],
+      "applies_to": [
+        "nors_reporting",
+        "complaint_coding",
+        "case_workflow"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024",
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_4_BASIC_PRINCIPLES"
+      ],
       "plain_language_rationale": "ACL tables define NORS values and NORC training teaches how to apply them. All complaint coding and case reporting decisions start here."
     },
     {
       "rule_id": "SPR-NORS-002",
       "rule": "CMS Appendix PP and F-tags provide regulatory and surveyor context but do not determine final NORS complaint codes.",
-      "applies_to": ["nors_to_authority_crosswalk", "appendix_pp_related_investigation"],
-      "priority_order": ["ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "NORS_PART_2_BASIC_PRINCIPLES", "CMS_APPENDIX_PP_REV_232"],
+      "applies_to": [
+        "nors_to_authority_crosswalk",
+        "appendix_pp_related_investigation"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "CMS_APPENDIX_PP_REV_232"
+      ],
       "plain_language_rationale": "NORS is an ombudsman reporting system, not a survey tool. F-tags can explain rights and facility obligations after likely NORS issues are identified."
     },
     {
       "rule_id": "SPR-NORS-003",
       "rule": "Part 1 sources are used first to distinguish cases from information and assistance, count complaints, and identify the complainant.",
-      "applies_to": ["case_vs_complaint", "information_and_assistance", "complainant_rules"],
-      "priority_order": ["NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_1_QUIZ_ANSWER_SHEET_2025", "NORS_PART_1_QUIZ"],
+      "applies_to": [
+        "case_vs_complaint",
+        "information_and_assistance",
+        "complainant_rules"
+      ],
+      "priority_order": [
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_1_QUIZ_ANSWER_SHEET_2025",
+        "NORS_PART_1_QUIZ"
+      ],
       "plain_language_rationale": "Before coding a complaint, the user must know whether the contact is a case or I&A and how many complaints exist."
     },
     {
       "rule_id": "SPR-NORS-004",
       "rule": "Part 2 sources are primary for complaint coding and ambiguity rules once a case and complaint have been identified.",
-      "applies_to": ["complaint_coding", "keyword_routing", "ambiguity_rules"],
-      "priority_order": ["ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_2_QUIZ_ANSWER_SHEET", "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED"],
+      "applies_to": [
+        "complaint_coding",
+        "keyword_routing",
+        "ambiguity_rules"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_2_QUIZ_ANSWER_SHEET",
+        "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED"
+      ],
       "plain_language_rationale": "Part 2 and Table 2 control complaint-code selection. Answer sheets guide ambiguous phrases and scenarios."
     },
     {
       "rule_id": "SPR-NORS-005",
       "rule": "Part 3 sources are primary for verification, disposition, referral, and closing cases.",
-      "applies_to": ["verification", "disposition", "referral", "case_closing"],
-      "priority_order": ["ACL_NORS_TABLE_1_CASE_LEVEL_2024", "NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_3_QUIZ_ANSWER_SHEET"],
+      "applies_to": [
+        "verification",
+        "disposition",
+        "referral",
+        "case_closing"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_3_QUIZ_ANSWER_SHEET"
+      ],
       "plain_language_rationale": "Part 3 explains how to apply Table 1 fields after complaint work is completed."
     },
     {
       "rule_id": "SPR-NORS-006",
       "rule": "Part 4 sources are primary for program activity reporting.",
-      "applies_to": ["program_activities", "facility_visits", "community_education"],
-      "priority_order": ["ACL_NORS_TABLE_3_PROGRAM_INFO_2024", "NORS_PART_4_BASIC_PRINCIPLES"],
+      "applies_to": [
+        "program_activities",
+        "facility_visits",
+        "community_education"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024",
+        "NORS_PART_4_BASIC_PRINCIPLES"
+      ],
       "plain_language_rationale": "Program activities are not complaint codes; Table 3 and Part 4 control this reporting layer."
     },
     {
       "rule_id": "SPR-NORS-007",
       "rule": "FAQs and quiz answer sheets are high-value QA sources for ambiguous scenarios but must be interpreted in light of ACL tables and basic principles.",
-      "applies_to": ["qa", "ambiguity_rules", "edge_cases"],
-      "priority_order": ["ACL_NORS_TABLE_1_CASE_LEVEL_2024", "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "ACL_NORS_TABLE_3_PROGRAM_INFO_2024", "NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_4_BASIC_PRINCIPLES", "NORS_FAQS", "NORS_PART_1_QUIZ_ANSWER_SHEET_2025", "NORS_PART_2_QUIZ_ANSWER_SHEET", "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED", "NORS_PART_3_QUIZ_ANSWER_SHEET"],
+      "applies_to": [
+        "qa",
+        "ambiguity_rules",
+        "edge_cases"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024",
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_4_BASIC_PRINCIPLES",
+        "NORS_FAQS",
+        "NORS_PART_1_QUIZ_ANSWER_SHEET_2025",
+        "NORS_PART_2_QUIZ_ANSWER_SHEET",
+        "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED",
+        "NORS_PART_3_QUIZ_ANSWER_SHEET"
+      ],
       "plain_language_rationale": "FAQs and answer sheets show how NORC resolves hard cases in practice; they are QA aids below ACL tables and basic principles."
     },
     {
       "rule_id": "SPR-NORS-008",
       "rule": "Initial certification curriculum modules support resident-first workflow and documentation but do not override NORS tables or NORS Parts 1-4 for reporting codes.",
-      "applies_to": ["resident_first_workflow", "documentation", "training"],
-      "priority_order": ["ACL_NORS_TABLE_1_CASE_LEVEL_2024", "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024", "ACL_NORS_TABLE_3_PROGRAM_INFO_2024", "NORS_PART_1_BASIC_PRINCIPLES", "NORS_PART_2_BASIC_PRINCIPLES", "NORS_PART_3_BASIC_PRINCIPLES", "NORS_PART_4_BASIC_PRINCIPLES", "NORC_INITIAL_CERTIFICATION_CURRICULUM_MODULES"],
+      "applies_to": [
+        "resident_first_workflow",
+        "documentation",
+        "training"
+      ],
+      "priority_order": [
+        "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+        "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+        "ACL_NORS_TABLE_3_PROGRAM_INFO_2024",
+        "NORS_PART_1_BASIC_PRINCIPLES",
+        "NORS_PART_2_BASIC_PRINCIPLES",
+        "NORS_PART_3_BASIC_PRINCIPLES",
+        "NORS_PART_4_BASIC_PRINCIPLES",
+        "NORC_INITIAL_CERTIFICATION_CURRICULUM_MODULES"
+      ],
       "plain_language_rationale": "The curriculum shapes how staff investigate and document. NORS-specific sources still control reporting codes."
     }
   ],
@@ -507,7 +729,11 @@
       "issue": "Some NORS training URLs are hub pages that may link to updated PDFs over time.",
       "recommended_action": "Periodically verify that linked Part 1-4 PDFs and quizzes have not been replaced or renumbered.",
       "affected_codes": [],
-      "source_urls": ["https://ltcombudsman.org/omb_support/nors", "https://ltcombudsman.org/omb_support/nors/revised-nors-data-collection", "https://ltcombudsman.org/omb_support/training"]
+      "source_urls": [
+        "https://ltcombudsman.org/omb_support/nors",
+        "https://ltcombudsman.org/omb_support/nors/revised-nors-data-collection",
+        "https://ltcombudsman.org/omb_support/training"
+      ]
     },
     {
       "flag_id": "HRF-NORS-SP-002",
@@ -515,7 +741,1306 @@
       "issue": "Publication dates for some quizzes and answer sheets are not clearly listed on the documents.",
       "recommended_action": "Before a formal production release, annotate missing publication dates from document footers, NORC announcements, or file metadata.",
       "affected_codes": [],
-      "source_urls": ["https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf", "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"]
+      "source_urls": [
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz.pdf",
+        "https://ltcombudsman.org/uploads/files/support/nors-training-part-II-quiz-answers.pdf"
+      ]
     }
-  ]
+  ],
+  "local_source_artifacts": [
+    {
+      "source_pack_id": "ACL_NORS_TABLE_1_CASE_LEVEL_2024",
+      "source_file": "acl/NORS_Table_1_Case_Level_2024_Renewal-noex.pdf",
+      "source_owner": "ACL",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "2024 Renewal",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/NORS_Table_1_Case_Level_2024_Renewal-noex.pdf",
+      "sha256": "b4183a2af76a6376ead4cef5bc6b3ef67d473f8d3b383cb3ef3b1fe2921931a4"
+    },
+    {
+      "source_pack_id": "ACL_NORS_TABLE_2_COMPLAINT_CODES_2024",
+      "source_file": "acl/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+      "source_owner": "ACL",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "2024 Renewal",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+      "sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce"
+    },
+    {
+      "source_pack_id": "ACL_NORS_TABLE_3_PROGRAM_INFO_2024",
+      "source_file": "acl/NORS_Table_3_Program_Information_2024_Renewal-noex.pdf",
+      "source_owner": "ACL",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "2024 Renewal",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/NORS_Table_3_Program_Information_2024_Renewal-noex.pdf",
+      "sha256": "727bc9172774f8dfff9aed50720b5059376a49b8095f1a6e9cc3a5cc6c7ce9b0"
+    },
+    {
+      "source_pack_id": "NORS_UPDATED_COMPLAINT_CODES_LIST",
+      "source_file": "norc/nors-updated-complaint-codes-list.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current, listed under NORC 2026/04 source pack",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-updated-complaint-codes-list.pdf",
+      "sha256": "8956188f6b9bf052b9c3bcfb82b6c378aab542ce3ec53a96884b98c1c9b9a15e"
+    },
+    {
+      "source_pack_id": "NORS_CODES_AND_DEFINITIONS",
+      "source_file": "norc/nors-codes-and-definitions.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current companion reference",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-codes-and-definitions.pdf",
+      "sha256": "087d79a6d406c3ba194f871e8db7585477a6cc39203f63a82eb24374be5b384f"
+    },
+    {
+      "source_pack_id": "NORS_FAQS",
+      "source_file": "norc/nors-faqs.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current FAQ print; no version stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-faqs.pdf",
+      "sha256": "48df98e7a7bff758632b66d4041475fae9b40f38d6899a1fc8edbbdb208a3eb3"
+    },
+    {
+      "source_pack_id": "NORS_PART_1_BASIC_PRINCIPLES",
+      "source_file": "norc/nors-training-part-I-basic-principles.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided copy; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-I-basic-principles.pdf",
+      "sha256": "76f6d36d8dd5cd3baaade665eb459a3a5221e5d9285ab61ad8abd4523ae3dfe5"
+    },
+    {
+      "source_pack_id": "NORS_PART_2_BASIC_PRINCIPLES",
+      "source_file": "norc/nors-training-part-II-basic-principles.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided copy; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-II-basic-principles.pdf",
+      "sha256": "93edbb2eb2a386652b3838975f4c5114e086fac2016ea0bb7bffb8ea8398e659"
+    },
+    {
+      "source_pack_id": "NORS_PART_3_BASIC_PRINCIPLES",
+      "source_file": "norc/nors-training-part-III-basic-principles.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided copy; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-III-basic-principles.pdf",
+      "sha256": "962087b1bc73cad959cecaf215946ec65634eeba70228c21564cd2fed404c0ad"
+    },
+    {
+      "source_pack_id": "NORS_PART_4_BASIC_PRINCIPLES",
+      "source_file": "norc/nors-training-part-IV-basic-principles.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided copy; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-IV-basic-principles.pdf",
+      "sha256": "0b83df292cfedea1ad634b93d907280665f878bab638501ba018ceaf32fb6634"
+    },
+    {
+      "source_pack_id": "NORS_PART_1_QUIZ_ANSWER_SHEET_2025",
+      "source_file": "norc/nors-training-part-I-quiz-answers.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided answer sheet; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-I-quiz-answers.pdf",
+      "sha256": "4a0ef161cf9b27167bf8d707c352e073bc2ca655051e6292e05e8929615b5756"
+    },
+    {
+      "source_pack_id": "NORS_PART_2_QUIZ_ANSWER_SHEET",
+      "source_file": "norc/nors-training-part-II-quiz-answers.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided answer sheet; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-II-quiz-answers.pdf",
+      "sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a"
+    },
+    {
+      "source_pack_id": "NORS_PART_2_BEYOND_BASICS_ANSWER_SHEET_REVISED",
+      "source_file": "norc/nors-training-part-II-beyond-basics-quiz-answers.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided answer sheet; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-II-beyond-basics-quiz-answers.pdf",
+      "sha256": "70d7d53feaafb1c1a6f1231f224305c7af618d2de86d9e8ebc0d0296de111ebf"
+    },
+    {
+      "source_pack_id": "NORS_PART_3_QUIZ_ANSWER_SHEET",
+      "source_file": "norc/nors-training-part-III-quiz-answers-verification-disposition-referral-and-closing.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided answer sheet; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-III-quiz-answers-verification-disposition-referral-and-closing.pdf",
+      "sha256": "2d71db57d171e28405dfb54cecc781d73580ee69fd14cfbfa6f10cf259561bcc"
+    },
+    {
+      "source_pack_id": "NORS_PART_4_QUIZ_ANSWER_SHEET",
+      "source_file": "norc/nors-training-part-IV-quiz-answers.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided answer sheet; no revision stated",
+      "url": "https://ltcombudsman.org/wp-content/uploads/2026/04/nors-training-part-IV-quiz-answers.pdf",
+      "sha256": "145b2d5cd8baa23d6937ff063bc27171be2c434d4545d6a02ea678d2153f22bf"
+    },
+    {
+      "source_pack_id": "CMS_APPENDIX_PP_REV_232",
+      "source_file": "federal/Appendix_PP_Rev_232.pdf",
+      "source_owner": "CMS",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Rev. 232 (07-23-25)",
+      "url": "https://www.cms.gov/Regulations-and-Guidance/Guidance/Manuals/Downloads/som107ap_pp_guidelines_ltcf.pdf",
+      "sha256": "510239296026021a4bd88724024743cff9ac1d777901367d8c4d35a5a3a51a01"
+    },
+    {
+      "source_pack_id": "42_CFR_483_SUBPART_B",
+      "source_file": "federal/42_CFR_Part_483_Subpart_B_as_of_2026-11-10.pdf",
+      "source_owner": "eCFR",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "eCFR current through 2026-11-10",
+      "url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B",
+      "sha256": "7a7d11f755f0e7e1faf2484a84fff2910b60568347c455f8e657687d62f38bd5"
+    },
+    {
+      "source_pack_id": "45_CFR_1324",
+      "source_file": "federal/45_CFR_Part_1324_as_of_2026-11-09.pdf",
+      "source_owner": "eCFR",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "eCFR current through 2026-11-09; includes §1324.19",
+      "url": "https://www.ecfr.gov/current/title-45/subtitle-B/chapter-XIII/subchapter-C/part-1324",
+      "sha256": "8e128acb838f01c90359e5272c355ec0f80e33289fc9e6e23ffab21603d96e69"
+    },
+    {
+      "source_pack_id": "CGS_CHAPTER_368V",
+      "source_file": "ct/CGS_Chapter_368v.html",
+      "source_owner": "Connecticut",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current Connecticut chapter as downloaded 2026-11-12; sections include 19a-532 and 19a-550",
+      "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm",
+      "sha256": "bc809f7a74e63c9b124daff7df1a990b7b8bdc5763d35ea3c39140760ca9f4f8"
+    },
+    {
+      "source_pack_id": "CGS_CHAPTER_319L",
+      "source_file": "ct/CGS_Chapter_319l.html",
+      "source_owner": "Connecticut",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current Connecticut chapter as downloaded 2026-11-12",
+      "url": "https://www.cga.ct.gov/current/pub/chap_319l.htm",
+      "sha256": "a8ff1f1a724b774c4277e37e446b1a45a0679f0b948fd0a3015059b64671485f"
+    },
+    {
+      "source_pack_id": "RCSA_19_13_D8V",
+      "source_file": "ct/RCSA_19-13-D8v.pdf",
+      "source_owner": "Connecticut",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current copy; section 19-13-D8v; no printed revision date",
+      "url": "https://eregulations.ct.gov/eRegsPortal/",
+      "sha256": "82acaa9638e3af48462dc8db229a555f3f468f76df254c71e42fc565bb31a678"
+    },
+    {
+      "source_pack_id": "RCSA_19_13_D8T",
+      "source_file": "ct/RCSA_19-13-D8t.pdf",
+      "source_owner": "Connecticut",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current copy; section 19-13-D8t; no printed revision date",
+      "url": "https://eregulations.ct.gov/eRegsPortal/Browse/RCSA/Title_19Subtitle_19-13Section_19-13-d8t/",
+      "sha256": "067107cc06bbcd244a1a20fb57ca36435ff5f843dfc7d2e5647ace1ffd5930b5"
+    },
+    {
+      "source_pack_id": "CT_LTCOP_REGULATIONS",
+      "source_file": "ct/CT_LTCOP_Regulations_17b-411-1_to_14.pdf",
+      "source_owner": "Connecticut",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "17b-411-1 through 17b-411-14 per PDF cover; no separate revision date",
+      "url": "https://portal.ct.gov/ltcop/regulations",
+      "sha256": "67eb4a539f302e60db982fa7db7e3e3324e466ba15a8497d1d242eb0620fe46a"
+    },
+    {
+      "source_pack_id": "CT_LTCOP_RESIDENT_RIGHTS",
+      "source_file": "ct/CT_LTCOP_Resident_Rights.html",
+      "source_owner": "Connecticut",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current page copy as downloaded 2026-11-12",
+      "url": "https://portal.ct.gov/ltcop/content/resident-rights/your-rights-as-a-resident-of-a-long-term-care-facility",
+      "sha256": "4261f4f15a1af8f522d0314216086f53fa76e5a8f33350149e952a7cfdc91e77"
+    },
+    {
+      "source_pack_id": "NORC_INITIAL_CERTIFICATION_CURRICULUM",
+      "source_file": "curriculum/curriculum-overview.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current provided curriculum overview; no revision stated",
+      "url": "https://ltcombudsman.org/uploads/files/support/curriculum-overview.pdf",
+      "sha256": "6b00fed8fae8d07a4fb568b0e5d93c798aecea3916db5718b4c962acadf99590"
+    },
+    {
+      "source_pack_id": "MODULE_3_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-3-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 3 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "e022d6381fa9623bda02beabae4e1b50058570d570e45a90a753d9a0ca1300cb"
+    },
+    {
+      "source_pack_id": "MODULE_4_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-4-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 4 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "4c7588a19184f0768b4e37f3808954d8cf5cbd875cd0fdf0b830e8658417daee"
+    },
+    {
+      "source_pack_id": "MODULE_5_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-5-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 5 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "e81bb4e10fcc45696f70cb375a53f921ad68e2103e49d2a1e688b75c9a6d5b66"
+    },
+    {
+      "source_pack_id": "MODULE_6_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-6-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 6 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "7a7014776aed47f14fcd3de19dc4a7087069ea20ad7cc3be367bc3149af39385"
+    },
+    {
+      "source_pack_id": "MODULE_7_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-7-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 7 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "afcd6e8407faea2d46fff1c4a27645e100cd501e3a12cbba2036b4aa0de79ef1"
+    },
+    {
+      "source_pack_id": "MODULE_8_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-8-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 8 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "53cd6a1542666d82c0d17e7db9d367ed182126fd2a029d597de26990dfeed9c4"
+    },
+    {
+      "source_pack_id": "MODULE_10_TRAINEE_MANUAL_PDF",
+      "source_file": "curriculum/module-10-trainee-manual.pdf",
+      "source_owner": "NORC",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Module 10 trainee manual; no revision stated",
+      "url": "https://ltcombudsman.org/omb_support/training/norc-curriculum",
+      "sha256": "a9e2dcd8c5d178872fc99138f870194ad9f09a22adb3b354ea22805165ae8d0c"
+    },
+    {
+      "source_pack_id": "CT_LTCOP_REGULATIONS_INDEX",
+      "source_file": "ct/CT_LTCOP_Regulations_and_Statutes.html",
+      "source_owner": "Connecticut LTCOP",
+      "retrieved": "2026-11-12",
+      "retrieved_date_basis": "Local bundle file last-write date; exact download timestamp not supplied.",
+      "source_revision": "Current page copy; saved 2026-11-12",
+      "url": "https://portal.ct.gov/ltcop/regulations",
+      "sha256": "7ec8a4d7bd2d5afb0eff9935fe4316ef3f36ed7ae31e941092e7b89e4267c3dd"
+    }
+  ],
+  "revision4_source_inventory": {
+    "retrieved": "2026-11-12",
+    "source_root": "GitHub/DanBeem/source_data/",
+    "excluded_unrelated": [
+      "Agent-Broker-Help-Desks Updates_051024_0.pdf"
+    ],
+    "files": [
+      {
+        "name": "11933_som107c01.pdf",
+        "source_file": "source_data/11933_som107c01.pdf",
+        "size_bytes": 140010,
+        "sha256": "ceda07f23730669f242c1736b67ac23cc25258db8c0e02674c99392b10d3fca1",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 123"
+      },
+      {
+        "name": "11936_som107c04.pdf",
+        "source_file": "source_data/11936_som107c04.pdf",
+        "size_bytes": 879921,
+        "sha256": "3c4c7661bb5349ce74a57cd4262283d95fe04e364ac17ba7946889a807ed66e2",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 188"
+      },
+      {
+        "name": "11940_som107c08.pdf",
+        "source_file": "source_data/11940_som107c08.pdf",
+        "size_bytes": 118541,
+        "sha256": "3628acc4253d0a8ef0a24cf81fc289ea1ecbd5f685750a62210c41d7b43ec32e",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 1"
+      },
+      {
+        "name": "17b-411.pdf",
+        "source_file": "source_data/17b-411.pdf",
+        "size_bytes": 355473,
+        "sha256": "67eb4a539f302e60db982fa7db7e3e3324e466ba15a8497d1d242eb0620fe46a",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2015-11-2 (printed on official eRegulations document title page)"
+      },
+      {
+        "name": "19-13-d8t.pdf",
+        "source_file": "source_data/19-13-d8t.pdf",
+        "size_bytes": 633047,
+        "sha256": "067107cc06bbcd244a1a20fb57ca36435ff5f843dfc7d2e5647ace1ffd5930b5",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "19-13-d8v.pdf",
+        "source_file": "source_data/19-13-d8v.pdf",
+        "size_bytes": 57373,
+        "sha256": "82acaa9638e3af48462dc8db229a555f3f468f76df254c71e42fc565bb31a678",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "2019_LTCOP_Training_Standards.pdf",
+        "source_file": "source_data/2019_LTCOP_Training_Standards.pdf",
+        "size_bytes": 3239568,
+        "sha256": "c966950d72f30d1b312b2634b71c8bae1c99fb938c7c8700980c1255eeecd453",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "2026PA-00015-R00SB-00005-PA.pdf",
+        "source_file": "source_data/2026PA-00015-R00SB-00005-PA.pdf",
+        "size_bytes": 362657,
+        "sha256": "98052c119778bff6d594a94c4a9f927f75212a2d814cf27afcf30d9274c11fbf",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Connecticut Public Act 26-15 (2026), as named in source filename"
+      },
+      {
+        "name": "42 CFR Part 483 Subpart B (up to date as of 11-10-2026).pdf",
+        "source_file": "source_data/42 CFR Part 483 Subpart B (up to date as of 11-10-2026).pdf",
+        "size_bytes": 644021,
+        "sha256": "7a7d11f755f0e7e1faf2484a84fff2910b60568347c455f8e657687d62f38bd5",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "up to date as of 11/10/2026)"
+      },
+      {
+        "name": "45 CFR Part 1324 (up to date as of 11-09-2026).pdf",
+        "source_file": "source_data/45 CFR Part 1324 (up to date as of 11-09-2026).pdf",
+        "size_bytes": 275709,
+        "sha256": "8e128acb838f01c90359e5272c355ec0f80e33289fc9e6e23ffab21603d96e69",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "up to date as of 11/09/2026)"
+      },
+      {
+        "name": "45 CFR Part 1324 Subpart A (in effect on 11-09-2026).pdf",
+        "source_file": "source_data/45 CFR Part 1324 Subpart A (in effect on 11-09-2026).pdf",
+        "size_bytes": 203466,
+        "sha256": "779e7f90468867b47ae7fc8d111db2663cc4f2819335873c588060800b87633a",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "in effect on 11/09/2026)"
+      },
+      {
+        "name": "AI Board and Governance.pdf",
+        "source_file": "source_data/AI Board and Governance.pdf",
+        "size_bytes": 111905,
+        "sha256": "8705efd7c96e332a4cb477c7ad4e6dd50ffe07e3586b2ac665929124e8617903",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "AI Inventory.pdf",
+        "source_file": "source_data/AI Inventory.pdf",
+        "size_bytes": 212207,
+        "sha256": "6ed152e71a6444db7fae097bf514b32fe2d1b6e0db3634802cf75254b5cb737f",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "Case_Notes_Checklist.pdf",
+        "source_file": "source_data/Case_Notes_Checklist.pdf",
+        "size_bytes": 123401,
+        "sha256": "6bb550b511085eb71a0426393c3032bc7d6072b8f12a99393526dd569e0a663e",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "Chapter 319l - Department of Aging and Disability Services.html",
+        "source_file": "source_data/Chapter 319l - Department of Aging and Disability Services.html",
+        "size_bytes": 355726,
+        "sha256": "a8ff1f1a724b774c4277e37e446b1a45a0679f0b948fd0a3015059b64671485f",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "revised to January 1, 2026, for updated"
+      },
+      {
+        "name": "Chapter 368v - Health Care Institutions.html",
+        "source_file": "source_data/Chapter 368v - Health Care Institutions.html",
+        "size_bytes": 951008,
+        "sha256": "bc809f7a74e63c9b124daff7df1a990b7b8bdc5763d35ea3c39140760ca9f4f8",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "revised to January 1, 2026, for updated"
+      },
+      {
+        "name": "Considering AI for Your Agency_ Start Here_.pdf",
+        "source_file": "source_data/Considering AI for Your Agency_ Start Here_.pdf",
+        "size_bytes": 118799,
+        "sha256": "53578dfa2768522f7cf0aac09488e84b1b4c983c9f64d5b6cf87564502eaf8cf",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "CT Responsible AI Policy Framework Final 02012024.pdf",
+        "source_file": "source_data/CT Responsible AI Policy Framework Final 02012024.pdf",
+        "size_bytes": 330293,
+        "sha256": "d2cebefee5ab930cc36c371b140f952f531c6f118ef063183c78aac97e2d650b",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "curriculum-overview.pdf",
+        "source_file": "source_data/curriculum-overview.pdf",
+        "size_bytes": 210751,
+        "sha256": "6b00fed8fae8d07a4fb568b0e5d93c798aecea3916db5718b4c962acadf99590",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "eCFR __ 45 CFR Part 1324 Subpart A -- State Long-Term Care Ombudsman Program.html",
+        "source_file": "source_data/eCFR __ 45 CFR Part 1324 Subpart A -- State Long-Term Care Ombudsman Program.html",
+        "size_bytes": 226950,
+        "sha256": "0389ddd1905c1c09896d02ad2d36953e3e521023d6741329f72d5a30ee129942",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "up to date as of 11/10/2026. Title 45 was last amended 11"
+      },
+      {
+        "name": "glossary-of-key-words.pdf",
+        "source_file": "source_data/glossary-of-key-words.pdf",
+        "size_bytes": 208892,
+        "sha256": "b0f7a7b761c62bb7eb17166942d1569d6aaf4be5a06f1ec6fb3f133085a5efc4",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "I-A-During-Visits-TA.pdf",
+        "source_file": "source_data/I-A-During-Visits-TA.pdf",
+        "size_bytes": 179105,
+        "sha256": "94e08ffbcfb13dff16c53702e92bd36da37d2bb782313f94eedd604044dc623c",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "Is_It_a_Complaint_or_Information__Assistance.pdf",
+        "source_file": "source_data/Is_It_a_Complaint_or_Information__Assistance.pdf",
+        "size_bytes": 94233,
+        "sha256": "1679e1674f6afa7bfd1bf7670378542ed9180bcaf656ba04ab501093248c9251",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-1-1.pdf",
+        "source_file": "source_data/module-1-1.pdf",
+        "size_bytes": 3580370,
+        "sha256": "78127985c744c09b87c1a7643662fa1eaeef58a4c05842d45138c86aabbe2ef1",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-1-trainee-manual.docx",
+        "source_file": "source_data/module-1-trainee-manual.docx",
+        "size_bytes": 429753,
+        "sha256": "932298b00ad214159b2531206a9362af04b258961d762f29d3ec7f4f97d68ebf",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-1-trainee-manual.pdf",
+        "source_file": "source_data/module-1-trainee-manual.pdf",
+        "size_bytes": 783200,
+        "sha256": "811d9b034f06a82bf952139a83203d2af57b16dbe0fe5cc00e33334f5f0f174e",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-1-trainer-guide.docx",
+        "source_file": "source_data/module-1-trainer-guide.docx",
+        "size_bytes": 460483,
+        "sha256": "a937bb41709af2de7fb1000df7409d46ac4802305b05cf8196a54bd8ee3130f0",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-1-trainer-guide.pdf",
+        "source_file": "source_data/module-1-trainer-guide.pdf",
+        "size_bytes": 865424,
+        "sha256": "b0a80a0353e0b3ef6ea7abd88292db38db51a8f66774cd717b9790d0f750d507",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-10-trainee-manual.docx",
+        "source_file": "source_data/module-10-trainee-manual.docx",
+        "size_bytes": 256657,
+        "sha256": "59ff14320223777f49342291c7e8ea432cb6b056be39877033dc3bc1a1f87a8f",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-10-trainee-manual.pdf",
+        "source_file": "source_data/module-10-trainee-manual.pdf",
+        "size_bytes": 1104051,
+        "sha256": "a9e2dcd8c5d178872fc99138f870194ad9f09a22adb3b354ea22805165ae8d0c",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-10-trainer-guide.docx",
+        "source_file": "source_data/module-10-trainer-guide.docx",
+        "size_bytes": 290646,
+        "sha256": "9b9ed5ae1a4e02414a89423f9d52b0d245648808759de8ad96a0270b5ecccf12",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-10-trainer-guide.pdf",
+        "source_file": "source_data/module-10-trainer-guide.pdf",
+        "size_bytes": 630063,
+        "sha256": "ae8345daa669eb92e3bdb8b7b9bbb5adfb138f3206162adfe8a58fbe2f1c3eb7",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-10.pdf",
+        "source_file": "source_data/module-10.pdf",
+        "size_bytes": 1308126,
+        "sha256": "e0751cada4c9ebae892d8521a2bc5a138efe166635647aa4a2b857fa8aa8fe85",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-2-trainee-manual.docx",
+        "source_file": "source_data/module-2-trainee-manual.docx",
+        "size_bytes": 395416,
+        "sha256": "200cb41f2e14f8137fe62f57cd03be4a1d96d30d9aa7c4783c19f25d67640e99",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-2-trainee-manual.pdf",
+        "source_file": "source_data/module-2-trainee-manual.pdf",
+        "size_bytes": 843638,
+        "sha256": "430d9f8d89f19adc01a0cad01c39d51296232fa04be29e76209d0e18c8f6e3c3",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-2-trainer-guide.docx",
+        "source_file": "source_data/module-2-trainer-guide.docx",
+        "size_bytes": 424299,
+        "sha256": "621d57f0078609c6bacac505a029c45ff2957f004884a0140c1247cc8007303c",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-2-trainer-guide.pdf",
+        "source_file": "source_data/module-2-trainer-guide.pdf",
+        "size_bytes": 918716,
+        "sha256": "b28f94a915d28d371098992aa110019e91f4420bd6dd1f0268e6154db09a5989",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-2.pdf",
+        "source_file": "source_data/module-2.pdf",
+        "size_bytes": 4210410,
+        "sha256": "a3dbacbc0e860eb76941d1afef86279c024d7c7887742eaea5831d8e86d793ec",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-3-1.pdf",
+        "source_file": "source_data/module-3-1.pdf",
+        "size_bytes": 2944272,
+        "sha256": "3de59fae28166a6d7dee48506f59609468b53a43a19a70c55c503702545dfd58",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-3-trainee-manual.docx",
+        "source_file": "source_data/module-3-trainee-manual.docx",
+        "size_bytes": 530564,
+        "sha256": "745ee1e97e9b9e58c486f3744bde1147af1dd83710a95115f791153efb1fadc4",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-3-trainee-manual.pdf",
+        "source_file": "source_data/module-3-trainee-manual.pdf",
+        "size_bytes": 675603,
+        "sha256": "e022d6381fa9623bda02beabae4e1b50058570d570e45a90a753d9a0ca1300cb",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-3-trainer-guide.docx",
+        "source_file": "source_data/module-3-trainer-guide.docx",
+        "size_bytes": 566702,
+        "sha256": "e82f0c9202987f9b157befe55d65af65df77ea083051c3ef347aeaf016ebeac9",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-3-trainer-guide.pdf",
+        "source_file": "source_data/module-3-trainer-guide.pdf",
+        "size_bytes": 740582,
+        "sha256": "0a5349e1adbd6645bcffbe114b4639a635ee0246728528552100bfda4dc4a639",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-4-ppt.pdf",
+        "source_file": "source_data/module-4-ppt.pdf",
+        "size_bytes": 2512852,
+        "sha256": "c2f4a286d92ef4c5631cca1ac3031984a854af5d02a9631f559d81dcdcecc7b5",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-4-trainee-manual.docx",
+        "source_file": "source_data/module-4-trainee-manual.docx",
+        "size_bytes": 341612,
+        "sha256": "4db4c1b8f06b9a57cada09a2ab928afec4f2cebe45fee7caab277b6d4f3ae221",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-4-trainee-manual.pdf",
+        "source_file": "source_data/module-4-trainee-manual.pdf",
+        "size_bytes": 975625,
+        "sha256": "4c7588a19184f0768b4e37f3808954d8cf5cbd875cd0fdf0b830e8658417daee",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-4-trainer-guide.pdf",
+        "source_file": "source_data/module-4-trainer-guide.pdf",
+        "size_bytes": 1034249,
+        "sha256": "9416727964131a41f2b3ed819ec2a89df36ed118848ec5c3ae8a85b3cd18ff25",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-5-1.pdf",
+        "source_file": "source_data/module-5-1.pdf",
+        "size_bytes": 2617137,
+        "sha256": "07f7061c125f4abed20424be59067aab79af9a563d86a6fca1b6b90ea73770ba",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-5-trainee-manual.pdf",
+        "source_file": "source_data/module-5-trainee-manual.pdf",
+        "size_bytes": 617717,
+        "sha256": "e81bb4e10fcc45696f70cb375a53f921ad68e2103e49d2a1e688b75c9a6d5b66",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-5-trainee-manual.word_.docx",
+        "source_file": "source_data/module-5-trainee-manual.word_.docx",
+        "size_bytes": 565041,
+        "sha256": "64d2fc3ee9881154ccd265156352f14f5f89df36918379e9f88316ce06a047c7",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-5-trainer-guide.pdf",
+        "source_file": "source_data/module-5-trainer-guide.pdf",
+        "size_bytes": 691621,
+        "sha256": "239448be72721ad5f5f9a11157fb8ff0a7f369d306d5b385c749cf01e786ab56",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-5-trainer-guide.word_.docx",
+        "source_file": "source_data/module-5-trainer-guide.word_.docx",
+        "size_bytes": 591734,
+        "sha256": "feecd8efd69e9431f07a9c2ed21efa6ac491b936551f4c9b2e7029c82885855f",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-6-1.pdf",
+        "source_file": "source_data/module-6-1.pdf",
+        "size_bytes": 769783,
+        "sha256": "1e5426d576a2cafc9decccdc3a2d531e9db971043c0c785420b2d656e8636e71",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-6-trainee-manual.docx",
+        "source_file": "source_data/module-6-trainee-manual.docx",
+        "size_bytes": 247301,
+        "sha256": "8c33340c8a1fb1d2ab59317afd7721c67861b3f9f991747cfb4734df6da88424",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-6-trainee-manual.pdf",
+        "source_file": "source_data/module-6-trainee-manual.pdf",
+        "size_bytes": 347330,
+        "sha256": "7a7014776aed47f14fcd3de19dc4a7087069ea20ad7cc3be367bc3149af39385",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-6-trainer-guide.docx",
+        "source_file": "source_data/module-6-trainer-guide.docx",
+        "size_bytes": 254481,
+        "sha256": "e47e503e687e9c43ad6231f76fdfdbb084894cb7e6f0d0875ae9f5d826968226",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-6-trainer-guide.pdf",
+        "source_file": "source_data/module-6-trainer-guide.pdf",
+        "size_bytes": 565745,
+        "sha256": "d6a27066d5b7c5a90248a1bae2f93cfe46319989a1c64a91b9087ad56af2ba8c",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-7-1.pdf",
+        "source_file": "source_data/module-7-1.pdf",
+        "size_bytes": 1932622,
+        "sha256": "8134f964111eb363259141bb3aaa00bd47474617a38c52bf3c9660e522cbe4b7",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-7-trainee-manual.docx",
+        "source_file": "source_data/module-7-trainee-manual.docx",
+        "size_bytes": 334757,
+        "sha256": "55cbc0b69f82f75adf1be75453c5543e1d6febd45e16af133cca74d490ca64a2",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-7-trainee-manual.pdf",
+        "source_file": "source_data/module-7-trainee-manual.pdf",
+        "size_bytes": 525696,
+        "sha256": "afcd6e8407faea2d46fff1c4a27645e100cd501e3a12cbba2036b4aa0de79ef1",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-7-trainer-guide.docx",
+        "source_file": "source_data/module-7-trainer-guide.docx",
+        "size_bytes": 373870,
+        "sha256": "d8a306fc7580be2db94304aa1a8e03b8a28122b78fc41da5ae6aef4c5508049b",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-7-trainer-guide.pdf",
+        "source_file": "source_data/module-7-trainer-guide.pdf",
+        "size_bytes": 584739,
+        "sha256": "492939656478dc826d27767c020e2ae947c1e2db7819cf4c0126385de4fb1898",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-8-slides.pdf",
+        "source_file": "source_data/module-8-slides.pdf",
+        "size_bytes": 1707214,
+        "sha256": "1fa14fbe9f5c65a500c78db9c432a47dac1d44178d124a439579538903d01223",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-8-trainee-manual.pdf",
+        "source_file": "source_data/module-8-trainee-manual.pdf",
+        "size_bytes": 604491,
+        "sha256": "53cd6a1542666d82c0d17e7db9d367ed182126fd2a029d597de26990dfeed9c4",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-8-trainer-guide.pdf",
+        "source_file": "source_data/module-8-trainer-guide.pdf",
+        "size_bytes": 649322,
+        "sha256": "9b55cb3992f888c2389b333c8d6b1070bcd0d335301019effd3c909c4ac34a6f",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-9-slides.pdf",
+        "source_file": "source_data/module-9-slides.pdf",
+        "size_bytes": 2138897,
+        "sha256": "130873a93fc34a3f6c13d938e7a3c57bafe360b62c1fc7be7774dce84d85f42a",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-9-trainee-manual.docx",
+        "source_file": "source_data/module-9-trainee-manual.docx",
+        "size_bytes": 306910,
+        "sha256": "070ccd13a74e417c47cbdbcd8e94a169f075cdf51df70f740c5734d45378bb66",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-9-trainee-manual.pdf",
+        "source_file": "source_data/module-9-trainee-manual.pdf",
+        "size_bytes": 734830,
+        "sha256": "3441c2aa50de4b47980d04cb4a943bb7dc37b35551ce1a7d5b850f843418f574",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "module-9-trainer-guide.docx",
+        "source_file": "source_data/module-9-trainer-guide.docx",
+        "size_bytes": 348241,
+        "sha256": "7b5681603e74a149cac74f968c3093e2a992ac57d7405cf8a4f7ca6d248cfe24",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No revision text extraction attempted for this document type"
+      },
+      {
+        "name": "module-9-trainer-guide.pdf",
+        "source_file": "source_data/module-9-trainer-guide.pdf",
+        "size_bytes": 1565421,
+        "sha256": "f78b027ea675f2db2f0648c8f7543e1bf887bfe7a058414105689c356e3fea27",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "nors-codes-and-definitions.pdf",
+        "source_file": "source_data/nors-codes-and-definitions.pdf",
+        "size_bytes": 193375,
+        "sha256": "087d79a6d406c3ba194f871e8db7585477a6cc39203f63a82eb24374be5b384f",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised July 2025"
+      },
+      {
+        "name": "NORS-Data-Management-Guide.pdf",
+        "source_file": "source_data/NORS-Data-Management-Guide.pdf",
+        "size_bytes": 204846,
+        "sha256": "f54f8f8b86cbbe4191154821bdfc4ec1062e5fa84c995da8c848d01373335da1",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised September 2025"
+      },
+      {
+        "name": "nors-faqs.pdf",
+        "source_file": "source_data/nors-faqs.pdf",
+        "size_bytes": 278903,
+        "sha256": "48df98e7a7bff758632b66d4041475fae9b40f38d6899a1fc8edbbdb208a3eb3",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "nors-training-part-I-basic-principles.pdf",
+        "source_file": "source_data/nors-training-part-I-basic-principles.pdf",
+        "size_bytes": 320971,
+        "sha256": "76f6d36d8dd5cd3baaade665eb459a3a5221e5d9285ab61ad8abd4523ae3dfe5",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-I-quiz-answers.pdf",
+        "source_file": "source_data/nors-training-part-I-quiz-answers.pdf",
+        "size_bytes": 281758,
+        "sha256": "4a0ef161cf9b27167bf8d707c352e073bc2ca655051e6292e05e8929615b5756",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025"
+      },
+      {
+        "name": "nors-training-part-I-quiz.pdf",
+        "source_file": "source_data/nors-training-part-I-quiz.pdf",
+        "size_bytes": 261994,
+        "sha256": "0d8266b6964ec52ad86c2016cf8fd422be1d73f9363807885d3a3d500f269904",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025"
+      },
+      {
+        "name": "nors-training-part-II-basic-principles.pdf",
+        "source_file": "source_data/nors-training-part-II-basic-principles.pdf",
+        "size_bytes": 200183,
+        "sha256": "93edbb2eb2a386652b3838975f4c5114e086fac2016ea0bb7bffb8ea8398e659",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-II-beyond-basics-quiz-answers.pdf",
+        "source_file": "source_data/nors-training-part-II-beyond-basics-quiz-answers.pdf",
+        "size_bytes": 270897,
+        "sha256": "70d7d53feaafb1c1a6f1231f224305c7af618d2de86d9e8ebc0d0296de111ebf",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-II-beyond-basics-quiz.pdf",
+        "source_file": "source_data/nors-training-part-II-beyond-basics-quiz.pdf",
+        "size_bytes": 227326,
+        "sha256": "8ccbbee61d5678c26a733367d57c4b8b9cbb23dcddce3a1d651cbb3d401ff34b",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-II-quiz-answers.pdf",
+        "source_file": "source_data/nors-training-part-II-quiz-answers.pdf",
+        "size_bytes": 245471,
+        "sha256": "5bcb6ec48911e7159e56633be58625525b4da82c17976954f61c60cc2f6d283a",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-II-quiz.pdf",
+        "source_file": "source_data/nors-training-part-II-quiz.pdf",
+        "size_bytes": 236636,
+        "sha256": "1c28e4ead986b19314ada436ad3e18ddb6318a622d5449c8abe9fbc5b768c2ee",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-III-basic-principles.pdf",
+        "source_file": "source_data/nors-training-part-III-basic-principles.pdf",
+        "size_bytes": 322492,
+        "sha256": "962087b1bc73cad959cecaf215946ec65634eeba70228c21564cd2fed404c0ad",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025"
+      },
+      {
+        "name": "nors-training-part-III-quiz-answers-verification-disposition-referral-and-closing.pdf",
+        "source_file": "source_data/nors-training-part-III-quiz-answers-verification-disposition-referral-and-closing.pdf",
+        "size_bytes": 273768,
+        "sha256": "2d71db57d171e28405dfb54cecc781d73580ee69fd14cfbfa6f10cf259561bcc",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-III-quiz-verification-disposition-referral-and-closing.pdf",
+        "source_file": "source_data/nors-training-part-III-quiz-verification-disposition-referral-and-closing.pdf",
+        "size_bytes": 258891,
+        "sha256": "c536c4a4cb31cc27bea54bc35b9f9e497974efd3e9d413c5b992ab12b25d5121",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-IV-basic-principles.pdf",
+        "source_file": "source_data/nors-training-part-IV-basic-principles.pdf",
+        "size_bytes": 426722,
+        "sha256": "0b83df292cfedea1ad634b93d907280665f878bab638501ba018ceaf32fb6634",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2026 | 1; Revised 2026"
+      },
+      {
+        "name": "nors-training-part-IV-quiz-answers.pdf",
+        "source_file": "source_data/nors-training-part-IV-quiz-answers.pdf",
+        "size_bytes": 231818,
+        "sha256": "145b2d5cd8baa23d6937ff063bc27171be2c434d4545d6a02ea678d2153f22bf",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-training-part-IV-quiz.pdf",
+        "source_file": "source_data/nors-training-part-IV-quiz.pdf",
+        "size_bytes": 218997,
+        "sha256": "c5f6b30037145db7a2d01147d7eabc8c9606bea52ef9742283b8ec00db17cc07",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised 2025 | 1; Revised 2025"
+      },
+      {
+        "name": "nors-updated-complaint-codes-list.pdf",
+        "source_file": "source_data/nors-updated-complaint-codes-list.pdf",
+        "size_bytes": 198824,
+        "sha256": "8956188f6b9bf052b9c3bcfb82b6c378aab542ce3ec53a96884b98c1c9b9a15e",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Revised July 2025"
+      },
+      {
+        "name": "NORS_Table_1_Case_Level_2024_Renewal-noex (2).pdf",
+        "source_file": "source_data/NORS_Table_1_Case_Level_2024_Renewal-noex (2).pdf",
+        "size_bytes": 628084,
+        "sha256": "b4183a2af76a6376ead4cef5bc6b3ef67d473f8d3b383cb3ef3b1fe2921931a4",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "2024 Renewal (as named in source filename; no revision statement found in first 3 pages)"
+      },
+      {
+        "name": "NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+        "source_file": "source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+        "size_bytes": 220494,
+        "sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "2024 Renewal (as named in source filename; no revision statement found in first 3 pages)"
+      },
+      {
+        "name": "NORS_Table_3_Program_Information_2024_Renewal-noex.pdf",
+        "source_file": "source_data/NORS_Table_3_Program_Information_2024_Renewal-noex.pdf",
+        "size_bytes": 840035,
+        "sha256": "727bc9172774f8dfff9aed50720b5059376a49b8095f1a6e9cc3a5cc6c7ce9b0",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "2024 Renewal (as named in source filename; no revision statement found in first 3 pages)"
+      },
+      {
+        "name": "NORS_Tables_Revisions_Chart.pdf",
+        "source_file": "source_data/NORS_Tables_Revisions_Chart.pdf",
+        "size_bytes": 99640,
+        "sha256": "b842f3b26ecc7a6a65e0a7f094a4f793142fa3417a7eee4520b85de0bb4634f3",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "NORS Tables Revisions Chart; no edition/date printed in extracted first three pages"
+      },
+      {
+        "name": "Ombudsman_Visits_Decision_Tree.pdf",
+        "source_file": "source_data/Ombudsman_Visits_Decision_Tree.pdf",
+        "size_bytes": 88488,
+        "sha256": "3d5ece391e301fb7a3c1187215a23622988c8dc12af3d311291f51ba3bf1ba39",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "Regulations and Statutes Main Page.html",
+        "source_file": "source_data/Regulations and Statutes Main Page.html",
+        "size_bytes": 70250,
+        "sha256": "7ec8a4d7bd2d5afb0eff9935fe4316ef3f36ed7ae31e941092e7b89e4267c3dd",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "revisions-chart.pdf",
+        "source_file": "source_data/revisions-chart.pdf",
+        "size_bytes": 132032,
+        "sha256": "9ecf738ab6b7ee58366aaee6cb132349a29c594f2f27e573c741d3dcbc6ac7c4",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "som107_appendicestoc.pdf",
+        "source_file": "source_data/som107_appendicestoc.pdf",
+        "size_bytes": 174002,
+        "sha256": "23e57c996c09d364daa1ee850acce4afea6d40d7b4b4b94f712564be7c4eb76b",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "som107ap_pp_guidelines_ltcf_0.pdf",
+        "source_file": "source_data/som107ap_pp_guidelines_ltcf_0.pdf",
+        "size_bytes": 4386412,
+        "sha256": "510239296026021a4bd88724024743cff9ac1d777901367d8c4d35a5a3a51a01",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 232"
+      },
+      {
+        "name": "som107c02.pdf",
+        "source_file": "source_data/som107c02.pdf",
+        "size_bytes": 2356616,
+        "sha256": "500c51b522bf0980a16afcb843157b171d3eb608dc5adbaeeb450350cfbfdf42",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 227"
+      },
+      {
+        "name": "som107c03.pdf",
+        "source_file": "source_data/som107c03.pdf",
+        "size_bytes": 782663,
+        "sha256": "53d510f50b21238feb1767da8729cad2a4787a6cc5f184be86a50ba4462ca64b",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 202"
+      },
+      {
+        "name": "som107c05_0.pdf",
+        "source_file": "source_data/som107c05_0.pdf",
+        "size_bytes": 807544,
+        "sha256": "64bf37a35791cc031054e16172f24031e492e3d6a046159b4cec08fabfad2644",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 250"
+      },
+      {
+        "name": "som107c06.pdf",
+        "source_file": "source_data/som107c06.pdf",
+        "size_bytes": 1580144,
+        "sha256": "dd6f686c5376301dc9fa77d9a7332fd3a6e6a17906f5f29a749e9a5494b56ae6",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 230"
+      },
+      {
+        "name": "som107c07.pdf",
+        "source_file": "source_data/som107c07.pdf",
+        "size_bytes": 1397256,
+        "sha256": "726dca2acd3ffaca3d5f8153761ab60626801678dc0300fea90495bec7363d90",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 244"
+      },
+      {
+        "name": "som107c09exhibitstoc.pdf",
+        "source_file": "source_data/som107c09exhibitstoc.pdf",
+        "size_bytes": 269609,
+        "sha256": "63e3d45aae7693fa318e2847888601dbc04dde6235da7500d135e3aae3bf2403",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 249"
+      },
+      {
+        "name": "som107c10.pdf",
+        "source_file": "source_data/som107c10.pdf",
+        "size_bytes": 463834,
+        "sha256": "6bf9509a80f1ddf834ec504d5763dbb9e85425392f33b9d20c99aede4ab07b50",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "Rev. 221"
+      },
+      {
+        "name": "Your Rights as a Resident of a Long Term Care Facility.html",
+        "source_file": "source_data/Your Rights as a Resident of a Long Term Care Facility.html",
+        "size_bytes": 37163,
+        "sha256": "4261f4f15a1af8f522d0314216086f53fa76e5a8f33350149e952a7cfdc91e77",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied download date; local mtimes agree",
+        "source_revision": "No explicit revision or edition statement found in first 3 pages/content excerpt"
+      },
+      {
+        "name": "NH_CitationDescriptions_May2026.csv",
+        "source_file": "source_data/cms_survey/NH_CitationDescriptions_May2026.csv",
+        "size_bytes": 96713,
+        "sha256": "063ad15eeb92aad2d65d44995be5cb6220dab715cc01437e43b694e9c218f6c8",
+        "retrieved": "2026-11-12",
+        "retrieved_date_basis": "Daniel-supplied source pack",
+        "source_revision": "May 2026"
+      }
+    ],
+    "selection_note": "Revision 4 named source families only; 105 exact files. The original source_data tree was not altered."
+  }
 }
