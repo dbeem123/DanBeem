@@ -18,7 +18,8 @@ Starting point: `8aeb958` (batch 3 triage and title fallback).
 10. `46f43c1` — Source-reviewed batch 5 candidate suggestions: 2 keeps, 16 drops, 30 checks, 11 no-candidate/Claude rows.
 11. `d17585b` — Source-reviewed batch 6 candidate suggestions: 5 drops, 9 checks, 36 no-candidate/Claude rows.
 12. `51ee8d8` — Updated this summary with Codex's source review.
-13. Added a supplemental reverse trace from Appendix PP example passages to verbatim NORS Table 2 language for batches 4–6. It is explicitly draft and was not imported; its commit hash is reported in the completion message.
+13. `4e1e1bd` — Added a supplemental reverse trace from Appendix PP example passages to verbatim NORS Table 2 language for batches 4–6. It is explicitly draft and was not imported.
+14. Added multi-pass ranking to the example-first candidate layer; candidates rank higher when supported by more distinct evidence checks. The commit hash is reported in the completion message.
 
 The final follow-up commit hash is reported in the completion message.
 
@@ -35,7 +36,8 @@ The final follow-up commit hash is reported in the completion message.
 - The builder verifies the CMS Appendix PP and NORS Table 2 PDFs against the source lock and checks that the Table 2 authority records reference the locked hash.
 - Coverage: batch 4, 364 example passages / 94 candidate pairs; batch 5, 211 / 96; batch 6, 232 / 67. Total: 807 example passages / 257 candidate pairs. The rows cover 67 of 94 tags; the report lists tags with no qualifying candidate under the conservative matching threshold.
 - Each candidate row is marked `draft`, `controls_coding=false`; no candidate was imported, and no complaint example was written. This is a review lens, not a coding recommendation.
-- `py -m unittest discover -s scripts -p "test_nors*.py"` — 60 passed, 0 failed.
+- Multi-pass ranking: 102 candidates have only the required example pass, 146 also pass a separate text check, and 9 pass three distinct checks. Key-element/severity support appears on 151 rows; regulation-phrase support on 13; official NORC scenario corroboration on 0. Candidates rank by distinct check count, then strongest example score, then number of matching example passages. Table 2 “Use” language is a separate routing check, not a positive pass. The Appendix PP checks are distinct methods over the same CMS manual, not statistically independent evidence.
+- `py -m unittest discover -s scripts -p "test_nors*.py"` — 61 passed, 0 failed after multi-pass ranking.
 - `node scripts/test_nors_source_ui.js` — passed; `py scripts/validate_nors_example_worksheet.py --allow-empty` — passed (60 blank code rows); `git diff --check` — passed.
 - `py -m unittest discover -s scripts -p "test_nors*.py"` after the approval/import updates — **56 passed**, 0 failed (16.239 seconds).
 - After Codex's batch 4–6 triage — **56 passed**, 0 failed (16.100 seconds).
