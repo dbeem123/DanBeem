@@ -1,0 +1,34 @@
+{
+  "status": "draft",
+  "approval_status": "pending_Daniel",
+  "label": "Proposed App guidance category filter for §§24–25 (quality of care); Daniel approval pending",
+  "controls_coding": false,
+  "source_file": "source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
+  "source_sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce",
+  "rationale": "Draft category filters organize possible context links only; they do not rank or select complaint codes. Every association remains subject to source review.",
+  "sections": {
+    "483.24": {
+      "categories": [
+        {
+          "letter": "F",
+          "heading": "Care (Code F)",
+          "locator": "PDF page 10; Table 2 category heading"
+        },
+        {
+          "letter": "G",
+          "heading": "Activities, Community Integration and Social Services (Code G)",
+          "locator": "PDF page 14; Table 2 category heading"
+        }
+      ]
+    },
+    "483.25": {
+      "categories": [
+        {
+          "letter": "F",
+          "heading": "Care (Code F)",
+          "locator": "PDF page 10; Table 2 category heading"
+        }
+      ]
+    }
+  }
+}
