@@ -77,11 +77,29 @@
     .feature-title { grid-row: 2; grid-column: 1; font-family: Georgia, "Times New Roman", serif; font-size: 1.28rem; font-weight: 700; line-height: 1.15; }
     .feature-text { grid-row: 2; grid-column: 2; color: var(--muted); line-height: 1.4; }
     .feature-strip .arrow { grid-row: 1 / 3; grid-column: 3; }
+    .tools-section { margin-block: 28px 42px; padding: clamp(22px, 4vw, 38px); border: 1px solid rgba(47, 127, 131, .2); border-radius: 22px; background: #eef5ee; color: var(--navy); box-shadow: 0 18px 44px rgba(8, 47, 79, .09); }
+    .tools-section .section-heading { align-items: start; margin-bottom: 22px; }
+    .tools-section .section-heading p { color: var(--muted); }
+    .tools-section .section-heading h2 { color: var(--navy); }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .tool-card { min-width: 0; padding: 20px; border: 1px solid rgba(8, 47, 79, .09); border-radius: 16px; background: var(--paper); box-shadow: var(--shadow); }
+    .tool-card h3 { margin: 0; color: var(--navy); font-family: Georgia, "Times New Roman", serif; font-size: 1.4rem; line-height: 1.2; }
+    .tool-card p { margin: 9px 0 16px; color: var(--muted); }
+    .tool-label { display: inline-flex; margin-bottom: 10px; padding: 4px 9px; border: 1px solid rgba(47, 127, 131, .18); border-radius: 999px; background: #eaf4f0; color: #246866; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .tool-links { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tool-link { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 12px; border: 1px solid rgba(47, 127, 131, .28); border-radius: 10px; background: #fffdf8; color: #246866; font-weight: 750; text-decoration: none; }
+    .tool-link:hover { border-color: var(--teal); background: #eaf4f0; }
+    .tool-link.primary { border-color: transparent; background: var(--navy); color: #fff; }
+    .tool-link.primary:hover { background: var(--teal); }
+    .tool-sub-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 13px; }
+    .tool-sub-links a { color: var(--teal); font-size: .9rem; font-weight: 650; text-underline-offset: 3px; }
     @media (max-width: 760px) {
       .feature-strip { grid-template-columns: 1fr auto; padding: 16px; }
       .feature-kicker, .feature-title, .feature-text { grid-column: 1; }
       .feature-text { grid-row: 3; font-size: .91rem; }
       .feature-strip .arrow { grid-row: 1 / 4; grid-column: 2; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .tool-card { padding: 17px; }
     }
     .about { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-block: 26px 42px; padding: clamp(22px, 4vw, 38px); border: 1px solid rgba(47, 127, 131, .18); border-radius: 20px; background: #eef5ee; }
     .about h2 { margin: 0 0 8px; font-size: clamp(1.65rem, 3vw, 2.2rem); }
@@ -141,7 +159,7 @@
     <a class="brand" href="/" aria-label="DANBEEM.XYZ home">DANBEEM.XYZ<img class="brand-spark" src="/Assets/homepage/brand-spark.webp" alt="" width="1254" height="1254"></a>
     <nav class="main-nav" aria-label="Primary navigation">
       <a href="#projects">Projects</a>
-      <a href="/staffing/">Tools</a>
+      <a href="#tools">Tools</a>
       <a href="/legislation/">Legislation</a>
       <a href="#about">About</a>
     </nav>
@@ -154,7 +172,7 @@
         <img class="hello" src="/Assets/homepage/hey-im-dan.webp" alt="Hey, I'm Dan!" width="2172" height="724">
         <h1 id="hero-title">Projects.<br>Experiments. Tools.<br><span class="hero-final-line">And Assorted Nonsense.</span></h1>
         <p>A little bit of advocacy. A little bit of tech. A lot of fun.</p>
-        <a class="button" href="#projects">Explore projects <span aria-hidden="true">→</span></a>
+        <a class="button" href="#tools">Explore tools <span aria-hidden="true">→</span></a>
       </div>
       <div class="hero-art">
         <img src="/Assets/homepage/hero-switchboard.webp" alt="Dan at a playful switchboard connecting music, web, server, art, and notebook projects" width="1448" height="1086" fetchpriority="high">
@@ -190,6 +208,32 @@
         <span class="feature-text">Connecticut bills that affect nursing home, residential care and assisted living residents, with research and statistics for testimony.</span>
         <span class="arrow" aria-hidden="true">→</span>
       </a>
+    </section>
+
+    <section id="tools" class="tools-section" aria-labelledby="tools-title">
+      <div class="section-heading">
+        <h2 id="tools-title">Tools for care and advocacy</h2>
+        <p>Practical resources for long-term care work, connected from one place.</p>
+      </div>
+      <div class="tools-grid">
+        <article class="tool-card">
+          <span class="tool-label">Data &amp; advocacy</span>
+          <h3>Nursing Home Staffing Tools</h3>
+          <p>Explore staffing data, facility profiles, and research for Connecticut long-term care advocacy.</p>
+          <div class="tool-links"><a class="tool-link primary" href="/staffing/">Open staffing tools <span aria-hidden="true">→</span></a></div>
+        </article>
+        <article class="tool-card">
+          <span class="tool-label">Demonstration · synthetic examples only</span>
+          <h3>Ombudsman Casework Tools</h3>
+          <p>Look up NORS context, explore Appendix PP references, and organize invented facts for human review.</p>
+          <div class="tool-links"><a class="tool-link primary" href="/tools/ombudsman-casework-tools.html">Open casework tools <span aria-hidden="true">→</span></a></div>
+          <nav class="tool-sub-links" aria-label="Ombudsman tool shortcuts">
+            <a href="/tools/nors-crosswalk.html">NORS crosswalk</a>
+            <a href="/tools/drafting-assistant.html">Drafting assistant</a>
+            <a href="/tools/responsible-use.html">Responsible use</a>
+          </nav>
+        </article>
+      </div>
     </section>
 
 

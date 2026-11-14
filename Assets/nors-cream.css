@@ -1,0 +1,238 @@
+/* Warm cream theme for the Ombudsman/NORS demo suite. */
+.cream-tools {
+	--bg: #fbf6ea;
+	--panel: #fffdf8;
+	--border: rgba(8, 47, 79, .14);
+	--text: #23302b;
+	--muted: #596a75;
+	--accent: #28634c;
+	--accent-2: #a8541f;
+	--glass-strong: rgba(8, 47, 79, .12);
+	color-scheme: light;
+	color: var(--text);
+	background: var(--bg);
+}
+
+.cream-tools,
+.cream-tools * {
+	box-sizing: border-box;
+}
+
+.cream-tools h1,
+.cream-tools h2,
+.cream-tools h3 {
+	color: #23302b;
+	font-family: Georgia, "Times New Roman", serif;
+}
+
+.cream-tools a:not(.btn):not(.navLink) {
+	color: var(--accent);
+	text-decoration-color: rgba(40, 99, 76, .45);
+	text-underline-offset: 3px;
+}
+
+.cream-tools a:not(.btn):not(.navLink):visited {
+	color: #72505f;
+}
+
+.cream-tools .topbar {
+	background: rgba(251, 246, 234, .97);
+	border-bottom: 1px solid var(--border);
+	backdrop-filter: blur(10px);
+}
+
+.cream-tools .brand,
+.cream-tools .navLink {
+	color: #23302b;
+}
+
+.cream-tools .logo {
+	background: #28634c;
+	color: #fffdf8;
+	box-shadow: 0 8px 22px rgba(8, 47, 79, .12);
+}
+
+.cream-tools .linkBtn {
+	background: #fffdf8;
+	border-color: var(--border);
+}
+
+.cream-tools .linkBtn:hover {
+	background: #f1eadc;
+}
+
+.cream-tools .panel,
+.cream-tools .card {
+	background: #fffdf8;
+	border: 1px solid rgba(8, 47, 79, .12);
+	box-shadow: 0 12px 30px rgba(8, 47, 79, .07);
+	backdrop-filter: none;
+}
+
+.cream-tools .pill,
+.cream-tools .chip,
+.cream-tools .tag,
+.cream-tools .badge {
+	background: #eaf2e9;
+	border-color: rgba(40, 99, 76, .18);
+	color: #28634c;
+}
+
+.cream-tools .btn {
+	background: #28634c;
+	border: 1px solid #28634c;
+	box-shadow: 0 8px 18px rgba(8, 47, 79, .1);
+	color: #fffdf8;
+}
+
+.cream-tools .btn:hover {
+	background: #1f503d;
+}
+
+.cream-tools .btn.secondary {
+	background: #fffdf8;
+	border-color: rgba(40, 99, 76, .35);
+	color: #28634c;
+}
+
+.cream-tools .btn.secondary:hover {
+	background: #eaf2e9;
+}
+
+.cream-tools .navLink:focus,
+.cream-tools .help-button:focus,
+.cream-tools .focusable:focus {
+	outline: 2px solid rgba(40, 99, 76, .35);
+	outline-offset: 3px;
+}
+
+.cream-tools input,
+.cream-tools select,
+.cream-tools textarea {
+	border: 1px solid #d9d0c0;
+	background: #fffdf8;
+	color: #23302b;
+}
+
+.cream-tools input::placeholder,
+.cream-tools textarea::placeholder {
+	color: #78817c;
+	opacity: 1;
+}
+
+.cream-tools select option {
+	background: #fffdf8;
+	color: #23302b;
+}
+
+.cream-tools .phase0-safety {
+	border-color: rgba(40, 99, 76, .25);
+	background: #eaf2e9;
+	color: #23302b;
+}
+
+.cream-tools .notice,
+.cream-tools .help-inline {
+	border-color: rgba(40, 99, 76, .2);
+	background: #f1f5ed;
+	color: #33453c;
+}
+
+.cream-tools .notice.warning,
+.cream-tools .status-missing {
+	border-color: rgba(168, 84, 31, .3);
+	background: #fff2df;
+	color: #784018;
+}
+
+.cream-tools .notice.error,
+.cream-tools .gap-error {
+	border-color: rgba(160, 54, 50, .28);
+	background: #fff0eb;
+	color: #852f2d;
+}
+
+.cream-tools .status-present {
+	border-color: rgba(40, 99, 76, .25);
+	background: #eaf2e9;
+	color: #28634c;
+}
+
+.cream-tools .status-unclear {
+	border-color: rgba(89, 106, 117, .22);
+	background: #f0eee8;
+	color: #596a75;
+}
+
+.cream-tools .output-box,
+.cream-tools .summary-card,
+.cream-tools .authority-collapse,
+.cream-tools .code-pill {
+	border-color: rgba(8, 47, 79, .13);
+	background: #fffdf8;
+	color: #23302b;
+}
+
+.cream-tools .code-chip,
+.cream-tools .meta-chip {
+	border-color: rgba(8, 47, 79, .13);
+	background: #f1eadc;
+	color: #23302b;
+}
+
+.cream-tools .code-chip {
+	color: #23302b;
+}
+
+.cream-tools .meta-chip.accent,
+.cream-tools .path-step {
+	border-color: rgba(40, 99, 76, .2);
+	background: #eaf2e9;
+	color: #28634c;
+}
+
+.cream-tools .help-button {
+	border-color: rgba(40, 99, 76, .28);
+	background: #eaf2e9;
+	color: #28634c;
+}
+
+.cream-tools .help-popover {
+	border-color: #d9d0c0;
+	background: #fffdf8;
+	color: #23302b;
+	box-shadow: 0 14px 32px rgba(8, 47, 79, .14);
+}
+
+.cream-tools .help-popover span,
+.cream-tools .help-popover .help-source,
+.cream-tools .help-inline strong {
+	color: #33453c;
+}
+
+.cream-tools .draft-only,
+.cream-tools .gap-warning {
+	color: #805117;
+}
+
+.cream-tools .skipLink {
+	background: #28634c;
+	border-color: rgba(40, 99, 76, .3);
+	color: #fffdf8;
+}
+
+.cream-tools footer,
+.cream-tools .subtle,
+.cream-tools .eyebrow,
+.cream-tools .summary-label,
+.cream-tools .authority-topic,
+.cream-tools .authority-section-title {
+	color: #596a75;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+	.cream-tools .topbar {
+		background: #fbf6ea;
+		backdrop-filter: none;
+	}
+}
