@@ -17,7 +17,8 @@ Starting point: `8aeb958` (batch 3 triage and title fallback).
 9. `64caf31` — Source-reviewed batch 4 candidate suggestions: 1 keep, 13 drops, 56 checks, 2 no-candidate/Claude rows.
 10. `46f43c1` — Source-reviewed batch 5 candidate suggestions: 2 keeps, 16 drops, 30 checks, 11 no-candidate/Claude rows.
 11. `d17585b` — Source-reviewed batch 6 candidate suggestions: 5 drops, 9 checks, 36 no-candidate/Claude rows.
-12. Pending final follow-up commit — Updated this summary with Codex's source review.
+12. `51ee8d8` — Updated this summary with Codex's source review.
+13. Added a supplemental reverse trace from Appendix PP example passages to verbatim NORS Table 2 language for batches 4–6. It is explicitly draft and was not imported; its commit hash is reported in the completion message.
 
 The final follow-up commit hash is reported in the completion message.
 
@@ -27,6 +28,15 @@ The final follow-up commit hash is reported in the completion message.
 - `node scripts/test_nors_source_ui.js` — **passed**. The UI test checks that draft/proposed data is not rendered, requests stay same-origin, no browser storage is used, and the reviewed-link and navigation behavior still works.
 - `py scripts/validate_nors_example_worksheet.py --allow-empty` — **passed**, 60 code rows; worksheet remains blank.
 - `git diff --check` — passed.
+
+### Example-first crosswalk follow-up
+
+- `scripts/build_nors_example_first_crosswalk.py` generated `docs/nors_ftag_example_first_batches_4_6.csv` by starting from extracted Appendix PP `is_example` passages and tracing shared, rarity-weighted language back to NORS Table 2 definitions and “Use” instructions.
+- The builder verifies the CMS Appendix PP and NORS Table 2 PDFs against the source lock and checks that the Table 2 authority records reference the locked hash.
+- Coverage: batch 4, 364 example passages / 94 candidate pairs; batch 5, 211 / 96; batch 6, 232 / 67. Total: 807 example passages / 257 candidate pairs. The rows cover 67 of 94 tags; the report lists tags with no qualifying candidate under the conservative matching threshold.
+- Each candidate row is marked `draft`, `controls_coding=false`; no candidate was imported, and no complaint example was written. This is a review lens, not a coding recommendation.
+- `py -m unittest discover -s scripts -p "test_nors*.py"` — 60 passed, 0 failed.
+- `node scripts/test_nors_source_ui.js` — passed; `py scripts/validate_nors_example_worksheet.py --allow-empty` — passed (60 blank code rows); `git diff --check` — passed.
 - `py -m unittest discover -s scripts -p "test_nors*.py"` after the approval/import updates — **56 passed**, 0 failed (16.239 seconds).
 - After Codex's batch 4–6 triage — **56 passed**, 0 failed (16.100 seconds).
 - `node scripts/test_nors_source_ui.js` after batch 3 import — **passed**, including the visible weak F646/F03 context link.
@@ -64,4 +74,5 @@ The final follow-up commit hash is reported in the completion message.
 - Skipped: no batch 4–6 import, no complaint authoring, no hub/homepage/case-fact-narrowing work, no install, and no publish/push.
 - Reverted: none.
 - Judgment call: a weighted lexical match alone is not a clean fit. The batch builder now requires a specific multiword phrase for a generated keyword candidate; otherwise it leaves the tag without a candidate and marks it `needs_claude`. I did not turn noisy title lookups into decisions.
+- Judgment call: the new example-first list uses a conservative two-term / weighted-score threshold and a five-code ceiling per tag. It intentionally preserves lexical candidates as draft review leads; it does not automatically promote any to reviewed links.
 - Rule I was most tempted to break: filling empty candidate slots with a plausible-looking code. I left them empty for Claude review instead.
