@@ -1,7 +1,7 @@
 {
-  "status": "draft",
-  "approval_status": "pending_Daniel",
-  "label": "Proposed App guidance category filter for §§30–45 (services); Daniel approval pending",
+  "status": "approved",
+  "approval_status": "approved_Daniel",
+  "label": "App guidance, approved by Daniel on 2026-11-13; candidate filtering only",
   "controls_coding": false,
   "source_file": "source_data/NORS_Table_2_Complaint_Code_2024_Renewal-noex.pdf",
   "source_sha256": "693dc5b3102b03031561985e94e601a6f80297a758d91b15c1af43cc6faae5ce",
@@ -43,5 +43,7 @@
         }
       ]
     }
-  }
+  },
+  "approved_by": "Daniel",
+  "approved_date": "2026-11-13"
 }

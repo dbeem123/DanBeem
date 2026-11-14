@@ -1,10 +1,10 @@
 # Batch 6: §483.70–90 — administration and environment
 
-**Status: draft for Daniel and Claude review. No proposed links were imported.**
+**Section map approved by Daniel on 2026-11-13. Candidate review/proposed triage is approved as a review package; check and needs_claude flags remain unresolved. No proposed links were imported.**
 
 - Tags: 44; review rows: 50.
 - Proposed outcomes: {'check': 14, 'needs_claude': 36}.
-- Section map: `data/nors_section_prior_batch_6_draft.json` (`draft`, `pending_Daniel`, `controls_coding: false`).
+- Section map: `data/nors_section_prior_batch_6_draft.json` (`approved_Daniel`, `controls_coding: false`).
 - Review sheet: `docs/nors_ftag_review_batch_6.csv`.
 - Proposed triage: `docs/nors_ftag_review_batch_6_codex_proposed_triage.csv`.
 - Needs Claude (no clean generated candidate): F802, F835, F836, F837, F838, F839, F840, F841, F843, F844, F845, F849, F850, F851, F865, F866, F867, F883, F895, F907, F908, F909, F910, F911, F912, F914, F915, F916, F918, F919, F920, F921, F922, F923, F924, F926.

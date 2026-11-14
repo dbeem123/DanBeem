@@ -40,11 +40,13 @@ class Batch456Tests(unittest.TestCase):
                                                        'R5_title_or_regulation_phrase_check'})
             self.assertLessEqual(max(Counter(row['tag'] for row in review).values()), 5)
 
-    def test_all_draft_maps_are_pending_and_do_not_control_coding(self):
+    def test_approved_maps_remain_non_coding_guidance(self):
         for batch in (4, 5, 6):
             payload = json.loads((ROOT / f'data/nors_section_prior_batch_{batch}_draft.json').read_text(encoding='utf-8'))
-            self.assertEqual(payload['status'], 'draft')
-            self.assertEqual(payload['approval_status'], 'pending_Daniel')
+            self.assertEqual(payload['status'], 'approved')
+            self.assertEqual(payload['approval_status'], 'approved_Daniel')
+            self.assertEqual(payload['approved_by'], 'Daniel')
+            self.assertEqual(payload['approved_date'], '2026-11-13')
             self.assertFalse(payload['controls_coding'])
             self.assertTrue(payload['sections'])
 

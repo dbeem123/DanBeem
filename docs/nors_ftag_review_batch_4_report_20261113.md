@@ -1,10 +1,10 @@
 # Batch 4: §483.24–25 — quality of care
 
-**Status: draft for Daniel and Claude review. No proposed links were imported.**
+**Section map approved by Daniel on 2026-11-13. Candidate review/proposed triage is approved as a review package; check and needs_claude flags remain unresolved. No proposed links were imported.**
 
 - Tags: 23; review rows: 72.
 - Proposed outcomes: {'check': 70, 'needs_claude': 2}.
-- Section map: `data/nors_section_prior_batch_4_draft.json` (`draft`, `pending_Daniel`, `controls_coding: false`).
+- Section map: `data/nors_section_prior_batch_4_draft.json` (`approved_Daniel`, `controls_coding: false`).
 - Review sheet: `docs/nors_ftag_review_batch_4.csv`.
 - Proposed triage: `docs/nors_ftag_review_batch_4_codex_proposed_triage.csv`.
 - Needs Claude (no clean generated candidate): F678, F680.

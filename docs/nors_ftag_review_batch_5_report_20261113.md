@@ -1,10 +1,10 @@
 # Batch 5: §483.30–45 — services
 
-**Status: draft for Daniel and Claude review. No proposed links were imported.**
+**Section map approved by Daniel on 2026-11-13. Candidate review/proposed triage is approved as a review package; check and needs_claude flags remain unresolved. No proposed links were imported.**
 
 - Tags: 27; review rows: 59.
 - Proposed outcomes: {'check': 48, 'needs_claude': 11}.
-- Section map: `data/nors_section_prior_batch_5_draft.json` (`draft`, `pending_Daniel`, `controls_coding: false`).
+- Section map: `data/nors_section_prior_batch_5_draft.json` (`approved_Daniel`, `controls_coding: false`).
 - Review sheet: `docs/nors_ftag_review_batch_5.csv`.
 - Proposed triage: `docs/nors_ftag_review_batch_5_codex_proposed_triage.csv`.
 - Needs Claude (no clean generated candidate): F710, F711, F712, F713, F714, F715, F728, F730, F731, F759, F801.
