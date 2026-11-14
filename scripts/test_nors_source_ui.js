@@ -3,6 +3,11 @@ const path = require('path');
 const vm = require('vm');
 const assert = require('assert');
 const root = path.resolve(__dirname, '..');
+const pageSource=fs.readFileSync(path.join(root,'Assets/nors-crosswalk-page.js'),'utf8');
+const pageHtml=fs.readFileSync(path.join(root,'tools/nors-crosswalk.html'),'utf8');
+assert(!/\b(?:localStorage|sessionStorage)\b/.test(pageSource), 'NORS UI must not use browser storage');
+assert(/connect-src\s+'self'/.test(pageHtml), 'NORS page must restrict network connections to its own origin');
+assert(!/https?:\/\//i.test(pageSource), 'NORS UI source must not contain external service URLs');
 const reviewData=JSON.parse(fs.readFileSync(path.join(root,'data/nors_reviewed_links.json'),'utf8'));
 const accepted=reviewData.links.filter(link=>link.status==='reviewed');
 const rejected=reviewData.links.filter(link=>link.status==='rejected');
@@ -40,6 +45,7 @@ vm.runInNewContext(fs.readFileSync(path.join(root,'Assets/nors-crosswalk-page.js
 const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
 (async()=>{
   await document.init();
+  assert(seen.length>0 && seen.every(file=>!/^https?:\/\//i.test(file)), 'source reads must stay same-origin');
   assert.equal(nodes['nors-code'].children.flatMap(x=>x.children).length,60);
   assert.equal(nodes['ftag-code'].children.flatMap(x=>x.children).length,204);
   const f917group=nodes['ftag-code'].children.find(group=>group.children.some(option=>option.value==='F917'));
@@ -57,6 +63,7 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   for (const code of ['F04','D01','D09']) assert(text.includes(`${code} (`), `F554 should show reviewed ${code}`);
   assert(nodes['source-output'].scrolls > scrollBeforeOpen, 'opening a tag scrolls its card into view');
   assert(text.includes('Tag header: F554 — Rev. 232'));
+  assert(!text.includes('draft') && !text.includes('proposed'), 'draft and proposed records must not render');
   for (const tag of ['F622','F623','F624','F625','F626']) {
     nodes['ftag-code'].value=tag; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
     text=walk(nodes['source-output']).join(' ');
@@ -105,5 +112,6 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   const html=fs.readFileSync(path.join(root,'tools/nors-crosswalk.html'),'utf8');
   assert(!html.includes('id="open-ftag"') && !html.includes('id="run-nors-crosswalk"'), 'selection opens without a separate button');
   assert(seen.every(x=>!x.includes('draft')));
+  assert(!/\b(?:localStorage|sessionStorage)\b/.test(fs.readFileSync(path.join(root,'Assets/nors-crosswalk-page.js'),'utf8')));
   console.log('Source UI checks passed: approved triage, synonyms, result scrolling, hash navigation, and open-on-select.');
 })().catch(error=>{console.error(error);process.exitCode=1;});

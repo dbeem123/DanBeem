@@ -33,6 +33,15 @@ The recorded weak example is Batch 2 F660/D02: “Title-only, check; weak.” Th
 
 Existing app links are not automatically proof of a substantive fit. In batch 1–3, existing links appear in the candidate sheets and some are kept with a `check` note; preserve the existing-link basis in the review record and mark uncertain links `check` rather than treating their prior presence as authority.
 
+## Rule identifiers used in proposed triage
+
+- **R1 — Substantive context:** keep/add only when the cited tag material and Table 2 wording support a specific context relationship. Examples include “knocking/private space example: dignity” (Batch 1, F550/D03) and “abuse/neglect type named in F600” (Batch 1, F600).
+- **R2 — Keyword-only is insufficient:** broad shared terms or a score alone do not establish a fit. Drop an unsupported lexical suggestion; if the builder finds no clean candidate at all, use R6 rather than inventing a row. The decision CSVs contain both kept and dropped `keyword_match` rows and leave many drop reasons blank, so R2 is a conservative screening rule, not a claim that every keyword-basis row in the historical batches was dropped.
+- **R3 — Specific phrase, check:** a multiword phrase overlap is a lead for review, not an automatic link. The Batch 3 additions cite the “care-plan phrase” and are still context candidates for human review.
+- **R4 — Existing app link, check:** retain an existing link for review, but do not treat its prior presence as proof; Batch 3 keep decisions include reviewer notes exactly equal to “check”.
+- **R5 — Title/regulation fallback, check:** phrase matches based on a title or regulation sentence remain weak pending source-context review; Batch 2 records “Title-only, check; weak.”
+- **R6 — No clean fit, needs Claude:** emit no candidate and escalate the tag; Batch 3 includes the explicit dropped row note “No candidate row; dropped per Daniel instruction.”
+
 ## No-candidate and Claude-review queue
 
 Keep a tag with no clean match at zero generated candidates and report it as **needs Claude**. Do not fill the gap with the highest lexical score. The batch 3 triage has no generated candidate row for F635 (admission orders), F642 (assessment qualification), F646 (authority notification; a separate manual F03 add was directed and remains checked), and F661 (discharge information). The batch 3 report also lists F639 and F659 as lookup-only items with broad multi-code matches; those lookups were explicitly left undecided.
