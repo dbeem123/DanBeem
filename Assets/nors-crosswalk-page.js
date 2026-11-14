@@ -187,7 +187,8 @@
         : [];
       searchWeights = buildSearchWeights(definitions);
       const allReviewRows = Array.isArray(reviewed.links) ? reviewed.links : [];
-      const reviewMetaValid = x => x.reviewed_by === 'Daniel' && x.review_method === 'approved Claude first-pass triage' && /^\d{4}-\d{2}-\d{2}$/.test(x.reviewed_date || '') && /^[A-L]\d{2}$/.test(x.nors_code || '') && /^F\d{3,4}$/.test(x.f_tag || '') && definitions.some(d => d.code === x.nors_code) && tags.some(t => t.tag === x.f_tag);
+      const acceptedReviewMethods = new Set(['approved Claude first-pass triage', 'Daniel-directed triage approved 2026-11-13']);
+      const reviewMetaValid = x => x.reviewed_by === 'Daniel' && acceptedReviewMethods.has(x.review_method) && /^\d{4}-\d{2}-\d{2}$/.test(x.reviewed_date || '') && /^[A-L]\d{2}$/.test(x.nors_code || '') && /^F\d{3,4}$/.test(x.f_tag || '') && definitions.some(d => d.code === x.nors_code) && tags.some(t => t.tag === x.f_tag);
       rejectedLinks = allReviewRows.filter(x => x.status === 'rejected' && reviewMetaValid(x));
       const candidates = allReviewRows.filter(x => x.status === 'reviewed' && x.basis === 'coded_by_reviewer' && reviewMetaValid(x) && definitions.some(d => d.code === x.nors_code && d.id === x.nors_authority_id && typeof x.nors_excerpt === 'string' && x.nors_excerpt.trim() && d.text.includes(x.nors_excerpt)));
       const checked = await Promise.all(candidates.map(async link => {

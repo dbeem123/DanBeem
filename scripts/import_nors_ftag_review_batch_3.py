@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / 'data'
 TRIAGE = ROOT / 'docs/nors_ftag_review_batch_3_claude_triage.csv'
 DATE = '2026-11-13'
-METHOD = 'Daniel-directed triage 2026-11-13; not imported'
+METHOD = 'Daniel-directed triage approved 2026-11-13'
 
 
 def load_json(path):
@@ -47,7 +47,7 @@ def build_records(rows, tags, definitions):
             'f_tag': row['tag'], 'nors_code': code,
             'reviewed_by': 'Daniel', 'reviewer': 'Daniel',
             'reviewed_date': DATE,
-            'review_method': 'approved Claude first-pass triage',
+            'review_method': METHOD,
             'reviewer_note': triage_note,
         }
         if decision == 'drop':
@@ -111,7 +111,8 @@ def main():
         raise ValueError(f'Review data already contains batch 3 pairs: {sorted(duplicates)}')
     reviewed = sum(item['status'] == 'reviewed' for item in additions)
     rejected = sum(item['status'] == 'rejected' for item in additions)
-    print(f'Validated batch 3: {reviewed} reviewed/add records, {rejected} rejected records; no writes.')
+    action = 'ready to write' if args.apply else 'preview only; no writes'
+    print(f'Validated batch 3: {reviewed} reviewed/add records, {rejected} rejected records; {action}.')
     print('F646/F03 is included as weak/title-only/check.')
     if args.apply:
         review['links'].extend(additions)

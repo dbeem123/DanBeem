@@ -11,7 +11,8 @@ assert(!/https?:\/\//i.test(pageSource), 'NORS UI source must not contain extern
 const reviewData=JSON.parse(fs.readFileSync(path.join(root,'data/nors_reviewed_links.json'),'utf8'));
 const accepted=reviewData.links.filter(link=>link.status==='reviewed');
 const rejected=reviewData.links.filter(link=>link.status==='rejected');
-assert(accepted.length>0 && accepted.every(link=>link.reviewed_by==='Daniel' && link.reviewed_date==='2026-11-13' && link.review_method==='approved Claude first-pass triage'));
+const acceptedMethods=new Set(['approved Claude first-pass triage','Daniel-directed triage approved 2026-11-13']);
+assert(accepted.length>0 && accepted.every(link=>link.reviewed_by==='Daniel' && link.reviewed_date==='2026-11-13' && acceptedMethods.has(link.review_method)));
 assert(rejected.length>0, 'drop decisions are retained as rejected records');
 const synonymData=JSON.parse(fs.readFileSync(path.join(root,'data/nors_app_search_synonyms.json'),'utf8'));
 assert.equal(synonymData.label,'Approved app guidance; expands Appendix PP search terms only.');
@@ -74,6 +75,9 @@ const walk=node=>[node.textContent||'',...(node.children||[]).flatMap(walk)];
   assert(text.includes('D02 (coded_by_reviewer; weak — title-only, check)'), 'F660 tag card should show reviewed D02 with its weak title-only check label');
   assert(text.includes('weak — title-only, check'), 'F660 D02 should be visibly marked weak and title-only');
   assert(!text.includes('C03 (coded_by_reviewer)'), 'undecided F660 to C03 must stay out');
+  nodes['ftag-code'].value='F646'; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
+  text=walk(nodes['source-output']).join(' ');
+  assert(text.includes('F03 (coded_by_reviewer; weak — title-only, check)'), 'approved manual F646/F03 should display as a weak checked context link');
   for (const [tag, codes] of Object.entries({F620:['C02','C03','C04'],F621:['C02','C03','C04'],F627:['C01','C04'],F628:['D02','C04','C01']})) {
     nodes['ftag-code'].value=tag; nodes['ftag-code'].events.change(); await new Promise(resolve=>setTimeout(resolve,0));
     text=walk(nodes['source-output']).join(' ');

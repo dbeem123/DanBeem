@@ -36,6 +36,7 @@ class Batch3ImportPreparationTests(unittest.TestCase):
         self.assertEqual(manual['link_strength'], 'weak')
         self.assertEqual(manual['evidence_basis'], 'title_only')
         self.assertIn('check', manual['reviewer_note'])
+        self.assertEqual(manual['review_method'], 'Daniel-directed triage approved 2026-11-13')
         self.assertEqual(manual['appendix_passage_id'], 'appendix-pp-f646-p2')
         for tag, code in [('F636', 'F03'), ('F637', 'F07'), ('F656', 'F01'), ('F658', 'F12')]:
             self.assertIn('check', pairs[(tag, code)]['reviewer_note'].lower())
