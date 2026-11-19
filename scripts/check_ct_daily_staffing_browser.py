@@ -1,16 +1,16 @@
 """Verify the facility drilldown in Edge at phone and desktop widths."""
 from functools import partial
-from http.server import ThreadingHTTPServer
+from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from threading import Thread
 
 from playwright.sync_api import expect, sync_playwright
-from check_nors_reading_list_browser import QuietHandler
+
 
 
 def main():
     root = Path(__file__).resolve().parents[1]
-    with ThreadingHTTPServer(("127.0.0.1", 0), partial(QuietHandler, directory=root)) as server:
+    with ThreadingHTTPServer(("127.0.0.1", 0), partial(SimpleHTTPRequestHandler, directory=root)) as server:
         Thread(target=server.serve_forever, daemon=True).start()
         try:
             with sync_playwright() as driver:
