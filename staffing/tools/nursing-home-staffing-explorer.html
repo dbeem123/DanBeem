@@ -9,7 +9,9 @@
   <link rel="stylesheet" href="/Assets/ltcop-dashboard.css?v=20260804-11d20">
   <script defer src="/Assets/shared.js"></script>
   <script defer src="/Assets/nursing-home-source-currency.js"></script>
-  <script defer src="/Assets/nursing-home-staffing.js?v=20260804-11d20"></script>
+  <link rel="stylesheet" href="/Assets/pbj-days.css">
+  <script defer src="/Assets/pbj-days.js"></script>
+  <script defer src="/Assets/nursing-home-staffing.js?v=20261118-days"></script>
   <script defer src="/Assets/nursing-home-administrators-of-record.js"></script>
   <script defer src="/Assets/nursing-home-management-of-record.js"></script>
   <script defer src="/Assets/nursing-home-cost-reports-of-record.js"></script>
@@ -541,6 +543,7 @@
           <a href="#screening-title"><strong>Screening indicators</strong></a>
           <a href="#ratings-title"><strong>Care Compare context</strong></a>
           <a href="#metrics-title"><strong>Current staffing</strong></a>
+          <a href="#daily-staffing"><strong>Daily staffing by position</strong></a>
           <a href="#survey-enforcement-title"><strong>Survey &amp; enforcement</strong></a>
           <a href="#historical-pbj-title"><strong>Historical PBJ</strong></a>
           <a href="#quality-measures-title"><strong>Quality measures</strong></a>
@@ -622,6 +625,38 @@
             </div>
           </div>
           <div id="quarterly-exhibit" aria-live="polite"></div>
+        </div>
+      </details>
+    </section>
+
+    <section class="wrap" aria-labelledby="pbj-title">
+      <details id="daily-staffing" class="ltcop-disclosure">
+        <summary id="pbj-title"><span role="heading" aria-level="2">Daily staffing by position</span></summary>
+        <div class="ltcop-disclosure-body">
+          <label id="pbj-archive-label" hidden>Historical facility
+            <select id="pbj-archive"></select></label>
+          <p id="pbj-home"></p>
+          <p id="pbj-status" role="status"></p>
+          <div id="pbj-controls" hidden>
+            <div class="pbj-filters">
+              <label>Quarter<select id="pbj-quarter"></select></label>
+              <label>Work date<input type="date" id="pbj-day"></label>
+              <label>Position<select id="pbj-role"></select></label>
+            </div>
+            <div class="pbj-actions"><button id="pbj-prev" type="button">Previous day</button>
+              <button id="pbj-next" type="button">Next day</button>
+              <a id="pbj-link">Link to this day</a>
+              <button id="pbj-export" type="button">Download quarter CSV</button></div>
+            <p id="pbj-census"></p>
+            <div class="pbj-scroll" tabindex="0" aria-label="Daily staffing table"><table><thead><tr>
+              <th scope="col">Position</th><th scope="col">Workers</th><th scope="col">Total hours</th>
+              <th scope="col">Employee hours</th><th scope="col">Contract hours</th><th scope="col">Minutes per resident</th>
+            </tr></thead><tbody id="pbj-rows"></tbody></table></div>
+            <p class="microcopy">The workers column counts each person who reported positive hours in that position. A person can work in multiple roles. Daily figures do not identify workers, shifts, or how many people were present at one time. A dash means unavailable. CMS exclusions are labeled.</p>
+            <details><summary>Hours across this quarter</summary><p id="pbj-trend-label"></p><div id="pbj-bars"></div></details>
+            <p id="pbj-sources" class="microcopy"></p>
+          </div>
+          <details id="pbj-support"><summary>Annual support services</summary><div id="pbj-annual"></div></details>
         </div>
       </details>
     </section>

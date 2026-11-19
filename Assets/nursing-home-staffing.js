@@ -390,6 +390,7 @@
       const next = getFacilityById(document.getElementById('facility-select').value) || filteredFacilities[0];
       renderFacility(next.id);
     } else {
+      global.DanBeemDailyStaffing?.selectFacility(null);
       updateReportActions(null);
     }
   }
@@ -1893,6 +1894,7 @@
   function renderFacility(facilityId) {
     const facility = getFacilityById(facilityId);
     if (!facility) return;
+    global.DanBeemDailyStaffing?.selectFacility(facility);
     resetSurveyEnforcementDetailsForFacility(facility);
     updateReportActions(facility);
     renderPrintReportContext(facility);
