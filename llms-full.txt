@@ -1,0 +1,154 @@
+# danbeem.xyz Connecticut Nursing Home Reporting API - full reference
+
+> Read-only, static JSON API of public Connecticut nursing home records (CMS, CT DSS, CT DPH). Schema version reporting-api-1.0. Short version: https://danbeem.xyz/llms.txt. OpenAPI: https://danbeem.xyz/api/openapi.json. Docs: https://danbeem.xyz/api/docs/. Catalog: https://danbeem.xyz/api/v1/index.json.
+
+## 1. Conventions
+
+- Host: https://danbeem.xyz (GitHub Pages, static). All URLs end in .json; parameters are in the path. No ?q= or ?type=.
+- Facility id: ccn, 6 characters, pattern ^[0-9A-Z]{6}$ (e.g. 075396 Cherry Brook Health Care Center, 075442 60 West). Company id: starts with mc- (e.g. mc-apple-health-care-inc).
+- Unknown id: the host returns an HTML 404 page, not JSON.
+- Every file has schema_version, generated_at (newest source build date, deterministic), data_as_of (map of source key to date), and links.
+- Files are CORS-open and cacheable. No auth, no rate limits.
+- Missing data: value is null and the report lists it in missing_data[] as {field, reason}. Absence is not evidence of absence.
+
+## 2. Endpoints and fields
+
+### GET /api/v1/index.json
+Catalog. Fields: api, generated_at, data_as_of, docs, openapi, llms, report_schema, facility_report_types[], company_report_types[], url_templates{}, sources{} (agency, dataset, url, as_of, site_file), evidence_kinds{}, counts{facilities, management_companies}.
+
+### GET /api/v1/facilities.json
+count, facilities[]: ccn, facility_name, city, operating_status (in_current_cms_provider_info or closed_or_non_current), legal_entity, management_current[], profile (URL).
+
+### GET /api/v1/facilities/{ccn}/profile.json
+- identity{ccn, facility_name, address, city, state, zip_code, phone_number, certified_beds_cms, certified_beds_cost_report, ownership_type_cms, legal_entity_cms_enrollment, doing_business_as_cms_enrollment, npi, operating_status, cms_ratings{overall, health_inspection, staffing, quality_measures, as_of}}
+- ownership_summary{current_cms_records, management_companies[], current_administrator}
+- staffing_latest{quarter, average_resident_census, total_nurse_hprd, rn_hprd, lpn_hprd, aide_hprd, contract_staff_pct, ct_minimum_total_hprd, ct_below_total_minimum_estimate, ct_comparison_status, statewide_median_total_nurse_hprd}
+- financial_latest{cost_year, period_start, period_end, revenue_total, expenses_total, net_income, management_fee_reported, related_party_total_reported, direct_care{total, per_resident_day, share_of_expenses}, statewide_median_same_year{...}}
+- inspection_summary{all_time_* and recent_* counts of health deficiencies, actual harm, immediate jeopardy, fire safety, fines, payment denials; latest_health_survey_date; survey_enforcement_caution_flags[]; summary_limitations[]}
+- missing_data[]; links{ownership, staffing, financials, inspections, reports{...}, site_pages{...}}
+
+### GET /api/v1/facilities/{ccn}/ownership.json
+- cms_owners_window{first_release, latest_release}
+- cms_ownership_and_control[]: entity_name, entity_type, cms_associate_id, relationship_type, cms_role_verbatim, association_date, first_seen_release, last_seen_release, current, also_listed_at_ccns[], verification, source_key
+- management_companies[]: company_id, company_name, relationship_type, start, start_basis, end, ended_before, current, company_url
+- administrators_of_record[]: person_id, name, license_number, start, end, current (DPH)
+- owners_named_on_dss_cost_reports[]: cost_year, partnership_legal_name, corporation_legal_name, partners_members, directors_officers, stockholders_10pct, record_id
+- changes_of_ownership[] (CMS CHOW)
+
+### GET /api/v1/facilities/{ccn}/staffing.json
+period_definition, coverage{first_quarter, last_quarter, quarters}, case_mix_expected_hprd_cms, benchmark_note, ct_minimum_note, quarters[]: quarter, average_resident_census, total_nurse_hprd, rn_hprd, lpn_hprd, aide_hprd, contract_staff_pct, ct_direct_care_hprd_estimate, ct_licensed_direct_care_hprd_estimate, ct_minimum_total_hprd, ct_minimum_licensed_hprd, ct_below_total_minimum_estimate, ct_comparison_status, statewide_median_total_nurse_hprd, statewide_median_contract_staff_pct. hprd = hours per resident day.
+
+### GET /api/v1/facilities/{ccn}/financials.json
+definitions{}, caveats[], years[]: cost_year, period_start, period_end, part_year, validated_against_printed_totals, name_on_report, resident_days, payer_mix{}, revenue_total, expenses_total, net_income, operating_margin_nursing_home, management_fee_reported, related_party_total_reported, direct_care{salaries, nursing_pool_agency, total, per_resident_day, share_of_expenses}, dietary{}, housekeeping{}, laundry{}, raw_food_per_resident_day, pbj_same_period{}, statewide_median_same_year{}, related_parties[], management_services[]. Check validated_against_printed_totals before relying on a year.
+
+### GET /api/v1/facilities/{ccn}/inspections.json
+summary{} (same as profile.inspection_summary); health_citations[]: survey_date, tag, description, category, scope_severity, harm_level, complaint, standard, correction_date, under_idr, record_id; fire_safety_citations[]: survey_date, tag, description, scope_severity, correction_date; penalties[]: date, type, fine_amount, payment_denial_start, payment_denial_days, record_id; scope_severity_key; window{}.
+
+### GET /api/v1/management-companies.json
+count, companies[]: id, name, other_names[], homes_total, homes_current, url.
+
+### GET /api/v1/management-companies/{company_id}.json
+id, name, other_names[], dph_license{}, homes_total, homes_current, homes[]: ccn, facility_name, role, start, start_basis, end, ended_before, current, context{quarters, first_quarter, last_quarter, ct_direct_care_hprd, total_nurse_hprd, rn_hprd}, administrators[]; source{}; links.
+
+### GET /api/v1/search-index.json
+how_to_search, count, entries[]: type (facility, management_company, cost_report_related_party, and others), id, name, ccns[], key. See section 6.
+
+### GET /api/v1/reports/{report_type}/{ccn}.json
+Report envelope (schema at /api/v1/schema/report.schema.json). Top-level: schema_version, report_type, subject{ccn, facility_name}, generated_at, data_as_of, executive_summary[]{text, kind, finding_id}, findings[], metrics{}, historical_trends{}, relationships[], sources[]{source_key, agency, dataset, url}, limitations[], missing_data[], recommended_follow_up[], links{}.
+
+Finding: id, kind, severity (info or attention), statement, formula (required when kind is calculated), value (optional), evidence[].
+Evidence: source_key, agency, dataset, url, site_file, reporting_period, as_of, record_id, verification, note (optional).
+Verification values: source_record, source_record_unvalidated, derived, name_match_unverified.
+
+Report types:
+- facility-comprehensive: all sections; metrics include ownership counts, latest_quarter, total_nurse_hprd, rn_hprd, contract_staff_pct, latest_cost_year, direct_care_per_resident_day, management_fee_reported, related_party_total_reported, health_citations_total, immediate_jeopardy_citations, fines_total, most_cited_tags.
+- ownership-network: metrics cms_records_all_releases, current_cms_owner_records, current_cms_control_records, shared_principals_with_other_ct_homes.
+- staffing-analysis: latest quarter vs CT minimum and state median; trends total_nurse_hprd, contract_staff_pct.
+- financial-transparency: latest_cost_year, direct care per resident day vs state median, management fee, related-party total.
+- regulatory-history: citation counts, fines, latest survey, most cited tags; trend health_citations_per_year.
+- related-party-screening: DSS related-party and management-service disclosures, CMS owners and managers, shared principals, plus an investigative_question for names the user asked about that are absent.
+
+### GET /api/v1/reports/management-company-portfolio/{company_id}.json
+Same envelope; subject{company_id, company_name}; metrics homes_total, homes_current, median_ct_direct_care_hprd_during_management.
+
+### GET /api/v1/schema/report.schema.json
+JSON Schema 2020-12 for the report envelope.
+
+## 3. Evidence kinds
+
+- confirmed_fact: value printed in a public source record.
+- calculated: arithmetic on confirmed facts; `formula` states it.
+- possible_association: shared entity, name or principal. Not evidence of ownership, control or conflict of interest.
+- investigative_question: something the data cannot answer that a person should check.
+
+## 4. Datasets and as-of dates (from /api/v1/index.json)
+
+- cms_pbj: Centers for Medicare & Medicaid Services (CMS), Payroll-Based Journal Daily Nurse Staffing; as_of 2026Q2; https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing
+- cms_provider_info: CMS, Nursing Home Provider Information (Care Compare); as_of 2026-10-01; https://data.cms.gov/provider-data/dataset/4pq5-n9py
+- cms_enrollment: CMS, Skilled Nursing Facility Enrollments; as_of 2026-10-01; https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments
+- cms_all_owners: CMS, Skilled Nursing Facility All Owners (monthly releases); as_of 2026-10; https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-all-owners
+- cms_chow: CMS, Skilled Nursing Facility Change of Ownership; as_of SNF_CHOW_2026.09.29.csv; https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-change-of-ownership
+- cms_health_citations: CMS, Health Deficiencies (NH_HealthCitations_Oct2026.csv); as_of 2026-11-07; https://data.cms.gov/provider-data/dataset/r5ix-sfxw
+- cms_fire_safety: CMS, Fire Safety Deficiencies (NH_FireSafetyCitations_Oct2026.csv); as_of 2026-11-07; https://data.cms.gov/provider-data/dataset/ifjz-ge4w
+- cms_penalties: CMS, Penalties (NH_Penalties_Oct2026.csv); as_of 2026-11-07; https://data.cms.gov/provider-data/dataset/g6vv-u9sr
+- dss_cost_reports: Connecticut Department of Social Services (DSS), Annual Report of Long-Term Care Facility (nursing facility cost reports); as_of 2026-11-09; https://portal.ct.gov/dss/health-and-home-care/medicaid-nursing-home-reimbursement/nursing-facility-cost-reports
+- dph_administrators: Connecticut Department of Public Health (DPH), nursing home administrator of record history (eLicense roster export); as_of 2026-11-05; https://data.ct.gov/Business/State-Licenses-and-Credentials/ngch-56tr
+- management_companies: CMS (ownership archives) and Connecticut DPH (management company roster), compiled by danbeem.xyz; as_of 2026-10-28
+- site_roster: danbeem.xyz (compiled from CMS and DSS), Connecticut nursing home facility roster; as_of 2026-11-12
+
+## 5. Limitations
+
+- Public CMS, CT DSS and CT DPH data only. No resident data and no Ombudsman case data. Complaints appear only as CMS citation data.
+- Data is a snapshot; check data_as_of per source. The roster covers 197 CCNs, including closed or non-current homes.
+- CMS PBJ shows hours paid per day, not shifts, time of day, or care given. CT day/night windows cannot be seen. Comparisons to the CT minimum are estimates (ct_comparison_status says how).
+- DSS cost-report values were read from published reports; names read from PDFs by software may be truncated. Check validated_against_printed_totals.
+- Entities are matched only by CCN, CMS associate id, DPH license number or the site's management company id. Name matches are never merged and carry verification name_match_unverified.
+- CMS All Owners may list directors and officers rather than owners for nonprofits.
+- Absence from these datasets does not mean absence in the world.
+- Citations and staffing flags are screening information, not findings of violations.
+
+## 6. Searching (static hosting)
+
+1. GET https://danbeem.xyz/api/v1/search-index.json once.
+2. Normalize the query as `key` is: upper case, punctuation to spaces, drop suffixes like INC, LLC.
+3. Keep entries whose `key` contains the normalized query. type=facility gives a ccn in `id`; type=management_company gives a company id; other types point to facility ccns via `ccns`.
+4. Zero matches: report "not in these datasets" and do not guess.
+
+Comparison of two homes: fetch facility-comprehensive for each CCN and compare metrics{} and findings client-side.
+
+## 7. Worked examples
+
+### Example A: retrieve a facility
+1. Search "cherry brook" -> entry {type: facility, id: 075396, name: CHERRY BROOK HEALTH CARE CENTER}.
+2. GET https://danbeem.xyz/api/v1/facilities/075396/profile.json. Read identity, staffing_latest (quarter, total_nurse_hprd vs statewide_median_total_nurse_hprd), financial_latest (cost_year, direct_care.per_resident_day), inspection_summary.
+3. For narrative with sources, GET https://danbeem.xyz/api/v1/reports/facility-comprehensive/075396.json and read executive_summary[] then findings[].
+4. Report values with their period, for example "In quarter Q total nurse hours per resident day was X (CMS PBJ, as of 2026Q2)", taking Q from staffing_latest.quarter.
+
+### Example B: inspect ownership
+1. GET https://danbeem.xyz/api/v1/facilities/075396/ownership.json.
+2. cms_ownership_and_control[] lists each CMS-reported person or entity with cms_role_verbatim and association_date (for example "Adp Of The Snf" since 09/13/2024). current=true means present in the latest release.
+3. management_companies[] gives periods: for example ATHENA HEALTH CARE ASSOCIATES, INC. 1994-01-13 to 2025-03-26 (current=false). Say "listed as management company" and give start_basis and source.
+4. A non-empty also_listed_at_ccns[] means the same CMS associate id appears at other homes: call it a possible association, not control.
+5. An empty CMS owner list for a nonprofit is expected; the report states it as an investigative_question to confirm the licensee with DPH.
+
+### Example C: read a related-party-screening report and attribute a finding
+GET https://danbeem.xyz/api/v1/reports/related-party-screening/075396.json. Two of its findings:
+
+- confirmed_fact rp-2025-0: "Cost year 2025: related party disclosed as "New Horizons Inc." for Management Services, cost reported $288,000 (Page 16 Line m12)." Evidence: DSS, Annual Report of Long-Term Care Facility, reporting_period 2024-10-01 to 2025-09-30, as_of 2026-11-09, record_id "DSS cost report 2025 Page 16 Line m12", verification source_record.
+- possible_association rp-mgmt-self-2025: the management-services payee name matches the CMS-enrolled legal entity (NEW HORIZONS INC). The DSS evidence item has verification name_match_unverified.
+
+Correct attribution: "The 2025 DSS cost report lists a $288,000 management-services related-party cost to New Horizons Inc. (DSS cost report 2025, Page 16 Line m12; period 2024-10-01 to 2025-09-30; as of 2026-11-09). That name matches the CMS-enrolled legal entity (CMS enrollment, CCN 075396, as of 2026-10-01); this is a possible association based on a name match and does not by itself show what the fee covers."
+
+Wrong: "New Horizons controls the home and takes $288,000" or "no other related parties exist". Names the user asked about that are absent from the data (the report carries an investigative_question) must be reported as "not in these datasets", never as confirmed.
+
+## 8. Prompt template for an assistant
+
+You are summarizing Connecticut nursing home public records from the danbeem.xyz Reporting API.
+1. Resolve the facility: fetch https://danbeem.xyz/api/v1/search-index.json and match the normalized key, or use a CCN the user gave. Confirm the CCN and name.
+2. Fetch https://danbeem.xyz/api/v1/reports/{report_type}/{ccn}.json (facility-comprehensive unless the question is narrower). Read data_as_of and limitations too.
+3. Answer only from executive_summary, findings, metrics and relationships. Do not add outside knowledge or fill null values.
+4. For every statement give: agency and dataset, reporting_period, record_id (and as_of if relevant), taken from the finding's evidence[].
+5. Group output by kind: confirmed facts, calculations (with formula), possible associations (say they are not evidence of ownership, control or conflict of interest), questions to follow up.
+6. Where data is missing or a name is not found, say "not in these datasets" (name them, with as_of). Never say "none" or "no issues".
+7. End with limitations (public CMS/DSS/DPH data only; screening, not findings of violations) and recommended_follow_up.
+8. If you cannot fetch URLs, say so and ask the user to paste the JSON.

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Facility Reports</title>
+  <meta name="description" content="Evidence-based reports on Connecticut nursing homes: ownership, management, staffing, finances and inspections, with sources for every finding. Send any report to your own AI assistant." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css?v=20260804-11d20">
+  <script defer src="/Assets/shared.js"></script>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+  <link rel="alternate" type="application/json" href="/api/v1/index.json" title="Reporting API catalog">
+  <style>
+    .rp-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; align-items:end; }
+    .rp-controls label { display:block; font-weight:700; margin-bottom:4px; }
+    .rp-controls input, .rp-controls select, .rp-ask textarea { width:100%; box-sizing:border-box; }
+    .rp-hint { color:var(--ltcop-muted,#5f6f85); font-size:13px; margin:.3rem 0 0; }
+    .rp-matches { list-style:none; padding:0; margin:8px 0 0; display:grid; gap:6px; }
+    .rp-matches button { all:unset; cursor:pointer; color:var(--ltcop-navy,#173761); font-weight:700; text-decoration:underline; }
+    .rp-matches button:focus-visible, .rp-btnrow button:focus-visible, .rp-btnrow a:focus-visible { outline:3px solid var(--ltcop-focus,#2f6fed); outline-offset:2px; }
+    .rp-btnrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .rp-summary { margin:0; padding-left:1.2rem; }
+    .rp-summary li { margin:.35rem 0; }
+    .rp-kind { display:inline-block; font-size:11px; font-weight:800; letter-spacing:.03em; text-transform:uppercase; border-radius:999px; padding:2px 8px; margin-right:6px; vertical-align:1px; white-space:nowrap; }
+    .rp-kind.confirmed_fact { background:#e7f5ec; color:#14532d; }
+    .rp-kind.calculated { background:#eaf4ff; color:#173761; }
+    .rp-kind.possible_association { background:#fef3c7; color:#78350f; }
+    .rp-kind.investigative_question { background:#ede9fe; color:#4c1d95; }
+    .rp-kind.missing_data { background:#e5e7eb; color:#374151; }
+    .rp-finding { border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; padding:10px 12px; margin:8px 0; background:var(--ltcop-card,#fff); }
+    .rp-finding.attention { border-left:4px solid #b45309; }
+    .rp-finding p { margin:.2rem 0; }
+    .rp-ev { font-size:13px; color:#334155; margin:.35rem 0 0; }
+    .rp-ev a { word-break:break-word; }
+    .rp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; }
+    .rp-metric { background:var(--ltcop-card,#fff); border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; padding:10px 12px; }
+    .rp-metric strong { display:block; font-size:20px; color:var(--ltcop-navy,#173761); font-variant-numeric:tabular-nums; word-break:break-word; }
+    .rp-metric span { font-size:12px; color:var(--ltcop-muted,#5f6f85); }
+    .rp-table-wrap { overflow-x:auto; border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; margin-top:8px; }
+    table.rp { width:100%; border-collapse:collapse; font-size:14px; }
+    table.rp th, table.rp td { padding:7px 9px; border-bottom:1px solid var(--ltcop-border,#d8e1ee); text-align:left; vertical-align:top; }
+    table.rp thead th { background:#f8fafc; }
+    table.rp td.num { text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+    .rp-ask { border:2px solid var(--ltcop-navy,#173761); border-radius:12px; padding:14px; background:var(--ltcop-info,#eaf4ff); }
+    .rp-q { border-top:1px solid var(--ltcop-border,#d8e1ee); padding:10px 0; }
+    .rp-q:first-of-type { border-top:0; }
+    .rp-q p { margin:0; font-weight:700; }
+    .rp-status { min-height:1.2em; font-size:14px; color:#334155; }
+    .rp-namecheck li { margin:.25rem 0; }
+    .rp-found { color:#14532d; font-weight:700; }
+    .rp-notfound { color:#7c2d12; font-weight:700; }
+    details.rp-more summary { cursor:pointer; font-weight:700; }
+    [hidden] { display:none !important; }
+    @media print {
+      .ltcop-suite-nav, .rp-controls, .rp-btnrow, .rp-ask, #picker, .skipLink { display:none !important; }
+      .rp-table-wrap { overflow:visible; }
+      .rp-finding { break-inside:avoid; }
+    }
+  </style>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/reports/" aria-current="page">Reports</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-daily-minimums.html">Daily vs. CT Minimums</a>
+        <a href="/staffing/tools/nursing-home-inspections.html">Inspections</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
+        <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>
+        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/api/docs/">API</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap staffing-hero ltcop-dashboard-hero" aria-labelledby="rp-title">
+      <div class="panel">
+        <div class="pill">Reports</div>
+        <h1 id="rp-title">Facility reports, with a source for every finding</h1>
+        <p>Pick a Connecticut nursing home or management company and a report. Each finding is labeled as a confirmed fact, a calculation, a possible association, or an open question, and links to the public record it came from. You can send any report to your own AI assistant with one click.</p>
+        <div class="notice warning">Screening and research only. These reports join public CMS, DSS and DPH data. A shared name or principal is not proof of common ownership or a conflict of interest, and "not in these datasets" does not mean it did not happen.</div>
+      </div>
+    </section>
+
+    <section class="wrap" id="picker" aria-labelledby="pick-title">
+      <div class="panel">
+        <div class="sectionHeader"><div>
+          <div class="eyebrow">Step 1</div>
+          <h2 id="pick-title">Choose a home or company</h2>
+        </div></div>
+        <div class="rp-controls">
+          <div>
+            <label for="rp-search">Search by home, owner, company or administrator</label>
+            <input id="rp-search" type="search" autocomplete="off" placeholder="e.g. Cherry Brook, 075396, Athena" aria-describedby="rp-search-hint">
+            <p class="rp-hint" id="rp-search-hint">Names are matched as written in the records. Different records with the same name are kept separate.</p>
+          </div>
+          <div>
+            <label for="rp-type">Report</label>
+            <select id="rp-type">
+              <option value="facility-comprehensive">Full facility report</option>
+              <option value="ownership-network">Ownership, management and administrators</option>
+              <option value="related-party-screening">Related-party screening</option>
+              <option value="staffing-analysis">Staffing analysis</option>
+              <option value="financial-transparency">Finances (DSS cost reports)</option>
+              <option value="regulatory-history">Inspections and penalties</option>
+              <option value="facility-comparison">Compare two homes</option>
+              <option value="management-company-portfolio">Management company portfolio</option>
+            </select>
+          </div>
+          <div id="rp-compare-wrap" hidden>
+            <label for="rp-compare">Second home to compare</label>
+            <input id="rp-compare" type="search" autocomplete="off" list="rp-facility-list" placeholder="Name or CCN">
+          </div>
+        </div>
+        <datalist id="rp-facility-list"></datalist>
+        <ul class="rp-matches" id="rp-matches" aria-live="polite"></ul>
+        <p class="rp-status" id="rp-status" role="status"></p>
+      </div>
+    </section>
+
+    <section class="wrap" id="rp-output" hidden aria-labelledby="out-title">
+      <div class="panel">
+        <div class="sectionHeader"><div>
+          <div class="eyebrow" id="out-eyebrow">Report</div>
+          <h2 id="out-title"></h2>
+          <p class="rp-hint" id="out-meta"></p>
+        </div></div>
+        <div class="rp-btnrow">
+          <a class="btn secondary" id="out-json" href="#" target="_blank" rel="noopener">Open JSON</a>
+          <button class="btn secondary" type="button" id="out-download">Download JSON</button>
+          <button class="btn secondary" type="button" id="out-copyurl">Copy report link</button>
+          <button class="btn secondary" type="button" onclick="window.print()">Print</button>
+        </div>
+
+        <h3>Summary</h3>
+        <ul class="rp-summary" id="out-summary"></ul>
+        <h3>Key numbers</h3>
+        <div class="rp-grid" id="out-metrics"></div>
+        <div id="out-compare"></div>
+        <div id="rp-namecheck-wrap" hidden style="margin-top:20px">
+          <h3>Check other names</h3>
+          <p class="rp-hint">Names you have heard about (a vendor, a parent company, a person). Each is checked against every dataset on this site. A name that is not found is not in these public records, which is different from proof that no relationship exists.</p>
+          <div class="rp-controls">
+            <div>
+              <label for="rp-names">Names, separated by commas</label>
+              <input id="rp-names" type="text" placeholder="e.g. Serene Health Services, Adir Healthcare">
+            </div>
+            <div><button class="btn" type="button" id="rp-names-go">Check names</button></div>
+          </div>
+          <ul class="rp-namecheck" id="rp-namecheck"></ul>
+        </div>
+
+        <div class="rp-ask" id="rp-ask" style="margin-top:20px">
+          <h3 style="margin-top:0">Ask your AI about this report</h3>
+          <p class="rp-hint">Opens your own ChatGPT or Claude with a ready-made prompt that points to this report's public link. Your assistant needs web access turned on to read it. "Copy prompt" works with any assistant, including a self-hosted agent.</p>
+          <div id="rp-questions"></div>
+          <div class="rp-q">
+            <label for="rp-custom"><strong>Your own question</strong></label>
+            <textarea id="rp-custom" rows="2" placeholder="e.g. Did staffing change after the management company changed?"></textarea>
+            <div class="rp-btnrow" id="rp-custom-btns"></div>
+          </div>
+        </div>
+
+        <h3>Findings and evidence</h3>
+        <div id="out-findings"></div>
+        <div id="out-rel-wrap">
+          <h3>Relationships</h3>
+          <div class="rp-table-wrap"><table class="rp"><thead><tr><th>Entity</th><th>Relationship</th><th>Dates</th><th>Also listed at</th></tr></thead><tbody id="out-rel"></tbody></table></div>
+        </div>
+        <h3>Missing data</h3>
+        <ul id="out-missing"></ul>
+        <h3>Recommended follow-up</h3>
+        <ul id="out-follow"></ul>
+        <details class="rp-more"><summary>Sources and limitations</summary>
+          <ul id="out-sources"></ul>
+          <ul id="out-limits"></ul>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="api-title">
+      <div class="panel">
+        <div class="sectionHeader"><div>
+          <div class="eyebrow">For developers and AI agents</div>
+          <h2 id="api-title">Use the reports directly</h2>
+        </div></div>
+        <p>Every report is a public JSON file. Start at the <a href="/api/v1/index.json">API catalog</a>, the <a href="/api/docs/">API documentation</a>, the <a href="/api/openapi.json">OpenAPI spec</a>, or <a href="/llms.txt">llms.txt</a> for AI assistants.</p>
+      </div>
+    </section>
+  </main>
+  <script src="/Assets/reporting-api-reports.js"></script>
+</body>
+</html>

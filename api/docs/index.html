@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reporting API Docs - Connecticut Nursing Home Data</title>
+  <meta name="description" content="Documentation for the read-only static JSON API of Connecticut nursing home public records: ownership, staffing, cost reports, inspections. For people, scripts and AI assistants." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css?v=20260804-11d20">
+  <script defer src="/Assets/shared.js"></script>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+  <style>
+    .dm-table-wrap { overflow-x:auto; margin-top:12px; border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; }
+    table.api-table { width:100%; border-collapse:collapse; font-size:14px; }
+    table.api-table th, table.api-table td { padding:8px 10px; border-bottom:1px solid var(--ltcop-border,#d8e1ee); text-align:left; vertical-align:top; }
+    table.api-table thead th { background:#f8fafc; }
+    table.api-table td code { word-break:break-all; }
+    pre { background:#f1f5f9; border:1px solid var(--ltcop-border,#d8e1ee); border-radius:8px; padding:12px; overflow-x:auto; font-size:13px; }
+    .api-links a { margin-right:14px; font-weight:700; }
+  </style>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/reports/">Reports</a>
+        <a href="/api/docs/" aria-current="page">API Docs</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-daily-minimums.html">Daily vs. CT Minimums</a>
+        <a href="/staffing/tools/nursing-home-inspections.html">Inspections</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
+        <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>
+        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>
+        <a href="/staffing/tools/nursing-home-cost-report-insights.html">Cost Insights</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap staffing-hero ltcop-dashboard-hero" aria-labelledby="api-title">
+      <div class="panel">
+        <div class="pill">Reporting API</div>
+        <h1 id="api-title">Connecticut Nursing Home Reporting API</h1>
+        <p>Public CMS, CT DSS and CT DPH records about Connecticut nursing homes as plain JSON files, built for people, scripts and AI assistants. Every finding says where it came from.</p>
+        <p class="api-links"><a href="/api/openapi.json">OpenAPI spec</a><a href="/llms.txt">llms.txt</a><a href="/llms-full.txt">llms-full.txt</a><a href="/api/v1/index.json">Catalog</a><a href="/staffing/reports/">Report builder</a></p>
+        <div class="notice warning">Screening information only. This data is public records, not findings of violations. It contains no resident data and no Ombudsman case data.</div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="overview-title">
+      <div class="panel">
+        <div class="eyebrow">Overview</div>
+        <h2 id="overview-title">How it works</h2>
+        <p>danbeem.xyz is hosted on GitHub Pages, so the API is a set of precomputed static files under <code>/api/v1/</code>. That has a few consequences:</p>
+        <ul>
+          <li>Every URL ends in <code>.json</code> and parameters are part of the path. There is no <code>?q=</code> query.</li>
+          <li>Facilities are identified by CCN, the 6-character CMS Certification Number (for example <code>075396</code>).</li>
+          <li>An unknown id returns the host's HTML 404 page, not JSON.</li>
+          <li>No login, no rate limits, CORS open. Files are rebuilt when site data is refreshed; check <code>generated_at</code> and <code>data_as_of</code>.</li>
+          <li>Missing data is <code>null</code> plus an entry in <code>missing_data[]</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="quick-title">
+      <div class="panel">
+        <div class="eyebrow">Quick start</div>
+        <h2 id="quick-title">Try it with curl</h2>
+        <pre><code># Catalog: URL templates, sources, as-of dates
+curl -s https://danbeem.xyz/api/v1/index.json
+
+# One facility (Cherry Brook Health Care Center)
+curl -s https://danbeem.xyz/api/v1/facilities/075396/profile.json
+
+# Evidence-labelled report
+curl -s https://danbeem.xyz/api/v1/reports/related-party-screening/075396.json
+
+# Findings only, as text (needs jq)
+curl -s https://danbeem.xyz/api/v1/reports/facility-comprehensive/075396.json \
+  | jq -r '.findings[] | "[" + .kind + "] " + .statement'</code></pre>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="urls-title">
+      <div class="panel">
+        <div class="eyebrow">Reference</div>
+        <h2 id="urls-title">URL table</h2>
+        <div class="dm-table-wrap"><table class="dm api-table"><thead><tr><th scope="col">Name</th><th scope="col">Path (prefix https://danbeem.xyz)</th><th scope="col">Returns</th></tr></thead><tbody><tr><td>Catalog</td><td><code>/api/v1/index.json</code></td><td>URL templates, sources, as-of dates</td></tr><tr><td>Facility list</td><td><code>/api/v1/facilities.json</code></td><td>All 197 CCNs</td></tr><tr><td>Profile</td><td><code>/api/v1/facilities/{ccn}/profile.json</code></td><td>Identity, latest staffing, finance, inspection summary</td></tr><tr><td>Ownership</td><td><code>/api/v1/facilities/{ccn}/ownership.json</code></td><td>CMS owners and control, managers, administrators, CHOW</td></tr><tr><td>Staffing</td><td><code>/api/v1/facilities/{ccn}/staffing.json</code></td><td>Quarterly PBJ hours vs CT minimum</td></tr><tr><td>Financials</td><td><code>/api/v1/facilities/{ccn}/financials.json</code></td><td>DSS cost-report years</td></tr><tr><td>Inspections</td><td><code>/api/v1/facilities/{ccn}/inspections.json</code></td><td>Citations and penalties</td></tr><tr><td>Report</td><td><code>/api/v1/reports/{report_type}/{ccn}.json</code></td><td>Evidence-labelled report</td></tr><tr><td>Companies</td><td><code>/api/v1/management-companies.json</code></td><td>All management companies</td></tr><tr><td>Company</td><td><code>/api/v1/management-companies/{company_id}.json</code></td><td>Homes a company is listed at</td></tr><tr><td>Company report</td><td><code>/api/v1/reports/management-company-portfolio/{company_id}.json</code></td><td>Portfolio report</td></tr><tr><td>Search index</td><td><code>/api/v1/search-index.json</code></td><td>Client-side search</td></tr><tr><td>Report schema</td><td><code>/api/v1/schema/report.schema.json</code></td><td>JSON Schema</td></tr></tbody></table></div>
+        <p class="subtle">Machine-readable version: <a href="/api/openapi.json">/api/openapi.json</a> (OpenAPI 3.1).</p>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="reports-title">
+      <div class="panel">
+        <div class="eyebrow">Reports</div>
+        <h2 id="reports-title">Report types</h2>
+        <p>Facility reports live at <code>/api/v1/reports/{report_type}/{ccn}.json</code>. All share one envelope: <code>subject</code>, <code>executive_summary</code>, <code>findings</code>, <code>metrics</code>, <code>historical_trends</code>, <code>relationships</code>, <code>sources</code>, <code>limitations</code>, <code>missing_data</code>, <code>recommended_follow_up</code>, <code>links</code>. Schema: <a href="/api/v1/schema/report.schema.json">report.schema.json</a>.</p>
+        <div class="dm-table-wrap"><table class="dm api-table"><thead><tr><th scope="col">report_type</th><th scope="col">Use it for</th></tr></thead><tbody><tr><td><code>facility-comprehensive</code></td><td>Default. Everything about one home.</td></tr><tr><td><code>ownership-network</code></td><td>Who CMS lists as owner/controller, managers, administrators; shared principals.</td></tr><tr><td><code>staffing-analysis</code></td><td>Nursing hours per resident day by quarter vs CT minimum and state median.</td></tr><tr><td><code>financial-transparency</code></td><td>DSS cost-report spending, direct care, management fees, related parties.</td></tr><tr><td><code>regulatory-history</code></td><td>Health citations, immediate jeopardy, fines, payment denials.</td></tr><tr><td><code>related-party-screening</code></td><td>Related parties and management fees on cost reports, shared principals, names asked about but absent.</td></tr><tr><td><code>management-company-portfolio</code></td><td>Takes a company id. Homes the company is listed at, with periods.</td></tr></tbody></table></div>
+        <p>To compare two homes, fetch two <code>facility-comprehensive</code> reports and compare them in your client. There is no comparison file.</p>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="evidence-title">
+      <div class="panel">
+        <div class="eyebrow">Evidence model</div>
+        <h2 id="evidence-title">Evidence kinds</h2>
+        <div class="dm-table-wrap"><table class="dm api-table"><thead><tr><th scope="col">kind</th><th scope="col">Meaning</th></tr></thead><tbody><tr><td><code>confirmed_fact</code></td><td>Value printed in a public source record.</td></tr><tr><td><code>calculated</code></td><td>Arithmetic on confirmed facts; the formula is given.</td></tr><tr><td><code>possible_association</code></td><td>Shared entity, name or principal. Not evidence of ownership, control or conflict of interest.</td></tr><tr><td><code>investigative_question</code></td><td>Something the data cannot answer that a person should check.</td></tr></tbody></table></div>
+        <p>Each finding has <code>evidence[]</code> with <code>agency</code>, <code>dataset</code>, <code>url</code>, <code>reporting_period</code>, <code>as_of</code>, <code>record_id</code> and <code>verification</code> (<code>source_record</code>, <code>source_record_unvalidated</code>, <code>derived</code> or <code>name_match_unverified</code>).</p>
+        <div class="notice warning">A possible association is never evidence of ownership, control or a conflict of interest. "No record found" means "not in these datasets", never "no problem".</div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="search-title">
+      <div class="panel">
+        <div class="eyebrow">Finding a home</div>
+        <h2 id="search-title">Search</h2>
+        <p>Static hosting has no server-side search. Download <a href="/api/v1/search-index.json">search-index.json</a> once, normalize your query the same way as each entry's <code>key</code> (upper case, punctuation and suffixes such as INC or LLC removed) and match substrings. Entries have <code>type</code>, <code>id</code>, <code>name</code>, <code>ccns</code> and <code>key</code>. Names are never merged; the same name under two ids stays two entries. A name that is not in the index is not in any dataset on this site.</p>
+        <pre><code>curl -s https://danbeem.xyz/api/v1/search-index.json \
+  | jq -r '.entries[] | select(.key | contains("CHERRY BROOK")) | [.type, .id, .name] | @tsv'</code></pre>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="ai-title">
+      <div class="panel">
+        <div class="eyebrow">AI assistants</div>
+        <h2 id="ai-title">Using it with ChatGPT, Claude and Hermes</h2>
+        <ul>
+          <li><strong>ChatGPT and Claude:</strong> turn on web access so the assistant can fetch public URLs, then give it a report URL and ask your question. The <a href="/staffing/reports/">Reports page</a> has preset questions and prompts. Point assistants to <a href="/llms.txt">llms.txt</a> for the rules.</li>
+          <li><strong>Hermes (self-hosted):</strong> use the standard-library client <code>scripts/reporting_api_client.py</code>.</li>
+        </ul>
+        <pre><code>python3 scripts/reporting_api_client.py search "cherry brook"
+python3 scripts/reporting_api_client.py profile 075396
+python3 scripts/reporting_api_client.py summary related-party-screening 075396
+python3 scripts/reporting_api_client.py company mc-apple-health-care-inc
+# Test against a local checkout without the network:
+python3 scripts/reporting_api_client.py --local api summary facility-comprehensive 075396</code></pre>
+        <p>When summarizing, assistants should cite agency, dataset, reporting period and record id for each claim, keep the four evidence kinds separate, and never call a possible association a conflict.</p>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="limits-title">
+      <div class="panel">
+        <div class="eyebrow">Limits</div>
+        <h2 id="limits-title">Limitations</h2>
+        <ul>
+          <li>Public CMS, CT DSS and CT DPH data only. No resident data. No Ombudsman case data.</li>
+          <li>Snapshots: each source has its own as-of date in <a href="/api/v1/index.json">index.json</a>.</li>
+          <li>Payroll data shows hours paid per day, not shifts or care given. Comparisons with Connecticut minimums are estimates.</li>
+          <li>Cost-report text read from PDFs may be truncated; check <code>validated_against_printed_totals</code>.</li>
+          <li>Entities are matched only by CCN, CMS associate id, DPH license number or management company id. Name matches are labelled <code>name_match_unverified</code>.</li>
+          <li>Absence from these datasets does not mean absence in the world.</li>
+        </ul>
+        <p class="subtle">See also <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>.</p>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

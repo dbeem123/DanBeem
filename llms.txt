@@ -1,0 +1,47 @@
+# danbeem.xyz Connecticut Nursing Home Reporting API
+
+> Read-only, static JSON API of public Connecticut nursing home records (CMS, CT DSS, CT DPH): ownership and control, management companies, staffing, cost reports, inspections. Every finding is labelled by evidence kind and carries its source, reporting period and record id. Screening information only; no resident or Ombudsman case data.
+
+The API is precomputed JSON on GitHub Pages. Every URL ends in `.json`, parameters are in the path, and there is no `?q=` search. Facility ids are 6-character CMS Certification Numbers (CCN), e.g. 075396. Fetching requires web access to public URLs.
+
+## Start here
+
+- [API catalog](https://danbeem.xyz/api/v1/index.json): URL templates, data sources with as-of dates, evidence kinds
+- [OpenAPI 3.1 spec](https://danbeem.xyz/api/openapi.json)
+- [Human docs](https://danbeem.xyz/api/docs/)
+- [Full AI reference](https://danbeem.xyz/llms-full.txt): every endpoint, fields, worked examples, prompt template
+- [Report JSON Schema](https://danbeem.xyz/api/v1/schema/report.schema.json)
+
+## URL templates
+
+- Facility list: https://danbeem.xyz/api/v1/facilities.json
+- Facility data: https://danbeem.xyz/api/v1/facilities/{ccn}/{profile|ownership|staffing|financials|inspections}.json
+- Facility report: https://danbeem.xyz/api/v1/reports/{report_type}/{ccn}.json
+- Management companies: https://danbeem.xyz/api/v1/management-companies.json and https://danbeem.xyz/api/v1/management-companies/{company_id}.json
+- Company report: https://danbeem.xyz/api/v1/reports/management-company-portfolio/{company_id}.json
+- Search index: https://danbeem.xyz/api/v1/search-index.json
+
+## Report types and when to use them
+
+- facility-comprehensive: default for "tell me about this home"; combines all sections below.
+- ownership-network: who the CMS ownership/control records, managers and administrators are; shared principals with other CT homes.
+- staffing-analysis: nursing hours per resident day by quarter vs CT minimum and state median; contract staff share.
+- financial-transparency: DSS cost-report spending, direct care per resident day, management fees, related-party totals.
+- regulatory-history: health citations, immediate jeopardy / actual harm counts, fines, payment denials.
+- related-party-screening: related parties and management fees disclosed on cost reports, shared principals, and names that were asked about but are absent from the data.
+- management-company-portfolio (company id, not CCN): homes a management company is listed at, with periods.
+
+## How to search
+
+There is no server-side search. Fetch the search index, upper-case the query, drop punctuation and suffixes such as INC and LLC, and match substrings against each entry's `key`. Entries have `type`, `id`, `name`, `ccns`, `key`. Names are never merged; the same name under two ids stays two entries. If a name is not in the index, say it is not in these datasets. Facility comparison: fetch two facility-comprehensive reports and compare client-side.
+
+## Rules when summarizing (required)
+
+- Cite every claim: agency and dataset, reporting_period, and record_id from the finding's evidence[]. Include as_of when dates matter.
+- Keep the four kinds distinct: confirmed_fact, calculated (state the formula), possible_association, investigative_question.
+- Never describe a possible_association as ownership, control, a conflict of interest, or wrongdoing. It means a name, entity or principal appears in more than one place.
+- Missing values are null with a missing_data[] entry. Do not fill them in.
+- Never say "none" or "no problems". Say "not in these datasets" and name the datasets and as_of dates.
+- A name supplied by the user but absent from the data stays unverified; do not confirm it.
+- Staffing and citations are screening data, not findings of violations. Say what the source cannot show.
+- Do not infer facts about residents, individuals' conduct, or intent.
