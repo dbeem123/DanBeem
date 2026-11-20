@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Daily Staffing vs. Connecticut Minimums</title>
+  <meta name="description" content="Every reported day of nursing staffing at Connecticut nursing homes compared with the state minimum in force that day, with anomaly flags. Screening only." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css?v=20260804-11d20">
+  <script defer src="/Assets/shared.js"></script>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+  <style>
+    .dm-facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin:14px 0 4px; }
+    .dm-fact { background:var(--ltcop-card,#fff); border:1px solid var(--ltcop-border,#d8e1ee); border-radius:12px; padding:12px 14px; }
+    .dm-fact strong { display:block; font-size:24px; color:var(--ltcop-navy,#173761); font-variant-numeric:tabular-nums; }
+    .dm-fact span { color:var(--ltcop-muted,#5f6f85); font-size:13px; }
+    .dm-rule { border-left:4px solid var(--ltcop-navy,#173761); padding:10px 14px; background:var(--ltcop-info,#eaf4ff); border-radius:0 10px 10px 0; margin:12px 0; }
+    .dm-rule p { margin:.3rem 0; }
+    .dm-controls { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; align-items:end; }
+    .dm-controls label { display:block; font-weight:700; margin-bottom:4px; }
+    .dm-controls select, .dm-controls input { width:100%; }
+    .dm-check { display:flex; gap:8px; align-items:center; font-weight:600; }
+    .dm-controls .dm-check input[type="checkbox"] { width:1.1rem; min-width:0; height:auto; flex:none; margin:0; }
+    .dm-check label { min-width:0; white-space:normal; }
+    .dm-table-wrap { overflow-x:auto; margin-top:12px; border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; }
+    table.dm { width:100%; border-collapse:collapse; font-size:14px; font-variant-numeric:tabular-nums; }
+    table.dm th, table.dm td { padding:8px 10px; border-bottom:1px solid var(--ltcop-border,#d8e1ee); text-align:right; white-space:nowrap; }
+    table.dm th:first-child, table.dm td:first-child { text-align:left; white-space:normal; min-width:200px; }
+    table.dm thead th { position:sticky; top:0; background:#f8fafc; z-index:1; }
+    table.dm th button { all:unset; cursor:pointer; font-weight:700; }
+    table.dm th button:focus-visible { outline:3px solid var(--ltcop-focus,#2f6fed); outline-offset:2px; }
+    table.dm tbody tr:hover { background:#f8fafc; }
+    table.dm td.flags { text-align:left; white-space:normal; min-width:220px; color:#334155; }
+    .dm-link { all:unset; cursor:pointer; color:var(--ltcop-navy,#173761); font-weight:700; text-decoration:underline; }
+    .dm-link:focus-visible { outline:3px solid var(--ltcop-focus,#2f6fed); }
+    .dm-bar { display:inline-block; height:8px; border-radius:4px; background:#c62828; vertical-align:middle; margin-left:6px; }
+    .dm-months { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:16px; margin-top:12px; }
+    .dm-month h4 { margin:0 0 6px; }
+    .dm-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+    .dm-grid .dow { font-size:11px; color:var(--ltcop-muted,#5f6f85); text-align:center; }
+    .dm-day { all:unset; box-sizing:border-box; aspect-ratio:1; border-radius:6px; font-size:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; line-height:1.1; cursor:pointer; border:1px solid transparent; }
+    .dm-day:focus-visible { outline:3px solid var(--ltcop-focus,#2f6fed); outline-offset:1px; }
+    .dm-day b { font-size:10px; font-weight:800; }
+    .dm-day.ok { background:#e7f5ec; color:#14532d; }
+    .dm-day.short { background:#c62828; color:#fff; }
+    .dm-day.maybe { background:#fde68a; color:#78350f; }
+    .dm-day.data { background:#e5e7eb; color:#374151; border-style:dashed; border-color:#9ca3af; }
+    .dm-day.none { background:transparent; cursor:default; }
+    .dm-day.anomaly { box-shadow:inset 0 0 0 2px #7c3aed; }
+    .dm-legend { display:flex; flex-wrap:wrap; gap:14px; margin-top:10px; font-size:13px; }
+    .dm-legend span { display:inline-flex; gap:6px; align-items:center; }
+    .dm-swatch { width:16px; height:16px; border-radius:4px; display:inline-block; }
+    .dm-detail { margin-top:14px; }
+    .dm-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+    .dm-sources { font-size:13px; }
+    @media print { .ltcop-suite-nav, .dm-controls, .dm-actions { display:none; } .dm-table-wrap { overflow:visible; } }
+  </style>
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a href="/staffing/">Tools Home</a>
+        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
+        <a href="/staffing/tools/nursing-home-daily-minimums.html" aria-current="page">Daily vs. CT Minimums</a>
+        <a href="/staffing/tools/nursing-home-inspections.html">Inspections</a>
+        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
+        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
+        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
+        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
+        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
+        <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>
+        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>
+        <a href="/staffing/tools/nursing-home-cost-report-insights.html">Cost Insights</a>
+        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
+        <a href="/legislation/">Legislation</a>
+        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section class="hero wrap staffing-hero ltcop-dashboard-hero" aria-labelledby="dm-title">
+      <div class="panel">
+        <div class="pill">Daily screening</div>
+        <h1 id="dm-title">Daily staffing vs. Connecticut minimums</h1>
+        <p>Every day a Connecticut nursing home reported to CMS, compared with the state minimum in force that day. Find homes with repeated short days, then open any home to see its calendar and the days that stand out.</p>
+        <div class="notice warning">Screening only. Payroll data shows hours paid per day, not shifts, time of day, or care given. A short day is a reason to ask questions, not a finding of a violation. Connecticut also measures day (7 a.m.Ã¢â‚¬â€œ9 p.m.) and night (9 p.m.Ã¢â‚¬â€œ7 a.m.) separately, which this data cannot show.</div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="state-title">
+      <div class="panel">
+        <div class="sectionHeader"><div>
+          <div class="eyebrow">Statewide</div>
+          <h2 id="state-title">Homes with short days</h2>
+        </div></div>
+        <div class="dm-controls">
+          <div><label for="dm-quarter">Quarter</label><select id="dm-quarter"></select></div>
+          <div><label for="dm-filter">Find a home</label><input id="dm-filter" type="search" placeholder="Name or CCN" autocomplete="off"></div>
+          <div class="dm-check"><input id="dm-only-short" type="checkbox" checked><label for="dm-only-short" style="margin:0">Only homes with short days or reporting problems</label></div>
+        </div>
+        <div id="dm-status" class="notice" role="status">LoadingÃ¢â‚¬Â¦</div>
+        <div id="dm-rule" class="dm-rule" hidden></div>
+        <div id="dm-facts" class="dm-facts" aria-label="Quarter summary"></div>
+        <div class="dm-table-wrap"><table class="dm" id="dm-table" aria-describedby="dm-table-note">
+          <thead><tr>
+            <th scope="col"><button data-sort="name">Nursing home</button></th>
+            <th scope="col"><button data-sort="below_total">Days below minimum</button></th>
+            <th scope="col"><button data-sort="below_direct_only">Meets only if admin nurses count</button></th>
+            <th scope="col"><button data-sort="below_licensed">Below licensed minimum</button></th>
+            <th scope="col"><button data-sort="rn_under_8">Days &lt; 8 RN hours</button></th>
+            <th scope="col"><button data-sort="mean_hprd">Average hours per resident</button></th>
+            <th scope="col"><button data-sort="weekend_gap">Weekend drop</button></th>
+            <th scope="col"><button data-sort="anomalies">Other anomaly days</button></th>
+          </tr></thead>
+          <tbody></tbody>
+        </table></div>
+        <p id="dm-table-note" class="subtle">Click a column to sort; select a home to see its calendar. "Days below minimum" counts all nursing hours, including the director of nursing, so those days are short on any reading. Days marked as likely reporting problems are counted separately, not as short.</p>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="home-title" id="dm-home" hidden>
+      <div class="panel">
+        <div class="sectionHeader"><div>
+          <div class="eyebrow">Selected home</div>
+          <h2 id="home-title"></h2>
+          <p id="dm-home-summary" class="subtle"></p>
+        </div></div>
+        <div class="dm-legend" aria-label="Calendar key">
+          <span><i class="dm-swatch" style="background:#e7f5ec"></i>Meets minimum</span>
+          <span><i class="dm-swatch" style="background:#fde68a"></i>~ Meets only if admin nurses count</span>
+          <span><i class="dm-swatch" style="background:#c62828"></i>! Below minimum</span>
+          <span><i class="dm-swatch" style="background:#e5e7eb;border:1px dashed #9ca3af"></i>? Not compared (missing or implausible data)</span>
+          <span><i class="dm-swatch" style="box-shadow:inset 0 0 0 2px #7c3aed"></i>Other anomaly</span>
+        </div>
+        <div id="dm-calendar" class="dm-months"></div>
+        <div id="dm-day-detail" class="dm-detail" aria-live="polite"></div>
+        <h3>Days that stand out</h3>
+        <div class="dm-table-wrap"><table class="dm" id="dm-days">
+          <thead><tr>
+            <th scope="col">Date</th><th scope="col">Residents</th><th scope="col">Nursing hrs / resident</th>
+            <th scope="col">Direct care</th><th scope="col">Licensed</th><th scope="col">Aide</th><th scope="col">RN hours</th>
+            <th scope="col">Contract share</th><th scope="col">Hours per worker</th><th scope="col">What stands out</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table></div>
+        <div class="dm-actions">
+          <button class="btn secondary" type="button" id="dm-csv">Download this home's days (CSV)</button>
+          <a class="btn secondary" id="dm-explorer" href="/staffing/tools/nursing-home-staffing-explorer.html">Open in Facility Explorer</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" aria-labelledby="method-title">
+      <div class="panel">
+        <div class="eyebrow">How this works</div>
+        <h2 id="method-title">Method and sources</h2>
+        <ul>
+          <li><strong>Hours per resident day</strong> = nursing hours reported for the day ÃƒÂ· that day's resident census (CMS Payroll-Based Journal daily data).</li>
+          <li><strong>All nursing</strong> counts every nursing position CMS counts: director of nursing, RNs and LPNs with administrative duties, RNs, LPNs, nurse aides, aides in training and medication aides. <strong>Direct care</strong> leaves out the director and administrative nurses.</li>
+          <li><strong>Likely reporting problems:</strong> days under 1.0 nursing hour per resident are treated as incomplete payroll reports, not short staffing (this site's screening rule). A home with more than half its days like that is marked for the quarter.</li>
+          <li><strong>Other anomalies:</strong> a day at least 25% below the home's own median for the quarter; census up or down more than 15% (and 5+ residents) in a day; more than 12 nursing hours per nursing worker; more than half of nursing hours from contract staff.</li>
+          <li><strong>Weekend drop</strong> = how much lower weekend hours per resident are than weekday hours, for the quarter.</li>
+        </ul>
+        <p>Before 2022, the two Connecticut staffing windows for chronic and convalescent nursing homes added up to 1.90 total nursing and aide hours per patient per day, including 0.64 licensed hours. This tool screens the historical daily total only. <a href="https://eregulations.ct.gov/eRegsPortal/Browse/getDocument?guid=%7BA5561062-AB9F-4B60-833E-D75A4D74023C%7D">Read Â§19-13-D8t(m)(5)(A)â€“(B)</a>.</p>
+        <div id="dm-sources" class="dm-sources"></div>
+      </div>
+    </section>
+  </main>
+  <script defer src="/Assets/pbj-minimums.js"></script>
+</body>
+</html>
