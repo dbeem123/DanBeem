@@ -1,0 +1,66 @@
+{
+  "title": "Connecticut nursing home minimum staffing, by period",
+  "checked": "2026-11-20",
+  "notes": [
+    "CMS payroll data (PBJ) reports total hours per day by position, not hours by shift. Connecticut's 2024 policy also splits the daily minimum into a 7 a.m.-9 p.m. and a 9 p.m.-7 a.m. window; those windows cannot be checked from PBJ, only the daily totals.",
+    "Hours per resident day = hours reported that day / that day's MDS census.",
+    "'All nursing' counts every PBJ nursing position, as CMS does (director of nursing, RN and LPN with administrative duties, RN, LPN, CNA, nurse aide in training, medication aide). 'Direct care' leaves out the director of nursing and the RN and LPN with administrative duties, closer to the statute's 'direct care' wording. A day short on the all-nursing basis is short on any reading; a day short only on the direct-care basis depends on how DPH counts administrative nurses.",
+    "Connecticut SB 1279 (2025) would raise the daily minimum to 3.6 hours from July 1, 2026. It was reported out of the Aging Committee on 2025-03-04; final passage was not confirmed when this file was written, so it is not applied.",
+    "The federal 2024 minimum (3.48 total, 0.55 RN, 2.45 aide hours per resident day, RN 24/7) was vacated in court in April 2025 and repealed by CMS effective 2026-02-02. The remaining federal number is an RN on duty at least 8 consecutive hours a day, 7 days a week (42 CFR 483.35(b)(1)); PBJ cannot show whether hours were consecutive, so a day under 8 RN hours is flagged as an indicator, not a finding."
+  ],
+  "periods": [
+    {
+      "id": "pre2022",
+      "from": "2017-01-01", "to": "2021-12-31",
+      "label": "Historical CCNH regulation: 1.90 total nursing and nurse aide hours per patient per day",
+      "total": 1.9, "licensed": null, "aide": null,
+      "status": "in force",
+      "caveat": "RCSA §19-13-D8t(m)(5)(A)–(B) specifies two staffing windows. Total nursing and aide hours sum to 1.90 (1.40 + 0.50), including 0.64 licensed hours (0.47 + 0.17). This historical screen compares the daily total only. PBJ cannot verify either window.",
+      "sources": [
+        {"label": "Connecticut regulation §19-13-D8t(m)(5)(A)–(B)", "url": "https://eregulations.ct.gov/eRegsPortal/Browse/getDocument?guid=%7BA5561062-AB9F-4B60-833E-D75A4D74023C%7D"}
+      ]
+    },
+    {
+      "id": "statute2022",
+      "from": "2022-01-01", "to": "2023-02-28",
+      "label": "3.0 direct-care hours per resident day required by law; DPH rules not yet in place",
+      "total": 3.0, "licensed": null, "aide": null,
+      "status": "statutory target",
+      "caveat": "P.A. 21-185 required DPH to set the 3.0 level by 2022-01-01. DPH told homes its rules would not be in place by then and encouraged compliance in the meantime.",
+      "sources": [
+        {"label": "CGS 19a-563h (P.A. 21-185, s. 10)", "url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-563h"},
+        {"label": "DPH Blast Fax 2022-14", "url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2022/blast-fax-2022-14-nursing-home-staffing-level-requirements.pdf"}
+      ]
+    },
+    {
+      "id": "interim2023",
+      "from": "2023-03-01", "to": "2024-01-04",
+      "label": "DPH interim policy: 0.84 licensed nursing hours plus 2.16 nurse aide hours per resident per day",
+      "total": 3.0, "licensed": 0.84, "aide": 2.16,
+      "status": "in force",
+      "caveat": "Challenged in court by the Connecticut Association of Health Care Facilities (filed October 2023).",
+      "sources": [
+        {"label": "CT Mirror, 2024-02-27", "url": "https://ctmirror.org/2024/02/27/ct-nursing-home-staffing-policy-cost/"},
+        {"label": "DPH Blast Fax 2024-3A (describes the former policy)", "url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"}
+      ]
+    },
+    {
+      "id": "policy2024",
+      "from": "2024-01-05", "to": "9999-12-31",
+      "label": "DPH policy: 3.0 total nursing and nurse aide hours per resident per day, at least 0.84 of them licensed",
+      "total": 3.0, "licensed": 0.84, "aide": null,
+      "status": "in force",
+      "caveat": "Also split by window (7 a.m.-9 p.m.: 2.17 total, 0.57 licensed; 9 p.m.-7 a.m.: 0.83 total, 0.27 licensed), which PBJ data cannot show.",
+      "sources": [
+        {"label": "DPH Blast Fax 2024-3A, effective 2024-01-05", "url": "https://portal.ct.gov/-/media/departments-and-agencies/dph/facility-licensing--investigations/blast-faxes/2024/blast-fax-2024-3a--amendments-to-policies-and-procedures-implementing-30-staffing-revised.pdf"}
+      ]
+    }
+  ],
+  "federal": {
+    "rn_daily_hours": 8,
+    "label": "Federal: an RN on duty at least 8 consecutive hours a day, 7 days a week",
+    "sources": [
+      {"label": "42 CFR 483.35(b)(1), restored by CMS repeal effective 2026-02-02", "url": "https://www.federalregister.gov/documents/2025/12/03/2025-21792/medicare-and-medicaid-programs-repeal-of-minimum-staffing-standards-for-long-term-care-facilities"}
+    ]
+  }
+}
