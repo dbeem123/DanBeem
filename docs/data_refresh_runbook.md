@@ -96,6 +96,10 @@ Copy in only the files the build needs (CT-only copies where they exist).
 After any build: `python scripts/validate_data_freshness.py` (the refreshed sources should read OK), the
 full release gate, and the browser test twice. Then a Codex handoff as usual.
 
+Last step of every refresh: rebuild the reporting API so `/api/v1` matches the new `/data`, then test it:
+`python scripts/build_reporting_api.py && python scripts/test_reporting_api.py`. The API is derived only from
+`/data`; never edit files under `/api/v1` by hand (see `docs/reporting_api_plan.md`).
+
 ## Checks before publishing a refresh
 
 - Row counts: compare CT facility counts and row counts with the previous build; a drop of more than a few

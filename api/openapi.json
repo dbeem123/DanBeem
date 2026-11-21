@@ -1,0 +1,1323 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Connecticut Nursing Home Reporting API",
+    "version": "1.0.0",
+    "description": "Read-only, static JSON API of Connecticut nursing home public records (CMS, CT DSS, CT DPH), precomputed by scripts/build_reporting_api.py and served from GitHub Pages at https://danbeem.xyz.\n\nSTATIC HOSTING NOTES\n- Every URL ends in .json and parameters are in the path. There is no ?q= or ?type= query string.\n- Search: download /api/v1/search-index.json and match the normalized `key` client-side.\n- Facility comparison: fetch two facility-comprehensive reports and compare them in the client.\n- Unknown ids return the host's 404 page (not JSON). Responses are CORS-open (Access-Control-Allow-Origin: *) and CDN-cached. No authentication, no rate limits.\n- Data is rebuilt when site data is refreshed; see generated_at and data_as_of in every file.\n\nEVIDENCE RULES\n- Each finding has kind: confirmed_fact (value printed in a public record), calculated (arithmetic on confirmed facts; formula given), possible_association (shared entity, name or principal; NOT evidence of ownership, control or conflict of interest), investigative_question (something the data cannot answer).\n- evidence[] items carry agency, dataset, url, reporting_period, as_of, record_id and verification (source_record, source_record_unvalidated, derived, name_match_unverified).\n- Missing data is null plus an entry in missing_data[]. \"No record\" never means \"no problem\"; say \"not in these datasets\".\n- Public CMS / CT DSS / CT DPH data only. No resident or Ombudsman case data. Screening information, not findings of violations.",
+    "license": {
+      "name": "Public data compiled by danbeem.xyz; see sources in /api/v1/index.json"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://danbeem.xyz"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Catalog"
+    },
+    {
+      "name": "Facilities"
+    },
+    {
+      "name": "Reports"
+    },
+    {
+      "name": "Management companies"
+    },
+    {
+      "name": "Search"
+    }
+  ],
+  "externalDocs": {
+    "description": "Human docs",
+    "url": "https://danbeem.xyz/api/docs/"
+  },
+  "paths": {
+    "/api/v1/index.json": {
+      "get": {
+        "summary": "API catalog",
+        "description": "URL templates, sources with as-of dates, evidence kinds, counts.",
+        "tags": [
+          "Catalog"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Index"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/facilities.json": {
+      "get": {
+        "summary": "List all facilities",
+        "description": "All 197 CCNs with name, city, status, legal entity.",
+        "tags": [
+          "Facilities"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FacilityList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/search-index.json": {
+      "get": {
+        "summary": "Search index (client-side)",
+        "description": "Download once; normalize the query like `key` (upper case, punctuation and suffixes such as INC/LLC removed) and match substrings. No server-side ?q= on static hosting. A name absent from the index is absent from every dataset on this site.",
+        "tags": [
+          "Search"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchIndex"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/management-companies.json": {
+      "get": {
+        "summary": "List management companies",
+        "description": "",
+        "tags": [
+          "Management companies"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyList"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/management-companies/{company_id}.json": {
+      "get": {
+        "summary": "Management company detail",
+        "description": "Homes where the company is listed, with periods.",
+        "tags": [
+          "Management companies"
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^mc-[a-z0-9-]+$"
+            },
+            "example": "mc-apple-health-care-inc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Company"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/schema/report.schema.json": {
+      "get": {
+        "summary": "Report JSON Schema",
+        "tags": [
+          "Catalog"
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON Schema 2020-12",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reports/management-company-portfolio/{company_id}.json": {
+      "get": {
+        "summary": "Management company portfolio report",
+        "description": "Report envelope for a management company (subject.company_id).",
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "company_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^mc-[a-z0-9-]+$"
+            },
+            "example": "mc-apple-health-care-inc"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/reports/{report_type}/{ccn}.json": {
+      "get": {
+        "summary": "Facility report",
+        "description": "Evidence-labelled report envelope. Types: facility-comprehensive (everything), ownership-network, staffing-analysis, financial-transparency, regulatory-history, related-party-screening.",
+        "tags": [
+          "Reports"
+        ],
+        "parameters": [
+          {
+            "name": "report_type",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "facility-comprehensive",
+                "ownership-network",
+                "staffing-analysis",
+                "financial-transparency",
+                "regulatory-history",
+                "related-party-screening"
+              ]
+            },
+            "example": "related-party-screening"
+          },
+          {
+            "name": "ccn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Ccn"
+            },
+            "example": "075396"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{ccn}/profile.json": {
+      "get": {
+        "summary": "Facility profile",
+        "description": "Identity and latest snapshots.",
+        "tags": [
+          "Facilities"
+        ],
+        "parameters": [
+          {
+            "name": "ccn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Ccn"
+            },
+            "example": "075396"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{ccn}/ownership.json": {
+      "get": {
+        "summary": "Facility ownership",
+        "description": "CMS ownership and control, management, administrators.",
+        "tags": [
+          "Facilities"
+        ],
+        "parameters": [
+          {
+            "name": "ccn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Ccn"
+            },
+            "example": "075396"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Ownership"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{ccn}/staffing.json": {
+      "get": {
+        "summary": "Facility staffing",
+        "description": "PBJ quarters and CT minimum comparison.",
+        "tags": [
+          "Facilities"
+        ],
+        "parameters": [
+          {
+            "name": "ccn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Ccn"
+            },
+            "example": "075396"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Staffing"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{ccn}/financials.json": {
+      "get": {
+        "summary": "Facility financials",
+        "description": "DSS cost-report years.",
+        "tags": [
+          "Facilities"
+        ],
+        "parameters": [
+          {
+            "name": "ccn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Ccn"
+            },
+            "example": "075396"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Financials"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    },
+    "/api/v1/facilities/{ccn}/inspections.json": {
+      "get": {
+        "summary": "Facility inspections",
+        "description": "Citations and penalties.",
+        "tags": [
+          "Facilities"
+        ],
+        "parameters": [
+          {
+            "name": "ccn",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Ccn"
+            },
+            "example": "075396"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON document",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Inspections"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Unknown id. GitHub Pages returns its HTML 404 page, not JSON. Check the id against facilities.json or management-companies.json."
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Report": {
+        "title": "CT nursing home report",
+        "type": "object",
+        "required": [
+          "schema_version",
+          "report_type",
+          "subject",
+          "generated_at",
+          "data_as_of",
+          "executive_summary",
+          "findings",
+          "metrics",
+          "historical_trends",
+          "relationships",
+          "sources",
+          "limitations",
+          "missing_data",
+          "recommended_follow_up",
+          "links"
+        ],
+        "properties": {
+          "schema_version": {
+            "const": "reporting-api-1.0"
+          },
+          "report_type": {
+            "enum": [
+              "facility-comprehensive",
+              "ownership-network",
+              "staffing-analysis",
+              "financial-transparency",
+              "regulatory-history",
+              "related-party-screening",
+              "management-company-portfolio"
+            ]
+          },
+          "subject": {
+            "type": "object",
+            "oneOf": [
+              {
+                "required": [
+                  "ccn",
+                  "facility_name"
+                ],
+                "properties": {
+                  "ccn": {
+                    "type": "string",
+                    "pattern": "^[0-9A-Z]{6}$"
+                  }
+                }
+              },
+              {
+                "required": [
+                  "company_id",
+                  "company_name"
+                ]
+              }
+            ]
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "type": "object"
+          },
+          "executive_summary": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "text",
+                "kind"
+              ],
+              "properties": {
+                "text": {
+                  "type": "string"
+                },
+                "kind": {
+                  "type": "string"
+                },
+                "finding_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "findings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Finding"
+            }
+          },
+          "metrics": {
+            "type": "object"
+          },
+          "historical_trends": {
+            "type": "object"
+          },
+          "relationships": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "relationship_type"
+              ]
+            }
+          },
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "source_key",
+                "agency",
+                "dataset"
+              ],
+              "properties": {
+                "url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "missing_data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "field",
+                "reason"
+              ]
+            }
+          },
+          "recommended_follow_up": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "links": {
+            "type": "object"
+          }
+        }
+      },
+      "Finding": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "severity",
+          "statement",
+          "evidence"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "confirmed_fact",
+              "calculated",
+              "possible_association",
+              "investigative_question"
+            ]
+          },
+          "severity": {
+            "enum": [
+              "info",
+              "attention"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 10
+          },
+          "formula": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "calculated"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "formula"
+              ]
+            }
+          }
+        ]
+      },
+      "Evidence": {
+        "type": "object",
+        "required": [
+          "source_key",
+          "agency",
+          "dataset",
+          "url",
+          "as_of",
+          "record_id",
+          "verification",
+          "reporting_period"
+        ],
+        "properties": {
+          "verification": {
+            "enum": [
+              "source_record",
+              "source_record_unvalidated",
+              "derived",
+              "name_match_unverified"
+            ]
+          },
+          "source_key": {
+            "type": "string"
+          },
+          "agency": {
+            "type": "string"
+          },
+          "dataset": {
+            "type": "string"
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reporting_period": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "as_of": {
+            "type": "string"
+          },
+          "record_id": {
+            "type": "string"
+          },
+          "site_file": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "description": "Source record backing a finding. Also carries optional site_file, note."
+      },
+      "DataAsOf": {
+        "type": "object",
+        "description": "Map of source key to as-of date or release label.",
+        "additionalProperties": {
+          "type": "string"
+        }
+      },
+      "Ccn": {
+        "type": "string",
+        "pattern": "^[0-9A-Z]{6}$",
+        "description": "6-character CMS Certification Number, e.g. 075396."
+      },
+      "Index": {
+        "type": "object",
+        "description": "Catalog of the API: url_templates, sources, evidence_kinds, counts.",
+        "additionalProperties": true
+      },
+      "FacilityList": {
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "count": {
+            "type": "integer"
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "ccn": {
+                  "type": "string"
+                },
+                "facility_name": {
+                  "type": "string"
+                },
+                "city": {
+                  "type": "string"
+                },
+                "operating_status": {
+                  "type": "string"
+                },
+                "legal_entity": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "management_current": {
+                  "type": "array",
+                  "items": {}
+                },
+                "profile": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "Profile": {
+        "type": "object",
+        "description": "Facility identity, latest staffing and financial snapshots, inspection summary.",
+        "required": [
+          "schema_version",
+          "endpoint",
+          "ccn",
+          "facility_name"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ccn": {
+            "type": "string"
+          },
+          "facility_name": {
+            "type": "string"
+          },
+          "identity": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ownership_summary": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "staffing_latest": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          },
+          "financial_latest": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          },
+          "inspection_summary": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "additionalProperties": true
+          },
+          "missing_data": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "Ownership": {
+        "type": "object",
+        "description": "CMS ownership and control, management companies, administrators of record, DSS-named owners, changes of ownership.",
+        "required": [
+          "schema_version",
+          "endpoint",
+          "ccn",
+          "facility_name"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ccn": {
+            "type": "string"
+          },
+          "facility_name": {
+            "type": "string"
+          },
+          "cms_owners_window": {
+            "type": "object"
+          },
+          "cms_ownership_and_control": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "management_companies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "administrators_of_record": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "owners_named_on_dss_cost_reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "changes_of_ownership": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "Staffing": {
+        "type": "object",
+        "description": "Quarterly PBJ staffing history with CT minimum comparison.",
+        "required": [
+          "schema_version",
+          "endpoint",
+          "ccn",
+          "facility_name"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ccn": {
+            "type": "string"
+          },
+          "facility_name": {
+            "type": "string"
+          },
+          "period_definition": {
+            "type": "string"
+          },
+          "coverage": {
+            "type": "object"
+          },
+          "case_mix_expected_hprd_cms": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "benchmark_note": {
+            "type": "string"
+          },
+          "ct_minimum_note": {
+            "type": "string"
+          },
+          "quarters": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "Financials": {
+        "type": "object",
+        "description": "DSS cost-report years: revenue, expenses, direct care, related parties, management services.",
+        "required": [
+          "schema_version",
+          "endpoint",
+          "ccn",
+          "facility_name"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ccn": {
+            "type": "string"
+          },
+          "facility_name": {
+            "type": "string"
+          },
+          "definitions": {
+            "type": "object"
+          },
+          "caveats": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "years": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "Inspections": {
+        "type": "object",
+        "description": "CMS health and fire safety citations and penalties.",
+        "required": [
+          "schema_version",
+          "endpoint",
+          "ccn",
+          "facility_name"
+        ],
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "ccn": {
+            "type": "string"
+          },
+          "facility_name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "health_citations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "fire_safety_citations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "penalties": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "scope_severity_key": {
+            "type": "string"
+          },
+          "window": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        },
+        "additionalProperties": true
+      },
+      "CompanyList": {
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "count": {
+            "type": "integer"
+          },
+          "companies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "other_names": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "homes_total": {
+                  "type": "integer"
+                },
+                "homes_current": {
+                  "type": "integer"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": true
+      },
+      "Company": {
+        "type": "object",
+        "description": "Management company with the homes it is listed at.",
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "other_names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "dph_license": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "homes_total": {
+            "type": "integer"
+          },
+          "homes_current": {
+            "type": "integer"
+          },
+          "homes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          },
+          "source": {
+            "type": "object"
+          }
+        },
+        "additionalProperties": true
+      },
+      "SearchIndex": {
+        "type": "object",
+        "properties": {
+          "schema_version": {
+            "type": "string",
+            "const": "reporting-api-1.0"
+          },
+          "endpoint": {
+            "type": "string"
+          },
+          "generated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "data_as_of": {
+            "$ref": "#/components/schemas/DataAsOf"
+          },
+          "links": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "how_to_search": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer"
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "name",
+                "key"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "facility, management_company, cost_report_related_party, and other entity types."
+                },
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "ccns": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "key": {
+                  "type": "string",
+                  "description": "Normalized upper-case name to match substrings against."
+                }
+              }
+            }
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  }
+}
