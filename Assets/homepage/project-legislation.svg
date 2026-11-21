@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="t">
+  <title id="t">A capitol dome above a stack of bill pages tied with a gold ribbon</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e5f0ec"/><stop offset="1" stop-color="#fff8e7"/></linearGradient>
+    <filter id="sh"><feDropShadow dx="0" dy="16" stdDeviation="20" flood-color="#082f4f" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1290" cy="190" r="86" fill="#f4b51c" opacity=".85"/>
+  <g fill="none" stroke="#082f4f" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M520 600 H1080"/>
+    <path d="M560 600 V470 H1040 V600"/>
+    <path d="M610 470 V600 M680 470 V600 M750 470 V600 M850 470 V600 M920 470 V600 M990 470 V600"/>
+    <path d="M590 470 L800 385 L1010 470"/>
+    <path d="M690 385 C 690 250, 910 250, 910 385"/>
+    <path d="M660 385 H940"/>
+    <path d="M800 230 V265"/>
+    <path d="M740 300 C 760 280, 840 280, 860 300"/>
+  </g>
+  <g fill="#2f7f83"><path d="M800 230 l38 12 -38 12z"/></g>
+  <g filter="url(#sh)">
+    <rect x="610" y="640" width="380" height="190" rx="18" fill="#fffdf8" stroke="#082f4f" stroke-width="5" transform="rotate(-4 800 735)"/>
+    <rect x="590" y="625" width="420" height="200" rx="18" fill="#fffdf8" stroke="#082f4f" stroke-width="5"/>
+    <rect x="630" y="660" width="220" height="20" rx="10" fill="#082f4f"/>
+    <rect x="630" y="700" width="330" height="14" rx="7" fill="#082f4f" opacity=".3"/>
+    <rect x="630" y="728" width="300" height="14" rx="7" fill="#082f4f" opacity=".3"/>
+    <rect x="630" y="756" width="250" height="14" rx="7" fill="#082f4f" opacity=".3"/>
+    <rect x="890" y="625" width="44" height="200" fill="#f4b51c"/>
+    <path d="M912 790 l-26 60 26 -16 26 16z" fill="#f4b51c"/>
+  </g>
+  <g fill="#f4b51c"><path d="M330 300l14 34 34 14-34 14-14 34-14-34-34-14 34-14z"/><path d="M1270 640l9 22 22 9-22 9-9 22-9-22-22-9 22-9z"/></g>
+</svg>
