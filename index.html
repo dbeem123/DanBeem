@@ -6,58 +6,190 @@
   <meta name="theme-color" content="#fbf6ea">
   <title>DANBEEM.XYZ | Projects, Experiments, Tools, and Assorted Nonsense</title>
   <meta name="description" content="Projects, experiments, tools, and assorted nonsense by Dan Beem.">
+  <link rel="icon" type="image/webp" href="/Assets/beemops/web/beemops-favicon-v1.webp">
   <meta property="og:title" content="DANBEEM.XYZ">
   <meta property="og:description" content="Projects, experiments, tools, and assorted nonsense by Dan Beem.">
   <meta property="og:image" content="https://danbeem.xyz/Assets/homepage/og-home.jpg">
-  <meta property="og:url" content="https://danbeem.xyz/">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" type="image/webp" href="/Assets/beemops/web/beemops-favicon-v1.webp">
-  <link rel="preload" href="/Assets/fonts/fraunces-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="/Assets/fonts/space-grotesk-var.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" href="/Assets/homepage/hero-switchboard.webp" fetchpriority="high">
   <script>document.documentElement.classList.add('js')</script>
-  <link rel="stylesheet" href="/Assets/fx/type.css">
-  <link rel="stylesheet" href="/Assets/homepage/home.css">
+  <link rel="preload" as="image" href="/Assets/homepage/hero-switchboard.webp" fetchpriority="high">
+  <style>
+    :root {
+      color-scheme: light;
+      --cream: #fbf6ea;
+      --paper: #fffdf8;
+      --navy: #082f4f;
+      --navy-soft: #123e5e;
+      --teal: #2f7f83;
+      --teal-soft: #8fbabd;
+      --gold: #f4b51c;
+      --muted: #596a75;
+      --line: rgba(8, 47, 79, .12);
+      --shadow: 0 14px 34px rgba(8, 47, 79, .08);
+      --max-width: 1320px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--navy);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    a { color: inherit; }
+    a:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
+    .skip-link { position: absolute; top: -60px; left: 16px; z-index: 5; padding: 10px 14px; border-radius: 8px; background: var(--navy); color: white; }
+    .skip-link:focus { top: 12px; }
+    .shell { width: min(calc(100% - 48px), var(--max-width)); margin-inline: auto; }
+    .site-header { min-height: 86px; display: flex; align-items: center; justify-content: space-between; gap: 28px; border-bottom: 1px solid var(--line); }
+    .brand { display: inline-flex; align-items: center; gap: 5px; color: var(--navy); font-size: 1.28rem; font-weight: 850; letter-spacing: .055em; text-decoration: none; white-space: nowrap; }
+    .brand-spark { width: 43px; height: 43px; margin-left: -8px; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; justify-content: center; gap: clamp(18px, 3vw, 42px); }
+    .main-nav a, .footer-nav a { color: var(--navy-soft); font-weight: 700; text-decoration: none; }
+    .main-nav a:hover, .footer-nav a:hover { color: var(--teal); }
+    .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 11px 21px; border: 0; border-radius: 999px; background: var(--navy); color: white; font-weight: 750; text-decoration: none; box-shadow: 0 8px 18px rgba(8, 47, 79, .12); transition: transform .18s ease, background .18s ease; }
+    .button:hover { transform: translateY(-2px); background: var(--teal); }
+    .button-small { min-height: 42px; padding: 9px 17px; }
+    .hero { min-height: 540px; display: grid; grid-template-columns: minmax(430px, .93fr) minmax(0, 1.15fr); align-items: center; gap: 20px; padding-block: 30px 14px; }
+    .hero-copy { position: relative; z-index: 1; padding: 26px 0 48px 10px; }
+    .hello { display: block; width: min(230px, 62%); height: auto; margin: 0 0 18px -7px; }
+    .hero h1, .section-heading h2, .about h2 { font-family: Georgia, "Times New Roman", serif; font-weight: 700; letter-spacing: -.04em; }
+    .hero h1 { max-width: 680px; margin: 0; font-size: clamp(2.8rem, 3.9vw, 4.3rem); line-height: .99; text-wrap: balance; }
+    .hero-final-line { font-size: .88em; white-space: nowrap; }
+    .hero-copy p { max-width: 470px; margin: 22px 0 28px; color: var(--navy-soft); font-size: clamp(1.08rem, 1.6vw, 1.35rem); line-height: 1.48; }
+    .hero-art { min-width: 0; align-self: stretch; display: flex; align-items: center; }
+    .hero-art img { display: block; width: 100%; height: auto; max-height: 500px; object-fit: contain; border-radius: 30px; }
+    .section { padding-block: 28px 38px; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+    .section-heading h2 { margin: 0; font-size: clamp(1.9rem, 3.1vw, 2.65rem); line-height: 1.1; }
+    .section-heading p { max-width: 470px; margin: 0; color: var(--muted); }
+    .project-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+    .project-card { min-width: 0; overflow: hidden; display: flex; flex-direction: column; border: 1px solid rgba(8, 47, 79, .07); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(8, 47, 79, .13); }
+    .project-image { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: #eee5d4; }
+    .project-body { flex: 1; display: flex; flex-direction: column; padding: 16px 17px 17px; }
+    .project-title-row { display: flex; align-items: start; justify-content: space-between; gap: 10px; }
+    .project-card h3 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 1.28rem; line-height: 1.15; }
+    .project-card p { margin: 8px 0 0; color: var(--muted); line-height: 1.4; }
+    .project-meta { min-height: 26px; display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: auto; padding-top: 15px; }
+    .tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 9px; border-radius: 999px; background: #eaf4f0; color: #246866; font-size: .72rem; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+    .tag-gold { background: #fff2cf; color: #73520a; }
+    .arrow { color: var(--teal); font-size: 1.45rem; font-weight: 750; line-height: 1; }
+    .feature-strip { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 6px 18px; margin-top: 18px; padding: 18px 22px; border: 1px solid rgba(8, 47, 79, .07); border-left: 4px solid var(--teal); border-radius: 18px; background: var(--paper); box-shadow: var(--shadow); text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+    .feature-strip:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(8, 47, 79, .13); }
+    .feature-kicker { grid-row: 1; grid-column: 1 / 3; color: #246866; font-size: .72rem; font-weight: 800; letter-spacing: .045em; text-transform: uppercase; }
+    .feature-title { grid-row: 2; grid-column: 1; font-family: Georgia, "Times New Roman", serif; font-size: 1.28rem; font-weight: 700; line-height: 1.15; }
+    .feature-text { grid-row: 2; grid-column: 2; color: var(--muted); line-height: 1.4; }
+    .feature-strip .arrow { grid-row: 1 / 3; grid-column: 3; }
+    .tools-section { margin-block: 28px 42px; padding: clamp(22px, 4vw, 38px); border: 1px solid rgba(47, 127, 131, .2); border-radius: 22px; background: #eef5ee; color: var(--navy); box-shadow: 0 18px 44px rgba(8, 47, 79, .09); }
+    .tools-section .section-heading { align-items: start; margin-bottom: 22px; }
+    .tools-section .section-heading p { color: var(--muted); }
+    .tools-section .section-heading h2 { color: var(--navy); }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .tool-card { min-width: 0; padding: 20px; border: 1px solid rgba(8, 47, 79, .09); border-radius: 16px; background: var(--paper); box-shadow: var(--shadow); }
+    .tool-card h3 { margin: 0; color: var(--navy); font-family: Georgia, "Times New Roman", serif; font-size: 1.4rem; line-height: 1.2; }
+    .tool-card p { margin: 9px 0 16px; color: var(--muted); }
+    .tool-label { display: inline-flex; margin-bottom: 10px; padding: 4px 9px; border: 1px solid rgba(47, 127, 131, .18); border-radius: 999px; background: #eaf4f0; color: #246866; font-size: .7rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .tool-links { display: flex; flex-wrap: wrap; gap: 9px; }
+    .tool-link { display: inline-flex; align-items: center; gap: 7px; min-height: 40px; padding: 8px 12px; border: 1px solid rgba(47, 127, 131, .28); border-radius: 10px; background: #fffdf8; color: #246866; font-weight: 750; text-decoration: none; }
+    .tool-link:hover { border-color: var(--teal); background: #eaf4f0; }
+    .tool-link.primary { border-color: transparent; background: var(--navy); color: #fff; }
+    .tool-link.primary:hover { background: var(--teal); }
+    .tool-sub-links { display: flex; flex-wrap: wrap; gap: 8px 16px; margin-top: 13px; }
+    .tool-sub-links a { color: var(--teal); font-size: .9rem; font-weight: 650; text-underline-offset: 3px; }
+    @media (max-width: 760px) {
+      .feature-strip { grid-template-columns: 1fr auto; padding: 16px; }
+      .feature-kicker, .feature-title, .feature-text { grid-column: 1; }
+      .feature-text { grid-row: 3; font-size: .91rem; }
+      .feature-strip .arrow { grid-row: 1 / 4; grid-column: 2; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .tool-card { padding: 17px; }
+    }
+    .about { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-block: 26px 42px; padding: clamp(22px, 4vw, 38px); border: 1px solid rgba(47, 127, 131, .18); border-radius: 20px; background: #eef5ee; }
+    .about h2 { margin: 0 0 8px; font-size: clamp(1.65rem, 3vw, 2.2rem); }
+    .about p { max-width: 800px; margin: 0; color: var(--navy-soft); }
+    .site-footer { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 20px 28px; border-top: 1px solid var(--line); color: var(--muted); }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 20px; }
+    @media (max-width: 1000px) {
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 0; }
+      .hero-copy { max-width: 760px; padding: 26px 0 10px; }
+      .hero h1 { font-size: clamp(2.7rem, 5.2vw, 4rem); }
+      .hero-final-line { white-space: normal; }
+      .hero-art img { max-height: 520px; }
+      .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      .shell { width: min(calc(100% - 28px), var(--max-width)); }
+      .site-header { min-height: auto; flex-wrap: wrap; padding-block: 17px; gap: 13px 18px; }
+      .brand { font-size: 1.1rem; }
+      .brand-spark { width: 37px; height: 37px; }
+      .main-nav { order: 3; width: 100%; justify-content: flex-start; gap: 20px; overflow-x: auto; padding: 1px 0 4px; font-size: .92rem; }
+      .header-contact { margin-left: auto; }
+      .button-small { min-height: 39px; padding: 8px 15px; }
+      .hero { min-height: 0; grid-template-columns: 1fr; gap: 0; padding-block: 20px 5px; }
+      .hero-copy { padding: 16px 2px 8px; }
+      .hello { width: 174px; margin-bottom: 13px; }
+      .hero h1 { max-width: 590px; font-size: clamp(2.4rem, 10vw, 3.65rem); }
+      .hero-final-line { white-space: normal; }
+      .hero-copy p { margin: 15px 0 19px; font-size: 1.08rem; }
+      .hero-art { margin-inline: -4px; }
+      .hero-art img { max-height: none; border-radius: 18px; }
+      .section { padding-block: 30px 18px; }
+      .section-heading { align-items: start; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+      .project-grid { gap: 13px; }
+      .project-body { padding: 13px; }
+      .project-card h3 { font-size: 1.08rem; }
+      .project-card p { font-size: .91rem; }
+      .tag { font-size: .64rem; }
+      .about { grid-template-columns: 1fr; margin-block: 27px 28px; }
+      .site-footer { align-items: flex-start; flex-direction: column; gap: 10px; }
+    }
+    @media (max-width: 390px) {
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card { display: grid; grid-template-columns: 38% 1fr; }
+      .project-image { height: 100%; min-height: 150px; aspect-ratio: auto; }
+      .project-body { min-height: 150px; }
+      .project-meta { padding-top: 9px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+  <link rel="stylesheet" href="/Assets/homepage/switchboard.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header shell">
-    <a class="brand" href="/" aria-label="DANBEEM.XYZ home">DANBEEM<span class="brand-dot">.</span>XYZ<img class="brand-spark" src="/Assets/homepage/brand-spark.webp" alt="" width="1254" height="1254"></a>
+    <a class="brand" href="/" aria-label="DANBEEM.XYZ home">DANBEEM.XYZ<img class="brand-spark" src="/Assets/homepage/brand-spark.webp" alt="" width="1254" height="1254"></a>
     <nav class="main-nav" aria-label="Primary navigation">
-      <a href="#switchboard">Switchboard</a>
       <a href="#projects">Projects</a>
       <a href="#tools">Tools</a>
       <a href="/legislation/">Legislation</a>
       <a href="#about">About</a>
     </nav>
-    <a class="button button-small header-contact" href="mailto:hello@danbeem.xyz">Say hi</a>
+    <a class="button button-small header-contact" href="mailto:hello@danbeem.xyz"><span aria-hidden="true">☕</span> Say hi</a>
   </header>
 
-  <main id="main">
-    <section class="hero shell" aria-labelledby="hero-title">
+  <main id="main" class="shell">
+    <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <img class="hello" src="/Assets/homepage/hey-im-dan.webp" alt="Hey, I'm Dan!" width="2172" height="724">
-        <h1 id="hero-title">
-          <span class="line l1">Projects.</span>
-          <span class="line l2">Experiments. Tools.</span>
-          <span class="line l3">And assorted nonsense.<svg class="squiggle" viewBox="0 0 520 34" preserveAspectRatio="none" aria-hidden="true"><path d="M4 22 C 60 4, 92 32, 150 18 S 250 6, 300 20 S 410 30, 516 10"/></svg></span>
-        </h1>
-        <p class="lede">A little advocacy, a little tech, and a lot of tinkering. Plug into whatever looks interesting.</p>
-        <div class="hero-actions">
-          <a class="button" href="#switchboard">Pick a wire</a>
-          <a class="button button-ghost" href="#tools">Care and advocacy tools</a>
-        </div>
+        <h1 id="hero-title">Projects.<br>Experiments. Tools.<br><span class="hero-final-line">And Assorted Nonsense.</span></h1>
+        <p>A little bit of advocacy. A little bit of tech. A lot of fun.</p>
+        <a class="button" href="#tools">Explore tools <span aria-hidden="true">→</span></a>
       </div>
-      <figure class="hero-art" data-tilt>
+      <div class="hero-art" data-tilt>
         <span class="hero-frame"><img src="/Assets/homepage/hero-switchboard.webp" alt="Dan at a playful switchboard connecting music, web, server, art, and notebook projects" width="1448" height="1086" fetchpriority="high"></span>
-      </figure>
+      </div>
     </section>
 
     <section id="switchboard" class="board-wrap" aria-labelledby="board-title">
-      <div class="shell board">
+      <div class="board">
         <div class="board-head">
           <h2 id="board-title">The switchboard</h2>
-          <p>Every project runs on its own line. Hover or focus a jack to patch it through, then follow the wire.</p>
+          <p>Every project runs on its own line. Hover or tap a jack to patch it through and see what it does.</p>
         </div>
         <div class="board-body" data-board>
           <div class="monitor" aria-live="polite">
@@ -66,6 +198,7 @@
               <div class="monitor-scan" aria-hidden="true"></div>
             </div>
             <div class="monitor-text">
+              <span class="monitor-kind">Home lab</span>
               <h3 class="monitor-title">BeemOps</h3>
               <p class="monitor-desc">My home lab mission control: local AI tools for images, music and reminders, with results checked before they count.</p>
               <a class="monitor-link" href="/beemops/">Open BeemOps</a>
@@ -73,99 +206,91 @@
             <span class="jack jack-source" data-source aria-hidden="true"></span>
           </div>
           <ul class="jacks" aria-label="Projects on the switchboard">
-            <li><a class="jack-btn" href="/beemops/" data-color="#f4b51c" data-title="BeemOps" data-img="/Assets/homepage/project-beemops.webp" data-desc="My home lab mission control: local AI tools for images, music and reminders, with results checked before they count." data-cta="Open BeemOps"><span class="jack" aria-hidden="true"></span>BeemOps</a></li>
-            <li><a class="jack-btn" href="/staffing/" data-color="#3fb6a8" data-title="Nursing home staffing" data-img="/Assets/homepage/project-nursing-home-staffing.webp" data-desc="Connecticut nursing home staffing by home, quarter, role and day, built from federal payroll records." data-cta="Explore staffing"><span class="jack" aria-hidden="true"></span>Staffing tools</a></li>
-            <li><a class="jack-btn" href="/staffing/reports/" data-color="#7aa7ff" data-title="Facility reports" data-img="/Assets/homepage/project-facility-reports.svg" data-desc="Search a home, owner or management company and get a report where every finding links to its public source." data-cta="Search reports"><span class="jack" aria-hidden="true"></span>Facility reports</a></li>
-            <li><a class="jack-btn" href="/legislation/" data-color="#e8604c" data-title="Legislative tracker" data-img="/Assets/homepage/project-legislation.svg" data-desc="Connecticut long-term care bills, their history, and the numbers behind testimony for the 2027 session." data-cta="Open the tracker"><span class="jack" aria-hidden="true"></span>Legislation</a></li>
-            <li><a class="jack-btn" href="/birds/" data-color="#9bd26a" data-title="Backyard Bird Cam" data-img="/Assets/homepage/project-backyard-bird-cam.webp" data-desc="Live from the backyard feeder. Chickadees, snacks, and the occasional squirrel heist." data-cta="Watch the feeder"><span class="jack" aria-hidden="true"></span>Bird cam</a></li>
-            <li><a class="jack-btn" href="https://glizzy.danbeem.xyz/" data-color="#ff9f43" data-title="Grade My Glizzy" data-img="/Assets/homepage/project-grade-my-glizzy.webp" data-desc="A completely serious hot dog rating system. Still under construction, like any good hot dog stand." data-cta="Visit Grade My Glizzy"><span class="jack" aria-hidden="true"></span>Grade My Glizzy</a></li>
+            <li><a class="jack-btn" href="/beemops/" data-color="#f4b51c" data-kind="Home lab" data-title="BeemOps" data-img="/Assets/homepage/project-beemops.webp" data-desc="My home lab mission control: local AI tools for images, music and reminders, with results checked before they count." data-cta="Open BeemOps"><span class="jack" aria-hidden="true"></span><svg class="ico ico-beemops" viewBox="0 0 48 48" aria-hidden="true"><path class="wing wing-l" d="M14 22 C 6 20, 3 14, 4 9 C 9 13, 12 13, 16 15"/><path class="wing wing-r" d="M34 22 C 42 20, 45 14, 44 9 C 39 13, 36 13, 32 15"/><path d="M13 27 C 13 18, 35 18, 35 27 L 35 30 L 13 30 Z"/><path d="M17 30 v6 M31 30 v6 M14 36 h20"/><circle class="gem" cx="24" cy="24" r="2.4"/></svg><span class="jack-label">BeemOps</span></a></li>
+            <li><a class="jack-btn" href="/staffing/" data-color="#3fb6a8" data-kind="Data and advocacy" data-title="Nursing home staffing tools" data-img="/Assets/homepage/project-nursing-home-staffing.webp" data-desc="Connecticut nursing home staffing by home, quarter, role and day, built from federal payroll records, with statewide comparisons and history back to 2017." data-cta="Explore staffing"><span class="jack" aria-hidden="true"></span><svg class="ico ico-staff" viewBox="0 0 48 48" aria-hidden="true"><path class="bar b1" d="M10 38 V28"/><path class="bar b2" d="M18 38 V22"/><path class="bar b3" d="M26 38 V25"/><path d="M6 40 H42"/><path class="heart" d="M36 18 C 36 14, 31 13, 30 17 C 29 13, 24 14, 24 18 C 24 22, 30 26, 30 26 C 30 26, 36 22, 36 18 Z"/></svg><span class="jack-label">Staffing tools</span></a></li>
+            <li><a class="jack-btn" href="/staffing/reports/" data-color="#7aa7ff" data-kind="New: data and advocacy" data-title="Facility reports" data-img="/Assets/homepage/project-facility-reports.svg" data-desc="Search a home, owner or management company and get a report on ownership, staffing, money and inspections, where every finding links to its public source." data-cta="Search reports"><span class="jack" aria-hidden="true"></span><svg class="ico ico-reports" viewBox="0 0 48 48" aria-hidden="true"><path d="M12 6 H30 L36 12 V40 H12 Z"/><path d="M17 16 H28 M17 21 H31 M17 26 H24"/><g class="lens"><circle cx="31" cy="31" r="6"/><path d="M35.5 35.5 L41 41"/></g></svg><span class="jack-label">Facility reports</span></a></li>
+            <li><a class="jack-btn" href="/legislation/" data-color="#e8604c" data-kind="Policy" data-title="Long-term care legislative tracker" data-img="/Assets/homepage/project-legislation.svg" data-desc="Connecticut bills that affect nursing home, residential care and assisted living residents, with history and the statistics behind testimony for the 2027 session." data-cta="Open the tracker"><span class="jack" aria-hidden="true"></span><svg class="ico ico-law" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 40 H40 M11 40 V26 H37 V40 M16 26 V40 M21 26 V40 M27 26 V40 M32 26 V40 M9 26 L24 19 L39 26"/><path d="M17 19 C 17 11, 31 11, 31 19"/><path d="M24 11 V5"/><path class="flag" d="M24 5 L31 7 L24 9"/></svg><span class="jack-label">Legislation</span></a></li>
+            <li><a class="jack-btn" href="/birds/" data-color="#9bd26a" data-kind="Live" data-title="Backyard Bird Cam" data-img="/Assets/homepage/project-backyard-bird-cam.webp" data-desc="A live camera on my backyard feeder. Chickadees, snacks, good vibes, and the occasional squirrel heist." data-cta="Watch the feeder"><span class="jack" aria-hidden="true"></span><svg class="ico ico-bird" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38 H40"/><path d="M14 30 C 14 22, 22 17, 29 19 C 34 20, 36 24, 36 27 C 36 33, 30 35, 24 35 C 18 35, 14 33, 14 30 Z"/><path class="wing" d="M19 27 C 22 23, 28 23, 30 27"/><path d="M36 24 L41 23 L36 22"/><circle cx="32" cy="22" r="1.2" class="eye"/><path d="M22 35 V38 M28 35 V38"/></svg><span class="jack-label">Bird cam</span></a></li>
+            <li><a class="jack-btn" href="https://glizzy.danbeem.xyz/" data-color="#ff9f43" data-kind="Under construction" data-title="Grade My Glizzy" data-img="/Assets/homepage/project-grade-my-glizzy.webp" data-desc="A completely serious hot dog rating system. Still under construction, like any good hot dog stand." data-cta="Visit Grade My Glizzy"><span class="jack" aria-hidden="true"></span><svg class="ico ico-dog" viewBox="0 0 48 48" aria-hidden="true"><g class="dog"><path d="M6 28 C 6 22, 12 21, 16 23 H32 C 36 21, 42 22, 42 28 C 42 34, 36 35, 32 33 H16 C 12 35, 6 34, 6 28 Z"/><path class="mustard" d="M12 27 C 15 24, 17 30, 20 27 S 25 30, 28 27 S 33 30, 36 27"/><path class="shades" d="M27 18 H39 M28 18 C 28 22, 33 22, 33 18 M34 18 C 34 22, 39 22, 39 18"/></g></svg><span class="jack-label">Grade My Glizzy</span></a></li>
           </ul>
           <svg class="cables" aria-hidden="true"></svg>
         </div>
       </div>
     </section>
 
-    <section id="projects" class="section shell" aria-labelledby="projects-title">
+    <section id="projects" class="section" aria-labelledby="projects-title">
       <div class="section-heading">
-        <h2 id="projects-title">Featured projects</h2>
+        <h2 id="projects-title">Featured Projects</h2>
         <p>A handful of things from the many corners of my workbench.</p>
       </div>
       <div class="project-grid">
-        <a class="project-card card-beemops" href="/beemops/" aria-label="Open BeemOps">
-          <span class="project-media"><img class="project-image" src="/Assets/homepage/project-beemops.webp" alt="BeemOps character tending a plant beside a home server rack" width="1672" height="941" loading="lazy"></span>
-          <span class="project-body"><span class="project-title">BeemOps</span><span class="project-text">My home lab, automation adventures, and an armored alter ego who checks the work.</span><span class="tag">Explore</span></span>
+        <a class="project-card" href="/birds/">
+          <img class="project-image" src="/Assets/homepage/project-backyard-bird-cam.webp" alt="A black-capped chickadee perched near a backyard feeder" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>Backyard Bird Cam</h3></div><p>Live from my backyard. Birds, snacks, and good vibes.</p><div class="project-meta"><span class="tag">● Live</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-        <a class="project-card card-staffing" href="/staffing/">
-          <span class="project-media"><img class="project-image" src="/Assets/homepage/project-nursing-home-staffing.webp" alt="A nurse and an older adult reviewing information together" width="1672" height="941" loading="lazy"></span>
-          <span class="project-body"><span class="project-title">Nursing home staffing tools</span><span class="project-text">Practical tools for better care and stronger teams.</span><span class="tag">Data and advocacy</span></span>
+        <a class="project-card" href="https://glizzy.danbeem.xyz/" aria-label="Visit Grade My Glizzy">
+          <img class="project-image" src="/Assets/homepage/project-grade-my-glizzy.webp" alt="A fanciful hot dog wearing sunglasses" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>Grade My Glizzy</h3></div><p>A totally serious hot dog rating system. Obviously.</p><div class="project-meta"><span class="tag tag-gold">Under construction</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-        <a class="project-card card-birds" href="/birds/">
-          <span class="project-media"><img class="project-image" src="/Assets/homepage/project-backyard-bird-cam.webp" alt="A black-capped chickadee perched near a backyard feeder" width="1672" height="941" loading="lazy"></span>
-          <span class="project-body"><span class="project-title">Backyard Bird Cam</span><span class="project-text">Live from my backyard. Birds, snacks, and good vibes.</span><span class="tag tag-live"><span class="live-dot" aria-hidden="true"></span>Live</span></span>
+        <a class="project-card" href="/staffing/">
+          <img class="project-image" src="/Assets/homepage/project-nursing-home-staffing.webp" alt="A nurse and an older adult reviewing information together" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>Nursing Home Staffing Tools</h3></div><p>Practical tools for better care and stronger teams.</p><div class="project-meta"><span class="tag">Data &amp; advocacy</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
-        <a class="project-card card-glizzy" href="https://glizzy.danbeem.xyz/" aria-label="Visit Grade My Glizzy">
-          <span class="project-media"><img class="project-image" src="/Assets/homepage/project-grade-my-glizzy.webp" alt="A fanciful hot dog wearing sunglasses" width="1672" height="941" loading="lazy"></span>
-          <span class="project-body"><span class="project-title">Grade My Glizzy</span><span class="project-text">A totally serious hot dog rating system. Obviously.</span><span class="tag tag-gold">Under construction</span></span>
+        <a class="project-card" href="/beemops/" aria-label="Open BeemOps">
+          <img class="project-image" src="/Assets/homepage/project-beemops.webp" alt="BeemOps character tending a plant beside a home server rack" width="1672" height="941" loading="lazy">
+          <div class="project-body"><div class="project-title-row"><h3>BeemOps</h3></div><p>My homelab, automation adventures, and random infrastructure things.</p><div class="project-meta"><span class="tag">Explore</span><span class="arrow" aria-hidden="true">→</span></div></div>
         </a>
       </div>
       <a class="feature-strip" href="/legislation/">
-        <img src="/Assets/homepage/project-legislation.svg" alt="" width="1600" height="900" loading="lazy">
-        <span class="feature-copy">
-          <span class="feature-kicker">New for the 2027 session</span>
-          <span class="feature-title">Long-Term Care Legislative Tracker</span>
-          <span class="feature-text">Connecticut bills that affect nursing home, residential care and assisted living residents, with research and statistics for testimony.</span>
-        </span>
+        <span class="feature-kicker">New for the 2027 session</span>
+        <span class="feature-title">Long-Term Care Legislative Tracker</span>
+        <span class="feature-text">Connecticut bills that affect nursing home, residential care and assisted living residents, with research and statistics for testimony.</span>
+        <span class="arrow" aria-hidden="true">→</span>
       </a>
     </section>
 
     <section id="tools" class="tools-section" aria-labelledby="tools-title">
-      <div class="shell">
-        <div class="section-heading">
-          <h2 id="tools-title">Tools for care and advocacy</h2>
-          <p>Public data about Connecticut nursing homes, organized so residents, families and advocates can use it.</p>
-        </div>
-        <div class="tools-grid">
-          <article class="tool-card">
-            <h3>Nursing home staffing</h3>
-            <p>Staffing by facility, position and work date, with statewide comparisons and long-run history.</p>
-            <div class="tool-links"><a class="tool-link primary" href="/staffing/tools/nursing-home-staffing-explorer.html#daily-staffing">Explore daily staffing</a><a class="tool-link" href="/staffing/">All staffing tools</a></div>
-          </article>
-          <article class="tool-card tool-card-new">
-            <span class="tool-new">New</span>
-            <h3>Facility reports</h3>
-            <p>Ownership, staffing, finances and inspections for any Connecticut home, with a source link on every finding. Readable by people and by AI assistants.</p>
-            <div class="tool-links"><a class="tool-link primary" href="/staffing/reports/">Search facility reports</a><a class="tool-link" href="/api/docs/">API docs</a></div>
-          </article>
-          <article class="tool-card">
-            <h3>Ombudsman casework tools</h3>
-            <p>Look up NORS context, explore Appendix PP references, and organize invented facts for human review. Demonstration with synthetic examples only.</p>
-            <div class="tool-links"><a class="tool-link primary" href="/tools/ombudsman-casework-tools.html">Open casework tools</a></div>
-            <nav class="tool-sub-links" aria-label="Ombudsman tool shortcuts">
-              <a href="/tools/nors-crosswalk.html">NORS crosswalk</a>
-              <a href="/tools/drafting-assistant.html">Drafting assistant</a>
-              <a href="/tools/responsible-use.html">Responsible use</a>
-            </nav>
-          </article>
-        </div>
+      <div class="section-heading">
+        <h2 id="tools-title">Tools for care and advocacy</h2>
+        <p>Practical resources for long-term care work, connected from one place.</p>
+      </div>
+      <div class="tools-grid">
+        <article class="tool-card">
+          <span class="tool-label">Data &amp; advocacy</span>
+          <h3>Nursing Home Staffing Tools</h3>
+          <p>Explore Connecticut nursing home staffing by facility, position and work date.</p>
+          <div class="tool-links"><a class="tool-link primary" href="/staffing/tools/nursing-home-staffing-explorer.html#daily-staffing">Explore daily staffing <span aria-hidden="true">→</span></a><a class="tool-link" href="/staffing/">All staffing tools</a></div>
+        </article>
+        <article class="tool-card">
+          <span class="tool-label">New · Data &amp; advocacy</span>
+          <h3>Facility Reports</h3>
+          <p>Search any Connecticut nursing home, owner or management company. Every finding links to its public source, and AI assistants can read the same reports.</p>
+          <div class="tool-links"><a class="tool-link primary" href="/staffing/reports/">Search facility reports <span aria-hidden="true">→</span></a><a class="tool-link" href="/api/docs/">API docs</a></div>
+        </article>
+        <article class="tool-card">
+          <span class="tool-label">Demonstration · synthetic examples only</span>
+          <h3>Ombudsman Casework Tools</h3>
+          <p>Look up NORS context, explore Appendix PP references, and organize invented facts for human review.</p>
+          <div class="tool-links"><a class="tool-link primary" href="/tools/ombudsman-casework-tools.html">Open casework tools <span aria-hidden="true">→</span></a></div>
+          <nav class="tool-sub-links" aria-label="Ombudsman tool shortcuts">
+            <a href="/tools/nors-crosswalk.html">NORS crosswalk</a>
+            <a href="/tools/drafting-assistant.html">Drafting assistant</a>
+            <a href="/tools/responsible-use.html">Responsible use</a>
+          </nav>
+        </article>
       </div>
     </section>
 
-    <section id="about" class="about shell" aria-labelledby="about-title">
-      <img class="about-photo" src="/Assets/homepage/hey-dan-portrait.webp" alt="Dan Beem" width="480" height="480" loading="lazy">
-      <div>
-        <h2 id="about-title">A switchboard for whatever I’m curious about.</h2>
-        <p>I’m Dan. I work across advocacy, technology, data, and creative experiments. This is where the different wires meet, and where the occasional silly idea gets a very respectable project card.</p>
-      </div>
-      <a class="button" href="mailto:hello@danbeem.xyz">Say hello</a>
+
+    <section id="about" class="about" aria-labelledby="about-title">
+      <div><h2 id="about-title">A switchboard for whatever I’m curious about.</h2><p>I’m Dan. I work across advocacy, technology, data, and creative experiments. This is where the different wires meet—and where the occasional silly idea gets a very respectable project card.</p></div>
+      <a class="button" href="mailto:hello@danbeem.xyz">Say hello <span aria-hidden="true">↗</span></a>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="shell footer-row">
-      <span>Built by Dan in Connecticut</span>
-      <nav class="footer-nav" aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/llms.txt">For AI assistants</a></nav>
-    </div>
-    <div class="footer-word" aria-hidden="true">DANBEEM.XYZ</div>
+  <footer class="site-footer shell">
+    <span>DANBEEM.XYZ · Built by Dan <span aria-hidden="true">♥</span></span>
+    <nav class="footer-nav" aria-label="Footer navigation"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></nav>
   </footer>
   <script src="/Assets/homepage/switchboard.js" defer></script>
 </body>

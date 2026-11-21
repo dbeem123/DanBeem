@@ -19,6 +19,7 @@
   const title = monitor.querySelector('.monitor-title');
   const desc = monitor.querySelector('.monitor-desc');
   const link = monitor.querySelector('.monitor-link');
+  const kind = monitor.querySelector('.monitor-kind');
   const jacks = [...board.querySelectorAll('.jack-btn')];
 
   // Preload monitor images so switching is instant.
@@ -105,6 +106,7 @@
       desc.textContent = j.dataset.desc;
       link.href = j.getAttribute('href');
       link.textContent = j.dataset.cta;
+      if (kind) kind.textContent = j.dataset.kind || '';
       monitor.classList.remove('switching');
     }, reduce ? 0 : 160);
     cables[i].t = 0;
