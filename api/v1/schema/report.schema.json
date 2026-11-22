@@ -3,57 +3,272 @@
   "$id": "https://danbeem.xyz/api/v1/schema/report.schema.json",
   "title": "CT nursing home report",
   "type": "object",
-  "required": ["schema_version", "report_type", "subject", "generated_at", "data_as_of", "executive_summary", "findings", "metrics", "historical_trends", "relationships", "sources", "limitations", "missing_data", "recommended_follow_up", "links"],
+  "required": [
+    "schema_version",
+    "report_type",
+    "subject",
+    "generated_at",
+    "data_as_of",
+    "executive_summary",
+    "findings",
+    "metrics",
+    "historical_trends",
+    "relationships",
+    "sources",
+    "limitations",
+    "missing_data",
+    "recommended_follow_up",
+    "links"
+  ],
   "properties": {
-    "schema_version": {"const": "reporting-api-1.0"},
-    "report_type": {"enum": ["facility-comprehensive", "ownership-network", "staffing-analysis", "financial-transparency", "regulatory-history", "related-party-screening", "management-company-portfolio"]},
+    "schema_version": {
+      "const": "reporting-api-1.0"
+    },
+    "report_type": {
+      "enum": [
+        "facility-comprehensive",
+        "ownership-network",
+        "staffing-analysis",
+        "financial-transparency",
+        "regulatory-history",
+        "related-party-screening",
+        "management-company-portfolio"
+      ]
+    },
     "subject": {
       "type": "object",
       "oneOf": [
-        {"required": ["ccn", "facility_name"], "properties": {"ccn": {"type": "string", "pattern": "^[0-9A-Z]{6}$"}}},
-        {"required": ["company_id", "company_name"]}
+        {
+          "required": [
+            "ccn",
+            "facility_name"
+          ],
+          "properties": {
+            "ccn": {
+              "type": "string",
+              "pattern": "^[0-9A-Z]{6}$"
+            }
+          }
+        },
+        {
+          "required": [
+            "company_id",
+            "company_name"
+          ]
+        }
       ]
     },
-    "generated_at": {"type": "string", "format": "date-time"},
-    "data_as_of": {"type": "object"},
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "data_as_of": {
+      "type": "object"
+    },
     "executive_summary": {
       "type": "array",
-      "items": {"type": "object", "required": ["text", "kind"], "properties": {"text": {"type": "string"}, "kind": {"type": "string"}, "finding_id": {"type": ["string", "null"]}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "text",
+          "kind"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "finding_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
     },
-    "findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
-    "metrics": {"type": "object"},
-    "historical_trends": {"type": "object"},
-    "relationships": {"type": "array", "items": {"type": "object", "required": ["relationship_type"]}},
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/finding"
+      }
+    },
+    "metrics": {
+      "type": "object"
+    },
+    "historical_trends": {
+      "type": "object"
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "relationship_type"
+        ]
+      }
+    },
     "sources": {
       "type": "array",
-      "items": {"type": "object", "required": ["source_key", "agency", "dataset"], "properties": {"url": {"type": ["string", "null"]}}}
+      "items": {
+        "type": "object",
+        "required": [
+          "source_key",
+          "agency",
+          "dataset"
+        ],
+        "properties": {
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
     },
-    "limitations": {"type": "array", "items": {"type": "string"}},
-    "missing_data": {"type": "array", "items": {"type": "object", "required": ["field", "reason"]}},
-    "recommended_follow_up": {"type": "array", "items": {"type": "string"}},
-    "links": {"type": "object"}
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "missing_data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "field",
+          "reason"
+        ]
+      }
+    },
+    "recommended_follow_up": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "links": {
+      "type": "object"
+    },
+    "tables": {
+      "type": "array",
+      "description": "Optional. Ready-to-read tables (financial reports: support-department costs, figures by year).",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "rows"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "type": "object",
+      "description": "Optional. Plain-language definitions of the figures used in this report."
+    }
   },
   "$defs": {
     "finding": {
       "type": "object",
-      "required": ["id", "kind", "severity", "statement", "evidence"],
+      "required": [
+        "id",
+        "kind",
+        "severity",
+        "statement",
+        "evidence"
+      ],
       "properties": {
-        "id": {"type": "string"},
-        "kind": {"enum": ["confirmed_fact", "calculated", "possible_association", "investigative_question"]},
-        "severity": {"enum": ["info", "attention"]},
-        "statement": {"type": "string", "minLength": 10},
-        "formula": {"type": "string"},
-        "evidence": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/evidence"}}
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "confirmed_fact",
+            "calculated",
+            "possible_association",
+            "investigative_question"
+          ]
+        },
+        "severity": {
+          "enum": [
+            "info",
+            "attention"
+          ]
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 10
+        },
+        "formula": {
+          "type": "string"
+        },
+        "evidence": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        }
       },
       "allOf": [
-        {"if": {"properties": {"kind": {"const": "calculated"}}}, "then": {"required": ["formula"]}}
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "calculated"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "formula"
+            ]
+          }
+        }
       ]
     },
     "evidence": {
       "type": "object",
-      "required": ["source_key", "agency", "dataset", "url", "as_of", "record_id", "verification", "reporting_period"],
+      "required": [
+        "source_key",
+        "agency",
+        "dataset",
+        "url",
+        "as_of",
+        "record_id",
+        "verification",
+        "reporting_period"
+      ],
       "properties": {
-        "verification": {"enum": ["source_record", "source_record_unvalidated", "derived", "name_match_unverified"]}
+        "verification": {
+          "enum": [
+            "source_record",
+            "source_record_unvalidated",
+            "derived",
+            "name_match_unverified"
+          ]
+        }
       }
     }
   }

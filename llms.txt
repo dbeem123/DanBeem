@@ -41,6 +41,9 @@ There is no server-side search. Fetch the search index, upper-case the query, dr
 - Keep the four kinds distinct: confirmed_fact, calculated (state the formula), possible_association, investigative_question.
 - Never describe a possible_association as ownership, control, a conflict of interest, or wrongdoing. It means a name, entity or principal appears in more than one place.
 - Missing values are null with a missing_data[] entry. Do not fill them in.
+- If a figure you need is not in a report, open the report's links (links.financials, links.staffing, links.ownership, links.inspections) before calling it missing. Reports summarize; the facility files hold every year and department.
+- Financial reports include tables[] (support-department costs split into wages, fringe and non-wage costs; figures by year) and definitions{}. Wages are not department spending.
+- In financials.json, each year has data_quality. Do not quote a year whose use_in_reports is false, or any field listed in its unusable_fields. Treat status "unvalidated" figures as provisional.
 - Never say "none" or "no problems". Say "not in these datasets" and name the datasets and as_of dates.
 - A name supplied by the user but absent from the data stays unverified; do not confirm it.
 - Staffing and citations are screening data, not findings of violations. Say what the source cannot show.

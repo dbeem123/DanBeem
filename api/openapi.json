@@ -610,6 +610,39 @@
           },
           "links": {
             "type": "object"
+          },
+          "tables": {
+            "type": "array",
+            "description": "Optional. Ready-to-read tables (financial reports: support-department costs, figures by year).",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "title",
+                "rows"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "description": {
+                  "type": "string"
+                },
+                "rows": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          },
+          "definitions": {
+            "type": "object",
+            "description": "Optional. Plain-language definitions of the figures used in this report."
           }
         }
       },

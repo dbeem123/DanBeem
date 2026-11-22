@@ -177,6 +177,66 @@ class ReportingApiTest(unittest.TestCase):
             self.assertLessEqual(y[dept]["wages_reported"], y[dept]["total_department_cost"], dept)
         self.assertIn("Not total department spending", fin["definitions"]["wages_reported"])
 
+    # ------------------------------------------------- financial report depth
+    def test_cherry_brook_financial_report_carries_department_detail(self):
+        rep = jload(self.v1 / "reports" / "financial-transparency" / f"{CHERRY_BROOK}.json")
+        tables = {t["id"]: t for t in rep["tables"]}
+        rows = {r["department"]: r for r in tables["support-departments"]["rows"]}
+        self.assertEqual(set(rows), {"Dietary", "Housekeeping", "Laundry"})
+        d = rows["Dietary"]
+        self.assertEqual(d["wages_reported"] + d["fringe_allocated"] + d["non_wage_costs"], d["total_department_cost"])
+        self.assertIsNotNone(d["statewide_median_per_resident_day"])
+        ids = {f["id"] for f in rep["findings"]}
+        for dept in ("dietary", "housekeeping", "laundry"):
+            self.assertIn(f"fin-dept-{dept}", ids)
+        # laundry is about a third of the state median: raised as a question, not a conclusion
+        q = next(f for f in rep["findings"] if f["id"] == "fin-dept-laundry-question")
+        self.assertEqual(q["kind"], "investigative_question")
+        self.assertIn("Ask how laundry is handled", q["statement"])
+        # cost-report related party now appears in relationships, not an empty list
+        rel = [r for r in rep["relationships"] if r["relationship_type"] == "cost_report_related_party"]
+        self.assertTrue(any("NEW HORIZONS" in (r["entity_name"] or "").upper() and r["cost_reported"] == 288000 for r in rel))
+        self.assertEqual(rep["links"]["underlying_data"], rep["links"]["financials"])
+        self.assertIn("wages_reported", rep["definitions"])
+
+    def test_misread_years_are_left_out_of_reports(self):
+        fin = jload(self.v1 / "facilities" / CHERRY_BROOK / "financials.json")
+        y15 = next(y for y in fin["years"] if y["cost_year"] == 2015)
+        self.assertEqual(y15["data_quality"]["status"], "check_failed")
+        self.assertFalse(y15["data_quality"]["use_in_reports"])
+        self.assertIn("revenue_total", y15["data_quality"]["unusable_fields"])  # read as $8,847
+        rep = jload(self.v1 / "reports" / "financial-transparency" / f"{CHERRY_BROOK}.json")
+        for k, series in rep["historical_trends"].items():
+            self.assertNotIn("2015", {str(x) for x in series}, k)
+        self.assertTrue(any(m["field"] == "dss_cost_report_2015" for m in rep["missing_data"]))
+        years = [r["cost_year"] for r in next(t for t in rep["tables"] if t["id"] == "financials-by-year")["rows"]]
+        self.assertNotIn(2015, years)
+
+    def test_report_figures_never_come_from_unusable_fields(self):
+        for p in self.v1.glob("reports/financial-transparency/*.json"):
+            rep = jload(p)
+            ccn = rep["subject"]["ccn"]
+            fin = jload(self.v1 / "facilities" / ccn / "financials.json")
+            used = {r["cost_year"]: r for t in rep.get("tables", []) if t["id"] == "financials-by-year" for r in t["rows"]}
+            for y in fin["years"]:
+                q = y["data_quality"]
+                if y["cost_year"] in used:
+                    self.assertTrue(q["use_in_reports"], (ccn, y["cost_year"]))
+                    row = used[y["cost_year"]]
+                    if "direct_care" in q["unusable_fields"]:
+                        self.assertIsNone(row["direct_care_per_resident_day"], (ccn, y["cost_year"]))
+                    for dept in ("dietary", "housekeeping", "laundry"):
+                        if dept in q["unusable_fields"]:
+                            self.assertIsNone(row[f"{dept}_per_resident_day"], (ccn, y["cost_year"], dept))
+            for f in rep["findings"]:
+                if f["id"] in ("fin-direct-care", "fin-dept-dietary", "fin-dept-housekeeping", "fin-dept-laundry"):
+                    self.assertIsNotNone(f["value"], (ccn, f["id"]))
+
+    def test_no_report_has_duplicate_finding_ids(self):
+        for p in self.reports:
+            ids = [f["id"] for f in jload(p)["findings"]]
+            self.assertEqual(len(ids), len(set(ids)), p.name)
+
     # ------------------------------------------------------------- privacy
     def test_no_individual_addresses_or_local_paths(self):
         for p in list(self.v1.glob("facilities/*/ownership.json"))[:40]:

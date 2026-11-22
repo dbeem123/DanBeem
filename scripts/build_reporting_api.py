@@ -236,6 +236,74 @@ REL_LABEL = {
 }
 
 
+# ------------------------------------------------------------- data quality
+
+# Per-resident-day ranges for figures the cost-report build does not range-check itself.
+# Outside these the figure is almost always a misread total (e.g. revenue read as $8,847).
+FIN_PRD_RANGE = {"revenue_total": (100, 1500), "expenses_total": (100, 1500), "direct_care": (40, 700)}
+SUPPORT_DEPTS = ("dietary", "housekeeping", "laundry")
+DEPT_LABEL = {"dietary": "Dietary", "housekeeping": "Housekeeping", "laundry": "Laundry"}
+
+
+def year_quality(y: dict, raw_checks: dict | None, support_flags: list | None) -> dict:
+    """Grade one cost-report year and list fields that must not be used.
+
+    status: validated (core figures present, payer days add up, nothing out of range),
+    unvalidated (read, but printed totals did not fully reconcile), or check_failed
+    (core figures missing or out of a plausible range). Figures stay in financials.json
+    as read; reports leave out unusable fields and check_failed years.
+    """
+    ch = raw_checks or {}
+    pt = ch.get("printed_totals") or {}
+    out_of_range = list(ch.get("out_of_range") or [])
+    if ch.get("validated"):
+        status = "validated"
+    elif out_of_range or not pt.get("has_core"):
+        status = "check_failed"
+    else:
+        status = "unvalidated"
+    issues = [f"{x} outside the plausible range" for x in out_of_range]
+    if not pt.get("has_core"):
+        issues.append("core figures (days, revenue or expenses) could not be read")
+    for k, label in (("days_sum", "payer days do not add up to the printed total"),
+                     ("revenue_sum", "revenue lines do not add up to the printed total"),
+                     ("liabilities_sum", "balance sheet does not add up")):
+        if pt.get(k) is False:
+            issues.append(label)
+    unusable = {}
+    rd = y.get("resident_days")
+    if not rd or rd <= 0:
+        unusable["resident_days"] = "resident days missing"
+    for f in ("revenue_total", "expenses_total"):
+        v = y.get(f)
+        lo, hi = FIN_PRD_RANGE[f]
+        if v is None or not rd or not (lo <= v / rd <= hi):
+            unusable[f] = "missing" if v is None else "outside the plausible per-resident-day range (likely a misread total)"
+    sane = [y[f] for f in ("revenue_total", "expenses_total") if f not in unusable]
+    n = y.get("net_income")
+    if n is None:
+        unusable["net_income"] = "missing"
+    elif not sane or abs(n) > 0.6 * max(sane):
+        unusable["net_income"] = "not checkable against revenue or expenses" if not sane else "implausibly large next to revenue and expenses"
+    dc = y.get("direct_care") or {}
+    lo, hi = FIN_PRD_RANGE["direct_care"]
+    if not dc.get("total") or dc.get("per_resident_day") is None or not (lo <= dc["per_resident_day"] <= hi):
+        unusable["direct_care"] = "missing, zero or outside the plausible range"
+    for d in SUPPORT_DEPTS:
+        dep = y.get(d) or {}
+        if dep.get("per_resident_day") is None:
+            unusable[d] = ("outside the plausible range" if f"{d} per resident day" in (support_flags or [])
+                           else "dietary lines do not add up to the printed total" if d == "dietary" and "dietary lines do not add up" in (support_flags or [])
+                           else "missing")
+    if y.get("raw_food_per_resident_day") is None:
+        unusable["raw_food"] = "not comparable (food bought by a contractor, lines do not add up, or missing)"
+    if status == "check_failed" or "resident_days" in unusable:
+        use = False
+    else:
+        use = True
+    return {"status": status, "use_in_reports": use, "issues": issues, "unusable_fields": unusable}
+
+
 # ------------------------------------------------------------------ builder
 
 class Builder:
@@ -541,6 +609,9 @@ class Builder:
                 "housekeeping": sup("housekeeping"),
                 "laundry": sup("laundry"),
                 "raw_food_per_resident_day": ((ss.get("food") or {}).get("raw_food_per_resident_day")),
+                "food": {k: (ss.get("food") or {}).get(k) for k in
+                         ("raw_food", "nonfood_supplies", "contract_services", "purchasing", "contract_share", "lines_add_up")},
+                "dietary_staff_on_payroll": ss.get("dietary_staff_on_payroll"),
                 "pbj_same_period": y.get("pbj_same_period"),
                 "statewide_median_same_year": {
                     "direct_care_per_resident_day": med.get("direct_care_per_resident_day"),
@@ -549,6 +620,8 @@ class Builder:
                     "dietary_per_resident_day": med.get("dietary_per_resident_day"),
                     "housekeeping_per_resident_day": med.get("housekeeping_per_resident_day"),
                     "laundry_per_resident_day": med.get("laundry_per_resident_day"),
+                    "raw_food_per_resident_day": med.get("raw_food_per_resident_day"),
+                    "management_fees_per_resident_day": med.get("management_fees_per_resident_day"),
                     "reports": med.get("reports"),
                 } if med else None,
                 "related_parties": [
@@ -558,13 +631,17 @@ class Builder:
                     for r in (y.get("related_parties") or [])
                 ],
                 "management_services": y.get("management_services") or [],
+                "management_company_on_file_during_year": y.get("cms_management_during_year") or [],
             })
+            years[-1]["data_quality"] = year_quality(years[-1], y.get("checks"), ss.get("flags"))
         return {
             "definitions": {
                 "wages_reported": "Salaries and wages printed on the cost report for that department. Not total department spending.",
                 "total_department_cost": "Wages + allocated fringe + non-salary costs for the department, as computed by the site's cost-report build.",
                 "direct_care": "DSS rate-setting definition: nursing and aide salaries, related fringe (allocated), and nursing pool (agency) cost.",
                 "figures": "As filed by the home before DSS audit. Not Medicaid-allowable costs.",
+                "data_quality": "Per year: status validated (core figures present, payer days add up, nothing out of range), unvalidated (read, but printed totals did not fully reconcile: treat as provisional) or check_failed (core figures missing or implausible: not used in reports). unusable_fields lists figures in that year that should not be quoted, with the reason.",
+                "raw_food_per_resident_day": "Raw food cost / resident days. Only shown when the home buys its own food; when a contractor supplies meals the raw-food line is not comparable.",
             },
             "caveats": c.get("caveats") or self.d["cost_index"].get("caveats"),
             "years": years,
@@ -677,48 +754,258 @@ class Builder:
 
     def financial_findings(self, ccn, rep, fin):
         ev = self.ev
-        ys = [y for y in fin["years"] if not y.get("part_year")]
-        if not ys:
+        rep["definitions"] = dict(fin["definitions"])
+        rep["links"]["underlying_data"] = rep["links"]["financials"]
+        full = [y for y in fin["years"] if not y.get("part_year")]
+        if not full:
             rep["missing_data"].append({"field": "dss_cost_reports", "reason": "No full-year DSS cost report for this CCN."})
             return
-        y = ys[-1]
+        usable_years = [y for y in full if y["data_quality"]["use_in_reports"]]
+        for y in full:
+            q = y["data_quality"]
+            if not q["use_in_reports"]:
+                rep["missing_data"].append({
+                    "field": f"dss_cost_report_{y['cost_year']}",
+                    "reason": f"Cost year {y['cost_year']} is left out of this report: its figures failed the site's checks ("
+                              + ("; ".join(q["issues"] + [f"{k}: {v}" for k, v in q["unusable_fields"].items() if k == "resident_days"]) or "core figures missing")
+                              + "). The filing is still listed in financials.json."})
+        if not usable_years:
+            rep["missing_data"].append({"field": "dss_cost_reports", "reason": "No cost-report year for this CCN passed the site's checks."})
+            return
+        y = usable_years[-1]
         cy = y["cost_year"]
+        q = y["data_quality"]
+        bad = q["unusable_fields"]
+        if full[-1] is not y:
+            rep["limitations"].append(f"The latest filed cost year ({full[-1]['cost_year']}) failed the site's checks, so this report uses cost year {cy}.")
         rec = f"DSS cost report {cy}, {y.get('source_file')}"
-        e = [ev("dss_cost_reports", period=f"{y['period_start']} to {y['period_end']}", record=rec, ccn=ccn,
-                verification="source_record" if y.get("validated_against_printed_totals") else "source_record_unvalidated")]
+        period = f"{y['period_start']} to {y['period_end']}"
+        note = None
+        if q["status"] == "unvalidated":
+            note = "Printed totals on this report did not fully reconcile (" + "; ".join(q["issues"]) + "). Treat figures as provisional."
+            rep["limitations"].append(f"Cost year {cy} figures are provisional: " + "; ".join(q["issues"]) + ".")
+        e = [ev("dss_cost_reports", period=period, record=rec, ccn=ccn, note=note,
+                verification="source_record" if q["status"] == "validated" else "source_record_unvalidated")]
         dc = y["direct_care"]
         med = y.get("statewide_median_same_year") or {}
-        rep["metrics"]["latest_cost_year"] = cy
-        rep["metrics"]["direct_care_per_resident_day"] = dc.get("per_resident_day")
-        rep["metrics"]["statewide_median_direct_care_per_resident_day"] = med.get("direct_care_per_resident_day")
-        rep["metrics"]["management_fee_reported"] = y.get("management_fee_reported")
-        rep["metrics"]["related_party_total_reported"] = y.get("related_party_total_reported")
-        if dc.get("per_resident_day") is not None:
+        money = lambda v: f"${v:,.0f}"  # noqa: E731
+        m = rep["metrics"]
+        m["latest_cost_year"] = cy
+        m["cost_report_check_status"] = q["status"]
+        m["resident_days"] = y.get("resident_days")
+        for k, v in bad.items():
+            if k in ("revenue_total", "expenses_total", "net_income"):
+                continue  # whole-home totals are not used in reports; see financials.json
+            rep["missing_data"].append({"field": f"{k}_{cy}", "reason": f"Cost year {cy} {k.replace('_', ' ')} is not used: {v}."})
+
+        if "direct_care" not in bad:
+            m["direct_care_per_resident_day"] = dc.get("per_resident_day")
+            m["statewide_median_direct_care_per_resident_day"] = med.get("direct_care_per_resident_day")
             rep["findings"].append(finding(
                 "fin-direct-care", "calculated",
                 f"Cost year {cy}: direct care cost was ${dc['per_resident_day']} per resident day "
                 f"({round((dc.get('share_of_expenses') or 0) * 100, 1)}% of expenses); Connecticut median ${med.get('direct_care_per_resident_day')}.",
                 e, value=dc["per_resident_day"], formula="(nursing + aide salaries + allocated fringe + nursing pool) / resident days"))
+            pool = dc.get("nursing_pool_agency") or 0
+            if pool and dc.get("total"):
+                share = round(pool / dc["total"] * 100, 1)
+                m["agency_share_of_direct_care_pct"] = share
+                rep["findings"].append(finding(
+                    "fin-agency-share", "calculated",
+                    f"Cost year {cy}: nursing pool (agency) staff counted in direct care cost {money(pool)}, {share}% of the {money(dc['total'])} direct care cost.",
+                    e, value=share, formula="nursing pool direct-care cost / direct care total x 100"))
         if y.get("management_fee_reported"):
+            m["management_fee_reported"] = y["management_fee_reported"]
+            mf_prd = round(y["management_fee_reported"] / y["resident_days"], 2)
+            m["management_fee_per_resident_day"] = mf_prd
+            m["statewide_median_management_fee_per_resident_day"] = med.get("management_fees_per_resident_day")
             rep["findings"].append(finding(
                 "fin-mgmt-fee", "confirmed_fact",
-                f"Cost year {cy}: the home reported ${y['management_fee_reported']:,.0f} in management fees (cost report line m12).",
+                f"Cost year {cy}: the home reported {money(y['management_fee_reported'])} in management fees (cost report line m12), "
+                f"${mf_prd} per resident day" + (f" (Connecticut median ${med['management_fees_per_resident_day']} among homes reporting a fee)." if med.get("management_fees_per_resident_day") else "."),
                 e, value=y["management_fee_reported"]))
+        if y.get("related_party_total_reported") is not None:
+            m["related_party_total_reported"] = y["related_party_total_reported"]
         if y.get("nursing_pool_agency_cost"):
+            m["nursing_pool_agency_cost"] = y["nursing_pool_agency_cost"]
             rep["findings"].append(finding(
                 "fin-agency", "confirmed_fact",
-                f"Cost year {cy}: nursing pool (agency) cost reported was ${y['nursing_pool_agency_cost']:,.0f}.",
+                f"Cost year {cy}: total nursing pool (agency) fees on the report were {money(y['nursing_pool_agency_cost'])}"
+                + (f", of which {money(dc['nursing_pool_agency'])} is counted in direct care." if dc.get("nursing_pool_agency") and dc["nursing_pool_agency"] != y["nursing_pool_agency_cost"] else "."),
                 e, value=y["nursing_pool_agency_cost"]))
         if y.get("operating_margin_nursing_home") is not None:
+            m["operating_margin_nursing_home"] = y["operating_margin_nursing_home"]
+            m["statewide_median_operating_margin_nursing_home"] = med.get("operating_margin_nh")
             rep["findings"].append(finding(
                 "fin-margin", "calculated",
                 f"Cost year {cy}: nursing home operating margin was {round(y['operating_margin_nursing_home'] * 100, 1)}% "
                 f"(Connecticut median {round((med.get('operating_margin_nh') or 0) * 100, 1)}%).",
                 e, value=y["operating_margin_nursing_home"], formula="(nursing home revenue - nursing home expenses) / revenue"))
-        rep["historical_trends"]["direct_care_per_resident_day"] = {y["cost_year"]: y["direct_care"]["per_resident_day"] for y in ys}
-        rep["historical_trends"]["management_fee_reported"] = {y["cost_year"]: y["management_fee_reported"] for y in ys}
-        rep["historical_trends"]["related_party_total_reported"] = {y["cost_year"]: y["related_party_total_reported"] for y in ys}
-        rep["limitations"].append("Cost report figures are the home's own filing before DSS audit; wages are not the same as total department spending.")
+
+        # Support departments: wages, fringe and non-wage costs side by side, never wages alone.
+        dept_rows = []
+        for d in SUPPORT_DEPTS:
+            dep = y.get(d) or {}
+            if not dep.get("total_department_cost") and not dep.get("wages_reported"):
+                rep["missing_data"].append({"field": f"{d}_{cy}", "reason": f"Cost year {cy}: no {d} costs were read from the report."})
+                continue
+            tot = dep.get("total_department_cost") or 0
+            wages, fr, other = dep.get("wages_reported") or 0, dep.get("fringe_allocated") or 0, dep.get("non_salary") or 0
+            prd, mprd = dep.get("per_resident_day"), med.get(f"{d}_per_resident_day")
+            row = {"department": DEPT_LABEL[d], "wages_reported": dep.get("wages_reported"), "fringe_allocated": dep.get("fringe_allocated"),
+                   "non_wage_costs": dep.get("non_salary"), "total_department_cost": dep.get("total_department_cost"),
+                   "wage_share_pct": round(wages / tot * 100, 1) if tot else None,
+                   "non_wage_share_pct": round(other / tot * 100, 1) if tot else None,
+                   "per_resident_day": prd if d not in bad else None, "statewide_median_per_resident_day": mprd,
+                   "usable": d not in bad, "note": bad.get(d)}
+            dept_rows.append(row)
+            if d in bad:
+                continue
+            m[f"{d}_per_resident_day"] = prd
+            m[f"statewide_median_{d}_per_resident_day"] = mprd
+            extra = ""
+            if d == "dietary":
+                food = y.get("food") or {}
+                if y.get("raw_food_per_resident_day") is not None:
+                    m["raw_food_per_resident_day"] = y["raw_food_per_resident_day"]
+                    m["statewide_median_raw_food_per_resident_day"] = med.get("raw_food_per_resident_day")
+                    extra = (f" Raw food was {money(food.get('raw_food') or 0)} (${y['raw_food_per_resident_day']} per resident day; "
+                             f"Connecticut median ${med.get('raw_food_per_resident_day')})")
+                    extra += f" and purchased dietary services {money(food['contract_services'])}." if food.get("contract_services") else "."
+                elif food.get("purchasing") == "contractor":
+                    extra = (" Most food spending was a purchased (contracted) service"
+                             + (f" ({money(food['contract_services'])})" if food.get("contract_services") else "")
+                             + ", so raw food per resident day is not comparable with homes that buy their own food.")
+            rep["findings"].append(finding(
+                f"fin-dept-{d}", "calculated",
+                f"Cost year {cy}: {d} cost {money(tot)}, ${prd} per resident day (Connecticut median ${mprd}). "
+                f"Wages {money(wages)} ({row['wage_share_pct']}%), allocated fringe {money(fr)} ({round(fr / tot * 100, 1) if tot else 0}%), "
+                f"non-wage costs {money(other)} ({row['non_wage_share_pct']}%).{extra}",
+                e, value=prd, formula=f"({d} wages + their share of fringe benefits + {d} non-salary costs) / resident days"))
+            if mprd and prd is not None and (prd < 0.5 * mprd or prd > 1.75 * mprd):
+                low = prd < mprd
+                rep["findings"].append(finding(
+                    f"fin-dept-{d}-question", "investigative_question",
+                    f"Cost year {cy}: {d} cost per resident day (${prd}) was {round(prd / mprd * 100)}% of the Connecticut median (${mprd}). "
+                    + (f"Ask how {d} is handled: by the home's own staff, by a contracted service, or with costs reported in another department."
+                       if low else f"Ask what drove the higher {d} cost (contracts, supplies, staffing or a one-time expense)."),
+                    e, value=round(prd / mprd, 2), severity="attention"))
+                rep["recommended_follow_up"].append(
+                    f"Ask the home or DSS how {d} costs are reported on the cost report (in-house staff, purchased services or another department).")
+            if not wages and other:
+                rep["findings"].append(finding(
+                    f"fin-dept-{d}-no-wages", "investigative_question",
+                    f"Cost year {cy}: no {d} wages were reported but {money(other)} in non-wage {d} costs was. This often means the service is contracted; the cost report alone does not name the contractor.",
+                    e, value=other))
+
+        # Who the home paid, as disclosed on the cost report, and who CMS listed as manager that year.
+        rels = []
+        ms_used = set()
+        for i, rp in enumerate(y["related_parties"]):
+            if not rp.get("name_as_printed") and not rp.get("cost_reported"):
+                continue
+            also = None
+            for j, ms in enumerate(y["management_services"]):
+                if norm_name(rp.get("name_as_printed")) and norm_name(ms.get("name") or "").startswith(norm_name(rp["name_as_printed"])) and ms.get("cost") == rp.get("cost_reported"):
+                    also = "management services line"
+                    ms_used.add(j)
+            rels.append({"relationship_type": "cost_report_related_party", "entity_name": rp.get("name_as_printed"),
+                         "description": rp.get("description"), "category": rp.get("category"),
+                         "cost_reported": rp.get("cost_reported"), "actual_cost_to_related_party": rp.get("actual_cost_to_related_party"),
+                         "where_on_report": rp.get("where_on_report"), "also_reported_on": also, "cost_year": cy,
+                         "start": y["period_start"], "end": y["period_end"], "source_key": "dss_cost_reports"})
+            what = rp.get("description") or rp.get("category") or "an unspecified purpose"
+            cost = money(rp["cost_reported"]) if rp.get("cost_reported") is not None else "an amount not read from the report"
+            who = f"\"{rp['name_as_printed']}\"" if rp.get("name_as_printed") else "a party whose name was not read from the report"
+            rep["findings"].append(finding(
+                f"rp-{cy}-{i}", "confirmed_fact",
+                f"Cost year {cy}: related party disclosed as {who} for {what}, cost reported {cost}"
+                + (f" ({rp['where_on_report']})" if rp.get("where_on_report") else "") + ".",
+                [ev("dss_cost_reports", period=period, record=f"DSS cost report {cy} {rp.get('where_on_report') or ''}".strip(), ccn=ccn,
+                    note="Name text is read from the PDF by software and may be truncated.")],
+                value=rp.get("cost_reported")))
+        for j, ms in enumerate(y["management_services"]):
+            if j in ms_used or not (ms.get("name") or ms.get("cost")):
+                continue
+            rels.append({"relationship_type": "cost_report_management_services", "entity_name": (ms.get("name") or "")[:120] or None,
+                         "description": ms.get("description"), "cost_reported": ms.get("cost"), "cost_year": cy,
+                         "start": y["period_start"], "end": y["period_end"], "source_key": "dss_cost_reports"})
+        for mc in y.get("management_company_on_file_during_year") or []:
+            rels.append({"relationship_type": "management_company_on_file", "company_id": mc.get("company_id"), "company_name": mc.get("name"),
+                         "start": mc.get("start"), "end": mc.get("end"), "current": mc.get("current"), "source_key": "management_companies"})
+            rep["findings"].append(finding(
+                f"fin-mgmt-on-file-{mc.get('company_id')}-{mc.get('start')}-{mc.get('end') or 'present'}", "confirmed_fact",
+                f"During cost year {cy}, {mc.get('name')} was on file as a management company for this home ({mc.get('start')} to {mc.get('end') or 'present'}).",
+                [ev("management_companies", period=f"{mc.get('start')} to {mc.get('end') or 'present'}", record=mc.get("company_id"), ccn=ccn)]))
+        rep["relationships"] = rels
+        if rels and not y["related_parties"] and not y["management_services"]:
+            pass
+        elif not rels:
+            rep["missing_data"].append({"field": f"related_parties_{cy}", "reason": f"No related parties or management-service payees were read from the cost year {cy} report. That means none were read, not that none exist."})
+
+        # Year-by-year table and trends, from years that passed the checks.
+        def val(yr, field, getter):
+            return None if field in yr["data_quality"]["unusable_fields"] else getter(yr)
+        by_year = []
+        for yr in usable_years:
+            md = yr.get("statewide_median_same_year") or {}
+            by_year.append({
+                "cost_year": yr["cost_year"], "check_status": yr["data_quality"]["status"],
+                "resident_days": yr.get("resident_days"),
+                "direct_care_per_resident_day": val(yr, "direct_care", lambda z: z["direct_care"]["per_resident_day"]),
+                "statewide_median_direct_care_per_resident_day": md.get("direct_care_per_resident_day"),
+                "nursing_pool_agency_cost": yr.get("nursing_pool_agency_cost"),
+                "operating_margin_nursing_home": yr.get("operating_margin_nursing_home"),
+                "statewide_median_operating_margin_nursing_home": md.get("operating_margin_nh"),
+                "management_fee_reported": yr.get("management_fee_reported"),
+                "related_party_total_reported": yr.get("related_party_total_reported"),
+                **{f"{d}_per_resident_day": val(yr, d, lambda z, d=d: z[d]["per_resident_day"]) for d in SUPPORT_DEPTS},
+                **{f"statewide_median_{d}_per_resident_day": md.get(f"{d}_per_resident_day") for d in SUPPORT_DEPTS},
+                "raw_food_per_resident_day": val(yr, "raw_food", lambda z: z.get("raw_food_per_resident_day")),
+            })
+        ht = rep["historical_trends"]
+        for k in ("direct_care_per_resident_day", "nursing_pool_agency_cost", "operating_margin_nursing_home", "management_fee_reported",
+                  "related_party_total_reported", "dietary_per_resident_day", "housekeeping_per_resident_day", "laundry_per_resident_day",
+                  "raw_food_per_resident_day"):
+            ht[k] = {r["cost_year"]: r[k] for r in by_year}
+        rep["tables"] = [
+            {"id": "support-departments", "title": f"Support department costs, cost year {cy}",
+             "description": "Wages alone are not department spending: each department's total is wages + its share of fringe benefits + non-wage costs (supplies, purchased services, other).",
+             "source_key": "dss_cost_reports", "reporting_period": period, "rows": dept_rows},
+            {"id": "financials-by-year", "title": "Cost-report figures by year",
+             "description": "Only years that passed the site's checks. check_status 'unvalidated' means the printed totals did not fully reconcile; treat those figures as provisional. Statewide medians use validated reports only.",
+             "source_key": "dss_cost_reports", "rows": by_year},
+        ]
+        trend = [r for r in by_year if r["direct_care_per_resident_day"] is not None]
+        if len([r for r in trend if r["check_status"] == "validated"]) >= 3:
+            trend = [r for r in trend if r["check_status"] == "validated"]  # endpoints from reconciled reports only
+        if len(trend) >= 3:
+            a, b_ = trend[0], trend[-1]
+            ma, mb = a["statewide_median_direct_care_per_resident_day"], b_["statewide_median_direct_care_per_resident_day"]
+            rep["findings"].append(finding(
+                "fin-direct-care-trend", "calculated",
+                f"Direct care cost per resident day went from ${a['direct_care_per_resident_day']} (cost year {a['cost_year']}) to "
+                f"${b_['direct_care_per_resident_day']} (cost year {b_['cost_year']})"
+                + (f"; over the same years the Connecticut median went from ${ma} to ${mb}." if ma and mb else "."),
+                [ev("dss_cost_reports", period=f"{a['cost_year']}-{b_['cost_year']}", record=f"CCN {ccn}, {len(trend)} cost years", ccn=ccn,
+                    verification="derived", note="Endpoints use validated reports when at least three are on file; years that failed the site's checks are always left out.")],
+                value=round(b_["direct_care_per_resident_day"] - a["direct_care_per_resident_day"], 2),
+                formula="latest usable year direct care per resident day - earliest usable year"))
+        ag = [r for r in by_year if r["nursing_pool_agency_cost"] is not None]
+        if len([r for r in ag if r["check_status"] == "validated"]) >= 3:
+            ag = [r for r in ag if r["check_status"] == "validated"]
+        if len(ag) >= 3 and ag[-1]["nursing_pool_agency_cost"]:
+            peak = max(ag, key=lambda r: r["nursing_pool_agency_cost"])
+            rep["findings"].append(finding(
+                "fin-agency-trend", "calculated",
+                f"Nursing pool (agency) cost was {money(ag[0]['nursing_pool_agency_cost'])} in cost year {ag[0]['cost_year']} and "
+                f"{money(ag[-1]['nursing_pool_agency_cost'])} in cost year {ag[-1]['cost_year']}"
+                + (f"; the highest year was {peak['cost_year']} ({money(peak['nursing_pool_agency_cost'])})." if peak is not ag[-1] else ", the highest year on file."),
+                [ev("dss_cost_reports", period=f"{ag[0]['cost_year']}-{ag[-1]['cost_year']}", record=f"CCN {ccn}, {len(ag)} cost years", ccn=ccn,
+                    verification="derived", note="Not adjusted for inflation.")],
+                value=ag[-1]["nursing_pool_agency_cost"], formula="nursing pool professional fees as reported each year"))
+        rep["limitations"].append("Dollar figures are as filed, before DSS audit, and are not adjusted for inflation. Compare per-resident-day figures with the Connecticut median for the same year.")
+        rep["limitations"].append(f"Every year's full detail, including years left out here and the reason, is in {rep['links']['financials']}.")
 
     def regulatory_findings(self, ccn, rep, insp):
         ev = self.ev
@@ -799,7 +1086,7 @@ class Builder:
                 ident_ev))
         for m in own["management_companies"]:
             rep["findings"].append(finding(
-                f"mgmt-{m['company_id']}", "confirmed_fact",
+                f"mgmt-{m['company_id']}-{m['start']}-{m['end'] or 'present'}", "confirmed_fact",
                 f"{m['company_name']} is listed as management company from {m['start']} to {m['end'] or 'present'}.",
                 [ev("management_companies", period=f"{m['start']} to {m['end'] or 'present'}", record=m["company_id"], ccn=ccn)]))
         # shared principals by CMS associate id (strong id), current or past
@@ -821,7 +1108,7 @@ class Builder:
                 [ev("cms_all_owners", record=f"associate {aid}", ccn=ccn, verification="source_record",
                     note="Matched on CMS associate ID, not on name.")]))
         # cost report related parties
-        ys = fin["years"]
+        ys = [y for y in fin["years"] if y["data_quality"]["use_in_reports"]] or fin["years"]
         if ys:
             y = ys[-1]
             for i, rp in enumerate(y["related_parties"]):
@@ -915,15 +1202,20 @@ class Builder:
         self.relationship_findings(ccn, r, own, fin, screening=True)
         reports[r["report_type"]] = r
         comp = self.base_report("facility-comprehensive", ccn, ident)
+        comp["tables"], comp["definitions"] = [], {}
         for t in ("ownership-network", "staffing-analysis", "financial-transparency", "regulatory-history"):
             sub = reports[t]
-            comp["findings"].extend(sub["findings"])
+            seen = {f["id"] for f in comp["findings"]}
+            comp["findings"].extend(f for f in sub["findings"] if f["id"] not in seen)
+            comp["tables"].extend(sub.get("tables") or [])
+            comp["definitions"].update(sub.get("definitions") or {})
             comp["metrics"].update(sub["metrics"])
             comp["historical_trends"].update(sub["historical_trends"])
             comp["missing_data"].extend(sub["missing_data"])
             comp["recommended_follow_up"].extend(sub["recommended_follow_up"])
             comp["limitations"].extend(x for x in sub["limitations"] if x not in comp["limitations"])
-        comp["relationships"] = reports["ownership-network"]["relationships"]
+        comp["relationships"] = reports["ownership-network"]["relationships"] + [
+            r for r in reports["financial-transparency"]["relationships"] if r["relationship_type"] != "management_company_on_file"]
         comp["identity"] = ident
         if ident.get("operating_status") and ident["operating_status"] != "in_current_cms_provider_info":
             comp["findings"].insert(0, finding(
@@ -940,15 +1232,32 @@ class Builder:
             self.write(f"v1/reports/{t}/{ccn}.json", rep)
         return ident, own, staff, fin, insp
 
+    # Which findings lead the executive summary, per report type (attention items always come first).
+    SUMMARY_PRIORITY = {
+        "financial-transparency": ["fin-direct-care", "fin-margin", "fin-agency-share", "fin-dept-dietary", "fin-dept-housekeeping",
+                                   "fin-dept-laundry", "fin-mgmt-fee", "rp-", "fin-direct-care-trend"],
+    }
+
     @staticmethod
     def summarize(rep):
         out = []
         order = {"attention": 0, "info": 1}
-        fs = sorted(rep["findings"], key=lambda f: (order.get(f["severity"], 2), ["confirmed_fact", "calculated", "possible_association", "investigative_question"].index(f["kind"])))
+        prio = Builder.SUMMARY_PRIORITY.get(rep.get("report_type"), [])
+
+        def rank(f):
+            p = next((i for i, x in enumerate(prio) if f["id"] == x or (x.endswith("-") and f["id"].startswith(x))), len(prio))
+            return (order.get(f["severity"], 2), p, ["confirmed_fact", "calculated", "possible_association", "investigative_question"].index(f["kind"]))
+        fs = sorted(rep["findings"], key=rank)
         for f in fs[:6]:
             out.append({"text": f["statement"], "kind": f["kind"], "finding_id": f["id"]})
         if rep["missing_data"]:
-            out.append({"text": "Missing data: " + "; ".join(m["reason"] for m in rep["missing_data"][:3]), "kind": "missing_data", "finding_id": None})
+            years = [m["field"].rsplit("_", 1)[1] for m in rep["missing_data"] if re.fullmatch(r"dss_cost_report_\d{4}", m["field"])]
+            rest = [m for m in rep["missing_data"] if not re.fullmatch(r"dss_cost_report_\d{4}", m["field"])]
+            bits = []
+            if years:
+                bits.append(f"cost year{'s' if len(years) > 1 else ''} {', '.join(years)} left out because the figures failed the site's checks (reasons under missing_data)")
+            bits += [m["reason"] for m in rest[:3]]
+            out.append({"text": "Missing data: " + "; ".join(bits), "kind": "missing_data", "finding_id": None})
         return out
 
     # ----------------------------------------------------------- companies
@@ -990,7 +1299,7 @@ class Builder:
                                              "cms_role_verbatim": h.get("role"), "start": h.get("start"), "end": h.get("end"), "current": h.get("current"),
                                              "staffing_during_management": ctx, "source_key": "management_companies"})
                 rep["findings"].append(finding(
-                    f"home-{h['ccn']}", "confirmed_fact",
+                    f"home-{h['ccn']}-{h.get('start')}-{h.get('end') or 'present'}", "confirmed_fact",
                     f"{h.get('facility_name')} ({h['ccn']}): {h.get('role')} from {h.get('start')} to {h.get('end') or 'present'}"
                     + (f"; staffing during this period averaged {ctx.get('total_nurse_hprd')} total nurse HPRD over {ctx.get('quarters')} quarters." if ctx.get("total_nurse_hprd") is not None else "."),
                     [self.ev("management_companies", period=f"{h.get('start')} to {h.get('end') or 'present'}", record=f"{cid} / CCN {h['ccn']}")]))
@@ -1030,7 +1339,7 @@ class Builder:
                 "profile": f"{SITE}/api/v1/facilities/{ccn}/profile.json",
             })
             search.append({"type": "facility", "id": ccn, "name": ident["facility_name"], "ccns": [ccn]})
-            for alt in {ident.get("legal_entity_cms_enrollment"), ident.get("doing_business_as_cms_enrollment"), (self.cost.get(ccn) or {}).get("facility_name")}:
+            for alt in sorted({a for a in (ident.get("legal_entity_cms_enrollment"), ident.get("doing_business_as_cms_enrollment"), (self.cost.get(ccn) or {}).get("facility_name")) if a}):
                 if alt and alt != ident["facility_name"]:
                     search.append({"type": "facility_alias", "id": ccn, "name": alt, "ccns": [ccn]})
             for y in (self.cost.get(ccn) or {}).get("cost_years") or []:
