@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cost Reports 101 | Connecticut LTCOP</title>
+  <meta name="description" content="A plain-language guide to Connecticut nursing home cost reports: what homes report, what DSS removes, how the Medicaid daily rate is built, and how to read the numbers on this site. With charts from real Connecticut data." />
+  <link rel="stylesheet" href="/Assets/shared.css">
+  <link rel="stylesheet" href="/Assets/ltcop-dashboard.css">
+  <script defer src="/Assets/shared.js"></script>
+  <script defer src="/Assets/cost-reports-101.js"></script>
+  <style>
+    .c101 { --ink:#173761; --ink-deep:#102744; --muted:#526170; --line:#dbe0e5; --red:#e3212b; --teal:#2e8fa3; --gold:#c98a12; --gray:#8a97a8; --soft:#edf2f6; }
+    .c101 .hero, .c101 .hero h1 { text-align:left; }
+    .c101 .lede { font-size:18px; line-height:1.55; max-width:68ch; color:#253746; }
+    .c101 h2 { margin:0 0 6px; font-size:24px; color:var(--ink-deep); }
+    .c101 h3 { margin:14px 0 4px; color:var(--ink); }
+    .c101 p, .c101 li { max-width:72ch; line-height:1.6; }
+    .c101 section.step { margin-top:34px; }
+    .c101 .step-head { display:flex; gap:14px; align-items:baseline; }
+    .c101 .step-num { flex:none; width:34px; height:34px; border-radius:50%; background:var(--ink); color:#fff; display:grid; place-items:center; font-weight:800; }
+    .c101 .card { background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+    .c101 .two { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:18px; align-items:start; }
+    .c101 .big { font-size:42px; font-weight:800; color:var(--ink); line-height:1; font-variant-numeric:tabular-nums; }
+    .c101 .big-label { color:var(--muted); font-size:14px; margin-top:4px; }
+    .c101 .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-top:12px; }
+    .c101 .stat { background:#fff; border:1px solid var(--line); border-radius:12px; padding:14px; }
+    .c101 .stat strong { display:block; font-size:24px; color:var(--ink); font-variant-numeric:tabular-nums; }
+    .c101 .stat span { font-size:13px; color:var(--muted); }
+    .c101 .callout { border-left:4px solid var(--red); background:#fff; padding:10px 14px; border-radius:0 10px 10px 0; margin:12px 0; }
+    .c101 .callout.ok { border-left-color:var(--teal); }
+    .c101 svg { display:block; width:100%; height:auto; }
+    .c101 svg text { font-family:inherit; }
+    .c101 .flow-box { fill:#fff; stroke:var(--line); }
+    .c101 .chart-note { font-size:13px; color:var(--muted); margin-top:6px; }
+    .c101 details.gloss { background:#fff; border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin:8px 0; }
+    .c101 details.gloss summary { cursor:pointer; font-weight:700; color:var(--ink); }
+    .c101 .picker { display:flex; flex-wrap:wrap; gap:10px; align-items:end; margin:10px 0 14px; }
+    .c101 .picker label { font-weight:700; display:block; font-size:14px; margin-bottom:4px; }
+    .c101 .picker input { font:inherit; padding:9px 11px; border:1px solid var(--line); border-radius:8px; min-width:min(420px, 80vw); }
+    .c101 .home-out { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr)); gap:16px; }
+    .c101 .legend { font-size:13px; color:#334553; margin:4px 0 8px; }
+    .c101 .key { display:inline-block; width:12px; height:12px; border-radius:3px; vertical-align:-1px; margin-right:5px; }
+    .c101 .bar-row text { font-size:13px; }
+    .c101 table.simple { width:100%; border-collapse:collapse; font-size:14px; }
+    .c101 table.simple th, .c101 table.simple td { padding:6px 8px; border-bottom:1px solid var(--line); text-align:left; }
+    .c101 table.simple td.num { text-align:right; font-variant-numeric:tabular-nums; }
+    .c101 .toc { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+    .c101 .toc a { padding:6px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--ink); text-decoration:none; font-size:14px; font-weight:600; }
+    .c101 .toc a:hover { background:var(--soft); }
+    .c101 .flow { list-style:none; counter-reset:f; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:26px; padding:0; margin:12px 0 4px; }
+    .c101 .flow li { counter-increment:f; position:relative; background:#fff; border:1px solid var(--line); border-radius:14px; padding:14px 16px; display:grid; gap:4px; }
+    .c101 .flow li::before { content:counter(f); position:absolute; top:-12px; left:14px; width:24px; height:24px; border-radius:50%; background:var(--ink); color:#fff; font-size:13px; font-weight:800; display:grid; place-items:center; }
+    .c101 .flow li:not(:last-child)::after { content:""; position:absolute; right:-22px; top:50%; border:8px solid transparent; border-left-color:var(--gray); transform:translateY(-50%); }
+    .c101 .flow li strong { color:var(--ink); font-size:16px; margin-top:4px; }
+    .c101 .flow li span { font-size:14px; color:#334553; line-height:1.45; }
+    .c101 .flow li em { font-style:normal; font-size:12.5px; color:var(--muted); }
+    .c101 .flow li.dark { background:var(--ink); border-color:var(--ink); }
+    .c101 .flow li.dark::before { background:var(--gold); }
+    .c101 .flow li.dark strong, .c101 .flow li.dark span { color:#fff; }
+    .c101 .flow li.dark em { color:#cfdbea; }
+    .c101 .layers { display:grid; gap:10px; }
+    .c101 .layer { border-radius:8px; padding:11px 14px; color:#fff; font-size:15px; box-sizing:border-box; }
+    .c101 .layer b { display:block; }
+    .c101 .layer-row { display:flex; gap:2%; }
+    .c101 .l1 { background:var(--ink); } .c101 .l2 { background:var(--teal); } .c101 .l3 { background:var(--gold); }
+    .c101 .layer.removed { background:#fde7e8; color:#a1151c; border:1px dashed var(--red); font-size:13px; }
+    @media (max-width: 860px) {
+      .c101 .flow { grid-template-columns:1fr; gap:18px; }
+      .c101 .flow li:not(:last-child)::after { right:auto; left:50%; top:auto; bottom:-20px; border-left-color:transparent; border-top-color:var(--gray); transform:translateX(-50%); }
+      .c101 .layer { font-size:14px; }
+      .c101 .layer.removed { font-size:11.5px; padding:8px; flex:1; width:auto !important; }
+    }
+    @media (max-width: 860px) { .c101 .two { grid-template-columns:1fr; } .c101 .big { font-size:34px; } }
+    @media (prefers-reduced-motion: no-preference) { .c101 .grow { transform-origin:left; animation:c101-grow .7s ease-out both; } }
+    @keyframes c101-grow { from { transform:scaleX(0); } }
+  </style>
+  <link rel="stylesheet" href="/Assets/staffing-layout.css">
+  <script defer src="/Assets/staffing-layout.js"></script>
+  <link rel="stylesheet" href="/Assets/suite-nav.css">
+</head>
+<body class="ltcop-dashboard">
+  <a class="skipLink" href="#main-content">Skip to content</a>
+  <header class="ltcop-masthead" role="banner">
+    <div class="wrap ltcop-masthead-inner">
+      <div class="ltcop-brand">
+        <img class="ltcop-logo" src="/Assets/branding/ct-ltcop-logo-horizontal-color.png" alt="Connecticut Long Term Care Ombudsman Program">
+        <div>
+          <div class="ltcop-suite-title">Nursing Home Staffing Transparency Tools</div>
+          <div class="ltcop-suite-subtitle">Connecticut Long Term Care Ombudsman Program</div>
+        </div>
+      </div>
+      <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
+    </div>
+    <nav class="ltcop-suite-nav suite-menu" aria-label="Staffing suite navigation">
+      <div class="wrap">
+        <a class="suite-top" href="/staffing/">Tools home</a>
+        <a class="suite-top" href="/staffing/reports/">Facility reports</a>
+        <details class="suite-group">
+          <summary>Look up a home</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-staffing-explorer.html"><strong>Facility Explorer</strong><span>Staffing, ratings and follow-up questions for one home</span></a>
+            <a href="/staffing/tools/nursing-home-daily-minimums.html"><strong>Daily staffing vs. CT minimums</strong><span>Every reported day against the state minimum</span></a>
+            <a href="/staffing/tools/nursing-home-inspections.html"><strong>Inspections</strong><span>Citations, complaints and resident rights</span></a>
+            <a href="/staffing/tools/nursing-home-cost-reports.html"><strong>Cost reports</strong><span>What each home reported spending</span></a>
+          </div>
+        </details>
+        <details class="suite-group">
+          <summary>Compare homes</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html"><strong>Statewide comparison</strong><span>Every home side by side, latest quarter</span></a>
+            <a href="/staffing/tools/nursing-home-staffing-change-over-time.html"><strong>Change over time</strong><span>How staffing moved quarter to quarter</span></a>
+            <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html"><strong>Persistent patterns</strong><span>Homes low for several quarters in a row</span></a>
+            <a href="/staffing/tools/nursing-home-cost-report-insights.html"><strong>Cost report insights</strong><span>Spending trends, peers and chains</span></a>
+          </div>
+        </details>
+        <details class="suite-group">
+          <summary>Who runs them</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html"><strong>Owners and affiliations</strong><span>Homes grouped by CMS affiliation</span></a>
+            <a href="/staffing/tools/nursing-home-management-companies.html"><strong>Management companies</strong><span>Which homes each company has managed</span></a>
+            <a href="/staffing/tools/nursing-home-administrator-search.html"><strong>Administrators</strong><span>Where each administrator has served</span></a>
+          </div>
+        </details>
+        <details class="suite-group is-current">
+          <summary>Rules and data</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-cost-reports-101.html" aria-current="page"><strong>Cost reports 101</strong><span>How the money fits together, in plain language</span></a>
+            <a href="/staffing/tools/nursing-home-ct-staffing-rules.html"><strong>Connecticut staffing rules</strong><span>Minimums, effective dates and context</span></a>
+            <a href="/legislation/"><strong>Legislation</strong><span>Bills that affect long-term care residents</span></a>
+            <a href="/api/docs/"><strong>Data API</strong><span>Read-only data for scripts and AI tools</span></a>
+            <a href="/staffing/tools/nursing-home-staffing-methodology.html"><strong>About the data</strong><span>Sources, methods and limits</span></a>
+          </div>
+        </details>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="c101">
+    <section class="wrap hero" aria-labelledby="c101-title">
+      <div class="eyebrow">Cost reports 101</div>
+      <h1 id="c101-title">Where a Connecticut nursing home's money comes from, and where it goes</h1>
+      <p class="lede">Every Connecticut nursing home that takes Medicaid files a yearly cost report with the Department of Social Services (DSS). It is the most detailed public record of a home's money. This page explains, in plain language, what those reports show, what they don't, and how the numbers on this site fit together. You don't need to read the DSS guidebook.</p>
+      <nav class="toc" aria-label="On this page">
+        <a href="#step-1">1. The yearly cycle</a>
+        <a href="#step-2">2. Who pays</a>
+        <a href="#step-3">3. Where a day's money goes</a>
+        <a href="#step-4">4. Reported, reviewed, paid</a>
+        <a href="#step-5">5. How the Medicaid rate is built</a>
+        <a href="#step-6">6. Try it with one home</a>
+        <a href="#step-7">7. Words to know</a>
+      </nav>
+    </section>
+
+    <div class="wrap">
+      <!-- 1 -->
+      <section class="step" id="step-1" aria-labelledby="s1-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">1</span><h2 id="s1-title">The yearly cycle, in four steps</h2></div>
+        <p>A cost report covers one <strong>cost year</strong>, which in Connecticut runs October 1 to September 30. The money moves in a loop: what homes spend this year shapes the Medicaid rate they are paid in later years.</p>
+        <ol class="flow" aria-label="The yearly cost report cycle">
+          <li><strong>Care and spending</strong><span>Staff, food, supplies, building, management</span><em>October 1 to September 30</em></li>
+          <li><strong>Home files its report</strong><span>Every cost, line by line, signed by the owner or administrator</span><em>"Reported" figures</em></li>
+          <li><strong>DSS reviews</strong><span>Removes or moves costs Medicaid does not cover; audits can follow</span><em>"Reviewed" figures</em></li>
+          <li class="dark"><strong>Rate is set</strong><span>One Medicaid daily rate per home, from July 1</span><em>"What Medicaid pays"</em></li>
+        </ol>
+        <p class="chart-note">The loop repeats: DSS rebases rates on newer reports every two to four years, so today's spending shapes future rates.</p>
+        <div class="callout"><strong>The one thing to remember:</strong> cost report figures are the home's own filing. They come <em>before</em> DSS's review and before any audit. This site always labels them "reported".</div>
+      </section>
+
+      <!-- 2 -->
+      <section class="step" id="step-2" aria-labelledby="s2-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">2</span><h2 id="s2-title">Who pays for a resident's day</h2></div>
+        <div class="two">
+          <div>
+            <p>Most nursing home days in Connecticut are paid by <strong>Medicaid</strong> (HUSKY C), which covers long stays for people with limited income and assets. <strong>Medicare</strong> pays for short rehab stays after a hospital visit. The rest is <strong>private pay</strong> and other insurance.</p>
+            <p>That mix matters. A home where most residents are on Medicaid depends heavily on the Medicaid daily rate. Medicare usually pays more per day, but only for a limited time.</p>
+          </div>
+          <div class="card">
+            <div id="payer-chart" aria-live="polite"><p class="chart-note">Loading Connecticut data…</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section class="step" id="step-3" aria-labelledby="s3-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">3</span><h2 id="s3-title">Where one resident day's money goes</h2></div>
+        <p>To compare a 60-bed home with a 200-bed home, everything on this site is divided by <strong>resident days</strong>: one resident living in the home for one day. A home with 100 residents all year has about 36,500 resident days. "Per resident day" is what it costs to care for one person for one day.</p>
+        <div class="two">
+          <div class="card">
+            <div class="big" id="day-cost">…</div>
+            <div class="big-label" id="day-cost-label">Reported cost of one resident day, all Connecticut homes pooled</div>
+            <div id="category-chart" style="margin-top:14px"></div>
+            <p class="chart-note" id="category-note"></p>
+          </div>
+          <div>
+            <h3>How to read it</h3>
+            <ul>
+              <li><strong>Nursing care</strong> is the biggest piece by far: nurses, nurse aides, agency staff and their benefits. DSS calls this <em>direct care</em>.</li>
+              <li><strong>Dietary, housekeeping and laundry</strong> keep residents fed and their rooms and clothes clean. DSS groups these as <em>indirect care</em>.</li>
+              <li><strong>Administrative and general</strong> covers the office, accounting, legal, and <strong>management fees</strong> paid to a management company or parent.</li>
+              <li><strong>Building and property</strong> includes rent, depreciation and property taxes. Rent paid to a company owned by the same people (a <em>related party</em>) is common, and DSS treats it differently (see step 4).</li>
+            </ul>
+            <div class="callout ok">Dietary, housekeeping and laundry on this site are <strong>all-in</strong>: wages + their share of benefits + supplies and contracts. Wages alone understate what a department costs.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section class="step" id="step-4" aria-labelledby="s4-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">4</span><h2 id="s4-title">Three different numbers: reported, reviewed, paid</h2></div>
+        <p>This is where most confusion comes from. There are three layers of money, and they are never the same thing:</p>
+        <div class="card layers" role="img" aria-label="Three layers of nursing home money: reported by the home, what DSS counts after removals and review, and what Medicaid pays as one daily rate. Bar lengths are illustrative.">
+          <div class="layer l1" style="width:100%"><b>1. Reported by the home</b> everything it says it spent</div>
+          <div class="layer-row"><div class="layer l2" style="width:78%"><b>2. What DSS counts</b> after removals and review</div><div class="layer removed" style="width:20%">Removed: bad debt, fees over caps…</div></div>
+          <div class="layer l3" style="width:66%"><b>3. What Medicaid pays</b> one daily rate per Medicaid resident</div>
+          <p class="chart-note">Bar lengths are illustrative, not to scale. The rate is built from past reviewed costs with caps, so it is usually below reported cost per day.</p>
+        </div>
+        <div class="two" style="margin-top:14px">
+          <div>
+            <h3>What gets removed, and why</h3>
+            <p>Some costs never belong in the Medicaid rate. The home removes some itself on its report, and DSS's review removes or moves others. Common examples:</p>
+            <ul id="not-allowed"></ul>
+            <p>The DSS data shows <em>what</em> changed on each line, not <em>why</em>. This site never guesses the reason.</p>
+          </div>
+          <div>
+            <div class="stats" id="review-stats"></div>
+            <div class="callout"><strong>Medicaid money is not earmarked.</strong> DSS pays one daily rate per Medicaid resident. The home decides how to spend it, together with Medicare and private-pay money. So no public record can show "Medicaid dollars spent on laundry", and this site never says that.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 -->
+      <section class="step" id="step-5" aria-labelledby="s5-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">5</span><h2 id="s5-title">How Connecticut builds the Medicaid daily rate</h2></div>
+        <p>DSS sorts each home's allowed costs into five buckets, applies limits, and adds them up into one <strong>per diem</strong> (daily rate). Three buckets are capped at a percentage of what the typical (median) home spends, so a home that spends far more than its peers is not paid for all of it.</p>
+        <div class="two">
+          <div class="card">
+            <svg viewBox="0 0 400 360" role="img" aria-labelledby="rate-t rate-d" id="rate-svg">
+              <title id="rate-t">The five parts of the Medicaid daily rate</title>
+              <desc id="rate-d">A stacked bar made of five parts: direct care, capped at 135 percent of the peer-group median; indirect care, capped at 115 percent; administrative and general, capped at 100 percent; fair rent; and capital-related costs. Direct care is then adjusted each quarter for resident acuity.</desc>
+            </svg>
+          </div>
+          <div>
+            <h3>Then three adjustments</h3>
+            <ol id="rate-adjustments"></ol>
+            <h3>What "capped at 135% of the median" means</h3>
+            <div id="cap-svg-wrap"></div>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <h3 style="margin-top:0" id="rates-title">Medicaid daily rates across Connecticut</h3>
+          <div id="rates-chart"></div>
+          <p class="chart-note" id="rates-note"></p>
+        </div>
+      </section>
+
+      <!-- 6 -->
+      <section class="step" id="step-6" aria-labelledby="s6-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">6</span><h2 id="s6-title">Try it with one home</h2></div>
+        <p>Pick a home to see its own numbers next to Connecticut as a whole. Everything below comes from the same public files as the rest of the site.</p>
+        <div class="picker">
+          <div>
+            <label for="home-input">Nursing home</label>
+            <input id="home-input" list="home-list" placeholder="Start typing a name or town" autocomplete="off">
+            <datalist id="home-list"></datalist>
+          </div>
+        </div>
+        <div id="home-status" class="chart-note" role="status"></div>
+        <div class="home-out" id="home-out"></div>
+      </section>
+
+      <!-- 7 -->
+      <section class="step" id="step-7" aria-labelledby="s7-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">7</span><h2 id="s7-title">Words to know</h2></div>
+        <details class="gloss"><summary>Cost year</summary><p>October 1 to September 30. "Cost year 2025" means October 2024 through September 2025.</p></details>
+        <details class="gloss"><summary>Resident day</summary><p>One resident in the home for one day. Dividing by resident days lets you compare homes of different sizes.</p></details>
+        <details class="gloss"><summary>Direct care</summary><p>Nursing and nurse aide salaries, their fringe benefits, and nursing pool (agency) staff. This is how Connecticut law and DSS define it.</p></details>
+        <details class="gloss"><summary>Nursing pool / agency</summary><p>Nurses and aides hired through a staffing agency instead of as employees. Usually more expensive per hour.</p></details>
+        <details class="gloss"><summary>Related party</summary><p>A company connected to the home's owners, for example a management company or landlord owned by the same people. Homes must list these on the cost report. Being related is not wrongdoing; DSS limits what it counts.</p></details>
+        <details class="gloss"><summary>Fair rent</summary><p>A set yearly amount DSS pays for the building instead of the home's actual rent, mortgage interest or depreciation.</p></details>
+        <details class="gloss"><summary>Imputed days</summary><p>If a home is less than 90% full, DSS divides costs as if it were 90% full, so empty beds don't push the daily rate up.</p></details>
+        <details class="gloss"><summary>Acuity / case mix</summary><p>How much care residents need, measured from required federal assessments (MDS). DSS raises or lowers the direct care part of the rate each quarter based on it.</p></details>
+        <details class="gloss"><summary>Contractual allowance</summary><p>The difference between a home's standard charges and what a payer actually pays. "Medicaid revenue after contractual allowance" is what the home recorded as due from Medicaid.</p></details>
+        <details class="gloss"><summary>Operating margin</summary><p>(Revenue − expenses) ÷ revenue for the nursing home. Negative means the home reported spending more than it took in that year.</p></details>
+      </section>
+
+      <section class="step" aria-labelledby="s8-title">
+        <h2 id="s8-title">What these numbers can't tell you</h2>
+        <ul>
+          <li>Whether care was good. Spending is not quality; see <a href="/staffing/tools/nursing-home-inspections.html">inspections</a> and <a href="/staffing/tools/nursing-home-staffing-explorer.html">staffing</a> for that.</li>
+          <li>Why DSS changed a line, or whether a later audit changed it again.</li>
+          <li>Exactly what Medicaid paid in claims. The site shows the home's recorded Medicaid revenue and DSS's published daily rates.</li>
+          <li>Whether a related-party price was fair. It shows only what was disclosed and what DSS counted.</li>
+        </ul>
+        <p class="chart-note">Sources: DSS Annual Reports of Long-Term Care Facility (cost reports); DSS quarterly cost report data with review adjustments; DSS nursing facility rate letters; DSS 2024 Connecticut Medicaid Nursing Home Cost Report Guidebook; Conn. Gen. Stat. §17b-340d. See <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the data</a> and the <a href="/api/docs/">data API</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="wrap ltcop-footer" role="contentinfo">
+    <div class="panel">
+      <div>
+        <strong>Connecticut Long Term Care Ombudsman Program</strong>
+        <div class="subtle">Cost Reports 101 - a plain-language guide to Connecticut nursing home cost reports.</div>
+      </div>
+      <div class="ltcop-footer-links">
+        <a href="https://portal.ct.gov/ltcop">Official CT LTCOP Website</a>
+        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost reports by home</a>
+      </div>
+    </div>
+  </footer>
+<script src="/Assets/suite-nav.js" defer></script>
+</body>
+</html>

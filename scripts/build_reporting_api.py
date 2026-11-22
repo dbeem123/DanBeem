@@ -635,6 +635,9 @@ class Builder:
                 "dietary": sup("dietary"),
                 "housekeeping": sup("housekeeping"),
                 "laundry": sup("laundry"),
+                "cost_breakdown": ({k: {"amount": v.get("amount"), "per_resident_day": v.get("per_resident_day"), "share": v.get("share")}
+                                    for k, v in ((y.get("cost_breakdown") or {}).get("categories") or {}).items()}
+                                   if (y.get("cost_breakdown") or {}).get("adds_up") else None),
                 "raw_food_per_resident_day": ((ss.get("food") or {}).get("raw_food_per_resident_day")),
                 "food": {k: (ss.get("food") or {}).get(k) for k in
                          ("raw_food", "nonfood_supplies", "contract_services", "purchasing", "contract_share", "lines_add_up")},
