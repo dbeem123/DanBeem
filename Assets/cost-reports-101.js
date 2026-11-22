@@ -270,10 +270,36 @@
     }).catch(function () { st.textContent = 'Could not load this home\'s data.'; });
   }
 
+  function keyDates(d) {
+    var k = d.key_dates; if (!k) return;
+    var flow = $('date-flow');
+    k.timeline.forEach(function (t, i) {
+      var li = el('li', i === k.timeline.length - 1 ? { 'class': 'dark' } : null);
+      li.appendChild(el('em', null, t.date)); li.appendChild(el('strong', null, t.what));
+      li.appendChild(el('span', null, t.detail + ' (' + t.cite + ')')); flow.appendChild(li);
+    });
+    var tb = $('date-rules').querySelector('tbody');
+    k.rules.forEach(function (r) {
+      var tr = el('tr');
+      tr.appendChild(el('td', null, r.when)); tr.appendChild(el('td', { 'data-label': 'What the law requires' }, r.rule));
+      tr.appendChild(el('td', { 'data-label': "If it doesn't happen" }, r.if_not || '—'));
+      var td = el('td', { 'class': 'cite', 'data-label': 'Law' }); td.appendChild(el('a', { href: r.url, rel: 'noopener' }, r.cite)); tr.appendChild(td);
+      tb.appendChild(tr);
+    });
+    $('date-checked').textContent = 'Source: ' + k.checked + '. Citations link to the statute text.';
+    var ul = $('date-not-law'); k.not_in_law.forEach(function (t) { ul.appendChild(el('li', null, t)); });
+    var sb = $('source-table').querySelector('tbody');
+    (d.sources || []).forEach(function (x) {
+      var tr = el('tr'); tr.appendChild(el('td', null, x.group));
+      var td = el('td'); td.appendChild(el('a', { href: x.url, rel: 'noopener' }, x.name)); tr.appendChild(td);
+      tr.appendChild(el('td', null, x.what)); sb.appendChild(tr);
+    });
+  }
+
   function init() {
     fetch('/data/ct_cost_reports_101.json', { cache: 'force-cache' }).then(function (r) { return r.json(); }).then(function (d) {
       base = d;
-      payerChart(d); dayCost(d); reviewStats(d); rateBuild(d); ratesChart(d);
+      payerChart(d); dayCost(d); reviewStats(d); rateBuild(d); ratesChart(d); keyDates(d);
       return loadFacilities();
     }).then(function () {
       var inp = $('home-input');

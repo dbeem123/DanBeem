@@ -19,6 +19,78 @@ ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
 
 
+STATUTES = "https://www.cga.ct.gov/Current/pub/chap_319y.htm"
+DSS = "https://portal.ct.gov/dss/health-and-home-care/medicaid-nursing-home-reimbursement"
+
+
+def key_dates(year):
+    """Dates set by Connecticut law, each with its citation. Text checked against the
+    current statutes (chapter 319y) on cga.ct.gov in November 2026."""
+    return {
+        "checked": "Conn. Gen. Stat. chapter 319y as published on cga.ct.gov, checked November 2026",
+        "timeline": [
+            {"date": f"October 1, {year - 1}", "what": f"Cost year {year} begins", "detail": "Homes report on a year ending September 30.", "cite": "§17b-340(a)"},
+            {"date": f"September 30, {year}", "what": f"Cost year {year} ends", "detail": "Spending for the year is closed out.", "cite": "§17b-340(a)"},
+            {"date": f"February 15, {year + 1}", "what": "Cost report due to DSS", "detail": "With the narrative summary of expenditures.", "cite": "§17b-340(a), §17b-340f(a)"},
+            {"date": "Each July 1", "what": "Medicaid rate year begins", "detail": "Rates run for the state fiscal year, July 1 to June 30.", "cite": "§17b-340d(a)"},
+        ],
+        "rules": [
+            {"when": "By February 15 each year", "rule": "Each home files its annual cost report for the year that ended the previous September 30.",
+             "if_not": "DSS may cut the home's rate by up to 10% if the report is not complete and accurate by February 15.",
+             "cite": "§17b-340(a)", "url": STATUTES + "#sec_17b-340"},
+            {"when": "With each cost report, starting with the year ending September 30, 2023", "rule": "Each home also files a narrative summary of expenditures, including profit and loss statements for the three prior cost years and figures on revenue, expenses, assets, liabilities, debt and cash flow.",
+             "if_not": "A fine of up to $10,000 per incident of noncompliance, after notice and a chance to ask for review.",
+             "cite": "§17b-340f(a), (c)", "url": STATUTES + "#sec_17b-340f"},
+            {"when": "By January 1 each year (starting 2024)", "rule": "DSS posts a link to the annual cost reports and narrative summaries in a conspicuous place on its website.",
+             "if_not": "The law sets no penalty. It also does not say which year's reports must be posted by then.",
+             "cite": "§17b-340f(b)", "url": STATUTES + "#sec_17b-340f"},
+            {"when": "Every quarter", "rule": "The direct care part of each home's rate is adjusted for case mix (how much care residents need).",
+             "if_not": None, "cite": "§17b-340d(a)(1)", "url": STATUTES + "#sec_17b-340d"},
+            {"when": "Every two to four years", "rule": "From July 1, 2025, DSS rebases rates on newer cost reports no more often than every two years and no less often than every four.",
+             "if_not": None, "cite": "§17b-340d(a)(9)", "url": STATUTES + "#sec_17b-340d"},
+        ],
+        "not_in_law": [
+            "Quarterly cost report data files (with DSS review adjustments): no date is set in law. Recent files are dated in their names, for example July 2, 2024, October 1, 2024 and January 2, 2025.",
+            "Rate letters: posted on the DSS rates page; each SFY letter covers July 1 to June 30. The law does not set a posting date.",
+            "CMS federal data (staffing, inspections, ownership) follows CMS's own schedule, not Connecticut law.",
+        ],
+    }
+
+
+SOURCES = [
+    {"group": "Connecticut DSS", "name": "Nursing facility cost reports", "what": "Each home's annual cost report (PDF) and narrative summary",
+     "url": DSS + "/nursing-facility-cost-reports/cost-report"},
+    {"group": "Connecticut DSS", "name": "Quarterly cost report data", "what": "Spreadsheets of every home's cost report lines, with DSS review adjustments",
+     "url": "https://portal.ct.gov/DSS/Health-And-Home-Care/Medicaid-Nursing-Home-Reimbursement/Nursing-Facility-Cost-Reports/Quarterly-Cost-Report-Data"},
+    {"group": "Connecticut DSS", "name": "Nursing facility rates and census", "what": "Rate letters, rate computation data, case-mix files, bed census",
+     "url": DSS + "/medicaid-nursing-home-reimbursement/nursing-facility-rates"},
+    {"group": "Connecticut DSS", "name": "Rate methodology and fees", "what": "How DSS sets nursing home rates",
+     "url": "https://portal.ct.gov/DSS/Health-And-Home-Care/Medicaid-Nursing-Home-Reimbursement/Medicaid-Nursing-Home-Reimbursement/Fees"},
+    {"group": "Connecticut law", "name": "Conn. Gen. Stat. chapter 319y", "what": "§17b-340 (cost reports), §17b-340d (rate method), §17b-340f (summaries and posting)",
+     "url": STATUTES},
+    {"group": "Connecticut DPH", "name": "State licenses and credentials", "what": "Nursing home licenses and licensed beds",
+     "url": "https://data.ct.gov/Business/State-Licenses-and-Credentials/ngch-56tr"},
+    {"group": "Federal CMS", "name": "Payroll-Based Journal staffing", "what": "Daily nurse staffing hours reported by each home",
+     "url": "https://data.cms.gov/quality-of-care/payroll-based-journal-daily-nurse-staffing"},
+    {"group": "Federal CMS", "name": "Provider information", "what": "Star ratings, beds, ownership type, staffing measures",
+     "url": "https://data.cms.gov/provider-data/dataset/4pq5-n9py"},
+    {"group": "Federal CMS", "name": "Health inspection citations", "what": "Deficiencies cited in health inspections",
+     "url": "https://data.cms.gov/provider-data/dataset/r5ix-sfxw"},
+    {"group": "Federal CMS", "name": "Fire safety citations", "what": "Deficiencies cited in fire safety inspections",
+     "url": "https://data.cms.gov/provider-data/dataset/ifjz-ge4w"},
+    {"group": "Federal CMS", "name": "Penalties", "what": "Fines and payment denials",
+     "url": "https://data.cms.gov/provider-data/dataset/g6vv-u9sr"},
+    {"group": "Federal CMS", "name": "SNF all owners", "what": "Owners and managing parties listed with Medicare",
+     "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-all-owners"},
+    {"group": "Federal CMS", "name": "SNF change of ownership", "what": "Ownership changes recorded by Medicare",
+     "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-change-of-ownership"},
+    {"group": "Federal CMS", "name": "SNF enrollments", "what": "Medicare enrollment records for each home",
+     "url": "https://data.cms.gov/provider-characteristics/hospitals-and-other-facilities/skilled-nursing-facility-enrollments"},
+    {"group": "Federal CMS", "name": "SNF Medicare cost reports", "what": "The separate federal cost report each home files with Medicare",
+     "url": "https://data.cms.gov/provider-compliance/cost-report/skilled-nursing-facility-cost-report"},
+]
+
+
 def main():
     idx = json.loads((DATA / "ct_nursing_home_cost_reports.json").read_text(encoding="utf-8"))
     dss = json.loads((DATA / "ct_dss_review.json").read_text(encoding="utf-8"))
@@ -118,6 +190,8 @@ def main():
                                      "rent paid to a related party (replaced by fair rent)", "owner salaries above published limits",
                                      "pharmacy and therapy that Medicare covers"],
         },
+        "key_dates": key_dates(year),
+        "sources": SOURCES,
     }
     out = DATA / "ct_cost_reports_101.json"
     out.write_text(json.dumps(doc, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

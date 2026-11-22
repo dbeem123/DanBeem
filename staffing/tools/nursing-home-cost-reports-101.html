@@ -73,6 +73,19 @@
     }
     @media (max-width: 860px) { .c101 .two { grid-template-columns:1fr; } .c101 .big { font-size:34px; } }
     @media (prefers-reduced-motion: no-preference) { .c101 .grow { transform-origin:left; animation:c101-grow .7s ease-out both; } }
+    .c101 .table-scroll { overflow-x:auto; }
+    .c101 #date-rules td, .c101 #source-table td { vertical-align:top; line-height:1.45; }
+    .c101 #date-rules td:first-child { font-weight:700; color:var(--ink); min-width:130px; }
+    .c101 .flow.dates li em { font-size:13px; font-style:normal; font-weight:700; color:#1f6f80; }
+    .c101 .flow.dates li.dark em { color:#cfdbea; }
+    .c101 .cite { white-space:nowrap; }
+    @media (max-width: 640px) {
+      .c101 #date-rules thead { display:none; }
+      .c101 #date-rules tr, .c101 #date-rules td { display:block; }
+      .c101 #date-rules tr { padding:10px 0; border-bottom:1px solid var(--line); }
+      .c101 #date-rules td { border:0; padding:3px 0; }
+      .c101 #date-rules td[data-label]::before { content:attr(data-label); display:block; font-size:12.5px; font-weight:700; color:var(--muted); }
+    }
     @keyframes c101-grow { from { transform:scaleX(0); } }
   </style>
   <link rel="stylesheet" href="/Assets/staffing-layout.css">
@@ -148,7 +161,8 @@
         <a href="#step-4">4. Reported, reviewed, paid</a>
         <a href="#step-5">5. How the Medicaid rate is built</a>
         <a href="#step-6">6. Try it with one home</a>
-        <a href="#step-7">7. Words to know</a>
+        <a href="#step-7">7. Key dates and sources</a>
+        <a href="#step-8">8. Words to know</a>
       </nav>
     </section>
 
@@ -271,7 +285,24 @@
 
       <!-- 7 -->
       <section class="step" id="step-7" aria-labelledby="s7-title">
-        <div class="step-head"><span class="step-num" aria-hidden="true">7</span><h2 id="s7-title">Words to know</h2></div>
+        <div class="step-head"><span class="step-num" aria-hidden="true">7</span><h2 id="s7-title">Key dates set by law, and where to get the records</h2></div>
+        <p>Connecticut law sets when homes must file and when DSS must post. Here is one cost year from start to finish, then every deadline with its citation.</p>
+        <ol class="flow dates" id="date-flow" aria-label="One cost year's deadlines"></ol>
+        <div class="card" style="margin-top:16px">
+          <h3 style="margin-top:0">Every deadline, with its citation</h3>
+          <div class="table-scroll"><table class="simple" id="date-rules"><thead><tr><th scope="col">When</th><th scope="col">What the law requires</th><th scope="col">If it doesn't happen</th><th scope="col">Law</th></tr></thead><tbody></tbody></table></div>
+          <p class="chart-note" id="date-checked"></p>
+        </div>
+        <h3>Dates the law does not set</h3>
+        <ul id="date-not-law"></ul>
+        <h3>Where to get the records yourself</h3>
+        <p>Every number on this site comes from one of these public sources. Links go straight to the publisher.</p>
+        <div class="table-scroll"><table class="simple" id="source-table"><thead><tr><th scope="col">Publisher</th><th scope="col">Record</th><th scope="col">What's in it</th></tr></thead><tbody></tbody></table></div>
+      </section>
+
+      <!-- 8 -->
+      <section class="step" id="step-8" aria-labelledby="s8w-title">
+        <div class="step-head"><span class="step-num" aria-hidden="true">8</span><h2 id="s8w-title">Words to know</h2></div>
         <details class="gloss"><summary>Cost year</summary><p>October 1 to September 30. "Cost year 2025" means October 2024 through September 2025.</p></details>
         <details class="gloss"><summary>Resident day</summary><p>One resident in the home for one day. Dividing by resident days lets you compare homes of different sizes.</p></details>
         <details class="gloss"><summary>Direct care</summary><p>Nursing and nurse aide salaries, their fringe benefits, and nursing pool (agency) staff. This is how Connecticut law and DSS define it.</p></details>
@@ -292,7 +323,7 @@
           <li>Exactly what Medicaid paid in claims. The site shows the home's recorded Medicaid revenue and DSS's published daily rates.</li>
           <li>Whether a related-party price was fair. It shows only what was disclosed and what DSS counted.</li>
         </ul>
-        <p class="chart-note">Sources: DSS Annual Reports of Long-Term Care Facility (cost reports); DSS quarterly cost report data with review adjustments; DSS nursing facility rate letters; DSS 2024 Connecticut Medicaid Nursing Home Cost Report Guidebook; Conn. Gen. Stat. §17b-340d. See <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the data</a> and the <a href="/api/docs/">data API</a>.</p>
+        <p class="chart-note">Sources: DSS Annual Reports of Long-Term Care Facility (cost reports); DSS quarterly cost report data with review adjustments; DSS nursing facility rate letters; DSS 2024 Connecticut Medicaid Nursing Home Cost Report Guidebook; Conn. Gen. Stat. §§17b-340, 17b-340d and 17b-340f. See <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the data</a> and the <a href="/api/docs/">data API</a>.</p>
       </section>
     </div>
   </main>
