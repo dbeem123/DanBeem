@@ -134,6 +134,7 @@
   </style>
   <link rel="stylesheet" href="/Assets/staffing-layout.css">
   <script defer src="/Assets/staffing-layout.js"></script>
+  <link rel="stylesheet" href="/Assets/suite-nav.css">
 </head>
 <body class="ltcop-dashboard">
   <a class="skipLink" href="#main-content">Skip to content</a>
@@ -148,22 +149,45 @@
       </div>
       <a class="ltcop-official-link" href="https://portal.ct.gov/ltcop">Visit the official CT LTCOP website</a>
     </div>
-    <nav class="ltcop-suite-nav" aria-label="Staffing suite navigation">
+    <nav class="ltcop-suite-nav suite-menu" aria-label="Staffing suite navigation">
       <div class="wrap">
-        <a href="/staffing/">Tools Home</a>
-        <a href="/staffing/tools/nursing-home-staffing-explorer.html">Facility Explorer</a>
-        <a href="/staffing/tools/nursing-home-inspections.html">Inspections</a>
-        <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html">Statewide Comparison</a>
-        <a href="/staffing/tools/nursing-home-staffing-change-over-time.html">Change Over Time</a>
-        <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html">Persistent Patterns</a>
-        <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html">Ownership / Affiliation</a>
-        <a href="/staffing/tools/nursing-home-administrator-search.html">Administrators</a>
-        <a href="/staffing/tools/nursing-home-management-companies.html">Management Companies</a>
-        <a href="/staffing/tools/nursing-home-cost-reports.html">Cost Reports</a>
-        <a href="/staffing/tools/nursing-home-cost-report-insights.html" aria-current="page">Cost Insights</a>
-        <a href="/staffing/tools/nursing-home-ct-staffing-rules.html">CT Rules</a>
-        <a href="/legislation/">Legislation</a>
-        <a href="/staffing/tools/nursing-home-staffing-methodology.html">About the Data</a>
+        <a class="suite-top" href="/staffing/">Tools home</a>
+        <a class="suite-top" href="/staffing/reports/">Facility reports</a>
+        <details class="suite-group">
+          <summary>Look up a home</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-staffing-explorer.html"><strong>Facility Explorer</strong><span>Staffing, ratings and follow-up questions for one home</span></a>
+            <a href="/staffing/tools/nursing-home-daily-minimums.html"><strong>Daily staffing vs. CT minimums</strong><span>Every reported day against the state minimum</span></a>
+            <a href="/staffing/tools/nursing-home-inspections.html"><strong>Inspections</strong><span>Citations, complaints and resident rights</span></a>
+            <a href="/staffing/tools/nursing-home-cost-reports.html"><strong>Cost reports</strong><span>What each home reported spending</span></a>
+          </div>
+        </details>
+        <details class="suite-group is-current">
+          <summary>Compare homes</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-statewide-staffing-comparison.html"><strong>Statewide comparison</strong><span>Every home side by side, latest quarter</span></a>
+            <a href="/staffing/tools/nursing-home-staffing-change-over-time.html"><strong>Change over time</strong><span>How staffing moved quarter to quarter</span></a>
+            <a href="/staffing/tools/nursing-home-persistent-staffing-patterns.html"><strong>Persistent patterns</strong><span>Homes low for several quarters in a row</span></a>
+            <a href="/staffing/tools/nursing-home-cost-report-insights.html" aria-current="page"><strong>Cost report insights</strong><span>Spending trends, peers and chains</span></a>
+          </div>
+        </details>
+        <details class="suite-group">
+          <summary>Who runs them</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-ownership-staffing-explorer.html"><strong>Owners and affiliations</strong><span>Homes grouped by CMS affiliation</span></a>
+            <a href="/staffing/tools/nursing-home-management-companies.html"><strong>Management companies</strong><span>Which homes each company has managed</span></a>
+            <a href="/staffing/tools/nursing-home-administrator-search.html"><strong>Administrators</strong><span>Where each administrator has served</span></a>
+          </div>
+        </details>
+        <details class="suite-group">
+          <summary>Rules and data</summary>
+          <div class="suite-panel">
+            <a href="/staffing/tools/nursing-home-ct-staffing-rules.html"><strong>Connecticut staffing rules</strong><span>Minimums, effective dates and context</span></a>
+            <a href="/legislation/"><strong>Legislation</strong><span>Bills that affect long-term care residents</span></a>
+            <a href="/api/docs/"><strong>Data API</strong><span>Read-only data for scripts and AI tools</span></a>
+            <a href="/staffing/tools/nursing-home-staffing-methodology.html"><strong>About the data</strong><span>Sources, methods and limits</span></a>
+          </div>
+        </details>
       </div>
     </nav>
   </header>
@@ -287,5 +311,6 @@
       </div>
     </div>
   </footer>
+<script src="/Assets/suite-nav.js" defer></script>
 </body>
 </html>
