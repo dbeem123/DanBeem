@@ -350,30 +350,67 @@
   "checked": "Conn. Gen. Stat. chapter 319y as published on cga.ct.gov, checked November 2026",
   "timeline": [
    {
+    "iso": "2024-10-01",
     "date": "October 1, 2024",
+    "short": "Oct 2024",
+    "kind": "home",
     "what": "Cost year 2025 begins",
-    "detail": "Homes report on a year ending September 30.",
-    "cite": "§17b-340(a)"
+    "cite": "§17b-340(a)",
+    "detail": "Homes keep their books on a year that ends September 30. Everything they spend from today until then goes on the cost report.",
+    "who": "Every nursing home"
    },
    {
+    "iso": "2025-07-01",
+    "date": "July 1, 2025",
+    "short": "Jul 2025",
+    "kind": "dss",
+    "what": "Rate year SFY2026 begins",
+    "cite": "§17b-340d(a)",
+    "detail": "New Medicaid daily rates take effect for July 1, 2025 to June 30, 2026. Homes are paid these rates while they are still spending in cost year 2025. The rates come from earlier, reviewed cost reports, not this year's.",
+    "who": "DSS"
+   },
+   {
+    "iso": "2025-09-30",
     "date": "September 30, 2025",
+    "short": "Sep 2025",
+    "kind": "home",
     "what": "Cost year 2025 ends",
-    "detail": "Spending for the year is closed out.",
-    "cite": "§17b-340(a)"
+    "cite": "§17b-340(a)",
+    "detail": "The year's spending is closed out. Homes now prepare the annual cost report for these twelve months.",
+    "who": "Every nursing home"
    },
    {
+    "iso": "2026-01-01",
+    "date": "January 1, 2026",
+    "short": "Jan 2026",
+    "kind": "dss",
+    "what": "DSS posting deadline",
+    "cite": "§17b-340f(b)",
+    "detail": "By January 1 each year, DSS must post a link to the annual cost reports and narrative summaries in a conspicuous place on its website. The law does not say which year's reports must be up by then; this year's are not due until February 15.",
+    "who": "DSS"
+   },
+   {
+    "iso": "2026-02-15",
     "date": "February 15, 2026",
-    "what": "Cost report due to DSS",
-    "detail": "With the narrative summary of expenditures.",
-    "cite": "§17b-340(a), §17b-340f(a)"
+    "short": "Feb 2026",
+    "kind": "home",
+    "what": "Cost report due",
+    "cite": "§17b-340(a), §17b-340f(a)",
+    "detail": "The cost report and the narrative summary of expenditures are due to DSS. If a home's report is not complete and accurate by now, DSS may cut its rate by up to 10%.",
+    "who": "Every nursing home"
    },
    {
-    "date": "Each July 1",
-    "what": "Medicaid rate year begins",
-    "detail": "Rates run for the state fiscal year, July 1 to June 30.",
-    "cite": "§17b-340d(a)"
+    "iso": "2026-07-01",
+    "date": "July 1, 2026",
+    "short": "Jul 2026",
+    "kind": "dss",
+    "what": "Rate year SFY2027 begins",
+    "cite": "§17b-340d(a)",
+    "detail": "The next rate year starts. Whether cost year 2025 feeds a future rate depends on when DSS rebases: from July 1, 2025, no more often than every two years and no less often than every four.",
+    "who": "DSS"
    }
   ],
+  "ongoing": "Every quarter, the whole way through: the direct care part of each home's rate is adjusted for case mix (§17b-340d(a)(1)).",
   "rules": [
    {
     "when": "By February 15 each year",

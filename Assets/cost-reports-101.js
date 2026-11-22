@@ -270,14 +270,58 @@
     }).catch(function () { st.textContent = 'Could not load this home\'s data.'; });
   }
 
+  function timeline(k) {
+    var ev = k.timeline, track = $('tl-track'), stage = $('tl-stage'), fill = $('tl-fill'), spark = $('tl-spark');
+    var t0 = Date.parse(ev[0].iso), t1 = Date.parse(ev[ev.length - 1].iso);
+    var pos = ev.map(function (e) { return (Date.parse(e.iso) - t0) / (t1 - t0) * 100; });
+    var nodes = [], cur = -1, timer = null;
+    var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+    ev.forEach(function (e, i) {
+      var cls = 'tl-node ' + e.kind + (i % 2 ? ' down' : ' up') + (i === 0 ? ' edge-l' : i === ev.length - 1 ? ' edge-r' : '');
+      var b = el('button', { type: 'button', 'class': cls, role: 'tab', 'aria-selected': 'false', tabindex: '-1', id: 'tl-n' + i, 'aria-controls': 'tl-stage', style: 'left:' + pos[i] + '%' });
+      b.appendChild(el('span', { 'class': 'tl-dot', 'aria-hidden': 'true' }));
+      var lab = el('span', { 'class': 'tl-lab' }); lab.appendChild(el('b', null, e.short)); lab.appendChild(document.createTextNode(e.what)); b.appendChild(lab);
+      b.addEventListener('click', function () { stop(); go(i); });
+      b.addEventListener('keydown', function (x) {
+        var j = x.key === 'ArrowRight' ? i + 1 : x.key === 'ArrowLeft' ? i - 1 : x.key === 'Home' ? 0 : x.key === 'End' ? ev.length - 1 : null;
+        if (j === null || j < 0 || j >= ev.length) return; x.preventDefault(); stop(); go(j); nodes[j].focus();
+      });
+      track.appendChild(b); nodes.push(b);
+    });
+    $('tl-ongoing').textContent = k.ongoing || '';
+    function render(i) {
+      var e = ev[i]; clear(stage); stage.className = 'tl-stage ' + e.kind;
+      stage.setAttribute('aria-labelledby', 'tl-n' + i);
+      stage.appendChild(el('div', { 'class': 'tl-step', 'aria-hidden': 'true' }, i + 1));
+      stage.appendChild(el('div', { 'class': 'tl-when' }, e.date));
+      stage.appendChild(el('h3', null, e.what));
+      stage.appendChild(el('p', null, e.detail));
+      stage.appendChild(el('div', { 'class': 'tl-meta' }, e.who + ' · Conn. Gen. Stat. ' + e.cite));
+      void stage.offsetWidth; if (!reduce) stage.className += ' enter';
+    }
+    function go(i) {
+      if (i === cur) return;
+      stage.style.setProperty('--tl-dir', i > cur ? '28px' : '-28px');
+      cur = i;
+      nodes.forEach(function (n, j) { n.setAttribute('aria-selected', j === i ? 'true' : 'false'); n.tabIndex = j === i ? 0 : -1; });
+      fill.style.width = pos[i] + '%'; spark.style.left = pos[i] + '%';
+      var wrap = track.parentNode, x = track.offsetLeft + track.clientWidth * pos[i] / 100 - wrap.clientWidth / 2;
+      if (wrap.scrollWidth > wrap.clientWidth) wrap.scrollTo({ left: x, behavior: reduce ? 'auto' : 'smooth' });
+      if (document.startViewTransition && !reduce) document.startViewTransition(function () { render(i); }); else render(i);
+    }
+    var play = $('tl-play');
+    function stop() { if (timer) { clearInterval(timer); timer = null; play.textContent = 'Play the year'; } }
+    play.addEventListener('click', function () {
+      if (timer) { stop(); return; }
+      play.textContent = 'Pause'; go(0);
+      timer = setInterval(function () { if (cur >= ev.length - 1) { stop(); return; } go(cur + 1); }, 3200);
+    });
+    go(0);
+  }
+
   function keyDates(d) {
     var k = d.key_dates; if (!k) return;
-    var flow = $('date-flow');
-    k.timeline.forEach(function (t, i) {
-      var li = el('li', i === k.timeline.length - 1 ? { 'class': 'dark' } : null);
-      li.appendChild(el('em', null, t.date)); li.appendChild(el('strong', null, t.what));
-      li.appendChild(el('span', null, t.detail + ' (' + t.cite + ')')); flow.appendChild(li);
-    });
+    timeline(k);
     var tb = $('date-rules').querySelector('tbody');
     k.rules.forEach(function (r) {
       var tr = el('tr');
