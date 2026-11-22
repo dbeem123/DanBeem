@@ -1,5 +1,5 @@
 {
- "_note": "DSS provider names that differ from the names already tied to a CCN by the cost-report build. Each entry was checked by hand against the CMS roster (same facility, abbreviation or punctuation difference only). Renamed or ambiguous names are NOT listed here; they stay in ct_dss_review.json 'unmatched' for review.",
+ "_note": "DSS provider names that differ from the names already tied to a CCN by the cost-report build. Each was checked by hand: abbreviation-only differences against the CMS roster, and every other entry by address (DSS rate letter vs CMS provider data vs the home's cost report) or by identical bed and payer-day counts. Evidence is in 'verified_by'.",
  "aliases": {
   "Cobalt Lodge Health Care & Rehab. Ctr": "075232",
   "Greentree Manor Nursing & Rehab. Ctr": "075113",
@@ -13,6 +13,24 @@
   "Harbor Village North Rehab and Nursing Center": "075196",
   "Hamden Rehabilitation & Health Care Center": "075366",
   "Saint Joseph's Residence": "075272",
-  "Saint Joseph's Living Center": "075321"
+  "Saint Joseph's Living Center": "075321",
+  "Cheshire House Nursing & Rehab Center": "075373",
+  "Governor's House Simsbury OPCO, LLC": "075338",
+  "Litchfield Woods Health Care Ctr.": "075319",
+  "Suffield House Rehabilitation and Healthcare Center": "075347",
+  "Bethel Health Care-The Cascades (RCH)": "075400",
+  "Meriden OPCO LLC": "075295"
+ },
+ "verified_by": {
+  "Cheshire House Nursing & Rehab Center": "DSS letter address 3396 East Main Street, Waterbury = CMS 3396 E Main St = cost report address (075373).",
+  "Governor's House Simsbury OPCO, LLC": "DSS letter address 36 Firetown Road, Simsbury = CMS ARK Healthcare & Rehabilitation at Governor's House = cost report (075338).",
+  "Litchfield Woods Health Care Ctr.": "Same DSS provider number (000020347) as 'Havencare at Litchfield Woods' on the SFY 2026 letter; Roberts Street, Torrington = CMS 075319.",
+  "Suffield House Rehabilitation and Healthcare Center": "DSS letter address 1 Canal Road, Suffield = CMS = cost report (075347).",
+  "Bethel Health Care-The Cascades (RCH)": "DSS letter address 13 Parklawn Drive, Bethel = CMS 13 Park Lawn Drive (075400); 161 beds and identical Medicaid and Medicare days in cost years 2024 and 2025. Only DSS's CCNH rows are used, not its RCH rows.",
+  "Meriden OPCO LLC": "Operating-company name; 90 beds and identical Medicaid (16,967) and Medicare (969) days in cost year 2025 = Meriden Health and Rehab cost report (075295)."
+ },
+ "no_data_in_dss_files": {
+  "Wolcott View Manor": "Listed in the CY2023 data pull with zero days and revenue (CMS 075282, Wolcott; no cost data).",
+  "Worcester Skilled Care Center": "Listed in the CY2024 and CY2025 pulls with zero beds, days and revenue; not matched to a CT CCN."
  }
 }

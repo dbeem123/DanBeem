@@ -193,6 +193,8 @@ def main():
                     items[n][0]["management_fee_reported"] = mg[0]["reported"]
                     items[n][0]["management_fee_review_adjustment"] = mg[0]["review_adjustment"]
         for name, (s, adj) in items.items():
+            if not adj and not s["medicaid_ct_days"] and not s["medicaid_revenue_gross"]:
+                continue  # listed in DSS's file with no days, revenue or review changes: nothing to report
             ccn = ccn_for(name, f"cost year {cy} data pull")
             if not ccn:
                 continue
