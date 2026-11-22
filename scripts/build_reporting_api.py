@@ -19,6 +19,7 @@ Evidence rules (see docs/reporting_api_plan.md):
 from __future__ import annotations
 
 import argparse
+import datetime as dt
 import json
 import re
 import shutil
@@ -150,6 +151,20 @@ def build_source_registry(d) -> dict:
             "url": dss.get("url"),
             "as_of": d["cost_index"].get("generated_at", "")[:10] or None,
             "site_file": "/data/cost_reports/{ccn}.json",
+        },
+        "dss_review": {
+            "agency": "Connecticut Department of Social Services (DSS)",
+            "dataset": "Nursing facility cost report data with DSS review adjustments (quarterly data pulls)",
+            "url": (d.get("dss_review") or {}).get("source_page"),
+            "as_of": (d.get("dss_review") or {}).get("generated_at"),
+            "site_file": "/data/ct_dss_review.json",
+        },
+        "dss_rates": {
+            "agency": "Connecticut Department of Social Services (DSS)",
+            "dataset": "Nursing facility Medicaid rate letters (per diem by state fiscal year)",
+            "url": (d.get("dss_review") or {}).get("source_page"),
+            "as_of": (d.get("dss_review") or {}).get("generated_at"),
+            "site_file": "/data/ct_dss_review.json",
         },
         "dph_administrators": {
             "agency": "Connecticut Department of Public Health (DPH)",
@@ -331,6 +346,7 @@ class Builder:
             "mgmt": load("ct_nursing_home_management_companies.json"),
             "aliases": load("ct_management_company_aliases.json"),
             "admins": load("ct_nursing_home_administrators.json"),
+            "dss_review": load("ct_dss_review.json") if (DATA / "ct_dss_review.json").exists() else {"facilities": {}, "unmatched": {}},
         }
         self.reg = build_source_registry(self.d)
         self.ev = Ev(self.reg)
@@ -604,6 +620,7 @@ class Builder:
                 "expenses_total": exp.get("expenses_total_all"),
                 "net_income": bal.get("net_income_p36"),
                 "operating_margin_nursing_home": dc.get("operating_margin_nh"),
+                "expenses_per_resident_day": dc.get("expenses_per_resident_day"),
                 "management_fee_reported": exp.get("mgmt_fee_m12"),
                 "related_party_total_reported": y.get("related_party_total_reported"),
                 "direct_care": {
@@ -655,6 +672,8 @@ class Builder:
             },
             "caveats": c.get("caveats") or self.d["cost_index"].get("caveats"),
             "years": years,
+            "dss_review": self.d["dss_review"]["facilities"].get(ccn),
+            "dss_review_definitions": self.d["dss_review"].get("definitions"),
         }
 
     def inspections(self, ccn):
@@ -809,7 +828,8 @@ class Builder:
                 verification="source_record" if q["status"] == "validated" else "source_record_unvalidated")]
         dc = y["direct_care"]
         med = y.get("statewide_median_same_year") or {}
-        money = lambda v: f"${v:,.0f}"  # noqa: E731
+        money = lambda v: f"-${-v:,.0f}" if v < 0 else f"${v:,.0f}"  # noqa: E731
+        months = lambda d: dt.date.fromisoformat(d).strftime("%B %Y")  # noqa: E731
         m = rep["metrics"]
         m["latest_cost_year"] = cy
         m["cost_report_check_status"] = q["status"]
@@ -862,6 +882,79 @@ class Builder:
                 f"Cost year {cy}: nursing home operating margin was {round(y['operating_margin_nursing_home'] * 100, 1)}% "
                 f"(Connecticut median {round((med.get('operating_margin_nh') or 0) * 100, 1)}%).",
                 e, value=y["operating_margin_nursing_home"], formula="(nursing home revenue - nursing home expenses) / revenue"))
+
+        # What DSS's review changed and what Medicaid pays: separate layers, never blended with reported spending.
+        dss = fin.get("dss_review") or {}
+        dy = (dss.get("years") or {}).get(str(cy))
+        rates = dss.get("rates") or {}
+        if not dss:
+            rep["missing_data"].append({"field": "dss_review", "reason": "DSS review adjustments and Medicaid rates are not matched to this home (DSS provider name not tied to its CCN, or not in DSS's published files)."})
+        dss_ev = lambda rec: [ev("dss_review", period=f"cost year {cy}", record=rec, ccn=ccn,  # noqa: E731
+                                 note="DSS's published cost-report data; review adjustments can still change after audit.")]
+        if dy:
+            net = dy.get("review_adjustments_total") or 0
+            real = [x for x in dy.get("largest_review_adjustments") or [] if not x.get("moved_between_lines")]
+            m["dss_review_net_adjustment"] = net
+            m["home_self_adjustments"] = dy.get("home_adjustments_total")
+            top = "; ".join(f"{x['name']} (page {x['page']} line {x['line']}), {'removed' if x['review_adjustment'] < 0 else 'added'} {money(abs(x['review_adjustment']))}" for x in real[:3])
+            rep["findings"].append(finding(
+                "fin-dss-review", "confirmed_fact",
+                f"Cost year {cy}: DSS's review changed {dy['review_adjusted_lines']} line(s) of the report, a net {'reduction' if net < 0 else 'increase'} of {money(abs(net))} in the costs DSS counts"
+                + (f". Largest: {top}." if top else ".")
+                + (f" Separately, the home itself removed {money(abs(dy['home_adjustments_total']))} from the costs it claimed (for example bad debt, pharmacy or therapy that the daily rate does not cover)." if dy.get("home_adjustments_total") else "")
+                + " The data shows each change, not the reason.",
+                dss_ev(f"{dy.get('source')}, cost year {cy}"), value=net))
+            mf, mfa = dy.get("management_fee_reported"), dy.get("management_fee_review_adjustment")
+            if mf and mfa:
+                m["management_fee_after_dss_review"] = mf + (dy.get("management_fee_home_adjustment") or 0) + mfa
+                rep["findings"].append(finding(
+                    "fin-dss-mgmt", "confirmed_fact",
+                    f"Cost year {cy}: DSS's review {'removed' if mfa < 0 else 'added'} {money(abs(mfa))} of the {money(mf)} management fee (page 16, line m12), leaving "
+                    f"{money(m['management_fee_after_dss_review'])} in the costs DSS counts. The data shows the change, not the reason; "
+                    "DSS caps management fees and can remove related-party charges.",
+                    dss_ev(f"{dy.get('source')}, page 16 line m12"), value=mfa))
+            per = dy.get("medicaid_revenue_net_per_medicaid_day")
+            if per and dy.get("medicaid_revenue_net"):
+                m["medicaid_revenue_per_medicaid_day"] = per
+                m["medicaid_days"] = dy.get("medicaid_ct_days")
+                if y.get("resident_days"):
+                    m["medicaid_share_of_resident_days_pct"] = round(dy["medicaid_ct_days"] / y["resident_days"] * 100, 1)
+                rate_txt = " and ".join(f"${v['per_diem']:,.2f} for {months(v['rate_period'][:10])} to {months(v['rate_period'][-10:])}" for k, v in sorted(rates.items()))
+                rep["findings"].append(finding(
+                    "fin-medicaid-paid", "calculated",
+                    f"Cost year {cy}: the home recorded {money(dy['medicaid_revenue_net'])} in Connecticut Medicaid revenue (after its Medicaid contractual allowance) "
+                    f"for {dy['medicaid_ct_days']:,} Medicaid days, ${per} per Medicaid day."
+                    + (f" DSS's Medicaid daily rate was {rate_txt}." if rate_txt else ""),
+                    dss_ev(f"{dy.get('source')}, page 30 lines I1a and I1b; page 8 line 3B")
+                    + ([ev("dss_rates", period=", ".join(v["rate_period"] for v in rates.values()), record="rate letters, provider " + next(iter(rates.values()))["provider_number"], ccn=ccn)] if rates else []),
+                    value=per, formula="(Medicaid CT revenue + Medicaid contractual allowance) / Medicaid CT days"))
+                exp = y.get("expenses_per_resident_day")
+                if exp:
+                    m["reported_cost_per_resident_day"] = exp
+                    rep["findings"].append(finding(
+                        "fin-cost-vs-medicaid", "calculated",
+                        f"Cost year {cy}: reported cost was ${exp} per resident day (all payers, before DSS review) and Medicaid revenue was ${per} per Medicaid day. "
+                        "Reported cost includes items Medicaid does not pay for in the daily rate (for example pharmacy and therapy), so the difference is not a Medicaid shortfall.",
+                        dss_ev(f"{dy.get('source')}") + e, value=round(exp - per, 2),
+                        formula="reported nursing-home cost / all resident days, compared with net Medicaid revenue / Medicaid days"))
+            rows = [{"page": x["page"], "line": x["line"], "item": x["name"], "reported": x["reported"], "home_adjustment": x.get("home_adjustment"),
+                     "dss_review_adjustment": x["review_adjustment"], "after_dss_review": x["after_review"],
+                     "moved_between_lines": x.get("moved_between_lines", False)} for x in dy.get("largest_review_adjustments") or []]
+            if rows:
+                rep.setdefault("tables", []).append({
+                    "id": "dss-review-adjustments", "title": f"Largest changes in DSS's review, cost year {cy}",
+                    "description": "What the home reported, what it removed itself, and what DSS's review changed. 'Moved between lines' means the cost was reclassified, not removed. The data does not give reasons.",
+                    "source_key": "dss_review", "reporting_period": f"cost year {cy}", "rows": rows})
+        dyears = sorted((dss.get("years") or {}).items())
+        if dyears:
+            by_cost = {str(r["cost_year"]): r for r in fin["years"] if r["data_quality"]["use_in_reports"]}
+            xs2 = [k for k, v in dyears if v.get("medicaid_revenue_net_per_medicaid_day")]
+            if xs2:
+                rep.setdefault("charts", []).append(chart(
+                    "fin-cost-vs-medicaid", "Reported cost per resident day vs. Medicaid revenue per Medicaid day", "bar", "$ per resident day", xs2,
+                    [("Reported cost per resident day (all payers, before review)", "home", [(by_cost.get(k) or {}).get("expenses_per_resident_day") for k in xs2]),
+                     ("Medicaid revenue per Medicaid day", "home_secondary", [dict(dyears)[k]["medicaid_revenue_net_per_medicaid_day"] for k in xs2])],
+                    source_key="dss_review", note="Not a Medicaid shortfall: reported cost includes items the daily rate does not cover. Cost years end September 30."))
 
         # Support departments: wages, fringe and non-wage costs side by side, never wages alone.
         dept_rows = []
@@ -989,7 +1082,7 @@ class Builder:
                   "related_party_total_reported", "dietary_per_resident_day", "housekeeping_per_resident_day", "laundry_per_resident_day",
                   "raw_food_per_resident_day"):
             ht[k] = {r["cost_year"]: r[k] for r in by_year}
-        rep["tables"] = [
+        rep.setdefault("tables", [])[:0] = [
             {"id": "support-departments", "title": f"Support department costs, cost year {cy}",
              "description": "Wages alone are not department spending: each department's total is wages + its share of fringe benefits + non-wage costs (supplies, purchased services, other).",
              "source_key": "dss_cost_reports", "reporting_period": period, "rows": dept_rows},
@@ -1282,8 +1375,8 @@ class Builder:
 
     # Which findings lead the executive summary, per report type (attention items always come first).
     SUMMARY_PRIORITY = {
-        "financial-transparency": ["fin-direct-care", "fin-margin", "fin-agency-share", "fin-dept-dietary", "fin-dept-housekeeping",
-                                   "fin-dept-laundry", "fin-mgmt-fee", "rp-", "fin-direct-care-trend"],
+        "financial-transparency": ["fin-direct-care", "fin-medicaid-paid", "fin-dss-mgmt", "fin-margin", "fin-agency-share", "fin-dept-dietary", "fin-dept-housekeeping",
+                                   "fin-dept-laundry", "fin-dss-review", "fin-mgmt-fee", "rp-", "fin-direct-care-trend"],
     }
 
     @staticmethod

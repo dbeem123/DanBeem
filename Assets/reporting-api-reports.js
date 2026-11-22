@@ -190,14 +190,18 @@
     contract_staff_pct: 'Agency share of nursing hours', agency_share_of_direct_care_pct: 'Agency share of direct care cost',
     nursing_pool_agency_cost: 'Nursing pool (agency) cost', operating_margin_nursing_home: 'Nursing home operating margin',
     raw_food_per_resident_day: 'Raw food per resident day', latest_quarter: 'Latest staffing quarter',
-    actual_harm_or_ij_citations: 'Actual harm or jeopardy citations'
+    actual_harm_or_ij_citations: 'Actual harm or jeopardy citations',
+    dss_review_net_adjustment: 'Net change in DSS review', home_self_adjustments: 'Costs the home removed itself',
+    management_fee_after_dss_review: 'Management fee after DSS review', medicaid_revenue_per_medicaid_day: 'Medicaid revenue per Medicaid day',
+    medicaid_days: 'Medicaid days', medicaid_share_of_resident_days_pct: 'Medicaid share of resident days',
+    reported_cost_per_resident_day: 'Reported cost per resident day (all payers, before review)'
   };
   function label(k) {
     if (LABELS[k]) return LABELS[k];
     return k.replace(/_/g, ' ').replace(/\bhprd\b/g, 'HPRD').replace(/\bct\b/g, 'CT').replace(/\bcms\b/g, 'CMS')
       .replace(/\brn\b/g, 'RN').replace(/\bij\b/g, 'jeopardy').replace(/\bpct\b/g, '(%)').replace(/^./, function (c) { return c.toUpperCase(); });
   }
-  function money(v, cents) { return '$' + v.toLocaleString('en-US', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 }); }
+  function money(v, cents) { return (v < 0 ? '-$' : '$') + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 }); }
   // Format a metric by what it measures, not just its type: years stay bare, margins become %, dollars get $.
   function fmtMetric(k, v) {
     if (v === null || v === undefined) return 'not in data';
@@ -206,8 +210,9 @@
     if (/margin/.test(k)) return (v * 100).toFixed(1) + '%';
     if (/_pct$/.test(k)) return v.toFixed(1) + '%';
     if (/hprd/.test(k)) return v.toFixed(2);
-    if (/per_resident_day/.test(k)) return money(v, true);
-    if (/(_cost|_costs|_fee_reported|_total_reported|fines_total|wages_reported|fringe_allocated)$/.test(k)) return money(v);
+    if (/per_(resident|medicaid)_day/.test(k)) return money(v, true);
+    if (/_days$/.test(k)) return fmt(v);
+    if (/(_cost|_costs|_fee_reported|_total_reported|fines_total|wages_reported|fringe_allocated|_adjustment|_adjustments|^reported$|after_dss_review|after_dss_review$)$/.test(k)) return money(v);
     return fmt(v);
   }
 
@@ -344,7 +349,9 @@
     department: 'Department', wages_reported: 'Wages', fringe_allocated: 'Fringe (allocated)', non_wage_costs: 'Non-wage costs',
     total_department_cost: 'Total', wage_share_pct: 'Wages share', non_wage_share_pct: 'Non-wage share',
     per_resident_day: 'Per resident day', statewide_median_per_resident_day: 'CT median per resident day',
-    cost_year: 'Cost year', check_status: 'Check', resident_days: 'Resident days'
+    cost_year: 'Cost year', check_status: 'Check', resident_days: 'Resident days',
+    page: 'Page', line: 'Line', item: 'Item', reported: 'Reported', home_adjustment: 'Home removed',
+    dss_review_adjustment: 'DSS review change', after_dss_review: 'After DSS review', moved_between_lines: 'Moved between lines'
   };
   var TABLE_SKIP = { usable: 1, note: 1 };
   function renderTables(tables) {
@@ -364,10 +371,11 @@
         var tr = el('tr');
         cols.forEach(function (k) {
           var v = r[k];
-          var txt = k === 'department' || k === 'cost_year' ? String(v) : k === 'check_status' ? String(v || '') :
+          var txt = typeof v === 'boolean' ? (v ? 'yes' : '') : k === 'page' || k === 'line' || k === 'item' ? String(v === null || v === undefined ? '' : v) :
+            k === 'department' || k === 'cost_year' ? String(v) : k === 'check_status' ? String(v || '') :
             k === 'resident_days' ? fmt(v) : /share_pct$/.test(k) ? (v === null || v === undefined ? 'not in data' : v.toFixed(1) + '%') :
             (v === null || v === undefined) ? (r.note && k === 'per_resident_day' ? 'not used: ' + r.note : 'not in data') : fmtMetric(k, v);
-          tr.appendChild(el('td', typeof v === 'number' && k !== 'cost_year' ? 'num' : null, txt));
+          tr.appendChild(el('td', typeof v === 'number' && k !== 'cost_year' && k !== 'page' ? 'num' : null, txt));
         });
         tb.appendChild(tr);
       });

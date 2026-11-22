@@ -256,6 +256,27 @@ class ReportingApiTest(unittest.TestCase):
             for srs in c["series"]:
                 self.assertEqual(len(srs["values"]), len(c["x"]), c["id"])
 
+    def test_dss_review_and_medicaid_layers_stay_separate(self):
+        rep = jload(self.v1 / "reports" / "financial-transparency" / f"{CHERRY_BROOK}.json")
+        f = {x["id"]: x for x in rep["findings"]}
+        self.assertIn("removed $288,000 of the $288,000 management fee", f["fin-dss-mgmt"]["statement"])
+        self.assertIn("not the reason", f["fin-dss-mgmt"]["statement"])
+        self.assertEqual(f["fin-medicaid-paid"]["value"], 294.09)
+        self.assertIn("$309.70", f["fin-medicaid-paid"]["statement"])
+        self.assertIn("not a Medicaid shortfall", f["fin-cost-vs-medicaid"]["statement"])
+        for x in ("fin-dss-review", "fin-dss-mgmt", "fin-medicaid-paid"):
+            self.assertEqual(f[x]["evidence"][0]["source_key"], "dss_review")
+        self.assertTrue(any(t["id"] == "dss-review-adjustments" for t in rep["tables"]))
+        # wording guard: never claim Medicaid paid for a particular department
+        for x in rep["findings"]:
+            self.assertNotRegex(x["statement"].lower(), r"medicaid (spent|paid) .* on (dietary|laundry|housekeeping)")
+        # a home DSS's files do not cover says so instead of guessing
+        dss = jload(ROOT / "data" / "ct_dss_review.json")
+        for p in self.v1.glob("reports/financial-transparency/*.json"):
+            r = jload(p)
+            if r["subject"]["ccn"] not in dss["facilities"] and "latest_cost_year" in r["metrics"]:
+                self.assertTrue(any(m["field"] == "dss_review" for m in r["missing_data"]), p.name)
+
     # ------------------------------------------------------------- privacy
     def test_no_individual_addresses_or_local_paths(self):
         for p in list(self.v1.glob("facilities/*/ownership.json"))[:40]:
