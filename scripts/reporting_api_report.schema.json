@@ -186,6 +186,78 @@
     "definitions": {
       "type": "object",
       "description": "Optional. Plain-language definitions of the figures used in this report."
+    },
+    "charts": {
+      "type": "array",
+      "description": "Optional. Ready-to-plot chart data built from this report's own numbers. null values are gaps (not in the data).",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "type",
+          "unit",
+          "x",
+          "series"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "line",
+              "bar"
+            ]
+          },
+          "unit": {
+            "type": "string"
+          },
+          "x": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "name",
+                "role",
+                "values"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "role": {
+                  "type": "string"
+                },
+                "values": {
+                  "type": "array",
+                  "items": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "source_key": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          }
+        }
+      }
     }
   },
   "$defs": {

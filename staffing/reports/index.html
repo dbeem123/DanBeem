@@ -36,7 +36,28 @@
     .rp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; }
     .rp-metric { background:var(--ltcop-card,#fff); border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; padding:10px 12px; }
     .rp-metric strong { display:block; font-size:20px; color:var(--ltcop-navy,#173761); font-variant-numeric:tabular-nums; word-break:break-word; }
-    .rp-metric span { font-size:12px; color:var(--ltcop-muted,#5f6f85); }
+    .rp-metric span { display:block; font-size:12px; color:var(--ltcop-muted,#5f6f85); }
+    .rp-metric .rp-median { margin-top:2px; color:#334553; font-weight:600; }
+    .rp-metric-wide { grid-column:span 2; }
+    .rp-metric-wide strong { font-size:14px; line-height:1.4; }
+    .rp-charts { display:grid; grid-template-columns:repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap:14px; }
+    .rp-chart { margin:0; background:var(--ltcop-card,#fff); border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; padding:12px 14px; }
+    .rp-chart-title { font-weight:700; color:var(--ltcop-navy,#173761); font-size:15px; }
+    .rp-legend { margin:4px 0 6px; font-size:12.5px; color:#334553; }
+    .rp-key { display:inline-block; width:18px; height:0; vertical-align:middle; margin-right:5px; border-top:3px solid; }
+    .rp-key.rp-s-bench { border-top-style:dashed; }
+    .rp-unit { color:var(--ltcop-muted,#5f6f85); }
+    .rp-chart-svg { display:block; width:100%; height:auto; overflow:visible; }
+    .rp-grid-line { stroke:#e3e8ee; stroke-width:1; }
+    .rp-axis { font-size:11px; fill:#5f6f85; font-variant-numeric:tabular-nums; }
+    .rp-line { stroke-width:2.25; }
+    .rp-line.rp-s-bench { stroke-dasharray:5 4; stroke-width:1.75; }
+    .rp-s-home { stroke:#173761; fill:#173761; border-color:#173761; color:#173761; }
+    .rp-s-bench { stroke:#8a97a8; fill:#8a97a8; border-color:#8a97a8; }
+    .rp-s-alt { stroke:#2e8fa3; fill:#2e8fa3; border-color:#2e8fa3; }
+    path.rp-line { fill:none; }
+    .rp-pt.rp-s-home { stroke:#fff; stroke-width:1.5; }
+    #out-tables h4 { margin:14px 0 2px; color:var(--ltcop-navy,#173761); }
     .rp-table-wrap { overflow-x:auto; border:1px solid var(--ltcop-border,#d8e1ee); border-radius:10px; margin-top:8px; }
     table.rp { width:100%; border-collapse:collapse; font-size:14px; }
     table.rp th, table.rp td { padding:7px 9px; border-bottom:1px solid var(--ltcop-border,#d8e1ee); text-align:left; vertical-align:top; }
@@ -181,6 +202,15 @@
         <h3>Key numbers</h3>
         <div class="rp-grid" id="out-metrics"></div>
         <div id="out-compare"></div>
+        <div id="out-charts-wrap" hidden>
+          <h3>Charts</h3>
+          <p class="rp-hint">Drawn from the report's own numbers. Hover a point or bar for its value, or open "Show the numbers" under each chart.</p>
+          <div class="rp-charts" id="out-charts"></div>
+        </div>
+        <div id="out-tables-wrap" hidden>
+          <h3>Tables</h3>
+          <div id="out-tables"></div>
+        </div>
         <div id="rp-namecheck-wrap" hidden style="margin-top:20px">
           <h3>Check other names</h3>
           <p class="rp-hint">Names you have heard about (a vendor, a parent company, a person). Each is checked against every dataset on this site. A name that is not found is not in these public records, which is different from proof that no relationship exists.</p>

@@ -237,6 +237,25 @@ class ReportingApiTest(unittest.TestCase):
             ids = [f["id"] for f in jload(p)["findings"]]
             self.assertEqual(len(ids), len(set(ids)), p.name)
 
+    def test_charts_use_report_numbers(self):
+        rep = jload(self.v1 / "reports" / "financial-transparency" / f"{CHERRY_BROOK}.json")
+        charts = {c["id"]: c for c in rep["charts"]}
+        dc = charts["fin-direct-care-trend"]
+        rows = next(t for t in rep["tables"] if t["id"] == "financials-by-year")["rows"]
+        self.assertEqual(dc["x"], [str(r["cost_year"]) for r in rows])
+        self.assertEqual(dc["series"][0]["values"], [r["direct_care_per_resident_day"] for r in rows])
+        self.assertNotIn("2015", dc["x"])
+        dept = charts["fin-departments"]
+        self.assertEqual(dept["x"][:3], ["Dietary", "Housekeeping", "Laundry"])
+        self.assertEqual(dept["series"][0]["values"][2], rep["metrics"]["laundry_per_resident_day"])
+        st = jload(self.v1 / "reports" / "staffing-analysis" / f"{CHERRY_BROOK}.json")
+        self.assertTrue(any(c["id"] == "staffing-total-hprd" for c in st["charts"]))
+        comp = jload(self.v1 / "reports" / "facility-comprehensive" / f"{CHERRY_BROOK}.json")
+        self.assertEqual({c["id"] for c in comp["charts"]}, {c["id"] for c in st["charts"]} | set(charts))
+        for c in rep["charts"] + st["charts"]:
+            for srs in c["series"]:
+                self.assertEqual(len(srs["values"]), len(c["x"]), c["id"])
+
     # ------------------------------------------------------------- privacy
     def test_no_individual_addresses_or_local_paths(self):
         for p in list(self.v1.glob("facilities/*/ownership.json"))[:40]:

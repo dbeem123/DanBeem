@@ -209,6 +209,16 @@ def finding(fid, kind, statement, evidence, *, value=None, formula=None, severit
     return f
 
 
+def chart(cid, title, ctype, unit, x, series, *, source_key, note=None):
+    """Ready-to-plot chart data. Values are the report's own numbers; null means not in the data (draw a gap)."""
+    assert ctype in ("line", "bar")
+    c = {"id": cid, "title": title, "type": ctype, "unit": unit, "x": [str(v) for v in x],
+         "series": [{"name": n, "role": r, "values": v} for n, r, v in series], "source_key": source_key}
+    if note:
+        c["note"] = note
+    return c
+
+
 # --------------------------------------------------------------- CMS roles
 
 def relationship_type(role: str) -> str:
@@ -742,6 +752,17 @@ class Builder:
                 formula="quarterly PBJ direct-care HPRD estimate < CT total direct-care comparison point (3.00 since 2022)"))
             rep["recommended_follow_up"].append("Check daily staffing for the flagged quarters on the Daily vs. CT Minimums page, then ask the facility for posted daily staffing records.")
         first = qs[0]
+        xq = [q["quarter"] for q in qs]
+        rep.setdefault("charts", []).extend([
+            chart("staffing-total-hprd", "Total nurse staffing vs. Connecticut median", "line", "hours per resident day", xq,
+                  [("This home", "home", [q["total_nurse_hprd"] for q in qs]),
+                   ("Connecticut median", "benchmark", [q.get("statewide_median_total_nurse_hprd") for q in qs])],
+                  source_key="cms_pbj", note="CMS Payroll-Based Journal, paid nursing hours per resident day by quarter."),
+            chart("staffing-contract-pct", "Agency (contract) share of nursing hours", "line", "% of nursing hours", xq,
+                  [("This home", "home", [q.get("contract_staff_pct") for q in qs]),
+                   ("Connecticut median", "benchmark", [q.get("statewide_median_contract_staff_pct") for q in qs])],
+                  source_key="cms_pbj"),
+        ])
         rep["historical_trends"]["total_nurse_hprd"] = {q["quarter"]: q["total_nurse_hprd"] for q in qs}
         rep["historical_trends"]["contract_staff_pct"] = {q["quarter"]: q["contract_staff_pct"] for q in qs}
         if len(qs) >= 8:
@@ -976,6 +997,32 @@ class Builder:
              "description": "Only years that passed the site's checks. check_status 'unvalidated' means the printed totals did not fully reconcile; treat those figures as provisional. Statewide medians use validated reports only.",
              "source_key": "dss_cost_reports", "rows": by_year},
         ]
+        xs = [r["cost_year"] for r in by_year]
+        dept_x = [r["department"] for r in dept_rows if r["usable"]]
+        dept_home = [r["per_resident_day"] for r in dept_rows if r["usable"]]
+        dept_med = [r["statewide_median_per_resident_day"] for r in dept_rows if r["usable"]]
+        if "raw_food" not in bad and y.get("raw_food_per_resident_day") is not None:
+            dept_x.append("Raw food"); dept_home.append(y["raw_food_per_resident_day"]); dept_med.append(med.get("raw_food_per_resident_day"))
+        charts = [
+            chart("fin-direct-care-trend", "Direct care cost per resident day vs. Connecticut median", "line", "$ per resident day", xs,
+                  [("This home", "home", [r["direct_care_per_resident_day"] for r in by_year]),
+                   ("Connecticut median", "benchmark", [r["statewide_median_direct_care_per_resident_day"] for r in by_year])],
+                  source_key="dss_cost_reports", note="Cost years ending September 30. Years that failed the site's checks are left out. Not adjusted for inflation."),
+        ]
+        if dept_x:
+            charts.append(chart("fin-departments", f"Support departments per resident day, cost year {cy}", "bar", "$ per resident day", dept_x,
+                                [("This home", "home", dept_home), ("Connecticut median", "benchmark", dept_med)],
+                                source_key="dss_cost_reports", note="Department cost = wages + their share of fringe benefits + non-wage costs."))
+        if any(r["nursing_pool_agency_cost"] for r in by_year):
+            charts.append(chart("fin-agency-cost", "Nursing pool (agency) cost by cost year", "bar", "$", xs,
+                                [("This home", "home", [r["nursing_pool_agency_cost"] for r in by_year])],
+                                source_key="dss_cost_reports", note="As filed; not adjusted for inflation."))
+        if any(r["management_fee_reported"] or r["related_party_total_reported"] for r in by_year):
+            charts.append(chart("fin-mgmt-related", "Management fees and related-party costs by cost year", "bar", "$", xs,
+                                [("Management fees", "home", [r["management_fee_reported"] for r in by_year]),
+                                 ("Related-party costs reported", "home_secondary", [r["related_party_total_reported"] for r in by_year])],
+                                source_key="dss_cost_reports", note="The two can overlap: a management fee paid to a related party is counted in both."))
+        rep.setdefault("charts", []).extend(charts)
         trend = [r for r in by_year if r["direct_care_per_resident_day"] is not None]
         if len([r for r in trend if r["check_status"] == "validated"]) >= 3:
             trend = [r for r in trend if r["check_status"] == "validated"]  # endpoints from reconciled reports only
@@ -1202,12 +1249,13 @@ class Builder:
         self.relationship_findings(ccn, r, own, fin, screening=True)
         reports[r["report_type"]] = r
         comp = self.base_report("facility-comprehensive", ccn, ident)
-        comp["tables"], comp["definitions"] = [], {}
+        comp["tables"], comp["definitions"], comp["charts"] = [], {}, []
         for t in ("ownership-network", "staffing-analysis", "financial-transparency", "regulatory-history"):
             sub = reports[t]
             seen = {f["id"] for f in comp["findings"]}
             comp["findings"].extend(f for f in sub["findings"] if f["id"] not in seen)
             comp["tables"].extend(sub.get("tables") or [])
+            comp["charts"].extend(sub.get("charts") or [])
             comp["definitions"].update(sub.get("definitions") or {})
             comp["metrics"].update(sub["metrics"])
             comp["historical_trends"].update(sub["historical_trends"])

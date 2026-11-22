@@ -45,12 +45,15 @@
     'staffing-analysis': [
       'How does staffing at this home compare with the Connecticut median over time?',
       'How much does this home rely on agency (contract) staff, and is that changing?',
-      'Which quarters fell below Connecticut comparison points, and what should I ask the home about them?'
+      'Which quarters fell below Connecticut comparison points, and what should I ask the home about them?',
+      "Chart this home's nurse staffing and agency share against the Connecticut median, using only the report's chart data."
     ],
     'financial-transparency': [
       "Where does this home's money go, and how does direct care spending compare with the state median?",
       'How have management fees and related-party costs changed over the years?',
-      'Explain the difference between reported wages and total department spending for dietary, housekeeping and laundry at this home.'
+      'Explain the difference between reported wages and total department spending for dietary, housekeeping and laundry at this home.',
+      'Which support departments (dietary, housekeeping, laundry, raw food) differ most from the Connecticut median, and what questions does that raise?',
+      "Chart this home's direct care cost per resident day against the Connecticut median over time, using only the report's chart data."
     ],
     'regulatory-history': [
       "Summarize this home's inspection and penalty history in plain language.",
@@ -119,7 +122,10 @@
     lines.push('Rules: Answer only from the report data. For each claim, cite the dataset, reporting period and record id from its evidence. ' +
       'Keep confirmed facts, calculations, possible associations and open questions separate. ' +
       'A shared person, company or address is not proof of common ownership or a conflict of interest. ' +
-      'If something is missing, say it is not in these datasets rather than that it does not exist. End with what to verify next.');
+      'Before saying a figure is missing, open the files under the report\'s "links" (financials, staffing, ownership, inspections); reports summarize and those files hold every year and department. ' +
+      'Use the report\'s "tables" and "charts" data for numbers and charts; if you draw a chart, use only those values and name the source. ' +
+      'Do not quote cost-report years or fields that data_quality marks unusable; treat "unvalidated" years as provisional. ' +
+      'If something is still missing, say it is not in these datasets rather than that it does not exist. End with what to verify next.');
     return lines.join('\n');
   }
 
@@ -178,16 +184,194 @@
     if (typeof v === 'object') return JSON.stringify(v);
     return String(v);
   }
-  function label(k) { return k.replace(/_/g, ' ').replace(/\bhprd\b/g, 'HPRD').replace(/\bct\b/g, 'CT').replace(/\bcms\b/g, 'CMS').replace(/^./, function (c) { return c.toUpperCase(); }); }
+  var LABELS = {
+    latest_cost_year: 'Latest cost year', cost_report_check_status: 'Cost report check', resident_days: 'Resident days',
+    rn_hprd: 'RN hours per resident day', total_nurse_hprd: 'Total nurse hours per resident day',
+    contract_staff_pct: 'Agency share of nursing hours', agency_share_of_direct_care_pct: 'Agency share of direct care cost',
+    nursing_pool_agency_cost: 'Nursing pool (agency) cost', operating_margin_nursing_home: 'Nursing home operating margin',
+    raw_food_per_resident_day: 'Raw food per resident day', latest_quarter: 'Latest staffing quarter',
+    actual_harm_or_ij_citations: 'Actual harm or jeopardy citations'
+  };
+  function label(k) {
+    if (LABELS[k]) return LABELS[k];
+    return k.replace(/_/g, ' ').replace(/\bhprd\b/g, 'HPRD').replace(/\bct\b/g, 'CT').replace(/\bcms\b/g, 'CMS')
+      .replace(/\brn\b/g, 'RN').replace(/\bij\b/g, 'jeopardy').replace(/\bpct\b/g, '(%)').replace(/^./, function (c) { return c.toUpperCase(); });
+  }
+  function money(v, cents) { return '$' + v.toLocaleString('en-US', { minimumFractionDigits: cents ? 2 : 0, maximumFractionDigits: cents ? 2 : 0 }); }
+  // Format a metric by what it measures, not just its type: years stay bare, margins become %, dollars get $.
+  function fmtMetric(k, v) {
+    if (v === null || v === undefined) return 'not in data';
+    if (typeof v !== 'number') return k === 'cost_report_check_status' ? String(v).replace(/_/g, ' ') : fmt(v);
+    if (/(_year|_quarter)$/.test(k)) return String(v);
+    if (/margin/.test(k)) return (v * 100).toFixed(1) + '%';
+    if (/_pct$/.test(k)) return v.toFixed(1) + '%';
+    if (/hprd/.test(k)) return v.toFixed(2);
+    if (/per_resident_day/.test(k)) return money(v, true);
+    if (/(_cost|_costs|_fee_reported|_total_reported|fines_total|wages_reported|fringe_allocated)$/.test(k)) return money(v);
+    return fmt(v);
+  }
 
   function renderMetrics(m) {
     var box = $('out-metrics');
     clear(box);
-    Object.keys(m || {}).forEach(function (k) {
-      var card = el('div', 'rp-metric');
-      card.appendChild(el('strong', null, fmt(m[k])));
-      card.appendChild(el('span', null, label(k)));
+    m = m || {};
+    Object.keys(m).forEach(function (k) {
+      if (/^statewide_median_/.test(k) && (k.replace(/^statewide_median_/, '') in m)) return;  // shown on the home's card
+      var card = el('div', 'rp-metric' + (Array.isArray(m[k]) ? ' rp-metric-wide' : ''));
+      card.appendChild(el('strong', null, fmtMetric(k, m[k])));
+      card.appendChild(el('span', null, label(k.replace(/^statewide_median_/, 'CT median '))));
+      var mk = 'statewide_median_' + k;
+      if (mk in m) card.appendChild(el('span', 'rp-median', 'CT median ' + fmtMetric(k, m[mk])));
       box.appendChild(card);
+    });
+  }
+
+  // ------------------------------------------------------------ charts
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  function svg(tag, attrs) {
+    var e = document.createElementNS(SVGNS, tag);
+    Object.keys(attrs || {}).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+    return e;
+  }
+  function niceMax(v) {
+    if (!(v > 0)) return 1;
+    var p = Math.pow(10, Math.floor(Math.log10(v))), n = v / p;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p;
+  }
+  function fmtUnit(unit, v, short) {
+    if (v === null || v === undefined) return 'not in data';
+    if (unit === '$') return short && v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : short && v >= 1e3 ? '$' + Math.round(v / 1e3) + 'k' : money(v);
+    if (unit.indexOf('$') === 0) return money(v, !short || v < 100);
+    if (unit.indexOf('%') === 0) return v.toFixed(1) + '%';
+    return v.toFixed(2);
+  }
+  var SERIES_CLASS = { home: 'rp-s-home', benchmark: 'rp-s-bench', home_secondary: 'rp-s-alt' };
+
+  function drawChart(c, width) {
+    // Draw at the container's real width so text stays readable on phones.
+    var W = Math.max(300, Math.min(640, Math.round(width || 640))), H = W < 460 ? 230 : 260, L = 58, R = 10, T = 14, B = 40;
+    var all = [];
+    c.series.forEach(function (s) { s.values.forEach(function (v) { if (typeof v === 'number') all.push(v); }); });
+    var max = niceMax(Math.max.apply(null, all.concat([0])));
+    var n = c.x.length, pw = W - L - R, ph = H - T - B;
+    var root = svg('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'class': 'rp-chart-svg' });
+    var home = c.series[0], bench = c.series.filter(function (s) { return s.role === 'benchmark'; })[0];
+    var lastI = -1; home.values.forEach(function (v, i) { if (typeof v === 'number') lastI = i; });
+    var summary = c.title + '. ' + (lastI >= 0 ? home.name + ' ' + fmtUnit(c.unit, home.values[lastI]) + ' in ' + c.x[lastI] +
+      (bench && typeof bench.values[lastI] === 'number' ? ', ' + bench.name + ' ' + fmtUnit(c.unit, bench.values[lastI]) : '') + '.' : '');
+    root.setAttribute('aria-label', summary);
+    var y = function (v) { return T + ph - (v / max) * ph; };
+    for (var g = 0; g <= 4; g++) {
+      var gv = max * g / 4, gy = y(gv);
+      root.appendChild(svg('line', { x1: L, x2: W - R, y1: gy, y2: gy, 'class': 'rp-grid-line' }));
+      var t = svg('text', { x: L - 6, y: gy + 4, 'class': 'rp-axis', 'text-anchor': 'end' }); t.textContent = fmtUnit(c.unit, gv, true); root.appendChild(t);
+    }
+    var step = Math.ceil(n / Math.max(3, Math.floor((W - L - R) / 64)));
+    var xc = function (i) { return L + (c.type === 'bar' ? (i + 0.5) * pw / n : (n === 1 ? pw / 2 : i * pw / (n - 1))); };
+    c.x.forEach(function (lab, i) {
+      if ((i % step && i !== n - 1) || (i !== n - 1 && n - 1 - i < step)) return;
+      var t = svg('text', { x: xc(i), y: H - B + 18, 'class': 'rp-axis', 'text-anchor': 'middle' }); t.textContent = lab; root.appendChild(t);
+    });
+    if (c.type === 'bar') {
+      var groupW = pw / n * 0.72, bw = groupW / c.series.length;
+      c.series.forEach(function (s, si) {
+        s.values.forEach(function (v, i) {
+          if (typeof v !== 'number') return;
+          var x0 = xc(i) - groupW / 2 + si * bw;
+          var r = svg('rect', { x: x0 + 1, y: y(v), width: Math.max(bw - 2, 1), height: Math.max(T + ph - y(v), 0), rx: 2, 'class': SERIES_CLASS[s.role] || 'rp-s-home' });
+          var tt = svg('title'); tt.textContent = s.name + ', ' + c.x[i] + ': ' + fmtUnit(c.unit, v); r.appendChild(tt);
+          root.appendChild(r);
+        });
+      });
+    } else {
+      c.series.forEach(function (s) {
+        var d = '', pen = false;
+        s.values.forEach(function (v, i) {
+          if (typeof v !== 'number') { pen = false; return; }
+          d += (pen ? 'L' : 'M') + xc(i).toFixed(1) + ' ' + y(v).toFixed(1) + ' '; pen = true;
+        });
+        root.appendChild(svg('path', { d: d, fill: 'none', 'class': 'rp-line ' + (SERIES_CLASS[s.role] || 'rp-s-home') }));
+        s.values.forEach(function (v, i) {
+          if (typeof v !== 'number') return;
+          var pt = svg('circle', { cx: xc(i), cy: y(v), r: s.role === 'benchmark' ? 2.5 : 3.5, 'class': 'rp-pt ' + (SERIES_CLASS[s.role] || 'rp-s-home') });
+          var tt = svg('title'); tt.textContent = s.name + ', ' + c.x[i] + ': ' + fmtUnit(c.unit, v); pt.appendChild(tt);
+          root.appendChild(pt);
+        });
+      });
+    }
+    return { node: root, summary: summary };
+  }
+
+  function chartTable(c) {
+    var wrap = el('div', 'rp-table-wrap'), t = el('table', 'rp'), head = el('tr');
+    head.appendChild(el('th', null, ''));
+    c.series.forEach(function (s) { head.appendChild(el('th', null, s.name)); });
+    var th = el('thead'); th.appendChild(head); t.appendChild(th);
+    var tb = el('tbody');
+    c.x.forEach(function (lab, i) {
+      var tr = el('tr'); tr.appendChild(el('td', null, lab));
+      c.series.forEach(function (s) { tr.appendChild(el('td', 'num', fmtUnit(c.unit, s.values[i]))); });
+      tb.appendChild(tr);
+    });
+    t.appendChild(tb); wrap.appendChild(t); return wrap;
+  }
+
+  function renderCharts(charts) {
+    var box = $('out-charts');
+    clear(box);
+    $('out-charts-wrap').hidden = !charts || !charts.length;
+    (charts || []).forEach(function (c) {
+      var fig = el('figure', 'rp-chart');
+      fig.appendChild(el('figcaption', 'rp-chart-title', c.title));
+      var legend = el('p', 'rp-legend');
+      c.series.forEach(function (s) {
+        var key = el('span', 'rp-key ' + (SERIES_CLASS[s.role] || 'rp-s-home'));
+        key.setAttribute('aria-hidden', 'true');
+        legend.appendChild(key); legend.appendChild(document.createTextNode(s.name + '   '));
+      });
+      legend.appendChild(el('span', 'rp-unit', '(' + c.unit + ')'));
+      fig.appendChild(legend);
+      box.appendChild(fig);
+      fig.appendChild(drawChart(c, fig.clientWidth - 30).node);
+      if (c.note) fig.appendChild(el('p', 'rp-hint', c.note));
+      var det = el('details', 'rp-more'); det.appendChild(el('summary', null, 'Show the numbers')); det.appendChild(chartTable(c));
+      fig.appendChild(det);
+    });
+  }
+
+  // ------------------------------------------------------------ tables
+  var COL_LABELS = {
+    department: 'Department', wages_reported: 'Wages', fringe_allocated: 'Fringe (allocated)', non_wage_costs: 'Non-wage costs',
+    total_department_cost: 'Total', wage_share_pct: 'Wages share', non_wage_share_pct: 'Non-wage share',
+    per_resident_day: 'Per resident day', statewide_median_per_resident_day: 'CT median per resident day',
+    cost_year: 'Cost year', check_status: 'Check', resident_days: 'Resident days'
+  };
+  var TABLE_SKIP = { usable: 1, note: 1 };
+  function renderTables(tables) {
+    var box = $('out-tables');
+    clear(box);
+    $('out-tables-wrap').hidden = !tables || !tables.length;
+    (tables || []).forEach(function (t) {
+      if (!t.rows || !t.rows.length) return;
+      var cols = Object.keys(t.rows[0]).filter(function (k) { return !TABLE_SKIP[k]; });
+      box.appendChild(el('h4', null, t.title));
+      if (t.description) box.appendChild(el('p', 'rp-hint', t.description));
+      var wrap = el('div', 'rp-table-wrap'), tab = el('table', 'rp'), hr = el('tr');
+      cols.forEach(function (k) { hr.appendChild(el('th', null, COL_LABELS[k] || label(k.replace(/^statewide_median_/, 'CT median ')))); });
+      var th = el('thead'); th.appendChild(hr); tab.appendChild(th);
+      var tb = el('tbody');
+      t.rows.forEach(function (r) {
+        var tr = el('tr');
+        cols.forEach(function (k) {
+          var v = r[k];
+          var txt = k === 'department' || k === 'cost_year' ? String(v) : k === 'check_status' ? String(v || '') :
+            k === 'resident_days' ? fmt(v) : /share_pct$/.test(k) ? (v === null || v === undefined ? 'not in data' : v.toFixed(1) + '%') :
+            (v === null || v === undefined) ? (r.note && k === 'per_resident_day' ? 'not used: ' + r.note : 'not in data') : fmtMetric(k, v);
+          tr.appendChild(el('td', typeof v === 'number' && k !== 'cost_year' ? 'num' : null, txt));
+        });
+        tb.appendChild(tr);
+      });
+      tab.appendChild(tb); wrap.appendChild(tab); box.appendChild(wrap);
     });
   }
 
@@ -271,6 +455,8 @@
       return li;
     });
     renderMetrics(rep.metrics);
+    renderCharts(rep.charts || []);
+    renderTables(rep.tables || []);
     renderFindings(rep.findings || []);
     renderRelationships(rep.relationships);
     listInto('out-missing', (rep.missing_data || []).map(function (m) { return m.reason; }));
@@ -293,6 +479,7 @@
     $('out-eyebrow').textContent = TYPE_LABEL['facility-comparison'];
     $('out-title').textContent = a.subject.facility_name + ' vs. ' + b.subject.facility_name;
     $('out-meta').textContent = 'Built in your browser from two full facility reports. Data as of ' + a.generated_at.slice(0, 10) + '.';
+    renderCharts([]); renderTables([]);  // single-home charts would mislead in a comparison
     var box = $('out-compare');
     clear(box);
     box.appendChild(el('h3', null, 'Side by side'));
