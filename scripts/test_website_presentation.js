@@ -503,7 +503,7 @@ async function main() {
     await page.locator('#builder-start').selectOption('thread:staffing-floor');
     let draft = await page.locator('#builder-output').inputValue();
     assert.match(draft, /^Storyline: Raising the staffing floor/);
-    assert.ok(draft.includes('[No approved Program position for this topic. Add one only with State Ombudsman approval.]'));
+    assert.ok(draft.includes('[No published Long Term Care Ombudsman Program position is quoted for this topic.]'));
     assert.match(draft, /Draft generated from danbeem\.xyz research data on .+\. Verify before submitting\.$/);
     const statBoxes = page.locator('#builder-stats input');
     for (let i = 0; i < await statBoxes.count(); i += 1) if (!(await statBoxes.nth(i).isDisabled())) await statBoxes.nth(i).check();

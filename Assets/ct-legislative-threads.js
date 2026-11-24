@@ -5,7 +5,7 @@
 (function () {
   'use strict';
   const NON_POSITION = 'Listing is not a position of the Long Term Care Ombudsman Program.';
-  const NO_POSITION = '[No approved Program position for this topic. Add one only with State Ombudsman approval.]';
+  const NO_POSITION = '[No published Long Term Care Ombudsman Program position is quoted for this topic.]';
   const FILES = {
     threads: '/data/ct_ltcop_legislative_threads.json',
     acts: '/data/ct_ltcop_act_reference.json',
@@ -382,7 +382,7 @@
       else lines.push(`Topic: ${sel.topic.name}`, sel.topic.why);
       lines.push('');
       const pos = positions.filter((p) => sel.topicIds.includes(p.topic));
-      if (pos.length) pos.forEach((p) => lines.push(`Position of the Connecticut Long Term Care Ombudsman Program (approved ${p.approved_date})`, p.text, `Basis: ${p.basis_label} (${p.basis_url})`, ''));
+      if (pos.length) pos.forEach((p) => lines.push(`Published position of the Connecticut Long Term Care Ombudsman Program (${p.approved_date})`, p.text, `Basis: ${p.basis_label} (${p.basis_url})`, ''));
       else lines.push(NO_POSITION, '');
       const st = picked(statsBox, current.stats);
       if (st.length) { lines.push('Statistics'); st.forEach(({ s }) => lines.push(`- ${s.display} ${s.label} (${s.period}; ${s.source}; ${s.caveat})`)); lines.push(''); }

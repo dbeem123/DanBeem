@@ -1036,3 +1036,17 @@ body.ltcop-dashboard .formula-list li {
     border-color: #d1d5db;
   }
 }
+
+/* Independent text mark (replaces the CT LTCOP logo image; this site is not the Program) */
+body .ltcop-masthead .ltcop-logo.brand-mark {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--ltcop-navy);
+  color: #fff;
+  font: 700 20px/1 Georgia, serif;
+  letter-spacing: .02em;
+}

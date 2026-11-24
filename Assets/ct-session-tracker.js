@@ -58,7 +58,7 @@
     const s = data.session, r = data.report;
     document.getElementById('report-pill').textContent = `${s.year} Session · ${r.label}`;
     document.getElementById('disclaimer').textContent = data.disclaimer;
-    document.title = `${s.year} Long-Term Care Bill Tracker | Connecticut LTCOP`;
+    document.title = `${s.year} Long-Term Care Bill Tracker | CT Long-Term Care Advocacy`;
     document.getElementById('st-title').textContent = `${s.year} Long-Term Care Bill Tracker`;
   }
 

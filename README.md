@@ -117,7 +117,7 @@ The root landing page links to Bird Cam and the staffing suite, with Glizzy and 
 ### Phase 9A-9B LTCOP Dashboard Design
 
 - adds reusable Connecticut LTCOP dashboard styling in `Assets/ltcop-dashboard.css`
-- uses the transparent color Connecticut LTCOP horizontal logo in `Assets/branding/ct-ltcop-logo-horizontal-color.png` as the primary masthead identity
+- uses an independent "CT" text mark and the name "CT Long-Term Care Advocacy" as the masthead identity; the site is independent research and does not use the Connecticut LTCOP logo or present itself as the Program
 - applies the branded white masthead, navy navigation, light dashboard background, analytic cards, screening badges, accessible star cards, disclosures, compact tables, and print-safe styling across the staffing-suite homepage, all five staffing tools, and the public methodology page
 - keeps the design separate from CT.gov global masthead conventions while linking to the official CT LTCOP website
 
