@@ -1,6 +1,6 @@
 # danbeem.xyz roadmap
 
-**DRAFT by Claude, updated 2026-11-27, for Daniel to edit.** Lines marked ✏️ are guesses or blanks only Daniel can fill. Once Daniel approves it, this file is the reference for what gets built. If an idea is not on it, it is not built yet.
+**DRAFT by Claude, updated 2026-11-28, for Daniel to edit.** Lines marked ✏️ are guesses or blanks only Daniel can fill. Once Daniel approves it, this file is the reference for what gets built. If an idea is not on it, it is not built yet.
 
 ## How this file is used (the rules)
 
@@ -50,7 +50,9 @@ Moved down until a slot opens: NORS plain-language examples (section 1, Now 2) a
 ### Now
 1. **Connect sources to every NORS code.**
    - Connecticut and federal ombudsman authority layer (CGS 19a-550, 19a-532, 319l, 17b-411, regs 19-13-D8t/D8v, 45 CFR 1324) with verified citations and proposed code links.
-   - CFR-to-tag mapping fix (5-word-sequence overlap; 360 new mappings; four citation bugs).
+   - **CFR-to-tag mapping: done 2026-11-28.** Full review approved by Daniel and applied in the NORS worktree: 1,107 reviewed links; 30 wrong automatic links rejected; seven F-tags with missing or misfiled text fixed (F552, F553, F760, F801, F868, F922, F946).
+     - **Builder:** now reproduces the corrections and keeps passage ids stable.
+     - **Before any full rebuild:** three review artifacts need migrating, and Daniel must confirm the evidence for the F553/D01 link.
    - The 13 codes Appendix PP cannot cover (G02, G03, H01, H03, K01-K06, L01-L03): **waiting on Daniel's phrase sheet** (`docs/daniel_phrase_sheet_uncovered_codes_20261116.csv`).
 2. **Plain-language examples, done carefully** (paused under the site-wide limit). Fix the D03/D05/F05 pilot, test on held-out queries, and scale in waves only if the held-out misses drop. Daniel reviews.
 
