@@ -548,7 +548,7 @@ async function main() {
     assert.match(await page.locator('#report-pill').innerText(), /2027 Session/);
     console.log('PASS 2027 session tracker: pre-session empty state');
 
-    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', route('cost-report-insights') + '?view=home&ccn=075400', route('inspections') + '?view=home&ccn=075228', '/legislation/', '/legislation/2026/', '/legislation/2027/']) {
+    for (const url of ['/', '/staffing/', ...tools.map(route), route('ct-staffing-rules'), route('administrator-search') + '?license=2143', route('management-companies') + '?company=mc-athena-health-care-associates-inc', route('cost-reports') + '?ccn=075400&year=2024', route('cost-report-insights') + '?view=home&ccn=075400', route('inspections') + '?view=home&ccn=075228', '/legislation/', '/legislation/2026/', '/legislation/2027/', '/legislation/law/']) {
       await visit(url);
       for (const width of [360, 390, 768, 1440]) {
         await resize({ width, height: 1000 });

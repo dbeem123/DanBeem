@@ -19,6 +19,7 @@ on:
       - 'scripts/validate_ct_*.py'
       - 'scripts/test_ct_*.py'
       - 'scripts/export_public_policy.py'
+      - 'scripts/build_ct_law_page.py'
   push:
     branches: [main]
     paths:
@@ -33,6 +34,7 @@ on:
       - 'scripts/validate_ct_*.py'
       - 'scripts/test_ct_*.py'
       - 'scripts/export_public_policy.py'
+      - 'scripts/build_ct_law_page.py'
 
 permissions:
   contents: read

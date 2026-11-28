@@ -146,6 +146,16 @@ class ValidatorTests(unittest.TestCase):
         self.assertFlags(None, "quote without verified_date", **{"ct_ltc_authorities.json": auth})
 
 
+class LawPageTests(unittest.TestCase):
+    def test_law_page_matches_the_data(self):
+        import build_ct_law_page as page
+        doc = json.loads((validator.DATA / "ct_ltc_authorities.json").read_text(encoding="utf-8"))
+        current = (page.OUT).read_text(encoding="utf-8")
+        self.assertEqual(current, page.render(doc), "Run python scripts/build_ct_law_page.py")
+        for a in doc["authorities"]:
+            self.assertIn(f'id="{a["id"]}"', current)
+
+
 class ExportTests(unittest.TestCase):
     def run_build(self, private):
         return exporter.build(private, RULES, source_version="test", today="2026-11-27")
