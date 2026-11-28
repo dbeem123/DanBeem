@@ -106,7 +106,8 @@ Management fees from cost reports; RCH cost reports.
 
 ### Now (approved 2026-11-27)
 - **Phase 1 foundation: done 2026-11-27.** Rules file (`data/ct_policy_rules.json`), six empty public files, validator and content scan (`scripts/validate_ct_policy.py`), fail-closed export (`scripts/export_public_policy.py`), 20 fail-case tests, CI gate (`.github/workflows/legislation-validate.yml`), new topic "Dignity, autonomy and quality of life", runbook (`docs/ct_policy_runbook.md`).
-- **Next in Now:** fill `data/ct_ltc_authorities.json` with verified Connecticut and federal law (exact quotes, sources, dates); then the policy explorer pages (Phase 3) with neutral research records only.
+- **CT law library started 2026-11-28:** `data/ct_ltc_authorities.json` holds 153 paragraph-level quotes, each verbatim from the official Chapter 368v page saved 2026-11-12. The sections are 19a-490 (definitions), 19a-533 (admission nondiscrimination), 19a-535 and 19a-535a (nursing home and residential care home transfer/discharge), 19a-537 and 19a-537a (bed reservation and readmission), 19a-550 (bill of rights), 19a-550b and 19a-550c (technology and virtual monitoring), and 19a-562 and 19a-562a (dementia units and training).
+- **Next in Now:** add the residential care home regulation (RCSA §19-13-D6), the nursing home regulations (19-13-D8t/D8v) and 45 CFR 1324 from locked copies; then the policy explorer pages (Phase 3) with neutral research records only.
 
 ### Next
 - 2027 session tracking as bills are filed; a shareable page per storyline.

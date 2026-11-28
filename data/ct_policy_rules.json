@@ -169,9 +169,11 @@
     }
   ],
   "scan_allowlist": {
-    "note": "Exact strings that may contain a forbidden pattern on purpose, e.g. the site's public contact address or a statute title. Keep this list short and reviewed.",
+    "note": "Exact strings that may contain a forbidden pattern on purpose, e.g. the site's public contact address or a statute title. Keep this list short and reviewed. Statute quotes in ct_ltc_authorities.json (CGS 19a-550(b), 19a-550c(b)) use the word 'confidential' as law, not as a document marker.",
     "strings": [
-      "do not publish a deadline for it without checking the act text"
+      "do not publish a deadline for it without checking the act text",
+      "is assured confidential treatment of the patient's personal and",
+      "obtained from the technology as confidential"
     ]
   },
   "public_label": "Independent research record. Not a published Long Term Care Ombudsman Program position."
