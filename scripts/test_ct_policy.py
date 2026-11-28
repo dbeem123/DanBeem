@@ -128,7 +128,7 @@ class ValidatorTests(unittest.TestCase):
     def test_implementation_unverified_is_not_overdue(self):
         impl = copy.deepcopy(validator.load("ct_implementation.json"))
         item = {"id": "i1", "act_id": ACT, "provision": "Synthetic provision", "agency": "DSS",
-                "deadline": "2027-02-15", "status": "overdue_verified", "evidence_url": SRC, "checked_date": "2026-11-27"}
+                "deadline": "2027-02-15", "status": "overdue_verified", "evidence_url": SRC, "source_url": SRC, "checked_date": "2026-11-27"}
         impl["items"] = [item]
         self.assertFlags(None, "overdue only when", **{"ct_implementation.json": impl})
         impl["items"] = [dict(item, status="unverified")]

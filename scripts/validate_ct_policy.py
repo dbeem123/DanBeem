@@ -31,7 +31,7 @@ AREA_KEYS = {"id", "title", "summary", "topic_ids", "thread_ids"}
 REG_FILE_KEYS = {"schema_version", "last_updated", "limitations", "actions"}
 REG_KEYS = {"id", "agency", "title", "stage", "docket", "comment_open", "comment_close", "url", "checked_date", "policy_ids", "summary"}
 IMPL_FILE_KEYS = {"schema_version", "last_updated", "limitations", "items"}
-IMPL_KEYS = {"id", "act_id", "provision", "agency", "deadline", "status", "evidence_url", "checked_date", "policy_ids", "note"}
+IMPL_KEYS = {"id", "act_id", "provision", "agency", "deadline", "status", "evidence_url", "source_url", "checked_date", "policy_ids", "note"}
 AUTH_FILE_KEYS = {"schema_version", "last_updated", "limitations", "authorities"}
 AUTH_KEYS = {"id", "kind", "citation", "title", "quote", "source_url", "verified_date"}
 QUOTE_KEYS = {"authority_id", "citation", "quote", "source_url", "verified_date"}
@@ -287,6 +287,7 @@ def check_implementation(c: Checker, doc: dict, refs: dict, policy_ids: set) -> 
         if status not in c.rules["implementation_statuses"]:
             c.add(f"{where}: invalid status")
         c.text(where + " provision", it.get("provision"))
+        c.url(where + " source", it.get("source_url"))
         c.text(where + " agency", it.get("agency"))
         if not is_iso(it.get("checked_date")):
             c.add(f"{where}: needs checked_date")
