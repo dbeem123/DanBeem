@@ -1,0 +1,178 @@
+{
+  "schema_version": "ct-policy-rules-1.0",
+  "last_updated": "2026-11-27",
+  "note": "Single source of truth for the public policy layer: which fields may ever be public, which need approval first, which never leave the private workspace, and what content fails the build. Used by scripts/validate_ct_policy.py and scripts/export_public_policy.py.",
+  "id_pattern": "^(RCH|NH|STAFF|QUAL|OWN|VA|PNA|TECH|ENV|ROOM|RIGHTS|OMB|COUNCIL|OVERSIGHT|HCBS|FIN)-[0-9]{3}$",
+  "record_statuses": [
+    "active",
+    "retired"
+  ],
+  "populations": [
+    "NH",
+    "RCH",
+    "ALSA",
+    "MRC",
+    "HCBS",
+    "all"
+  ],
+  "pathways": [
+    "statute",
+    "regulation",
+    "administration",
+    "budget",
+    "federal"
+  ],
+  "policy_fields": {
+    "public": [
+      "id",
+      "title",
+      "status",
+      "priority_areas",
+      "population",
+      "pathway",
+      "question",
+      "current_law",
+      "sources",
+      "bill_ids",
+      "act_ids",
+      "thread_ids",
+      "topic_ids",
+      "stat_keys",
+      "see_also",
+      "parent",
+      "position_id",
+      "last_verified"
+    ],
+    "public_if_approved": [
+      "gaps",
+      "coverage",
+      "outcome_measures",
+      "agenda_rank",
+      "packages"
+    ],
+    "internal": [
+      "problem",
+      "proposed_remedy",
+      "targets",
+      "draft_text",
+      "versions",
+      "dev_status",
+      "owner",
+      "next_action",
+      "fiscal_notes",
+      "implementation_notes",
+      "approval_status",
+      "approval_evidence",
+      "approved_fields",
+      "release_eligible",
+      "unresolved_gaps",
+      "review_notes",
+      "strategy",
+      "comments"
+    ]
+  },
+  "required_policy_fields": [
+    "id",
+    "title",
+    "status",
+    "priority_areas",
+    "question",
+    "sources",
+    "last_verified"
+  ],
+  "coverage_values": [
+    "full",
+    "partial",
+    "adverse",
+    "unresolved"
+  ],
+  "implementation_statuses": [
+    "complete",
+    "in_progress",
+    "not_due",
+    "overdue_verified",
+    "unverified"
+  ],
+  "regulatory_stages": [
+    "notice",
+    "comment_open",
+    "comment_closed",
+    "final",
+    "withdrawn",
+    "other"
+  ],
+  "regulatory_agencies": [
+    "DPH",
+    "DSS",
+    "CMS",
+    "ACL",
+    "other"
+  ],
+  "authority_kinds": [
+    "state_statute",
+    "state_regulation",
+    "federal_regulation",
+    "federal_statute"
+  ],
+  "allowed_source_hosts": [
+    "cga.ct.gov",
+    "www.cga.ct.gov",
+    "eregulations.ct.gov",
+    "portal.ct.gov",
+    "www.ecfr.gov",
+    "ecfr.gov",
+    "www.federalregister.gov",
+    "www.cms.gov",
+    "data.cms.gov",
+    "acl.gov",
+    "www.acl.gov",
+    "www.law.cornell.edu",
+    "www.congress.gov",
+    "www.govinfo.gov",
+    "ltcombudsman.org",
+    "www.ct.gov"
+  ],
+  "forbidden_key_prefixes": [
+    "draft",
+    "internal",
+    "private",
+    "confidential"
+  ],
+  "forbidden_patterns": [
+    {
+      "name": "email address",
+      "regex": "[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+    },
+    {
+      "name": "phone number",
+      "regex": "(?<![0-9])\\(?[0-9]{3}\\)?[-. ][0-9]{3}[-. ][0-9]{4}(?![0-9])"
+    },
+    {
+      "name": "Windows path",
+      "regex": "(?i)\\b[A-Z]:\\\\"
+    },
+    {
+      "name": "confidential marker",
+      "regex": "(?i)\\bconfidential\\b"
+    },
+    {
+      "name": "do-not-publish marker",
+      "regex": "(?i)do\\s+not\\s+(publish|share|distribute)"
+    },
+    {
+      "name": "internal-only marker",
+      "regex": "(?i)\\binternal(\\s+|-)only\\b"
+    },
+    {
+      "name": "draft language marker",
+      "regex": "(?i)\\bdraft\\s+(language|text|bill|remedy)\\b"
+    }
+  ],
+  "scan_allowlist": {
+    "note": "Exact strings that may contain a forbidden pattern on purpose, e.g. the site's public contact address or a statute title. Keep this list short and reviewed.",
+    "strings": [
+      "do not publish a deadline for it without checking the act text"
+    ]
+  },
+  "public_label": "Independent research record. Not a published Long Term Care Ombudsman Program position."
+}

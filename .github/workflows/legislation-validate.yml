@@ -1,0 +1,66 @@
+name: Legislation validate
+
+# Fail-closed gate for the public legislative and policy layer.
+# Any internal or draft key, email, phone number, Windows path, confidential marker,
+# unapproved field, dangling id or unsourced quote fails the build.
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/legislation-validate.yml'
+      - 'data/ct_policy_*.json'
+      - 'data/ct_regulatory_actions.json'
+      - 'data/ct_implementation.json'
+      - 'data/ct_ltc_authorities.json'
+      - 'data/ct_ltcop_*.json'
+      - 'data/ct_legislative_research_stats.json'
+      - 'legislation/**'
+      - 'scripts/validate_ct_*.py'
+      - 'scripts/test_ct_*.py'
+      - 'scripts/export_public_policy.py'
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/legislation-validate.yml'
+      - 'data/ct_policy_*.json'
+      - 'data/ct_regulatory_actions.json'
+      - 'data/ct_implementation.json'
+      - 'data/ct_ltc_authorities.json'
+      - 'data/ct_ltcop_*.json'
+      - 'data/ct_legislative_research_stats.json'
+      - 'legislation/**'
+      - 'scripts/validate_ct_*.py'
+      - 'scripts/test_ct_*.py'
+      - 'scripts/export_public_policy.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: legislation-validate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Legislative and policy validators
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Validators
+        run: |
+          python scripts/validate_ct_legislative_tracker.py
+          python scripts/validate_ct_legislative_threads.py
+          python scripts/validate_ct_session_tracker.py
+          python scripts/validate_ct_policy.py
+      - name: Tests
+        run: |
+          python scripts/test_ct_legislative_tracker.py
+          python scripts/test_ct_legislative_threads.py
+          python scripts/test_ct_policy.py

@@ -500,6 +500,46 @@
           "source_url": "https://www.cga.ct.gov/current/pub/chap_319y.htm#sec_17b-342"
         }
       ]
+    },
+    {
+      "id": "dignity_autonomy",
+      "name": "Dignity, autonomy and quality of life",
+      "why": "Federal rules give every nursing home resident \"a right to a dignified existence, self-determination\" and the right to choose activities, schedules and care (42 CFR 483.10). Connecticut's patients' bill of rights (CGS 19a-550) sets similar protections in state law. This topic follows proposals about everyday life in care settings: privacy, personal possessions, choice of routine, room conditions and personal funds.",
+      "stat_keys": [
+        "ltcop_rights_category"
+      ],
+      "context_facts": [
+        {
+          "text": "Under 42 CFR 483.10(f)(1), a nursing home resident has the right to choose activities, schedules (including sleeping and waking times), health care and providers of health care services.",
+          "source_title": "42 CFR 483.10, Resident rights (eCFR)",
+          "source_url": "https://www.ecfr.gov/current/title-42/chapter-IV/subchapter-G/part-483/subpart-B/section-483.10"
+        }
+      ],
+      "questions": [
+        "How are residents' choices about daily routines, privacy and possessions protected in practice?",
+        "Which rights apply in residential care homes and assisted living, not only nursing homes?",
+        "How do room size, shared rooms and building conditions affect residents' quality of life?"
+      ],
+      "tool_links": [
+        {
+          "title": "FFY 2025 Impact Dashboard",
+          "url": "/dashboards/impact-2025.html"
+        }
+      ],
+      "background": [
+        {
+          "year": 1975,
+          "label": "Patients' bill of rights enacted",
+          "summary": "Connecticut's nursing home patients' bill of rights, now CGS 19a-550, traces to P.A. 75-468.",
+          "source_url": "https://www.cga.ct.gov/current/pub/chap_368v.htm#sec_19a-550"
+        },
+        {
+          "year": 1987,
+          "label": "Federal residents' rights (OBRA '87)",
+          "summary": "The Nursing Home Reform Act in the Omnibus Budget Reconciliation Act of 1987 set federal resident rights, now in 42 CFR 483.10.",
+          "source_url": "https://www.aging.senate.gov/imo/media/doc/hr172tl.pdf"
+        }
+      ]
     }
   ],
   "bills_current": [

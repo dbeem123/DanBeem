@@ -20,9 +20,9 @@ danbeem.xyz is Daniel's personal project site. Its main work is **CT Long-Term C
 
 ---
 
-## Site-wide Now (maximum two) ✏️ Daniel to confirm
+## Site-wide Now (maximum two), approved by Daniel 2026-11-27
 
-Claude's proposal, because both NORS Now items are waiting on Daniel's input (phrase sheet and open questions) and the 2027 session opens in January:
+Chosen because both NORS Now items are waiting on Daniel's input (phrase sheet and open questions) and the 2027 session opens in January:
 1. **Legislative tracker, Phase 1** (section 3).
 2. **NORS: connect sources to every code** (section 1, Now 1). Continues as soon as Daniel's phrase sheet is in.
 
@@ -104,8 +104,9 @@ Management fees from cost reports; RCH cost reports.
 - Decision: the policy portfolio is Daniel's own independent research, not Program work. Private drafts stay off the public repo; publishing goes through a fail-closed export with validators.
 - Rebrand to CT Long-Term Care Advocacy; disclaimers and the testimony placeholder updated (commit `a23ee0f`).
 
-### Now (proposed) ✏️
-- **Phase 1:** schema and validators for policy research records, public export that fails closed on draft or private content, and the 2027 session ready for bills when filing opens.
+### Now (approved 2026-11-27)
+- **Phase 1 foundation: done 2026-11-27.** Rules file (`data/ct_policy_rules.json`), six empty public files, validator and content scan (`scripts/validate_ct_policy.py`), fail-closed export (`scripts/export_public_policy.py`), 20 fail-case tests, CI gate (`.github/workflows/legislation-validate.yml`), new topic "Dignity, autonomy and quality of life", runbook (`docs/ct_policy_runbook.md`).
+- **Next in Now:** fill `data/ct_ltc_authorities.json` with verified Connecticut and federal law (exact quotes, sources, dates); then the policy explorer pages (Phase 3) with neutral research records only.
 
 ### Next
 - 2027 session tracking as bills are filed; a shareable page per storyline.
