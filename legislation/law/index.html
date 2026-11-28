@@ -129,6 +129,8 @@
 
 <script>
 (() => {
+  const openHash = () => { const t = location.hash && document.getElementById(decodeURIComponent(location.hash.slice(1))); const d = t && (t.matches('details') ? t : t.closest('details')); if (d) { d.open = true; t.scrollIntoView(); } };
+  window.addEventListener('hashchange', openHash); openHash();
   const box = document.querySelector('.law-filter'); const q = document.getElementById('law-q'); const count = document.getElementById('law-count');
   if (!box || !q) return; box.hidden = false;
   const items = [...document.querySelectorAll('.law-paras li')];
