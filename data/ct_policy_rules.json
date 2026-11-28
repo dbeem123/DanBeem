@@ -153,7 +153,8 @@
     },
     {
       "name": "confidential marker",
-      "regex": "(?i)\\bconfidential\\b"
+      "regex": "\\bCONFIDENTIAL\\b|(?i:\\bconfidential\\s*[:\\-–—]|\\bconfidential\\s+(?:draft|review|copy|not\\s+for)\\b|\\bmark(?:ed)?\\s+confidential\\b)",
+      "note": "Document markers only (an all-caps label, 'Confidential:' or 'confidential draft/review/copy'). Statutes that use the word 'confidential' in their text are not flagged."
     },
     {
       "name": "do-not-publish marker",
@@ -169,11 +170,9 @@
     }
   ],
   "scan_allowlist": {
-    "note": "Exact strings that may contain a forbidden pattern on purpose, e.g. the site's public contact address or a statute title. Keep this list short and reviewed. Statute quotes in ct_ltc_authorities.json (CGS 19a-550(b), 19a-550c(b)) use the word 'confidential' as law, not as a document marker.",
+    "note": "Exact strings that may contain a forbidden pattern on purpose, e.g. the site's public contact address or a statute title. Keep this list short and reviewed.",
     "strings": [
-      "do not publish a deadline for it without checking the act text",
-      "is assured confidential treatment of the patient's personal and",
-      "obtained from the technology as confidential"
+      "do not publish a deadline for it without checking the act text"
     ]
   },
   "public_label": "Independent research record. Not a published Long Term Care Ombudsman Program position."

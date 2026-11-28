@@ -86,6 +86,10 @@ class ValidatorTests(unittest.TestCase):
         ):
             self.assertFlags(public_doc(record(question=text)), needle)
 
+    def test_statute_wording_is_not_a_marker(self):
+        q = {"citation": "CGS 19a-550", "quote": "records of the program shall remain confidential, unless otherwise provided", "source_url": SRC, "verified_date": "2026-11-27"}
+        self.assertEqual(problems(public_doc(record(current_law=[q]))), [])
+
     def test_unapproved_gated_field_fails(self):
         gap = {"text": "Synthetic gap.", "basis_label": "Statute", "basis_url": SRC}
         self.assertFlags(public_doc(record(gaps=[gap])), "gaps needs approval")
